@@ -1,0 +1,136 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { ScoredPair } from "@/data/types";
+import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
+import { loadFont, getFontFamily } from "@/lib/fonts";
+
+function ensureSentenceCase(text: string): string {
+  if (!text) return text;
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isExploring?: boolean }) {
+  const { sampleHeadline, sampleBody, headerSize, bodySize } = useAppState();
+  const router = useRouter();
+  const headline = sampleHeadline || DEFAULT_HEADLINE;
+  const body = sampleBody || DEFAULT_BODY;
+
+  const { headerFont, bodyFont } = pair;
+
+  useEffect(() => {
+    loadFont(headerFont);
+    loadFont(bodyFont);
+  }, [headerFont, bodyFont]);
+
+  const headerFamily = getFontFamily(headerFont.name, headerFont.source);
+  const bodyFamily = getFontFamily(bodyFont.name, bodyFont.source);
+
+  const description = isExploring
+    ? ensureSentenceCase(pair.shortExplanation)
+    : ensureSentenceCase(pair.promptFitReason);
+
+  return (
+    <div
+      role="link"
+      tabIndex={0}
+      aria-label={`View font pair: ${headerFont.name} and ${bodyFont.name}`}
+      onClick={() => router.push(`/pair/${pair.slug}`)}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push(`/pair/${pair.slug}`); } }}
+      className="group border border-neutral-200 rounded-xl bg-white hover:border-neutral-300 hover:shadow-md transition-all cursor-pointer overflow-hidden"
+    >
+      {/* Section 1: Sample header + body text */}
+      <div style={{ padding: "24px", paddingBottom: "16px" }}>
+        <h3
+          className="text-neutral-900 break-words"
+          style={{
+            fontFamily: headerFamily,
+            fontWeight: 700,
+            fontSize: `${headerSize}px`,
+            lineHeight: 1.15,
+            marginBottom: "16px",
+          }}
+        >
+          {headline}
+        </h3>
+        <p
+          className="text-neutral-600 break-words"
+          style={{
+            fontFamily: bodyFamily,
+            fontWeight: 400,
+            fontSize: `${bodySize}px`,
+            lineHeight: 1.6,
+          }}
+        >
+          {body}
+        </p>
+      </div>
+
+      <div className="border-t border-neutral-100" />
+
+      {/* Section 2: Description */}
+      <div style={{ padding: "16px 24px" }}>
+        <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
+          DESCRIPTION
+        </span>
+        <p className="text-neutral-500 break-words" style={{ fontSize: "16px", lineHeight: 1.5 }}>
+          {description}
+        </p>
+      </div>
+
+      <div className="border-t border-neutral-100" />
+
+      {/* Section 3: Header font + chips */}
+      <div style={{ padding: "16px 24px" }}>
+        <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
+          HEADER
+        </span>
+        <span
+          className="text-neutral-800 block"
+          style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "22px", lineHeight: 1.3, marginBottom: "8px" }}
+        >
+          {headerFont.name}
+        </span>
+        <div className="flex flex-wrap" style={{ gap: "8px" }}>
+          {[...new Set(headerFont.tags)].slice(0, 6).map((tag, i) => (
+            <span
+              key={`h-${i}-${tag}`}
+              className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100"
+              style={{ fontSize: "14px", padding: "4px 12px" }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Divider between header and body */}
+      <div className="border-t border-neutral-100" />
+
+      {/* Section 4: Body font + chips */}
+      <div style={{ padding: "16px 24px 24px" }}>
+        <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
+          BODY
+        </span>
+        <span
+          className="text-neutral-800 block"
+          style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "22px", lineHeight: 1.3, marginBottom: "8px" }}
+        >
+          {bodyFont.name}
+        </span>
+        <div className="flex flex-wrap" style={{ gap: "8px" }}>
+          {[...new Set(bodyFont.tags)].slice(0, 6).map((tag, i) => (
+            <span
+              key={`b-${i}-${tag}`}
+              className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100"
+              style={{ fontSize: "14px", padding: "4px 12px" }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
