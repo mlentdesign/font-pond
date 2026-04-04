@@ -1,0 +1,83 @@
+"use client";
+
+import { useState } from "react";
+import { setHeaderAnimationPaused } from "./RansomHeader";
+import { useAppState } from "@/lib/store";
+
+export function Footer() {
+  const [paused, setPaused] = useState(false);
+  const { recentHistory } = useAppState();
+  const hasHistory = recentHistory.length >= 2;
+
+  const togglePause = () => {
+    const next = !paused;
+    setPaused(next);
+    setHeaderAnimationPaused(next);
+    window.dispatchEvent(new CustomEvent("animationPauseToggle", { detail: next }));
+    document.body.classList.toggle("animations-paused", next);
+  };
+
+  return (
+    <footer
+      className="w-full mt-auto shell-padding flex items-center justify-between"
+      style={{ background: "var(--bg-footer)", borderTop: "1px solid var(--border)", minHeight: "88px" }}
+    >
+      {/* Left side — tagline + about */}
+      <div className="flex items-center flex-wrap" style={{ gap: "16px" }}>
+        <p style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
+          Free font combinations for real design work.
+        </p>
+        <a
+          href="/about"
+          style={{ fontSize: "16px", color: "var(--text-ransom)", fontWeight: 600 }}
+          className="hover:opacity-70 transition-opacity"
+        >
+          About
+        </a>
+      </div>
+
+      {/* Right side — pause button + invisible spacer for viewed chip */}
+      <div className="flex items-center shrink-0" style={{ gap: "24px" }}>
+        <button
+          onClick={togglePause}
+          className="flex items-center transition-colors hover:opacity-70"
+          style={{
+            fontSize: "16px",
+            fontWeight: 600,
+            color: "var(--text-ransom)",
+            background: "transparent",
+            border: "none",
+            padding: "0",
+            gap: "4px",
+            cursor: "pointer",
+          }}
+          aria-label={paused ? "Resume animation" : "Pause animation"}
+        >
+          {paused ? (
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 3v10l8-5L5 3z" />
+            </svg>
+          ) : (
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="2.5" width="3.5" height="11" rx="0.75" />
+              <rect x="9.5" y="2.5" width="3.5" height="11" rx="0.75" />
+            </svg>
+          )}
+          <span className="hidden sm:inline">{paused ? "Resume animation" : "Pause animation"}</span>
+        </button>
+
+        {/* Invisible spacer — reserves space for the fixed viewed chip */}
+        {hasHistory && (
+          <div
+            aria-hidden="true"
+            style={{
+              visibility: "hidden",
+              height: "40px",
+              width: "120px",
+            }}
+          />
+        )}
+      </div>
+    </footer>
+  );
+}
