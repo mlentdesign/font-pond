@@ -136,6 +136,9 @@ export function WaterBackground() {
       return document.documentElement.getAttribute("data-theme") === "dark";
     }
 
+    // Track pending timeouts so we can clean them up on unmount
+    const pendingTimeouts: ReturnType<typeof setTimeout>[] = [];
+
     // Organic ambient activity — heavily weighted toward ocean waves
     let ambientTimer = 0;
     function addAmbientActivity() {
@@ -207,6 +210,7 @@ export function WaterBackground() {
       canvas.height = height;
       buf1 = new Float32Array(width * height);
       buf2 = new Float32Array(width * height);
+      imageData = ctx.createImageData(width, height);
     };
     window.addEventListener("resize", handleResize);
 
@@ -229,10 +233,14 @@ export function WaterBackground() {
       buf2 = temp;
     }
 
+    // Pre-allocate imageData once — reuse every frame to avoid ~30MB/s garbage
+    let imageData = ctx.createImageData(width, height);
+
     function render() {
       const dark = isDark();
-      const imageData = ctx!.createImageData(width, height);
       const data = imageData.data;
+      // Zero out the pixel buffer for reuse
+      data.fill(0);
 
       for (let y = 1; y < height - 1; y++) {
         for (let x = 1; x < width - 1; x++) {
@@ -322,10 +330,11 @@ export function WaterBackground() {
         if (ambientTimer % 120 === 0) {
           const setY = (0.2 + Math.random() * 0.6) * height * SCALE;
           for (let w = 0; w < 2 + Math.floor(Math.random() * 2); w++) {
-            setTimeout(() => {
+            const tid = setTimeout(() => {
               if (pausedRef.current) return;
               addOceanWave(setY + w * SCALE * 8, 5 + Math.random() * 2, 1 + Math.random());
             }, w * 400);
+            pendingTimeouts.push(tid);
           }
         }
 
@@ -357,13 +366,15 @@ export function WaterBackground() {
 
     // Start with a few initial activities for immediate life
     for (let i = 0; i < 6; i++) {
-      setTimeout(() => addAmbientActivity(), i * 400);
+      pendingTimeouts.push(setTimeout(() => addAmbientActivity(), i * 400));
     }
 
     loop();
 
     return () => {
       cancelAnimationFrame(animRef.current);
+      for (const tid of pendingTimeouts) clearTimeout(tid);
+      pendingTimeouts.length = 0;
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
