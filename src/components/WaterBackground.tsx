@@ -43,7 +43,7 @@ export function WaterBackground() {
     let buf2 = new Float32Array(width * height);
 
     const DAMPING = 0.985;
-    const EDGE_MARGIN = 12; // absorption zone width in grid cells
+    const EDGE_MARGIN = 16; // absorption zone width in grid cells
 
     // Add a ripple at a position — variable radius for organic feel
     // Energy fades to zero inside the EDGE_MARGIN absorption zone
@@ -270,7 +270,7 @@ export function WaterBackground() {
         for (let x = 1; x < width - 1; x++) {
           // Skip rendering in edge zone — prevents caustic/gradient artifacts
           const edgeDist = Math.min(x, y, width - 1 - x, height - 1 - y);
-          if (edgeDist < 3) continue;
+          if (edgeDist < EDGE_MARGIN) continue;
 
           const i = y * width + x;
           const val = buf1[i];
@@ -288,9 +288,6 @@ export function WaterBackground() {
           const dy = buf1[i + width] - buf1[i - width];
           const specular = Math.max(0, (-dx * 0.6 + -dy * 0.6)) * 0.008; // very soft
 
-          // Fade render output to transparent near edges
-          const renderFade = edgeDist < EDGE_MARGIN ? Math.min(1, (edgeDist - 3) / (EDGE_MARGIN - 3)) : 1;
-
           const pi = (y * width + x) * 4;
 
           if (dark) {
@@ -307,7 +304,7 @@ export function WaterBackground() {
             data[pi + 1] = Math.min(255, Math.floor(baseG + enhance * 0.8));
             data[pi + 2] = Math.min(255, Math.floor(baseB + enhance * 0.7));
             data[pi + 3] = absI > 0.006 || enhance > 0.1
-              ? Math.min(255, Math.floor((baseA + enhance * 15) * renderFade))
+              ? Math.min(255, Math.floor(baseA + enhance * 15))
               : 0;
           } else {
             // Base: saturated teal from wave height (dominant)
@@ -323,7 +320,7 @@ export function WaterBackground() {
             data[pi + 1] = Math.min(255, Math.floor(baseG + enhance * 0.6));
             data[pi + 2] = Math.min(255, Math.floor(baseB + enhance * 0.5));
             data[pi + 3] = absI > 0.006 || enhance > 0.1
-              ? Math.min(255, Math.floor((baseA + enhance * 12) * renderFade))
+              ? Math.min(255, Math.floor(baseA + enhance * 12))
               : 0;
           }
         }
