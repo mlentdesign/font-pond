@@ -43,8 +43,10 @@ export function WaterBackground() {
     let buf2 = new Float32Array(width * height);
 
     const DAMPING = 0.985;
+    const EDGE_MARGIN = 6; // absorption zone width in grid cells
 
     // Add a ripple at a position — variable radius for organic feel
+    // Energy fades to zero inside the EDGE_MARGIN absorption zone
     function addRipple(x: number, y: number, strength: number = 200, radius: number = 3) {
       const rx = Math.floor(x / SCALE);
       const ry = Math.floor(y / SCALE);
@@ -52,10 +54,13 @@ export function WaterBackground() {
         for (let dx = -radius; dx <= radius; dx++) {
           const px = rx + dx;
           const py = ry + dy;
-          if (px >= 0 && px < width && py >= 0 && py < height) {
+          if (px >= 1 && px < width - 1 && py >= 1 && py < height - 1) {
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist <= radius) {
-              buf1[py * width + px] += strength * (1 - dist / radius);
+              // Fade strength near edges
+              const edgeDist = Math.min(px, py, width - 1 - px, height - 1 - py);
+              const edgeFade = Math.min(1, edgeDist / EDGE_MARGIN);
+              buf1[py * width + px] += strength * (1 - dist / radius) * edgeFade;
             }
           }
         }
@@ -97,15 +102,18 @@ export function WaterBackground() {
                    + Math.sin(i * 0.47 + wavePhase * 1.3) * waviness * 0.3;
         const px = Math.floor(x);
         const py = Math.floor(yCenter / SCALE + yOff);
-        if (py >= 0 && py < height && px >= 0 && px < width) {
+        if (py >= 1 && py < height - 1 && px >= 1 && px < width - 1) {
+          // Fade strength near edges
+          const edgeDist = Math.min(px, py, width - 1 - px, height - 1 - py);
+          const edgeFade = Math.min(1, edgeDist / EDGE_MARGIN);
           // Strength varies along the wave — bunching effect
           const bunchMod = 0.5 + (Math.sin(i * bunchFreq + wavePhase) + 1) * 0.4;
-          const localStr = strength * bunchMod;
+          const localStr = strength * bunchMod * edgeFade;
           buf1[py * width + px] += localStr;
-          if (py + 1 < height) buf1[(py + 1) * width + px] += localStr * 0.5;
-          if (py - 1 >= 0) buf1[(py - 1) * width + px] += localStr * 0.3;
+          if (py + 1 < height - 1) buf1[(py + 1) * width + px] += localStr * 0.5;
+          if (py - 1 >= 1) buf1[(py - 1) * width + px] += localStr * 0.3;
           // Occasional extra thickness for cresting
-          if (bunchMod > 0.8 && py + 2 < height) {
+          if (bunchMod > 0.8 && py + 2 < height - 1) {
             buf1[(py + 2) * width + px] += localStr * 0.2;
           }
         }
@@ -124,9 +132,11 @@ export function WaterBackground() {
           + Math.sin(x * swellAngle + phase) * (height * 0.15)
           + Math.sin(x * swellAngle * 2.7 + phase * 0.6) * (height * 0.05));
         const localStr = strength * (0.6 + Math.sin(x * 0.03 + phase) * 0.4);
-        if (y >= 0 && y < height) {
-          buf1[y * width + x] += localStr;
-          if (y + 1 < height) buf1[(y + 1) * width + x] += localStr * 0.5;
+        if (y >= 1 && y < height - 1 && x >= 1 && x < width - 1) {
+          const edgeDist = Math.min(x, y, width - 1 - x, height - 1 - y);
+          const edgeFade = Math.min(1, edgeDist / EDGE_MARGIN);
+          buf1[y * width + x] += localStr * edgeFade;
+          if (y + 1 < height - 1) buf1[(y + 1) * width + x] += localStr * 0.5 * edgeFade;
         }
       }
     }
@@ -232,15 +242,18 @@ export function WaterBackground() {
       buf1 = buf2;
       buf2 = temp;
 
-      // Absorb waves at edges — zero out boundaries so energy doesn't
-      // reflect back and accumulate into glitchy artifacts over time
-      for (let x = 0; x < width; x++) {
-        buf1[x] = 0;                          // top edge
-        buf1[(height - 1) * width + x] = 0;   // bottom edge
-      }
+      // Absorbing boundary — gradually damp energy in a border zone
+      // so waves fade out smoothly instead of reflecting or glitching
       for (let y = 0; y < height; y++) {
-        buf1[y * width] = 0;                  // left edge
-        buf1[y * width + width - 1] = 0;      // right edge
+        for (let x = 0; x < width; x++) {
+          const edgeDist = Math.min(x, y, width - 1 - x, height - 1 - y);
+          if (edgeDist < EDGE_MARGIN) {
+            const fade = edgeDist / EDGE_MARGIN;
+            const i = y * width + x;
+            buf1[i] *= fade;
+            buf2[i] *= fade;
+          }
+        }
       }
     }
 
