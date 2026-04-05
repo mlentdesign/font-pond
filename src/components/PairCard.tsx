@@ -5,11 +5,7 @@ import { useRouter } from "next/navigation";
 import { ScoredPair } from "@/data/types";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 import { loadFont, getFontFamily } from "@/lib/fonts";
-
-function ensureSentenceCase(text: string): string {
-  if (!text) return text;
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
+import { sentenceCase } from "@/lib/text";
 
 export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isExploring?: boolean }) {
   const { sampleHeadline, sampleBody, headerSize, bodySize } = useAppState();
@@ -28,8 +24,8 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
   const bodyFamily = getFontFamily(bodyFont.name, bodyFont.source);
 
   const description = isExploring
-    ? ensureSentenceCase(pair.shortExplanation)
-    : ensureSentenceCase(pair.promptFitReason);
+    ? sentenceCase(pair.shortExplanation)
+    : sentenceCase(pair.promptFitReason);
 
   return (
     <div
