@@ -10,12 +10,16 @@ import { pairsBySlug } from "@/data/pairs";
 import { HeaderWithFontInfo } from "@/components/HeaderWithFontInfo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
+function titleCase(s: string): string {
+  return s.replace(/\b[a-z]/g, (c) => c.toUpperCase());
+}
+
 function InfoRow({ label, value }: { label: string; value: string | null | undefined }) {
   if (!value) return null;
   return (
     <div className="flex justify-between py-2 border-b border-neutral-100 last:border-0">
       <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>{label.toUpperCase()}</dt>
-      <dd className="text-neutral-700 text-right max-w-[60%]" style={{ fontSize: "16px" }}>{value}</dd>
+      <dd className="text-neutral-700 text-right max-w-[60%]" style={{ fontSize: "16px" }}>{titleCase(value)}</dd>
     </div>
   );
 }

@@ -18,7 +18,7 @@ export function SampleTextInputs() {
   if (!hasSearched) return null;
 
   return (
-    <div className="w-full" style={{ marginTop: "24px", marginBottom: "40px" }}>
+    <div className="w-full preview-settings-spacing" style={{ marginTop: "24px", marginBottom: "40px" }}>
       <details className="group">
         {/* Summary — left-aligned with "Exploring — shuffled randomly" */}
         <summary
