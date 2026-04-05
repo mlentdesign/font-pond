@@ -266,6 +266,7 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
   border: none;
   box-shadow: none;
+  margin-top: -6px;
 }
 input[type="range"]::-moz-range-thumb {
   width: 16px;
@@ -651,5 +652,72 @@ body.animations-paused #water-bg * {
 @media (min-width: 640px) {
   .settings-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ══════════════════════════════════════════
+   INPUT CONTAINER FOCUS — outline wraps entire box
+   ══════════════════════════════════════════ */
+.prompt-container:focus-within {
+  border-color: var(--accent) !important;
+  box-shadow: var(--shadow-input-focus) !important;
+}
+.prompt-container:focus-within .action-bar-border {
+  border-color: transparent !important;
+}
+
+/* Prevent CTA text from wrapping inside buttons */
+.prompt-container button {
+  white-space: nowrap;
+}
+
+/* ══════════════════════════════════════════
+   MOBILE ADJUSTMENTS (< 640px)
+   ══════════════════════════════════════════ */
+@media (max-width: 639px) {
+  /* "Describe your project" heading — smaller to prevent wrapping */
+  .describe-heading {
+    font-size: 20px !important;
+  }
+
+  /* Action bar — stack CTAs vertically */
+  .action-bar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+  }
+  .action-bar-ctas {
+    flex-direction: column !important;
+    gap: 8px !important;
+    order: 1 !important;
+  }
+  .action-bar-ctas button {
+    width: 100% !important;
+  }
+  .action-bar-image {
+    order: 2 !important;
+  }
+
+  /* Reduce top/bottom padding on results page */
+  .results-top-padding {
+    padding-top: 40px !important;
+  }
+  .results-bottom-padding {
+    padding-bottom: 40px !important;
+  }
+
+  /* Reduce spacing between preview settings and results */
+  .preview-settings-spacing {
+    margin-bottom: 24px !important;
+  }
+
+  /* Footer — tighter gap between tagline and About */
+  .footer-left {
+    gap: 8px !important;
+  }
+
+  /* Footer right — 16px gap between pause and recently viewed */
+  .footer-right {
+    gap: 16px !important;
   }
 }

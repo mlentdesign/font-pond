@@ -40,16 +40,16 @@ export default function Home() {
 
       <main
         id="main-content"
-        className="flex-1 flex flex-col"
+        className={`flex-1 flex flex-col${hasSearched ? " results-bottom-padding" : ""}`}
         style={hasSearched ? { paddingBottom: "80px" } : {}}
       >
         {/* Input area — stays max-w-4xl (896px) */}
         <div
-          className="w-full max-w-4xl mx-auto shell-padding flex-1 flex flex-col"
+          className={`w-full max-w-4xl mx-auto shell-padding flex-1 flex flex-col${hasSearched ? " results-top-padding" : ""}`}
           style={hasSearched ? { paddingTop: "80px", flex: "none" } : { justifyContent: "center" }}
         >
           <div style={{ marginBottom: hasSearched ? "24px" : "40px", textAlign: "center" }}>
-            <h2 className="font-semibold tracking-tight" style={{ color: "var(--text-ransom)", fontSize: "24px" }}>
+            <h2 className="describe-heading font-semibold tracking-tight" style={{ color: "var(--text-ransom)", fontSize: "24px" }}>
               Describe your project, mood, or brand
             </h2>
           </div>

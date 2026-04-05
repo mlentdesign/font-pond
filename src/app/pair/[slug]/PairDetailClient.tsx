@@ -16,6 +16,10 @@ function sc(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+function titleCase(s: string): string {
+  return s.replace(/\b[a-z]/g, (c) => c.toUpperCase());
+}
+
 function FontSection({
   font,
   role,
@@ -116,11 +120,11 @@ function FontSection({
         </div>
         <div>
           <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>CLASSIFICATION</span>
-          <p className="capitalize">{font.classification}</p>
+          <p>{titleCase(font.classification)}</p>
         </div>
         <div>
           <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>LICENSE</span>
-          <p>{font.licenseType}</p>
+          <p>{titleCase(font.licenseType)}</p>
         </div>
         <div>
           <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>VARIABLE</span>
@@ -270,7 +274,7 @@ export default function PairDetailPage({
             </div>
             <div style={{ marginBottom: "16px" }}>
               <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "4px" }}>CONTRAST TYPE</dt>
-              <dd className="text-neutral-700" style={{ fontSize: "16px" }}>{sc(pair.contrastType)}</dd>
+              <dd className="text-neutral-700" style={{ fontSize: "16px" }}>{titleCase(pair.contrastType)}</dd>
             </div>
             <div className="grid grid-cols-3" style={{ gap: "16px" }}>
               <div>
