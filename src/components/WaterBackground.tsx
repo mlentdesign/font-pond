@@ -231,6 +231,17 @@ export function WaterBackground() {
       const temp = buf1;
       buf1 = buf2;
       buf2 = temp;
+
+      // Absorb waves at edges — zero out boundaries so energy doesn't
+      // reflect back and accumulate into glitchy artifacts over time
+      for (let x = 0; x < width; x++) {
+        buf1[x] = 0;                          // top edge
+        buf1[(height - 1) * width + x] = 0;   // bottom edge
+      }
+      for (let y = 0; y < height; y++) {
+        buf1[y * width] = 0;                  // left edge
+        buf1[y * width + width - 1] = 0;      // right edge
+      }
     }
 
     // Pre-allocate imageData once — reuse every frame to avoid ~30MB/s garbage
