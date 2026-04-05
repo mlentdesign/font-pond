@@ -117,7 +117,7 @@ export function PromptInput() {
   return (
     <div className="w-full">
       <div
-        className="rounded-xl transition-all overflow-hidden"
+        className="prompt-container rounded-xl transition-all overflow-hidden"
         style={{ background: "var(--bg-card)", boxShadow: "var(--shadow-input)", border: "2px solid var(--border)" }}
       >
         {/* Textarea */}
@@ -147,10 +147,8 @@ export function PromptInput() {
               <span>Try things like </span>
               <span
                 style={{
-                  display: "inline-block",
-                  transition: "opacity 0.3s, transform 0.3s",
+                  transition: "opacity 0.3s",
                   opacity: animating ? 0 : 1,
-                  transform: animating ? "translateY(4px)" : "translateY(0)",
                 }}
               >
                 {SUGGESTION_SETS[suggestionIndex]}
@@ -185,10 +183,10 @@ export function PromptInput() {
 
         {/* Bottom bar */}
         <div
-          className="flex items-center justify-between"
+          className="action-bar flex items-center justify-between action-bar-border"
           style={{ padding: "16px 24px", background: "var(--bg-action-bar)", borderTop: "1px solid var(--divider)" }}
         >
-          <div className="flex items-center">
+          <div className="action-bar-image flex items-center">
             <input
               ref={fileInputRef}
               type="file"
@@ -213,7 +211,7 @@ export function PromptInput() {
             </label>
           </div>
 
-          <div className="flex items-center" style={{ gap: "16px" }}>
+          <div className="action-bar-ctas flex items-center" style={{ gap: "16px" }}>
             <button
               onClick={handleExplore}
               className="outline-btn font-medium rounded-lg transition-colors"

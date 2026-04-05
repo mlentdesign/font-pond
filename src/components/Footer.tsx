@@ -23,7 +23,7 @@ export function Footer() {
       style={{ background: "var(--bg-footer)", borderTop: "1px solid var(--border)", minHeight: "88px" }}
     >
       {/* Left side — tagline + about */}
-      <div className="flex items-center flex-wrap" style={{ gap: "16px" }}>
+      <div className="footer-left flex items-center flex-wrap" style={{ gap: "16px" }}>
         <p style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
           Free font combinations for real design work.
         </p>
@@ -37,7 +37,7 @@ export function Footer() {
       </div>
 
       {/* Right side — pause button + invisible spacer for viewed chip */}
-      <div className="flex items-center shrink-0" style={{ gap: "24px" }}>
+      <div className="footer-right flex items-center shrink-0" style={{ gap: "24px" }}>
         <button
           onClick={togglePause}
           className="flex items-center transition-colors hover:opacity-70"
