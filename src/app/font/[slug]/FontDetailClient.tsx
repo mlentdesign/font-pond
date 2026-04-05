@@ -1,18 +1,18 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { use, useEffect } from "react";
 import Link from "next/link";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { fontsBySlug, fontsById } from "@/data/fonts";
 import { getPairsWithFont } from "@/lib/engine";
 import { loadFont, getFontFamily } from "@/lib/fonts";
+import { titleCase, getSourceLabel } from "@/lib/text";
 import { pairsBySlug } from "@/data/pairs";
-import { HeaderWithFontInfo } from "@/components/HeaderWithFontInfo";
-import { ThemeToggle } from "@/components/ThemeToggle";
-
-function titleCase(s: string): string {
-  return s.replace(/\b[a-z]/g, (c) => c.toUpperCase());
-}
+import { DetailPageHeader } from "@/components/DetailPageHeader";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { SectionCard } from "@/components/SectionCard";
+import { ChipGroup } from "@/components/ChipGroup";
+import { PairPreviewGrid } from "@/components/PairPreviewGrid";
 
 function InfoRow({ label, value }: { label: string; value: string | null | undefined }) {
   if (!value) return null;
@@ -20,52 +20,6 @@ function InfoRow({ label, value }: { label: string; value: string | null | undef
     <div className="flex justify-between border-b border-neutral-100 last:border-0" style={{ padding: "12px 24px" }}>
       <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>{label.toUpperCase()}</dt>
       <dd className="text-neutral-700 text-right max-w-[60%]" style={{ fontSize: "16px" }}>{titleCase(value)}</dd>
-    </div>
-  );
-}
-
-function PairsUsingSection({ pairs, fontName }: { pairs: import("@/data/types").ScoredPair[]; fontName: string }) {
-  const [visible, setVisible] = useState(6);
-  const hasMore = visible < pairs.length;
-
-  return (
-    <div style={{ marginTop: "24px" }}>
-      <h3 className="font-semibold text-neutral-700" style={{ fontSize: "16px", marginBottom: "16px" }}>Pairs using {fontName}</h3>
-      <div className="pair-grid">
-        {pairs.slice(0, visible).map((p) => {
-          const hFamily = getFontFamily(p.headerFont.name, p.headerFont.source);
-          const bFamily = getFontFamily(p.bodyFont.name, p.bodyFont.source);
-          return (
-            <Link
-              key={p.id}
-              href={`/pair/${p.slug}`}
-              className="border border-neutral-200 rounded-xl bg-white hover:border-neutral-300 hover:shadow-sm transition-all"
-              style={{ padding: "24px" }}
-            >
-              <p className="text-lg leading-tight text-neutral-800" style={{ fontFamily: hFamily, fontWeight: 700, marginBottom: "8px" }}>
-                The quick brown fox
-              </p>
-              <p className="text-neutral-500 line-clamp-2" style={{ fontFamily: bFamily, fontWeight: 400, fontSize: "16px", lineHeight: 1.5, marginBottom: "16px" }}>
-                Typography is the art and technique of arranging type.
-              </p>
-              <p className="font-medium text-neutral-700" style={{ fontSize: "16px" }}>
-                {p.headerFont.name} + {p.bodyFont.name}
-              </p>
-            </Link>
-          );
-        })}
-      </div>
-      {hasMore && (
-        <div className="text-center" style={{ marginTop: "32px" }}>
-          <button
-            onClick={() => setVisible(Math.min(visible + 6, pairs.length))}
-            className="outline-btn font-medium rounded-lg transition-colors"
-            style={{ fontSize: "16px", padding: "8px 24px" }}
-          >
-            Load more pairs
-          </button>
-        </div>
-      )}
     </div>
   );
 }
@@ -79,32 +33,25 @@ export default function FontDetailPage({
   const searchParams = useSearchParams();
   const fromPair = searchParams.get("from");
 
-  const router = useRouter();
   const font = fontsBySlug.get(slug);
 
-  let parentPairLabel: string | null = null;
+  // Build breadcrumb trail
+  const crumbs: { label: string; href?: string }[] = [];
   if (fromPair) {
     const pair = pairsBySlug.get(fromPair);
     if (pair) {
       const hf = fontsById.get(pair.headerFontId);
       const bf = fontsById.get(pair.bodyFontId);
-      if (hf && bf) parentPairLabel = `${hf.name} + ${bf.name}`;
+      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair/${fromPair}` });
     }
   }
+  if (font) crumbs.push({ label: font.name });
 
   useEffect(() => {
     if (font) loadFont(font);
   }, [font]);
 
   const pairsUsing = font ? getPairsWithFont(font.id) : [];
-
-  // Load fonts for pair previews
-  useEffect(() => {
-    for (const p of pairsUsing) {
-      loadFont(p.headerFont);
-      loadFont(p.bodyFont);
-    }
-  }, [pairsUsing]);
 
   if (!font) {
     return (
@@ -115,48 +62,14 @@ export default function FontDetailPage({
   }
 
   const family = getFontFamily(font.name, font.source);
-  const sourceLabel = font.source === "google-fonts" ? "Google Fonts" : font.source === "fontshare" ? "Fontshare" : "DaFont";
+  const sourceLabel = getSourceLabel(font.source);
 
   return (
     <div className="flex-1 flex flex-col">
-      {/* Sticky header */}
-      <header className="w-full border-b sticky top-0 z-30" style={{ background: "var(--bg-header)", borderColor: "var(--border)" }}>
-        <div className="flex items-center justify-between shell-padding" style={{ paddingTop: "16px", paddingBottom: "16px" }}>
-          <div className="hover:opacity-80 transition-opacity min-w-0 flex-1 cursor-pointer" role="button" tabIndex={0} onClick={() => router.push("/")} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push("/"); } }}>
-            <HeaderWithFontInfo />
-          </div>
-          <div className="shrink-0" style={{ marginLeft: "16px" }}>
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
+      <DetailPageHeader />
 
       <main id="main-content" className="flex-1 mx-auto w-full shell-padding results-top-padding results-bottom-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
-        {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" style={{ marginBottom: "24px" }}>
-          <ol className="flex items-center gap-2 text-xs text-neutral-400 flex-wrap">
-            <li>
-              <Link href="/" className="hover:text-neutral-600 transition-colors">
-                Results
-              </Link>
-            </li>
-            {fromPair && parentPairLabel && (
-              <>
-                <li aria-hidden="true">/</li>
-                <li>
-                  <Link
-                    href={`/pair/${fromPair}`}
-                    className="hover:text-neutral-600 transition-colors"
-                  >
-                    {parentPairLabel}
-                  </Link>
-                </li>
-              </>
-            )}
-            <li aria-hidden="true">/</li>
-            <li className="text-neutral-600">{font.name}</li>
-          </ol>
-        </nav>
+        <Breadcrumb crumbs={crumbs} />
 
         {/* Font name, source, and download */}
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between" style={{ marginBottom: "24px", gap: "16px" }}>
@@ -183,7 +96,7 @@ export default function FontDetailPage({
         </div>
 
         {/* Specimen */}
-        <div className="border border-neutral-200 rounded-xl bg-white" style={{ padding: "24px", marginBottom: "24px" }}>
+        <SectionCard style={{ marginBottom: "24px" }}>
           <div className="space-y-4">
             <p style={{ fontFamily: family, fontWeight: 700, fontSize: "48px" }} className="text-neutral-900 leading-tight">
               The quick brown fox
@@ -218,22 +131,18 @@ export default function FontDetailPage({
               <p className="uppercase tracking-wider text-neutral-400 mb-3" style={{ fontSize: "12px" }}>WEIGHTS</p>
               <div className="space-y-2">
                 {font.weights.map((w) => (
-                  <p
-                    key={w}
-                    style={{ fontFamily: family, fontWeight: w, fontSize: "18px" }}
-                    className="text-neutral-700"
-                  >
+                  <p key={w} style={{ fontFamily: family, fontWeight: w, fontSize: "18px" }} className="text-neutral-700">
                     {w} — The quick brown fox jumps over the lazy dog
                   </p>
                 ))}
               </div>
             </div>
           )}
-        </div>
+        </SectionCard>
 
         {/* Details — two columns */}
         <div className="two-col-grid" style={{ marginBottom: "24px" }}>
-          <div className="border border-neutral-200 rounded-xl bg-white overflow-hidden" style={{ paddingTop: "12px", paddingBottom: "12px" }}>
+          <SectionCard noPadding style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
               <InfoRow label="Classification" value={font.classification} />
               <InfoRow label="Subcategory" value={font.subcategory} />
@@ -248,56 +157,25 @@ export default function FontDetailPage({
                 <InfoRow label="Body legibility" value={`${font.bodyLegibilityScore}/10`} />
               )}
             </dl>
-          </div>
+          </SectionCard>
 
-          <div className="border border-neutral-200 rounded-xl bg-white" style={{ padding: "24px" }}>
+          <SectionCard>
             <div className="flex flex-col" style={{ gap: "16px" }}>
               {font.distinctiveTraits.length > 0 && (
-                <div>
-                  <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>DISTINCTIVE TRAITS</p>
-                  <div className="flex flex-wrap" style={{ gap: "8px" }}>
-                    {font.distinctiveTraits.map((trait) => (
-                      <span key={`t-${trait}`} className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100" style={{ fontSize: "14px", padding: "4px 12px" }}>
-                        {trait}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <ChipGroup label="DISTINCTIVE TRAITS" chips={font.distinctiveTraits} />
               )}
-
               {font.toneDescriptors.length > 0 && (
-                <div>
-                  <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>TONE</p>
-                  <div className="flex flex-wrap" style={{ gap: "8px" }}>
-                    {font.toneDescriptors.map((tone) => (
-                      <span key={`tn-${tone}`} className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100" style={{ fontSize: "14px", padding: "4px 12px" }}>
-                        {tone}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <ChipGroup label="TONE" chips={font.toneDescriptors} />
               )}
-
               {font.useCases.length > 0 && (
-                <div>
-                  <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>USE CASES</p>
-                  <div className="flex flex-wrap" style={{ gap: "8px" }}>
-                    {font.useCases.map((uc) => (
-                      <span key={`uc-${uc}`} className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100" style={{ fontSize: "14px", padding: "4px 12px" }}>
-                        {uc}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <ChipGroup label="USE CASES" chips={font.useCases} />
               )}
-
               {font.screenReadabilityNotes && (
                 <div>
                   <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>SCREEN READABILITY</p>
                   <p className="text-xs text-neutral-600 leading-relaxed">{font.screenReadabilityNotes}</p>
                 </div>
               )}
-
               {font.historicalNotes && (
                 <div>
                   <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>HISTORY</p>
@@ -305,33 +183,17 @@ export default function FontDetailPage({
                 </div>
               )}
             </div>
-          </div>
+          </SectionCard>
         </div>
 
-        {/* Full characteristics — all enriched tags, filtered for clean display */}
+        {/* All characteristics */}
         {font.tags.length > 0 && (
-          <div className="border border-neutral-200 rounded-xl bg-white" style={{ padding: "24px", marginBottom: "24px" }}>
-            <p className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "16px" }}>ALL CHARACTERISTICS</p>
-            <div className="flex flex-wrap" style={{ gap: "8px" }}>
-              {[...new Set(font.tags)]
-                .filter(t => {
-                  const segments = t.split("-");
-                  if (segments.length >= 3) return false;
-                  if (t.length > 25) return false;
-                  return true;
-                })
-                .map((tag, i) => (
-                  <span
-                    key={`all-${i}-${tag}`}
-                    className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100"
-                    style={{ fontSize: "14px", padding: "4px 12px" }}
-                  >
-                    {tag}
-                  </span>
-                ))
-              }
-            </div>
-          </div>
+          <SectionCard style={{ marginBottom: "24px" }}>
+            <ChipGroup
+              label="ALL CHARACTERISTICS"
+              chips={[...new Set(font.tags)].filter(t => t.split("-").length < 3 && t.length <= 25)}
+            />
+          </SectionCard>
         )}
 
         {/* Similar fonts */}
@@ -343,11 +205,7 @@ export default function FontDetailPage({
                 const similar = fontsBySlug.get(sf);
                 if (!similar) return null;
                 return (
-                  <Link
-                    key={sf}
-                    href={`/font/${sf}`}
-                    className="outline-btn font-medium rounded-lg transition-colors" style={{ fontSize: "16px", padding: "8px 16px" }}
-                  >
+                  <Link key={sf} href={`/font/${sf}`} className="outline-btn font-medium rounded-lg transition-colors" style={{ fontSize: "16px", padding: "8px 16px" }}>
                     {similar.name}
                   </Link>
                 );
@@ -356,9 +214,9 @@ export default function FontDetailPage({
           </div>
         )}
 
-        {/* Pairs using this font — progressive loading */}
+        {/* Pairs using this font */}
         {pairsUsing.length > 0 && (
-          <PairsUsingSection pairs={pairsUsing} fontName={font.name} />
+          <PairPreviewGrid pairs={pairsUsing} title={`Pairs using ${font.name}`} />
         )}
       </main>
     </div>
