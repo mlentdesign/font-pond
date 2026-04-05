@@ -615,7 +615,7 @@ body.animations-paused #water-bg * {
 .two-col-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 24px;
 }
 @media (min-width: 768px) and (orientation: landscape) {
   .two-col-grid {

@@ -201,7 +201,7 @@ export default function PairDetailPage({
         </div>
       </header>
 
-      <main id="main-content" className="flex-1 mx-auto w-full shell-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
+      <main id="main-content" className="flex-1 mx-auto w-full shell-padding results-top-padding results-bottom-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" style={{ marginBottom: "24px" }}>
           <ol className="flex items-center gap-2 text-xs text-neutral-400">
@@ -218,7 +218,7 @@ export default function PairDetailPage({
         </nav>
 
         {/* Pair specimen */}
-        <div className="border border-neutral-200 rounded-xl bg-white" style={{ padding: "32px", marginBottom: "24px" }}>
+        <div className="border border-neutral-200 rounded-xl bg-white" style={{ padding: "24px", marginBottom: "24px" }}>
           <h2
             className="text-4xl md:text-5xl leading-tight mb-4"
             style={{ fontFamily: headerFamily, fontWeight: 700, color: "var(--text-heading)" }}
