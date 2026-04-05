@@ -43,8 +43,8 @@ export function HeaderWithFontInfo() {
           className="relative shrink-0"
           onMouseEnter={() => { cancelHide(); setShowTooltip(true); }}
           onMouseLeave={scheduleHide}
-          onClick={() => setShowTooltip(!showTooltip)}
-          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setShowTooltip(!showTooltip); } }}
+          onClick={(e) => { e.stopPropagation(); setShowTooltip(!showTooltip); }}
+          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); setShowTooltip(!showTooltip); } }}
           role="button"
           tabIndex={0}
           aria-label="View current font name"

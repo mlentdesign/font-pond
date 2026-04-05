@@ -43,7 +43,7 @@ export function WaterBackground() {
     let buf2 = new Float32Array(width * height);
 
     const DAMPING = 0.985;
-    const EDGE_MARGIN = 6; // absorption zone width in grid cells
+    const EDGE_MARGIN = 12; // absorption zone width in grid cells
 
     // Add a ripple at a position — variable radius for organic feel
     // Energy fades to zero inside the EDGE_MARGIN absorption zone
@@ -242,13 +242,13 @@ export function WaterBackground() {
       buf1 = buf2;
       buf2 = temp;
 
-      // Absorbing boundary — gradually damp energy in a border zone
-      // so waves fade out smoothly instead of reflecting or glitching
+      // Absorbing boundary — cubic fade for aggressive damping near edges
       for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
           const edgeDist = Math.min(x, y, width - 1 - x, height - 1 - y);
           if (edgeDist < EDGE_MARGIN) {
-            const fade = edgeDist / EDGE_MARGIN;
+            const t = edgeDist / EDGE_MARGIN;
+            const fade = t * t * t; // cubic — very aggressive near edges
             const i = y * width + x;
             buf1[i] *= fade;
             buf2[i] *= fade;
@@ -268,6 +268,10 @@ export function WaterBackground() {
 
       for (let y = 1; y < height - 1; y++) {
         for (let x = 1; x < width - 1; x++) {
+          // Skip rendering in edge zone — prevents caustic/gradient artifacts
+          const edgeDist = Math.min(x, y, width - 1 - x, height - 1 - y);
+          if (edgeDist < 3) continue;
+
           const i = y * width + x;
           const val = buf1[i];
 
@@ -283,6 +287,9 @@ export function WaterBackground() {
           const dx = buf1[i + 1] - buf1[i - 1];
           const dy = buf1[i + width] - buf1[i - width];
           const specular = Math.max(0, (-dx * 0.6 + -dy * 0.6)) * 0.008; // very soft
+
+          // Fade render output to transparent near edges
+          const renderFade = edgeDist < EDGE_MARGIN ? Math.min(1, (edgeDist - 3) / (EDGE_MARGIN - 3)) : 1;
 
           const pi = (y * width + x) * 4;
 
@@ -300,7 +307,7 @@ export function WaterBackground() {
             data[pi + 1] = Math.min(255, Math.floor(baseG + enhance * 0.8));
             data[pi + 2] = Math.min(255, Math.floor(baseB + enhance * 0.7));
             data[pi + 3] = absI > 0.006 || enhance > 0.1
-              ? Math.min(255, Math.floor(baseA + enhance * 15))
+              ? Math.min(255, Math.floor((baseA + enhance * 15) * renderFade))
               : 0;
           } else {
             // Base: saturated teal from wave height (dominant)
@@ -316,7 +323,7 @@ export function WaterBackground() {
             data[pi + 1] = Math.min(255, Math.floor(baseG + enhance * 0.6));
             data[pi + 2] = Math.min(255, Math.floor(baseB + enhance * 0.5));
             data[pi + 3] = absI > 0.006 || enhance > 0.1
-              ? Math.min(255, Math.floor(baseA + enhance * 12))
+              ? Math.min(255, Math.floor((baseA + enhance * 12) * renderFade))
               : 0;
           }
         }

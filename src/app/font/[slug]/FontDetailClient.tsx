@@ -17,7 +17,7 @@ function titleCase(s: string): string {
 function InfoRow({ label, value }: { label: string; value: string | null | undefined }) {
   if (!value) return null;
   return (
-    <div className="flex justify-between py-2 border-b border-neutral-100 last:border-0">
+    <div className="flex justify-between border-b border-neutral-100 last:border-0" style={{ padding: "12px 24px" }}>
       <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>{label.toUpperCase()}</dt>
       <dd className="text-neutral-700 text-right max-w-[60%]" style={{ fontSize: "16px" }}>{titleCase(value)}</dd>
     </div>
@@ -29,7 +29,7 @@ function PairsUsingSection({ pairs, fontName }: { pairs: import("@/data/types").
   const hasMore = visible < pairs.length;
 
   return (
-    <div style={{ marginTop: "40px" }}>
+    <div style={{ marginTop: "24px" }}>
       <h3 className="font-semibold text-neutral-700" style={{ fontSize: "16px", marginBottom: "16px" }}>Pairs using {fontName}</h3>
       <div className="pair-grid">
         {pairs.slice(0, visible).map((p) => {
@@ -131,7 +131,7 @@ export default function FontDetailPage({
         </div>
       </header>
 
-      <main id="main-content" className="flex-1 mx-auto w-full shell-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
+      <main id="main-content" className="flex-1 mx-auto w-full shell-padding results-top-padding results-bottom-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" style={{ marginBottom: "24px" }}>
           <ol className="flex items-center gap-2 text-xs text-neutral-400 flex-wrap">
@@ -183,7 +183,7 @@ export default function FontDetailPage({
         </div>
 
         {/* Specimen */}
-        <div className="border border-neutral-200 rounded-xl bg-white" style={{ padding: "32px", marginBottom: "24px" }}>
+        <div className="border border-neutral-200 rounded-xl bg-white" style={{ padding: "24px", marginBottom: "24px" }}>
           <div className="space-y-4">
             <p style={{ fontFamily: family, fontWeight: 700, fontSize: "48px" }} className="text-neutral-900 leading-tight">
               The quick brown fox
@@ -233,7 +233,7 @@ export default function FontDetailPage({
 
         {/* Details — two columns */}
         <div className="two-col-grid" style={{ marginBottom: "24px" }}>
-          <div className="border border-neutral-200 rounded-xl bg-white p-6">
+          <div className="border border-neutral-200 rounded-xl bg-white overflow-hidden" style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
               <InfoRow label="Classification" value={font.classification} />
               <InfoRow label="Subcategory" value={font.subcategory} />
@@ -250,60 +250,61 @@ export default function FontDetailPage({
             </dl>
           </div>
 
-          <div className="border border-neutral-200 rounded-xl bg-white p-6">
-
-            {font.distinctiveTraits.length > 0 && (
-              <div className="mb-4">
-                <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>DISTINCTIVE TRAITS</p>
-                <div className="flex flex-wrap" style={{ gap: "8px" }}>
-                  {font.distinctiveTraits.map((trait) => (
-                    <span key={`t-${trait}`} className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100" style={{ fontSize: "14px", padding: "4px 12px" }}>
-                      {trait}
-                    </span>
-                  ))}
+          <div className="border border-neutral-200 rounded-xl bg-white" style={{ padding: "24px" }}>
+            <div className="flex flex-col" style={{ gap: "16px" }}>
+              {font.distinctiveTraits.length > 0 && (
+                <div>
+                  <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>DISTINCTIVE TRAITS</p>
+                  <div className="flex flex-wrap" style={{ gap: "8px" }}>
+                    {font.distinctiveTraits.map((trait) => (
+                      <span key={`t-${trait}`} className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100" style={{ fontSize: "14px", padding: "4px 12px" }}>
+                        {trait}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {font.toneDescriptors.length > 0 && (
-              <div className="mb-4">
-                <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>TONE</p>
-                <div className="flex flex-wrap" style={{ gap: "8px" }}>
-                  {font.toneDescriptors.map((tone) => (
-                    <span key={`tn-${tone}`} className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100" style={{ fontSize: "14px", padding: "4px 12px" }}>
-                      {tone}
-                    </span>
-                  ))}
+              {font.toneDescriptors.length > 0 && (
+                <div>
+                  <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>TONE</p>
+                  <div className="flex flex-wrap" style={{ gap: "8px" }}>
+                    {font.toneDescriptors.map((tone) => (
+                      <span key={`tn-${tone}`} className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100" style={{ fontSize: "14px", padding: "4px 12px" }}>
+                        {tone}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {font.useCases.length > 0 && (
-              <div className="mb-4">
-                <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>USE CASES</p>
-                <div className="flex flex-wrap" style={{ gap: "8px" }}>
-                  {font.useCases.map((uc) => (
-                    <span key={`uc-${uc}`} className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100" style={{ fontSize: "14px", padding: "4px 12px" }}>
-                      {uc}
-                    </span>
-                  ))}
+              {font.useCases.length > 0 && (
+                <div>
+                  <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>USE CASES</p>
+                  <div className="flex flex-wrap" style={{ gap: "8px" }}>
+                    {font.useCases.map((uc) => (
+                      <span key={`uc-${uc}`} className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100" style={{ fontSize: "14px", padding: "4px 12px" }}>
+                        {uc}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {font.screenReadabilityNotes && (
-              <div className="mb-4">
-                <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>SCREEN READABILITY</p>
-                <p className="text-xs text-neutral-600 leading-relaxed">{font.screenReadabilityNotes}</p>
-              </div>
-            )}
+              {font.screenReadabilityNotes && (
+                <div>
+                  <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>SCREEN READABILITY</p>
+                  <p className="text-xs text-neutral-600 leading-relaxed">{font.screenReadabilityNotes}</p>
+                </div>
+              )}
 
-            {font.historicalNotes && (
-              <div>
-                <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>HISTORY</p>
-                <p className="text-xs text-neutral-600 leading-relaxed">{font.historicalNotes}</p>
-              </div>
-            )}
+              {font.historicalNotes && (
+                <div>
+                  <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>HISTORY</p>
+                  <p className="text-xs text-neutral-600 leading-relaxed">{font.historicalNotes}</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -335,7 +336,7 @@ export default function FontDetailPage({
 
         {/* Similar fonts */}
         {font.similarFonts.length > 0 && (
-          <div style={{ marginBottom: "24px", marginTop: "40px" }}>
+          <div style={{ marginBottom: "24px" }}>
             <h3 className="uppercase tracking-wider text-neutral-400 font-medium" style={{ fontSize: "12px", marginBottom: "16px" }}>SIMILAR FONTS</h3>
             <div className="flex flex-wrap gap-2">
               {font.similarFonts.map((sf) => {
