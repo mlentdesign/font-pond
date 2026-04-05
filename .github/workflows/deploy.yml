@@ -27,6 +27,8 @@ jobs:
 
       - run: npm ci
       - run: npx next build
+        env:
+          NEXT_PUBLIC_BASE_PATH: /font-pond
 
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -2,6 +2,7 @@
 // Self-hosted .woff2 files in public/fonts/ are the primary source.
 // CDN fallbacks (Google Fonts, Fontshare) provide backup coverage.
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const loaded = new Set<string>();
 
 export function loadFont(font: { name: string; slug: string; source: string; googleFontsFamily?: string; id?: string }): void {
@@ -16,7 +17,7 @@ export function loadFont(font: { name: string; slug: string; source: string; goo
     loaded.add("__css__");
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = "/fonts/fonts.css";
+    link.href = `${BASE_PATH}/fonts/fonts.css`;
     document.head.appendChild(link);
   }
 
