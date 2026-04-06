@@ -109,7 +109,7 @@ export default function FontDetailPage() {
           </div>
 
           {/* Alphabet */}
-          <div className="mt-6 pt-6 border-t border-neutral-100">
+          <div className="mt-6 pt-6 border-t border-neutral-100" style={{ marginLeft: "-24px", marginRight: "-24px", paddingLeft: "24px", paddingRight: "24px" }}>
             <p style={{ fontFamily: family, fontWeight: 400, fontSize: "18px" }} className="text-neutral-600 mb-2">
               ABCDEFGHIJKLMNOPQRSTUVWXYZ
             </p>
@@ -123,7 +123,7 @@ export default function FontDetailPage() {
 
           {/* Weight samples */}
           {font.weights.length > 1 && (
-            <div className="mt-6 pt-6 border-t border-neutral-100">
+            <div className="mt-6 pt-6 border-t border-neutral-100" style={{ marginLeft: "-24px", marginRight: "-24px", paddingLeft: "24px", paddingRight: "24px" }}>
               <p className="uppercase tracking-wider text-neutral-400 mb-3" style={{ fontSize: "12px" }}>WEIGHTS</p>
               <div className="space-y-2">
                 {font.weights.map((w) => (

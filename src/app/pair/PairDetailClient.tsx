@@ -155,7 +155,7 @@ export default function PairDetailPage() {
           </p>
 
           {/* Scale suggestion */}
-          <div className="mt-6 pt-6 border-t border-neutral-100">
+          <div className="mt-6 pt-6 border-t border-neutral-100" style={{ marginLeft: "-24px", marginRight: "-24px", paddingLeft: "24px", paddingRight: "24px" }}>
             <p className="uppercase tracking-wider text-neutral-400 mb-3" style={{ fontSize: "12px" }}>
               SUGGESTED SCALE
             </p>
@@ -202,7 +202,7 @@ export default function PairDetailPage() {
             </div>
           </dl>
 
-          <div style={{ borderTop: "1px solid var(--divider)", marginTop: "24px", paddingTop: "24px" }}>
+          <div style={{ borderTop: "1px solid var(--divider)", marginTop: "24px", paddingTop: "24px", marginLeft: "-24px", marginRight: "-24px", paddingLeft: "24px", paddingRight: "24px" }}>
             <ChipGroup label="USE CASES" chips={pair.useCases} />
           </div>
         </SectionCard>
