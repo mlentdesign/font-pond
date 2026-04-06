@@ -690,10 +690,6 @@ body.animations-paused #water-bg * {
 /* Database table sticky header — sits below page header with visual gap */
 .db-sticky-header {
   top: 57px;
-  /* Padding-top creates visible gap between nav and column headers.
-     Background extends up to cover the gap so rows scroll behind it. */
-  padding-top: 16px !important;
-  margin-top: -16px;
 }
 
 /* Responsive ransom header font size */
