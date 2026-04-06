@@ -209,9 +209,9 @@ export default function FontDetailPage() {
           const gridCols = capped.length === 1 ? "1fr" : capped.length === 2 ? "repeat(2, 1fr)" : "repeat(3, 1fr)";
           if (capped.length === 0) return null;
           return (
-            <div style={{ marginBottom: "24px" }}>
+            <div className="detail-subheading" style={{ marginBottom: "24px" }}>
               <h3 className="font-semibold text-neutral-700" style={{ fontSize: "16px", marginBottom: "16px" }}>Similar fonts</h3>
-              <div className="similar-fonts-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "16px" }}>
+              <div className={capped.length <= 2 ? "similar-fonts-grid-2" : "similar-fonts-grid"} style={{ display: "grid", gridTemplateColumns: "1fr", gap: "16px" }}>
                 {capped.map((sf) => {
                   const sfFamily = getFontFamily(sf.name, sf.source);
                   const sfSource = getSourceLabel(sf.source);

@@ -20,12 +20,12 @@ export function Footer() {
   return (
     <footer
       className="w-full mt-auto shell-padding flex items-center justify-between"
-      style={{ background: "var(--bg-footer)", borderTop: "1px solid var(--border)", minHeight: "88px" }}
+      style={{ background: "var(--bg-footer)", borderTop: "1px solid var(--border)", minHeight: "88px", gap: "16px", paddingTop: "16px", paddingBottom: "16px" }}
     >
       {/* Left side — tagline + copyright + about */}
       <div className="footer-left flex items-center flex-wrap">
         <p className="footer-tagline" style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
-          Free Font Combinations<br className="sm:hidden" /> for Real Design Work.
+          Free font combinations for real design work.
         </p>
         <p style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
           &copy; 2026{" "}
@@ -66,11 +66,11 @@ export function Footer() {
           aria-label={paused ? "Resume animation" : "Pause animation"}
         >
           {paused ? (
-            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="24" height="24" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 3v10l8-5L5 3z" />
             </svg>
           ) : (
-            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="24" height="24" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="2.5" width="3.5" height="11" rx="0.75" />
               <rect x="9.5" y="2.5" width="3.5" height="11" rx="0.75" />
             </svg>

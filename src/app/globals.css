@@ -581,9 +581,13 @@ body.animations-paused #water-bg * {
   }
 }
 @media (min-width: 1024px) {
-  .shell-padding, .content-padding {
+  .shell-padding {
     padding-left: 80px;
     padding-right: 80px;
+  }
+  .content-padding {
+    padding-left: 96px;
+    padding-right: 96px;
   }
 }
 
@@ -689,9 +693,22 @@ body.animations-paused #water-bg * {
    INPUT CONTAINER FOCUS — outline wraps only the text field
    ══════════════════════════════════════════ */
 .prompt-textarea-wrap:focus-within {
-  border-color: var(--accent) !important;
-  box-shadow: var(--shadow-input-focus) !important;
+  box-shadow: inset 0 0 0 2px var(--accent), var(--shadow-input-focus);
   border-radius: 12px 12px 0 0;
+}
+/* On mobile, clip the bottom focus line — "Add image" sits inside the wrap */
+@media (max-width: 639px) {
+  .prompt-textarea-wrap:focus-within {
+    box-shadow:
+      inset 2px 0 0 0 var(--accent),   /* left */
+      inset -2px 0 0 0 var(--accent),  /* right */
+      inset 0 2px 0 0 var(--accent),   /* top */
+      var(--shadow-input-focus);
+  }
+  .prompt-textarea-wrap:focus-within .mobile-add-image {
+    border-top: 2px solid var(--accent);
+    margin-top: 0;
+  }
 }
 
 /* Prevent CTA text from wrapping inside buttons */
@@ -699,47 +716,43 @@ body.animations-paused #water-bg * {
   white-space: nowrap;
 }
 
-/* Pair page breadcrumb + preview settings row */
-.pair-breadcrumb-row {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-.pair-breadcrumb-row > nav {
-  margin-bottom: 0 !important;
-}
-.pair-preview-settings {
-  /* Remove default margins from SampleTextInputs when embedded in pair page */
-}
-.pair-preview-settings > div {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
+/* Subheading spacing above — more space after cards on detail pages */
+.detail-subheading {
+  margin-top: 40px;
 }
 @media (min-width: 768px) {
-  .pair-breadcrumb-row {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px;
+  .detail-subheading {
+    margin-top: 48px;
   }
-  .pair-preview-settings {
-    flex-shrink: 0;
+}
+@media (min-width: 1024px) {
+  .detail-subheading {
+    margin-top: 56px;
   }
 }
 
+/* Preview settings embedded in a section card (pair page) */
+.border-t .preview-settings-spacing {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
 /* Similar fonts grid: stacks on mobile, expands on wider screens */
-.similar-fonts-grid {
+.similar-fonts-grid, .similar-fonts-grid-2 {
   grid-template-columns: 1fr !important;
 }
 @media (min-width: 768px) {
-  .similar-fonts-grid {
+  .similar-fonts-grid, .similar-fonts-grid-2 {
     grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 @media (min-width: 1024px) {
   .similar-fonts-grid {
     grid-template-columns: repeat(3, 1fr) !important;
+  }
+  /* 2-col stays at 2 even on desktop when there are only 1-2 items */
+  .similar-fonts-grid-2 {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 
@@ -762,6 +775,10 @@ body.animations-paused #water-bg * {
   }
   .results-bottom-padding {
     padding-bottom: 56px !important;
+  }
+  /* Match preview-settings → results gap to header → describe gap (56px on tablet) */
+  .preview-settings-spacing {
+    margin-bottom: 16px !important;
   }
 }
 
@@ -804,6 +821,11 @@ body.animations-paused #water-bg * {
     padding-bottom: 40px !important;
   }
 
+  /* Match preview-settings → results gap to header → describe gap (40px on mobile) */
+  .preview-settings-spacing {
+    margin-bottom: 0px !important;
+  }
+
   /* Footer — stack tagline and About vertically, prevent wrapping */
   .footer-left {
     flex-direction: column !important;
@@ -811,7 +833,7 @@ body.animations-paused #water-bg * {
     gap: 8px !important;
   }
   .footer-tagline {
-    line-height: 1.2 !important;
+    line-height: 1.3 !important;
   }
 
   /* Footer right — 16px gap between pause and recently viewed */
