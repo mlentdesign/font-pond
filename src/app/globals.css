@@ -656,19 +656,22 @@ body.animations-paused #water-bg * {
 }
 
 /* ══════════════════════════════════════════
-   INPUT CONTAINER FOCUS — outline wraps entire box
+   INPUT CONTAINER FOCUS — outline wraps only the text field
    ══════════════════════════════════════════ */
-.prompt-container:focus-within {
+.prompt-textarea-wrap:focus-within {
   border-color: var(--accent) !important;
   box-shadow: var(--shadow-input-focus) !important;
-}
-.prompt-container:focus-within .action-bar-border {
-  border-color: transparent !important;
+  border-radius: 12px;
 }
 
 /* Prevent CTA text from wrapping inside buttons */
 .prompt-container button {
   white-space: nowrap;
+}
+
+/* Mobile "Add image" — hidden by default, shown on mobile via media query */
+.mobile-add-image {
+  display: none !important;
 }
 
 /* ══════════════════════════════════════════
@@ -689,13 +692,17 @@ body.animations-paused #water-bg * {
   .action-bar-ctas {
     flex-direction: column !important;
     gap: 8px !important;
-    order: 1 !important;
   }
   .action-bar-ctas button {
     width: 100% !important;
   }
-  .action-bar-image {
-    order: 2 !important;
+  /* Hide "Add image" from action bar on mobile — it moves into the text field area */
+  .action-bar .action-bar-image {
+    display: none !important;
+  }
+  /* Show the mobile "Add image" inside the text field area */
+  .mobile-add-image {
+    display: flex !important;
   }
 
   /* Reduce top/bottom padding on results page */
