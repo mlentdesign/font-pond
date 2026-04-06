@@ -709,6 +709,11 @@ body.animations-paused #water-bg * {
   border-color: var(--accent) !important;
   box-shadow: var(--shadow-input-focus) !important;
 }
+/* Suppress the global focus-visible outline on the prompt textarea —
+   the container border handles focus indication */
+.prompt-textarea-wrap textarea:focus-visible {
+  outline: none !important;
+}
 
 /* Prevent CTA text from wrapping inside buttons */
 .prompt-container button {
