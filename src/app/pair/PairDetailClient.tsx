@@ -259,6 +259,7 @@ export default function PairDetailPage() {
             initialVisible={4}
             loadMoreIncrement={4}
             headlineText={sampleHeadline || "The quick brown fox"}
+            bodyText={sampleBody || "Typography is the art and technique of arranging type."}
             showRationale
           />
         )}
