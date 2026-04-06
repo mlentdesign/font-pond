@@ -331,10 +331,6 @@ export const allFontshareFonts: Font[] = [
     ["classic", "literary", "refined", "elegant"],
     { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["Garamond-inspired proportions", "beautiful old-style figures", "superb book typography"] }),
 
-  fs("Fira Sans", "fira-sans", "sans-serif",
-    ["technical", "versatile", "modern", "functional", "professional", "clean", "reliable", "systematic", "developer", "structured"],
-    ["functional", "professional", "systematic", "reliable"],
-    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["Mozilla heritage", "optimized for screen", "extensive character set"] }),
 
   fs("Public Sans", "public-sans", "sans-serif",
     ["neutral", "trustworthy", "accessible", "clean", "professional", "civic", "reliable", "functional", "inclusive", "balanced"],

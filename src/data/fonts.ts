@@ -2421,6 +2421,7 @@ const FONT_BLOCKLIST_SLUGS = new Set([
   "rubik-bubbles", "rubik-burned", "rubik-dirt", "rubik-distressed",
   "rubik-lines", "rubik-moonrocks", "rubik-puddles", "rubik-scribble",
   "rubik-storm", "rubik-vinyl", "rubik-wet-paint",
+  "fira-sans", "fira-sans-condensed", "fira-sans-extra-condensed",
   "honk", "moo-lah-lah", "bagel-fat-one",
   "oi", "emblema-one", "bungee-tint", "bungee-spice",
   "jersey-10", "jersey-15", "jersey-20", "jersey-25",
