@@ -737,13 +737,9 @@ body.animations-paused #water-bg * {
 /* ══════════════════════════════════════════
    INPUT CONTAINER FOCUS — outline wraps only the text field
    ══════════════════════════════════════════ */
-/* Focus: highlight only the textarea-wrap using inset box-shadow (no layout shift, no gap) */
-.prompt-textarea-wrap:focus-within {
-  box-shadow:
-    inset 0 -1px 0 0 var(--accent),
-    inset 1px 0 0 0 var(--accent),
-    inset -1px 0 0 0 var(--accent),
-    inset 0 1px 0 0 var(--accent);
+/* Focus: change the container border color only — same size, same shape */
+.prompt-container:has(.prompt-textarea-wrap:focus-within) {
+  border-color: var(--accent) !important;
 }
 /* Suppress the global focus-visible outline on the prompt textarea */
 .prompt-textarea-wrap textarea:focus-visible {
