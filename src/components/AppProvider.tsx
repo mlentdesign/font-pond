@@ -2,9 +2,10 @@
 
 import { useState, useCallback, ReactNode, useEffect } from "react";
 import { AppContext, AppState, DEFAULT_HEADER_SIZE, DEFAULT_BODY_SIZE } from "@/lib/store";
-import { RecentPairView, ScoredPair } from "@/data/types";
+import { RecentPairView, RecentHistoryItem, ScoredPair } from "@/data/types";
 
 const HISTORY_KEY = "font-pairing-recent-history";
+const ITEMS_KEY = "font-pond-recent-items";
 const MAX_HISTORY = 10;
 
 export function AppProvider({ children }: { children: ReactNode }) {
@@ -20,11 +21,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [isExploring, setIsExploring] = useState(false);
   const [visibleCount, setVisibleCount] = useState(3);
   const [recentHistory, setRecentHistory] = useState<RecentPairView[]>([]);
+  const [recentItems, setRecentItems] = useState<RecentHistoryItem[]>([]);
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem(HISTORY_KEY);
       if (saved) setRecentHistory(JSON.parse(saved));
+      const savedItems = localStorage.getItem(ITEMS_KEY);
+      if (savedItems) setRecentItems(JSON.parse(savedItems));
     } catch {}
   }, []);
 
@@ -40,9 +44,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setRecentHistory((prev) => {
       const filtered = prev.filter((h) => h.pairId !== view.pairId);
       const next = [view, ...filtered].slice(0, MAX_HISTORY);
-      try {
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
-      } catch {}
+      try { localStorage.setItem(HISTORY_KEY, JSON.stringify(next)); } catch {}
+      return next;
+    });
+    // Also add to unified history
+    addHistoryItem({ type: "pair", id: view.pairId, slug: view.pairSlug, label: `${view.headerFontName} + ${view.bodyFontName}`, viewedAt: view.viewedAt });
+  }, []);
+
+  const addHistoryItem = useCallback((item: RecentHistoryItem) => {
+    setRecentItems((prev) => {
+      const filtered = prev.filter((h) => h.id !== item.id);
+      const next = [item, ...filtered].slice(0, MAX_HISTORY);
+      try { localStorage.setItem(ITEMS_KEY, JSON.stringify(next)); } catch {}
       return next;
     });
   }, []);
@@ -60,6 +73,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     isExploring, setIsExploring,
     visibleCount, setVisibleCount,
     recentHistory, addToHistory,
+    recentItems, addHistoryItem,
   };
 
   return <AppContext value={value}>{children}</AppContext>;

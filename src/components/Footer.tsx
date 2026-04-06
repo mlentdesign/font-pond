@@ -7,8 +7,8 @@ import { useAppState } from "@/lib/store";
 
 export function Footer() {
   const [paused, setPaused] = useState(false);
-  const { recentHistory } = useAppState();
-  const hasHistory = recentHistory.length >= 2;
+  const { recentItems } = useAppState();
+  const hasHistory = recentItems.length >= 2;
 
   const togglePause = () => {
     const next = !paused;
