@@ -203,16 +203,16 @@ export default function PairDetailPage() {
           <p className="text-neutral-700 leading-relaxed" style={{ fontSize: "16px" }}>{sentenceCase(pair.rationale)}</p>
         </SectionCard>
 
-        {/* Details — two columns */}
-        <div className="two-col-grid" style={{ marginBottom: "24px" }}>
-          {/* Left: scores — label left, value right, lines between */}
+        {/* Details — three columns */}
+        <div className="three-col-grid" style={{ marginBottom: "24px" }}>
+          {/* Card 1: scores — label left, value right, lines between */}
           <SectionCard noPadding style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
-              <div className="flex justify-between border-b border-neutral-100 last:border-0" style={{ padding: "12px 24px" }}>
+              <div className="flex justify-between border-b border-neutral-100" style={{ padding: "12px 24px" }}>
                 <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>HIERARCHY</dt>
                 <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.hierarchyStrength}/10</dd>
               </div>
-              <div className="flex justify-between border-b border-neutral-100 last:border-0" style={{ padding: "12px 24px" }}>
+              <div className="flex justify-between border-b border-neutral-100" style={{ padding: "12px 24px" }}>
                 <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>LEGIBILITY</dt>
                 <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.bodyLegibilityScore}/10</dd>
               </div>
@@ -223,7 +223,7 @@ export default function PairDetailPage() {
             </dl>
           </SectionCard>
 
-          {/* Right: tone, contrast type, use cases */}
+          {/* Card 2: tone + contrast type */}
           <SectionCard>
             <div>
               <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "4px" }}>TONE</dt>
@@ -234,7 +234,10 @@ export default function PairDetailPage() {
               <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "4px" }}>CONTRAST TYPE</dt>
               <dd className="text-neutral-700" style={{ fontSize: "16px" }}>{sentenceCase(pair.contrastType)}</dd>
             </div>
-            <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
+          </SectionCard>
+
+          {/* Card 3: use cases */}
+          <SectionCard>
             <ChipGroup label="USE CASES" chips={pair.useCases} />
           </SectionCard>
         </div>
