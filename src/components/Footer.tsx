@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { setHeaderAnimationPaused } from "./RansomHeader";
 import { useAppState } from "@/lib/store";
 
@@ -24,9 +25,9 @@ export function Footer() {
     >
       {/* Left side — tagline + copyright + about */}
       <div className="footer-left flex items-center flex-wrap">
-        <p className="footer-tagline" style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
+        <Link href="/database" className="footer-tagline hover:opacity-70 transition-opacity" style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
           Free font combinations for real design work
-        </p>
+        </Link>
         <p style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
           &copy; 2026{" "}
           <a
