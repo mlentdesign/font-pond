@@ -149,7 +149,9 @@ export default function FontDetailPage() {
             <dl>
               <InfoRow label="Classification" value={font.classification} />
               <InfoRow label="Subcategory" value={font.subcategory} />
-              <InfoRow label="Category" value={font.serifSansCategory} />
+              {font.serifSansCategory !== font.classification && (
+                <InfoRow label="Category" value={font.serifSansCategory} />
+              )}
               <InfoRow label="Variable font" value={font.variableFont ? "Yes" : "No"} />
               <InfoRow label="Weights" value={font.weights.join(", ")} />
               <InfoRow label="Styles" value={font.styles.join(", ")} />
@@ -234,20 +236,23 @@ export default function FontDetailPage() {
                         </span>
                       </div>
                       <div
-                        className="text-4xl leading-tight mb-4 text-neutral-800 break-words"
+                        className="text-4xl leading-tight text-neutral-800 break-words"
                         style={{ fontFamily: sfFamily, fontWeight: 600 }}
                       >
                         Aa Bb Cc Dd Ee Ff Gg
                       </div>
+                      <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
                       <div
-                        className="leading-relaxed text-neutral-600 mb-4 break-words"
+                        className="leading-relaxed text-neutral-600 break-words"
                         style={{ fontFamily: sfFamily, fontWeight: 400, fontSize: "16px" }}
                       >
                         ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789
                       </div>
-                      <div className="mb-4">
+                      <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
+                      <div>
                         <ChipGroup label="CHARACTERISTICS" chips={sfChips} maxVisible={8} maxLines={2} />
                       </div>
+                      <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
                       <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-neutral-500" style={{ fontSize: "16px" }}>
                         <div>
                           <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>DESIGNER</span>
