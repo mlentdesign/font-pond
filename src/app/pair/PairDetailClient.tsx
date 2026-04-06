@@ -118,7 +118,7 @@ export default function PairDetailPage() {
     }
   }, [pair, headerFont, bodyFont, addToHistory]);
 
-  const related = pair ? getRelatedPairs(pair.id, 3) : [];
+  const related = pair ? getRelatedPairs(pair.id, 6) : [];
 
   if (!pair || !headerFont || !bodyFont) {
     return (
@@ -224,8 +224,8 @@ export default function PairDetailPage() {
           <PairPreviewGrid
             pairs={related}
             title="Other interesting pairings for you"
-            initialVisible={3}
-            loadMoreIncrement={3}
+            initialVisible={4}
+            loadMoreIncrement={4}
             headlineText={sampleHeadline || "The quick brown fox"}
             showRationale
           />
