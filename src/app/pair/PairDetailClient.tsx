@@ -138,12 +138,7 @@ export default function PairDetailPage() {
       <DetailPageHeader />
 
       <main id="main-content" className="flex-1 mx-auto w-full content-padding results-top-padding results-bottom-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
-        <div className="pair-breadcrumb-row">
-          <Breadcrumb crumbs={[{ label: `${headerFont.name} + ${bodyFont.name}` }]} />
-          <div className="pair-preview-settings">
-            <SampleTextInputs alwaysShow />
-          </div>
-        </div>
+        <Breadcrumb crumbs={[{ label: `${headerFont.name} + ${bodyFont.name}` }]} />
 
         {/* Pair specimen */}
         <SectionCard style={{ marginBottom: "24px" }}>
@@ -159,6 +154,11 @@ export default function PairDetailPage() {
           >
             {body}
           </p>
+
+          {/* Preview settings */}
+          <div className="mt-6 pt-6 border-t border-neutral-100" style={{ marginLeft: "-24px", marginRight: "-24px", paddingLeft: "24px", paddingRight: "24px" }}>
+            <SampleTextInputs alwaysShow />
+          </div>
 
           {/* Scale suggestion */}
           <div className="mt-6 pt-6 border-t border-neutral-100" style={{ marginLeft: "-24px", marginRight: "-24px", paddingLeft: "24px", paddingRight: "24px" }}>

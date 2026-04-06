@@ -134,7 +134,7 @@ export function PromptInput() {
         style={{ background: "var(--bg-card)", boxShadow: "var(--shadow-input)", border: "2px solid var(--border)" }}
       >
         {/* Textarea wrapper — focus ring wraps only this area */}
-        <div className="prompt-textarea-wrap" style={{ border: "2px solid transparent", margin: "-2px -2px 0 -2px" }}>
+        <div className="prompt-textarea-wrap">
           <div style={{ position: "relative" }}>
             <textarea
               ref={textareaRef}
@@ -202,7 +202,7 @@ export function PromptInput() {
               className="flex items-center rounded-lg cursor-pointer transition-colors hover:opacity-70"
               style={{ fontSize: "16px", fontWeight: 600, color: "var(--add-image-color)", gap: "4px" }}
             >
-              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" className="shrink-0">
+              <svg width="24" height="24" viewBox="0 0 16 16" fill="none" className="shrink-0">
                 <rect x="1.5" y="2.5" width="13" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
                 <circle cx="5" cy="6" r="1.25" stroke="currentColor" strokeWidth="1.5" />
                 <path d="M1.5 11l3.5-3.5L8 10.5l2.5-2.5 4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -233,7 +233,7 @@ export function PromptInput() {
               className="flex items-center rounded-lg cursor-pointer transition-colors hover:opacity-70"
               style={{ fontSize: "16px", fontWeight: 600, color: "var(--add-image-color)", gap: "4px" }}
             >
-              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" className="shrink-0">
+              <svg width="24" height="24" viewBox="0 0 16 16" fill="none" className="shrink-0">
                 <rect x="1.5" y="2.5" width="13" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
                 <circle cx="5" cy="6" r="1.25" stroke="currentColor" strokeWidth="1.5" />
                 <path d="M1.5 11l3.5-3.5L8 10.5l2.5-2.5 4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

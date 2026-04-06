@@ -59,7 +59,7 @@ export function PairPreviewGrid({
   if (pairs.length === 0) return null;
 
   return (
-    <div>
+    <div className="detail-subheading">
       <h3 className="font-semibold text-neutral-700" style={{ fontSize: "16px", marginBottom: "16px" }}>{title}</h3>
       <div className="pair-grid">
         {pairs.slice(0, visible).map((p) => {

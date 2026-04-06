@@ -2418,6 +2418,9 @@ const FONT_BLOCKLIST_SLUGS = new Set([
   "rubik-broken-fax", "rubik-spray-paint", "rubik-iso",
   "rubik-80s-fade", "rubik-gemstones", "rubik-microbe",
   "rubik-maze", "rubik-beastly",
+  "rubik-bubbles", "rubik-burned", "rubik-dirt", "rubik-distressed",
+  "rubik-lines", "rubik-moonrocks", "rubik-puddles", "rubik-scribble",
+  "rubik-storm", "rubik-vinyl", "rubik-wet-paint",
   "honk", "moo-lah-lah", "bagel-fat-one",
   "oi", "emblema-one", "bungee-tint", "bungee-spice",
   "jersey-10", "jersey-15", "jersey-20", "jersey-25",
@@ -2437,7 +2440,7 @@ const BLOCKLIST_NAME_PATTERNS = [
   "noto color emoji", "noto emoji", "noto music", "signwriting",
   "noto sans symbols", "noto sans math",
   // Color/chromatic font indicators
-  "color", "colr", "glaze", "pixels",
+  "color", "colr", "glaze", "pixels", "bitcount",
 ];
 
 function isBlocklisted(font: Font): boolean {
