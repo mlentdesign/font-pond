@@ -43,6 +43,7 @@ export function Footer() {
               Mel Lent
             </a>
           </p>
+          {/* About link — hidden until content is ready
           <a
             href="/about"
             style={{ fontSize: "16px", color: "var(--text-ransom)", fontWeight: 600 }}
@@ -50,6 +51,7 @@ export function Footer() {
           >
             About
           </a>
+          */}
         </div>
 
         <div className="footer-right flex items-center shrink-0" style={{ gap: "24px" }}>
