@@ -24,16 +24,100 @@ interface FontRow {
 }
 
 const PAGE_SIZE = 50;
+const PAGE_WINDOW = 3; // pages shown on each side of current
+
+function Pagination({ page, totalPages, goPage }: { page: number; totalPages: number; goPage: (p: number) => void }) {
+  const pages: (number | "...")[] = [];
+
+  // Always show first page
+  pages.push(0);
+
+  const rangeStart = Math.max(1, page - PAGE_WINDOW);
+  const rangeEnd = Math.min(totalPages - 2, page + PAGE_WINDOW);
+
+  if (rangeStart > 1) pages.push("...");
+  for (let i = rangeStart; i <= rangeEnd; i++) pages.push(i);
+  if (rangeEnd < totalPages - 2) pages.push("...");
+
+  // Always show last page (if more than 1 page)
+  if (totalPages > 1) pages.push(totalPages - 1);
+
+  const btnStyle = { fontSize: "16px", padding: "4px 8px", minWidth: "36px", textAlign: "center" as const };
+
+  return (
+    <div className="flex items-center flex-wrap" style={{ gap: "4px" }}>
+      {/* First */}
+      <button
+        onClick={() => goPage(0)}
+        disabled={page === 0}
+        className="hover:opacity-70 transition-opacity disabled:opacity-30 disabled:cursor-not-allowed"
+        style={{ ...btnStyle, color: "var(--text-muted)" }}
+        aria-label="First page"
+      >
+        ««
+      </button>
+      {/* Previous */}
+      <button
+        onClick={() => goPage(page - 1)}
+        disabled={page === 0}
+        className="hover:opacity-70 transition-opacity disabled:opacity-30 disabled:cursor-not-allowed"
+        style={{ ...btnStyle, color: "var(--text-muted)" }}
+        aria-label="Previous page"
+      >
+        ‹ Prev
+      </button>
+
+      {/* Page numbers */}
+      {pages.map((p, i) =>
+        p === "..." ? (
+          <span key={`dots-${i}`} style={{ ...btnStyle, color: "var(--text-muted)" }}>…</span>
+        ) : (
+          <button
+            key={p}
+            onClick={() => goPage(p)}
+            className={`rounded-md transition-colors ${p === page ? "font-semibold" : "hover:opacity-70"}`}
+            style={{
+              ...btnStyle,
+              color: p === page ? "var(--text-heading)" : "var(--text-muted)",
+              background: p === page ? "var(--bg-chip)" : "transparent",
+            }}
+          >
+            {p + 1}
+          </button>
+        )
+      )}
+
+      {/* Next */}
+      <button
+        onClick={() => goPage(page + 1)}
+        disabled={page >= totalPages - 1}
+        className="hover:opacity-70 transition-opacity disabled:opacity-30 disabled:cursor-not-allowed"
+        style={{ ...btnStyle, color: "var(--text-muted)" }}
+        aria-label="Next page"
+      >
+        Next ›
+      </button>
+      {/* Last */}
+      <button
+        onClick={() => goPage(totalPages - 1)}
+        disabled={page >= totalPages - 1}
+        className="hover:opacity-70 transition-opacity disabled:opacity-30 disabled:cursor-not-allowed"
+        style={{ ...btnStyle, color: "var(--text-muted)" }}
+        aria-label="Last page"
+      >
+        »»
+      </button>
+    </div>
+  );
+}
 
 export default function DatabasePage() {
   const [sortKey, setSortKey] = useState<SortKey>("name");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
   const [page, setPage] = useState(0);
   const tableRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   const rows = useMemo<FontRow[]>(() => {
-    // Precompute pair counts in one pass instead of calling getPairsWithFont per font
     const pairCounts = new Map<string, number>();
     for (const p of fontPairs) {
       pairCounts.set(p.headerFontId, (pairCounts.get(p.headerFontId) || 0) + 1);
@@ -68,7 +152,6 @@ export default function DatabasePage() {
   const totalPages = Math.ceil(sorted.length / PAGE_SIZE);
   const pageRows = sorted.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
-  // Load fonts for current page only
   useEffect(() => {
     let cancelled = false;
     async function loadPageFonts() {
@@ -86,17 +169,12 @@ export default function DatabasePage() {
   useEffect(() => { setPage(0); }, [sortKey, sortDir]);
 
   const toggleSort = (key: SortKey) => {
-    if (sortKey === key) {
-      setSortDir(sortDir === "asc" ? "desc" : "asc");
-    } else {
-      setSortKey(key);
-      setSortDir("asc");
-    }
+    if (sortKey === key) setSortDir(sortDir === "asc" ? "desc" : "asc");
+    else { setSortKey(key); setSortDir("asc"); }
   };
 
   const goPage = (p: number) => {
     setPage(p);
-    // Scroll to the top of the table with gap below nav
     if (tableRef.current) {
       const headerHeight = 57;
       const gap = 16;
@@ -106,20 +184,11 @@ export default function DatabasePage() {
   };
 
   const arrow = (key: SortKey) =>
-    sortKey === key ? (sortDir === "asc" ? " \u25B2" : " \u25BC") : "";
+    sortKey === key ? (sortDir === "asc" ? " ▲" : " ▼") : "";
 
-  const thClass = "text-left uppercase tracking-wider text-neutral-400 cursor-pointer hover:text-neutral-600 select-none";
-  const thStyle = { fontSize: "12px", padding: "16px", whiteSpace: "nowrap" as const };
-
-  const colgroup = (
-    <colgroup>
-      <col style={{ width: "20%" }} />
-      <col style={{ width: "30%" }} />
-      <col style={{ width: "15%" }} />
-      <col style={{ width: "10%" }} />
-      <col style={{ width: "25%" }} />
-    </colgroup>
-  );
+  const thClass = "text-left uppercase tracking-wider cursor-pointer hover:opacity-70 select-none";
+  const thStyle = { fontSize: "12px", padding: "16px", whiteSpace: "nowrap" as const, color: "var(--text-label)" };
+  const headerFooterBg = "var(--bg-chip)";
 
   return (
     <div className="flex-1 flex flex-col">
@@ -136,11 +205,10 @@ export default function DatabasePage() {
         >
           Font database
         </h2>
-        <p className="text-neutral-500" style={{ fontSize: "16px", marginBottom: "24px" }}>
+        <p style={{ fontSize: "16px", color: "var(--text-muted)", marginBottom: "24px" }}>
           {rows.length} fonts currently in the collection
         </p>
 
-        {/* Table — fixed header, scrollable body, all inside one rounded container */}
         <div
           ref={tableRef}
           style={{
@@ -152,35 +220,59 @@ export default function DatabasePage() {
           className="db-table-container"
         >
           {/* Sticky table header */}
-          <div className="db-sticky-header" style={{ position: "sticky", zIndex: 10, background: "var(--bg-card)", borderBottom: "1px solid var(--divider)" }}>
-            <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed" }}>
-              {colgroup}
-              <thead>
-                <tr>
-                  <th onClick={() => toggleSort("name")} className={thClass} style={thStyle}>
-                    Font name{arrow("name")}
-                  </th>
-                  <th className="text-left uppercase tracking-wider text-neutral-400" style={thStyle}>
-                    Specimen
-                  </th>
-                  <th onClick={() => toggleSort("category")} className={thClass} style={thStyle}>
-                    Category{arrow("category")}
-                  </th>
-                  <th onClick={() => toggleSort("pairs")} className={thClass} style={{ ...thStyle, textAlign: "right" }}>
-                    Pairs{arrow("pairs")}
-                  </th>
-                  <th onClick={() => toggleSort("source")} className={thClass} style={{ ...thStyle, textAlign: "right" }}>
-                    Source{arrow("source")}
-                  </th>
-                </tr>
-              </thead>
-            </table>
+          <div
+            className="db-sticky-header"
+            style={{
+              position: "sticky",
+              zIndex: 10,
+              background: headerFooterBg,
+              borderBottom: "1px solid var(--divider)",
+              borderRadius: "10px 10px 0 0",
+            }}
+          >
+            {/* Horizontal scroll wrapper for mobile */}
+            <div style={{ overflowX: "auto" }}>
+              <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed", minWidth: "800px" }}>
+                <colgroup>
+                  <col style={{ width: "20%" }} />
+                  <col style={{ width: "30%" }} />
+                  <col style={{ width: "15%" }} />
+                  <col style={{ width: "10%" }} />
+                  <col style={{ width: "25%" }} />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th onClick={() => toggleSort("name")} className={thClass} style={thStyle}>
+                      Font name{arrow("name")}
+                    </th>
+                    <th className="text-left uppercase tracking-wider" style={{ ...thStyle, cursor: "default" }}>
+                      Specimen
+                    </th>
+                    <th onClick={() => toggleSort("category")} className={thClass} style={thStyle}>
+                      Category{arrow("category")}
+                    </th>
+                    <th onClick={() => toggleSort("pairs")} className={thClass} style={{ ...thStyle, textAlign: "right" }}>
+                      Pairs{arrow("pairs")}
+                    </th>
+                    <th onClick={() => toggleSort("source")} className={thClass} style={{ ...thStyle, textAlign: "right" }}>
+                      Source{arrow("source")}
+                    </th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
           </div>
 
-          {/* Table body */}
-          <div style={{ background: "var(--bg-card)" }}>
-            <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed" }}>
-              {colgroup}
+          {/* Table body — horizontal scroll for mobile */}
+          <div style={{ overflowX: "auto", background: "var(--bg-card)" }}>
+            <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed", minWidth: "800px" }}>
+              <colgroup>
+                <col style={{ width: "20%" }} />
+                <col style={{ width: "30%" }} />
+                <col style={{ width: "15%" }} />
+                <col style={{ width: "10%" }} />
+                <col style={{ width: "25%" }} />
+              </colgroup>
               <tbody>
                 {pageRows.map((row, i) => (
                   <tr
@@ -235,30 +327,18 @@ export default function DatabasePage() {
 
           {/* Pagination footer */}
           <div
-            style={{ borderTop: "1px solid var(--divider)", padding: "16px 24px", background: "var(--bg-card)" }}
-            className="flex items-center justify-between"
+            style={{
+              borderTop: "1px solid var(--divider)",
+              padding: "16px 24px",
+              background: headerFooterBg,
+              borderRadius: "0 0 10px 10px",
+            }}
+            className="flex items-center justify-between flex-wrap"
           >
             <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
               {page * PAGE_SIZE + 1}–{Math.min((page + 1) * PAGE_SIZE, sorted.length)} of {sorted.length}
             </p>
-            <div className="flex items-center" style={{ gap: "8px" }}>
-              <button
-                onClick={() => goPage(page - 1)}
-                disabled={page === 0}
-                className="outline-btn font-medium rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                style={{ fontSize: "16px", padding: "8px 16px" }}
-              >
-                Previous
-              </button>
-              <button
-                onClick={() => goPage(page + 1)}
-                disabled={page >= totalPages - 1}
-                className="outline-btn font-medium rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                style={{ fontSize: "16px", padding: "8px 16px" }}
-              >
-                Next
-              </button>
-            </div>
+            <Pagination page={page} totalPages={totalPages} goPage={goPage} />
           </div>
         </div>
       </main>
