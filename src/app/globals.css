@@ -687,13 +687,17 @@ body.animations-paused #water-bg * {
   }
 }
 
+/* Database: overflow-clip allows sticky to work while clipping content */
+.db-table-container {
+  overflow: clip;
+}
 /* Database table sticky header — sits below the page header with gap */
 .db-sticky-header {
-  top: 73px;  /* header ~57px + 16px gap */
+  top: 73px;
 }
 @media (max-width: 639px) {
   .db-sticky-header {
-    top: 65px;
+    top: 57px;
   }
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import { fonts } from "@/data/fonts";
 import { getPairsWithFont } from "@/lib/engine";
@@ -29,6 +29,8 @@ export default function DatabasePage() {
   const [sortKey, setSortKey] = useState<SortKey>("name");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
   const [page, setPage] = useState(0);
+  const tableRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const rows = useMemo<FontRow[]>(() =>
     fonts.map((f) => ({
@@ -75,7 +77,6 @@ export default function DatabasePage() {
     return () => { cancelled = true; };
   }, [page, sortKey, sortDir]);
 
-  // Reset to page 0 when sort changes
   useEffect(() => { setPage(0); }, [sortKey, sortDir]);
 
   const toggleSort = (key: SortKey) => {
@@ -87,16 +88,32 @@ export default function DatabasePage() {
     }
   };
 
+  const goPage = (p: number) => {
+    setPage(p);
+    // Scroll to the top of the table with gap below nav
+    if (tableRef.current) {
+      const headerHeight = 57;
+      const gap = 16;
+      const top = tableRef.current.getBoundingClientRect().top + window.scrollY - headerHeight - gap;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  };
+
   const arrow = (key: SortKey) =>
     sortKey === key ? (sortDir === "asc" ? " \u25B2" : " \u25BC") : "";
 
   const thClass = "text-left uppercase tracking-wider text-neutral-400 cursor-pointer hover:text-neutral-600 select-none";
   const thStyle = { fontSize: "12px", padding: "16px", whiteSpace: "nowrap" as const };
 
-  const goPage = (p: number) => {
-    setPage(p);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const colgroup = (
+    <colgroup>
+      <col style={{ width: "20%" }} />
+      <col style={{ width: "30%" }} />
+      <col style={{ width: "15%" }} />
+      <col style={{ width: "10%" }} />
+      <col style={{ width: "25%" }} />
+    </colgroup>
+  );
 
   return (
     <div className="flex-1 flex flex-col">
@@ -117,29 +134,21 @@ export default function DatabasePage() {
           {rows.length} fonts currently in the collection
         </p>
 
-        {/* Table container with section background */}
+        {/* Table — fixed header, scrollable body, all inside one rounded container */}
         <div
-          style={{ background: "var(--bg-card)", border: "2px solid var(--border)", borderRadius: "12px", position: "relative", zIndex: 1 }}
+          ref={tableRef}
+          style={{
+            border: "2px solid var(--border)",
+            borderRadius: "12px",
+            position: "relative",
+            zIndex: 1,
+          }}
+          className="db-table-container"
         >
-          {/* Sticky column headers */}
-          <div
-            className="db-sticky-header"
-            style={{
-              position: "sticky",
-              zIndex: 10,
-              background: "var(--bg-card)",
-              borderBottom: "1px solid var(--divider)",
-              borderRadius: "10px 10px 0 0",
-            }}
-          >
+          {/* Sticky table header */}
+          <div className="db-sticky-header" style={{ position: "sticky", zIndex: 10, background: "var(--bg-card)", borderBottom: "1px solid var(--divider)" }}>
             <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed" }}>
-              <colgroup>
-                <col style={{ width: "20%" }} />
-                <col style={{ width: "30%" }} />
-                <col style={{ width: "15%" }} />
-                <col style={{ width: "10%" }} />
-                <col style={{ width: "25%" }} />
-              </colgroup>
+              {colgroup}
               <thead>
                 <tr>
                   <th onClick={() => toggleSort("name")} className={thClass} style={thStyle}>
@@ -151,7 +160,7 @@ export default function DatabasePage() {
                   <th onClick={() => toggleSort("category")} className={thClass} style={thStyle}>
                     Category{arrow("category")}
                   </th>
-                  <th onClick={() => toggleSort("pairs")} className={thClass + " !text-right"} style={{ ...thStyle, textAlign: "right" }}>
+                  <th onClick={() => toggleSort("pairs")} className={thClass} style={{ ...thStyle, textAlign: "right" }}>
                     Pairs{arrow("pairs")}
                   </th>
                   <th onClick={() => toggleSort("source")} className={thClass} style={{ ...thStyle, textAlign: "right" }}>
@@ -163,66 +172,62 @@ export default function DatabasePage() {
           </div>
 
           {/* Table body */}
-          <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed" }}>
-            <colgroup>
-              <col style={{ width: "20%" }} />
-              <col style={{ width: "30%" }} />
-              <col style={{ width: "15%" }} />
-              <col style={{ width: "10%" }} />
-              <col style={{ width: "25%" }} />
-            </colgroup>
-            <tbody>
-              {pageRows.map((row, i) => (
-                <tr
-                  key={row.slug + "-" + i}
-                  style={i < pageRows.length - 1 ? { borderBottom: "1px solid var(--divider)" } : undefined}
-                >
-                  <td style={{ padding: "16px" }}>
-                    <Link
-                      href={`/font?f=${row.slug}`}
-                      className="font-medium hover:opacity-70 transition-opacity"
-                      style={{ fontSize: "16px", color: "var(--text-heading)" }}
-                    >
-                      {row.name}
-                    </Link>
-                  </td>
-                  <td
-                    style={{
-                      padding: "16px",
-                      fontFamily: row.family,
-                      fontSize: "16px",
-                      lineHeight: 1.4,
-                      color: "var(--text-body)",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
+          <div style={{ background: "var(--bg-card)" }}>
+            <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed" }}>
+              {colgroup}
+              <tbody>
+                {pageRows.map((row, i) => (
+                  <tr
+                    key={row.slug + "-" + i}
+                    style={i < pageRows.length - 1 ? { borderBottom: "1px solid var(--divider)" } : undefined}
                   >
-                    ABCDEFGHIJKLMNOPQRSTUVWXYZ
-                  </td>
-                  <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>
-                    {row.category}
-                  </td>
-                  <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", textAlign: "right" }} className="tabular-nums">
-                    {row.pairCount}
-                  </td>
-                  <td style={{ padding: "16px", textAlign: "right" }}>
-                    <a
-                      href={row.sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="outline-btn font-medium rounded-lg transition-colors inline-block"
-                      style={{ fontSize: "16px", padding: "8px 24px", whiteSpace: "nowrap" }}
+                    <td style={{ padding: "16px" }}>
+                      <Link
+                        href={`/font?f=${row.slug}`}
+                        className="font-medium hover:opacity-70 transition-opacity"
+                        style={{ fontSize: "16px", color: "var(--text-heading)" }}
+                      >
+                        {row.name}
+                      </Link>
+                    </td>
+                    <td
+                      style={{
+                        padding: "16px",
+                        fontFamily: row.family,
+                        fontSize: "16px",
+                        lineHeight: 1.4,
+                        color: "var(--text-body)",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
                     >
-                      {row.sourceLabel} ↗
-                    </a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                      ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                    </td>
+                    <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+                      {row.category}
+                    </td>
+                    <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", textAlign: "right" }} className="tabular-nums">
+                      {row.pairCount}
+                    </td>
+                    <td style={{ padding: "16px", textAlign: "right" }}>
+                      <a
+                        href={row.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="outline-btn font-medium rounded-lg transition-colors inline-block"
+                        style={{ fontSize: "16px", padding: "8px 24px", whiteSpace: "nowrap" }}
+                      >
+                        {row.sourceLabel} ↗
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-          {/* Pagination */}
+          {/* Pagination footer */}
           <div
             style={{ borderTop: "1px solid var(--divider)", padding: "16px 24px", background: "var(--bg-card)" }}
             className="flex items-center justify-between"
