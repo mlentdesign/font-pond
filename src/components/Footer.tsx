@@ -25,7 +25,7 @@ export function Footer() {
       {/* Left side — tagline + copyright + about */}
       <div className="footer-left flex items-center flex-wrap">
         <p className="footer-tagline" style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
-          Free font combinations for real design work.
+          Free font combinations for real design work
         </p>
         <p style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
           &copy; 2026{" "}
