@@ -414,8 +414,8 @@ export default function DatabasePage() {
             </div>
           </div>
 
-          {/* Table body — horizontal scroll for mobile */}
-          <div style={{ overflowX: "auto", background: "var(--bg-card)" }}>
+          {/* Table body — horizontal scroll for mobile, z-index below sticky header */}
+          <div style={{ overflowX: "auto", background: "var(--bg-card)", position: "relative", zIndex: 1 }}>
             <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed", minWidth: "800px" }}>
               <colgroup>
                 <col style={{ width: "20%" }} />
