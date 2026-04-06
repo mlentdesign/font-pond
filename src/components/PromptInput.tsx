@@ -120,66 +120,84 @@ export function PromptInput() {
         className="prompt-container rounded-xl transition-all overflow-hidden"
         style={{ background: "var(--bg-card)", boxShadow: "var(--shadow-input)", border: "2px solid var(--border)" }}
       >
-        {/* Textarea */}
-        <div style={{ position: "relative" }}>
-          <textarea
-            ref={textareaRef}
-            value={query}
-            onChange={(e) => { setQuery(e.target.value); autoResize(); }}
-            onKeyDown={handleKeyDown}
-            placeholder=" "
-            className="w-full bg-transparent resize-none outline-none"
-            style={{ fontSize: "16px", color: "var(--text-heading)", padding: "24px", minHeight: "56px", overflow: "hidden" }}
-            aria-label="Describe your project mood or style"
-          />
-          {/* Animated placeholder with rotating suggestions — inline after "Try things like" */}
-          {query.trim().length === 0 && (
-            <div
-              className="pointer-events-none absolute"
-              style={{
-                top: "24px",
-                left: "24px",
-                right: "24px",
-                fontSize: "16px",
-                color: "var(--text-placeholder)",
-              }}
-            >
-              <span>Try things like </span>
-              <span
+        {/* Textarea wrapper — focus ring wraps only this area */}
+        <div className="prompt-textarea-wrap" style={{ border: "2px solid transparent", margin: "-2px", marginBottom: "0" }}>
+          <div style={{ position: "relative" }}>
+            <textarea
+              ref={textareaRef}
+              value={query}
+              onChange={(e) => { setQuery(e.target.value); autoResize(); }}
+              onKeyDown={handleKeyDown}
+              placeholder=" "
+              className="w-full bg-transparent resize-none outline-none"
+              style={{ fontSize: "16px", color: "var(--text-heading)", padding: "24px", minHeight: "56px", overflow: "hidden" }}
+              aria-label="Describe your project mood or style"
+            />
+            {/* Animated placeholder with rotating suggestions — inline after "Try things like" */}
+            {query.trim().length === 0 && (
+              <div
+                className="pointer-events-none absolute"
                 style={{
-                  transition: "opacity 0.3s",
-                  opacity: animating ? 0 : 1,
+                  top: "24px",
+                  left: "24px",
+                  right: "24px",
+                  fontSize: "16px",
+                  color: "var(--text-placeholder)",
                 }}
               >
-                {SUGGESTION_SETS[suggestionIndex]}
-              </span>
+                <span>Try things like </span>
+                <span
+                  style={{
+                    transition: "opacity 0.3s",
+                    opacity: animating ? 0 : 1,
+                  }}
+                >
+                  {SUGGESTION_SETS[suggestionIndex]}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Image previews */}
+          {imagePreviews.length > 0 && (
+            <div className="flex flex-wrap" style={{ gap: "8px", padding: "0 24px 8px" }}>
+              {imagePreviews.map((url, i) => (
+                <div key={i} className="relative group">
+                  <img
+                    src={url}
+                    alt={`Reference ${i + 1}`}
+                    className="rounded-lg object-cover"
+                    style={{ width: "48px", height: "48px", border: "2px solid var(--border)" }}
+                  />
+                  <button
+                    onClick={() => handleRemoveImage(i)}
+                    className="absolute rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
+                    style={{ top: "-8px", right: "-8px", width: "24px", height: "24px", background: "var(--btn-bg)", color: "var(--btn-text)", fontSize: "16px" }}
+                    aria-label={`Remove image ${i + 1}`}
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
             </div>
           )}
-        </div>
 
-        {/* Image previews */}
-        {imagePreviews.length > 0 && (
-          <div className="flex flex-wrap" style={{ gap: "8px", padding: "0 24px 8px" }}>
-            {imagePreviews.map((url, i) => (
-              <div key={i} className="relative group">
-                <img
-                  src={url}
-                  alt={`Reference ${i + 1}`}
-                  className="rounded-lg object-cover"
-                  style={{ width: "48px", height: "48px", border: "2px solid var(--border)" }}
-                />
-                <button
-                  onClick={() => handleRemoveImage(i)}
-                  className="absolute rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
-                  style={{ top: "-8px", right: "-8px", width: "24px", height: "24px", background: "var(--btn-bg)", color: "var(--btn-text)", fontSize: "16px" }}
-                  aria-label={`Remove image ${i + 1}`}
-                >
-                  ×
-                </button>
-              </div>
-            ))}
+          {/* Mobile-only "Add image" — inside the text field area */}
+          <div className="mobile-add-image items-center" style={{ padding: "8px 24px 16px" }}>
+            <label
+              htmlFor="image-upload"
+              className="flex items-center rounded-lg cursor-pointer transition-colors hover:opacity-70"
+              style={{ fontSize: "16px", fontWeight: 600, color: "var(--add-image-color)", gap: "4px" }}
+            >
+              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" className="shrink-0">
+                <rect x="1.5" y="2.5" width="13" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="5" cy="6" r="1.25" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M1.5 11l3.5-3.5L8 10.5l2.5-2.5 4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Add image
+            </label>
           </div>
-        )}
+        </div>
 
         {/* Bottom bar */}
         <div
