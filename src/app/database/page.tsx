@@ -89,9 +89,14 @@ export default function DatabasePage() {
   const [sortDir, setSortDir] = useState<SortDir>("asc");
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [categoryFilters, setCategoryFilters] = useState<Set<string>>(new Set());
+  const [sourceFilters, setSourceFilters] = useState<Set<string>>(new Set());
   const tableRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
+  const filterRef = useRef<HTMLDivElement>(null);
   const [stickyTop, setStickyTop] = useState(100);
+  const [searchExpanded, setSearchExpanded] = useState(false);
 
   // Measure actual header height to position sticky header correctly
   useEffect(() => {
@@ -121,6 +126,28 @@ export default function DatabasePage() {
     }));
   }, []);
 
+  const uniqueCategories = useMemo(() => [...new Set(rows.map((r) => r.category))].sort(), [rows]);
+  const uniqueSources = useMemo(() => [...new Set(rows.map((r) => r.sourceLabel))].sort(), [rows]);
+
+  // Close filter dropdown on outside click
+  useEffect(() => {
+    if (!filterOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (filterRef.current && !filterRef.current.contains(e.target as Node)) setFilterOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [filterOpen]);
+
+  const toggleCategory = (c: string) => {
+    setCategoryFilters((prev) => { const next = new Set(prev); next.has(c) ? next.delete(c) : next.add(c); return next; });
+  };
+  const toggleSource = (s: string) => {
+    setSourceFilters((prev) => { const next = new Set(prev); next.has(s) ? next.delete(s) : next.add(s); return next; });
+  };
+
+  const activeFilterCount = categoryFilters.size + sourceFilters.size;
+
   const sorted = useMemo(() => {
     const copy = [...rows];
     copy.sort((a, b) => {
@@ -135,14 +162,23 @@ export default function DatabasePage() {
   }, [rows, sortKey, sortDir]);
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return sorted;
-    const q = search.toLowerCase();
-    return sorted.filter((r) =>
-      r.name.toLowerCase().includes(q) ||
-      r.category.toLowerCase().includes(q) ||
-      r.sourceLabel.toLowerCase().includes(q)
-    );
-  }, [sorted, search]);
+    let result = sorted;
+    if (categoryFilters.size > 0) {
+      result = result.filter((r) => categoryFilters.has(r.category));
+    }
+    if (sourceFilters.size > 0) {
+      result = result.filter((r) => sourceFilters.has(r.sourceLabel));
+    }
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      result = result.filter((r) =>
+        r.name.toLowerCase().includes(q) ||
+        r.category.toLowerCase().includes(q) ||
+        r.sourceLabel.toLowerCase().includes(q)
+      );
+    }
+    return result;
+  }, [sorted, search, categoryFilters, sourceFilters]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const pageRows = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
@@ -161,7 +197,7 @@ export default function DatabasePage() {
     return () => { cancelled = true; };
   }, [page, sortKey, sortDir]);
 
-  useEffect(() => { setPage(0); }, [sortKey, sortDir, search]);
+  useEffect(() => { setPage(0); }, [sortKey, sortDir, search, categoryFilters, sourceFilters]);
 
   const toggleSort = (key: SortKey) => {
     if (sortKey === key) setSortDir(sortDir === "asc" ? "desc" : "asc");
@@ -193,7 +229,7 @@ export default function DatabasePage() {
         style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}
       >
         <div className="flex items-start justify-between flex-wrap" style={{ gap: "16px", marginBottom: "24px" }}>
-          <div>
+          <div style={{ minWidth: 0 }}>
             <h2
               className="font-semibold tracking-tight"
               style={{ color: "var(--text-heading)", fontSize: "24px", marginBottom: "4px" }}
@@ -201,34 +237,113 @@ export default function DatabasePage() {
               Font database
             </h2>
             <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
-              {search.trim() ? `${filtered.length} of ${rows.length} fonts` : `${rows.length} fonts in the collection`}
+              {search.trim() || activeFilterCount > 0 ? `${filtered.length} of ${rows.length} fonts` : `${rows.length} fonts in the collection`}
             </p>
           </div>
-          <div className="db-search-wrap" style={{ position: "relative", width: "240px", maxWidth: "100%", transition: "width 0.2s" }}>
-            {!search && (
-              <svg
-                width="20" height="20" viewBox="0 0 20 20" fill="none"
-                style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", pointerEvents: "none", color: "var(--text-muted)" }}
+          <div className="flex items-center" style={{ gap: "8px", flex: searchExpanded ? "1" : "none", maxWidth: searchExpanded ? "100%" : "none", marginLeft: searchExpanded ? "24px" : "0", transition: "flex 0.2s, margin 0.2s" }}>
+            {/* Filter button */}
+            <div ref={filterRef} style={{ position: "relative" }}>
+              <button
+                onClick={() => setFilterOpen(!filterOpen)}
+                className="flex items-center justify-center rounded-lg transition-colors hover:opacity-70"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  background: "var(--bg-input)",
+                  border: "2px solid var(--border)",
+                  cursor: "pointer",
+                  color: activeFilterCount > 0 ? "var(--accent)" : "var(--text-muted)",
+                  flexShrink: 0,
+                }}
+                aria-label="Filter fonts"
               >
-                <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-            )}
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search fonts..."
-              className="db-search-input rounded-lg outline-none transition-all w-full"
-              style={{
-                fontSize: "16px",
-                padding: search ? "8px 16px" : "8px 16px 8px 40px",
-                background: "var(--bg-input)",
-                color: "var(--text-heading)",
-                boxShadow: "var(--shadow-input)",
-                border: "2px solid var(--border)",
-              }}
-            />
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M2 4h16M5 10h10M8 16h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </button>
+
+              {/* Filter dropdown */}
+              {filterOpen && (
+                <div
+                  className="absolute right-0 rounded-xl shadow-lg"
+                  style={{
+                    top: "calc(100% + 8px)",
+                    background: "var(--bg-card)",
+                    border: "2px solid var(--border)",
+                    padding: "16px",
+                    width: "240px",
+                    zIndex: 50,
+                  }}
+                >
+                  <p className="uppercase tracking-wider font-medium" style={{ fontSize: "12px", color: "var(--text-label)", marginBottom: "8px" }}>Category</p>
+                  <div style={{ marginBottom: "16px" }}>
+                    {uniqueCategories.map((c) => (
+                      <label key={c} className="flex items-center cursor-pointer hover:opacity-70" style={{ gap: "8px", padding: "4px 0", fontSize: "16px", color: "var(--text-body)" }}>
+                        <input
+                          type="checkbox"
+                          checked={categoryFilters.has(c)}
+                          onChange={() => toggleCategory(c)}
+                          style={{ accentColor: "var(--accent)" }}
+                        />
+                        {titleCase(c)}
+                      </label>
+                    ))}
+                  </div>
+                  <p className="uppercase tracking-wider font-medium" style={{ fontSize: "12px", color: "var(--text-label)", marginBottom: "8px" }}>Source</p>
+                  <div>
+                    {uniqueSources.map((s) => (
+                      <label key={s} className="flex items-center cursor-pointer hover:opacity-70" style={{ gap: "8px", padding: "4px 0", fontSize: "16px", color: "var(--text-body)" }}>
+                        <input
+                          type="checkbox"
+                          checked={sourceFilters.has(s)}
+                          onChange={() => toggleSource(s)}
+                          style={{ accentColor: "var(--accent)" }}
+                        />
+                        {s}
+                      </label>
+                    ))}
+                  </div>
+                  {activeFilterCount > 0 && (
+                    <button
+                      onClick={() => { setCategoryFilters(new Set()); setSourceFilters(new Set()); }}
+                      className="hover:opacity-70 transition-opacity"
+                      style={{ fontSize: "16px", color: "var(--accent)", marginTop: "12px", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+                    >
+                      Clear all filters
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Search field */}
+            <div style={{ position: "relative", flex: searchExpanded ? "1" : "none", width: searchExpanded ? "auto" : "240px", maxWidth: "100%", transition: "flex 0.2s" }}>
+              {!search && (
+                <svg
+                  width="20" height="20" viewBox="0 0 20 20" fill="none"
+                  style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", pointerEvents: "none", color: "var(--text-muted)" }}
+                >
+                  <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              )}
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onFocus={() => setSearchExpanded(true)}
+                placeholder="Search fonts..."
+                className="db-search-input rounded-lg outline-none transition-all w-full"
+                style={{
+                  fontSize: "16px",
+                  padding: search ? "8px 16px" : "8px 16px 8px 40px",
+                  background: "var(--bg-input)",
+                  color: "var(--text-heading)",
+                  boxShadow: "var(--shadow-input)",
+                  border: "2px solid var(--border)",
+                }}
+              />
+            </div>
           </div>
         </div>
 
