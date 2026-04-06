@@ -156,7 +156,7 @@ export default function PairDetailPage() {
           </p>
 
           {/* Preview settings */}
-          <div className="mt-6 pt-6 border-t border-neutral-100" style={{ marginLeft: "-24px", marginRight: "-24px", paddingLeft: "24px", paddingRight: "24px" }}>
+          <div className="mt-6">
             <SampleTextInputs alwaysShow />
           </div>
 
