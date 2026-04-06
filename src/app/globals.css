@@ -687,7 +687,7 @@ body.animations-paused #water-bg * {
   }
 }
 
-/* Database sticky header — ::before covers the gap above to clip scrolling rows */
+/* Database sticky header — ::before covers the gap between nav and header */
 .db-sticky-clip {
   position: relative;
 }
@@ -697,7 +697,7 @@ body.animations-paused #water-bg * {
   bottom: 100%;
   left: -4px;
   right: -4px;
-  height: 200px;
+  height: 60px;
   background: var(--bg);
   pointer-events: none;
 }
