@@ -25,12 +25,13 @@ interface FontRow {
 
 const PAGE_SIZE = 50;
 const PAGE_WINDOW = 3; // pages shown on each side of current
+const PAGE_WINDOW_MOBILE = 1; // fewer pages on mobile
 
-function Pagination({ page, totalPages, goPage }: { page: number; totalPages: number; goPage: (p: number) => void }) {
+function Pagination({ page, totalPages, goPage, pageWindow }: { page: number; totalPages: number; goPage: (p: number) => void; pageWindow: number }) {
   const pages: (number | "...")[] = [];
   pages.push(0);
-  const rangeStart = Math.max(1, page - PAGE_WINDOW);
-  const rangeEnd = Math.min(totalPages - 2, page + PAGE_WINDOW);
+  const rangeStart = Math.max(1, page - pageWindow);
+  const rangeEnd = Math.min(totalPages - 2, page + pageWindow);
   if (rangeStart > 1) pages.push("...");
   for (let i = rangeStart; i <= rangeEnd; i++) pages.push(i);
   if (rangeEnd < totalPages - 2) pages.push("...");
@@ -39,7 +40,7 @@ function Pagination({ page, totalPages, goPage }: { page: number; totalPages: nu
   const btnStyle = { fontSize: "16px", padding: "4px 8px", minWidth: "32px", textAlign: "center" as const, background: "none", border: "none", cursor: "pointer" };
 
   return (
-    <div className="flex items-center flex-wrap" style={{ gap: "2px" }}>
+    <div className="flex items-center flex-wrap db-pagination" style={{ gap: "2px" }}>
       <button
         onClick={() => goPage(page - 1)}
         disabled={page === 0}
@@ -97,6 +98,15 @@ export default function DatabasePage() {
   const filterRef = useRef<HTMLDivElement>(null);
   const [stickyTop, setStickyTop] = useState(100);
   const [searchExpanded, setSearchExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Track mobile viewport
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   // Measure actual header height and set responsive gap
   useEffect(() => {
@@ -261,7 +271,7 @@ export default function DatabasePage() {
               {search.trim() || activeFilterCount > 0 ? `${filtered.length} of ${rows.length} fonts` : `${rows.length} fonts in the collection`}
             </p>
           </div>
-          <div className="flex items-center" style={{ gap: "8px", flex: searchExpanded ? "1" : "none", maxWidth: searchExpanded ? "100%" : "none", marginLeft: searchExpanded ? "24px" : "0", transition: "flex 0.2s, margin 0.2s" }}>
+          <div className="flex items-center db-search-row" style={{ gap: "8px", flex: searchExpanded && !isMobile ? "1" : "none", maxWidth: searchExpanded && !isMobile ? "100%" : "none", marginLeft: searchExpanded && !isMobile ? "24px" : "0", transition: "flex 0.2s, margin 0.2s" }}>
             {/* Filter button */}
             <div ref={filterRef} style={{ position: "relative" }}>
               <button
@@ -338,7 +348,7 @@ export default function DatabasePage() {
             </div>
 
             {/* Search field */}
-            <div style={{ position: "relative", flex: searchExpanded ? "1" : "none", width: searchExpanded ? "auto" : "240px", maxWidth: "100%", transition: "flex 0.2s" }}>
+            <div className="db-search-field" style={{ position: "relative", flex: searchExpanded || isMobile ? "1" : "none", width: searchExpanded || isMobile ? "auto" : "240px", maxWidth: "100%", transition: "flex 0.2s" }}>
               {!search && (
                 <svg
                   width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -451,6 +461,7 @@ export default function DatabasePage() {
                       </Link>
                     </td>
                     <td
+                      className="db-specimen"
                       style={{
                         padding: "16px",
                         fontFamily: row.family,
@@ -462,7 +473,7 @@ export default function DatabasePage() {
                         whiteSpace: "nowrap",
                       }}
                     >
-                      ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                      ABCDEFGHIJKLM<br className="db-specimen-break" />NOPQRSTUVWXYZ
                     </td>
                     <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>
                       {titleCase(row.category)}
@@ -496,12 +507,12 @@ export default function DatabasePage() {
               borderRadius: "0 0 12px 12px",
               minHeight: "56px",
             }}
-            className="flex items-center justify-between flex-wrap"
+            className="flex items-center justify-between flex-wrap db-pagination-footer"
           >
             <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
               {filtered.length > 0 ? `${page * PAGE_SIZE + 1}–${Math.min((page + 1) * PAGE_SIZE, filtered.length)} of ${filtered.length}` : "No results"}
             </p>
-            <Pagination page={page} totalPages={totalPages} goPage={goPage} />
+            <Pagination page={page} totalPages={totalPages} goPage={goPage} pageWindow={isMobile ? PAGE_WINDOW_MOBILE : PAGE_WINDOW} />
           </div>
         </div>
       </main>
