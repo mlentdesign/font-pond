@@ -37,6 +37,45 @@ function enrichTags(tags: string[], toneDescriptors: string[]): string[] {
   return [...new Set([...tags, ...extra])];
 }
 
+// ── Download URL overrides for fonts removed from DaFont ──
+const URL_OVERRIDES: Record<string, string> = {
+  "Ailerons": "https://www.fontspace.com/search?q=Ailerons",
+  "Alcubierre": "https://www.fontspace.com/search?q=Alcubierre",
+  "Anke": "https://www.fontspace.com/search?q=Anke+font",
+  "Arcon": "https://www.fontspace.com/search?q=Arcon",
+  "Army": "https://www.fontspace.com/search?q=Army+font",
+  "Baloo": "https://fonts.google.com/specimen/Baloo+2",
+  "Baloo Da": "https://fonts.google.com/specimen/Baloo+Da+2",
+  "Bernier": "https://www.fontspace.com/search?q=Bernier",
+  "Canter": "https://www.fontspace.com/search?q=Canter",
+  "Carbon Block": "https://www.fontspace.com/search?q=Carbon+Block",
+  "Champagne And Limousines": "https://www.fontspace.com/search?q=Champagne+Limousines",
+  "Cheddar Gothic": "https://www.fontspace.com/search?q=Cheddar+Gothic",
+  "Franchise": "https://www.1001fonts.com/franchise-font.html",
+  "Gagalin": "https://www.fontspace.com/search?q=Gagalin",
+  "Geared Slab": "https://www.fontspace.com/search?q=Geared+Slab",
+  "Gidolinya": "https://www.fontspace.com/search?q=Gidolinya",
+  "Hacked": "https://www.fontspace.com/search?q=Hacked+font",
+  "Hagin": "https://www.fontspace.com/search?q=Hagin",
+  "Lazer 84": "https://www.fontspace.com/search?q=Lazer+84",
+  "Lovelo": "https://www.fontspace.com/search?q=Lovelo",
+  "Metropolis 1920": "https://www.fontspace.com/search?q=Metropolis+1920",
+  "Mosk": "https://www.fontspace.com/search?q=Mosk",
+  "Norwester": "https://www.1001fonts.com/norwester-font.html",
+  "Outlaw": "https://www.fontspace.com/search?q=Outlaw+font",
+  "Perfograma": "https://www.fontspace.com/search?q=Perfograma",
+  "Qontra": "https://www.fontspace.com/search?q=Qontra",
+  "Quentin Caps": "https://www.fontspace.com/search?q=Quentin+Caps",
+  "Rainwood": "https://www.fontspace.com/search?q=Rainwood",
+  "Saginaw": "https://www.fontspace.com/search?q=Saginaw",
+  "Seaside Resort": "https://www.fontspace.com/search?q=Seaside+Resort",
+  "Tall Dark And Handsome": "https://www.fontspace.com/search?q=Tall+Dark+Handsome",
+  "Timber": "https://www.fontspace.com/search?q=Timber+font",
+  "Trash Hand": "https://www.fontspace.com/search?q=Trash+Hand",
+  "Typograph Pro": "https://www.fontspace.com/search?q=Typograph+Pro",
+  "Zero Hour": "https://www.fontspace.com/search?q=Zero+Hour",
+};
+
 // ── Factory ──
 
 function dafont(
@@ -61,7 +100,7 @@ function dafont(
     name,
     slug,
     source: "other",
-    sourceUrl: `https://www.dafont.com/${slug}.font`,
+    sourceUrl: URL_OVERRIDES[name] || `https://www.dafont.com/${slug}.font`,
     downloadUrl: null,
     specimenUrl: null,
     licenseType: opts?.licenseType ?? "Free",
@@ -199,17 +238,6 @@ export const dafontFonts: Font[] = [
 
   // ─── SCRIPT / FEMININE / HANDWRITTEN (~25) ───
 
-
-
-  dafont("Great Vibes", "script",
-    ["script", "elegant", "calligraphy", "formal", "flowing", "romantic", "ornate", "classic"],
-    ["elegant", "formal", "refined", "graceful"],
-    ["wedding", "formal event", "luxury brand", "certificate"],
-    ["classical calligraphic script", "generous ascender loops"],
-    { serifSansCategory: "script" }
-    // Also on Google Fonts
-  ),
-
   dafont("Sacramento", "script",
     ["script", "flowing", "casual", "elegant", "feminine", "light", "airy", "handwritten"],
     ["light", "breezy", "casual-elegant", "warm"],
@@ -219,38 +247,11 @@ export const dafontFonts: Font[] = [
     // Also on Google Fonts
   ),
 
-  dafont("Alex Brush", "script",
-    ["script", "brush", "calligraphy", "elegant", "flowing", "romantic", "formal"],
-    ["elegant", "refined", "romantic", "traditional"],
-    ["wedding invitation", "formal event", "beauty brand", "greeting card"],
-    ["brush-style calligraphic script", "formal yet warm"],
-    { serifSansCategory: "script" }
-    // Also on Google Fonts
-  ),
-
-  dafont("Dancing Script", "script",
-    ["script", "casual", "bouncy", "friendly", "handwritten", "lively", "fun", "feminine"],
-    ["lively", "casual", "cheerful", "friendly"],
-    ["greeting card", "casual invitation", "blog", "cafe menu"],
-    ["bouncing baseline", "lively casual script"],
-    { serifSansCategory: "script" }
-    // Also on Google Fonts
-  ),
-
   dafont("Pacifico", "script",
     ["script", "retro", "surf", "casual", "fun", "rounded", "friendly", "vintage"],
     ["fun", "retro", "laid-back", "sunny"],
     ["surf brand", "casual restaurant", "fun branding", "beach theme"],
     ["retro surf-culture script", "1950s casual vibe"],
-    { serifSansCategory: "script" }
-    // Also on Google Fonts
-  ),
-
-  dafont("Allura", "script",
-    ["script", "formal", "calligraphy", "elegant", "romantic", "flowing", "luxury"],
-    ["formal", "graceful", "sophisticated", "romantic"],
-    ["wedding", "formal invitation", "luxury brand", "certificate"],
-    ["formal calligraphic script", "delicate hairlines"],
     { serifSansCategory: "script" }
     // Also on Google Fonts
   ),
@@ -314,31 +315,12 @@ export const dafontFonts: Font[] = [
     { serifSansCategory: "script" }
   ),
 
-  dafont("Euphoria Script", "script",
-    ["script", "joyful", "bouncy", "feminine", "lively", "fun", "calligraphy", "upbeat"],
-    ["joyful", "energetic", "celebratory", "playful"],
-    ["party invitation", "celebration poster", "fun branding", "festive"],
-    ["bouncy joyful script", "celebratory energy"],
-    { serifSansCategory: "script" }
-    // Also on Google Fonts
-  ),
-
   dafont("Milkshake", "script",
     ["script", "thick", "retro", "fun", "bold", "rounded", "casual", "friendly"],
     ["fun", "retro", "friendly", "casual"],
     ["food brand", "retro diner", "fun poster", "casual branding"],
     ["thick retro casual script", "milkshake-era nostalgia"],
     { serifSansCategory: "script" }
-  ),
-
-
-  dafont("Amatic SC", "handwritten",
-    ["handwritten", "condensed", "narrow", "quirky", "tall", "simple", "sketchy", "artsy"],
-    ["quirky", "artsy", "casual", "hand-drawn"],
-    ["indie film", "craft brand", "art poster", "quirky heading"],
-    ["tall narrow hand-drawn caps", "sketchy charm"],
-    { serifSansCategory: "display" }
-    // Also on Google Fonts
   ),
 
   dafont("Love Ya Like A Sister", "handwritten",
@@ -358,15 +340,6 @@ export const dafontFonts: Font[] = [
     // Also on Google Fonts
   ),
 
-  dafont("Arizonia", "script",
-    ["script", "elegant", "formal", "flowing", "calligraphy", "wedding", "romantic"],
-    ["elegant", "romantic", "flowing", "refined"],
-    ["wedding", "beauty brand", "elegant heading", "invitation"],
-    ["flowing formal calligraphic script", "refined curves"],
-    { serifSansCategory: "script" }
-    // Also on Google Fonts
-  ),
-
   // ─── RETRO / VINTAGE (~20) ───
 
   dafont("Groovy", "display",
@@ -381,22 +354,6 @@ export const dafontFonts: Font[] = [
     ["warm", "friendly", "retro", "approachable"],
     ["restaurant", "food brand", "retro heading", "casual branding"],
     ["bold connected display", "retro sign-painting influence"],
-    // Also on Google Fonts
-  ),
-
-  dafont("Righteous", "display",
-    ["retro", "geometric", "70s", "rounded", "bold", "groovy", "warm", "display"],
-    ["groovy", "confident", "retro", "bold"],
-    ["70s branding", "retro poster", "music festival", "vintage shop"],
-    ["geometric 70s display", "rounded retro forms"],
-    // Also on Google Fonts
-  ),
-
-  dafont("Bungee Shade", "display",
-    ["retro", "3d", "layered", "sign", "bold", "decorative", "vintage", "dimensional"],
-    ["bold", "dimensional", "eye-catching", "retro"],
-    ["poster", "signage", "display heading", "event branding"],
-    ["layered 3D sign-painting style", "multiple design layers"],
     // Also on Google Fonts
   ),
   dafont("Edo SZ", "display",
@@ -479,15 +436,6 @@ export const dafontFonts: Font[] = [
     ["rugged", "vintage", "masculine", "classic"],
     ["vintage poster", "masculine branding", "adventure", "classic heading"],
     ["weathered vintage display", "classic rugged charm"],
-  ),
-
-
-  dafont("Henny Penny", "display",
-    ["retro", "whimsical", "quirky", "decorative", "storybook", "playful", "charming"],
-    ["whimsical", "charming", "storybook", "quirky"],
-    ["children's book", "fairy tale", "whimsical brand", "storybook heading"],
-    ["whimsical storybook display", "fairy-tale charm"],
-    // Also on Google Fonts
   ),
 
   // ─── GOTHIC / BLACKLETTER (~15) ───
@@ -650,14 +598,6 @@ export const dafontFonts: Font[] = [
 
   // ─── CUTE / BUBBLY / KAWAII (~20) ───
 
-  dafont("Bubblegum Sans", "display",
-    ["cute", "bubbly", "rounded", "fun", "playful", "friendly", "pop", "soft"],
-    ["playful", "fun", "cheerful", "bubbly"],
-    ["kids brand", "toy packaging", "fun poster", "party invitation"],
-    ["rounded bubbly sans", "bubblegum-pop energy"],
-    // Also on Google Fonts
-  ),
-
   dafont("Cookies", "display",
     ["cute", "sweet", "rounded", "friendly", "warm", "bakery", "fun", "soft"],
     ["sweet", "warm", "friendly", "cozy"],
@@ -665,28 +605,11 @@ export const dafontFonts: Font[] = [
     ["cookie-sweet rounded display", "warm bakery feel"],
   ),
 
-  dafont("Chewy", "display",
-    ["cute", "rounded", "bold", "fun", "cartoon", "friendly", "chunky", "playful"],
-    ["fun", "chunky", "playful", "bold"],
-    ["children's product", "cartoon show", "fun heading", "toy brand"],
-    ["chunky rounded cartoon display", "chewy bold personality"],
-    // Also on Google Fonts
-  ),
-
   dafont("Sniglet", "display",
     ["cute", "rounded", "modern", "friendly", "soft", "clean", "approachable", "gentle"],
     ["friendly", "approachable", "soft", "modern"],
     ["app branding", "friendly UI", "modern kids brand", "tech startup"],
     ["modern rounded friendly display", "soft approachable forms"],
-  ),
-
-  dafont("Comic Neue", "handwritten",
-    ["cute", "comic", "casual", "friendly", "handwritten", "lighthearted", "clean", "fun"],
-    ["casual", "lighthearted", "friendly", "unpretentious"],
-    ["comic", "casual blog", "friendly branding", "informal heading"],
-    ["clean comic-style font", "refined Comic Sans alternative"],
-    { serifSansCategory: "display" }
-    // Also on Google Fonts
   ),
 
   dafont("KG Happy", "handwritten",
@@ -711,14 +634,6 @@ export const dafontFonts: Font[] = [
     ["wobbly jelly-like letterforms", "bouncy playful motion"],
   ),
 
-  dafont("Fredoka One", "display",
-    ["cute", "rounded", "bold", "friendly", "modern", "soft", "approachable", "clean"],
-    ["friendly", "bold", "approachable", "warm"],
-    ["kids app", "friendly branding", "bold heading", "modern kids brand"],
-    ["bold rounded modern display", "approachable weight"],
-    // Also on Google Fonts
-  ),
-
   dafont("Baloo", "display",
     ["cute", "rounded", "bold", "indian", "friendly", "chunky", "warm", "multicultural"],
     ["warm", "friendly", "bold", "welcoming"],
@@ -740,14 +655,6 @@ export const dafontFonts: Font[] = [
     ["modern", "soft", "clean", "futuristic-friendly"],
     ["tech startup", "modern app", "friendly heading", "clean branding"],
     ["geometric rounded modern display", "soft-tech aesthetic"],
-    // Also on Google Fonts
-  ),
-
-  dafont("Luckiest Guy", "display",
-    ["cute", "bold", "cartoon", "fun", "chunky", "loud", "impactful", "playful"],
-    ["loud", "fun", "bold", "cartoon"],
-    ["cartoon title", "fun poster", "kids heading", "game branding"],
-    ["bold cartoon display", "loud fun personality"],
     // Also on Google Fonts
   ),
 
@@ -777,31 +684,6 @@ export const dafontFonts: Font[] = [
     // Also on Google Fonts
   ),
 
-  dafont("Patrick Hand", "handwritten",
-    ["cute", "handwritten", "casual", "personal", "friendly", "natural", "simple", "warm"],
-    ["personal", "warm", "casual", "authentic"],
-    ["personal blog", "casual heading", "friendly branding", "note style"],
-    ["natural casual handwriting", "warm personal feel"],
-    { serifSansCategory: "display" }
-    // Also on Google Fonts
-  ),
-
-  dafont("Shojumaru", "display",
-    ["cute", "japanese", "bold", "rounded", "anime", "asian", "pop", "decorative"],
-    ["bold", "japanese-pop", "decorative", "energetic"],
-    ["anime poster", "japanese restaurant", "asian branding", "pop heading"],
-    ["japanese-influenced rounded bold", "anime-pop energy"],
-    // Also on Google Fonts
-  ),
-
-  dafont("Bangers", "display",
-    ["cute", "comic", "bold", "loud", "impact", "cartoon", "action", "pop-art"],
-    ["loud", "bold", "comic", "action-packed"],
-    ["comic book", "action poster", "bold heading", "pop-art design"],
-    ["bold comic-book display", "action-word styling"],
-    // Also on Google Fonts
-  ),
-
   // ─── BRUSH / PAINTED (~15) ───
 
   dafont("Bushcraft", "display",
@@ -820,23 +702,6 @@ export const dafontFonts: Font[] = [
     ["thick artistic brush strokes", "abstract paint quality"],
   ),
 
-  dafont("Permanent Marker", "handwritten",
-    ["brush", "marker", "bold", "casual", "hand-drawn", "thick", "whiteboard", "rough"],
-    ["casual", "bold", "rough", "direct"],
-    ["whiteboard", "casual heading", "DIY project", "bold note"],
-    ["thick marker-style lettering", "whiteboard marker feel"],
-    { serifSansCategory: "display" }
-    // Also on Google Fonts
-  ),
-
-  dafont("Cabin Sketch", "display",
-    ["brush", "sketch", "hand-drawn", "outline", "artistic", "double-stroke", "creative"],
-    ["sketchy", "artistic", "creative", "hand-drawn"],
-    ["creative heading", "art project", "sketch style", "indie brand"],
-    ["sketchy double-stroke display", "hand-drawn outline style"],
-    // Also on Google Fonts
-  ),
-
 
   dafont("Chinese Rocks", "display",
     ["brush", "asian-inspired", "bold", "expressive", "inky", "calligraphy", "artistic"],
@@ -845,28 +710,11 @@ export const dafontFonts: Font[] = [
     ["asian-inspired brush display", "bold ink strokes"],
   ),
 
-  dafont("Yellowtail", "script",
-    ["brush", "retro", "script", "sign-painting", "vintage", "flowing", "casual", "warm"],
-    ["retro", "warm", "casual", "sign-painted"],
-    ["vintage sign", "retro branding", "warm heading", "casual logo"],
-    ["retro sign-painter brush script", "vintage warmth"],
-    { serifSansCategory: "script" }
-    // Also on Google Fonts
-  ),
-
   dafont("Adrenaline", "display",
     ["brush", "bold", "speed", "dynamic", "sports", "energetic", "fast", "italic"],
     ["energetic", "fast", "dynamic", "powerful"],
     ["sports brand", "extreme sports", "energy poster", "action heading"],
     ["speed-styled brush display", "dynamic athletic energy"],
-  ),
-  dafont("Kaushan Script", "script",
-    ["brush", "script", "casual", "connected", "flowing", "lively", "modern", "friendly"],
-    ["lively", "casual", "friendly", "warm"],
-    ["casual brand", "friendly heading", "modern script logo", "social media"],
-    ["casual connected brush script", "lively flowing strokes"],
-    { serifSansCategory: "script" }
-    // Also on Google Fonts
   ),
 
   // ─── ART DECO / NOUVEAU (~10) ───
@@ -876,31 +724,6 @@ export const dafontFonts: Font[] = [
     ["elegant", "gatsby", "luxurious", "vintage"],
     ["gatsby party", "1920s event", "luxury brand", "art deco poster"],
     ["classic 1920s art deco display", "gatsby-era geometric elegance"],
-  ),
-
-  dafont("Poiret One", "display",
-    ["art-deco", "thin", "geometric", "elegant", "fashion", "1920s", "refined", "decorative"],
-    ["refined", "elegant", "delicate", "artistic"],
-    ["fashion brand", "art gallery", "elegant heading", "luxury poster"],
-    ["thin art deco geometric display", "fashion-forward elegance"],
-    // Also on Google Fonts
-  ),
-
-  dafont("Cardo", "serif",
-    ["art-deco", "serif", "classic", "elegant", "book", "traditional", "refined", "literary"],
-    ["classic", "literary", "refined", "traditional"],
-    ["book title", "literary heading", "classic branding", "editorial"],
-    ["classic book-style serif", "literary elegance"],
-    { serifSansCategory: "serif" }
-    // Also on Google Fonts
-  ),
-
-  dafont("Vast Shadow", "display",
-    ["art-deco", "shadow", "decorative", "bold", "vintage", "dimensional", "poster", "circus"],
-    ["bold", "decorative", "dramatic", "vintage"],
-    ["poster headline", "vintage circus", "decorative heading", "event"],
-    ["bold shadow display type", "vintage poster dimensionality"],
-    // Also on Google Fonts
   ),
 
   dafont("Broadway", "display",
@@ -922,14 +745,6 @@ export const dafontFonts: Font[] = [
     ["futuristic", "technological", "precise", "modern"],
     ["sci-fi movie", "tech brand", "space poster", "futuristic UI"],
     ["geometric space-age display", "orbital precision"],
-    // Also on Google Fonts
-  ),
-
-  dafont("Audiowide", "display",
-    ["sci-fi", "futuristic", "wide", "tech", "bold", "modern", "automotive", "racing"],
-    ["futuristic", "bold", "tech", "automotive"],
-    ["racing game", "tech brand", "automotive poster", "futuristic heading"],
-    ["wide futuristic display", "automotive-tech aesthetic"],
     // Also on Google Fonts
   ),
 
@@ -1022,22 +837,6 @@ export const dafontFonts: Font[] = [
 
   // ─── HORROR / DARK (~10) ───
 
-  dafont("Creepster", "display",
-    ["horror", "spooky", "halloween", "creepy", "dripping", "fun-horror", "seasonal", "dark"],
-    ["spooky", "creepy", "fun-scary", "halloween"],
-    ["halloween poster", "horror movie", "spooky event", "haunted house"],
-    ["creepy dripping display", "fun-horror letterforms"],
-    // Also on Google Fonts
-  ),
-
-  dafont("Nosifer", "display",
-    ["horror", "vampire", "dark", "dripping", "blood", "gothic", "extreme", "nocturnal"],
-    ["terrifying", "dark", "bloody", "nocturnal"],
-    ["vampire movie", "horror poster", "dark event", "gothic heading"],
-    ["blood-dripping vampire display", "nosferatu-inspired horror"],
-    // Also on Google Fonts
-  ),
-
 
 
   dafont("Feast of Flesh BB", "display",
@@ -1099,22 +898,6 @@ export const dafontFonts: Font[] = [
     ["angular military-action stencil", "modern tactical sharpness"],
   ),
 
-  dafont("Stardos Stencil", "display",
-    ["stencil", "vintage", "elegant", "serif", "classic", "refined", "decorative", "retro"],
-    ["refined", "vintage", "elegant", "classic"],
-    ["vintage poster", "elegant stencil", "classic heading", "refined brand"],
-    ["elegant vintage serif stencil", "refined stencil forms"],
-    // Also on Google Fonts
-  ),
-
-  dafont("Allerta Stencil", "display",
-    ["stencil", "modern", "clean", "sans", "alert", "clear", "functional", "bold"],
-    ["alert", "clear", "functional", "modern"],
-    ["warning sign", "modern stencil", "clear heading", "functional design"],
-    ["modern clean sans stencil", "alert functional clarity"],
-    // Also on Google Fonts
-  ),
-
   dafont("Cargo", "display",
     ["stencil", "shipping", "industrial", "bold", "crate", "transport", "rough", "utility"],
     ["industrial", "utilitarian", "rough", "working-class"],
@@ -1151,14 +934,6 @@ export const dafontFonts: Font[] = [
     ["outlaw", "rugged", "frontier", "vintage"],
     ["wanted poster", "western event", "cowboy brand", "frontier heading"],
     ["classic wanted-poster display", "wild West sheriff office aesthetic"],
-  ),
-
-  dafont("Rye", "display",
-    ["western", "slab-serif", "vintage", "saloon", "bold", "decorative", "rustic", "frontier"],
-    ["rustic", "frontier", "bold", "saloon"],
-    ["saloon branding", "western poster", "frontier heading", "rustic event"],
-    ["western saloon slab display", "frontier-town character"],
-    // Also on Google Fonts
   ),
 
   dafont("Saddlebag", "display",
@@ -1271,20 +1046,6 @@ export const dafontFonts: Font[] = [
     { designer: "Tyler Finck" }
   ),
 
-  dafont("Baumans", "display",
-    ["display", "geometric", "modern", "tech", "clean", "futuristic", "digital"],
-    ["futuristic", "clean", "tech", "modern"],
-    ["tech branding", "futuristic poster", "digital display", "modern heading"],
-    ["geometric futuristic display", "clean tech letterforms"],
-  ),
-
-  dafont("Megrim", "display",
-    ["display", "thin", "geometric", "art-deco", "elegant", "angular", "fashion", "modern"],
-    ["elegant", "modern", "angular", "refined"],
-    ["fashion branding", "art-deco poster", "modern editorial", "elegant heading"],
-    ["thin geometric art-deco display", "angular elegant forms"],
-  ),
-
   dafont("Nova Square", "display",
     ["display", "geometric", "square", "modern", "tech", "angular", "digital", "grid"],
     ["modern", "technical", "precise", "digital"],
@@ -1292,62 +1053,13 @@ export const dafontFonts: Font[] = [
     ["square geometric display letterforms", "grid-based digital design"],
   ),
 
-  dafont("Bungee", "display",
-    ["display", "bold", "signage", "urban", "layered", "heavy", "vertical", "modern"],
-    ["bold", "urban", "energetic", "impactful"],
-    ["signage", "urban branding", "bold poster", "vertical display"],
-    ["vertical signage display", "urban layered bold design"],
-    { designer: "David Jonathan Ross" }
-  ),
-
   // ─── SCRIPT / HANDWRITING (additional) ───
-
-  dafont("Cookie", "handwritten",
-    ["script", "casual", "brush", "retro", "friendly", "warm", "vintage", "sign"],
-    ["warm", "friendly", "retro", "casual"],
-    ["bakery branding", "casual invite", "friendly heading", "vintage sign"],
-    ["casual retro brush script", "warm friendly sign-painter feel"],
-  ),
-
-  dafont("Clicker Script", "handwritten",
-    ["script", "elegant", "formal", "flowing", "calligraphy", "connected", "classic"],
-    ["elegant", "formal", "classic", "refined"],
-    ["formal invitation", "wedding card", "elegant heading", "classical event"],
-    ["formal flowing calligraphic script", "classic connected elegance"],
-  ),
-
-  dafont("Italianno", "handwritten",
-    ["script", "elegant", "Italian", "flowing", "calligraphy", "thin", "romantic"],
-    ["elegant", "romantic", "flowing", "mediterranean"],
-    ["italian restaurant", "elegant branding", "romantic heading", "fine dining"],
-    ["elegant Italian-inspired calligraphy", "flowing romantic thin script"],
-  ),
-
-  dafont("Norican", "handwritten",
-    ["script", "brush", "casual", "flowing", "warm", "friendly", "sign-painter"],
-    ["warm", "casual", "friendly", "inviting"],
-    ["casual branding", "friendly sign", "warm heading", "cafe menu"],
-    ["casual sign-painter brush script", "warm flowing letterforms"],
-  ),
-
-  dafont("Rouge Script", "handwritten",
-    ["script", "elegant", "French", "calligraphy", "thin", "romantic", "classic"],
-    ["elegant", "French", "romantic", "refined"],
-    ["french branding", "elegant invite", "romantic heading", "bistro menu"],
-    ["french-inspired elegant thin script", "classic romantic calligraphy"],
-  ),
 
   dafont("Tangerine", "handwritten",
     ["script", "calligraphy", "elegant", "thin", "formal", "ornate", "wedding"],
     ["elegant", "formal", "delicate", "ornate"],
     ["wedding invitation", "formal card", "elegant certificate", "luxury heading"],
     ["delicate formal calligraphic script", "ornate wedding-style elegance"],
-  ),
-  dafont("Mr Dafoe", "handwritten",
-    ["script", "brush", "bold", "dramatic", "expressive", "dynamic", "artistic"],
-    ["dramatic", "expressive", "bold", "artistic"],
-    ["dramatic heading", "artistic branding", "bold statement", "expressive poster"],
-    ["bold dramatic brush script", "expressive dynamic strokes"],
   ),
 
   // ─── PIXEL / RETRO / GAMING (additional) ───
@@ -1373,42 +1085,13 @@ export const dafontFonts: Font[] = [
     ["gameBoy-era pixel display", "portable gaming nostalgia"],
   ),
 
-  dafont("VT323", "display",
-    ["pixel", "retro", "terminal", "monospace", "hacker", "green-screen", "computer", "80s"],
-    ["retro", "technical", "hacker", "digital"],
-    ["terminal UI", "retro computing", "hacker aesthetic", "vintage screen"],
-    ["vT320 terminal pixel font", "vintage green-screen computer feel"],
-  ),
-
-  dafont("Share Tech Mono", "display",
-    ["pixel", "monospace", "tech", "terminal", "clean", "coding", "digital", "modern"],
-    ["technical", "clean", "digital", "precise"],
-    ["code display", "tech dashboard", "terminal UI", "developer tool"],
-    ["clean tech monospace", "modern terminal-style design"],
-    { serifSansCategory: "monospace" }
-  ),
-
   // ─── GOTHIC / BLACKLETTER (additional) ───
-
-  dafont("MedievalSharp", "display",
-    ["gothic", "medieval", "sharp", "fantasy", "RPG", "angular", "historical", "dark"],
-    ["medieval", "sharp", "dark", "fantasy"],
-    ["rPG game", "medieval event", "fantasy poster", "historical heading"],
-    ["sharp medieval gothic display", "angular fantasy letterforms"],
-  ),
 
   dafont("Pirata One", "display",
     ["gothic", "pirate", "blackletter", "adventure", "nautical", "bold", "decorative"],
     ["adventurous", "bold", "dramatic", "swashbuckling"],
     ["pirate theme", "adventure game", "nautical branding", "bold gothic heading"],
     ["pirate-inspired blackletter", "adventurous nautical gothic"],
-  ),
-
-  dafont("New Rocker", "display",
-    ["gothic", "blackletter", "rock", "bold", "metal", "dark", "aggressive", "modern"],
-    ["aggressive", "dark", "bold", "rock"],
-    ["rock band", "metal poster", "dark branding", "gothic rock heading"],
-    ["modern rock-inspired blackletter", "bold aggressive gothic display"],
   ),
 
   dafont("Metal Mania", "display",
@@ -1434,43 +1117,11 @@ export const dafontFonts: Font[] = [
 
   // ─── SANS-SERIF (additional) ───
 
-  dafont("Aldrich", "sans-serif",
-    ["sans-serif", "geometric", "tech", "modern", "clean", "digital", "industrial"],
-    ["technical", "modern", "clean", "industrial"],
-    ["tech branding", "industrial design", "modern UI", "digital heading"],
-    ["geometric industrial sans-serif", "clean technical digital design"],
-    { serifSansCategory: "sans-serif" }
-  ),
-
-  dafont("Electrolize", "sans-serif",
-    ["sans-serif", "tech", "futuristic", "digital", "clean", "modern", "sharp"],
-    ["futuristic", "digital", "sharp", "modern"],
-    ["tech startup", "futuristic UI", "digital branding", "sharp heading"],
-    ["futuristic digital sans-serif", "sharp tech-forward design"],
-    { serifSansCategory: "sans-serif" }
-  ),
-
   dafont("Jura", "sans-serif",
     ["sans-serif", "light", "modern", "clean", "tech", "minimal", "elegant"],
     ["light", "modern", "elegant", "minimal"],
     ["minimal branding", "light heading", "modern UI", "elegant tech"],
     ["light elegant modern sans-serif", "clean minimal letterforms"],
-    { serifSansCategory: "sans-serif" }
-  ),
-
-  dafont("Saira", "sans-serif",
-    ["sans-serif", "geometric", "modern", "versatile", "clean", "professional", "wide"],
-    ["professional", "modern", "versatile", "clean"],
-    ["professional branding", "modern heading", "versatile UI", "corporate design"],
-    ["versatile geometric sans-serif", "professional modern design"],
-    { serifSansCategory: "sans-serif" }
-  ),
-
-  dafont("Kanit", "sans-serif",
-    ["sans-serif", "modern", "Thai", "geometric", "clean", "versatile", "round"],
-    ["modern", "clean", "versatile", "friendly"],
-    ["modern branding", "clean heading", "versatile UI", "friendly design"],
-    ["modern geometric sans-serif", "thai-Latin versatile design"],
     { serifSansCategory: "sans-serif" }
   ),
 
@@ -1484,46 +1135,7 @@ export const dafontFonts: Font[] = [
     { serifSansCategory: "serif" }
   ),
 
-  dafont("Playfair Display", "serif",
-    ["serif", "elegant", "high-contrast", "display", "modern", "transitional", "stylish", "editorial"],
-    ["elegant", "stylish", "modern", "sophisticated"],
-    ["fashion magazine", "luxury branding", "elegant heading", "editorial"],
-    ["high-contrast transitional display serif", "modern editorial elegance"],
-    { serifSansCategory: "serif" }
-  ),
-
-  dafont("Cormorant", "serif",
-    ["serif", "elegant", "display", "high-contrast", "refined", "Garamond-like", "classical", "literary"],
-    ["refined", "classical", "elegant", "literary"],
-    ["book cover", "literary magazine", "elegant branding", "classical heading"],
-    ["refined Garamond-inspired display serif", "classical literary elegance"],
-    { serifSansCategory: "serif" }
-  ),
-
-  dafont("Crimson Text", "serif",
-    ["serif", "elegant", "readable", "book", "old-style", "warm", "classic", "body"],
-    ["elegant", "readable", "warm", "classic"],
-    ["body text", "book design", "long-form reading", "elegant content"],
-    ["elegant old-style book serif", "warm readable text design"],
-    { serifSansCategory: "serif" }
-  ),
-
   // ─── STENCIL / MILITARY (additional) ───
-
-  dafont("Bungee Inline", "display",
-    ["stencil", "inline", "bold", "signage", "urban", "layered", "modern", "display"],
-    ["bold", "urban", "modern", "graphic"],
-    ["urban signage", "modern poster", "bold branding", "inline heading"],
-    ["inline signage stencil display", "modern urban layered design"],
-    { designer: "David Jonathan Ross" }
-  ),
-
-  dafont("Major Mono Display", "display",
-    ["stencil", "monospace", "modern", "minimal", "geometric", "experimental", "display"],
-    ["experimental", "modern", "minimal", "avant-garde"],
-    ["experimental design", "modern branding", "minimal poster", "avant-garde heading"],
-    ["experimental monospace stencil display", "minimal geometric construction"],
-  ),
 
   dafont("Saginaw", "display",
     ["stencil", "military", "bold", "industrial", "structured", "utilitarian", "clean"],
@@ -1548,42 +1160,7 @@ export const dafontFonts: Font[] = [
     ["melting dripping display letters", "wet grotesque distortion"],
   ),
 
-  dafont("Dokdo", "display",
-    ["grunge", "brush", "rough", "Asian", "expressive", "artistic", "raw", "bold"],
-    ["expressive", "raw", "artistic", "bold"],
-    ["artistic poster", "expressive heading", "raw branding", "bold statement"],
-    ["rough expressive brush display", "raw artistic Korean influence"],
-  ),
-
   // ─── ADDITIONAL DISPLAY ───
-
-  dafont("Black Ops One", "display",
-    ["display", "military", "bold", "heavy", "stencil-like", "strong", "action", "tactical"],
-    ["military", "bold", "strong", "tactical"],
-    ["action movie", "military branding", "game title", "tactical heading"],
-    ["military-inspired bold display", "heavy action tactical letterforms"],
-  ),
-
-  dafont("Contrail One", "display",
-    ["display", "condensed", "aviation", "speed", "dynamic", "modern", "sharp", "racing"],
-    ["dynamic", "fast", "modern", "sharp"],
-    ["aviation branding", "racing poster", "speed heading", "dynamic display"],
-    ["aviation-inspired condensed display", "dynamic speed letterforms"],
-  ),
-
-  dafont("Michroma", "display",
-    ["display", "geometric", "futuristic", "tech", "wide", "modern", "digital", "space"],
-    ["futuristic", "tech", "wide", "modern"],
-    ["tech branding", "space theme", "futuristic heading", "wide display"],
-    ["wide geometric futuristic display", "tech space-age letterforms"],
-  ),
-
-  dafont("Passero One", "display",
-    ["display", "bold", "heavy", "vintage", "advertising", "retro", "warm", "rounded"],
-    ["vintage", "warm", "bold", "friendly"],
-    ["vintage advertising", "retro poster", "warm heading", "bold display"],
-    ["heavy vintage advertising display", "warm retro rounded forms"],
-  ),
 
   // ─── ADDITIONAL DISPLAY FONTS (replacements for Google Fonts overlaps) ───
   dafont("Beyond Wonderland", "display",
