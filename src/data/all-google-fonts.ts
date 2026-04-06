@@ -2,7 +2,7 @@
 // Run: node scripts/download-fonts.mjs --google-all
 import { Font, FontClassification } from "./types";
 
-function gf(name: string, googleFamily: string, classification: string, tags: string[], tone: string[], isBody: boolean, hasRegular: boolean): Font {
+function gf(name: string, googleFamily: string, classification: string, tags: string[], tone: string[], isBody: boolean, hasRegular: boolean, designerName?: string, foundryName?: string): Font {
   const slug = name.toLowerCase().replace(/\s+/g, "-");
   return {
     id: `gf-${slug}`, name, slug,
@@ -10,7 +10,7 @@ function gf(name: string, googleFamily: string, classification: string, tags: st
     sourceUrl: `https://fonts.google.com/specimen/${googleFamily.replace(/\s+/g, "+")}`,
     downloadUrl: null, specimenUrl: null,
     licenseType: "OFL 1.1", licenseConfidence: "high",
-    designer: null, foundry: null, year: null,
+    designer: designerName || null, foundry: foundryName || null, year: null,
     classification: classification as FontClassification,
     subcategory: null,
     serifSansCategory: classification === "handwritten" ? "display" as const : classification as Font["serifSansCategory"],
@@ -1895,7 +1895,7 @@ export const allGoogleFonts: Font[] = [
   gf("WindSong", "WindSong", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true),
   gf("Winky Rough", "Winky Rough", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true),
   gf("Winky Sans", "Winky Sans", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true),
-  gf("Wire One", "Wire One", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true),
+  gf("Wire One", "Wire One", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], false, true, "Alexei Vanyashin & Gayaneh Bagdasaryan", "Cyreal"),
   gf("Wittgenstein", "Wittgenstein", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true),
   gf("Wix Madefor Display", "Wix Madefor Display", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true),
   gf("Wix Madefor Text", "Wix Madefor Text", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true),

@@ -25,7 +25,7 @@ interface FontRow {
 
 const PAGE_SIZE = 50;
 const PAGE_WINDOW = 3; // pages shown on each side of current
-const PAGE_WINDOW_MOBILE = 1; // fewer pages on mobile
+const PAGE_WINDOW_MOBILE = 2; // fewer pages on mobile but still readable
 
 function Pagination({ page, totalPages, goPage, pageWindow }: { page: number; totalPages: number; goPage: (p: number) => void; pageWindow: number }) {
   const pages: (number | "...")[] = [];
