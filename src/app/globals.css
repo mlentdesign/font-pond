@@ -687,6 +687,12 @@ body.animations-paused #water-bg * {
   }
 }
 
+/* Database search — matches main text entry focus behavior */
+.db-search-input:focus {
+  border-color: var(--accent) !important;
+  box-shadow: var(--shadow-input-focus) !important;
+}
+
 /* Database table sticky header — sits below page header with visual gap */
 .db-sticky-header {
   top: 57px;
