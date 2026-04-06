@@ -26,7 +26,7 @@ export function Footer() {
       {/* Left side — tagline + copyright + about */}
       <div className="footer-left flex items-center flex-wrap">
         <Link href="/database" className="footer-tagline hover:opacity-70 transition-opacity" style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
-          Free font combinations for real design work
+          Free font combinations for design work
         </Link>
         <p style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
           &copy; 2026{" "}

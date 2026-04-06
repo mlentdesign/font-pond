@@ -6,20 +6,21 @@ const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const loaded = new Set<string>();
 
 // Cap CDN stylesheets to prevent unbounded DOM growth
-const MAX_CDN_LINKS = 40;
-const cdnLinks: { key: string; el: HTMLLinkElement }[] = [];
+const MAX_CDN_LINKS = 120;
+const cdnLinks: { key: string; fontKey: string; el: HTMLLinkElement }[] = [];
 
-function addCdnLink(key: string, href: string): void {
+function addCdnLink(key: string, fontKey: string, href: string): void {
   const link = document.createElement("link");
   link.rel = "stylesheet";
   link.href = href;
   document.head.appendChild(link);
-  cdnLinks.push({ key, el: link });
+  cdnLinks.push({ key, fontKey, el: link });
 
   // Evict oldest stylesheet when over the cap
   while (cdnLinks.length > MAX_CDN_LINKS) {
     const old = cdnLinks.shift()!;
     loaded.delete(old.key);
+    loaded.delete(old.fontKey); // Allow re-loading when font is needed again
     old.el.remove();
   }
 }
@@ -46,7 +47,7 @@ export function loadFont(font: { name: string; slug: string; source: string; goo
   const gfKey = `gf-cdn-${gfFamily}`;
   if (!loaded.has(gfKey) && (font.source === "google-fonts" || font.source === "other")) {
     loaded.add(gfKey);
-    addCdnLink(gfKey, `https://fonts.googleapis.com/css2?family=${gfFamily.replace(/ /g, "+")}:wght@400;500;600;700&display=swap`);
+    addCdnLink(gfKey, key, `https://fonts.googleapis.com/css2?family=${gfFamily.replace(/ /g, "+")}:wght@400;500;600;700&display=swap`);
   }
 
   // Fontshare CDN
@@ -54,7 +55,7 @@ export function loadFont(font: { name: string; slug: string; source: string; goo
     const cdnKey = `fs-cdn-${font.slug}`;
     if (!loaded.has(cdnKey)) {
       loaded.add(cdnKey);
-      addCdnLink(cdnKey, `https://api.fontshare.com/v2/css?f[]=${font.slug}@100,200,300,400,500,600,700,800,900&display=swap`);
+      addCdnLink(cdnKey, key, `https://api.fontshare.com/v2/css?f[]=${font.slug}@100,200,300,400,500,600,700,800,900&display=swap`);
     }
   }
 }
