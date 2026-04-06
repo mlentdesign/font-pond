@@ -21,7 +21,7 @@ export function Footer() {
   return (
     <footer
       className="w-full mt-auto shell-padding flex flex-wrap items-center site-footer"
-      style={{ background: "var(--bg-footer)", borderTop: "1px solid var(--border)", minHeight: "88px", gap: "8px", paddingTop: "16px", paddingBottom: "16px" }}
+      style={{ background: "var(--bg-footer)", borderTop: "1px solid var(--border)", minHeight: "88px", paddingTop: "16px", paddingBottom: "16px" }}
     >
       {/* Tagline — full width on mobile, inline on desktop */}
       <Link href="/database" className="footer-tagline hover:opacity-70 transition-opacity" style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
