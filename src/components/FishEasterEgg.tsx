@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
+import { useAppState } from "@/lib/store";
 
 interface Fish {
   id: number;
@@ -57,7 +58,9 @@ export function FishEasterEgg() {
   const wasAtBottomRef = useRef(false);
   const mouseRef = useRef({ x: -1, y: -1 });
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const { hasSearched } = useAppState();
+  // "Home landing" = root path before any search; after searching it's the explore/generate page
+  const isHomeLanding = pathname === "/" && !hasSearched;
 
   // Clear fish on page navigation
   useEffect(() => {
@@ -117,9 +120,9 @@ export function FishEasterEgg() {
     }
   }, []);
 
-  // Scroll-to-bottom detection (non-home pages)
+  // Scroll-to-bottom detection (all pages except home landing)
   useEffect(() => {
-    if (isHome) return;
+    if (isHomeLanding) return;
 
     const poll = setInterval(() => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
@@ -141,20 +144,29 @@ export function FishEasterEgg() {
     }, 500);
 
     return () => clearInterval(poll);
-  }, [addFish, isHome, pathname]);
+  }, [addFish, isHomeLanding, pathname]);
 
-  // Homepage: click in open water to spawn fish
+  // Home landing only: click in open water to spawn fish
+  // Must be >80px from any existing fish (otherwise the feed handler handles it)
   useEffect(() => {
-    if (!isHome) return;
+    if (!isHomeLanding) return;
 
     const handleClick = (e: MouseEvent) => {
       if (!isOpenWater(e)) return;
+
+      // Check if click is near an existing fish — if so, don't spawn (feed handler will fire)
+      for (const fish of fishRef.current) {
+        const dx = e.clientX - fish.x;
+        const dy = e.clientY - fish.y;
+        if (Math.sqrt(dx * dx + dy * dy) < 80) return;
+      }
+
       addFish();
     };
 
     window.addEventListener("click", handleClick);
     return () => window.removeEventListener("click", handleClick);
-  }, [isHome, addFish]);
+  }, [isHomeLanding, addFish]);
 
   // Click on fish to feed (all pages)
   useEffect(() => {
