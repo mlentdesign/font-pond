@@ -694,20 +694,6 @@ body.animations-paused #water-bg * {
   box-shadow: none !important;
   outline: none !important;
 }
-/* Expand search field on focus to fill available space */
-.db-search-wrap:focus-within {
-  flex: 1;
-  width: auto !important;
-  margin-left: 24px;
-}
-@media (max-width: 767px) {
-  .db-search-wrap {
-    width: 100% !important;
-  }
-  .db-search-wrap:focus-within {
-    margin-left: 0;
-  }
-}
 
 /* Database table sticky header — top is set dynamically via JS */
 
