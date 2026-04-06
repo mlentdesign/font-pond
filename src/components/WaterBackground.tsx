@@ -147,7 +147,8 @@ export function WaterBackground() {
     }
 
     // Track pending timeouts so we can clean them up on unmount
-    const pendingTimeouts: ReturnType<typeof setTimeout>[] = [];
+    // Use a Set so fired timeouts can be removed to prevent unbounded growth
+    const pendingTimeouts = new Set<ReturnType<typeof setTimeout>>();
 
     // Organic ambient activity — heavily weighted toward ocean waves
     let ambientTimer = 0;
@@ -359,10 +360,11 @@ export function WaterBackground() {
           const setY = (0.2 + Math.random() * 0.6) * height * SCALE;
           for (let w = 0; w < 2 + Math.floor(Math.random() * 2); w++) {
             const tid = setTimeout(() => {
+              pendingTimeouts.delete(tid);
               if (pausedRef.current) return;
               addOceanWave(setY + w * SCALE * 8, 5 + Math.random() * 2, 1 + Math.random());
             }, w * 400);
-            pendingTimeouts.push(tid);
+            pendingTimeouts.add(tid);
           }
         }
 
@@ -394,7 +396,8 @@ export function WaterBackground() {
 
     // Start with a few initial activities for immediate life
     for (let i = 0; i < 6; i++) {
-      pendingTimeouts.push(setTimeout(() => addAmbientActivity(), i * 400));
+      const tid = setTimeout(() => { pendingTimeouts.delete(tid); addAmbientActivity(); }, i * 400);
+      pendingTimeouts.add(tid);
     }
 
     loop();
@@ -402,7 +405,7 @@ export function WaterBackground() {
     return () => {
       cancelAnimationFrame(animRef.current);
       for (const tid of pendingTimeouts) clearTimeout(tid);
-      pendingTimeouts.length = 0;
+      pendingTimeouts.clear();
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
