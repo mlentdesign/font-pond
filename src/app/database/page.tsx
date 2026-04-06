@@ -132,7 +132,7 @@ export default function DatabasePage() {
           style={{
             position: "sticky",
             zIndex: 25,
-            background: "var(--bg-header)",
+            background: "var(--bg-card)",
             borderBottom: "1px solid var(--divider)",
             marginLeft: "-2px",
             marginRight: "-2px",
