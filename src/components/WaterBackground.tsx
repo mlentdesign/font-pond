@@ -268,12 +268,12 @@ export function WaterBackground() {
 
       for (let y = 1; y < height - 1; y++) {
         for (let x = 1; x < width - 1; x++) {
-          // Skip rendering in edge zone — prevents caustic/gradient artifacts
-          const edgeDist = Math.min(x, y, width - 1 - x, height - 1 - y);
-          if (edgeDist < EDGE_MARGIN) continue;
-
           const i = y * width + x;
           const val = buf1[i];
+
+          // Soft alpha fade near edges instead of hard cutoff
+          const edgeDist = Math.min(x, y, width - 1 - x, height - 1 - y);
+          const edgeAlpha = edgeDist < EDGE_MARGIN ? edgeDist / EDGE_MARGIN : 1;
 
           // Primary: smooth wave height (the original effect)
           const intensity = Math.max(-1, Math.min(1, val / 100));
@@ -304,7 +304,7 @@ export function WaterBackground() {
             data[pi + 1] = Math.min(255, Math.floor(baseG + enhance * 0.8));
             data[pi + 2] = Math.min(255, Math.floor(baseB + enhance * 0.7));
             data[pi + 3] = absI > 0.006 || enhance > 0.1
-              ? Math.min(255, Math.floor(baseA + enhance * 15))
+              ? Math.min(255, Math.floor((baseA + enhance * 15) * edgeAlpha))
               : 0;
           } else {
             // Base: saturated teal from wave height (dominant)
@@ -320,7 +320,7 @@ export function WaterBackground() {
             data[pi + 1] = Math.min(255, Math.floor(baseG + enhance * 0.6));
             data[pi + 2] = Math.min(255, Math.floor(baseB + enhance * 0.5));
             data[pi + 3] = absI > 0.006 || enhance > 0.1
-              ? Math.min(255, Math.floor(baseA + enhance * 12))
+              ? Math.min(255, Math.floor((baseA + enhance * 12) * edgeAlpha))
               : 0;
           }
         }
