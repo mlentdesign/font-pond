@@ -143,10 +143,10 @@ export default function FontDetailPage() {
           )}
         </SectionCard>
 
-        {/* Details — three columns */}
-        <div className="three-col-grid" style={{ marginBottom: "24px" }}>
-          {/* Card 1: Classification, Subcategory, Variable font, Weights (if not variable), Styles */}
-          <SectionCard noPadding style={{ paddingTop: "12px", paddingBottom: "12px" }}>
+        {/* Details — responsive: 1 col mobile, 2 col tablet, 3 col desktop */}
+        <div className="font-detail-grid" style={{ marginBottom: "24px" }}>
+          {/* Card 1: Type info (desktop only — hidden on tablet where it merges with card 2) */}
+          <SectionCard noPadding className="font-detail-card1" style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
               <InfoRow label="Classification" value={font.classification} />
               <InfoRow label="Subcategory" value={font.subcategory} />
@@ -158,9 +158,29 @@ export default function FontDetailPage() {
             </dl>
           </SectionCard>
 
-          {/* Card 2: License, Header suitable, Body suitable, Body legibility, Screen readability */}
-          <SectionCard noPadding style={{ paddingTop: "12px", paddingBottom: "12px" }}>
+          {/* Card 2: Suitability (desktop only — hidden on tablet where it merges with card 1) */}
+          <SectionCard noPadding className="font-detail-card2" style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
+              <InfoRow label="License" value={font.licenseType} />
+              <InfoRow label="Header suitable" value={font.isHeaderSuitable ? "Yes" : "No"} />
+              <InfoRow label="Body suitable" value={font.isBodySuitable ? "Yes" : "Not recommended"} />
+              {font.bodyLegibilityScore && (
+                <InfoRow label="Body legibility" value={`${font.bodyLegibilityScore}/10`} />
+              )}
+              <InfoRow label="Screen readability" value={font.screenReadabilityNotes} />
+            </dl>
+          </SectionCard>
+
+          {/* Combined card (tablet + mobile only — hidden on desktop) */}
+          <SectionCard noPadding className="font-detail-combined" style={{ paddingTop: "12px", paddingBottom: "12px" }}>
+            <dl>
+              <InfoRow label="Classification" value={font.classification} />
+              <InfoRow label="Subcategory" value={font.subcategory} />
+              <InfoRow label="Variable font" value={font.variableFont ? "Yes" : "No"} />
+              {!font.variableFont && (
+                <InfoRow label="Weights" value={font.weights.join(", ")} />
+              )}
+              <InfoRow label="Styles" value={font.styles.join(", ")} />
               <InfoRow label="License" value={font.licenseType} />
               <InfoRow label="Header suitable" value={font.isHeaderSuitable ? "Yes" : "No"} />
               <InfoRow label="Body suitable" value={font.isBodySuitable ? "Yes" : "Not recommended"} />

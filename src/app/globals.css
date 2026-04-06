@@ -654,6 +654,39 @@ body.animations-paused #water-bg * {
   }
 }
 
+/* Font detail page grid: 1 col mobile, 2 col tablet, 3 col desktop */
+.font-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+/* Mobile + tablet: show combined card, hide individual cards 1 & 2 */
+.font-detail-card1,
+.font-detail-card2 {
+  display: none !important;
+}
+.font-detail-combined {
+  display: block !important;
+}
+@media (min-width: 768px) {
+  .font-detail-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .font-detail-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  /* Desktop: show individual cards, hide combined */
+  .font-detail-card1,
+  .font-detail-card2 {
+    display: block !important;
+  }
+  .font-detail-combined {
+    display: none !important;
+  }
+}
+
 /* Responsive ransom header font size */
 .ransom-title {
   font-size: 20px;
