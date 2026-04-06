@@ -687,23 +687,18 @@ body.animations-paused #water-bg * {
   }
 }
 
-/* Database: overflow-clip allows sticky to work while clipping content */
-.db-table-container {
-  overflow: clip;
-}
-/* Database table sticky header — nav height (~57px) + gap */
+/* Database table sticky header — sits below page header */
 .db-sticky-header {
-  top: 73px; /* 57 + 16 */
+  top: 57px;
 }
-@media (min-width: 768px) and (max-width: 1023px) {
-  .db-sticky-header {
-    top: 73px;
-  }
-}
-@media (max-width: 767px) {
-  .db-sticky-header {
-    top: 65px; /* 57 + 8 */
-  }
+/* Spacer that covers the gap between nav and sticky header */
+.db-sticky-spacer {
+  position: sticky;
+  top: 57px;
+  z-index: 9;
+  height: 24px;
+  background: var(--bg);
+  margin-top: -24px;
 }
 
 /* Responsive ransom header font size */

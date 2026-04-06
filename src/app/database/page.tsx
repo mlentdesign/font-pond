@@ -28,49 +28,30 @@ const PAGE_WINDOW = 3; // pages shown on each side of current
 
 function Pagination({ page, totalPages, goPage }: { page: number; totalPages: number; goPage: (p: number) => void }) {
   const pages: (number | "...")[] = [];
-
-  // Always show first page
   pages.push(0);
-
   const rangeStart = Math.max(1, page - PAGE_WINDOW);
   const rangeEnd = Math.min(totalPages - 2, page + PAGE_WINDOW);
-
   if (rangeStart > 1) pages.push("...");
   for (let i = rangeStart; i <= rangeEnd; i++) pages.push(i);
   if (rangeEnd < totalPages - 2) pages.push("...");
-
-  // Always show last page (if more than 1 page)
   if (totalPages > 1) pages.push(totalPages - 1);
 
-  const btnStyle = { fontSize: "16px", padding: "4px 8px", minWidth: "36px", textAlign: "center" as const };
+  const btnStyle = { fontSize: "16px", padding: "4px 8px", minWidth: "32px", textAlign: "center" as const, background: "none", border: "none", cursor: "pointer" };
 
   return (
-    <div className="flex items-center flex-wrap" style={{ gap: "4px" }}>
-      {/* First */}
-      <button
-        onClick={() => goPage(0)}
-        disabled={page === 0}
-        className="hover:opacity-70 transition-opacity disabled:opacity-30 disabled:cursor-not-allowed"
-        style={{ ...btnStyle, color: "var(--text-muted)" }}
-        aria-label="First page"
-      >
-        ««
-      </button>
-      {/* Previous */}
+    <div className="flex items-center flex-wrap" style={{ gap: "2px" }}>
       <button
         onClick={() => goPage(page - 1)}
         disabled={page === 0}
         className="hover:opacity-70 transition-opacity disabled:opacity-30 disabled:cursor-not-allowed"
-        style={{ ...btnStyle, color: "var(--text-muted)" }}
-        aria-label="Previous page"
+        style={{ ...btnStyle, color: "var(--text-muted)", paddingRight: "12px" }}
       >
         ‹ Prev
       </button>
 
-      {/* Page numbers */}
       {pages.map((p, i) =>
         p === "..." ? (
-          <span key={`dots-${i}`} style={{ ...btnStyle, color: "var(--text-muted)" }}>…</span>
+          <span key={`dots-${i}`} style={{ ...btnStyle, color: "var(--text-muted)", cursor: "default" }}>…</span>
         ) : (
           <button
             key={p}
@@ -79,7 +60,7 @@ function Pagination({ page, totalPages, goPage }: { page: number; totalPages: nu
             style={{
               ...btnStyle,
               color: p === page ? "var(--text-heading)" : "var(--text-muted)",
-              background: p === page ? "var(--bg-chip)" : "transparent",
+              background: p === page ? "var(--border)" : "transparent",
             }}
           >
             {p + 1}
@@ -87,25 +68,13 @@ function Pagination({ page, totalPages, goPage }: { page: number; totalPages: nu
         )
       )}
 
-      {/* Next */}
       <button
         onClick={() => goPage(page + 1)}
         disabled={page >= totalPages - 1}
         className="hover:opacity-70 transition-opacity disabled:opacity-30 disabled:cursor-not-allowed"
-        style={{ ...btnStyle, color: "var(--text-muted)" }}
-        aria-label="Next page"
+        style={{ ...btnStyle, color: "var(--text-muted)", paddingLeft: "12px" }}
       >
         Next ›
-      </button>
-      {/* Last */}
-      <button
-        onClick={() => goPage(totalPages - 1)}
-        disabled={page >= totalPages - 1}
-        className="hover:opacity-70 transition-opacity disabled:opacity-30 disabled:cursor-not-allowed"
-        style={{ ...btnStyle, color: "var(--text-muted)" }}
-        aria-label="Last page"
-      >
-        »»
       </button>
     </div>
   );
@@ -209,6 +178,9 @@ export default function DatabasePage() {
           {rows.length} fonts currently in the collection
         </p>
 
+        {/* Sticky spacer — covers the gap between nav and table header with page bg */}
+        <div className="db-sticky-spacer" />
+
         <div
           ref={tableRef}
           style={{
@@ -217,7 +189,6 @@ export default function DatabasePage() {
             position: "relative",
             zIndex: 1,
           }}
-          className="db-table-container"
         >
           {/* Sticky table header */}
           <div
