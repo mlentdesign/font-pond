@@ -23,12 +23,12 @@ export function RecentHistory() {
             border: "2px solid var(--border)",
             padding: "8px 12px",
             gap: "8px",
-            height: "48px",
+            height: "40px",
           }}
           aria-expanded={isOpen}
           aria-label="Recently viewed pairs"
         >
-          <svg width="24" height="24" viewBox="0 0 14 14" fill="none">
+          <svg width="20" height="20" viewBox="0 0 14 14" fill="none">
             <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.5" />
             <path d="M7 4.5V7L8.5 8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
