@@ -45,7 +45,7 @@ export default function Home() {
       >
         {/* Input area — stays max-w-4xl (896px) */}
         <div
-          className={`w-full max-w-4xl mx-auto shell-padding flex-1 flex flex-col${hasSearched ? " results-top-padding" : ""}`}
+          className={`w-full max-w-4xl mx-auto content-padding flex-1 flex flex-col${hasSearched ? " results-top-padding" : ""}`}
           style={hasSearched ? { paddingTop: "80px", flex: "none" } : { justifyContent: "center" }}
         >
           <div style={{ marginBottom: hasSearched ? "24px" : "40px", textAlign: "center" }}>
@@ -60,7 +60,7 @@ export default function Home() {
 
         {/* Results area — wider container so tiles extend beyond the input field */}
         {hasSearched && (
-          <div className="w-full mx-auto shell-padding" style={{ maxWidth: "1280px" }}>
+          <div className="w-full mx-auto content-padding" style={{ maxWidth: "1280px" }}>
             <ResultsGrid />
           </div>
         )}
