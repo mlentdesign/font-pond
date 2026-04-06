@@ -105,7 +105,7 @@ function FontSection({
 export default function PairDetailPage() {
   const searchParams = useSearchParams();
   const slug = searchParams.get("p") || "";
-  const { sampleHeadline, sampleBody, addToHistory } = useAppState();
+  const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
 
   const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
@@ -153,14 +153,14 @@ export default function PairDetailPage() {
         {/* Pair specimen */}
         <SectionCard style={{ marginBottom: "24px" }}>
           <h2
-            className="text-4xl md:text-5xl leading-tight mb-4"
-            style={{ fontFamily: headerFamily, fontWeight: 700, color: "var(--text-heading)" }}
+            className="leading-tight mb-4"
+            style={{ fontFamily: headerFamily, fontWeight: 700, color: "var(--text-heading)", fontSize: `${headerSize}px` }}
           >
             {headline}
           </h2>
           <p
             className="text-neutral-600 leading-relaxed max-w-2xl"
-            style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "16px", lineHeight: 1.7 }}
+            style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: `${bodySize}px`, lineHeight: 1.7 }}
           >
             {body}
           </p>
