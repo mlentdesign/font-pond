@@ -16532,3 +16532,18 @@
   font-style: normal;
   font-display: swap;
 }
+
+@font-face { font-family: "Biko"; src: url("./biko.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Maxwell"; src: url("./maxwell.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Disorder"; src: url("./disorder.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Arkhip"; src: url("./arkhip.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Riesling"; src: url("./riesling.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Hero"; src: url("./hero.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Borg"; src: url("./borg.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Cubic"; src: url("./cubic.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Nulshock"; src: url("./nulshock.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Stentiga"; src: url("./stentiga.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Raustila"; src: url("./raustila.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Halo"; src: url("./halo.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Foglihten"; src: url("./foglihten.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Prime"; src: url("./prime.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
