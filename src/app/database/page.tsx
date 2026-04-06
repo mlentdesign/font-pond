@@ -247,8 +247,8 @@ export default function DatabasePage() {
                 onClick={() => setFilterOpen(!filterOpen)}
                 className="flex items-center justify-center rounded-lg transition-colors hover:opacity-70"
                 style={{
-                  width: "40px",
-                  height: "40px",
+                  width: "44px",
+                  height: "44px",
                   background: "var(--bg-input)",
                   border: "2px solid var(--border)",
                   cursor: "pointer",
