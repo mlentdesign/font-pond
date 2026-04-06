@@ -300,6 +300,16 @@ input[type="range"]::-moz-range-track {
 .text-sm { font-size: 16px !important; line-height: 1.5 !important; }
 
 /* ══════════════════════════════════════════
+   SPECIMEN FONT SIZE — bulletproof overrides
+   ══════════════════════════════════════════ */
+/* These guarantee the stated px size renders exactly, on every breakpoint */
+.specimen-48 { font-size: 48px !important; }
+.specimen-32 { font-size: 32px !important; }
+.specimen-18 { font-size: 18px !important; }
+.specimen-16 { font-size: 16px !important; }
+.specimen-14 { font-size: 14px !important; }
+
+/* ══════════════════════════════════════════
    SMOOTH TRANSITIONS
    ══════════════════════════════════════════ */
 *, *::before, *::after {
@@ -886,6 +896,11 @@ body.animations-paused #water-bg * {
     margin-bottom: 40px !important;
   }
 
+  /* Footer — match bottom padding to history chip fixed position (24px) */
+  .site-footer {
+    padding-bottom: 24px !important;
+  }
+
   /* Footer — stack tagline and About vertically, prevent wrapping */
   .footer-left {
     flex-direction: column !important;
@@ -896,25 +911,21 @@ body.animations-paused #water-bg * {
     line-height: 1.3 !important;
   }
 
-  /* Footer right — 16px gap, align to bottom so pause matches history chip */
+  /* Footer right — keep gap, align bottom so pause sits next to history chip */
   .footer-right {
-    gap: 16px !important;
+    gap: 24px !important;
     align-self: flex-end !important;
   }
 
   /* Spacer matches mobile history button (icon only, tightened padding) */
   .footer-spacer {
     width: 46px !important;
+    height: 40px !important;
   }
 
   /* Footer tagline — prevent wrapping, there's enough space */
   .footer-tagline {
     white-space: nowrap !important;
-  }
-
-  /* Footer pause icon — align vertically with history chip clock icon */
-  .footer-pause-btn {
-    margin-top: -2px !important;
   }
 
   /* Database: specimen text wraps to two lines on mobile */
@@ -931,16 +942,10 @@ body.animations-paused #water-bg * {
     margin-left: 0 !important;
   }
 
-  /* Database: pagination footer — more space between range text and controls */
+  /* Database: pagination footer — always two lines on mobile */
   .db-pagination-footer {
-    row-gap: 8px !important;
-  }
-
-  /* Database: pagination — compact buttons to fit one line */
-  .db-pagination button,
-  .db-pagination span {
-    min-width: 28px !important;
-    padding: 4px 4px !important;
-    font-size: 14px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
   }
 }
