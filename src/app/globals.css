@@ -695,7 +695,17 @@ body.animations-paused #water-bg * {
   outline: none !important;
 }
 
-/* Database table sticky header — top is set dynamically via JS */
+/* Database table sticky header — pseudo-element covers the gap above to clip scrolling content */
+.db-sticky-clip::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -2px;
+  right: -2px;
+  height: 20px;
+  background: var(--bg);
+  z-index: 1;
+}
 
 /* Responsive ransom header font size */
 .ransom-title {
