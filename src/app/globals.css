@@ -687,8 +687,8 @@ body.animations-paused #water-bg * {
   }
 }
 
-/* Database sticky header — box-shadow covers scrolling rows in the gap above */
-.db-sticky-clip {
+/* Database sticky header — box-shadow only appears when header is stuck */
+.db-sticky-clip.is-stuck {
   box-shadow: 0 -60px 0 20px var(--bg);
 }
 
