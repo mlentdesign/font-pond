@@ -687,9 +687,14 @@ body.animations-paused #water-bg * {
   }
 }
 
-/* Database table sticky header — sits just below the page header */
+/* Database table sticky header — sits below the page header with gap */
 .db-sticky-header {
-  top: 57px;
+  top: 73px;  /* header ~57px + 16px gap */
+}
+@media (max-width: 639px) {
+  .db-sticky-header {
+    top: 65px;
+  }
 }
 
 /* Responsive ransom header font size */
