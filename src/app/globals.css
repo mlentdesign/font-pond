@@ -571,9 +571,13 @@ body.animations-paused #water-bg * {
   padding-right: 24px;
 }
 @media (min-width: 768px) {
-  .shell-padding, .content-padding {
+  .shell-padding {
     padding-left: 24px;
     padding-right: 24px;
+  }
+  .content-padding {
+    padding-left: 48px;
+    padding-right: 48px;
   }
 }
 @media (min-width: 1024px) {
@@ -661,13 +665,33 @@ body.animations-paused #water-bg * {
   }
 }
 
+/* Settings quad grid: mobile = headline text, headline slider, body text, body slider
+   Desktop = 2 cols: text fields row, sliders row */
+.settings-quad-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+/* Mobile order is natural DOM order: headline text, headline slider, body text, body slider */
+@media (min-width: 640px) {
+  .settings-quad-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 32px;
+  }
+  /* Desktop: row 1 = text fields, row 2 = sliders */
+  .settings-item-headline-text { order: 1; }
+  .settings-item-body-text { order: 2; }
+  .settings-item-headline-slider { order: 3; }
+  .settings-item-body-slider { order: 4; }
+}
+
 /* ══════════════════════════════════════════
    INPUT CONTAINER FOCUS — outline wraps only the text field
    ══════════════════════════════════════════ */
 .prompt-textarea-wrap:focus-within {
   border-color: var(--accent) !important;
   box-shadow: var(--shadow-input-focus) !important;
-  border-radius: 12px;
+  border-radius: 12px 12px 0 0;
 }
 
 /* Prevent CTA text from wrapping inside buttons */
@@ -678,6 +702,18 @@ body.animations-paused #water-bg * {
 /* Mobile "Add image" — hidden by default, shown on mobile via media query */
 .mobile-add-image {
   display: none !important;
+}
+
+/* ══════════════════════════════════════════
+   TABLET ADJUSTMENTS (768px – 1023px)
+   ══════════════════════════════════════════ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .results-top-padding {
+    padding-top: 56px !important;
+  }
+  .results-bottom-padding {
+    padding-bottom: 56px !important;
+  }
 }
 
 /* ══════════════════════════════════════════
@@ -719,19 +755,14 @@ body.animations-paused #water-bg * {
     padding-bottom: 40px !important;
   }
 
-  /* Reduce spacing between preview settings and results */
-  .preview-settings-spacing {
-    margin-bottom: 24px !important;
-  }
-
   /* Footer — stack tagline and About vertically, prevent wrapping */
   .footer-left {
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 8px !important;
   }
-  .footer-left p {
-    white-space: nowrap !important;
+  .footer-tagline {
+    line-height: 1.2 !important;
   }
 
   /* Footer right — 16px gap between pause and recently viewed */
@@ -739,8 +770,8 @@ body.animations-paused #water-bg * {
     gap: 16px !important;
   }
 
-  /* Spacer matches mobile history button (icon only, no text) */
+  /* Spacer matches mobile history button (icon only, tightened padding) */
   .footer-spacer {
-    width: 48px !important;
+    width: 46px !important;
   }
 }
