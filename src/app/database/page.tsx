@@ -216,7 +216,7 @@ export default function DatabasePage() {
     sortKey === key ? (sortDir === "asc" ? " ▲" : " ▼") : "";
 
   const thClass = "text-left uppercase tracking-wider cursor-pointer hover:opacity-70 select-none";
-  const thStyle = { fontSize: "12px", padding: "16px", whiteSpace: "nowrap" as const, color: "var(--text-label)" };
+  const thStyle = { fontSize: "12px", padding: "16px 24px", whiteSpace: "nowrap" as const, color: "var(--text-label)" };
   const headerFooterBg = "var(--bg-chip)";
 
   return (
@@ -365,11 +365,9 @@ export default function DatabasePage() {
               top: `${stickyTop}px`,
               zIndex: 10,
               background: headerFooterBg,
-              borderBottom: "1px solid var(--divider)",
-              borderRadius: "10px 10px 0 0",
               border: "2px solid var(--border)",
-              borderBottomColor: "var(--divider)",
-              borderBottomWidth: "1px",
+              borderBottom: "1px solid var(--divider)",
+              borderRadius: "12px 12px 0 0",
               margin: "-2px -2px 0 -2px",
             }}
           >
@@ -474,7 +472,7 @@ export default function DatabasePage() {
               borderTop: "1px solid var(--divider)",
               padding: "16px 24px",
               background: headerFooterBg,
-              borderRadius: "0 0 10px 10px",
+              borderRadius: "0 0 12px 12px",
             }}
             className="flex items-center justify-between flex-wrap"
           >
