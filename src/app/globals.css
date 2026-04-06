@@ -38,7 +38,7 @@
   --btn-outline-border: #0d4a44;
   --btn-outline-text: #0d4a44;
   --btn-outline-hover: #1a6b5a;
-  --btn-outline-hover-bg: rgba(13, 74, 68, 0.06);
+  --btn-outline-hover-bg: #bddbd8;
   --toggle-active: #0d4a44;
   --toggle-active-text: #ffffff;
   --add-image-color: #0d4a44;
@@ -85,7 +85,7 @@
   --btn-outline-border: #cccccc;
   --btn-outline-text: #cccccc;
   --btn-outline-hover: #ffffff;
-  --btn-outline-hover-bg: rgba(255, 255, 255, 0.06);
+  --btn-outline-hover-bg: #164f54;
   --toggle-active: rgba(255, 255, 255, 0.15);
   --toggle-active-text: #ffffff;
   --add-image-color: #cccccc;
