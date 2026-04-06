@@ -80,10 +80,15 @@ function Pagination({ page, totalPages, goPage }: { page: number; totalPages: nu
   );
 }
 
+function titleCase(s: string): string {
+  return s.replace(/\b[a-z]/g, (c) => c.toUpperCase());
+}
+
 export default function DatabasePage() {
   const [sortKey, setSortKey] = useState<SortKey>("name");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
   const [page, setPage] = useState(0);
+  const [search, setSearch] = useState("");
   const tableRef = useRef<HTMLDivElement>(null);
 
   const rows = useMemo<FontRow[]>(() => {
@@ -118,8 +123,18 @@ export default function DatabasePage() {
     return copy;
   }, [rows, sortKey, sortDir]);
 
-  const totalPages = Math.ceil(sorted.length / PAGE_SIZE);
-  const pageRows = sorted.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+  const filtered = useMemo(() => {
+    if (!search.trim()) return sorted;
+    const q = search.toLowerCase();
+    return sorted.filter((r) =>
+      r.name.toLowerCase().includes(q) ||
+      r.category.toLowerCase().includes(q) ||
+      r.sourceLabel.toLowerCase().includes(q)
+    );
+  }, [sorted, search]);
+
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const pageRows = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
   useEffect(() => {
     let cancelled = false;
@@ -135,7 +150,7 @@ export default function DatabasePage() {
     return () => { cancelled = true; };
   }, [page, sortKey, sortDir]);
 
-  useEffect(() => { setPage(0); }, [sortKey, sortDir]);
+  useEffect(() => { setPage(0); }, [sortKey, sortDir, search]);
 
   const toggleSort = (key: SortKey) => {
     if (sortKey === key) setSortDir(sortDir === "asc" ? "desc" : "asc");
@@ -168,15 +183,36 @@ export default function DatabasePage() {
         className="flex-1 mx-auto w-full content-padding results-top-padding results-bottom-padding"
         style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}
       >
-        <h2
-          className="font-semibold tracking-tight"
-          style={{ color: "var(--text-heading)", fontSize: "24px", marginBottom: "8px" }}
-        >
-          Font database
-        </h2>
-        <p style={{ fontSize: "16px", color: "var(--text-muted)", marginBottom: "24px" }}>
-          {rows.length} fonts currently in the collection
-        </p>
+        <div className="flex items-start justify-between flex-wrap" style={{ gap: "16px", marginBottom: "24px" }}>
+          <div>
+            <h2
+              className="font-semibold tracking-tight"
+              style={{ color: "var(--text-heading)", fontSize: "24px", marginBottom: "4px" }}
+            >
+              Font database
+            </h2>
+            <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
+              {search.trim() ? `${filtered.length} of ${rows.length} fonts` : `${rows.length} fonts in the collection`}
+            </p>
+          </div>
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search fonts..."
+            className="rounded-lg outline-none transition-colors"
+            style={{
+              fontSize: "16px",
+              padding: "8px 16px",
+              background: "var(--bg-input)",
+              color: "var(--text-heading)",
+              boxShadow: "var(--shadow-input)",
+              border: "2px solid var(--border)",
+              width: "240px",
+              maxWidth: "100%",
+            }}
+          />
+        </div>
 
         <div
           ref={tableRef}
@@ -275,7 +311,7 @@ export default function DatabasePage() {
                       ABCDEFGHIJKLMNOPQRSTUVWXYZ
                     </td>
                     <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>
-                      {row.category}
+                      {titleCase(row.category)}
                     </td>
                     <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", textAlign: "right" }} className="tabular-nums">
                       {row.pairCount}
@@ -308,7 +344,7 @@ export default function DatabasePage() {
             className="flex items-center justify-between flex-wrap"
           >
             <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
-              {page * PAGE_SIZE + 1}–{Math.min((page + 1) * PAGE_SIZE, sorted.length)} of {sorted.length}
+              {filtered.length > 0 ? `${page * PAGE_SIZE + 1}–${Math.min((page + 1) * PAGE_SIZE, filtered.length)} of ${filtered.length}` : "No results"}
             </p>
             <Pagination page={page} totalPages={totalPages} goPage={goPage} />
           </div>
