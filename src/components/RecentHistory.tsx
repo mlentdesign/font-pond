@@ -11,7 +11,7 @@ export function RecentHistory() {
   if (recentHistory.length < 2) return null;
 
   return (
-    <div className="fixed z-50 fixed-right" style={{ bottom: "24px" }}>
+    <div className="fixed z-50 fixed-right history-chip-fixed" style={{ bottom: "24px" }}>
       <div className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}

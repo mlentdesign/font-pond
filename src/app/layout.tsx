@@ -1,10 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { AppProvider } from "@/components/AppProvider";
 import { RecentHistory } from "@/components/RecentHistory";
 import { Footer } from "@/components/Footer";
 import { WaterBackground } from "@/components/WaterBackground";
 import { FishEasterEgg } from "@/components/FishEasterEgg";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: "Font Pond",
