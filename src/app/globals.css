@@ -704,27 +704,10 @@ body.animations-paused #water-bg * {
 /* ══════════════════════════════════════════
    INPUT CONTAINER FOCUS — outline wraps only the text field
    ══════════════════════════════════════════ */
-/* Focus ring: positioned pseudo-element covering textarea-wrap area */
-.prompt-textarea-wrap {
-  position: relative;
-}
-.prompt-textarea-wrap::after {
-  content: "";
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: 0;
-  border: 1px solid transparent;
-  border-radius: 12px 12px 0 0;
-  pointer-events: none;
-  transition: border-color 0.15s;
-}
-.prompt-textarea-wrap:focus-within::after {
-  border-color: var(--accent);
-}
-.prompt-textarea-wrap:focus-within {
-  box-shadow: var(--shadow-input-focus);
+/* Focus: change the container border color when textarea is focused */
+.prompt-container:has(.prompt-textarea-wrap:focus-within) {
+  border-color: var(--accent) !important;
+  box-shadow: var(--shadow-input-focus) !important;
 }
 
 /* Prevent CTA text from wrapping inside buttons */
