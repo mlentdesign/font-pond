@@ -178,9 +178,6 @@ export default function DatabasePage() {
           {rows.length} fonts currently in the collection
         </p>
 
-        {/* Sticky spacer — covers the gap between nav and table header with page bg */}
-        <div className="db-sticky-spacer" />
-
         <div
           ref={tableRef}
           style={{
@@ -199,6 +196,10 @@ export default function DatabasePage() {
               background: headerFooterBg,
               borderBottom: "1px solid var(--divider)",
               borderRadius: "10px 10px 0 0",
+              border: "2px solid var(--border)",
+              borderBottomColor: "var(--divider)",
+              borderBottomWidth: "1px",
+              margin: "-2px -2px 0 -2px",
             }}
           >
             {/* Horizontal scroll wrapper for mobile */}
