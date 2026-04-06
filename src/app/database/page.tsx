@@ -154,7 +154,7 @@ export default function DatabasePage() {
                   <th onClick={() => toggleSort("pairs")} className={thClass + " !text-right"} style={{ ...thStyle, textAlign: "right" }}>
                     Pairs{arrow("pairs")}
                   </th>
-                  <th onClick={() => toggleSort("source")} className={thClass} style={thStyle}>
+                  <th onClick={() => toggleSort("source")} className={thClass} style={{ ...thStyle, textAlign: "right" }}>
                     Source{arrow("source")}
                   </th>
                 </tr>
@@ -206,7 +206,7 @@ export default function DatabasePage() {
                   <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", textAlign: "right" }} className="tabular-nums">
                     {row.pairCount}
                   </td>
-                  <td style={{ padding: "16px" }}>
+                  <td style={{ padding: "16px", textAlign: "right" }}>
                     <a
                       href={row.sourceUrl}
                       target="_blank"
@@ -224,7 +224,7 @@ export default function DatabasePage() {
 
           {/* Pagination */}
           <div
-            style={{ borderTop: "1px solid var(--divider)", padding: "16px 24px" }}
+            style={{ borderTop: "1px solid var(--divider)", padding: "16px 24px", background: "var(--bg-card)" }}
             className="flex items-center justify-between"
           >
             <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
