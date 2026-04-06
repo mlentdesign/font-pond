@@ -27,7 +27,7 @@ export function ThemeToggle() {
     return (
       <div
         className="rounded-lg"
-        style={{ width: "84px", height: "48px", background: "var(--bg-chip)", border: "2px solid var(--border)" }}
+        style={{ width: "80px", height: "40px", background: "var(--bg-chip)", border: "2px solid var(--border)" }}
       />
     );
   }
@@ -46,13 +46,13 @@ export function ThemeToggle() {
       <span
         className="flex items-center justify-center rounded-md transition-all"
         style={{
-          width: "36px",
-          height: "36px",
+          width: "32px",
+          height: "32px",
           background: !dark ? "var(--toggle-active)" : "transparent",
           color: !dark ? "var(--toggle-active-text)" : "var(--text-ransom)",
         }}
       >
-        <svg width="24" height="24" viewBox="0 0 18 18" fill="none">
+        <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
           <circle cx="9" cy="9" r="3" stroke="currentColor" strokeWidth="1.5" />
           <path d="M9 2.5V4M9 14V15.5M2.5 9H4M14 9H15.5M4.7 4.7L5.8 5.8M12.2 12.2L13.3 13.3M13.3 4.7L12.2 5.8M5.8 12.2L4.7 13.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
@@ -60,13 +60,13 @@ export function ThemeToggle() {
       <span
         className="flex items-center justify-center rounded-md transition-all"
         style={{
-          width: "36px",
-          height: "36px",
+          width: "32px",
+          height: "32px",
           background: dark ? "var(--toggle-active)" : "transparent",
           color: dark ? "var(--toggle-active-text)" : "var(--text-ransom)",
         }}
       >
-        <svg width="24" height="24" viewBox="0 0 18 18" fill="none">
+        <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
           <path d="M14.5 10.5a5.5 5.5 0 01-7-7A5.5 5.5 0 1014.5 10.5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </span>
