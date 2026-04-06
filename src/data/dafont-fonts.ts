@@ -1407,6 +1407,7 @@ export const dafontFonts: Font[] = [
     ["bold", "retro", "decorative", "playful"],
     ["poster title", "retro branding", "vintage display", "event heading"],
     ["bold inline display with dimensional depth", "retro poster-style character"],
+    { designer: "Jimmy Moon" },
   ),
   dafont("Venera", "sans-serif",
     ["sans-serif", "geometric", "wide", "modern", "clean", "display", "structured", "elegant"],
@@ -1426,7 +1427,7 @@ export const dafontFonts: Font[] = [
     ["casual", "warm", "personal", "friendly"],
     ["greeting card", "casual branding", "lifestyle blog", "personal project"],
     ["casual flowing brush script", "warm vintage handwritten character"],
-    { designer: "Simon Murdoch", serifSansCategory: "script" as const }
+    { designer: "Billy Argel Fonts", serifSansCategory: "script" as const }
   ),
   dafont("Electroharmonix", "display",
     ["display", "futuristic", "russian", "angular", "stylized", "bold", "unique", "exotic"],
@@ -1478,6 +1479,7 @@ export const dafontFonts: Font[] = [
     ["bold", "modern", "structured", "confident"],
     ["modern heading", "professional display", "bold branding", "corporate title"],
     ["bold geometric sans with strong structure", "confident modern proportions"],
+    { designer: "Michael Pinto" },
   ),
   dafont("Whitin", "display",
     ["display", "handwritten", "brush", "casual", "artistic", "expressive", "textured", "creative"],
