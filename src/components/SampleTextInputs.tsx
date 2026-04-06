@@ -72,7 +72,7 @@ export function SampleTextInputs() {
           </div>
 
           {/* Sliders */}
-          <div className="settings-grid" style={{ marginBottom: "40px", gap: "32px" }}>
+          <div className="settings-grid" style={{ gap: "32px" }}>
             <div>
               <label htmlFor="header-size" className="flex items-center justify-between uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "8px" }}>
                 <span>HEADER SIZE</span>
