@@ -200,7 +200,7 @@ export default function DatabasePage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search fonts..."
-            className="rounded-lg outline-none transition-colors"
+            className="db-search-input rounded-lg outline-none transition-all"
             style={{
               fontSize: "16px",
               padding: "8px 16px",
