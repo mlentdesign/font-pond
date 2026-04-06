@@ -98,13 +98,20 @@ export default function DatabasePage() {
   const [stickyTop, setStickyTop] = useState(100);
   const [searchExpanded, setSearchExpanded] = useState(false);
 
-  // Measure actual header height to position sticky header correctly
+  // Measure actual header height and set responsive gap
   useEffect(() => {
     const header = document.querySelector("header.sticky");
-    if (header) {
+    if (!header) return;
+    const updateTop = () => {
       const h = header.getBoundingClientRect().height;
-      setStickyTop(h + 16); // header height + 16px gap
-    }
+      // Match gap to results-bottom-padding: 80px desktop, 56px tablet, 40px mobile
+      const w = window.innerWidth;
+      const gap = w >= 1024 ? 80 : w >= 768 ? 56 : 40;
+      setStickyTop(h + gap);
+    };
+    updateTop();
+    window.addEventListener("resize", updateTop);
+    return () => window.removeEventListener("resize", updateTop);
   }, []);
 
   const rows = useMemo<FontRow[]>(() => {
@@ -369,10 +376,13 @@ export default function DatabasePage() {
               borderBottom: "1px solid var(--divider)",
               borderRadius: "12px 12px 0 0",
               margin: "-2px -2px 0 -2px",
+              minHeight: "56px",
+              display: "flex",
+              alignItems: "center",
             }}
           >
             {/* Horizontal scroll wrapper for mobile */}
-            <div style={{ overflowX: "auto" }}>
+            <div style={{ overflowX: "auto", width: "100%" }}>
               <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed", minWidth: "800px" }}>
                 <colgroup>
                   <col style={{ width: "20%" }} />

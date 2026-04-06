@@ -697,8 +697,7 @@ body.animations-paused #water-bg * {
 
 /* Database sticky header — extended background covers gap above for clipping */
 .db-sticky-clip {
-  /* Use box-shadow to paint over the gap above the header */
-  box-shadow: 0 -24px 0 0 var(--bg);
+  box-shadow: 0 -100px 0 0 var(--bg);
 }
 
 /* Responsive ransom header font size */
