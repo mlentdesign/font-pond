@@ -215,7 +215,7 @@ export function PromptInput() {
         {/* Bottom bar */}
         <div
           className="action-bar flex items-center justify-between action-bar-border"
-          style={{ padding: "16px 24px", background: "var(--bg-action-bar)", borderTop: "1px solid var(--divider)" }}
+          style={{ padding: "16px 24px", borderTop: "1px solid var(--divider)" }}
         >
           <div className="action-bar-image flex items-center">
             <input
