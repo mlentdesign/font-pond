@@ -32,8 +32,8 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
       role="link"
       tabIndex={0}
       aria-label={`View font pair: ${headerFont.name} and ${bodyFont.name}`}
-      onClick={() => router.push(`/pair/${pair.slug}`)}
-      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push(`/pair/${pair.slug}`); } }}
+      onClick={() => router.push(`/pair?p=${pair.slug}`)}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push(`/pair?p=${pair.slug}`); } }}
       className="group border border-neutral-200 rounded-xl bg-white hover:border-neutral-300 hover:shadow-md transition-all cursor-pointer overflow-hidden"
     >
       {/* Section 1: Sample header + body text */}

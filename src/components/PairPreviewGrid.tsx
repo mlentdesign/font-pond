@@ -45,7 +45,7 @@ export function PairPreviewGrid({
           return (
             <Link
               key={p.id}
-              href={`/pair/${p.slug}`}
+              href={`/pair?p=${p.slug}`}
               className="border border-neutral-200 rounded-xl bg-white hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
               style={{ padding: "24px" }}
             >

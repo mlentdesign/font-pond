@@ -47,7 +47,7 @@ export function RecentHistory() {
               {recentHistory.map((item) => (
                 <li key={item.pairId}>
                   <Link
-                    href={`/pair/${item.pairSlug}`}
+                    href={`/pair?p=${item.pairSlug}`}
                     className="flex items-center transition-colors hover:opacity-70"
                     style={{ padding: "8px 16px" }}
                     onClick={() => setIsOpen(false)}
