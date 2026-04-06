@@ -551,7 +551,7 @@ body.animations-paused #water-bg * {
 
 /* Fixed-right positioning matching shell-padding mirror */
 .fixed-right {
-  right: 24px;
+  right: 16px;
 }
 @media (min-width: 768px) {
   .fixed-right { right: 24px; }
@@ -562,17 +562,22 @@ body.animations-paused #water-bg * {
 
 /* Shell padding: 80px on desktop, 24px on tablet, 16px on mobile */
 .shell-padding {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+/* Content areas get extra side padding on mobile for card breathing room */
+.content-padding {
   padding-left: 24px;
   padding-right: 24px;
 }
 @media (min-width: 768px) {
-  .shell-padding {
+  .shell-padding, .content-padding {
     padding-left: 24px;
     padding-right: 24px;
   }
 }
 @media (min-width: 1024px) {
-  .shell-padding {
+  .shell-padding, .content-padding {
     padding-left: 80px;
     padding-right: 80px;
   }
