@@ -162,21 +162,33 @@ export default function FontDetailPage() {
           </SectionCard>
 
           <SectionCard>
-            <div className="flex flex-col" style={{ gap: "16px" }}>
+            <div className="flex flex-col">
               {font.distinctiveTraits.length > 0 && (
                 <ChipGroup label="DISTINCTIVE TRAITS" chips={font.distinctiveTraits} />
+              )}
+              {font.distinctiveTraits.length > 0 && font.toneDescriptors.length > 0 && (
+                <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
               )}
               {font.toneDescriptors.length > 0 && (
                 <ChipGroup label="TONE" chips={font.toneDescriptors} />
               )}
+              {font.toneDescriptors.length > 0 && font.useCases.length > 0 && (
+                <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
+              )}
               {font.useCases.length > 0 && (
                 <ChipGroup label="USE CASES" chips={font.useCases} />
+              )}
+              {font.useCases.length > 0 && font.screenReadabilityNotes && (
+                <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
               )}
               {font.screenReadabilityNotes && (
                 <div>
                   <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>SCREEN READABILITY</p>
                   <p className="text-xs text-neutral-600 leading-relaxed">{font.screenReadabilityNotes}</p>
                 </div>
+              )}
+              {font.screenReadabilityNotes && font.historicalNotes && (
+                <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
               )}
               {font.historicalNotes && (
                 <div>

@@ -308,20 +308,20 @@ export function WaterBackground() {
               ? Math.min(255, Math.floor((baseA + enhance * 15) * edgeAlpha))
               : 0;
           } else {
-            // Base: saturated teal from wave height (dominant)
-            const baseR = 0 + intensity * 10;
-            const baseG = 145 + intensity * 30;
-            const baseB = 125 + intensity * 26;
-            const baseA = absI * 32;
+            // Base: lighter teal from wave height (dominant)
+            const baseR = 20 + intensity * 8;
+            const baseG = 160 + intensity * 20;
+            const baseB = 140 + intensity * 18;
+            const baseA = absI * 20;
 
             // Add subtle caustic shimmer + specular glint
-            const enhance = caustic * 2.5 + specular * 4;
+            const enhance = caustic * 2 + specular * 3;
 
             data[pi]     = Math.min(255, Math.floor(baseR + enhance * 0.2));
-            data[pi + 1] = Math.min(255, Math.floor(baseG + enhance * 0.6));
-            data[pi + 2] = Math.min(255, Math.floor(baseB + enhance * 0.5));
+            data[pi + 1] = Math.min(255, Math.floor(baseG + enhance * 0.5));
+            data[pi + 2] = Math.min(255, Math.floor(baseB + enhance * 0.4));
             data[pi + 3] = absI > 0.006 || enhance > 0.1
-              ? Math.min(255, Math.floor((baseA + enhance * 12) * edgeAlpha))
+              ? Math.min(255, Math.floor((baseA + enhance * 8) * edgeAlpha))
               : 0;
           }
         }
