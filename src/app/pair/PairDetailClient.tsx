@@ -1,7 +1,8 @@
 "use client";
 
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { pairsBySlug, getPairOrConstruct } from "@/data/pairs";
 import { fontsById } from "@/data/fonts";
 import { getRelatedPairs } from "@/lib/engine";
@@ -31,7 +32,7 @@ function FontSection({
 
   return (
     <Link
-      href={`/font/${font.slug}?from=${pairSlug}`}
+      href={`/font?f=${font.slug}&from=${pairSlug}`}
       className="block border border-neutral-200 rounded-xl bg-white p-6 hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
     >
       <div className="flex items-baseline justify-between mb-4">
@@ -90,12 +91,9 @@ function FontSection({
   );
 }
 
-export default function PairDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = use(params);
+export default function PairDetailPage() {
+  const searchParams = useSearchParams();
+  const slug = searchParams.get("p") || "";
   const { sampleHeadline, sampleBody, addToHistory } = useAppState();
 
   const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
