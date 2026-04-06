@@ -97,19 +97,13 @@ export default function DatabasePage() {
           {rows.length} fonts currently in the collection
         </p>
 
-        <div
-          style={{ border: "2px solid var(--border)", borderRadius: "12px", overflow: "hidden" }}
-        >
-          <div style={{ overflowX: "auto" }}>
-          <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse" }}>
-            <thead>
+        <div>
+          <table className="w-full" style={{ fontSize: "16px", borderCollapse: "separate", borderSpacing: "0", border: "2px solid var(--border)", borderRadius: "12px" }}>
+            <thead style={{ position: "sticky", top: "57px", zIndex: 20 }}>
               <tr
                 style={{
-                  borderBottom: "1px solid var(--divider)",
-                  position: "sticky",
-                  top: "57px",
-                  zIndex: 20,
                   background: "var(--bg-card)",
+                  boxShadow: "inset 0 -1px 0 0 var(--divider)",
                 }}
               >
                 <th
@@ -203,7 +197,6 @@ export default function DatabasePage() {
               ))}
             </tbody>
           </table>
-          </div>
         </div>
       </main>
     </div>
