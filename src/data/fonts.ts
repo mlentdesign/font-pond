@@ -2433,6 +2433,7 @@ const FONT_BLOCKLIST_SLUGS = new Set([
   "noto-color-emoji", "noto-emoji", "noto-music",
   "noto-sans-symbols", "noto-sans-symbols-2",
   "noto-sans-math", "noto-sans-signwriting",
+  "yarndings-12", "yarndings-12-charted", "yarndings-20", "yarndings-20-charted",
 ]);
 
 // Name substrings that indicate a color/symbol font
@@ -2441,7 +2442,7 @@ const BLOCKLIST_NAME_PATTERNS = [
   "noto color emoji", "noto emoji", "noto music", "signwriting",
   "noto sans symbols", "noto sans math",
   // Color/chromatic font indicators
-  "color", "colr", "glaze", "pixels", "bitcount",
+  "color", "colr", "glaze", "pixels", "bitcount", "yarndings",
 ];
 
 function isBlocklisted(font: Font): boolean {
