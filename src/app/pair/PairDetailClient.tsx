@@ -203,37 +203,41 @@ export default function PairDetailPage() {
           <p className="text-neutral-700 leading-relaxed" style={{ fontSize: "16px" }}>{sentenceCase(pair.rationale)}</p>
         </SectionCard>
 
-        {/* Details card */}
-        <SectionCard className="overflow-hidden" style={{ marginBottom: "24px" }}>
-          <dl>
-            <div style={{ marginBottom: "16px" }}>
+        {/* Details — two columns */}
+        <div className="two-col-grid" style={{ marginBottom: "24px" }}>
+          {/* Left: scores — label left, value right, lines between */}
+          <SectionCard noPadding style={{ paddingTop: "12px", paddingBottom: "12px" }}>
+            <dl>
+              <div className="flex justify-between border-b border-neutral-100 last:border-0" style={{ padding: "12px 24px" }}>
+                <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>HIERARCHY</dt>
+                <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.hierarchyStrength}/10</dd>
+              </div>
+              <div className="flex justify-between border-b border-neutral-100 last:border-0" style={{ padding: "12px 24px" }}>
+                <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>LEGIBILITY</dt>
+                <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.bodyLegibilityScore}/10</dd>
+              </div>
+              <div className="flex justify-between" style={{ padding: "12px 24px" }}>
+                <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>PRACTICALITY</dt>
+                <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.practicalityScore}/10</dd>
+              </div>
+            </dl>
+          </SectionCard>
+
+          {/* Right: tone, contrast type, use cases */}
+          <SectionCard>
+            <div>
               <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "4px" }}>TONE</dt>
               <dd className="text-neutral-700" style={{ fontSize: "16px" }}>{sentenceCase(pair.toneSummary)}</dd>
             </div>
-            <div style={{ marginBottom: "16px" }}>
+            <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
+            <div>
               <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "4px" }}>CONTRAST TYPE</dt>
               <dd className="text-neutral-700" style={{ fontSize: "16px" }}>{sentenceCase(pair.contrastType)}</dd>
             </div>
-            <div className="grid grid-cols-3" style={{ gap: "16px" }}>
-              <div>
-                <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "4px" }}>HIERARCHY</dt>
-                <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.hierarchyStrength}/10</dd>
-              </div>
-              <div>
-                <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "4px" }}>LEGIBILITY</dt>
-                <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.bodyLegibilityScore}/10</dd>
-              </div>
-              <div>
-                <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "4px" }}>PRACTICALITY</dt>
-                <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.practicalityScore}/10</dd>
-              </div>
-            </div>
-          </dl>
-
-          <div style={{ borderTop: "1px solid var(--divider)", marginTop: "24px", paddingTop: "24px", marginLeft: "-24px", marginRight: "-24px", paddingLeft: "24px", paddingRight: "24px" }}>
+            <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
             <ChipGroup label="USE CASES" chips={pair.useCases} />
-          </div>
-        </SectionCard>
+          </SectionCard>
+        </div>
 
         {/* Font sections — two columns */}
         <div className="two-col-grid" style={{ marginBottom: "24px" }}>
