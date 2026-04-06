@@ -696,6 +696,17 @@ body.animations-paused #water-bg * {
   .font-detail-combined {
     display: none !important;
   }
+  /* Compact: when chips heavily outweigh info rows, use 2-card layout on desktop too */
+  .font-detail-grid.font-detail-compact {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .font-detail-compact .font-detail-card1,
+  .font-detail-compact .font-detail-card2 {
+    display: none !important;
+  }
+  .font-detail-compact .font-detail-combined {
+    display: block !important;
+  }
 }
 
 /* Database sticky header — box-shadow only appears when header is stuck */
