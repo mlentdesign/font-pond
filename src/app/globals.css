@@ -832,6 +832,11 @@ body.animations-paused #water-bg * {
   font-size: inherit !important;
 }
 
+/* Footer gap — default 8px, tighter on mobile */
+.site-footer {
+  gap: 8px;
+}
+
 /* Mobile "Add image" — hidden by default, shown on mobile via media query */
 .mobile-add-image {
   display: none !important;
