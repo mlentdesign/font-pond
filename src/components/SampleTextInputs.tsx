@@ -50,7 +50,7 @@ export function SampleTextInputs() {
                 type="text"
                 value={sampleHeadline}
                 onChange={(e) => setSampleHeadline(e.target.value)}
-                placeholder={DEFAULT_HEADLINE}
+                placeholder="Custom headline text..."
                 className="w-full rounded-lg outline-none transition-colors"
                 style={{ fontSize: "16px", background: "var(--bg-input)", color: "var(--text-heading)", boxShadow: "var(--shadow-input)", padding: "8px 16px" }}
               />
