@@ -143,8 +143,9 @@ export default function FontDetailPage() {
           )}
         </SectionCard>
 
-        {/* Details — two columns */}
-        <div className="two-col-grid" style={{ marginBottom: "24px" }}>
+        {/* Details — three columns */}
+        <div className="three-col-grid" style={{ marginBottom: "24px" }}>
+          {/* Card 1: Classification, Subcategory, Variable font, Weights, Styles */}
           <SectionCard noPadding style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
               <InfoRow label="Classification" value={font.classification} />
@@ -152,6 +153,12 @@ export default function FontDetailPage() {
               <InfoRow label="Variable font" value={font.variableFont ? "Yes" : "No"} />
               <InfoRow label="Weights" value={font.weights.join(", ")} />
               <InfoRow label="Styles" value={font.styles.join(", ")} />
+            </dl>
+          </SectionCard>
+
+          {/* Card 2: License, Header suitable, Body suitable, Body legibility */}
+          <SectionCard noPadding style={{ paddingTop: "12px", paddingBottom: "12px" }}>
+            <dl>
               <InfoRow label="License" value={font.licenseType} />
               <InfoRow label="Header suitable" value={font.isHeaderSuitable ? "Yes" : "No"} />
               <InfoRow label="Body suitable" value={font.isBodySuitable ? "Yes" : "Not recommended"} />
@@ -161,6 +168,7 @@ export default function FontDetailPage() {
             </dl>
           </SectionCard>
 
+          {/* Card 3: Tone, Use Cases, etc. */}
           <SectionCard>
             <div className="flex flex-col">
               {font.distinctiveTraits.length > 0 && (
