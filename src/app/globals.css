@@ -151,6 +151,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, div {
    ══════════════════════════════════════════ */
 header { z-index: 30; }
 footer { z-index: 20; position: relative; }
+.footer-left { gap: 16px; }
 main { z-index: 10; position: relative; }
 .fixed { z-index: 40; }
 nav { position: relative; z-index: 10; }
