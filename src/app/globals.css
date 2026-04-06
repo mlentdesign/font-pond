@@ -908,9 +908,11 @@ body.animations-paused #water-bg * {
     right: 16px !important;
   }
 
-  /* Footer — match bottom padding to history chip position */
+  /* Footer — match bottom padding to history chip position, tighter gap, vertically centered */
   .site-footer {
     padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important;
+    gap: 4px !important;
+    align-content: center !important;
   }
 
   /* Footer: tagline + bottom row each take full width on mobile */
