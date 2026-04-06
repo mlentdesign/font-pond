@@ -223,7 +223,7 @@ export default function DatabasePage() {
     sortKey === key ? (sortDir === "asc" ? " ▲" : " ▼") : "";
 
   const thClass = "text-left uppercase tracking-wider cursor-pointer hover:opacity-70 select-none";
-  const thStyle = { fontSize: "12px", padding: "16px", whiteSpace: "nowrap" as const, color: "var(--text-label)" };
+  const thStyle = { fontSize: "12px", padding: "20px 16px", whiteSpace: "nowrap" as const, color: "var(--text-label)" };
   const headerFooterBg = "var(--bg-chip)";
 
   return (
@@ -376,9 +376,6 @@ export default function DatabasePage() {
               borderBottom: "1px solid var(--divider)",
               borderRadius: "12px 12px 0 0",
               margin: "-2px -2px 0 -2px",
-              minHeight: "56px",
-              display: "flex",
-              alignItems: "center",
             }}
           >
             {/* Horizontal scroll wrapper for mobile */}
