@@ -2395,14 +2395,18 @@ function enrichFontTags(font: Font): Font {
 
 // ── Merge all font sources (curated fonts take priority, then auto-generated) ──
 
-const curatedFonts: Font[] = [...coreFonts, ...googleFontsExtended, ...dafontFonts];
-const curatedIds = new Set(curatedFonts.map((f) => f.slug));
-
-// Add auto-generated fonts that aren't already in the curated set
-const extraGoogle = allGoogleFonts.filter((f) => !curatedIds.has(f.slug));
-// Fontshare: also exclude fonts that share a name with a Google Fonts entry
+// Google Fonts takes priority: DaFont entries that share a name with Google Fonts are excluded
 const googleNames = new Set(allGoogleFonts.map((f) => f.name.toLowerCase()));
-const extraFontshare = allFontshareFonts.filter((f) => !curatedIds.has(f.slug) && !googleNames.has(f.name.toLowerCase()));
+const dedupedDafont = dafontFonts.filter((f) => !googleNames.has(f.name.toLowerCase()));
+
+const curatedFonts: Font[] = [...coreFonts, ...googleFontsExtended, ...dedupedDafont];
+const curatedIds = new Set(curatedFonts.map((f) => f.slug));
+const curatedNames = new Set(curatedFonts.map((f) => f.name.toLowerCase()));
+
+// Add auto-generated Google fonts that aren't already in the curated set (by slug OR name)
+const extraGoogle = allGoogleFonts.filter((f) => !curatedIds.has(f.slug) && !curatedNames.has(f.name.toLowerCase()));
+// Fontshare: also exclude fonts that share a name with Google Fonts or curated entries
+const extraFontshare = allFontshareFonts.filter((f) => !curatedIds.has(f.slug) && !curatedNames.has(f.name.toLowerCase()) && !googleNames.has(f.name.toLowerCase()));
 
 // ── Blocklist: chromatic/color fonts, symbol-only fonts, icon fonts ──
 // These render in fixed colors (not black/white) or contain only symbols/icons

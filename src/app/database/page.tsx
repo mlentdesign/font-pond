@@ -252,7 +252,7 @@ export default function DatabasePage() {
                   background: "var(--bg-input)",
                   border: "2px solid var(--border)",
                   cursor: "pointer",
-                  color: activeFilterCount > 0 ? "var(--accent)" : "var(--text-muted)",
+                  color: activeFilterCount > 0 ? "var(--accent)" : "var(--text-ransom)",
                   flexShrink: 0,
                 }}
                 aria-label="Filter fonts"
@@ -359,6 +359,7 @@ export default function DatabasePage() {
           {/* Sticky table header */}
           <div
             ref={stickyRef}
+            className="db-sticky-clip"
             style={{
               position: "sticky",
               top: `${stickyTop}px`,
