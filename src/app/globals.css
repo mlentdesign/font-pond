@@ -718,13 +718,23 @@ body.animations-paused #water-bg * {
     margin-bottom: 24px !important;
   }
 
-  /* Footer — tighter gap between tagline and About */
+  /* Footer — stack tagline and About vertically, prevent wrapping */
   .footer-left {
+    flex-direction: column !important;
+    align-items: flex-start !important;
     gap: 8px !important;
+  }
+  .footer-left p {
+    white-space: nowrap !important;
   }
 
   /* Footer right — 16px gap between pause and recently viewed */
   .footer-right {
     gap: 16px !important;
+  }
+
+  /* Spacer matches mobile history button (icon only, no text) */
+  .footer-spacer {
+    width: 48px !important;
   }
 }

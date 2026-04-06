@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { fontsBySlug, fontsById } from "@/data/fonts";
 import { getPairsWithFont } from "@/lib/engine";
 import { loadFont, getFontFamily } from "@/lib/fonts";
-import { titleCase, getSourceLabel } from "@/lib/text";
+import { titleCase, sentenceCase, getSourceLabel } from "@/lib/text";
 import { pairsBySlug } from "@/data/pairs";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -19,7 +19,7 @@ function InfoRow({ label, value }: { label: string; value: string | null | undef
   return (
     <div className="flex justify-between border-b border-neutral-100 last:border-0" style={{ padding: "12px 24px" }}>
       <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>{label.toUpperCase()}</dt>
-      <dd className="text-neutral-700 text-right max-w-[60%]" style={{ fontSize: "16px" }}>{titleCase(value)}</dd>
+      <dd className="text-neutral-700 text-right max-w-[60%]" style={{ fontSize: "16px" }}>{sentenceCase(value)}</dd>
     </div>
   );
 }

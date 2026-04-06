@@ -69,6 +69,7 @@ export function Footer() {
         {/* Invisible spacer — reserves space for the fixed viewed chip */}
         {hasHistory && (
           <div
+            className="footer-spacer"
             aria-hidden="true"
             style={{
               visibility: "hidden",
