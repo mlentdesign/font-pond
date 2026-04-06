@@ -36,7 +36,7 @@ interface LetterState {
   flipSpeed: number;
 }
 
-export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: string) => void }) {
+export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: string, fontSlug: string) => void }) {
   const [mounted, setMounted] = useState(false);
   const [displayFont, setDisplayFontRaw] = useState<PoolFont>(() => pickRandom());
   const loadedRef = useRef(new Set<string>());
@@ -50,7 +50,7 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
 
   const setDisplayFont = useCallback((f: PoolFont) => {
     setDisplayFontRaw(f);
-    onFontChange?.(f.name);
+    onFontChange?.(f.name, f.slug);
   }, [onFontChange]);
 
   const [letterStates, setLetterStates] = useState<LetterState[]>([]);

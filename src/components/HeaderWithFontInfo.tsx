@@ -7,12 +7,14 @@ import { fontsBySlug } from "@/data/fonts";
 
 export function HeaderWithFontInfo() {
   const [currentFont, setCurrentFont] = useState("");
+  const [currentSlug, setCurrentSlug] = useState("");
   const [showTooltip, setShowTooltip] = useState(false);
   const hideTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const router = useRouter();
 
-  const handleFontChange = useCallback((fontName: string) => {
+  const handleFontChange = useCallback((fontName: string, fontSlug: string) => {
     setCurrentFont(fontName);
+    setCurrentSlug(fontSlug);
   }, []);
 
   const scheduleHide = () => {
@@ -22,12 +24,11 @@ export function HeaderWithFontInfo() {
     if (hideTimeout.current) clearTimeout(hideTimeout.current);
   };
 
-  const fontSlug = currentFont.toLowerCase().replace(/\s+/g, "-");
-  const fontExists = fontsBySlug.has(fontSlug);
+  const fontExists = fontsBySlug.has(currentSlug);
 
   const handleFontClick = () => {
     if (fontExists) {
-      router.push(`/font?f=${fontSlug}`);
+      router.push(`/font?f=${currentSlug}`);
       setShowTooltip(false);
     }
   };
