@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import { fonts } from "@/data/fonts";
-import { getPairsWithFont } from "@/lib/engine";
+import { fontPairs } from "@/data/pairs";
 import { loadFont, getFontFamily } from "@/lib/fonts";
 import { getSourceLabel } from "@/lib/text";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
@@ -32,8 +32,14 @@ export default function DatabasePage() {
   const tableRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const rows = useMemo<FontRow[]>(() =>
-    fonts.map((f) => ({
+  const rows = useMemo<FontRow[]>(() => {
+    // Precompute pair counts in one pass instead of calling getPairsWithFont per font
+    const pairCounts = new Map<string, number>();
+    for (const p of fontPairs) {
+      pairCounts.set(p.headerFontId, (pairCounts.get(p.headerFontId) || 0) + 1);
+      pairCounts.set(p.bodyFontId, (pairCounts.get(p.bodyFontId) || 0) + 1);
+    }
+    return fonts.map((f) => ({
       id: f.id,
       slug: f.slug,
       name: f.name,
@@ -42,9 +48,9 @@ export default function DatabasePage() {
       source: f.source,
       sourceLabel: getSourceLabel(f.source),
       sourceUrl: f.sourceUrl,
-      pairCount: getPairsWithFont(f.id).length,
-    })),
-  []);
+      pairCount: pairCounts.get(f.id) || 0,
+    }));
+  }, []);
 
   const sorted = useMemo(() => {
     const copy = [...rows];
