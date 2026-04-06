@@ -5,6 +5,25 @@
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const loaded = new Set<string>();
 
+// Cap CDN stylesheets to prevent unbounded DOM growth
+const MAX_CDN_LINKS = 40;
+const cdnLinks: { key: string; el: HTMLLinkElement }[] = [];
+
+function addCdnLink(key: string, href: string): void {
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = href;
+  document.head.appendChild(link);
+  cdnLinks.push({ key, el: link });
+
+  // Evict oldest stylesheet when over the cap
+  while (cdnLinks.length > MAX_CDN_LINKS) {
+    const old = cdnLinks.shift()!;
+    loaded.delete(old.key);
+    old.el.remove();
+  }
+}
+
 export function loadFont(font: { name: string; slug: string; source: string; googleFontsFamily?: string; id?: string }): void {
   if (typeof window === "undefined") return;
 
@@ -27,10 +46,7 @@ export function loadFont(font: { name: string; slug: string; source: string; goo
   const gfKey = `gf-cdn-${gfFamily}`;
   if (!loaded.has(gfKey) && (font.source === "google-fonts" || font.source === "other")) {
     loaded.add(gfKey);
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = `https://fonts.googleapis.com/css2?family=${gfFamily.replace(/ /g, "+")}:wght@400;500;600;700&display=swap`;
-    document.head.appendChild(link);
+    addCdnLink(gfKey, `https://fonts.googleapis.com/css2?family=${gfFamily.replace(/ /g, "+")}:wght@400;500;600;700&display=swap`);
   }
 
   // Fontshare CDN
@@ -38,10 +54,7 @@ export function loadFont(font: { name: string; slug: string; source: string; goo
     const cdnKey = `fs-cdn-${font.slug}`;
     if (!loaded.has(cdnKey)) {
       loaded.add(cdnKey);
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = `https://api.fontshare.com/v2/css?f[]=${font.slug}@100,200,300,400,500,600,700,800,900&display=swap`;
-      document.head.appendChild(link);
+      addCdnLink(cdnKey, `https://api.fontshare.com/v2/css?f[]=${font.slug}@100,200,300,400,500,600,700,800,900&display=swap`);
     }
   }
 }

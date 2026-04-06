@@ -96,11 +96,12 @@ export function PromptInput() {
   );
 
   // Revoke any remaining image object URLs on unmount
+  const previewsRef = useRef(imagePreviews);
+  previewsRef.current = imagePreviews;
   useEffect(() => {
     return () => {
-      imagePreviews.forEach((url) => URL.revokeObjectURL(url));
+      previewsRef.current.forEach((url) => URL.revokeObjectURL(url));
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = useCallback(() => {
