@@ -96,39 +96,6 @@ function dafont(
 export const dafontFonts: Font[] = [
 
   // ─── GRUNGE / DISTRESSED (~25) ───
-
-  dafont("Vtks Revolt", "display",
-    ["grunge", "distressed", "punk", "heavy", "rough", "textured", "aggressive", "urban"],
-    ["edgy", "raw", "rebellious", "intense", "chaotic"],
-    ["poster", "band logo", "punk flyer", "album art", "streetwear"],
-    ["deeply eroded letterforms", "ink-splatter textures"],
-    { designer: "Douglas Vitkauskas" }
-  ),
-
-  dafont("Vtks Distress", "display",
-    ["grunge", "distressed", "scratched", "worn", "rough", "textured", "trash", "dirty"],
-    ["gritty", "raw", "urban", "aggressive"],
-    ["poster", "music flyer", "underground events", "street art"],
-    ["heavily scratched surface", "torn paper effect"],
-    { designer: "Douglas Vitkauskas" }
-  ),
-
-  dafont("CF Punk Fashion", "display",
-    ["grunge", "punk", "torn", "collage", "ransom", "cut-out", "mixed", "anarchic"],
-    ["rebellious", "chaotic", "DIY", "confrontational"],
-    ["punk flyer", "zine", "protest art", "album cover", "counterculture"],
-    ["ransom-note cut-out style", "mixed typeface collage"],
-  ),
-
-  dafont("Bleeding Cowboys", "display",
-    ["grunge", "western", "distressed", "decorative", "worn", "vintage", "textured", "ornate"],
-    ["dramatic", "rugged", "dark", "atmospheric"],
-    ["band logo", "tattoo", "western poster", "album art"],
-    ["ornamental swashes with distressed texture", "western-grunge hybrid"],
-    { designer: "Last Soundtrack" }
-  ),
-
-
   dafont("Trash Hand", "handwritten",
     ["grunge", "handwritten", "messy", "scrawled", "raw", "marker", "urban", "casual"],
     ["gritty", "authentic", "street", "lo-fi"],
@@ -172,16 +139,6 @@ export const dafontFonts: Font[] = [
     ["military poster", "street art", "urban branding", "action movie"],
     ["stencil with spray-paint bleed", "urban military hybrid"],
   ),
-
-
-  dafont("Vtks Black", "display",
-    ["grunge", "black", "heavy", "bold", "distressed", "dark", "textured", "aggressive"],
-    ["dark", "heavy", "ominous", "powerful"],
-    ["heavy metal", "dark poster", "gothic event", "extreme branding"],
-    ["ultra-heavy weight with grime", "maximum impact letterforms"],
-    { designer: "Douglas Vitkauskas" }
-  ),
-
   dafont("Another Danger", "display",
     ["grunge", "brush", "rough", "danger", "aggressive", "textured", "distressed", "edgy"],
     ["dangerous", "edgy", "raw", "intense"],
@@ -442,14 +399,6 @@ export const dafontFonts: Font[] = [
     ["layered 3D sign-painting style", "multiple design layers"],
     // Also on Google Fonts
   ),
-
-  dafont("Lemon Milk", "display",
-    ["retro", "modern", "geometric", "clean", "bold", "rounded", "minimal", "contemporary"],
-    ["clean", "modern-retro", "confident", "minimal"],
-    ["modern branding", "clean heading", "product packaging", "social media"],
-    ["modern geometric with retro nod", "clean rounded forms"],
-  ),
-
   dafont("Edo SZ", "display",
     ["retro", "japanese-inspired", "geometric", "angular", "bold", "display", "asian", "poster"],
     ["dramatic", "cultural", "bold", "stylized"],
@@ -905,36 +854,12 @@ export const dafontFonts: Font[] = [
     // Also on Google Fonts
   ),
 
-  dafont("Blacksword", "display",
-    ["brush", "bold", "aggressive", "calligraphy", "sharp", "dark", "dramatic", "thick"],
-    ["dramatic", "dark", "aggressive", "powerful"],
-    ["dark branding", "dramatic poster", "bold logo", "heavy heading"],
-    ["bold aggressive brush calligraphy", "sword-like sharp terminals"],
-  ),
-
-
   dafont("Adrenaline", "display",
     ["brush", "bold", "speed", "dynamic", "sports", "energetic", "fast", "italic"],
     ["energetic", "fast", "dynamic", "powerful"],
     ["sports brand", "extreme sports", "energy poster", "action heading"],
     ["speed-styled brush display", "dynamic athletic energy"],
   ),
-
-  dafont("Vtks Animal 2", "display",
-    ["brush", "wild", "organic", "expressive", "artistic", "bold", "natural", "raw"],
-    ["wild", "organic", "expressive", "natural"],
-    ["nature poster", "wild branding", "organic heading", "art exhibit"],
-    ["wild organic brush forms", "animal-energy brush strokes"],
-    { designer: "Douglas Vitkauskas" }
-  ),
-
-  dafont("Baron Neue", "display",
-    ["brush", "modern", "thin", "uppercase", "clean", "elegant", "fashion", "minimal"],
-    ["elegant", "modern", "clean", "sophisticated"],
-    ["fashion brand", "modern heading", "clean poster", "elegant branding"],
-    ["thin modern uppercase display", "fashion-forward elegance"],
-  ),
-
   dafont("Kaushan Script", "script",
     ["brush", "script", "casual", "connected", "flowing", "lively", "modern", "friendly"],
     ["lively", "casual", "friendly", "warm"],
@@ -1022,14 +947,6 @@ export const dafontFonts: Font[] = [
     ["sci-fi poster", "alien theme", "space game", "uFO event"],
     ["alien-tech angular display", "extraterrestrial aesthetic"],
   ),
-
-  dafont("Starcraft", "display",
-    ["sci-fi", "gaming", "futuristic", "bold", "tech", "space", "strategy", "military-sci-fi"],
-    ["strategic", "powerful", "futuristic", "commanding"],
-    ["strategy game", "sci-fi branding", "space military", "gaming poster"],
-    ["military sci-fi display", "space command aesthetic"],
-  ),
-
   dafont("Conthrax", "display",
     ["sci-fi", "geometric", "modern", "tech", "clean", "futuristic", "angular", "precise"],
     ["precise", "modern", "technological", "clean"],
@@ -1289,15 +1206,6 @@ export const dafontFonts: Font[] = [
   ),
 
   // ─── NEON / 80s (~10) ───
-
-  dafont("Streamster", "script",
-    ["neon", "80s", "script", "retro-future", "synthwave", "flowing", "chrome", "glowing"],
-    ["retro-future", "synthwave", "glowing", "nostalgic"],
-    ["synthwave poster", "80s party", "retro event", "neon heading"],
-    ["80s neon script display", "synthwave glow aesthetic"],
-    { serifSansCategory: "script" }
-  ),
-
   dafont("Neon", "display",
     ["neon", "glowing", "sign", "bright", "night", "bar", "electric", "urban"],
     ["glowing", "electric", "nightlife", "bright"],
@@ -1435,14 +1343,6 @@ export const dafontFonts: Font[] = [
     ["wedding invitation", "formal card", "elegant certificate", "luxury heading"],
     ["delicate formal calligraphic script", "ornate wedding-style elegance"],
   ),
-
-  dafont("Bromello", "handwritten",
-    ["script", "brush", "modern", "feminine", "flowing", "casual", "trendy"],
-    ["modern", "feminine", "trendy", "soft"],
-    ["fashion brand", "beauty blog", "social media", "modern wedding"],
-    ["modern brush script", "trendy feminine flow"],
-  ),
-
   dafont("Mr Dafoe", "handwritten",
     ["script", "brush", "bold", "dramatic", "expressive", "dynamic", "artistic"],
     ["dramatic", "expressive", "bold", "artistic"],
@@ -1686,31 +1586,6 @@ export const dafontFonts: Font[] = [
   ),
 
   // ─── ADDITIONAL DISPLAY FONTS (replacements for Google Fonts overlaps) ───
-
-  dafont("Vtks Giz", "display",
-    ["grunge", "rough", "heavy", "distressed", "urban", "textured"],
-    ["edgy", "raw", "urban", "bold"],
-    ["poster", "band logo", "streetwear", "album art"],
-    ["heavily distressed display", "urban grit texture"],
-    { designer: "Douglas Vitkauskas" }
-  ),
-
-  dafont("Vtks Animal 2", "display",
-    ["grunge", "distressed", "rough", "decorative", "aggressive"],
-    ["wild", "raw", "aggressive", "fierce"],
-    ["concert poster", "punk flyer", "streetwear", "extreme sports"],
-    ["wild aggressive distressed forms", "animal-energy rough lettering"],
-    { designer: "Douglas Vitkauskas" }
-  ),
-
-  dafont("Vtks Bright", "display",
-    ["decorative", "bright", "expressive", "fun", "display"],
-    ["fun", "bright", "expressive", "cheerful"],
-    ["party flyer", "fun poster", "event heading", "celebration"],
-    ["bright expressive display", "fun celebratory lettering"],
-    { designer: "Douglas Vitkauskas" }
-  ),
-
   dafont("Beyond Wonderland", "display",
     ["fantasy", "whimsical", "decorative", "storybook", "magical", "ornate"],
     ["whimsical", "magical", "dreamy", "enchanting"],
@@ -1745,28 +1620,12 @@ export const dafontFonts: Font[] = [
     ["wedding invitation", "luxury branding", "elegant heading", "beauty"],
     ["ultra-thin elegant sans", "refined minimalist letterforms"],
   ),
-
-  dafont("Intro", "sans-serif",
-    ["geometric", "modern", "clean", "bold", "display", "structured"],
-    ["modern", "bold", "clean", "confident"],
-    ["startup branding", "modern heading", "tech display", "bold title"],
-    ["geometric modern display sans", "bold structured letterforms"],
-  ),
-
   dafont("Adam", "sans-serif",
     ["geometric", "futuristic", "modern", "sharp", "angular", "tech"],
     ["futuristic", "sharp", "modern", "technical"],
     ["tech branding", "sci-fi poster", "modern heading", "futuristic display"],
     ["sharp angular geometric sans", "futuristic technical display"],
   ),
-
-  dafont("Nexa", "sans-serif",
-    ["geometric", "modern", "clean", "versatile", "professional"],
-    ["professional", "modern", "clean", "versatile"],
-    ["corporate heading", "modern branding", "clean display", "business"],
-    ["clean geometric modern sans", "professional versatile display"],
-  ),
-
   dafont("Coolvetica", "sans-serif",
     ["retro", "helvetica", "70s", "rounded", "casual", "warm"],
     ["retro", "friendly", "casual", "warm"],
@@ -1780,28 +1639,6 @@ export const dafontFonts: Font[] = [
     ["sci-fi poster", "space branding", "futuristic heading", "tech display"],
     ["wide futuristic geometric display", "space-age tech letterforms"],
   ),
-
-  dafont("Valentina", "script",
-    ["script", "elegant", "romantic", "calligraphic", "flowing", "wedding"],
-    ["romantic", "elegant", "graceful", "feminine"],
-    ["wedding invitation", "romantic branding", "beauty label", "love card"],
-    ["romantic flowing calligraphic script", "elegant wedding letterforms"],
-  ),
-
-  dafont("Streetwear", "display",
-    ["urban", "street", "bold", "fashion", "hip-hop", "modern"],
-    ["bold", "urban", "trendy", "confident"],
-    ["streetwear brand", "hip-hop poster", "urban fashion", "bold heading"],
-    ["bold urban streetwear display", "fashion-forward street lettering"],
-  ),
-
-  dafont("Playlist", "script",
-    ["brush", "casual", "handwritten", "artistic", "dynamic", "flowing"],
-    ["casual", "artistic", "dynamic", "fresh"],
-    ["lifestyle brand", "casual heading", "art blog", "creative title"],
-    ["dynamic brush script", "casual artistic hand-lettering"],
-  ),
-
   dafont("Scriptina", "script",
     ["calligraphy", "formal", "elegant", "ornate", "classic", "wedding"],
     ["elegant", "formal", "classic", "ornate"],
@@ -1829,14 +1666,6 @@ export const dafontFonts: Font[] = [
     ["natural brand", "organic product", "lifestyle blog", "personal brand"],
     ["natural organic brush script", "warm flowing hand-lettering"],
   ),
-
-  dafont("Brittany Signature", "script",
-    ["signature", "personal", "elegant", "flowing", "handwritten"],
-    ["personal", "elegant", "intimate", "refined"],
-    ["personal brand", "signature logo", "fashion label", "luxury card"],
-    ["elegant personal signature script", "refined flowing lettering"],
-  ),
-
   dafont("Seaside Resort", "display",
     ["retro", "vintage", "tropical", "fun", "beach", "casual", "summer"],
     ["fun", "tropical", "retro", "cheerful"],
@@ -1857,28 +1686,12 @@ export const dafontFonts: Font[] = [
     ["retro advertising", "game title", "fun heading", "signage"],
     ["retro advertising display", "bold fun signage lettering"],
   ),
-
-  dafont("Vogue", "display",
-    ["fashion", "elegant", "thin", "modern", "luxury", "editorial"],
-    ["elegant", "luxurious", "modern", "refined"],
-    ["fashion magazine", "luxury editorial", "beauty heading", "high-end"],
-    ["thin elegant fashion display", "luxury editorial letterforms"],
-  ),
-
   dafont("College", "display",
     ["college", "varsity", "sports", "bold", "block", "american"],
     ["athletic", "bold", "traditional", "energetic"],
     ["sports team", "college branding", "varsity heading", "athletic display"],
     ["classic varsity block display", "american college letterforms"],
   ),
-
-  dafont("Agency FB", "sans-serif",
-    ["condensed", "narrow", "modern", "sharp", "professional", "technical"],
-    ["professional", "sharp", "modern", "technical"],
-    ["agency branding", "corporate heading", "technical display", "modern title"],
-    ["condensed professional agency sans", "sharp modern narrow display"],
-  ),
-
   dafont("Caviar Dreams", "sans-serif",
     ["thin", "elegant", "modern", "geometric", "light", "clean"],
     ["elegant", "modern", "airy", "refined"],
@@ -1906,21 +1719,6 @@ export const dafontFonts: Font[] = [
     ["modern branding", "stencil heading", "minimal display", "clean title"],
     ["modern stencil-style sans", "clean geometric light display"],
   ),
-
-  dafont("Baron Neue", "sans-serif",
-    ["geometric", "uppercase", "modern", "bold", "display", "structured"],
-    ["bold", "modern", "geometric", "architectural"],
-    ["architecture branding", "bold heading", "modern display", "structured title"],
-    ["bold geometric uppercase display", "architectural modern sans"],
-  ),
-
-  dafont("Gobold", "display",
-    ["bold", "geometric", "modern", "sharp", "display", "strong"],
-    ["bold", "sharp", "modern", "striking"],
-    ["sports heading", "bold display", "modern title", "dynamic branding"],
-    ["bold sharp geometric display", "modern striking letterforms"],
-  ),
-
   dafont("Bebas Kai", "sans-serif",
     ["condensed", "tall", "modern", "clean", "display", "narrow"],
     ["modern", "clean", "tall", "direct"],
@@ -1934,14 +1732,6 @@ export const dafontFonts: Font[] = [
     ["fashion branding", "decorative heading", "modern display", "stylish title"],
     ["geometric inline decorative sans", "modern light display letterforms"],
   ),
-
-  dafont("Bukhari Script", "script",
-    ["brush", "bold", "casual", "dynamic", "hand-lettered", "thick"],
-    ["bold", "dynamic", "casual", "energetic"],
-    ["food branding", "casual heading", "hand-lettered logo", "dynamic title"],
-    ["bold dynamic brush script", "thick casual hand-lettering"],
-  ),
-
   dafont("Ostrich Sans", "sans-serif",
     ["ultra-thin", "tall", "condensed", "modern", "minimal", "elegant"],
     ["minimal", "elegant", "tall", "delicate"],
@@ -1990,14 +1780,6 @@ export const dafontFonts: Font[] = [
     ["asian restaurant", "martial arts", "cultural branding", "eastern theme"],
     ["japanese-inspired brush display", "eastern decorative letterforms"],
   ),
-
-  dafont("Streamster", "script",
-    ["retro", "casual", "flowing", "vintage", "handwritten", "brush"],
-    ["retro", "casual", "fun", "vintage"],
-    ["retro branding", "casual heading", "vintage poster", "fun display"],
-    ["retro casual flowing script", "vintage brush hand-lettering"],
-  ),
-
   dafont("Gagalin", "display",
     ["rounded", "bold", "fun", "friendly", "playful", "chunky"],
     ["fun", "friendly", "bold", "cheerful"],
@@ -2060,21 +1842,6 @@ export const dafontFonts: Font[] = [
     ["art deco branding", "gatsby theme", "vintage poster", "luxury heading"],
     ["art Deco geometric vintage display", "1920s glamour letterforms"],
   ),
-
-  dafont("Hamurz", "display",
-    ["rough", "brush", "bold", "urban", "textured", "handmade"],
-    ["rough", "bold", "urban", "authentic"],
-    ["urban poster", "rough heading", "bold branding", "textured display"],
-    ["rough bold brush display", "urban textured hand-lettering"],
-  ),
-
-  dafont("Masterblush", "script",
-    ["calligraphy", "ornate", "elegant", "classic", "formal", "swash"],
-    ["ornate", "classic", "elegant", "formal"],
-    ["formal invitation", "ornate heading", "classic branding", "elegant card"],
-    ["ornate formal calligraphic script", "classic swash lettering"],
-  ),
-
   dafont("Anke", "sans-serif",
     ["geometric", "minimal", "modern", "clean", "swiss", "neutral"],
     ["minimal", "clean", "neutral", "modern"],
@@ -2109,14 +1876,6 @@ export const dafontFonts: Font[] = [
     ["retro tech", "vintage computer", "dot-matrix heading", "technical display"],
     ["dot-matrix perforated display", "retro technical letterforms"],
   ),
-
-  dafont("Silvana", "script",
-    ["brush", "bold", "dynamic", "hand-lettered", "energetic"],
-    ["dynamic", "bold", "energetic", "expressive"],
-    ["dynamic heading", "bold branding", "energetic display", "brush title"],
-    ["bold dynamic brush script", "energetic hand-lettered display"],
-  ),
-
   dafont("Reckoner", "sans-serif",
     ["condensed", "modern", "clean", "narrow", "professional"],
     ["professional", "modern", "clean", "structured"],
@@ -2130,28 +1889,12 @@ export const dafontFonts: Font[] = [
     ["tech heading", "futuristic branding", "digital display", "sci-fi title"],
     ["angular futuristic tech display", "sharp digital letterforms"],
   ),
-
-  dafont("Portico", "display",
-    ["condensed", "architectural", "tall", "structured", "modern"],
-    ["architectural", "structured", "tall", "modern"],
-    ["architecture heading", "structured display", "modern branding", "tall title"],
-    ["architectural condensed display", "structured tall letterforms"],
-  ),
-
   dafont("Hagin", "script",
     ["vintage", "ornate", "decorative", "hand-drawn", "retro"],
     ["vintage", "ornate", "decorative", "charming"],
     ["vintage branding", "ornate heading", "retro display", "decorative title"],
     ["vintage ornate hand-drawn script", "decorative retro lettering"],
   ),
-
-  dafont("Summer Hearts", "script",
-    ["brush", "casual", "fun", "summer", "handwritten", "warm"],
-    ["fun", "warm", "casual", "summery"],
-    ["summer branding", "fun heading", "casual display", "warm title"],
-    ["casual summer brush script", "warm fun hand-lettering"],
-  ),
-
   dafont("Tahu", "script",
     ["brush", "bold", "modern", "dynamic", "thick", "confident"],
     ["bold", "dynamic", "confident", "modern"],
@@ -2192,23 +1935,7 @@ export const dafontFonts: Font[] = [
     ["friendly", "modern", "clean", "approachable"],
     ["friendly branding", "modern heading", "clean display", "soft title"],
     ["rounded modern friendly sans", "clean approachable soft display"],
-  ),
-
-  dafont("Modeka", "display",
-    ["art-nouveau", "decorative", "vintage", "ornate", "elegant"],
-    ["vintage", "ornate", "elegant", "artistic"],
-    ["vintage branding", "art-nouveau heading", "ornate display", "elegant title"],
-    ["art Nouveau decorative display", "ornate vintage elegant letterforms"],
-  ),
-
-  dafont("Notera", "script",
-    ["calligraphy", "flowing", "elegant", "personal", "handwritten"],
-    ["elegant", "personal", "flowing", "intimate"],
-    ["personal branding", "elegant heading", "flowing display", "intimate title"],
-    ["elegant flowing calligraphic script", "personal intimate hand-lettering"],
-  ),
-
-  dafont("Braxton", "script",
+  ),  dafont("Braxton", "script",
     ["handwritten", "casual", "personal", "natural", "simple"],
     ["casual", "natural", "personal", "relaxed"],
     ["casual brand", "personal heading", "natural display", "simple title"],
@@ -2220,23 +1947,7 @@ export const dafontFonts: Font[] = [
     ["bold", "industrial", "strong", "powerful"],
     ["industrial branding", "heavy heading", "strong display", "powerful title"],
     ["heavy industrial condensed display", "bold strong powerful letterforms"],
-  ),
-
-  dafont("Debby", "script",
-    ["brush", "casual", "fun", "handwritten", "playful", "thick"],
-    ["fun", "casual", "playful", "bold"],
-    ["fun branding", "casual heading", "playful display", "bold title"],
-    ["thick casual brush script", "fun playful hand-lettering"],
-  ),
-
-  dafont("Mightype", "script",
-    ["brush", "bold", "dynamic", "modern", "handmade"],
-    ["dynamic", "bold", "modern", "energetic"],
-    ["dynamic heading", "bold branding", "modern display", "energetic title"],
-    ["bold dynamic modern brush script", "energetic handmade lettering"],
-  ),
-
-  dafont("Alcubierre", "sans-serif",
+  ),  dafont("Alcubierre", "sans-serif",
     ["geometric", "futuristic", "minimal", "space", "thin", "modern"],
     ["futuristic", "minimal", "modern", "clean"],
     ["space branding", "futuristic heading", "minimal display", "modern title"],
