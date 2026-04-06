@@ -119,8 +119,7 @@ export default function DatabasePage() {
 
         {/* Table container with section background */}
         <div
-          className="border rounded-xl overflow-hidden"
-          style={{ background: "var(--bg-card)", border: "2px solid var(--border)", position: "relative", zIndex: 1 }}
+          style={{ background: "var(--bg-card)", border: "2px solid var(--border)", borderRadius: "12px", position: "relative", zIndex: 1 }}
         >
           {/* Sticky column headers */}
           <div
@@ -130,6 +129,7 @@ export default function DatabasePage() {
               zIndex: 10,
               background: "var(--bg-card)",
               borderBottom: "1px solid var(--divider)",
+              borderRadius: "10px 10px 0 0",
             }}
           >
             <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed" }}>
