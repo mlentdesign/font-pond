@@ -52,8 +52,8 @@ export function HeaderWithFontInfo() {
         >
           {/* Eye icon — stylized outline, no circle background */}
           <svg
-            width="20"
-            height="20"
+            width="18"
+            height="18"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"

@@ -24,8 +24,8 @@ export function Footer() {
     >
       {/* Left side — tagline + about */}
       <div className="footer-left flex items-center flex-wrap">
-        <p style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
-          Free font combinations for real design work.
+        <p className="footer-tagline" style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
+          Free Font Combinations<br className="sm:hidden" /> for Real Design Work.
         </p>
         <a
           href="/about"
@@ -54,11 +54,11 @@ export function Footer() {
           aria-label={paused ? "Resume animation" : "Pause animation"}
         >
           {paused ? (
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 3v10l8-5L5 3z" />
             </svg>
           ) : (
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="2.5" width="3.5" height="11" rx="0.75" />
               <rect x="9.5" y="2.5" width="3.5" height="11" rx="0.75" />
             </svg>
@@ -74,7 +74,7 @@ export function Footer() {
             style={{
               visibility: "hidden",
               height: "40px",
-              width: "120px",
+              width: "110px",
             }}
           />
         )}

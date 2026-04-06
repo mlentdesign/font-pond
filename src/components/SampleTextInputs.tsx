@@ -18,7 +18,7 @@ export function SampleTextInputs() {
   if (!hasSearched) return null;
 
   return (
-    <div className="w-full preview-settings-spacing" style={{ marginTop: "24px", marginBottom: "40px" }}>
+    <div className="w-full preview-settings-spacing" style={{ marginTop: "24px", marginBottom: "24px" }}>
       <details className="group">
         {/* Summary — left-aligned with "Exploring — shuffled randomly" */}
         <summary
@@ -39,9 +39,9 @@ export function SampleTextInputs() {
 
         {/* Content — indented equally on left and right */}
         <div style={{ marginTop: "16px", paddingLeft: "24px", paddingRight: "24px" }}>
-          {/* Text fields */}
-          <div className="settings-grid" style={{ marginBottom: "24px", gap: "32px" }}>
-            <div>
+          <div className="settings-quad-grid">
+            {/* Headline text — pos 1 on mobile, col 1 on desktop */}
+            <div className="settings-item-headline-text">
               <label htmlFor="sample-headline" className="block uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "8px" }}>
                 HEADLINE TEXT
               </label>
@@ -55,25 +55,8 @@ export function SampleTextInputs() {
                 style={{ fontSize: "16px", background: "var(--bg-input)", color: "var(--text-heading)", boxShadow: "var(--shadow-input)", padding: "8px 16px" }}
               />
             </div>
-            <div>
-              <label htmlFor="sample-body" className="block uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "8px" }}>
-                BODY TEXT
-              </label>
-              <input
-                id="sample-body"
-                type="text"
-                value={sampleBody}
-                onChange={(e) => setSampleBody(e.target.value)}
-                placeholder="Custom body text..."
-                className="w-full rounded-lg outline-none transition-colors"
-                style={{ fontSize: "16px", background: "var(--bg-input)", color: "var(--text-heading)", boxShadow: "var(--shadow-input)", padding: "8px 16px" }}
-              />
-            </div>
-          </div>
-
-          {/* Sliders */}
-          <div className="settings-grid" style={{ gap: "32px" }}>
-            <div>
+            {/* Header slider — pos 2 on mobile, col 1 row 2 on desktop */}
+            <div className="settings-item-headline-slider">
               <label htmlFor="header-size" className="flex items-center justify-between uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "8px" }}>
                 <span>HEADER SIZE</span>
                 <span className="tabular-nums">{headerSize}px</span>
@@ -89,7 +72,23 @@ export function SampleTextInputs() {
                 style={{ ["--slider-fill" as string]: sliderFill(headerSize, 20, 64) }}
               />
             </div>
-            <div>
+            {/* Body text — pos 3 on mobile, col 2 row 1 on desktop */}
+            <div className="settings-item-body-text">
+              <label htmlFor="sample-body" className="block uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "8px" }}>
+                BODY TEXT
+              </label>
+              <input
+                id="sample-body"
+                type="text"
+                value={sampleBody}
+                onChange={(e) => setSampleBody(e.target.value)}
+                placeholder="Custom body text..."
+                className="w-full rounded-lg outline-none transition-colors"
+                style={{ fontSize: "16px", background: "var(--bg-input)", color: "var(--text-heading)", boxShadow: "var(--shadow-input)", padding: "8px 16px" }}
+              />
+            </div>
+            {/* Body slider — pos 4 on mobile, col 2 row 2 on desktop */}
+            <div className="settings-item-body-slider">
               <label htmlFor="body-size" className="flex items-center justify-between uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "8px" }}>
                 <span>BODY SIZE</span>
                 <span className="tabular-nums">{bodySize}px</span>

@@ -6,6 +6,21 @@ import { ScoredPair } from "@/data/types";
 import { loadFont, getFontFamily } from "@/lib/fonts";
 import { sentenceCase } from "@/lib/text";
 
+function useColumns(): number {
+  const [cols, setCols] = useState(3);
+  useEffect(() => {
+    const check = () => {
+      if (window.innerWidth >= 1024) setCols(3);
+      else if (window.innerWidth >= 768) setCols(2);
+      else setCols(1);
+    };
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return cols;
+}
+
 interface PairPreviewGridProps {
   pairs: ScoredPair[];
   title: string;
@@ -23,7 +38,15 @@ export function PairPreviewGrid({
   headlineText = "The quick brown fox",
   showRationale = false,
 }: PairPreviewGridProps) {
-  const [visible, setVisible] = useState(initialVisible);
+  const cols = useColumns();
+  // Fill complete rows: round up initialVisible to nearest multiple of cols
+  const adjustedInitial = Math.ceil(initialVisible / cols) * cols;
+  const adjustedIncrement = Math.ceil(loadMoreIncrement / cols) * cols;
+  const [visible, setVisible] = useState(adjustedInitial);
+
+  useEffect(() => {
+    setVisible(Math.ceil(initialVisible / cols) * cols);
+  }, [cols, initialVisible]);
   const hasMore = visible < pairs.length;
 
   useEffect(() => {
@@ -76,7 +99,7 @@ export function PairPreviewGrid({
       {hasMore && (
         <div className="text-center" style={{ marginTop: "32px" }}>
           <button
-            onClick={() => setVisible(Math.min(visible + loadMoreIncrement, pairs.length))}
+            onClick={() => setVisible(Math.min(visible + adjustedIncrement, pairs.length))}
             className="outline-btn font-medium rounded-lg transition-colors"
             style={{ fontSize: "16px", padding: "8px 24px" }}
           >

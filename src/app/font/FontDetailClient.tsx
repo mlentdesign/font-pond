@@ -148,7 +148,7 @@ export default function FontDetailPage() {
               <InfoRow label="Styles" value={font.styles.join(", ")} />
               <InfoRow label="License" value={font.licenseType} />
               <InfoRow label="Header suitable" value={font.isHeaderSuitable ? "Yes" : "No"} />
-              <InfoRow label="Body suitable" value={font.isBodySuitable ? "Yes" : "Typically not recommended"} />
+              <InfoRow label="Body suitable" value={font.isBodySuitable ? "Yes" : "Not recommended"} />
               {font.bodyLegibilityScore && (
                 <InfoRow label="Body legibility" value={`${font.bodyLegibilityScore}/10`} />
               )}

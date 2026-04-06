@@ -121,7 +121,7 @@ export function PromptInput() {
         style={{ background: "var(--bg-card)", boxShadow: "var(--shadow-input)", border: "2px solid var(--border)" }}
       >
         {/* Textarea wrapper — focus ring wraps only this area */}
-        <div className="prompt-textarea-wrap" style={{ border: "2px solid transparent", margin: "-2px", marginBottom: "0" }}>
+        <div className="prompt-textarea-wrap" style={{ border: "2px solid transparent", margin: "-2px -2px 0 -2px" }}>
           <div style={{ position: "relative" }}>
             <textarea
               ref={textareaRef}
