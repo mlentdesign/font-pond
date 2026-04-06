@@ -64,7 +64,7 @@ export default function FontDetailPage() {
     <div className="flex-1 flex flex-col">
       <DetailPageHeader />
 
-      <main id="main-content" className="flex-1 mx-auto w-full shell-padding results-top-padding results-bottom-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
+      <main id="main-content" className="flex-1 mx-auto w-full content-padding results-top-padding results-bottom-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
         <Breadcrumb crumbs={crumbs} />
 
         {/* Font name, source, and download */}
