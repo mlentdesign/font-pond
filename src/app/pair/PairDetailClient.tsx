@@ -65,7 +65,7 @@ function FontSection({
 
       {/* Keyword chips */}
       <div className="mb-4">
-        <ChipGroup label="CHARACTERISTICS" chips={allChips} maxVisible={8} />
+        <ChipGroup label="CHARACTERISTICS" chips={allChips} maxVisible={8} maxLines={2} />
       </div>
 
       {/* Meta */}
