@@ -104,7 +104,6 @@ export default function DatabasePage() {
     if (!header) return;
     const updateTop = () => {
       const h = header.getBoundingClientRect().height;
-      // Match gap to results-bottom-padding: 80px desktop, 56px tablet, 40px mobile
       const w = window.innerWidth;
       const gap = w >= 1024 ? 80 : w >= 768 ? 56 : 40;
       setStickyTop(h + gap);
@@ -113,6 +112,22 @@ export default function DatabasePage() {
     window.addEventListener("resize", updateTop);
     return () => window.removeEventListener("resize", updateTop);
   }, []);
+
+  // Detect when sticky header becomes stuck and toggle class for box-shadow
+  useEffect(() => {
+    const el = stickyRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // When the sentinel (top of table container) leaves viewport, header is stuck
+        el.classList.toggle("is-stuck", !entry.isIntersecting);
+      },
+      { threshold: 0, rootMargin: `-${stickyTop + 2}px 0px 0px 0px` }
+    );
+    const sentinel = tableRef.current;
+    if (sentinel) observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [stickyTop]);
 
   const rows = useMemo<FontRow[]>(() => {
     const pairCounts = new Map<string, number>();
