@@ -321,7 +321,7 @@ export default function DatabasePage() {
               {!search && (
                 <svg
                   width="20" height="20" viewBox="0 0 20 20" fill="none"
-                  style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", pointerEvents: "none", color: "var(--text-muted)" }}
+                  style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", pointerEvents: "none", color: "var(--text-ransom)" }}
                 >
                   <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.5" />
                   <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
