@@ -80,10 +80,11 @@ export function PairPreviewGrid({
               </p>
               <p
                 className="text-neutral-500 line-clamp-2 break-words"
-                style={{ fontFamily: bFamily, fontWeight: 400, fontSize: "16px", lineHeight: 1.5, marginBottom: "16px" }}
+                style={{ fontFamily: bFamily, fontWeight: 400, fontSize: "16px", lineHeight: 1.5 }}
               >
                 Typography is the art and technique of arranging type.
               </p>
+              <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
               <p className="font-medium text-neutral-700 break-words" style={{ fontSize: "16px", marginBottom: showRationale ? "8px" : undefined }}>
                 {p.headerFont.name} + {p.bodyFont.name}
               </p>

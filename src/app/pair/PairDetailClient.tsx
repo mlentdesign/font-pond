@@ -50,24 +50,34 @@ function FontSection({
         </span>
       </div>
 
-      {/* Specimen */}
+      {/* Specimen — header sample */}
       <div
-        className="text-4xl leading-tight mb-4 text-neutral-800 break-words"
+        className="text-4xl leading-tight text-neutral-800 break-words"
         style={{ fontFamily: family, fontWeight: role === "Header" ? 600 : 400 }}
       >
         Aa Bb Cc Dd Ee Ff Gg
       </div>
+
+      {/* Divider: between specimens */}
+      <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
+
       <div
-        className="leading-relaxed text-neutral-600 mb-4 break-words"
+        className="leading-relaxed text-neutral-600 break-words"
         style={{ fontFamily: family, fontWeight: 400, fontSize: "16px" }}
       >
         ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789
       </div>
 
+      {/* Divider: before characteristics */}
+      <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
+
       {/* Keyword chips */}
-      <div className="mb-4">
+      <div>
         <ChipGroup label="CHARACTERISTICS" chips={allChips} maxVisible={8} maxLines={2} />
       </div>
+
+      {/* Divider: after chips, before meta */}
+      <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
 
       {/* Meta */}
       <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-neutral-500" style={{ fontSize: "16px" }}>
@@ -190,7 +200,7 @@ export default function PairDetailPage() {
             </div>
             <div style={{ marginBottom: "16px" }}>
               <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "4px" }}>CONTRAST TYPE</dt>
-              <dd className="text-neutral-700" style={{ fontSize: "16px" }}>{titleCase(pair.contrastType)}</dd>
+              <dd className="text-neutral-700" style={{ fontSize: "16px" }}>{sentenceCase(pair.contrastType)}</dd>
             </div>
             <div className="grid grid-cols-3" style={{ gap: "16px" }}>
               <div>
