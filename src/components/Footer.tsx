@@ -23,7 +23,7 @@ export function Footer() {
       style={{ background: "var(--bg-footer)", borderTop: "1px solid var(--border)", minHeight: "88px" }}
     >
       {/* Left side — tagline + about */}
-      <div className="footer-left flex items-center flex-wrap" style={{ gap: "16px" }}>
+      <div className="footer-left flex items-center flex-wrap">
         <p style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
           Free font combinations for real design work.
         </p>
