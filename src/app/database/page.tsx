@@ -358,8 +358,7 @@ export default function DatabasePage() {
           ref={tableRef}
           style={{
             border: "2px solid var(--border)",
-            borderTop: "none",
-            borderRadius: "0 0 12px 12px",
+            borderRadius: "12px",
             position: "relative",
             zIndex: 1,
           }}
