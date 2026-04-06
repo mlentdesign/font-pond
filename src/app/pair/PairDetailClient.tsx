@@ -14,6 +14,7 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 import { SectionCard } from "@/components/SectionCard";
 import { ChipGroup } from "@/components/ChipGroup";
 import { PairPreviewGrid } from "@/components/PairPreviewGrid";
+import { SampleTextInputs } from "@/components/SampleTextInputs";
 
 function FontSection({
   font,
@@ -137,7 +138,12 @@ export default function PairDetailPage() {
       <DetailPageHeader />
 
       <main id="main-content" className="flex-1 mx-auto w-full content-padding results-top-padding results-bottom-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
-        <Breadcrumb crumbs={[{ label: `${headerFont.name} + ${bodyFont.name}` }]} />
+        <div className="pair-breadcrumb-row">
+          <Breadcrumb crumbs={[{ label: `${headerFont.name} + ${bodyFont.name}` }]} />
+          <div className="pair-preview-settings">
+            <SampleTextInputs alwaysShow />
+          </div>
+        </div>
 
         {/* Pair specimen */}
         <SectionCard style={{ marginBottom: "24px" }}>

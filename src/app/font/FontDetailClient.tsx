@@ -44,7 +44,14 @@ export default function FontDetailPage() {
   if (font) crumbs.push({ label: font.name });
 
   useEffect(() => {
-    if (font) loadFont(font);
+    if (font) {
+      loadFont(font);
+      // Load similar fonts
+      for (const sf of font.similarFonts) {
+        const similar = fontsBySlug.get(sf);
+        if (similar) loadFont(similar);
+      }
+    }
   }, [font]);
 
   const pairsUsing = font ? getPairsWithFont(font.id) : [];
@@ -193,22 +200,79 @@ export default function FontDetailPage() {
         )}
 
         {/* Similar fonts */}
-        {font.similarFonts.length > 0 && (
-          <div style={{ marginBottom: "24px" }}>
-            <h3 className="uppercase tracking-wider text-neutral-400 font-medium" style={{ fontSize: "12px", marginBottom: "16px" }}>SIMILAR FONTS</h3>
-            <div className="flex flex-wrap gap-2">
-              {font.similarFonts.map((sf) => {
-                const similar = fontsBySlug.get(sf);
-                if (!similar) return null;
-                return (
-                  <Link key={sf} href={`/font?f=${sf}`} className="outline-btn font-medium rounded-lg transition-colors" style={{ fontSize: "16px", padding: "8px 16px" }}>
-                    {similar.name}
-                  </Link>
-                );
-              })}
+        {font.similarFonts.length > 0 && (() => {
+          const similarFonts = font.similarFonts
+            .map((sf) => fontsBySlug.get(sf))
+            .filter((f): f is import("@/data/types").Font => !!f);
+          // Cap at even grid: 1→1, 2→2, 3→3, 4→4, 5→4, 6+→show all
+          const capped = similarFonts.length === 5 ? similarFonts.slice(0, 4) : similarFonts;
+          const gridCols = capped.length === 1 ? "1fr" : capped.length === 2 ? "repeat(2, 1fr)" : "repeat(3, 1fr)";
+          if (capped.length === 0) return null;
+          return (
+            <div style={{ marginBottom: "24px" }}>
+              <h3 className="font-semibold text-neutral-700" style={{ fontSize: "16px", marginBottom: "16px" }}>Similar fonts</h3>
+              <div className="similar-fonts-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "16px" }}>
+                {capped.map((sf) => {
+                  const sfFamily = getFontFamily(sf.name, sf.source);
+                  const sfSource = getSourceLabel(sf.source);
+                  const sfChips = [...new Set([...sf.tags, ...sf.toneDescriptors].map(t => t.toLowerCase()))]
+                    .filter(t => t.split("-").length < 3 && t.length <= 25);
+                  return (
+                    <Link
+                      key={sf.slug}
+                      href={`/font?f=${sf.slug}`}
+                      className="block border border-neutral-200 rounded-xl bg-white p-6 hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
+                    >
+                      <div className="flex items-baseline justify-between mb-4">
+                        <div className="min-w-0 flex-1 mr-3">
+                          <span className="text-lg font-semibold text-neutral-900 block break-words">
+                            {sf.name}
+                          </span>
+                        </div>
+                        <span className="shrink-0 bg-neutral-100 text-neutral-500 rounded-md" style={{ fontSize: "14px", padding: "4px 12px" }}>
+                          {sfSource}
+                        </span>
+                      </div>
+                      <div
+                        className="text-4xl leading-tight mb-4 text-neutral-800 break-words"
+                        style={{ fontFamily: sfFamily, fontWeight: 600 }}
+                      >
+                        Aa Bb Cc Dd Ee Ff Gg
+                      </div>
+                      <div
+                        className="leading-relaxed text-neutral-600 mb-4 break-words"
+                        style={{ fontFamily: sfFamily, fontWeight: 400, fontSize: "16px" }}
+                      >
+                        ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789
+                      </div>
+                      <div className="mb-4">
+                        <ChipGroup label="CHARACTERISTICS" chips={sfChips} maxVisible={8} maxLines={2} />
+                      </div>
+                      <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-neutral-500" style={{ fontSize: "16px" }}>
+                        <div>
+                          <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>DESIGNER</span>
+                          <p>{sf.designer || "Unknown"}</p>
+                        </div>
+                        <div>
+                          <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>CLASSIFICATION</span>
+                          <p>{titleCase(sf.classification)}</p>
+                        </div>
+                        <div>
+                          <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>LICENSE</span>
+                          <p>{titleCase(sf.licenseType)}</p>
+                        </div>
+                        <div>
+                          <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>VARIABLE</span>
+                          <p>{sf.variableFont ? "Yes" : "No"}</p>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* Pairs using this font */}
         {pairsUsing.length > 0 && (

@@ -54,14 +54,19 @@ export function PromptInput() {
   // Rotate suggestions every 8 seconds when query is empty and not paused
   useEffect(() => {
     if (query.trim().length > 0 || suggestionsPaused) return;
+    let pendingTimeout: ReturnType<typeof setTimeout> | null = null;
     const interval = setInterval(() => {
       setAnimating(true);
-      setTimeout(() => {
+      pendingTimeout = setTimeout(() => {
+        pendingTimeout = null;
         setSuggestionIndex((prev) => (prev + 1) % SUGGESTION_SETS.length);
         setAnimating(false);
       }, 300);
     }, 8000);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      if (pendingTimeout) clearTimeout(pendingTimeout);
+    };
   }, [query, suggestionsPaused]);
 
   const handleImageAdd = useCallback(
@@ -89,6 +94,14 @@ export function PromptInput() {
     },
     [removeImage]
   );
+
+  // Revoke any remaining image object URLs on unmount
+  useEffect(() => {
+    return () => {
+      imagePreviews.forEach((url) => URL.revokeObjectURL(url));
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSubmit = useCallback(() => {
     if (!query.trim() && images.length === 0) return;

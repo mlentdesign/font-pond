@@ -148,7 +148,7 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
 
   if (isAnimating && letterStates.length > 0) {
     return (
-      <span className="inline-flex flex-wrap items-baseline ticker-container" aria-label={TITLE}>
+      <span className="inline-flex flex-wrap items-center ticker-container" aria-label={TITLE}>
         {LETTERS.map((char, i) => {
           if (char === " ") {
             return <span key={i} className="inline-block" style={{ width: "0.3em" }} />;

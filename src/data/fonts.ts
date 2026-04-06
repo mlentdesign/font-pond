@@ -2437,7 +2437,7 @@ const BLOCKLIST_NAME_PATTERNS = [
   "noto color emoji", "noto emoji", "noto music", "signwriting",
   "noto sans symbols", "noto sans math",
   // Color/chromatic font indicators
-  "color", "colr",
+  "color", "colr", "glaze", "pixels",
 ];
 
 function isBlocklisted(font: Font): boolean {
