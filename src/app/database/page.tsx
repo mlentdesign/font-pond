@@ -195,23 +195,32 @@ export default function DatabasePage() {
               {search.trim() ? `${filtered.length} of ${rows.length} fonts` : `${rows.length} fonts in the collection`}
             </p>
           </div>
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search fonts..."
-            className="db-search-input rounded-lg outline-none transition-all"
-            style={{
-              fontSize: "16px",
-              padding: "8px 16px",
-              background: "var(--bg-input)",
-              color: "var(--text-heading)",
-              boxShadow: "var(--shadow-input)",
-              border: "2px solid var(--border)",
-              width: "240px",
-              maxWidth: "100%",
-            }}
-          />
+          <div className="db-search-wrap" style={{ position: "relative", width: "240px", maxWidth: "100%", transition: "width 0.2s" }}>
+            {!search && (
+              <svg
+                width="20" height="20" viewBox="0 0 20 20" fill="none"
+                style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", pointerEvents: "none", color: "var(--text-muted)" }}
+              >
+                <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            )}
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search fonts..."
+              className="db-search-input rounded-lg outline-none transition-all w-full"
+              style={{
+                fontSize: "16px",
+                padding: search ? "8px 16px" : "8px 16px 8px 40px",
+                background: "var(--bg-input)",
+                color: "var(--text-heading)",
+                boxShadow: "var(--shadow-input)",
+                border: "2px solid var(--border)",
+              }}
+            />
+          </div>
         </div>
 
         <div

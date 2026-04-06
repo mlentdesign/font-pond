@@ -67,13 +67,13 @@ export function Footer() {
           aria-label={paused ? "Resume animation" : "Pause animation"}
         >
           {paused ? (
-            <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 3v10l8-5L5 3z" />
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M7 4v12l9-6L7 4z" />
             </svg>
           ) : (
-            <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="2.5" width="3.5" height="11" rx="0.75" />
-              <rect x="9.5" y="2.5" width="3.5" height="11" rx="0.75" />
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="4" y="3.5" width="4" height="13" rx="1" />
+              <rect x="12" y="3.5" width="4" height="13" rx="1" />
             </svg>
           )}
           <span className="hidden sm:inline">{paused ? "Resume animation" : "Pause animation"}</span>

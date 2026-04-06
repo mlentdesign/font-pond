@@ -203,10 +203,10 @@ export function PromptInput() {
               className="flex items-center rounded-lg cursor-pointer transition-colors hover:opacity-70"
               style={{ fontSize: "16px", fontWeight: 600, color: "var(--add-image-color)", gap: "4px" }}
             >
-              <svg width="20" height="20" viewBox="0 0 16 16" fill="none" className="shrink-0">
-                <rect x="1.5" y="2.5" width="13" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-                <circle cx="5" cy="6" r="1.25" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M1.5 11l3.5-3.5L8 10.5l2.5-2.5 4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
+                <rect x="2" y="3" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="6.5" cy="7.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M2 14l4.5-4.5L10 13l3-3 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               Add image
             </label>
@@ -234,10 +234,10 @@ export function PromptInput() {
               className="flex items-center rounded-lg cursor-pointer transition-colors hover:opacity-70"
               style={{ fontSize: "16px", fontWeight: 600, color: "var(--add-image-color)", gap: "4px" }}
             >
-              <svg width="20" height="20" viewBox="0 0 16 16" fill="none" className="shrink-0">
-                <rect x="1.5" y="2.5" width="13" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-                <circle cx="5" cy="6" r="1.25" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M1.5 11l3.5-3.5L8 10.5l2.5-2.5 4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
+                <rect x="2" y="3" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="6.5" cy="7.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M2 14l4.5-4.5L10 13l3-3 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               Add image
             </label>
