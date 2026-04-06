@@ -687,6 +687,11 @@ body.animations-paused #water-bg * {
   }
 }
 
+/* Database sticky header — box-shadow covers the gap above to clip scrolling rows */
+.db-sticky-clip {
+  box-shadow: 0 -200px 0 0 var(--bg);
+}
+
 /* Database search — matches main text entry focus behavior */
 .db-search-input:focus,
 .db-search-input:focus-visible {
@@ -695,10 +700,6 @@ body.animations-paused #water-bg * {
   outline: none !important;
 }
 
-/* Database sticky header — extended background covers gap above for clipping */
-.db-sticky-clip {
-  box-shadow: 0 -100px 0 0 var(--bg);
-}
 
 /* Responsive ransom header font size */
 .ransom-title {
