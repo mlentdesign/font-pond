@@ -406,6 +406,7 @@ export function WaterBackground() {
       cancelAnimationFrame(animRef.current);
       for (const tid of pendingTimeouts) clearTimeout(tid);
       pendingTimeouts.clear();
+      delete (window as any).__waterAddRipple;
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);

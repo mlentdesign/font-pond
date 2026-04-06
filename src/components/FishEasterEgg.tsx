@@ -30,6 +30,8 @@ interface FoodParticle {
 
 let fishIdCounter = 0;
 let foodIdCounter = 0;
+const MAX_FISH = 20;
+const MAX_FOOD = 60;
 
 // Check if a click is far enough from interactive elements
 function isOpenWater(e: MouseEvent): boolean {
@@ -86,6 +88,7 @@ export function FishEasterEgg() {
   }, []);
 
   const addFish = useCallback(() => {
+    if (fishRef.current.length >= MAX_FISH) return;
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const bottomThird = vh * 0.67;
@@ -108,6 +111,7 @@ export function FishEasterEgg() {
   }, []);
 
   const sprinkleFood = useCallback((x: number, y: number) => {
+    if (foodRef.current.length >= MAX_FOOD) return;
     for (let i = 0; i < 5; i++) {
       foodRef.current.push({
         id: ++foodIdCounter,
