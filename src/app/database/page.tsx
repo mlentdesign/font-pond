@@ -216,7 +216,7 @@ export default function DatabasePage() {
     sortKey === key ? (sortDir === "asc" ? " ▲" : " ▼") : "";
 
   const thClass = "text-left uppercase tracking-wider cursor-pointer hover:opacity-70 select-none";
-  const thStyle = { fontSize: "12px", padding: "16px 24px", whiteSpace: "nowrap" as const, color: "var(--text-label)" };
+  const thStyle = { fontSize: "12px", padding: "16px", whiteSpace: "nowrap" as const, color: "var(--text-label)" };
   const headerFooterBg = "var(--bg-chip)";
 
   return (
@@ -470,9 +470,10 @@ export default function DatabasePage() {
           <div
             style={{
               borderTop: "1px solid var(--divider)",
-              padding: "16px 24px",
+              padding: "16px",
               background: headerFooterBg,
               borderRadius: "0 0 12px 12px",
+              minHeight: "56px",
             }}
             className="flex items-center justify-between flex-wrap"
           >
