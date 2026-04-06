@@ -145,18 +145,20 @@ export default function FontDetailPage() {
 
         {/* Details — three columns */}
         <div className="three-col-grid" style={{ marginBottom: "24px" }}>
-          {/* Card 1: Classification, Subcategory, Variable font, Weights, Styles */}
+          {/* Card 1: Classification, Subcategory, Variable font, Weights (if not variable), Styles */}
           <SectionCard noPadding style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
               <InfoRow label="Classification" value={font.classification} />
               <InfoRow label="Subcategory" value={font.subcategory} />
               <InfoRow label="Variable font" value={font.variableFont ? "Yes" : "No"} />
-              <InfoRow label="Weights" value={font.weights.join(", ")} />
+              {!font.variableFont && (
+                <InfoRow label="Weights" value={font.weights.join(", ")} />
+              )}
               <InfoRow label="Styles" value={font.styles.join(", ")} />
             </dl>
           </SectionCard>
 
-          {/* Card 2: License, Header suitable, Body suitable, Body legibility */}
+          {/* Card 2: License, Header suitable, Body suitable, Body legibility, Screen readability */}
           <SectionCard noPadding style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
               <InfoRow label="License" value={font.licenseType} />
@@ -165,6 +167,7 @@ export default function FontDetailPage() {
               {font.bodyLegibilityScore && (
                 <InfoRow label="Body legibility" value={`${font.bodyLegibilityScore}/10`} />
               )}
+              <InfoRow label="Screen readability" value={font.screenReadabilityNotes} />
             </dl>
           </SectionCard>
 
@@ -186,16 +189,7 @@ export default function FontDetailPage() {
               {font.useCases.length > 0 && (
                 <ChipGroup label="USE CASES" chips={font.useCases} />
               )}
-              {font.useCases.length > 0 && font.screenReadabilityNotes && (
-                <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
-              )}
-              {font.screenReadabilityNotes && (
-                <div>
-                  <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>SCREEN READABILITY</p>
-                  <p className="text-xs text-neutral-600 leading-relaxed">{font.screenReadabilityNotes}</p>
-                </div>
-              )}
-              {font.screenReadabilityNotes && font.historicalNotes && (
+              {font.useCases.length > 0 && font.historicalNotes && (
                 <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
               )}
               {font.historicalNotes && (
