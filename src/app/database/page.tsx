@@ -98,43 +98,51 @@ export default function DatabasePage() {
         </p>
 
         <div
-          className="border border-neutral-200 rounded-xl bg-white overflow-hidden"
-          style={{ overflowX: "auto" }}
+          style={{ border: "2px solid var(--border)", borderRadius: "12px", overflow: "hidden" }}
         >
+          <div style={{ overflowX: "auto" }}>
           <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse" }}>
             <thead>
-              <tr style={{ borderBottom: "1px solid var(--divider)" }}>
+              <tr
+                style={{
+                  borderBottom: "1px solid var(--divider)",
+                  position: "sticky",
+                  top: "57px",
+                  zIndex: 20,
+                  background: "var(--bg-card)",
+                }}
+              >
                 <th
                   onClick={() => toggleSort("name")}
                   className="text-left uppercase tracking-wider text-neutral-400 cursor-pointer hover:text-neutral-600 select-none"
-                  style={{ fontSize: "12px", padding: "12px 16px", whiteSpace: "nowrap" }}
+                  style={{ fontSize: "12px", padding: "16px", whiteSpace: "nowrap" }}
                 >
                   Font name{arrow("name")}
                 </th>
                 <th
                   className="text-left uppercase tracking-wider text-neutral-400"
-                  style={{ fontSize: "12px", padding: "12px 16px", minWidth: "200px" }}
+                  style={{ fontSize: "12px", padding: "16px", minWidth: "200px" }}
                 >
                   Specimen
                 </th>
                 <th
                   onClick={() => toggleSort("category")}
                   className="text-left uppercase tracking-wider text-neutral-400 cursor-pointer hover:text-neutral-600 select-none"
-                  style={{ fontSize: "12px", padding: "12px 16px", whiteSpace: "nowrap" }}
+                  style={{ fontSize: "12px", padding: "16px", whiteSpace: "nowrap" }}
                 >
                   Category{arrow("category")}
                 </th>
                 <th
                   onClick={() => toggleSort("pairs")}
                   className="text-right uppercase tracking-wider text-neutral-400 cursor-pointer hover:text-neutral-600 select-none"
-                  style={{ fontSize: "12px", padding: "12px 16px", whiteSpace: "nowrap" }}
+                  style={{ fontSize: "12px", padding: "16px", whiteSpace: "nowrap" }}
                 >
                   Pairs{arrow("pairs")}
                 </th>
                 <th
                   onClick={() => toggleSort("source")}
                   className="text-left uppercase tracking-wider text-neutral-400 cursor-pointer hover:text-neutral-600 select-none"
-                  style={{ fontSize: "12px", padding: "12px 16px", whiteSpace: "nowrap" }}
+                  style={{ fontSize: "12px", padding: "16px", whiteSpace: "nowrap" }}
                 >
                   Source{arrow("source")}
                 </th>
@@ -144,9 +152,10 @@ export default function DatabasePage() {
               {sorted.map((row) => (
                 <tr
                   key={row.slug}
-                  className="border-b border-neutral-50 hover:bg-neutral-50 transition-colors"
+                  style={{ borderBottom: "1px solid var(--divider)" }}
+                  className="hover:bg-neutral-50 transition-colors"
                 >
-                  <td style={{ padding: "12px 16px" }}>
+                  <td style={{ padding: "16px" }}>
                     <Link
                       href={`/font?f=${row.slug}`}
                       className="font-medium text-neutral-800 hover:text-neutral-600 transition-colors"
@@ -158,7 +167,7 @@ export default function DatabasePage() {
                   <td
                     className="text-neutral-600"
                     style={{
-                      padding: "12px 16px",
+                      padding: "16px",
                       fontFamily: row.family,
                       fontSize: "16px",
                       lineHeight: 1.4,
@@ -169,31 +178,32 @@ export default function DatabasePage() {
                   </td>
                   <td
                     className="text-neutral-500"
-                    style={{ padding: "12px 16px", fontSize: "16px", whiteSpace: "nowrap" }}
+                    style={{ padding: "16px", fontSize: "16px", whiteSpace: "nowrap" }}
                   >
                     {row.category}
                   </td>
                   <td
                     className="text-neutral-500 text-right tabular-nums"
-                    style={{ padding: "12px 16px", fontSize: "16px" }}
+                    style={{ padding: "16px", fontSize: "16px" }}
                   >
                     {row.pairCount}
                   </td>
-                  <td style={{ padding: "12px 16px" }}>
+                  <td style={{ padding: "16px" }}>
                     <a
                       href={row.sourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-neutral-500 hover:text-neutral-700 transition-colors"
-                      style={{ fontSize: "16px", textDecoration: "underline" }}
+                      className="outline-btn font-medium rounded-lg transition-colors inline-block"
+                      style={{ fontSize: "16px", padding: "8px 24px" }}
                     >
-                      {row.sourceLabel}
+                      {row.sourceLabel} ↗
                     </a>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       </main>
     </div>
