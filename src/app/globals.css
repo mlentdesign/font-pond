@@ -688,9 +688,10 @@ body.animations-paused #water-bg * {
 }
 
 /* Database search — matches main text entry focus behavior */
-.db-search-input:focus {
+.db-search-input:focus,
+.db-search-input:focus-visible {
   border-color: var(--accent) !important;
-  box-shadow: var(--shadow-input-focus) !important;
+  box-shadow: none !important;
   outline: none !important;
 }
 
