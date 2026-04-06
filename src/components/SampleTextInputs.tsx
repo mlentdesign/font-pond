@@ -6,7 +6,7 @@ function sliderFill(value: number, min: number, max: number): string {
   return `${((value - min) / (max - min)) * 100}%`;
 }
 
-export function SampleTextInputs() {
+export function SampleTextInputs({ alwaysShow = false }: { alwaysShow?: boolean } = {}) {
   const {
     sampleHeadline, setSampleHeadline,
     sampleBody, setSampleBody,
@@ -15,7 +15,7 @@ export function SampleTextInputs() {
     hasSearched,
   } = useAppState();
 
-  if (!hasSearched) return null;
+  if (!alwaysShow && !hasSearched) return null;
 
   return (
     <div className="w-full preview-settings-spacing" style={{ marginTop: "24px", marginBottom: "24px" }}>

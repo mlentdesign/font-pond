@@ -699,6 +699,55 @@ body.animations-paused #water-bg * {
   white-space: nowrap;
 }
 
+/* Pair page breadcrumb + preview settings row */
+.pair-breadcrumb-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.pair-breadcrumb-row > nav {
+  margin-bottom: 0 !important;
+}
+.pair-preview-settings {
+  /* Remove default margins from SampleTextInputs when embedded in pair page */
+}
+.pair-preview-settings > div {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+@media (min-width: 768px) {
+  .pair-breadcrumb-row {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .pair-preview-settings {
+    flex-shrink: 0;
+  }
+}
+
+/* Similar fonts grid: stacks on mobile, expands on wider screens */
+.similar-fonts-grid {
+  grid-template-columns: 1fr !important;
+}
+@media (min-width: 768px) {
+  .similar-fonts-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (min-width: 1024px) {
+  .similar-fonts-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+/* Specimen sizes must never be overridden by responsive rules */
+.exact-size {
+  font-size: inherit !important;
+}
+
 /* Mobile "Add image" — hidden by default, shown on mobile via media query */
 .mobile-add-image {
   display: none !important;

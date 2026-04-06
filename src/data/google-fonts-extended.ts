@@ -500,12 +500,6 @@ export const googleFontsExtended: Font[] = [
   // EXPERIMENTAL / CHROMATIC
   // ════════════════════════════════════════════════
 
-  gfDisplay("Nabla", "Nabla", "display", [
-    "3d", "isometric", "futuristic", "geometric", "sci-fi", "neon", "cyber", "experimental", "chromatic", "bold",
-  ], ["futuristic", "geometric", "experimental", "bold"], ["tech", "gaming", "sci-fi", "experimental design", "creative tech"], [
-    "isometric 3D chromatic color font", "futuristic geometric forms", "cutting-edge font technology",
-  ]),
-
   // ════════════════════════════════════════════════
   // ADDITIONAL EXPRESSIVE DISPLAY FONTS
   // ════════════════════════════════════════════════

@@ -22,10 +22,22 @@ export function Footer() {
       className="w-full mt-auto shell-padding flex items-center justify-between"
       style={{ background: "var(--bg-footer)", borderTop: "1px solid var(--border)", minHeight: "88px" }}
     >
-      {/* Left side — tagline + about */}
+      {/* Left side — tagline + copyright + about */}
       <div className="footer-left flex items-center flex-wrap">
         <p className="footer-tagline" style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
           Free Font Combinations<br className="sm:hidden" /> for Real Design Work.
+        </p>
+        <p style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
+          &copy; 2026{" "}
+          <a
+            href="https://meet-mel-lent.framer.website/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "underline" }}
+            className="hover:opacity-70 transition-opacity"
+          >
+            Mel Lent
+          </a>
         </p>
         <a
           href="/about"

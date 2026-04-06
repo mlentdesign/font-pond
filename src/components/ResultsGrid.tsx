@@ -27,10 +27,17 @@ export function ResultsGrid() {
   const initialCount = cols >= 3 ? 3 : cols >= 2 ? 4 : 3;
   const loadIncrement = cols >= 3 ? 3 : cols >= 2 ? 2 : 1;
 
-  // On first render with results, set the right initial count
+  // On first render or column change, snap visibleCount to fill complete rows
   useEffect(() => {
-    if (hasSearched && visibleCount <= 4) {
-      setVisibleCount(initialCount);
+    if (hasSearched) {
+      const extra = visibleCount - initialCount;
+      if (extra <= 0) {
+        setVisibleCount(initialCount);
+      } else {
+        // Round extra up to next complete row
+        const snapped = Math.ceil(extra / loadIncrement) * loadIncrement;
+        setVisibleCount(initialCount + snapped);
+      }
     }
   }, [cols, hasSearched]);
 
