@@ -20,7 +20,7 @@ function InfoRow({ label, value }: { label: string; value: string | null | undef
   return (
     <div className="flex justify-between border-b border-neutral-100 last:border-0" style={{ padding: "12px 24px" }}>
       <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>{label.toUpperCase()}</dt>
-      <dd className="text-neutral-700 text-right max-w-[60%]" style={{ fontSize: "16px" }}>{sentenceCase(value)}</dd>
+      <dd className="text-neutral-700 text-right max-w-[60%]" style={{ fontSize: "16px" }}>{titleCase(value)}</dd>
     </div>
   );
 }
