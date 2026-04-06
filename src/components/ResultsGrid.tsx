@@ -45,7 +45,7 @@ export function ResultsGrid() {
 
   if (isLoading) {
     return (
-      <div className="w-full" style={{ marginTop: "48px" }}>
+      <div className="w-full">
         <div className="pair-grid">
           {Array.from({ length: initialCount }).map((_, i) => (
             <div key={i} className="rounded-xl bg-neutral-50 animate-pulse border border-neutral-100" style={{ height: "320px" }} />
@@ -57,7 +57,7 @@ export function ResultsGrid() {
 
   if (results.length === 0) {
     return (
-      <div className="w-full text-center" style={{ marginTop: "48px" }}>
+      <div className="w-full text-center">
         <p className="text-neutral-400" style={{ fontSize: "16px" }}>No results found. Try a different description.</p>
       </div>
     );
@@ -70,7 +70,7 @@ export function ResultsGrid() {
   const topLabel = cols >= 2 && cols < 3 ? "Top 4 recommendations" : "Top 3 recommendations";
 
   return (
-    <div className="w-full" style={{ marginTop: "40px" }}>
+    <div className="w-full">
       {!isExploring && (
         <p className="font-semibold text-neutral-700" style={{ fontSize: "16px", marginBottom: "16px" }}>
           {topLabel}

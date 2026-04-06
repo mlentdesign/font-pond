@@ -733,8 +733,8 @@ body.animations-paused #water-bg * {
   }
 }
 
-/* Preview settings embedded in a section card (pair page) */
-.border-t .preview-settings-spacing {
+/* Preview settings embedded in a section card (pair page) — zero out margins */
+.mt-6 > .preview-settings-spacing {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
@@ -780,7 +780,7 @@ body.animations-paused #water-bg * {
   }
   /* Match preview-settings → results gap to header → describe gap (56px on tablet) */
   .preview-settings-spacing {
-    margin-bottom: 16px !important;
+    margin-bottom: 56px !important;
   }
   /* Footer left stacks on tablet so footer height stays predictable */
   .footer-left {
@@ -831,7 +831,7 @@ body.animations-paused #water-bg * {
 
   /* Match preview-settings → results gap to header → describe gap (40px on mobile) */
   .preview-settings-spacing {
-    margin-bottom: 0px !important;
+    margin-bottom: 40px !important;
   }
 
   /* Footer — stack tagline and About vertically, prevent wrapping */
