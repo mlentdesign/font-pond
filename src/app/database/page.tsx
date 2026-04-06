@@ -90,6 +90,17 @@ export default function DatabasePage() {
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
   const tableRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const [stickyTop, setStickyTop] = useState(100);
+
+  // Measure actual header height to position sticky header correctly
+  useEffect(() => {
+    const header = document.querySelector("header.sticky");
+    if (header) {
+      const h = header.getBoundingClientRect().height;
+      setStickyTop(h + 16); // header height + 16px gap
+    }
+  }, []);
 
   const rows = useMemo<FontRow[]>(() => {
     const pairCounts = new Map<string, number>();
@@ -160,9 +171,7 @@ export default function DatabasePage() {
   const goPage = (p: number) => {
     setPage(p);
     if (tableRef.current) {
-      const headerHeight = 57;
-      const gap = 16;
-      const top = tableRef.current.getBoundingClientRect().top + window.scrollY - headerHeight - gap;
+      const top = tableRef.current.getBoundingClientRect().top + window.scrollY - stickyTop;
       window.scrollTo({ top, behavior: "smooth" });
     }
   };
@@ -234,9 +243,10 @@ export default function DatabasePage() {
         >
           {/* Sticky table header */}
           <div
-            className="db-sticky-header"
+            ref={stickyRef}
             style={{
               position: "sticky",
+              top: `${stickyTop}px`,
               zIndex: 10,
               background: headerFooterBg,
               borderBottom: "1px solid var(--divider)",
