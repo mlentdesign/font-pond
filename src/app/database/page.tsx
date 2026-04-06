@@ -96,6 +96,8 @@ export default function DatabasePage() {
   const tableRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const filterRef = useRef<HTMLDivElement>(null);
+  const headerScrollRef = useRef<HTMLDivElement>(null);
+  const bodyScrollRef = useRef<HTMLDivElement>(null);
   const [stickyTop, setStickyTop] = useState(100);
   const [searchExpanded, setSearchExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -121,6 +123,28 @@ export default function DatabasePage() {
     updateTop();
     window.addEventListener("resize", updateTop);
     return () => window.removeEventListener("resize", updateTop);
+  }, []);
+
+  // Sync horizontal scroll between header and body
+  useEffect(() => {
+    const header = headerScrollRef.current;
+    const body = bodyScrollRef.current;
+    if (!header || !body) return;
+    let syncing = false;
+    const syncFrom = (source: HTMLDivElement, target: HTMLDivElement) => () => {
+      if (syncing) return;
+      syncing = true;
+      target.scrollLeft = source.scrollLeft;
+      syncing = false;
+    };
+    const onBodyScroll = syncFrom(body, header);
+    const onHeaderScroll = syncFrom(header, body);
+    body.addEventListener("scroll", onBodyScroll, { passive: true });
+    header.addEventListener("scroll", onHeaderScroll, { passive: true });
+    return () => {
+      body.removeEventListener("scroll", onBodyScroll);
+      header.removeEventListener("scroll", onHeaderScroll);
+    };
   }, []);
 
   // Detect when sticky header is stuck via scroll position
@@ -403,7 +427,7 @@ export default function DatabasePage() {
             }}
           >
             {/* Horizontal scroll wrapper for mobile */}
-            <div style={{ overflowX: "auto", width: "100%" }}>
+            <div ref={headerScrollRef} style={{ overflowX: "auto", width: "100%" }}>
               <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed", minWidth: "800px" }}>
                 <colgroup>
                   <col style={{ width: "20%" }} />
@@ -436,7 +460,7 @@ export default function DatabasePage() {
           </div>
 
           {/* Table body — horizontal scroll for mobile, z-index below sticky header */}
-          <div style={{ overflowX: "auto", background: "var(--bg-card)", position: "relative", zIndex: 1 }}>
+          <div ref={bodyScrollRef} style={{ overflowX: "auto", background: "var(--bg-card)", position: "relative", zIndex: 1 }}>
             <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed", minWidth: "800px" }}>
               <colgroup>
                 <col style={{ width: "20%" }} />
