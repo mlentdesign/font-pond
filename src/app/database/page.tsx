@@ -113,20 +113,19 @@ export default function DatabasePage() {
     return () => window.removeEventListener("resize", updateTop);
   }, []);
 
-  // Detect when sticky header becomes stuck and toggle class for box-shadow
+  // Detect when sticky header is stuck via scroll position
   useEffect(() => {
     const el = stickyRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // When the sentinel (top of table container) leaves viewport, header is stuck
-        el.classList.toggle("is-stuck", !entry.isIntersecting);
-      },
-      { threshold: 0, rootMargin: `-${stickyTop + 2}px 0px 0px 0px` }
-    );
-    const sentinel = tableRef.current;
-    if (sentinel) observer.observe(sentinel);
-    return () => observer.disconnect();
+    const container = tableRef.current;
+    if (!el || !container) return;
+    const onScroll = () => {
+      const containerTop = container.getBoundingClientRect().top;
+      const stuck = containerTop <= stickyTop;
+      el.classList.toggle("is-stuck", stuck);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
   }, [stickyTop]);
 
   const rows = useMemo<FontRow[]>(() => {
