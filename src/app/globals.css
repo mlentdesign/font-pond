@@ -782,6 +782,12 @@ body.animations-paused #water-bg * {
   .preview-settings-spacing {
     margin-bottom: 16px !important;
   }
+  /* Footer left stacks on tablet so footer height stays predictable */
+  .footer-left {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
 }
 
 /* ══════════════════════════════════════════
