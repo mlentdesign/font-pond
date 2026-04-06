@@ -1685,11 +1685,4 @@ export const dafontFonts: Font[] = [
     ["Heavy vintage advertising display", "Warm retro rounded forms"],
   ),
 
-  dafont("Aurora", "display",
-    ["display", "futuristic", "sci-fi", "sleek", "modern", "digital", "space", "tech"],
-    ["futuristic", "sleek", "modern", "digital"],
-    ["sci-fi heading", "tech branding", "futuristic poster", "digital display"],
-    ["Sleek futuristic display typeface", "Digital sci-fi inspired design"],
-  ),
-
 ];

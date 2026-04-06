@@ -2400,7 +2400,9 @@ const curatedIds = new Set(curatedFonts.map((f) => f.slug));
 
 // Add auto-generated fonts that aren't already in the curated set
 const extraGoogle = allGoogleFonts.filter((f) => !curatedIds.has(f.slug));
-const extraFontshare = allFontshareFonts.filter((f) => !curatedIds.has(f.slug));
+// Fontshare: also exclude fonts that share a name with a Google Fonts entry
+const googleNames = new Set(allGoogleFonts.map((f) => f.name.toLowerCase()));
+const extraFontshare = allFontshareFonts.filter((f) => !curatedIds.has(f.slug) && !googleNames.has(f.name.toLowerCase()));
 
 // ── Blocklist: chromatic/color fonts, symbol-only fonts, icon fonts ──
 // These render in fixed colors (not black/white) or contain only symbols/icons
