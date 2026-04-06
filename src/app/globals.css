@@ -691,13 +691,18 @@ body.animations-paused #water-bg * {
 .db-table-container {
   overflow: clip;
 }
-/* Database table sticky header — sits below the page header with gap */
+/* Database table sticky header — nav height (~57px) + gap */
 .db-sticky-header {
-  top: 73px;
+  top: 73px; /* 57 + 16 */
 }
-@media (max-width: 639px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .db-sticky-header {
-    top: 57px;
+    top: 73px;
+  }
+}
+@media (max-width: 767px) {
+  .db-sticky-header {
+    top: 65px; /* 57 + 8 */
   }
 }
 
