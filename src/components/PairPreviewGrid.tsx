@@ -27,6 +27,7 @@ interface PairPreviewGridProps {
   initialVisible?: number;
   loadMoreIncrement?: number;
   headlineText?: string;
+  bodyText?: string;
   showRationale?: boolean;
 }
 
@@ -36,6 +37,7 @@ export function PairPreviewGrid({
   initialVisible = 6,
   loadMoreIncrement = 6,
   headlineText = "The quick brown fox",
+  bodyText = "Typography is the art and technique of arranging type.",
   showRationale = false,
 }: PairPreviewGridProps) {
   const cols = useColumns();
@@ -82,7 +84,7 @@ export function PairPreviewGrid({
                 className="text-neutral-500 line-clamp-2 break-words"
                 style={{ fontFamily: bFamily, fontWeight: 400, fontSize: "16px", lineHeight: 1.5 }}
               >
-                Typography is the art and technique of arranging type.
+                {bodyText}
               </p>
               <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
               <p className="font-medium text-neutral-700 break-words" style={{ fontSize: "16px", marginBottom: showRationale ? "8px" : undefined }}>
