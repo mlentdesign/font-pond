@@ -1538,4 +1538,107 @@ export const dafontFonts: Font[] = [
     ["aviation-inspired art-deco sans", "retro geometric elegant display"],
   ),
 
+  // ─── ADDITIONAL FREE FONTS (replacement batch) ───
+
+  dafont("Biko", "sans-serif",
+    ["sans-serif", "geometric", "modern", "clean", "friendly", "rounded", "versatile", "soft"],
+    ["friendly", "approachable", "modern", "warm"],
+    ["app interface", "brand identity", "modern heading", "friendly website"],
+    ["soft geometric sans with rounded terminals", "warm contemporary proportions"],
+  ),
+
+  dafont("Maxwell", "sans-serif",
+    ["sans-serif", "condensed", "bold", "modern", "strong", "clean", "geometric", "display"],
+    ["bold", "strong", "contemporary", "impactful"],
+    ["bold heading", "poster title", "brand display", "packaging"],
+    ["condensed modern geometric sans", "strong vertical emphasis"],
+  ),
+
+  dafont("Disorder", "display",
+    ["grunge", "distressed", "rough", "textured", "punk", "raw", "aggressive", "gritty"],
+    ["chaotic", "raw", "aggressive", "intense"],
+    ["punk flyer", "underground event", "grunge poster", "distressed graphic"],
+    ["heavily distressed display letterforms", "rough textured surface treatment"],
+  ),
+
+  dafont("Arkhip", "display",
+    ["display", "bold", "condensed", "strong", "modern", "geometric", "russian", "constructivist"],
+    ["bold", "industrial", "commanding", "structured"],
+    ["poster headline", "bold branding", "editorial title", "event signage"],
+    ["bold condensed geometric display", "constructivist-inspired weight"],
+  ),
+
+  dafont("Riesling", "display",
+    ["display", "art-deco", "elegant", "thin", "decorative", "vintage", "uppercase", "glamorous"],
+    ["elegant", "glamorous", "refined", "vintage"],
+    ["luxury branding", "fashion title", "art-deco design", "elegant invitation"],
+    ["art-deco inspired thin display", "decorative vintage elegance"],
+  ),
+
+  dafont("Hero", "sans-serif",
+    ["sans-serif", "geometric", "modern", "clean", "neutral", "versatile", "minimal", "professional"],
+    ["clean", "professional", "neutral", "modern"],
+    ["corporate heading", "clean website", "professional branding", "app title"],
+    ["clean geometric sans with neutral character", "versatile modern proportions"],
+  ),
+
+  dafont("Borg", "display",
+    ["display", "futuristic", "sci-fi", "tech", "geometric", "bold", "angular", "space"],
+    ["futuristic", "technological", "bold", "cosmic"],
+    ["sci-fi design", "tech branding", "game title", "futuristic poster"],
+    ["angular futuristic display forms", "sci-fi geometric construction"],
+  ),
+
+  dafont("Cubic", "display",
+    ["display", "geometric", "blocky", "pixel", "angular", "modern", "bold", "structured"],
+    ["geometric", "structured", "technical", "bold"],
+    ["tech poster", "geometric design", "game branding", "modern display"],
+    ["blocky geometric letterforms", "structured angular construction"],
+  ),
+
+  dafont("Nulshock", "display",
+    ["display", "futuristic", "tech", "bold", "sci-fi", "industrial", "sharp", "modern"],
+    ["futuristic", "industrial", "powerful", "technical"],
+    ["tech branding", "game UI", "sci-fi title", "industrial display"],
+    ["bold industrial futuristic display", "sharp technical letterforms"],
+    { designer: "Typodermic Fonts" }
+  ),
+
+  dafont("Stentiga", "display",
+    ["display", "decorative", "modern", "elegant", "unique", "artistic", "creative", "stylized"],
+    ["creative", "artistic", "distinctive", "modern"],
+    ["creative branding", "artistic heading", "unique display", "fashion title"],
+    ["distinctive decorative display forms", "modern artistic stylization"],
+  ),
+
+  dafont("Raustila", "script",
+    ["script", "brush", "handwritten", "casual", "flowing", "artistic", "expressive", "bold"],
+    ["artistic", "expressive", "warm", "personal"],
+    ["greeting card", "brand signature", "artistic heading", "lifestyle blog"],
+    ["bold brush script with natural flow", "expressive hand-lettered character"],
+    { serifSansCategory: "script" as const }
+  ),
+
+  dafont("Halo", "display",
+    ["display", "rounded", "bold", "modern", "fun", "friendly", "bubbly", "playful"],
+    ["friendly", "fun", "playful", "warm"],
+    ["kids brand", "fun heading", "friendly display", "playful packaging"],
+    ["bold rounded display with friendly character", "bubbly playful letterforms"],
+  ),
+
+  dafont("Foglihten", "serif",
+    ["serif", "elegant", "decorative", "art-nouveau", "ornamental", "classic", "refined", "display"],
+    ["elegant", "ornamental", "refined", "classic"],
+    ["luxury branding", "elegant invitation", "decorative title", "wine label"],
+    ["ornamental serif with art-nouveau influence", "elegant decorative terminals"],
+    { serifSansCategory: "serif" as const }
+  ),
+
+  dafont("Prime", "sans-serif",
+    ["sans-serif", "geometric", "minimal", "clean", "modern", "structured", "sharp", "technical"],
+    ["minimal", "precise", "modern", "technical"],
+    ["tech heading", "minimal branding", "clean display", "modern interface"],
+    ["precise geometric sans with sharp edges", "structured minimal construction"],
+  ),
+
 ];
