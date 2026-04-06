@@ -695,17 +695,10 @@ body.animations-paused #water-bg * {
   outline: none !important;
 }
 
-/* Database table sticky header — pseudo-element covers the gap above to clip scrolling content */
-.db-sticky-clip::before {
-  content: "";
-  position: absolute;
-  top: -24px;
-  left: -4px;
-  right: -4px;
-  height: 24px;
-  background: var(--bg);
-  border-radius: 0 0 12px 12px;
-  z-index: 1;
+/* Database sticky header — extended background covers gap above for clipping */
+.db-sticky-clip {
+  /* Use box-shadow to paint over the gap above the header */
+  box-shadow: 0 -24px 0 0 var(--bg);
 }
 
 /* Responsive ransom header font size */

@@ -2399,9 +2399,18 @@ function enrichFontTags(font: Font): Font {
 const googleNames = new Set(allGoogleFonts.map((f) => f.name.toLowerCase()));
 const dedupedDafont = dafontFonts.filter((f) => !googleNames.has(f.name.toLowerCase()));
 
-const curatedFonts: Font[] = [...coreFonts, ...googleFontsExtended, ...dedupedDafont];
+// Merge curated sources, deduping by name (first occurrence wins)
+const curatedFonts: Font[] = [];
+const seenCuratedNames = new Set<string>();
+for (const f of [...coreFonts, ...googleFontsExtended, ...dedupedDafont]) {
+  const key = f.name.toLowerCase();
+  if (!seenCuratedNames.has(key)) {
+    seenCuratedNames.add(key);
+    curatedFonts.push(f);
+  }
+}
 const curatedIds = new Set(curatedFonts.map((f) => f.slug));
-const curatedNames = new Set(curatedFonts.map((f) => f.name.toLowerCase()));
+const curatedNames = seenCuratedNames;
 
 // Add auto-generated Google fonts that aren't already in the curated set (by slug OR name)
 const extraGoogle = allGoogleFonts.filter((f) => !curatedIds.has(f.slug) && !curatedNames.has(f.name.toLowerCase()));
