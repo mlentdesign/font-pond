@@ -28,9 +28,9 @@ export function RecentHistory() {
           aria-expanded={isOpen}
           aria-label="Recently viewed pairs"
         >
-          <svg width="20" height="20" viewBox="0 0 14 14" fill="none">
-            <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M7 4.5V7L8.5 8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M10 6.5V10L12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
           <span className="hidden sm:inline">History</span>
         </button>

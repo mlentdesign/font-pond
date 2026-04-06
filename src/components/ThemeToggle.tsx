@@ -52,9 +52,9 @@ export function ThemeToggle() {
           color: !dark ? "var(--toggle-active-text)" : "var(--text-ransom)",
         }}
       >
-        <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
-          <circle cx="9" cy="9" r="3" stroke="currentColor" strokeWidth="1.5" />
-          <path d="M9 2.5V4M9 14V15.5M2.5 9H4M14 9H15.5M4.7 4.7L5.8 5.8M12.2 12.2L13.3 13.3M13.3 4.7L12.2 5.8M5.8 12.2L4.7 13.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="3.5" stroke="currentColor" strokeWidth="1.5" />
+          <path d="M10 3V4.5M10 15.5V17M3 10H4.5M15.5 10H17M5.2 5.2L6.3 6.3M13.7 13.7L14.8 14.8M14.8 5.2L13.7 6.3M6.3 13.7L5.2 14.8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       </span>
       <span
@@ -66,8 +66,8 @@ export function ThemeToggle() {
           color: dark ? "var(--toggle-active-text)" : "var(--text-ransom)",
         }}
       >
-        <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
-          <path d="M14.5 10.5a5.5 5.5 0 01-7-7A5.5 5.5 0 1014.5 10.5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M16 11.5a6 6 0 01-7.5-7.5A6 6 0 1016 11.5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </span>
     </button>
