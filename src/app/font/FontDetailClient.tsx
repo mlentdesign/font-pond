@@ -143,9 +143,10 @@ export default function FontDetailPage() {
           )}
         </SectionCard>
 
-        {/* Details — responsive: 1 col mobile, 2 col tablet, 3 col desktop */}
-        <div className="font-detail-grid" style={{ marginBottom: "24px" }}>
-          {/* Card 1: Type info (desktop only — hidden on tablet where it merges with card 2) */}
+        {/* Details — responsive: 1 col mobile, 2 col tablet, 3 col desktop
+             When card 3 chips heavily outweigh cards 1+2 info rows, merge to 2-card layout */}
+        <div className={`font-detail-grid${(font.distinctiveTraits.length + font.toneDescriptors.length + font.useCases.length + (font.historicalNotes ? 1 : 0)) > 6 ? " font-detail-compact" : ""}`} style={{ marginBottom: "24px" }}>
+          {/* Card 1: Type info (desktop only — hidden on tablet or when compact) */}
           <SectionCard noPadding className="font-detail-card1" style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
               <InfoRow label="Classification" value={font.classification} />

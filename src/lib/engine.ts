@@ -8,6 +8,35 @@ import { SYNONYM_BATCH3 } from "@/data/adjective-batch3";
 const ALL_SYNONYMS: Record<string, string[]> = { ...SYNONYM_MAP, ...SYNONYM_BATCH3 };
 
 // ══════════════════════════════════════════
+// TYPO-TOLERANT EDIT DISTANCE
+// ══════════════════════════════════════════
+// Levenshtein distance — used for fuzzy matching of misspelled keywords and font names
+function editDistance(a: string, b: string): number {
+  if (a === b) return 0;
+  const la = a.length, lb = b.length;
+  if (la === 0) return lb;
+  if (lb === 0) return la;
+  let prev = Array.from({ length: lb + 1 }, (_, i) => i);
+  for (let i = 1; i <= la; i++) {
+    const curr = [i];
+    for (let j = 1; j <= lb; j++) {
+      curr[j] = a[i - 1] === b[j - 1]
+        ? prev[j - 1]
+        : 1 + Math.min(prev[j - 1], prev[j], curr[j - 1]);
+    }
+    prev = curr;
+  }
+  return prev[lb];
+}
+
+// Max allowed edit distance based on word length
+function maxTypoDistance(word: string): number {
+  if (word.length <= 3) return 0; // too short for typo matching
+  if (word.length <= 5) return 1;
+  return 2;
+}
+
+// ══════════════════════════════════════════
 // FUZZY KEYWORD MATCHING
 // ══════════════════════════════════════════
 // Maps prompt words (including variations/stems) → desired font tags.
@@ -914,6 +943,20 @@ function findKeywordMatch(word: string): string[] | null {
     if (combined.length > 0) return [...new Set(combined)];
   }
 
+  // 5. Typo tolerance — find nearest keyword by edit distance
+  const maxDist = maxTypoDistance(word);
+  if (maxDist > 0) {
+    let bestKey: string | null = null;
+    let bestDist = maxDist + 1;
+    for (const key of Object.keys(KEYWORD_WANT)) {
+      // Only compare words of similar length to avoid false positives
+      if (Math.abs(key.length - word.length) > maxDist) continue;
+      const d = editDistance(word, key);
+      if (d < bestDist) { bestDist = d; bestKey = key; }
+    }
+    if (bestKey) return KEYWORD_WANT[bestKey];
+  }
+
   return null;
 }
 
@@ -1074,16 +1117,43 @@ export function parseStyleSignals(_text: string): StyleSignals {
 function findFontNamesInQuery(query: string): Set<string> {
   const lower = query.toLowerCase().trim();
   const matched = new Set<string>();
+  const queryWords = lower.split(/[\s,.\-—–/]+/).filter(w => w.length > 0);
 
   for (const [, font] of fontsById) {
     const fontNameLower = font.name.toLowerCase();
     // Check if the query contains the full font name
     if (lower.includes(fontNameLower)) {
       matched.add(font.id);
+      continue;
     }
     // Also check slug form (e.g. "playfair-display")
     if (lower.includes(font.slug)) {
       matched.add(font.id);
+      continue;
+    }
+
+    // Typo-tolerant: check if query words fuzzy-match font name words
+    const fontWords = fontNameLower.split(/\s+/);
+    if (fontWords.length === 1 && fontWords[0].length >= 4) {
+      // Single-word font name: check each query word
+      for (const qw of queryWords) {
+        if (qw.length >= 4 && editDistance(qw, fontWords[0]) <= maxTypoDistance(fontWords[0])) {
+          matched.add(font.id);
+          break;
+        }
+      }
+    } else if (fontWords.length >= 2) {
+      // Multi-word font name: check if all font words have a fuzzy match in query words
+      let allMatched = true;
+      for (const fw of fontWords) {
+        if (fw.length < 3) continue; // skip very short words
+        let wordFound = false;
+        for (const qw of queryWords) {
+          if (editDistance(qw, fw) <= maxTypoDistance(fw)) { wordFound = true; break; }
+        }
+        if (!wordFound) { allMatched = false; break; }
+      }
+      if (allMatched) matched.add(font.id);
     }
   }
 

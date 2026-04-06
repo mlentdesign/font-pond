@@ -85,6 +85,42 @@ function titleCase(s: string): string {
   return s.replace(/\b[a-z]/g, (c) => c.toUpperCase());
 }
 
+// Fuzzy match: check if query words are close to target words (typo tolerance)
+function fuzzyMatch(query: string, target: string): boolean {
+  const qWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 0);
+  const tLower = target.toLowerCase();
+  // First try substring match
+  if (tLower.includes(query.toLowerCase())) return true;
+  // Then try fuzzy word matching
+  for (const qw of qWords) {
+    if (qw.length < 3) continue;
+    // Check if any word in target is within edit distance
+    const tWords = tLower.split(/\s+/);
+    for (const tw of tWords) {
+      if (tw.length < 3) continue;
+      if (Math.abs(tw.length - qw.length) > 2) continue;
+      if (editDist(qw, tw) <= (qw.length <= 5 ? 1 : 2)) return true;
+    }
+    // Also check if query word is a substring of target
+    if (tLower.includes(qw)) return true;
+  }
+  return false;
+}
+
+function editDist(a: string, b: string): number {
+  if (a === b) return 0;
+  const la = a.length, lb = b.length;
+  let prev = Array.from({ length: lb + 1 }, (_, i) => i);
+  for (let i = 1; i <= la; i++) {
+    const curr = [i];
+    for (let j = 1; j <= lb; j++) {
+      curr[j] = a[i - 1] === b[j - 1] ? prev[j - 1] : 1 + Math.min(prev[j - 1], prev[j], curr[j - 1]);
+    }
+    prev = curr;
+  }
+  return prev[lb];
+}
+
 export default function DatabasePage() {
   const [sortKey, setSortKey] = useState<SortKey>("name");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
@@ -225,11 +261,11 @@ export default function DatabasePage() {
       result = result.filter((r) => sourceFilters.has(r.sourceLabel));
     }
     if (search.trim()) {
-      const q = search.toLowerCase();
+      const q = search.trim();
       result = result.filter((r) =>
-        r.name.toLowerCase().includes(q) ||
-        r.category.toLowerCase().includes(q) ||
-        r.sourceLabel.toLowerCase().includes(q)
+        fuzzyMatch(q, r.name) ||
+        fuzzyMatch(q, r.category) ||
+        fuzzyMatch(q, r.sourceLabel)
       );
     }
     return result;
