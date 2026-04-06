@@ -36,7 +36,7 @@ function FontSection({
       href={`/font?f=${font.slug}&from=${pairSlug}`}
       className="block border border-neutral-200 rounded-xl bg-white p-6 hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
     >
-      <div className="flex items-baseline justify-between mb-4">
+      <div className="flex items-baseline justify-between">
         <div className="min-w-0 flex-1 mr-3">
           <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>
             {role === "Header" ? "HEADER FONT" : "BODY FONT"}
@@ -49,6 +49,9 @@ function FontSection({
           {sourceLabel}
         </span>
       </div>
+
+      {/* Divider: between header info and specimen */}
+      <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
 
       {/* Specimen */}
       <div
@@ -97,7 +100,7 @@ function FontSection({
 
       {/* Download */}
       {font.sourceUrl && (
-        <div style={{ marginTop: "16px" }}>
+        <div style={{ marginTop: "16px", textAlign: "right" }}>
           <a
             href={font.sourceUrl}
             target="_blank"
