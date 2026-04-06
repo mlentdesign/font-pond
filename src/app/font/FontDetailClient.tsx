@@ -15,12 +15,12 @@ import { ChipGroup } from "@/components/ChipGroup";
 import { PairPreviewGrid } from "@/components/PairPreviewGrid";
 import { useAppState } from "@/lib/store";
 
-function InfoRow({ label, value }: { label: string; value: string | null | undefined }) {
+function InfoRow({ label, value, useTitle }: { label: string; value: string | null | undefined; useTitle?: boolean }) {
   if (!value) return null;
   return (
     <div className="flex justify-between border-b border-neutral-100 last:border-0" style={{ padding: "12px 24px" }}>
       <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>{label.toUpperCase()}</dt>
-      <dd className="text-neutral-700 text-right max-w-[60%]" style={{ fontSize: "16px" }}>{titleCase(value)}</dd>
+      <dd className="text-neutral-700 text-right max-w-[60%]" style={{ fontSize: "16px" }}>{useTitle ? titleCase(value) : sentenceCase(value)}</dd>
     </div>
   );
 }
@@ -153,7 +153,7 @@ export default function FontDetailPage() {
           {/* Card 1: Type info (desktop only — hidden on tablet or when compact) */}
           <SectionCard noPadding className="font-detail-card1" style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
-              <InfoRow label="Classification" value={font.classification} />
+              <InfoRow label="Classification" value={font.classification} useTitle />
               <InfoRow label="Subcategory" value={font.subcategory} />
               <InfoRow label="Variable font" value={font.variableFont ? "Yes" : "No"} />
               {!font.variableFont && (
@@ -179,7 +179,7 @@ export default function FontDetailPage() {
           {/* Combined card (tablet + mobile only — hidden on desktop) */}
           <SectionCard noPadding className="font-detail-combined" style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
-              <InfoRow label="Classification" value={font.classification} />
+              <InfoRow label="Classification" value={font.classification} useTitle />
               <InfoRow label="Subcategory" value={font.subcategory} />
               <InfoRow label="Variable font" value={font.variableFont ? "Yes" : "No"} />
               {!font.variableFont && (
