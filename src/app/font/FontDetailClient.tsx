@@ -101,29 +101,29 @@ export default function FontDetailPage() {
         {/* Specimen */}
         <SectionCard style={{ marginBottom: "24px" }}>
           <div className="space-y-4">
-            <p style={{ fontFamily: family, fontWeight: 700, fontSize: "48px" }} className="text-neutral-900 leading-tight">
+            <p style={{ fontFamily: family, fontWeight: 700, fontSize: "48px" }} className="specimen-48 text-neutral-900 leading-tight">
               The quick brown fox
             </p>
-            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "32px" }} className="text-neutral-700 leading-snug">
+            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "32px" }} className="specimen-32 text-neutral-700 leading-snug">
               jumps over the lazy dog
             </p>
-            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "16px", lineHeight: 1.7 }} className="text-neutral-600">
+            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "16px", lineHeight: 1.7 }} className="specimen-16 text-neutral-600">
               Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes, line lengths, line-spacing, and letter-spacing, and adjusting the space between pairs of letters.
             </p>
-            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "14px", lineHeight: 1.6 }} className="text-neutral-500">
+            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "14px", lineHeight: 1.6 }} className="specimen-14 text-neutral-500">
               At 14px: Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes, line lengths, line-spacing, and letter-spacing.
             </p>
           </div>
 
           {/* Alphabet */}
           <div className="mt-6 pt-6 border-t border-neutral-100" style={{ marginLeft: "-24px", marginRight: "-24px", paddingLeft: "24px", paddingRight: "24px" }}>
-            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "18px" }} className="text-neutral-600 mb-2">
+            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600 mb-2">
               ABCDEFGHIJKLMNOPQRSTUVWXYZ
             </p>
-            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "18px" }} className="text-neutral-600 mb-2">
+            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600 mb-2">
               abcdefghijklmnopqrstuvwxyz
             </p>
-            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "18px" }} className="text-neutral-600">
+            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600">
               0123456789 !@#$%^&*()-=+[]{'{'}|;:&apos;,./&lt;&gt;?
             </p>
           </div>
@@ -134,7 +134,7 @@ export default function FontDetailPage() {
               <p className="uppercase tracking-wider text-neutral-400 mb-3" style={{ fontSize: "12px" }}>WEIGHTS</p>
               <div className="space-y-2">
                 {font.weights.map((w) => (
-                  <p key={w} style={{ fontFamily: family, fontWeight: w, fontSize: "18px" }} className="text-neutral-700">
+                  <p key={w} style={{ fontFamily: family, fontWeight: w, fontSize: "18px" }} className="specimen-18 text-neutral-700">
                     {w} — The quick brown fox jumps over the lazy dog
                   </p>
                 ))}

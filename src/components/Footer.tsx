@@ -20,7 +20,7 @@ export function Footer() {
 
   return (
     <footer
-      className="w-full mt-auto shell-padding flex items-center justify-between"
+      className="w-full mt-auto shell-padding flex items-center justify-between site-footer"
       style={{ background: "var(--bg-footer)", borderTop: "1px solid var(--border)", minHeight: "88px", gap: "16px", paddingTop: "16px", paddingBottom: "16px" }}
     >
       {/* Left side — tagline + copyright + about */}
