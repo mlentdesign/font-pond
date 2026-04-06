@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { fontsBySlug, fontsById } from "@/data/fonts";
@@ -24,13 +24,9 @@ function InfoRow({ label, value }: { label: string; value: string | null | undef
   );
 }
 
-export default function FontDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = use(params);
+export default function FontDetailPage() {
   const searchParams = useSearchParams();
+  const slug = searchParams.get("f") || "";
   const fromPair = searchParams.get("from");
 
   const font = fontsBySlug.get(slug);
@@ -42,7 +38,7 @@ export default function FontDetailPage({
     if (pair) {
       const hf = fontsById.get(pair.headerFontId);
       const bf = fontsById.get(pair.bodyFontId);
-      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair/${fromPair}` });
+      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair?p=${fromPair}` });
     }
   }
   if (font) crumbs.push({ label: font.name });
@@ -205,7 +201,7 @@ export default function FontDetailPage({
                 const similar = fontsBySlug.get(sf);
                 if (!similar) return null;
                 return (
-                  <Link key={sf} href={`/font/${sf}`} className="outline-btn font-medium rounded-lg transition-colors" style={{ fontSize: "16px", padding: "8px 16px" }}>
+                  <Link key={sf} href={`/font?f=${sf}`} className="outline-btn font-medium rounded-lg transition-colors" style={{ fontSize: "16px", padding: "8px 16px" }}>
                     {similar.name}
                   </Link>
                 );
