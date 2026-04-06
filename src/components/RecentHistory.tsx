@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useAppState } from "@/lib/store";
 
 export function RecentHistory() {
-  const { recentHistory } = useAppState();
+  const { recentItems } = useAppState();
   const [isOpen, setIsOpen] = useState(false);
 
-  if (recentHistory.length < 2) return null;
+  if (recentItems.length < 2) return null;
 
   return (
     <div className="fixed z-50 fixed-right history-chip-fixed" style={{ bottom: "24px" }}>
@@ -26,7 +26,7 @@ export function RecentHistory() {
             height: "40px",
           }}
           aria-expanded={isOpen}
-          aria-label="Recently viewed pairs"
+          aria-label="Recently viewed"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.5" />
@@ -38,22 +38,33 @@ export function RecentHistory() {
         {isOpen && (
           <div
             className="absolute bottom-full right-0 rounded-xl shadow-lg overflow-hidden"
-            style={{ background: "var(--bg-card)", border: "2px solid var(--border)", marginBottom: "8px", width: "240px" }}
+            style={{ background: "var(--bg-card)", border: "2px solid var(--border)", marginBottom: "8px", width: "260px" }}
           >
             <div style={{ padding: "12px 16px", borderBottom: "1px solid var(--divider)" }}>
               <h3 className="font-medium uppercase tracking-wider" style={{ fontSize: "12px", color: "var(--text-label)" }}>RECENTLY VIEWED</h3>
             </div>
-            <ul className="overflow-y-auto" style={{ maxHeight: "240px" }}>
-              {recentHistory.map((item) => (
-                <li key={item.pairId}>
+            <ul className="overflow-y-auto" style={{ maxHeight: "280px" }}>
+              {recentItems.map((item) => (
+                <li key={item.id}>
                   <Link
-                    href={`/pair?p=${item.pairSlug}`}
+                    href={item.type === "pair" ? `/pair?p=${item.slug}` : `/font?f=${item.slug}`}
                     className="flex items-center transition-colors hover:opacity-70"
-                    style={{ padding: "8px 16px" }}
+                    style={{ padding: "8px 16px", gap: "8px" }}
                     onClick={() => setIsOpen(false)}
                   >
+                    <span
+                      className="shrink-0 rounded uppercase tracking-wider font-medium"
+                      style={{
+                        fontSize: "10px",
+                        padding: "2px 6px",
+                        background: item.type === "pair" ? "var(--accent)" : "var(--border)",
+                        color: item.type === "pair" ? "var(--btn-text)" : "var(--text-muted)",
+                      }}
+                    >
+                      {item.type === "pair" ? "Pair" : "Font"}
+                    </span>
                     <p className="truncate flex-1" style={{ fontSize: "16px", color: "var(--text-body)" }}>
-                      {item.headerFontName} + {item.bodyFontName}
+                      {item.label}
                     </p>
                   </Link>
                 </li>

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import { RecentPairView, ScoredPair } from "@/data/types";
+import { RecentPairView, RecentHistoryItem, ScoredPair } from "@/data/types";
 
 export interface AppState {
   query: string;
@@ -29,6 +29,8 @@ export interface AppState {
   setVisibleCount: (n: number) => void;
   recentHistory: RecentPairView[];
   addToHistory: (view: RecentPairView) => void;
+  recentItems: RecentHistoryItem[];
+  addHistoryItem: (item: RecentHistoryItem) => void;
 }
 
 export const AppContext = createContext<AppState | null>(null);

@@ -98,3 +98,11 @@ export interface RecentPairView {
   bodyFontName: string;
   viewedAt: number;
 }
+
+export interface RecentHistoryItem {
+  type: "pair" | "font";
+  id: string;       // pairId or fontId
+  slug: string;      // pairSlug or fontSlug
+  label: string;     // "Header + Body" or "Font Name"
+  viewedAt: number;
+}

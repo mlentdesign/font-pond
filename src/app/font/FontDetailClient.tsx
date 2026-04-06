@@ -13,6 +13,7 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 import { SectionCard } from "@/components/SectionCard";
 import { ChipGroup } from "@/components/ChipGroup";
 import { PairPreviewGrid } from "@/components/PairPreviewGrid";
+import { useAppState } from "@/lib/store";
 
 function InfoRow({ label, value }: { label: string; value: string | null | undefined }) {
   if (!value) return null;
@@ -43,9 +44,12 @@ export default function FontDetailPage() {
   }
   if (font) crumbs.push({ label: font.name });
 
+  const { addHistoryItem } = useAppState();
+
   useEffect(() => {
     if (font) {
       loadFont(font);
+      addHistoryItem({ type: "font", id: font.id, slug: font.slug, label: font.name, viewedAt: Date.now() });
       // Load similar fonts
       for (const sf of font.similarFonts) {
         const similar = fontsBySlug.get(sf);
@@ -145,7 +149,7 @@ export default function FontDetailPage() {
 
         {/* Details — responsive: 1 col mobile, 2 col tablet, 3 col desktop
              When card 3 chips heavily outweigh cards 1+2 info rows, merge to 2-card layout */}
-        <div className={`font-detail-grid${(font.distinctiveTraits.length + font.toneDescriptors.length + font.useCases.length + (font.historicalNotes ? 1 : 0)) > 6 ? " font-detail-compact" : ""}`} style={{ marginBottom: "24px" }}>
+        <div className={`font-detail-grid${(font.distinctiveTraits.length + font.toneDescriptors.length + font.useCases.length + (font.historicalNotes ? 1 : 0)) > 15 ? " font-detail-compact" : ""}`} style={{ marginBottom: "24px" }}>
           {/* Card 1: Type info (desktop only — hidden on tablet or when compact) */}
           <SectionCard noPadding className="font-detail-card1" style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
