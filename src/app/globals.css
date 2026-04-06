@@ -815,6 +815,11 @@ body.animations-paused #water-bg * {
   display: none !important;
 }
 
+/* Database specimen line break — hidden by default, shown on mobile */
+.db-specimen-break {
+  display: none;
+}
+
 /* ══════════════════════════════════════════
    TABLET ADJUSTMENTS (768px – 1023px)
    ══════════════════════════════════════════ */
@@ -900,5 +905,42 @@ body.animations-paused #water-bg * {
   /* Spacer matches mobile history button (icon only, tightened padding) */
   .footer-spacer {
     width: 46px !important;
+  }
+
+  /* Footer tagline — prevent wrapping, there's enough space */
+  .footer-tagline {
+    white-space: nowrap !important;
+  }
+
+  /* Footer pause icon — align vertically with history chip clock icon */
+  .footer-pause-btn {
+    margin-top: -2px !important;
+  }
+
+  /* Database: specimen text wraps to two lines on mobile */
+  .db-specimen {
+    white-space: normal !important;
+  }
+  .db-specimen-break {
+    display: block !important;
+  }
+
+  /* Database: search row fills width, stays in place on focus */
+  .db-search-row {
+    flex: 1 1 100% !important;
+    margin-left: 0 !important;
+  }
+
+  /* Database: pagination footer — more space between range text and controls */
+  .db-pagination-footer {
+    row-gap: 8px !important;
+  }
+
+  /* Database: pagination — compact buttons to fit one line */
+  .db-pagination button,
+  .db-pagination span {
+    min-width: 28px !important;
+    padding: 4px 4px !important;
+    font-size: 14px !important;
   }
 }
