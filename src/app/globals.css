@@ -687,9 +687,10 @@ body.animations-paused #water-bg * {
   }
 }
 
-/* Database sticky header — box-shadow covers the gap above to clip scrolling rows */
+/* Database sticky header — padding-top extends bg upward to clip scrolling rows */
 .db-sticky-clip {
-  box-shadow: 0 -200px 0 0 var(--bg);
+  padding-top: 24px !important;
+  margin-top: -24px;
 }
 
 /* Database search — matches main text entry focus behavior */
