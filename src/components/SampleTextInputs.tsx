@@ -18,7 +18,7 @@ export function SampleTextInputs({ alwaysShow = false }: { alwaysShow?: boolean 
   if (!alwaysShow && !hasSearched) return null;
 
   return (
-    <div className="w-full preview-settings-spacing" style={{ marginTop: "24px", marginBottom: "24px" }}>
+    <div className="w-full preview-settings-spacing" style={{ marginTop: "24px", marginBottom: "40px" }}>
       <details className="group">
         {/* Summary — left-aligned with "Exploring — shuffled randomly" */}
         <summary
