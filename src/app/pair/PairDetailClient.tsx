@@ -50,17 +50,13 @@ function FontSection({
         </span>
       </div>
 
-      {/* Specimen — header sample */}
+      {/* Specimen */}
       <div
-        className="text-4xl leading-tight text-neutral-800 break-words"
+        className="text-4xl leading-tight mb-4 text-neutral-800 break-words"
         style={{ fontFamily: family, fontWeight: role === "Header" ? 600 : 400 }}
       >
         Aa Bb Cc Dd Ee Ff Gg
       </div>
-
-      {/* Divider: between specimens */}
-      <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
-
       <div
         className="leading-relaxed text-neutral-600 break-words"
         style={{ fontFamily: family, fontWeight: 400, fontSize: "16px" }}
@@ -98,6 +94,22 @@ function FontSection({
           <p>{font.variableFont ? "Yes" : "No"}</p>
         </div>
       </div>
+
+      {/* Download */}
+      {font.sourceUrl && (
+        <div style={{ marginTop: "16px" }}>
+          <a
+            href={font.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="outline-btn font-medium rounded-lg transition-colors inline-block"
+            style={{ fontSize: "16px", padding: "8px 24px" }}
+          >
+            Download ↗
+          </a>
+        </div>
+      )}
     </Link>
   );
 }
