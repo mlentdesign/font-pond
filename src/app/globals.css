@@ -687,6 +687,11 @@ body.animations-paused #water-bg * {
   }
 }
 
+/* Database table sticky header — sits just below the page header */
+.db-sticky-header {
+  top: 57px;
+}
+
 /* Responsive ransom header font size */
 .ransom-title {
   font-size: 20px;
