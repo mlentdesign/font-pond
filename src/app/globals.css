@@ -642,6 +642,18 @@ body.animations-paused #water-bg * {
   }
 }
 
+/* Three-column layout that stacks on mobile */
+.three-col-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 768px) {
+  .three-col-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 /* Responsive ransom header font size */
 .ransom-title {
   font-size: 20px;
