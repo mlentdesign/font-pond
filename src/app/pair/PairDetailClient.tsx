@@ -34,7 +34,7 @@ function FontSection({
   return (
     <Link
       href={`/font?f=${font.slug}&from=${pairSlug}`}
-      className="block border border-neutral-200 rounded-xl bg-white p-6 hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
+      className="flex flex-col border border-neutral-200 rounded-xl bg-white p-6 hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
     >
       <div className="flex items-baseline justify-between">
         <div className="min-w-0 flex-1 mr-3">
@@ -97,6 +97,9 @@ function FontSection({
           <p>{font.variableFont ? "Yes" : "No"}</p>
         </div>
       </div>
+
+      {/* Spacer pushes download to bottom when cards are side-by-side */}
+      <div className="flex-1" />
 
       {/* Download */}
       {font.sourceUrl && (

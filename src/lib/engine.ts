@@ -1139,47 +1139,49 @@ export function parseStyleSignals(_text: string): StyleSignals {
   return { modern: 0, warm: 0, playful: 0, editorial: 0, luxurious: 0, geometric: 0, technical: 0, minimal: 0 };
 }
 
-// Check if query contains a font name — returns matched font IDs
-function findFontNamesInQuery(query: string): Set<string> {
+// Check if query contains a font name — returns matched font IDs with match strength
+// "full" = exact name match, "partial" = one word of a multi-word name matched
+function findFontNamesInQuery(query: string): Map<string, "full" | "partial"> {
   const lower = query.toLowerCase().trim();
-  const matched = new Set<string>();
+  const matched = new Map<string, "full" | "partial">();
   const queryWords = lower.split(/[\s,.\-—–/]+/).filter(w => w.length > 0);
 
   for (const [, font] of fontsById) {
     const fontNameLower = font.name.toLowerCase();
     // Check if the query contains the full font name
     if (lower.includes(fontNameLower)) {
-      matched.add(font.id);
+      matched.set(font.id, "full");
       continue;
     }
     // Also check slug form (e.g. "playfair-display")
     if (lower.includes(font.slug)) {
-      matched.add(font.id);
+      matched.set(font.id, "full");
       continue;
     }
 
     // Typo-tolerant: check if query words fuzzy-match font name words
     const fontWords = fontNameLower.split(/\s+/);
     if (fontWords.length === 1 && fontWords[0].length >= 4) {
-      // Single-word font name: check each query word
+      // Single-word font name: check each query word — this is a full match
       for (const qw of queryWords) {
         if (qw.length >= 4 && editDistance(qw, fontWords[0]) <= maxTypoDistance(fontWords[0])) {
-          matched.add(font.id);
+          matched.set(font.id, "full");
           break;
         }
       }
     } else if (fontWords.length >= 2) {
-      // Multi-word font name: check if all font words have a fuzzy match in query words
-      let allMatched = true;
+      // Multi-word font name: partial match — if ANY significant font word
+      // matches a query word, include the font (e.g. "playfair" → "Playfair Display")
       for (const fw of fontWords) {
-        if (fw.length < 3) continue; // skip very short words
-        let wordFound = false;
+        if (fw.length < 4) continue; // skip short words like "of", "the", "pro"
         for (const qw of queryWords) {
-          if (editDistance(qw, fw) <= maxTypoDistance(fw)) { wordFound = true; break; }
+          if (qw.length >= 4 && editDistance(qw, fw) <= maxTypoDistance(fw)) {
+            matched.set(font.id, "partial");
+            break;
+          }
         }
-        if (!wordFound) { allMatched = false; break; }
+        if (matched.has(font.id)) break;
       }
-      if (allMatched) matched.add(font.id);
     }
   }
 
@@ -1195,7 +1197,7 @@ export function rankPairs(
   const stylized = hasQuery && isStylizedPrompt(promptWords);
 
   // Detect font names in the query for direct matching
-  const matchedFontIds = hasQuery ? findFontNamesInQuery(query) : new Set<string>();
+  const matchedFontIds = hasQuery ? findFontNamesInQuery(query) : new Map<string, "full" | "partial">();
   const hasFontNameMatch = matchedFontIds.size > 0;
 
   const scored: ScoredPair[] = [];
@@ -1208,11 +1210,16 @@ export function rankPairs(
     let totalScore: number;
 
     if (hasQuery) {
-      // If the query contains a font name, give massive boost to pairs using that font
+      // If the query contains a font name, boost pairs using that font
+      // Full match (exact name) = massive boost; partial (one word) = moderate boost to mix in
       let fontNameBonus = 0;
       if (hasFontNameMatch) {
-        if (matchedFontIds.has(hf.id)) fontNameBonus += 200;
-        if (matchedFontIds.has(bf.id)) fontNameBonus += 200;
+        const hMatch = matchedFontIds.get(hf.id);
+        const bMatch = matchedFontIds.get(bf.id);
+        if (hMatch === "full") fontNameBonus += 200;
+        else if (hMatch === "partial") fontNameBonus += 60;
+        if (bMatch === "full") fontNameBonus += 200;
+        else if (bMatch === "partial") fontNameBonus += 60;
       }
 
       const utility = scoreUtility(pair, bf);
