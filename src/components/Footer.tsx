@@ -20,7 +20,7 @@ export function Footer() {
 
   return (
     <footer
-      className="w-full mt-auto shell-padding flex flex-wrap items-center site-footer"
+      className="w-full mt-auto shell-padding site-footer"
       style={{ background: "var(--bg-footer)", borderTop: "1px solid var(--border)", minHeight: "88px", paddingTop: "16px", paddingBottom: "16px" }}
     >
       {/* Tagline — full width on mobile, inline on desktop */}
