@@ -17,6 +17,7 @@ interface Fish {
   targetY: number;
   flipX: boolean;
   tailPhase: number;
+  eatingTimer: number;
 }
 
 interface FoodParticle {
@@ -107,6 +108,7 @@ export function FishEasterEgg() {
       targetY: bottomThird + Math.random() * (vh * 0.25),
       flipX: !startLeft,
       tailPhase: Math.random() * Math.PI * 2,
+      eatingTimer: 0,
     });
   }, []);
 
@@ -209,7 +211,7 @@ export function FishEasterEgg() {
     window.addEventListener("resize", resize);
 
     function drawFish(ctx: CanvasRenderingContext2D, fish: Fish) {
-      const { x, y, size, tailPhase, flipX } = fish;
+      const { x, y, size, tailPhase, flipX, eatingTimer } = fish;
       ctx.save();
       ctx.translate(x, y);
       if (flipX) ctx.scale(-1, 1);
@@ -246,13 +248,9 @@ export function FishEasterEgg() {
       // Outer edge with ridged points — wider base, taller peaks
       ctx.beginPath();
       ctx.moveTo(-size * 0.35, -size * 0.35);
-      // First ridge — rises to a point
       ctx.quadraticCurveTo(-size * 0.25, -size * 0.75 + finW1, -size * 0.1, -size * 0.62 + finW1 * 0.5);
-      // Peak ridge — tallest, pointiest
       ctx.quadraticCurveTo(size * 0.02, -size * 0.92 + finW2, size * 0.15, -size * 0.65 + finW2 * 0.6);
-      // Third ridge — descends
       ctx.quadraticCurveTo(size * 0.25, -size * 0.72 + finW3, size * 0.4, -size * 0.35);
-      // Close along the body
       ctx.quadraticCurveTo(size * 0.05, -size * 0.4, -size * 0.35, -size * 0.35);
 
       ctx.fillStyle = "rgba(240, 150, 60, 0.35)";
@@ -284,12 +282,41 @@ export function FishEasterEgg() {
       ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
       ctx.fill();
 
-      // Smile line
-      ctx.beginPath();
-      ctx.arc(size * 0.6, size * 0.02, size * 0.15, 0.1, Math.PI * 0.5);
-      ctx.strokeStyle = "rgba(180, 90, 25, 0.5)";
-      ctx.lineWidth = 0.8;
-      ctx.stroke();
+      // Mouth — opens and chews when eating, otherwise a gentle smile
+      if (eatingTimer > 0) {
+        // Chewing animation: mouth opens and closes rapidly
+        const chew = Math.abs(Math.sin(eatingTimer * 0.6)) * 0.8 + 0.2;
+        const mouthOpen = size * 0.12 * chew;
+        const mouthX = size * 0.72;
+        const mouthY = size * 0.02;
+
+        // Upper lip
+        ctx.beginPath();
+        ctx.moveTo(mouthX - size * 0.1, mouthY - mouthOpen * 0.3);
+        ctx.quadraticCurveTo(mouthX + size * 0.02, mouthY - mouthOpen, mouthX + size * 0.06, mouthY - mouthOpen * 0.4);
+        ctx.strokeStyle = "rgba(180, 90, 25, 0.6)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Lower lip
+        ctx.beginPath();
+        ctx.moveTo(mouthX - size * 0.1, mouthY + mouthOpen * 0.3);
+        ctx.quadraticCurveTo(mouthX + size * 0.02, mouthY + mouthOpen, mouthX + size * 0.06, mouthY + mouthOpen * 0.4);
+        ctx.stroke();
+
+        // Dark inside
+        ctx.beginPath();
+        ctx.ellipse(mouthX, mouthY, size * 0.06, mouthOpen * 0.7, 0, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(120, 50, 10, ${0.3 + chew * 0.3})`;
+        ctx.fill();
+      } else {
+        // Normal smile line
+        ctx.beginPath();
+        ctx.arc(size * 0.6, size * 0.02, size * 0.15, 0.1, Math.PI * 0.5);
+        ctx.strokeStyle = "rgba(180, 90, 25, 0.5)";
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
 
       ctx.restore();
     }
@@ -352,6 +379,7 @@ export function FishEasterEgg() {
 
           fish.flipX = fish.vx < 0;
           fish.tailPhase += 0.08 + Math.abs(fish.vx) * 0.1;
+          if (fish.eatingTimer > 0) fish.eatingTimer--;
 
           // Trigger water ripple at fish position
           const waterRipple = (window as any).__waterAddRipple;
@@ -369,6 +397,7 @@ export function FishEasterEgg() {
             const fdy = f.y - fish.y;
             if (Math.sqrt(fdx * fdx + fdy * fdy) < fish.size) {
               f.opacity = 0;
+              fish.eatingTimer = 25;
             }
           }
           return f.opacity > 0 && f.y < vh;
