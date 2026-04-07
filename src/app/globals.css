@@ -629,7 +629,7 @@ body.animations-paused #water-bg * {
   padding-right: 24px !important;
   padding-top: 0 !important;
   padding-bottom: 24px !important;
-  box-shadow: 0 -60px 0 20px var(--bg);
+  box-shadow: 0 -40px 0 40px var(--bg);
 }
 @media (min-width: 768px) {
   .breadcrumb-sticky {
@@ -638,7 +638,7 @@ body.animations-paused #water-bg * {
     padding-left: 48px !important;
     padding-right: 48px !important;
     padding-bottom: 24px !important;
-    box-shadow: 0 -80px 0 20px var(--bg);
+    box-shadow: 0 -56px 0 56px var(--bg);
   }
 }
 @media (min-width: 1024px) {
@@ -648,7 +648,7 @@ body.animations-paused #water-bg * {
     padding-left: 96px !important;
     padding-right: 96px !important;
     padding-bottom: 24px !important;
-    box-shadow: 0 -100px 0 20px var(--bg);
+    box-shadow: 0 -80px 0 80px var(--bg);
   }
 }
 
