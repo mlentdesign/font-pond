@@ -274,7 +274,7 @@ export function PromptInput() {
                 color: "var(--add-image-color)",
                 gap: "4px",
                 padding: "4px 8px",
-                border: isDragging ? "2px dashed var(--accent)" : "2px dashed transparent",
+                border: isDragging ? "2px dotted var(--accent)" : "2px dotted transparent",
                 borderRadius: "8px",
               }}
             >
