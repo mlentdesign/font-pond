@@ -103,7 +103,7 @@ export function FishEasterEgg() {
       vy: 0,
       size: 16 + Math.random() * 8,
       phase: Math.random() * Math.PI * 2,
-      speed: 0.4 + Math.random() * 0.4,
+      speed: 0.15 + Math.random() * 0.65,
       targetX: vw * 0.2 + Math.random() * vw * 0.6,
       targetY: bottomThird + Math.random() * (vh * 0.25),
       flipX: !startLeft,
@@ -218,9 +218,23 @@ export function FishEasterEgg() {
 
       const tailWag = Math.sin(tailPhase) * 4;
 
-      // Body
+      // Body — when eating, cut a wedge out at the mouth so background shows through
+      const eating = eatingTimer > 0;
+      const chew = eating ? Math.abs(Math.sin(eatingTimer * 0.5)) * 0.8 + 0.2 : 0;
+      const halfOpen = chew * 0.35; // radians — max ~0.28 rad wedge on each side
+
       ctx.beginPath();
-      ctx.ellipse(0, 0, size, size * 0.4, 0, 0, Math.PI * 2);
+      if (eating && halfOpen > 0.01) {
+        // Pac-man body: ellipse with a wedge gap at the front
+        // Trace from top-lip angle all the way around to bottom-lip angle
+        ctx.ellipse(0, 0, size, size * 0.4, 0, halfOpen, Math.PI * 2 - halfOpen);
+        // Draw jaw lines back to a hinge point inside the mouth
+        const hingeX = size * 0.55;
+        ctx.lineTo(hingeX, 0);
+        ctx.closePath();
+      } else {
+        ctx.ellipse(0, 0, size, size * 0.4, 0, 0, Math.PI * 2);
+      }
       ctx.fillStyle = "rgba(240, 140, 50, 0.7)";
       ctx.fill();
       ctx.strokeStyle = "rgba(200, 100, 30, 0.8)";
@@ -282,35 +296,8 @@ export function FishEasterEgg() {
       ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
       ctx.fill();
 
-      // Mouth — opens and chews when eating, otherwise a gentle smile
-      if (eatingTimer > 0) {
-        // Chewing animation: mouth opens and closes rapidly
-        const chew = Math.abs(Math.sin(eatingTimer * 0.6)) * 0.8 + 0.2;
-        const mouthOpen = size * 0.12 * chew;
-        const mouthX = size * 0.72;
-        const mouthY = size * 0.02;
-
-        // Upper lip
-        ctx.beginPath();
-        ctx.moveTo(mouthX - size * 0.1, mouthY - mouthOpen * 0.3);
-        ctx.quadraticCurveTo(mouthX + size * 0.02, mouthY - mouthOpen, mouthX + size * 0.06, mouthY - mouthOpen * 0.4);
-        ctx.strokeStyle = "rgba(180, 90, 25, 0.6)";
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // Lower lip
-        ctx.beginPath();
-        ctx.moveTo(mouthX - size * 0.1, mouthY + mouthOpen * 0.3);
-        ctx.quadraticCurveTo(mouthX + size * 0.02, mouthY + mouthOpen, mouthX + size * 0.06, mouthY + mouthOpen * 0.4);
-        ctx.stroke();
-
-        // Dark inside
-        ctx.beginPath();
-        ctx.ellipse(mouthX, mouthY, size * 0.06, mouthOpen * 0.7, 0, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(120, 50, 10, ${0.3 + chew * 0.3})`;
-        ctx.fill();
-      } else {
-        // Normal smile line
+      // Smile line (only when mouth is closed)
+      if (!eating) {
         ctx.beginPath();
         ctx.arc(size * 0.6, size * 0.02, size * 0.15, 0.1, Math.PI * 0.5);
         ctx.strokeStyle = "rgba(180, 90, 25, 0.5)";
