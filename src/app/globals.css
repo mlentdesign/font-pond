@@ -165,6 +165,7 @@ nav { position: relative; z-index: 10; }
 
 .bg-white { background: var(--bg-card) !important; }
 .hover\:bg-neutral-50:hover { background: var(--bg-card-hover) !important; }
+.card-hover:hover { background: var(--bg-card-hover) !important; }
 .bg-neutral-50 { background: var(--bg-chip) !important; }
 .bg-neutral-100 { background: var(--bg-chip) !important; }
 

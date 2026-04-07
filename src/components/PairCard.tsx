@@ -28,13 +28,13 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
       aria-label={`View font pair: ${headerFont.name} and ${bodyFont.name}`}
       onClick={() => router.push(`/pair?p=${pair.slug}`)}
       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push(`/pair?p=${pair.slug}`); } }}
-      className="group border border-neutral-200 rounded-xl bg-white hover:bg-neutral-50 hover:border-neutral-300 hover:shadow-md transition-all cursor-pointer overflow-hidden"
+      className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-md transition-all cursor-pointer overflow-hidden"
       style={{ position: "relative" }}
     >
       {/* Hover arrow */}
       <span
         className="opacity-0 group-hover:opacity-100 transition-opacity"
-        style={{ position: "absolute", top: "16px", right: "16px", color: "var(--text-muted)", fontSize: "16px", pointerEvents: "none" }}
+        style={{ position: "absolute", top: "16px", right: "16px", color: "var(--text-heading)", fontSize: "16px", pointerEvents: "none" }}
       >
         ↗
       </span>
