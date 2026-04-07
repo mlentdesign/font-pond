@@ -832,16 +832,7 @@ body.animations-paused #water-bg * {
   font-size: inherit !important;
 }
 
-/* Footer layout — all flex props here to avoid Tailwind/hydration conflicts */
-.site-footer {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-}
-.footer-bottom {
-  flex: 1;
-}
+/* Footer layout — controlled entirely via inline styles in Footer.tsx */
 
 
 /* Mobile "Add image" — hidden by default, shown on mobile via media query */
