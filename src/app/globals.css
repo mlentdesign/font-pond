@@ -879,6 +879,11 @@ body.animations-paused #water-bg * {
     font-size: 20px !important;
   }
 
+  /* Textarea — tall enough for 3-line suggestions without feeling cramped */
+  .prompt-textarea-wrap textarea {
+    min-height: 120px !important;
+  }
+
   /* Action bar — stack CTAs vertically */
   .action-bar {
     flex-direction: column !important;
