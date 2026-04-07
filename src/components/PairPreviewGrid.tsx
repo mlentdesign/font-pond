@@ -78,8 +78,8 @@ export function PairPreviewGrid({
               style={{ padding: "24px" }}
             >
               <p
-                className="text-lg leading-tight text-neutral-800 break-words"
-                style={{ fontFamily: hFamily, fontWeight: 700, marginBottom: "8px" }}
+                className="leading-tight text-neutral-800 break-words"
+                style={{ fontFamily: hFamily, fontWeight: 700, fontSize: "24px", marginBottom: "8px" }}
               >
                 {headlineText}
               </p>
