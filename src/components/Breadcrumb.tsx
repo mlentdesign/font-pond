@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 import Link from "next/link";
 
 interface Crumb {
@@ -8,7 +8,7 @@ interface Crumb {
   href?: string;
 }
 
-export function Breadcrumb({ crumbs, sticky = false }: { crumbs: Crumb[]; sticky?: boolean }) {
+export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: Crumb[]; sticky?: boolean; stickyAction?: ReactNode }) {
   const [stickyTop, setStickyTop] = useState(100);
 
   useEffect(() => {
@@ -36,27 +36,30 @@ export function Breadcrumb({ crumbs, sticky = false }: { crumbs: Crumb[]; sticky
         background: "var(--bg)",
       } : undefined}
     >
-      <nav aria-label="Breadcrumb" style={sticky ? undefined : { marginBottom: "24px" }}>
-        <ol className="flex items-center gap-2 text-xs text-neutral-400 flex-wrap">
-          <li>
-            <Link href="/" className="transition-colors hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>
-              Results
-            </Link>
-          </li>
-          {crumbs.map((crumb, i) => (
-            <li key={i} className={i === crumbs.length - 1 ? "text-neutral-600" : ""}>
-              <span aria-hidden="true" className="text-neutral-400" style={{ marginRight: "8px" }}>/</span>
-              {crumb.href ? (
-                <Link href={crumb.href} className="transition-colors hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>
-                  {crumb.label}
-                </Link>
-              ) : (
-                crumb.label
-              )}
+      <div style={sticky ? { display: "flex", alignItems: "center", justifyContent: "space-between" } : undefined}>
+        <nav aria-label="Breadcrumb" style={sticky ? undefined : { marginBottom: "24px" }}>
+          <ol className="flex items-center gap-2 text-xs text-neutral-400 flex-wrap">
+            <li>
+              <Link href="/" className="transition-colors hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>
+                Results
+              </Link>
             </li>
-          ))}
-        </ol>
-      </nav>
+            {crumbs.map((crumb, i) => (
+              <li key={i} className={i === crumbs.length - 1 ? "text-neutral-600" : ""}>
+                <span aria-hidden="true" className="text-neutral-400" style={{ marginRight: "8px" }}>/</span>
+                {crumb.href ? (
+                  <Link href={crumb.href} className="transition-colors hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>
+                    {crumb.label}
+                  </Link>
+                ) : (
+                  crumb.label
+                )}
+              </li>
+            ))}
+          </ol>
+        </nav>
+        {stickyAction && <div className="shrink-0">{stickyAction}</div>}
+      </div>
     </div>
   );
 }
