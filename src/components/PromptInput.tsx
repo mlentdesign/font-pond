@@ -300,6 +300,7 @@ export function PromptInput() {
             <span
               onMouseEnter={() => isDisabled && setGenerateHover(true)}
               onMouseLeave={() => setGenerateHover(false)}
+              onClick={() => { if (isDisabled) { setGenerateHover(true); setTimeout(() => setGenerateHover(false), 3000); } }}
               style={{ width: "100%", display: "block" }}
             >
               <button
