@@ -343,8 +343,10 @@ export default function DatabasePage() {
                 onClick={() => setFilterOpen(!filterOpen)}
                 className="flex items-center justify-center rounded-lg transition-colors hover:opacity-70"
                 style={{
-                  width: "44px",
                   height: "44px",
+                  padding: activeFilterCount > 0 ? "0 12px" : "0",
+                  width: activeFilterCount > 0 ? "auto" : "44px",
+                  gap: "6px",
                   background: "var(--bg-input)",
                   border: "2px solid var(--border)",
                   cursor: "pointer",
@@ -353,6 +355,9 @@ export default function DatabasePage() {
                 }}
                 aria-label="Filter fonts"
               >
+                {activeFilterCount > 0 && (
+                  <span style={{ fontSize: "14px", fontWeight: 600 }}>{activeFilterCount}</span>
+                )}
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M2 4h16M5 10h10M8 16h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
