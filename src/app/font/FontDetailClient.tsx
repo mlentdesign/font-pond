@@ -114,8 +114,9 @@ export default function FontDetailPage() {
                 padding: "6px 16px",
                 whiteSpace: "nowrap",
                 opacity: showStickyDownload ? 1 : 0,
-                transform: showStickyDownload ? "scale(1)" : "scale(1.1)",
-                transition: "opacity 0.15s ease, transform 0.15s ease",
+                transform: showStickyDownload ? "scale(1)" : "scale(1.3)",
+                transformOrigin: "right center",
+                transition: "opacity 0.12s ease-out, transform 0.12s ease-out",
                 pointerEvents: showStickyDownload ? "auto" : "none",
               }}
             >
