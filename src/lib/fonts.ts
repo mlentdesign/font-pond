@@ -9,6 +9,9 @@ const loaded = new Set<string>();
 const MAX_CDN_LINKS = 120;
 const cdnLinks: { key: string; fontKey: string; el: HTMLLinkElement }[] = [];
 
+// Fonts that are pinned and must not be evicted (currently visible on detail pages)
+const pinnedFonts = new Set<string>();
+
 function addCdnLink(key: string, fontKey: string, href: string): void {
   const link = document.createElement("link");
   link.rel = "stylesheet";
@@ -16,11 +19,14 @@ function addCdnLink(key: string, fontKey: string, href: string): void {
   document.head.appendChild(link);
   cdnLinks.push({ key, fontKey, el: link });
 
-  // Evict oldest stylesheet when over the cap
+  // Evict oldest stylesheet when over the cap, but never evict pinned fonts
   while (cdnLinks.length > MAX_CDN_LINKS) {
-    const old = cdnLinks.shift()!;
+    // Find the oldest non-pinned entry
+    const evictIdx = cdnLinks.findIndex(entry => !pinnedFonts.has(entry.fontKey));
+    if (evictIdx === -1) break; // all entries are pinned, don't evict anything
+    const old = cdnLinks.splice(evictIdx, 1)[0];
     loaded.delete(old.key);
-    loaded.delete(old.fontKey); // Allow re-loading when font is needed again
+    loaded.delete(old.fontKey);
     old.el.remove();
   }
 }
@@ -57,6 +63,40 @@ export function loadFont(font: { name: string; slug: string; source: string; goo
       loaded.add(cdnKey);
       addCdnLink(cdnKey, key, `https://api.fontshare.com/v2/css?f[]=${font.slug}@100,200,300,400,500,600,700,800,900&display=swap`);
     }
+  }
+}
+
+/**
+ * Pin fonts so they cannot be evicted from the CDN cache.
+ * Use on detail pages to ensure the page's fonts stay loaded.
+ * Returns an unpin function to call on cleanup.
+ */
+export function pinFonts(fonts: { id?: string; slug: string }[]): () => void {
+  const keys: string[] = [];
+  for (const f of fonts) {
+    const key = f.id || f.slug;
+    pinnedFonts.add(key);
+    keys.push(key);
+  }
+  return () => {
+    for (const key of keys) pinnedFonts.delete(key);
+  };
+}
+
+/**
+ * Force-load fonts using the CSS Font Loading API.
+ * This ensures the browser actually fetches and renders the font,
+ * not just adds the stylesheet. Retries once on failure.
+ */
+export function ensureFontsRendered(fontNames: string[]): void {
+  if (typeof window === "undefined" || !document.fonts) return;
+  for (const name of fontNames) {
+    document.fonts.load(`400 16px "${name}"`).catch(() => {
+      // Retry once after a short delay
+      setTimeout(() => { document.fonts.load(`400 16px "${name}"`).catch(() => {}); }, 1000);
+    });
+    // Also try bold weight since headers often use 700
+    document.fonts.load(`700 16px "${name}"`).catch(() => {});
   }
 }
 
