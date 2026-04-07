@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 interface Crumb {
@@ -5,10 +8,41 @@ interface Crumb {
   href?: string;
 }
 
-export function Breadcrumb({ crumbs }: { crumbs: Crumb[] }) {
-  return (
-    <nav aria-label="Breadcrumb" style={{ marginBottom: "24px" }}>
-      <ol className="flex items-center gap-2 text-xs text-neutral-400 flex-wrap">
+export function Breadcrumb({ crumbs, sticky = false }: { crumbs: Crumb[]; sticky?: boolean }) {
+  const [stickyTop, setStickyTop] = useState(0);
+
+  useEffect(() => {
+    if (!sticky) return;
+    const header = document.querySelector("header.sticky");
+    if (!header) return;
+    const update = () => {
+      setStickyTop(header.getBoundingClientRect().height);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, [sticky]);
+
+  const nav = (
+    <nav
+      aria-label="Breadcrumb"
+      className={sticky ? "breadcrumb-sticky" : ""}
+      style={sticky ? {
+        position: "sticky" as const,
+        top: `${stickyTop}px`,
+        zIndex: 20,
+        background: "var(--bg)",
+        marginLeft: "-96px",
+        marginRight: "-96px",
+        paddingLeft: "96px",
+        paddingRight: "96px",
+        paddingTop: "24px",
+        paddingBottom: "24px",
+      } : {
+        marginBottom: "24px",
+      }}
+    >
+      <ol className="flex items-center gap-2 text-xs text-neutral-400 flex-wrap" style={{ maxWidth: "1280px" }}>
         <li>
           <Link href="/" className="hover:text-neutral-600 transition-colors">
             Results
@@ -29,4 +63,6 @@ export function Breadcrumb({ crumbs }: { crumbs: Crumb[] }) {
       </ol>
     </nav>
   );
+
+  return nav;
 }

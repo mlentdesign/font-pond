@@ -44,7 +44,7 @@
   --toggle-active-text: #ffffff;
   --add-image-color: #0d4a44;
 
-  --generate-bg: #f0a850;
+  --generate-bg: #f0bb7a;
   --generate-bg-disabled: #e0c4a0;
   --generate-text: #2a1a05;
   --generate-text-disabled: #a08060;
@@ -618,6 +618,36 @@ body.animations-paused #water-bg * {
   .content-padding {
     padding-left: 96px;
     padding-right: 96px;
+  }
+}
+
+/* Sticky breadcrumb — responsive margins to extend background full-width */
+.breadcrumb-sticky {
+  margin-left: -24px !important;
+  margin-right: -24px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+}
+@media (min-width: 768px) {
+  .breadcrumb-sticky {
+    margin-left: -48px !important;
+    margin-right: -48px !important;
+    padding-left: 48px !important;
+    padding-right: 48px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
+}
+@media (min-width: 1024px) {
+  .breadcrumb-sticky {
+    margin-left: -96px !important;
+    margin-right: -96px !important;
+    padding-left: 96px !important;
+    padding-right: 96px !important;
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
   }
 }
 
