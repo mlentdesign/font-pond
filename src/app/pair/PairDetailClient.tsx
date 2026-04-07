@@ -34,7 +34,7 @@ function FontSection({
   return (
     <Link
       href={`/font?f=${font.slug}&from=${pairSlug}`}
-      className="flex flex-col border border-neutral-200 rounded-xl bg-white p-6 hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
+      className="flex flex-col border border-neutral-200 rounded-xl bg-white p-6 hover:bg-neutral-50 hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
     >
       <div className="flex items-baseline justify-between">
         <div className="min-w-0 flex-1 mr-3">
