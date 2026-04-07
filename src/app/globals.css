@@ -58,8 +58,9 @@
   --shadow-card-hover: 0 4px 24px rgba(0, 77, 64, 0.20);
   --shadow-input: 0 2px 12px rgba(0, 77, 64, 0.10);
   --shadow-input-focus: 0 2px 16px rgba(0, 77, 64, 0.16);
-  --shadow-edge: 0 4px 16px rgba(0, 40, 30, 0.12);
-  --shadow-edge-top: 0 -4px 16px rgba(0, 40, 30, 0.12);
+  --shadow-edge: 0 1px 6px rgba(0, 77, 64, 0.10);
+  --shadow-edge-top: 0 -1px 6px rgba(0, 77, 64, 0.10);
+  --border-edge: 1px solid rgba(0, 77, 64, 0.08);
 }
 
 /* ── Dark mode ── */
@@ -115,8 +116,9 @@
   --shadow-card-hover: 0 4px 24px rgba(100, 200, 180, 0.18);
   --shadow-input: 0 2px 12px rgba(0, 30, 28, 0.25);
   --shadow-input-focus: 0 2px 16px rgba(100, 200, 180, 0.14);
-  --shadow-edge: 0 4px 16px rgba(0, 0, 0, 0.3);
-  --shadow-edge-top: 0 -4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-edge: 0 1px 6px rgba(0, 30, 28, 0.20);
+  --shadow-edge-top: 0 -1px 6px rgba(0, 30, 28, 0.20);
+  --border-edge: 1px solid rgba(130, 200, 190, 0.10);
 }
 
 /* ══════════════════════════════════════════
