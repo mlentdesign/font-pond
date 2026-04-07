@@ -197,7 +197,7 @@ export function PromptInput() {
           )}
 
           {/* Mobile-only "Add image" — inside the text field area */}
-          <div className="mobile-add-image items-center" style={{ padding: "8px 24px 16px" }}>
+          <div className="mobile-add-image items-center" style={{ padding: "16px 24px 8px" }}>
             <label
               htmlFor="image-upload"
               className="flex items-center rounded-lg cursor-pointer transition-colors hover:opacity-70"

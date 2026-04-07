@@ -870,22 +870,11 @@ body.animations-paused #water-bg * {
     font-size: 20px !important;
   }
 
-  /* On mobile, separate the text area and action bar visually */
-  .prompt-container {
-    border-bottom: none !important;
-    border-radius: 12px 12px 0 0 !important;
-  }
+  /* Action bar — stack CTAs vertically */
   .action-bar {
     flex-direction: column !important;
     align-items: stretch !important;
     gap: 8px !important;
-    background: transparent !important;
-    border: none !important;
-    padding: 12px 0 0 !important;
-    border-top: none !important;
-  }
-  .action-bar-border {
-    border-top: none !important;
   }
   .action-bar-ctas {
     flex-direction: column !important;
