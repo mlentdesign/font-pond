@@ -31,6 +31,7 @@ export function PromptInput() {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [generateHover, setGenerateHover] = useState(false);
+  const generateTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
@@ -298,9 +299,9 @@ export function PromptInput() {
               Explore
             </button>
             <span
-              onMouseEnter={() => isDisabled && setGenerateHover(true)}
-              onMouseLeave={() => setGenerateHover(false)}
-              onClick={() => { if (isDisabled) { setGenerateHover(true); setTimeout(() => setGenerateHover(false), 3000); } }}
+              onMouseEnter={() => { if (isDisabled) { setGenerateHover(true); if (generateTimerRef.current) clearTimeout(generateTimerRef.current); } }}
+              onMouseLeave={() => { setGenerateHover(false); if (generateTimerRef.current) clearTimeout(generateTimerRef.current); }}
+              onClick={() => { if (isDisabled) { setGenerateHover(true); if (generateTimerRef.current) clearTimeout(generateTimerRef.current); generateTimerRef.current = setTimeout(() => setGenerateHover(false), 3000); } }}
               style={{ width: "100%", display: "block" }}
             >
               <button
