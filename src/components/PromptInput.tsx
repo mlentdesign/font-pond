@@ -186,9 +186,31 @@ export function PromptInput() {
             )}
           </div>
 
-          {/* Image previews */}
+          {/* Mobile-only "Add image" — inside the text field area */}
+          <div className="mobile-add-image items-center" style={{ padding: "16px 24px 8px" }}>
+            <label
+              htmlFor="image-upload"
+              className="flex items-center rounded-lg cursor-pointer transition-colors hover:opacity-70"
+              style={{ fontSize: "16px", fontWeight: 600, color: "var(--add-image-color)", gap: "4px" }}
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
+                <rect x="2" y="3" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="6.5" cy="7.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M2 14l4.5-4.5L10 13l3-3 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Add image
+            </label>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div
+          className="action-bar action-bar-border"
+          style={{ padding: imagePreviews.length > 0 ? "16px 24px 16px" : "16px 24px" }}
+        >
+          {/* Image previews inside action bar */}
           {imagePreviews.length > 0 && (
-            <div className="flex flex-wrap" style={{ gap: "8px", padding: "0 24px 16px" }}>
+            <div className="flex flex-wrap" style={{ gap: "8px", marginBottom: "8px" }}>
               {imagePreviews.map((url, i) => (
                 <div key={i} className="relative group">
                   <img
@@ -209,29 +231,7 @@ export function PromptInput() {
               ))}
             </div>
           )}
-
-          {/* Mobile-only "Add image" — inside the text field area */}
-          <div className="mobile-add-image items-center" style={{ padding: "16px 24px 8px" }}>
-            <label
-              htmlFor="image-upload"
-              className="flex items-center rounded-lg cursor-pointer transition-colors hover:opacity-70"
-              style={{ fontSize: "16px", fontWeight: 600, color: "var(--add-image-color)", gap: "4px" }}
-            >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
-                <rect x="2" y="3" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                <circle cx="6.5" cy="7.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M2 14l4.5-4.5L10 13l3-3 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              Add image
-            </label>
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div
-          className="action-bar flex items-center justify-between action-bar-border"
-          style={{ padding: imagePreviews.length > 0 ? "8px 24px" : "16px 24px" }}
-        >
+        <div className="flex items-center justify-between">
           <div className="action-bar-image flex items-center">
             <input
               ref={fileInputRef}
@@ -280,6 +280,7 @@ export function PromptInput() {
               Generate
             </button>
           </div>
+        </div>
         </div>
       </div>
     </div>
