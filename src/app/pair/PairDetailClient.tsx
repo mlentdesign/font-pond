@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { pairsBySlug, getPairOrConstruct } from "@/data/pairs";
 import { fontsById } from "@/data/fonts";
 import { getRelatedPairs } from "@/lib/engine";
-import { loadFont, getFontFamily } from "@/lib/fonts";
+import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
 import { titleCase, sentenceCase, getSourceLabel } from "@/lib/text";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
@@ -129,6 +129,12 @@ export default function PairDetailPage() {
   useEffect(() => {
     if (headerFont) loadFont(headerFont);
     if (bodyFont) loadFont(bodyFont);
+    // Pin these fonts so they can't be evicted while the page is open
+    const fontsToPin = [headerFont, bodyFont].filter(Boolean) as { id: string; slug: string; name: string }[];
+    const unpin = pinFonts(fontsToPin);
+    // Force the browser to actually fetch and render both fonts
+    ensureFontsRendered(fontsToPin.map(f => f.name));
+    return unpin;
   }, [headerFont, bodyFont]);
 
   useEffect(() => {
