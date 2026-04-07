@@ -297,21 +297,25 @@ export function PromptInput() {
             >
               Explore
             </button>
-            <button
-              onClick={handleSubmit}
-              disabled={isDisabled}
+            <span
               onMouseEnter={() => isDisabled && setGenerateHover(true)}
               onMouseLeave={() => setGenerateHover(false)}
-              className={`font-medium rounded-lg transition-colors disabled:cursor-not-allowed${isDisabled ? "" : " btn-generate"}`}
-              style={{
-                fontSize: "16px",
-                ...(isDisabled ? { background: "var(--generate-bg-disabled)", color: "var(--generate-text-disabled)", border: "2px solid transparent" } : {}),
-                padding: "8px 24px",
-                width: "100%",
-              }}
+              style={{ width: "100%", display: "block" }}
             >
-              Generate
-            </button>
+              <button
+                onClick={handleSubmit}
+                disabled={isDisabled}
+                className={`font-medium rounded-lg transition-colors disabled:cursor-not-allowed${isDisabled ? "" : " btn-generate"}`}
+                style={{
+                  fontSize: "16px",
+                  ...(isDisabled ? { background: "var(--generate-bg-disabled)", color: "var(--generate-text-disabled)", border: "2px solid transparent" } : {}),
+                  padding: "8px 24px",
+                  width: "100%",
+                }}
+              >
+                Generate
+              </button>
+            </span>
           </div>
         </div>
         </div>

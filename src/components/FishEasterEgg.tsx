@@ -65,12 +65,36 @@ export function FishEasterEgg() {
   // "Home landing" = root path before any search; after searching it's the explore/generate page
   const isHomeLanding = pathname === "/" && !hasSearched;
 
-  // Clear fish on page navigation
+  // Clear fish on page navigation, spawn one on home landing
   useEffect(() => {
     fishRef.current = [];
     foodRef.current = [];
     wasAtBottomRef.current = false;
   }, [pathname]);
+
+  // Spawn one fish on home landing so there's always something swimming
+  useEffect(() => {
+    if (!isHomeLanding) return;
+    if (fishRef.current.length > 0) return;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const bottomThird = vh * 0.67;
+    fishRef.current.push({
+      id: ++fishIdCounter,
+      x: vw * 0.3 + Math.random() * vw * 0.4,
+      y: bottomThird + Math.random() * (vh * 0.2),
+      vx: 0,
+      vy: 0,
+      size: 18 + Math.random() * 6,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.2 + Math.random() * 0.4,
+      targetX: vw * 0.2 + Math.random() * vw * 0.6,
+      targetY: bottomThird + Math.random() * (vh * 0.25),
+      flipX: Math.random() > 0.5,
+      tailPhase: Math.random() * Math.PI * 2,
+      eatingTimer: 0,
+    });
+  }, [isHomeLanding]);
 
   // Pause listener
   useEffect(() => {
