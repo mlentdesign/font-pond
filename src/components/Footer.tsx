@@ -31,7 +31,7 @@ export function Footer() {
       className="w-full mt-auto shell-padding site-footer"
       style={{
         background: "var(--bg-footer)",
-        borderTop: "1px solid var(--border)",
+        boxShadow: "var(--shadow-edge-top)",
         minHeight: "88px",
         paddingTop: "16px",
         paddingBottom: "16px",

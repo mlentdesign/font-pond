@@ -58,6 +58,8 @@
   --shadow-card-hover: 0 4px 24px rgba(0, 77, 64, 0.20);
   --shadow-input: 0 2px 12px rgba(0, 77, 64, 0.10);
   --shadow-input-focus: 0 2px 16px rgba(0, 77, 64, 0.16);
+  --shadow-edge: 0 2px 8px rgba(0, 40, 30, 0.07);
+  --shadow-edge-top: 0 -2px 8px rgba(0, 40, 30, 0.07);
 }
 
 /* ── Dark mode ── */
@@ -113,6 +115,8 @@
   --shadow-card-hover: 0 4px 24px rgba(100, 200, 180, 0.18);
   --shadow-input: 0 2px 12px rgba(0, 30, 28, 0.25);
   --shadow-input-focus: 0 2px 16px rgba(100, 200, 180, 0.14);
+  --shadow-edge: 0 2px 10px rgba(0, 0, 0, 0.25);
+  --shadow-edge-top: 0 -2px 10px rgba(0, 0, 0, 0.25);
 }
 
 /* ══════════════════════════════════════════
