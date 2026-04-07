@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import { fonts } from "@/data/fonts";
 import { fontPairs } from "@/data/pairs";
-import { loadFont, getFontFamily } from "@/lib/fonts";
+import { loadFont, getFontFamily, ensureFontsRendered } from "@/lib/fonts";
 import { getSourceLabel } from "@/lib/text";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
 
@@ -277,16 +277,21 @@ export default function DatabasePage() {
   useEffect(() => {
     let cancelled = false;
     async function loadPageFonts() {
+      const fontNames: string[] = [];
       for (let i = 0; i < pageRows.length; i++) {
         if (cancelled) break;
         const font = fonts.find((f) => f.id === pageRows[i].id);
-        if (font) loadFont(font);
+        if (font) {
+          loadFont(font);
+          fontNames.push(font.name);
+        }
         if (i % 10 === 0) await new Promise((r) => setTimeout(r, 0));
       }
+      if (!cancelled) ensureFontsRendered(fontNames);
     }
     loadPageFonts();
     return () => { cancelled = true; };
-  }, [page, sortKey, sortDir]);
+  }, [pageRows]);
 
   useEffect(() => { setPage(0); }, [sortKey, sortDir, search, categoryFilters, sourceFilters]);
 
