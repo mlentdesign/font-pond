@@ -321,24 +321,26 @@ export function PromptInput() {
         </div>
       </div>
       {generateHover && (
-        <div
-          className="rounded-lg shadow-lg"
-          style={{
-            marginTop: "8px",
-            marginLeft: "auto",
-            maxWidth: "100%",
-            width: "fit-content",
-            background: "var(--bg-card)",
-            border: "2px solid var(--border)",
-            padding: "8px 16px",
-            fontSize: "14px",
-            color: "var(--text-muted)",
-            zIndex: 100,
-            pointerEvents: "none",
-            textAlign: "right",
-          }}
-        >
-          Enter text or upload an image to generate
+        <div style={{ position: "relative", height: 0 }}>
+          <div
+            className="rounded-lg shadow-lg"
+            style={{
+              position: "absolute",
+              top: "8px",
+              right: 0,
+              maxWidth: "100%",
+              width: "fit-content",
+              background: "var(--bg-card)",
+              border: "2px solid var(--border)",
+              padding: "8px 16px",
+              fontSize: "14px",
+              color: "var(--text-muted)",
+              zIndex: 100,
+              pointerEvents: "none",
+            }}
+          >
+            Enter text or upload an image to generate
+          </div>
         </div>
       )}
     </div>
