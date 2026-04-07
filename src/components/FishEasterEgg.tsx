@@ -325,9 +325,29 @@ export function FishEasterEgg() {
         const mouse = mouseRef.current;
 
         for (const fish of fishRef.current) {
-          // Check if mouse is nearby (within 120px) — fish gets curious
+          // Sense nearby food — steer toward the closest particle
           let attracted = false;
-          if (mouse.x >= 0 && mouse.y >= vh * 0.5) {
+          if (foodRef.current.length > 0) {
+            let closestFood: FoodParticle | null = null;
+            let closestDist = 200; // sensing range
+            for (const f of foodRef.current) {
+              const fdx = f.x - fish.x;
+              const fdy = f.y - fish.y;
+              const fd = Math.sqrt(fdx * fdx + fdy * fdy);
+              if (fd < closestDist) {
+                closestDist = fd;
+                closestFood = f;
+              }
+            }
+            if (closestFood) {
+              fish.targetX = closestFood.x;
+              fish.targetY = closestFood.y;
+              attracted = true;
+            }
+          }
+
+          // Check if mouse is nearby (within 120px) — fish gets curious
+          if (!attracted && mouse.x >= 0 && mouse.y >= vh * 0.5) {
             const dmx = mouse.x - fish.x;
             const dmy = mouse.y - fish.y;
             const mouseDist = Math.sqrt(dmx * dmx + dmy * dmy);
