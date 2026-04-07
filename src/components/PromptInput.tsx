@@ -5,16 +5,16 @@ import { useAppState } from "@/lib/store";
 import { rankPairs, explorePairs } from "@/lib/engine";
 
 const SUGGESTION_SETS = [
-  "'grungy girlypop', 'luxury fashion editorial', 'dark spooky halloween'",
-  "'modern SaaS product', 'cozy cottagecore', 'bold streetwear brand'",
-  "'clean minimalist portfolio', 'retro 70s groovy', 'cyberpunk neon'",
-  "'elegant wedding invitations', 'playful kids brand', 'serious law firm'",
-  "'warm coffee shop', 'edgy music festival', 'sci-fi tech startup'",
-  "'romantic beauty brand', 'brutalist architecture', 'vintage bookshop'",
-  "'Y2K nostalgic', 'dark academia literary', 'tropical surf vibes'",
-  "'indie magazine editorial', 'futuristic crypto app', 'handmade artisan'",
-  "'sporty athletic brand', 'zen wellness spa', 'gothic horror aesthetic'",
-  "'French bistro charm', 'pixel art gaming', 'old money sophisticated'",
+  "'elegant wedding stationery', 'bold streetwear lookbook', 'cozy coffee shop menu'",
+  "'luxury fashion editorial', 'playful children's book', 'clean tech startup'",
+  "'vintage record store poster', 'minimalist architecture portfolio', 'warm bakery brand'",
+  "'dark academia journal', 'bright fitness app', 'sophisticated wine label'",
+  "'retro 70s surf shop', 'sleek fintech dashboard', 'whimsical florist website'",
+  "'grungy punk zine', 'serene yoga studio', 'premium skincare packaging'",
+  "'editorial travel magazine', 'indie music festival flyer', 'modern law firm site'",
+  "'handwritten love letter', 'geometric art gallery', 'rustic farm-to-table menu'",
+  "'nostalgic diner signage', 'crisp nonprofit annual report', 'dreamy beauty brand'",
+  "'brutalist gallery catalog', 'cheerful pet brand', 'old money country club'",
 ];
 
 export function PromptInput() {
