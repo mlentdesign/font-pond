@@ -172,8 +172,11 @@ export default function PairDetailPage() {
     <div className="flex-1 flex flex-col">
       <DetailPageHeader />
 
-      <main id="main-content" className="flex-1 mx-auto w-full content-padding results-top-padding results-bottom-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
-        <Breadcrumb crumbs={[{ label: `${headerFont.name} + ${bodyFont.name}` }]} />
+      <div className="mx-auto w-full content-padding" style={{ maxWidth: "1280px" }}>
+        <Breadcrumb crumbs={[{ label: `${headerFont.name} + ${bodyFont.name}` }]} sticky />
+      </div>
+
+      <main id="main-content" className="flex-1 mx-auto w-full content-padding results-bottom-padding" style={{ paddingBottom: "80px", maxWidth: "1280px" }}>
 
         {/* Pair specimen */}
         <SectionCard style={{ marginBottom: "24px" }}>
