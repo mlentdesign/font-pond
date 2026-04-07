@@ -74,9 +74,15 @@ export function PairPreviewGrid({
             <Link
               key={p.id}
               href={`/pair?p=${p.slug}`}
-              className="border border-neutral-200 rounded-xl bg-white hover:bg-neutral-50 hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
-              style={{ padding: "24px" }}
+              className="group border border-neutral-200 rounded-xl bg-white hover:bg-neutral-50 hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
+              style={{ padding: "24px", position: "relative" }}
             >
+              <span
+                className="opacity-0 group-hover:opacity-100 transition-opacity"
+                style={{ position: "absolute", top: "16px", right: "16px", color: "var(--text-muted)", fontSize: "16px", pointerEvents: "none" }}
+              >
+                ↗
+              </span>
               <p
                 className="leading-tight text-neutral-800 break-words"
                 style={{ fontFamily: hFamily, fontWeight: 700, fontSize: "24px", marginBottom: "8px" }}
