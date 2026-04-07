@@ -34,12 +34,6 @@ export function Breadcrumb({ crumbs, sticky = false }: { crumbs: Crumb[]; sticky
         top: `${stickyTop}px`,
         zIndex: 20,
         background: "var(--bg)",
-        marginLeft: "-96px",
-        marginRight: "-96px",
-        paddingLeft: "96px",
-        paddingRight: "96px",
-        paddingTop: "24px",
-        paddingBottom: "24px",
       } : undefined}
     >
       <nav aria-label="Breadcrumb" style={sticky ? undefined : { marginBottom: "24px" }}>
