@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ScoredPair } from "@/data/types";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
-import { loadFont, getFontFamily } from "@/lib/fonts";
+import { loadFont, getFontFamily, ensureFontsRendered } from "@/lib/fonts";
 import { sentenceCase } from "@/lib/text";
 
 export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isExploring?: boolean }) {
@@ -18,6 +18,7 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
   useEffect(() => {
     loadFont(headerFont);
     loadFont(bodyFont);
+    ensureFontsRendered([headerFont.name, bodyFont.name]);
   }, [headerFont, bodyFont]);
 
   const headerFamily = getFontFamily(headerFont.name, headerFont.source);
