@@ -37,12 +37,6 @@ function FontSection({
       className="group flex flex-col border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
       style={{ position: "relative" }}
     >
-      <span
-        className="opacity-0 group-hover:opacity-100 transition-opacity"
-        style={{ position: "absolute", top: "16px", right: "16px", color: "var(--text-heading)", fontSize: "16px", pointerEvents: "none" }}
-      >
-        ↗
-      </span>
       <div className="flex items-baseline justify-between">
         <div className="min-w-0 flex-1 mr-3">
           <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>
