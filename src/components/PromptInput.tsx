@@ -302,12 +302,10 @@ export function PromptInput() {
               disabled={isDisabled}
               onMouseEnter={() => isDisabled && setGenerateHover(true)}
               onMouseLeave={() => setGenerateHover(false)}
-              className="font-medium rounded-lg transition-colors disabled:cursor-not-allowed"
+              className={`font-medium rounded-lg transition-colors disabled:cursor-not-allowed${isDisabled ? "" : " btn-generate"}`}
               style={{
                 fontSize: "16px",
-                background: isDisabled ? "var(--generate-bg-disabled)" : "var(--generate-bg)",
-                color: isDisabled ? "var(--generate-text-disabled)" : "var(--generate-text)",
-                border: "2px solid transparent",
+                ...(isDisabled ? { background: "var(--generate-bg-disabled)", color: "var(--generate-text-disabled)", border: "2px solid transparent" } : {}),
                 padding: "8px 24px",
                 width: "100%",
               }}

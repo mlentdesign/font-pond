@@ -45,6 +45,7 @@
   --add-image-color: #0d4a44;
 
   --generate-bg: #f0bb7a;
+  --generate-bg-hover: #f5cfa0;
   --generate-bg-disabled: #e0c4a0;
   --generate-text: #2a1a05;
   --generate-text-disabled: #a08060;
@@ -97,7 +98,8 @@
   --toggle-active-text: #ffffff;
   --add-image-color: #cccccc;
 
-  --generate-bg: #c47a2a;
+  --generate-bg: #a06828;
+  --generate-bg-hover: #b87830;
   --generate-bg-disabled: #3d2e1e;
   --generate-text: #ffffff;
   --generate-text-disabled: #7a6a55;
@@ -181,6 +183,8 @@ nav { position: relative; z-index: 10; }
 .bg-white { background: var(--bg-card) !important; }
 .hover\:bg-neutral-50:hover { background: var(--bg-card-hover) !important; }
 .card-hover:hover { background: var(--bg-card-hover) !important; }
+.btn-generate { background: var(--generate-bg); color: var(--generate-text); border: 2px solid transparent; }
+.btn-generate:hover { background: var(--generate-bg-hover) !important; }
 .bg-neutral-50 { background: var(--bg-chip) !important; }
 .bg-neutral-100 { background: var(--bg-chip) !important; }
 
