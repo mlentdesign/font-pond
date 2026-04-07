@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useAppState } from "@/lib/store";
 import { PairCard } from "./PairCard";
+import { loadFont, ensureFontsRendered } from "@/lib/fonts";
 
 function useColumns(): number {
   const [cols, setCols] = useState(3);
@@ -40,6 +41,31 @@ export function ResultsGrid() {
       }
     }
   }, [cols, hasSearched]);
+
+  // Batch-load fonts for all currently visible results
+  const lastLoadedCount = useRef(0);
+  useEffect(() => {
+    if (!hasSearched || isLoading || results.length === 0) return;
+    // Only load fonts for the new batch (not re-loading already-loaded ones)
+    const start = lastLoadedCount.current;
+    const end = Math.min(visibleCount, results.length);
+    if (start >= end) return;
+
+    const fontNames: string[] = [];
+    for (let i = start; i < end; i++) {
+      const pair = results[i];
+      loadFont(pair.headerFont);
+      loadFont(pair.bodyFont);
+      fontNames.push(pair.headerFont.name, pair.bodyFont.name);
+    }
+    ensureFontsRendered(fontNames);
+    lastLoadedCount.current = end;
+  }, [visibleCount, results, hasSearched, isLoading]);
+
+  // Reset counter when results change (new search)
+  useEffect(() => {
+    lastLoadedCount.current = 0;
+  }, [results]);
 
   if (!hasSearched) return null;
 
