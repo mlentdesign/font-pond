@@ -220,7 +220,8 @@ export function FishEasterEgg() {
 
       // Body — when eating, cut a wedge out at the mouth so background shows through
       const eating = eatingTimer > 0;
-      const chew = eating ? Math.abs(Math.sin(eatingTimer * 0.5)) * 0.8 + 0.2 : 0;
+      const chewSpeed = 0.15 + (fish.phase % 1) * 0.12; // varies per fish, all gentler
+      const chew = eating ? Math.abs(Math.sin(eatingTimer * chewSpeed)) * 0.8 + 0.2 : 0;
       const halfOpen = chew * 0.35; // radians — max ~0.28 rad wedge on each side
 
       ctx.beginPath();
