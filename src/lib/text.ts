@@ -9,12 +9,12 @@ export function sentenceCase(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-/** Format a classification for display — capitalises each word, replaces hyphens with spaces */
+/** Format a classification for display — capitalises each word, keeps hyphen for Sans-Serif / Slab-Serif */
 export function formatClassification(raw: string): string {
   return raw
     .split("-")
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
+    .join("-");
 }
 
 /** Format contrast-type strings: capitalise classification words and ensure spaces around slashes */
@@ -23,8 +23,8 @@ export function formatContrastType(raw: string): string {
   // Capitalise known classification words wherever they appear
   let s = raw;
   const classWords: Record<string, string> = {
-    "sans-serif": "Sans Serif",
-    "slab-serif": "Slab Serif",
+    "sans-serif": "Sans-Serif",
+    "slab-serif": "Slab-Serif",
     serif: "Serif",
     sans: "Sans",
     display: "Display",
@@ -48,13 +48,19 @@ const CHIP_PROPER_NOUNS = new Set([
   "google fonts", "fontshare", "dafont",
 ]);
 
-/** Convert a chip label to sentence case, preserving proper nouns */
+/** Hyphenated terms where both parts should be capitalised */
+const CHIP_CAPITALIZE_BOTH: Record<string, string> = {
+  "sans-serif": "Sans-Serif",
+  "slab-serif": "Slab-Serif",
+};
+
+/** Convert a chip label to sentence case, preserving hyphens and proper nouns */
 export function chipCase(raw: string): string {
   const lower = raw.toLowerCase();
   if (CHIP_PROPER_NOUNS.has(lower)) return raw; // keep as-is
-  // Replace hyphens with spaces, then sentence-case
-  const spaced = lower.replace(/-/g, " ");
-  return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+  if (CHIP_CAPITALIZE_BOTH[lower]) return CHIP_CAPITALIZE_BOTH[lower];
+  // Keep hyphens intact, only capitalise the first letter
+  return lower.charAt(0).toUpperCase() + lower.slice(1);
 }
 
 /** Human-readable label for a font source */
