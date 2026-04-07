@@ -111,8 +111,8 @@ function FontSection({
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="font-medium rounded-lg transition-colors inline-block"
-            style={{ fontSize: "16px", padding: "8px 24px", background: "var(--generate-bg)", color: "var(--generate-text)", border: "2px solid transparent" }}
+            className="btn-generate font-medium rounded-lg transition-colors inline-block"
+            style={{ fontSize: "16px", padding: "8px 24px" }}
           >
             Download ↗
           </a>
