@@ -1281,7 +1281,7 @@ export function getPairOrConstruct(slug: string): FontPair | null {
         toneSummary: `${headerFont.toneDescriptors.slice(0, 3).join(", ")}. Grounded by ${bodyFont.name}'s readability.`,
         useCases: [...headerFont.useCases.slice(0, 3), ...bodyFont.useCases.slice(0, 2)],
         tags: allTags,
-        contrastType: `${headerFont.classification}/${bodyFont.classification} contrast`,
+        contrastType: `${headerFont.classification.split("-").map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")} / ${bodyFont.classification.split("-").map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")} contrast`,
         hierarchyStrength: headerFont.isBodySuitable ? 7 : 9,
         bodyLegibilityScore: bodyFont.bodyLegibilityScore || 7,
         practicalityScore: 7,

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { ScoredPair } from "@/data/types";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 import { getFontFamily } from "@/lib/fonts";
-import { sentenceCase } from "@/lib/text";
+import { sentenceCase, chipCase } from "@/lib/text";
 
 export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isExploring?: boolean }) {
   const { sampleHeadline, sampleBody, headerSize, bodySize } = useAppState();
@@ -98,7 +98,7 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
               className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100"
               style={{ fontSize: "14px", padding: "4px 12px" }}
             >
-              {tag}
+              {chipCase(tag)}
             </span>
           ))}
         </div>
@@ -125,7 +125,7 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
               className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100"
               style={{ fontSize: "14px", padding: "4px 12px" }}
             >
-              {tag}
+              {chipCase(tag)}
             </span>
           ))}
         </div>
