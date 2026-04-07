@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { fontsBySlug, fontsById } from "@/data/fonts";
@@ -63,6 +63,19 @@ export default function FontDetailPage() {
     }
   }, [font]);
 
+  const downloadRef = useRef<HTMLDivElement>(null);
+  const [showStickyDownload, setShowStickyDownload] = useState(false);
+
+  useEffect(() => {
+    if (!downloadRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowStickyDownload(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(downloadRef.current);
+    return () => observer.disconnect();
+  }, [font]);
+
   const pairsUsing = font ? getPairsWithFont(font.id) : [];
 
   if (!font) {
@@ -81,10 +94,24 @@ export default function FontDetailPage() {
       <DetailPageHeader />
 
       <main id="main-content" className="flex-1 mx-auto w-full content-padding results-top-padding results-bottom-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
-        <Breadcrumb crumbs={crumbs} sticky />
+        <Breadcrumb
+          crumbs={crumbs}
+          sticky
+          stickyAction={showStickyDownload && font.sourceUrl ? (
+            <a
+              href={font.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="outline-btn font-medium rounded-lg transition-colors"
+              style={{ fontSize: "14px", padding: "6px 16px", whiteSpace: "nowrap" }}
+            >
+              Download ↗
+            </a>
+          ) : undefined}
+        />
 
         {/* Font name, source, and download */}
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between" style={{ marginBottom: "24px", gap: "16px" }}>
+        <div ref={downloadRef} className="flex flex-col sm:flex-row sm:items-start sm:justify-between" style={{ marginBottom: "24px", gap: "16px" }}>
           <div>
             <h2 className="text-3xl font-semibold text-neutral-900 mb-1">{font.name}</h2>
             <p className="text-sm text-neutral-400">
