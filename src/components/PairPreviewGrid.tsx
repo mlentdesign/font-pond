@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ScoredPair } from "@/data/types";
-import { loadFont, getFontFamily } from "@/lib/fonts";
+import { loadFont, getFontFamily, ensureFontsRendered } from "@/lib/fonts";
 import { sentenceCase } from "@/lib/text";
 
 function useColumns(): number {
@@ -52,10 +52,13 @@ export function PairPreviewGrid({
   const hasMore = visible < pairs.length;
 
   useEffect(() => {
+    const fontNames: string[] = [];
     for (const p of pairs.slice(0, visible)) {
       loadFont(p.headerFont);
       loadFont(p.bodyFont);
+      fontNames.push(p.headerFont.name, p.bodyFont.name);
     }
+    ensureFontsRendered(fontNames);
   }, [pairs, visible]);
 
   if (pairs.length === 0) return null;
