@@ -85,19 +85,23 @@ export function pinFonts(fonts: { id?: string; slug: string }[]): () => void {
 
 /**
  * Force-load fonts using the CSS Font Loading API.
- * This ensures the browser actually fetches and renders the font,
- * not just adds the stylesheet. Retries once on failure.
+ * Waits briefly for stylesheets to be parsed, then triggers the load.
+ * Retries after 2s if the first attempt fails (stylesheet not ready yet).
  */
 export function ensureFontsRendered(fontNames: string[]): void {
   if (typeof window === "undefined" || !document.fonts) return;
-  for (const name of fontNames) {
-    document.fonts.load(`400 16px "${name}"`).catch(() => {
-      // Retry once after a short delay
-      setTimeout(() => { document.fonts.load(`400 16px "${name}"`).catch(() => {}); }, 1000);
-    });
-    // Also try bold weight since headers often use 700
-    document.fonts.load(`700 16px "${name}"`).catch(() => {});
-  }
+
+  const doLoad = () => {
+    for (const name of fontNames) {
+      document.fonts.load(`400 16px "${name}"`).catch(() => {});
+      document.fonts.load(`700 16px "${name}"`).catch(() => {});
+    }
+  };
+
+  // First attempt after a short delay to let stylesheets parse
+  setTimeout(doLoad, 100);
+  // Retry to catch any that weren't ready on first pass
+  setTimeout(doLoad, 2000);
 }
 
 export function loadGoogleFont(family: string): void {
