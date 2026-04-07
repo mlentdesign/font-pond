@@ -44,6 +44,11 @@
   --toggle-active-text: #ffffff;
   --add-image-color: #0d4a44;
 
+  --generate-bg: #e08a32;
+  --generate-bg-disabled: #e0c4a0;
+  --generate-text: #2a1a05;
+  --generate-text-disabled: #a08060;
+
   --selection-bg: #80cbc4;
   --selection-text: #000000;
   --shadow: 0 2px 16px rgba(0, 77, 64, 0.12);
@@ -91,6 +96,11 @@
   --toggle-active: rgba(255, 255, 255, 0.15);
   --toggle-active-text: #ffffff;
   --add-image-color: #cccccc;
+
+  --generate-bg: #c47a2a;
+  --generate-bg-disabled: #3d2e1e;
+  --generate-text: #ffffff;
+  --generate-text-disabled: #7a6a55;
 
   --selection-bg: #4db6ac;
   --selection-text: #000000;
