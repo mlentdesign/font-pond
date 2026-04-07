@@ -1300,11 +1300,35 @@ export function rankPairs(
   // Generate fit reasons only for the final results (not every scored pair)
   for (const sp of finalResults) {
     if (hasQuery && hasFontNameMatch && (matchedFontIds.has(sp.headerFontId) || matchedFontIds.has(sp.bodyFontId))) {
-      const matchedNames: string[] = [];
-      if (matchedFontIds.has(sp.headerFontId)) matchedNames.push(sp.headerFont.name);
-      if (matchedFontIds.has(sp.bodyFontId)) matchedNames.push(sp.bodyFont.name);
-      const headerTrait = sp.headerFont.distinctiveTraits[0] || sp.headerFont.toneDescriptors[0] || "distinctive character";
-      sp.promptFitReason = `This pair features ${matchedNames.join(" and ")}. ${sp.headerFont.name}'s ${headerTrait} creates strong headlines while ${sp.bodyFont.name} provides reliable body text.`;
+      // Font name was detected in query — mention which font matched and still connect to the query
+      const hf = sp.headerFont;
+      const bf = sp.bodyFont;
+      const headerTrait = hf.distinctiveTraits[0] || hf.toneDescriptors[0] || "distinctive character";
+      const headerTone = hf.toneDescriptors.slice(0, 2).join(" and ") || "expressive";
+      const promptPhrase = query.trim();
+      const short = promptPhrase.length <= 45 ? promptPhrase : promptPhrase.split(/[,.\-—]/).filter(s => s.trim().length > 3)[0]?.trim() || promptPhrase.slice(0, 40);
+
+      // Build connections to the query like generateFitReason does
+      const tagSet = getAllPairTags(sp as unknown as FontPair, hf, bf);
+      const connections: string[] = [];
+      for (const word of promptWords) {
+        const wants = KEYWORD_WANT[word];
+        if (wants) {
+          for (const w of wants) {
+            if (tagSet.has(w) && w !== word) { connections.push(w); break; }
+          }
+        }
+        if (tagSet.has(word)) connections.push(word);
+      }
+      const uniqueConns = [...new Set(connections)].slice(0, 3);
+
+      const parts: string[] = [];
+      parts.push(`For "${short}" — this pair uses ${hf.name}, which brings ${headerTone.toLowerCase()} energy with its ${headerTrait}`);
+      if (uniqueConns.length > 0) {
+        parts.push(`captures the ${uniqueConns.join(", ")} feel`);
+      }
+      parts.push(`${bf.name} anchors the body text`);
+      sp.promptFitReason = parts.join(". ") + ".";
     } else if (hasQuery) {
       sp.promptFitReason = generateFitReason(sp, sp.headerFont, sp.bodyFont, promptWords, query);
     } else {
