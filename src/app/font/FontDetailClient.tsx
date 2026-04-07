@@ -264,7 +264,7 @@ export default function FontDetailPage() {
                     <Link
                       key={sf.slug}
                       href={`/font?f=${sf.slug}`}
-                      className="block border border-neutral-200 rounded-xl bg-white p-6 hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
+                      className="block border border-neutral-200 rounded-xl bg-white p-6 hover:bg-neutral-50 hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
                     >
                       <div className="flex items-baseline justify-between mb-4">
                         <div className="min-w-0 flex-1 mr-3">
