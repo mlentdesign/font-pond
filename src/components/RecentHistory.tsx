@@ -8,6 +8,7 @@ export function RecentHistory() {
   const { recentItems } = useAppState();
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   // Close on click outside
   useEffect(() => {
@@ -23,10 +24,18 @@ export function RecentHistory() {
 
   // Close when cursor moves more than 80px away from the combined chip + menu area
   const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const dx = Math.max(0, rect.left - e.clientX, e.clientX - rect.right);
-    const dy = Math.max(0, rect.top - e.clientY, e.clientY - rect.bottom);
+    // Build a combined bounding rect from chip and menu
+    const chipRect = containerRef.current?.getBoundingClientRect();
+    const menuRect = menuRef.current?.getBoundingClientRect();
+    if (!chipRect) return;
+
+    const top = menuRect ? Math.min(chipRect.top, menuRect.top) : chipRect.top;
+    const bottom = Math.max(chipRect.bottom, menuRect?.bottom ?? chipRect.bottom);
+    const left = Math.min(chipRect.left, menuRect?.left ?? chipRect.left);
+    const right = Math.max(chipRect.right, menuRect?.right ?? chipRect.right);
+
+    const dx = Math.max(0, left - e.clientX, e.clientX - right);
+    const dy = Math.max(0, top - e.clientY, e.clientY - bottom);
     if (Math.sqrt(dx * dx + dy * dy) > 80) {
       setIsOpen(false);
     }
@@ -67,6 +76,7 @@ export function RecentHistory() {
 
         {isOpen && (
           <div
+            ref={menuRef}
             className="absolute bottom-full right-0 rounded-xl shadow-lg overflow-hidden"
             style={{ background: "var(--bg-card)", border: "2px solid var(--border)", marginBottom: "8px", width: "260px" }}
           >
