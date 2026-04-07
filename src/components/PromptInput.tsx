@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState, useEffect } from "react";
 import { useAppState } from "@/lib/store";
 import { rankPairs, explorePairs } from "@/lib/engine";
+import { analyzeImages } from "@/lib/image-analysis";
 
 const SUGGESTION_SETS = [
   "'elegant wedding stationery', 'bold streetwear lookbook', 'cozy coffee shop menu'",
@@ -104,13 +105,26 @@ export function PromptInput() {
     };
   }, []);
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
     if (!query.trim() && images.length === 0) return;
     setIsLoading(true);
     setHasSearched(true);
     setIsExploring(false);
     setVisibleCount(3);
-    setTimeout(() => { setResults(rankPairs(query)); setIsLoading(false); }, 400);
+
+    // If images are attached, analyze them for color/mood keywords and combine with query
+    let searchQuery = query;
+    if (images.length > 0) {
+      const imageKeywords = await analyzeImages(images);
+      if (imageKeywords.length > 0) {
+        const combined = query.trim()
+          ? `${query.trim()} ${imageKeywords.join(" ")}`
+          : imageKeywords.join(" ");
+        searchQuery = combined;
+      }
+    }
+
+    setTimeout(() => { setResults(rankPairs(searchQuery)); setIsLoading(false); }, 200);
   }, [query, images, setResults, setIsLoading, setHasSearched, setIsExploring, setVisibleCount]);
 
   const handleExplore = useCallback(() => {
@@ -174,7 +188,7 @@ export function PromptInput() {
 
           {/* Image previews */}
           {imagePreviews.length > 0 && (
-            <div className="flex flex-wrap" style={{ gap: "8px", padding: "0 24px 8px" }}>
+            <div className="flex flex-wrap" style={{ gap: "8px", padding: "0 24px 16px" }}>
               {imagePreviews.map((url, i) => (
                 <div key={i} className="relative group">
                   <img
@@ -216,7 +230,7 @@ export function PromptInput() {
         {/* Bottom bar */}
         <div
           className="action-bar flex items-center justify-between action-bar-border"
-          style={{ padding: "16px 24px" }}
+          style={{ padding: imagePreviews.length > 0 ? "8px 24px" : "16px 24px" }}
         >
           <div className="action-bar-image flex items-center">
             <input
