@@ -89,6 +89,7 @@ export function Footer() {
               padding: "0",
               gap: "4px",
               cursor: "pointer",
+              height: "40px",
             }}
             aria-label={paused ? "Resume animation" : "Pause animation"}
           >
