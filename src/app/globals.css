@@ -832,8 +832,11 @@ body.animations-paused #water-bg * {
   font-size: inherit !important;
 }
 
-/* Footer gap — default for desktop/tablet */
+/* Footer layout — all flex props here to avoid Tailwind conflicts */
 .site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
 }
 
@@ -916,7 +919,9 @@ body.animations-paused #water-bg * {
 
   /* Footer — column layout on mobile, vertically centered */
   .site-footer {
+    display: flex !important;
     flex-direction: column !important;
+    flex-wrap: nowrap !important;
     justify-content: center !important;
     align-items: stretch !important;
     gap: 0 !important;
