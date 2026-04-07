@@ -1,18 +1,48 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { useAppState } from "@/lib/store";
 
 export function RecentHistory() {
   const { recentItems } = useAppState();
   const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Close on click outside
+  useEffect(() => {
+    if (!isOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [isOpen]);
+
+  // Close when cursor moves more than 80px away from the combined chip + menu area
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const dx = Math.max(0, rect.left - e.clientX, e.clientX - rect.right);
+    const dy = Math.max(0, rect.top - e.clientY, e.clientY - rect.bottom);
+    if (Math.sqrt(dx * dx + dy * dy) > 80) {
+      setIsOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    document.addEventListener("mousemove", handleMouseMove);
+    return () => document.removeEventListener("mousemove", handleMouseMove);
+  }, [isOpen, handleMouseMove]);
 
   if (recentItems.length < 2) return null;
 
   return (
     <div className="fixed z-50 fixed-right history-chip-fixed" style={{ bottom: "24px" }}>
-      <div className="relative">
+      <div className="relative" ref={containerRef}>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center rounded-lg shadow-sm transition-all card-hover"
