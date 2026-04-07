@@ -29,7 +29,7 @@ export function Footer() {
       </Link>
 
       {/* Bottom row: copyright+about on left, pause+spacer on right */}
-      <div className="footer-bottom flex items-center justify-between" style={{ flex: 1 }}>
+      <div className="footer-bottom flex items-center justify-between">
         <div className="footer-left flex items-center" style={{ gap: "16px" }}>
           <p style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
             &copy; 2026{" "}
