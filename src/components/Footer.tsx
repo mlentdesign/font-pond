@@ -36,9 +36,11 @@ export function Footer() {
         paddingTop: "16px",
         paddingBottom: "16px",
         display: "flex",
-        ...(mobile
-          ? { flexDirection: "column" as const, justifyContent: "center", alignItems: "stretch", gap: "0px" }
-          : { flexWrap: "wrap" as const, alignItems: "center", gap: "8px" }),
+        flexDirection: mobile ? "column" as const : "row" as const,
+        flexWrap: mobile ? "nowrap" as const : "wrap" as const,
+        justifyContent: mobile ? "center" : "space-between",
+        alignItems: mobile ? "stretch" : "center",
+        gap: mobile ? "0px" : "8px",
       }}
     >
       <Link
