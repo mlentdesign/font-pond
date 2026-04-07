@@ -35,7 +35,7 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
       aria-label={`View font pair: ${headerFont.name} and ${bodyFont.name}`}
       onClick={() => router.push(`/pair?p=${pair.slug}`)}
       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push(`/pair?p=${pair.slug}`); } }}
-      className="group border border-neutral-200 rounded-xl bg-white hover:border-neutral-300 hover:shadow-md transition-all cursor-pointer overflow-hidden"
+      className="group border border-neutral-200 rounded-xl bg-white hover:bg-neutral-50 hover:border-neutral-300 hover:shadow-md transition-all cursor-pointer overflow-hidden"
     >
       {/* Section 1: Sample header + body text */}
       <div style={{ padding: "24px", paddingBottom: "16px" }}>
