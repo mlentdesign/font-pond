@@ -34,7 +34,7 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
       {/* Hover arrow */}
       <span
         className="opacity-0 group-hover:opacity-100 transition-opacity"
-        style={{ position: "absolute", top: "16px", right: "16px", color: "var(--text-heading)", fontSize: "16px", pointerEvents: "none" }}
+        style={{ position: "absolute", top: "16px", right: "16px", color: "var(--text-ransom)", fontSize: "16px", pointerEvents: "none" }}
       >
         ↗
       </span>
