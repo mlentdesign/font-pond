@@ -163,6 +163,11 @@ nav { position: relative; z-index: 10; }
    THEME COLOR OVERRIDES
    ══════════════════════════════════════════ */
 
+/* Disable opacity-based hover effects — use color changes instead */
+.hover\:opacity-70:hover { opacity: 1 !important; }
+.hover\:opacity-80:hover { opacity: 1 !important; }
+.hover\:opacity-90:hover { opacity: 1 !important; }
+
 .bg-white { background: var(--bg-card) !important; }
 .hover\:bg-neutral-50:hover { background: var(--bg-card-hover) !important; }
 .card-hover:hover { background: var(--bg-card-hover) !important; }
