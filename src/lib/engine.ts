@@ -886,16 +886,28 @@ function isStylizedPrompt(words: string[]): boolean {
   return words.some((w) => markers.has(w));
 }
 
+// Pre-compute keyword keys once (avoids Object.keys() on every call)
+const KEYWORD_KEYS: string[] = Object.keys(KEYWORD_WANT);
+
+// Caches for expensive lookups (persist across searches)
+const keywordMatchCache = new Map<string, string[] | null>();
+const pairTagCache = new Map<string, Set<string>>();
+
 // ══════════════════════════════════════════
 // SCORING
 // ══════════════════════════════════════════
 
 function getAllPairTags(pair: FontPair, hf: Font, bf: Font): Set<string> {
-  return new Set([
+  // Cache by pair ID — tags never change between searches
+  const cached = pairTagCache.get(pair.id);
+  if (cached) return cached;
+  const tags = new Set([
     ...pair.tags, ...pair.useCases,
     ...hf.tags, ...hf.toneDescriptors, ...hf.useCases,
     ...bf.tags, ...bf.toneDescriptors, ...bf.useCases,
   ].map((t) => t.toLowerCase()));
+  pairTagCache.set(pair.id, tags);
+  return tags;
 }
 
 function extractPromptWords(query: string): string[] {
@@ -909,55 +921,69 @@ function extractPromptWords(query: string): string[] {
 // Strips common suffixes to find the root, so "grungy" → "grung", "playful" → "play", etc.
 // Then checks if KEYWORD_WANT has a key that starts with that root.
 function findKeywordMatch(word: string): string[] | null {
+  // Check cache first — same word always maps to the same keywords
+  const cached = keywordMatchCache.get(word);
+  if (cached !== undefined) return cached;
+
+  let result: string[] | null = null;
+
   // 1. Exact match
-  if (KEYWORD_WANT[word]) return KEYWORD_WANT[word];
+  if (KEYWORD_WANT[word]) { result = KEYWORD_WANT[word]; }
 
   // 2. Try common suffix stripping
-  const suffixes = ["y", "ish", "ey", "ie", "ful", "ous", "ive", "ly", "ed", "ing", "er", "est", "ic", "al", "ness", "ity", "esque", "like", "ical", "ated"];
-  for (const suffix of suffixes) {
-    if (word.endsWith(suffix) && word.length > suffix.length + 2) {
-      const stem = word.slice(0, -suffix.length);
-      // Check if any keyword starts with this stem
-      for (const key of Object.keys(KEYWORD_WANT)) {
-        if (key.startsWith(stem) || stem.startsWith(key)) {
-          return KEYWORD_WANT[key];
+  if (!result) {
+    const suffixes = ["y", "ish", "ey", "ie", "ful", "ous", "ive", "ly", "ed", "ing", "er", "est", "ic", "al", "ness", "ity", "esque", "like", "ical", "ated"];
+    for (const suffix of suffixes) {
+      if (word.endsWith(suffix) && word.length > suffix.length + 2) {
+        const stem = word.slice(0, -suffix.length);
+        for (const key of KEYWORD_KEYS) {
+          if (key.startsWith(stem) || stem.startsWith(key)) {
+            result = KEYWORD_WANT[key]; break;
+          }
         }
+        if (result) break;
       }
     }
   }
 
   // 3. Try prefix matching (word is the start of a keyword)
-  for (const key of Object.keys(KEYWORD_WANT)) {
-    if (key.startsWith(word) && word.length >= 3) return KEYWORD_WANT[key];
-    if (word.startsWith(key) && key.length >= 3) return KEYWORD_WANT[key];
+  if (!result) {
+    for (const key of KEYWORD_KEYS) {
+      if (key.startsWith(word) && word.length >= 3) { result = KEYWORD_WANT[key]; break; }
+      if (word.startsWith(key) && key.length >= 3) { result = KEYWORD_WANT[key]; break; }
+    }
   }
 
   // 4. Try synonym map — expand the word to known synonyms, then check those
-  const synonyms = ALL_SYNONYMS[word];
-  if (synonyms) {
-    const combined: string[] = [];
-    for (const syn of synonyms) {
-      if (KEYWORD_WANT[syn]) combined.push(...KEYWORD_WANT[syn]);
-      else combined.push(syn); // use the synonym itself as a tag to match
+  if (!result) {
+    const synonyms = ALL_SYNONYMS[word];
+    if (synonyms) {
+      const combined: string[] = [];
+      for (const syn of synonyms) {
+        if (KEYWORD_WANT[syn]) combined.push(...KEYWORD_WANT[syn]);
+        else combined.push(syn);
+      }
+      if (combined.length > 0) result = [...new Set(combined)];
     }
-    if (combined.length > 0) return [...new Set(combined)];
   }
 
   // 5. Typo tolerance — find nearest keyword by edit distance
-  const maxDist = maxTypoDistance(word);
-  if (maxDist > 0) {
-    let bestKey: string | null = null;
-    let bestDist = maxDist + 1;
-    for (const key of Object.keys(KEYWORD_WANT)) {
-      // Only compare words of similar length to avoid false positives
-      if (Math.abs(key.length - word.length) > maxDist) continue;
-      const d = editDistance(word, key);
-      if (d < bestDist) { bestDist = d; bestKey = key; }
+  if (!result) {
+    const maxDist = maxTypoDistance(word);
+    if (maxDist > 0) {
+      let bestKey: string | null = null;
+      let bestDist = maxDist + 1;
+      for (const key of KEYWORD_KEYS) {
+        if (Math.abs(key.length - word.length) > maxDist) continue;
+        const d = editDistance(word, key);
+        if (d < bestDist) { bestDist = d; bestKey = key; }
+      }
+      if (bestKey) result = KEYWORD_WANT[bestKey];
     }
-    if (bestKey) return KEYWORD_WANT[bestKey];
   }
 
-  return null;
+  keywordMatchCache.set(word, result);
+  return result;
 }
 
 // Score how well a pair matches a single prompt word
@@ -1206,24 +1232,11 @@ export function rankPairs(
       if (!hf.isBodySuitable) totalScore += 3;
     }
 
-    // Generate fit reason — special case for font name matches
-    let fitReason: string;
-    if (hasQuery && hasFontNameMatch && (matchedFontIds.has(hf.id) || matchedFontIds.has(bf.id))) {
-      const matchedNames: string[] = [];
-      if (matchedFontIds.has(hf.id)) matchedNames.push(hf.name);
-      if (matchedFontIds.has(bf.id)) matchedNames.push(bf.name);
-      const headerTrait = hf.distinctiveTraits[0] || hf.toneDescriptors[0] || "distinctive character";
-      fitReason = `This pair features ${matchedNames.join(" and ")}. ${hf.name}'s ${headerTrait} creates strong headlines while ${bf.name} provides reliable body text.`;
-    } else if (hasQuery) {
-      fitReason = generateFitReason(pair, hf, bf, promptWords, query);
-    } else {
-      fitReason = pair.shortExplanation;
-    }
-
+    // Defer fit reason generation — just score for now
     scored.push({
       ...pair,
       relevanceScore: totalScore,
-      promptFitReason: fitReason,
+      promptFitReason: "", // filled in after sort/dedup
       headerFont: hf,
       bodyFont: bf,
     });
@@ -1275,7 +1288,24 @@ export function rankPairs(
 
   const offset = options?.offset ?? 0;
   const limit = options?.limit ?? deduped.length;
-  return deduped.slice(offset, offset + limit);
+  const finalResults = deduped.slice(offset, offset + limit);
+
+  // Generate fit reasons only for the final results (not every scored pair)
+  for (const sp of finalResults) {
+    if (hasQuery && hasFontNameMatch && (matchedFontIds.has(sp.headerFontId) || matchedFontIds.has(sp.bodyFontId))) {
+      const matchedNames: string[] = [];
+      if (matchedFontIds.has(sp.headerFontId)) matchedNames.push(sp.headerFont.name);
+      if (matchedFontIds.has(sp.bodyFontId)) matchedNames.push(sp.bodyFont.name);
+      const headerTrait = sp.headerFont.distinctiveTraits[0] || sp.headerFont.toneDescriptors[0] || "distinctive character";
+      sp.promptFitReason = `This pair features ${matchedNames.join(" and ")}. ${sp.headerFont.name}'s ${headerTrait} creates strong headlines while ${sp.bodyFont.name} provides reliable body text.`;
+    } else if (hasQuery) {
+      sp.promptFitReason = generateFitReason(sp, sp.headerFont, sp.bodyFont, promptWords, query);
+    } else {
+      sp.promptFitReason = sp.shortExplanation;
+    }
+  }
+
+  return finalResults;
 }
 
 export function getRelatedPairs(pairId: string, limit = 4): ScoredPair[] {
