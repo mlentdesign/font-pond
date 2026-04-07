@@ -231,7 +231,7 @@ export function PromptInput() {
               ))}
             </div>
           )}
-        <div className="flex items-center justify-between">
+        <div className="action-bar-inner flex items-center justify-between">
           <div className="action-bar-image flex items-center">
             <input
               ref={fileInputRef}

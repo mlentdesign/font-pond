@@ -885,6 +885,12 @@ body.animations-paused #water-bg * {
     align-items: stretch !important;
     gap: 8px !important;
   }
+  .action-bar-inner {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
   .action-bar-ctas {
     flex-direction: column !important;
     gap: 16px !important;
