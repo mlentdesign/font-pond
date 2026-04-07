@@ -32,6 +32,7 @@ export function Footer() {
       style={{
         background: "var(--bg-footer)",
         boxShadow: "var(--shadow-edge-top)",
+        borderTop: "var(--border-edge)",
         minHeight: "88px",
         paddingTop: "16px",
         paddingBottom: "16px",
