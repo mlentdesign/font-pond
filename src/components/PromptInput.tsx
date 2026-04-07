@@ -265,20 +265,42 @@ export function PromptInput() {
             >
               Explore
             </button>
-            <button
-              onClick={handleSubmit}
-              disabled={isDisabled}
-              className="font-medium rounded-lg transition-colors disabled:cursor-not-allowed hover:opacity-90"
-              style={{
-                fontSize: "16px",
-                background: isDisabled ? "var(--btn-bg-disabled)" : "var(--btn-bg)",
-                color: isDisabled ? "var(--btn-text-disabled)" : "var(--btn-text)",
-                border: "2px solid transparent",
-                padding: "8px 24px",
-              }}
-            >
-              Generate
-            </button>
+            <span style={{ position: "relative" }} className="group">
+              <button
+                onClick={handleSubmit}
+                disabled={isDisabled}
+                className="font-medium rounded-lg transition-colors disabled:cursor-not-allowed"
+                style={{
+                  fontSize: "16px",
+                  background: isDisabled ? "var(--btn-bg-disabled)" : "var(--btn-bg)",
+                  color: isDisabled ? "var(--btn-text-disabled)" : "var(--btn-text)",
+                  border: "2px solid transparent",
+                  padding: "8px 24px",
+                  width: "100%",
+                }}
+              >
+                Generate
+              </button>
+              {isDisabled && (
+                <span
+                  className="absolute hidden group-hover:block rounded-lg shadow-lg"
+                  style={{
+                    bottom: "calc(100% + 8px)",
+                    right: 0,
+                    background: "var(--bg-card)",
+                    border: "2px solid var(--border)",
+                    padding: "8px 16px",
+                    whiteSpace: "nowrap",
+                    fontSize: "14px",
+                    color: "var(--text-muted)",
+                    zIndex: 100,
+                    pointerEvents: "none",
+                  }}
+                >
+                  Enter text or upload an image to generate
+                </span>
+              )}
+            </span>
           </div>
         </div>
         </div>

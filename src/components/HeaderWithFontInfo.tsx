@@ -69,7 +69,7 @@ export function HeaderWithFontInfo() {
 
           {showTooltip && (
             <span
-              className="absolute rounded-lg shadow-lg"
+              className="absolute rounded-lg shadow-lg card-hover"
               onMouseEnter={cancelHide}
               onMouseLeave={scheduleHide}
               style={{
