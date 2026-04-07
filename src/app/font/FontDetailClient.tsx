@@ -108,13 +108,16 @@ export default function FontDetailPage() {
               href={font.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="outline-btn font-medium rounded-lg"
+              className="font-medium rounded-lg transition-colors"
               style={{
-                fontSize: "14px",
-                padding: "6px 16px",
+                fontSize: "16px",
+                padding: "8px 24px",
                 whiteSpace: "nowrap",
+                background: "var(--generate-bg)",
+                color: "var(--generate-text)",
+                border: "2px solid transparent",
                 opacity: showStickyDownload ? 1 : 0,
-                transform: showStickyDownload ? "scale(1)" : "scale(1.3)",
+                transform: showStickyDownload ? "scale(1)" : "scale(1.15)",
                 transformOrigin: "right center",
                 transition: "opacity 0.12s ease-out, transform 0.12s ease-out",
                 pointerEvents: showStickyDownload ? "auto" : "none",
@@ -141,7 +144,7 @@ export default function FontDetailPage() {
                 href={font.sourceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="outline-btn font-medium rounded-lg transition-colors" style={{ fontSize: "16px", padding: "8px 24px" }}
+                className="font-medium rounded-lg transition-colors" style={{ fontSize: "16px", padding: "8px 24px", background: "var(--generate-bg)", color: "var(--generate-text)", border: "2px solid transparent" }}
               >
                 Download ↗
               </a>
