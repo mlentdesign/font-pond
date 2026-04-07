@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { fontsBySlug, fontsById } from "@/data/fonts";
 import { getPairsWithFont } from "@/lib/engine";
-import { loadFont, getFontFamily } from "@/lib/fonts";
+import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
 import { titleCase, sentenceCase, getSourceLabel } from "@/lib/text";
 import { pairsBySlug } from "@/data/pairs";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
@@ -49,12 +49,17 @@ export default function FontDetailPage() {
   useEffect(() => {
     if (font) {
       loadFont(font);
+      // Pin this font so it can't be evicted while the page is open
+      const unpin = pinFonts([font]);
+      // Force the browser to actually fetch and render the font
+      ensureFontsRendered([font.name]);
       addHistoryItem({ type: "font", id: font.id, slug: font.slug, label: font.name, viewedAt: Date.now() });
       // Load similar fonts
       for (const sf of font.similarFonts) {
         const similar = fontsBySlug.get(sf);
         if (similar) loadFont(similar);
       }
+      return unpin;
     }
   }, [font]);
 
