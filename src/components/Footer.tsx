@@ -44,7 +44,7 @@ export function Footer() {
       }}
     >
       {/* Left side: on mobile, tagline stacked above copyright. On desktop, inline with everything */}
-      <div style={{ display: "flex", flexDirection: mobile ? "column" as const : "row" as const, gap: mobile ? "4px" : "16px", alignItems: mobile ? "flex-start" : "center", flexWrap: mobile ? "nowrap" as const : "wrap" as const, minWidth: 0 }}>
+      <div style={{ display: "flex", flexDirection: mobile ? "column" as const : "row" as const, gap: mobile ? "0px" : "16px", alignItems: mobile ? "flex-start" : "center", flexWrap: mobile ? "nowrap" as const : "wrap" as const, minWidth: 0 }}>
         <Link
           href="/database"
           className="footer-tagline hover:opacity-70 transition-opacity"
@@ -75,8 +75,8 @@ export function Footer() {
         */}
       </div>
 
-      {/* Right side: pause + history spacer */}
-      <div className="footer-right flex items-center shrink-0" style={{ gap: "24px" }}>
+      {/* Right side: pause + history spacer — aligned to bottom on mobile so pause matches fixed chip */}
+      <div className="footer-right flex items-center shrink-0" style={{ gap: "24px", alignSelf: mobile ? "flex-end" : undefined }}>
           <button
             onClick={togglePause}
             className="flex items-center transition-colors hover:opacity-70 footer-pause-btn"
