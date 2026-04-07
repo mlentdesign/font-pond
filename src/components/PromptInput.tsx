@@ -320,17 +320,18 @@ export function PromptInput() {
         <div
           className="rounded-lg shadow-lg"
           style={{
-            position: "absolute",
-            bottom: "-40px",
-            right: 0,
+            marginTop: "8px",
+            marginLeft: "auto",
+            maxWidth: "100%",
+            width: "fit-content",
             background: "var(--bg-card)",
             border: "2px solid var(--border)",
             padding: "8px 16px",
-            whiteSpace: "nowrap",
             fontSize: "14px",
             color: "var(--text-muted)",
             zIndex: 100,
             pointerEvents: "none",
+            textAlign: "right",
           }}
         >
           Enter text or upload an image to generate
