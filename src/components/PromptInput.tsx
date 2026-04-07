@@ -129,12 +129,12 @@ export function PromptInput() {
   const isDisabled = !query.trim() && images.length === 0;
 
   return (
-    <div className="w-full">
+    <div className="w-full prompt-wrapper">
       <div
         className="prompt-container rounded-xl transition-all overflow-hidden"
         style={{ background: "var(--bg-card)", boxShadow: "var(--shadow-input)", border: "2px solid var(--border)" }}
       >
-        {/* Textarea wrapper — focus ring wraps only this area */}
+        {/* Textarea wrapper */}
         <div className="prompt-textarea-wrap">
           <div style={{ position: "relative" }}>
             <textarea
