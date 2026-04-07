@@ -57,6 +57,8 @@ export function FishEasterEgg() {
   const fishRef = useRef<Fish[]>([]);
   const foodRef = useRef<FoodParticle[]>([]);
   const animRef = useRef<number>(0);
+  const hadFoodRef = useRef(false);
+  const foodGoneTimerRef = useRef(0);
   const pausedRef = useRef(false);
   const wasAtBottomRef = useRef(false);
   const mouseRef = useRef({ x: -1, y: -1 });
@@ -434,6 +436,25 @@ export function FishEasterEgg() {
           }
           return f.opacity > 0 && f.y < vh;
         });
+
+        // Track food state — when food runs out, start a timer then disperse fish
+        const hasFood = foodRef.current.length > 0;
+        if (hasFood) {
+          hadFoodRef.current = true;
+          foodGoneTimerRef.current = 0;
+        } else if (hadFoodRef.current) {
+          foodGoneTimerRef.current++;
+          // ~1.5 seconds at 60fps = 90 frames
+          if (foodGoneTimerRef.current >= 90) {
+            hadFoodRef.current = false;
+            foodGoneTimerRef.current = 0;
+            // Scatter all fish to different random positions
+            for (const fish of fishRef.current) {
+              fish.targetX = Math.random() * canvas.width;
+              fish.targetY = vh * 0.67 + Math.random() * (vh * 0.28);
+            }
+          }
+        }
       }
 
       for (const fish of fishRef.current) drawFish(ctx!, fish);
