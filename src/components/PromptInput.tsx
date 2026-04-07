@@ -145,7 +145,7 @@ export function PromptInput() {
   return (
     <div className="w-full prompt-wrapper">
       <div
-        className="prompt-container rounded-xl transition-all overflow-hidden"
+        className="prompt-container rounded-xl transition-all"
         style={{ background: "var(--bg-card)", boxShadow: "var(--shadow-input)", border: "2px solid var(--border)" }}
       >
         {/* Textarea wrapper */}
