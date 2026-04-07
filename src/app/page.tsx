@@ -24,7 +24,7 @@ export default function Home() {
       {/* Sticky header */}
       <header
         className="w-full sticky top-0 z-30"
-        style={{ background: "var(--bg-header)", boxShadow: "var(--shadow-edge)" }}
+        style={{ background: "var(--bg-header)", boxShadow: "var(--shadow-edge)", borderBottom: "var(--border-edge)" }}
       >
         <div className="flex items-center justify-between shell-padding" style={{ paddingTop: "16px", paddingBottom: "16px" }}>
           <div className="block min-w-0 flex-1 cursor-pointer" role="button" tabIndex={0} onClick={handleReset} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleReset(e as any); } }}>
