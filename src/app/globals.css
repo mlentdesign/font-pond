@@ -10,6 +10,7 @@
 :root {
   --bg: #c8e6e3;
   --bg-card: #d4edeb;
+  --bg-card-hover: #ddf3f1;
   --bg-header: #b8ddd9;
   --bg-footer: #b8ddd9;
   --bg-chip: #bfe3df;
@@ -57,6 +58,7 @@
 [data-theme="dark"] {
   --bg: #0d3b3f;
   --bg-card: #11474c;
+  --bg-card-hover: #185459;
   --bg-header: #0a2f32;
   --bg-footer: #0a2f32;
   --bg-chip: #0f4045;
@@ -162,6 +164,7 @@ nav { position: relative; z-index: 10; }
    ══════════════════════════════════════════ */
 
 .bg-white { background: var(--bg-card) !important; }
+.hover\:bg-neutral-50:hover { background: var(--bg-card-hover) !important; }
 .bg-neutral-50 { background: var(--bg-chip) !important; }
 .bg-neutral-100 { background: var(--bg-chip) !important; }
 
