@@ -9,23 +9,25 @@ interface Crumb {
 }
 
 export function Breadcrumb({ crumbs, sticky = false }: { crumbs: Crumb[]; sticky?: boolean }) {
-  const [stickyTop, setStickyTop] = useState(0);
+  const [stickyTop, setStickyTop] = useState(100);
 
   useEffect(() => {
     if (!sticky) return;
-    const header = document.querySelector("header.sticky");
+    const header = document.querySelector("header");
     if (!header) return;
     const update = () => {
-      setStickyTop(header.getBoundingClientRect().height);
+      const h = header.getBoundingClientRect().height;
+      const w = window.innerWidth;
+      const gap = w >= 1024 ? 80 : w >= 768 ? 56 : 40;
+      setStickyTop(h + gap);
     };
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, [sticky]);
 
-  const nav = (
-    <nav
-      aria-label="Breadcrumb"
+  return (
+    <div
       className={sticky ? "breadcrumb-sticky" : ""}
       style={sticky ? {
         position: "sticky" as const,
@@ -38,31 +40,29 @@ export function Breadcrumb({ crumbs, sticky = false }: { crumbs: Crumb[]; sticky
         paddingRight: "96px",
         paddingTop: "24px",
         paddingBottom: "24px",
-      } : {
-        marginBottom: "24px",
-      }}
+      } : undefined}
     >
-      <ol className="flex items-center gap-2 text-xs text-neutral-400 flex-wrap" style={{ maxWidth: "1280px" }}>
-        <li>
-          <Link href="/" className="hover:text-neutral-600 transition-colors">
-            Results
-          </Link>
-        </li>
-        {crumbs.map((crumb, i) => (
-          <li key={i} className={i === crumbs.length - 1 ? "text-neutral-600" : ""}>
-            <span aria-hidden="true" className="text-neutral-400" style={{ marginRight: "8px" }}>/</span>
-            {crumb.href ? (
-              <Link href={crumb.href} className="hover:text-neutral-600 transition-colors">
-                {crumb.label}
-              </Link>
-            ) : (
-              crumb.label
-            )}
+      <nav aria-label="Breadcrumb" style={sticky ? undefined : { marginBottom: "24px" }}>
+        <ol className="flex items-center gap-2 text-xs text-neutral-400 flex-wrap">
+          <li>
+            <Link href="/" className="hover:text-neutral-600 transition-colors">
+              Results
+            </Link>
           </li>
-        ))}
-      </ol>
-    </nav>
+          {crumbs.map((crumb, i) => (
+            <li key={i} className={i === crumbs.length - 1 ? "text-neutral-600" : ""}>
+              <span aria-hidden="true" className="text-neutral-400" style={{ marginRight: "8px" }}>/</span>
+              {crumb.href ? (
+                <Link href={crumb.href} className="hover:text-neutral-600 transition-colors">
+                  {crumb.label}
+                </Link>
+              ) : (
+                crumb.label
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </div>
   );
-
-  return nav;
 }
