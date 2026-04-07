@@ -88,11 +88,15 @@ function pickMultipleBodies(
   return picked;
 }
 
+function fmtClass(c: string): string { return c.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" "); }
+
 function describeContrast(header: Font, body: Font): string {
   const hClass = header.classification;
-  if (hClass === "handwritten" || hClass === "script") return `${hClass}/${body.classification} — texture and personality contrast`;
-  if (hClass === "display") return `display/${body.classification} — dramatic weight and scale contrast`;
-  if (hClass !== body.classification) return `${hClass}/${body.classification} — category contrast`;
+  const hLabel = fmtClass(hClass);
+  const bLabel = fmtClass(body.classification);
+  if (hClass === "handwritten" || hClass === "script") return `${hLabel} / ${bLabel} — texture and personality contrast`;
+  if (hClass === "display") return `Display / ${bLabel} — dramatic weight and scale contrast`;
+  if (hClass !== body.classification) return `${hLabel} / ${bLabel} — category contrast`;
   return "weight and personality contrast";
 }
 

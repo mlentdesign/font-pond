@@ -7,7 +7,7 @@ import { pairsBySlug, getPairOrConstruct } from "@/data/pairs";
 import { fontsById } from "@/data/fonts";
 import { getRelatedPairs } from "@/lib/engine";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
-import { titleCase, sentenceCase, getSourceLabel } from "@/lib/text";
+import { titleCase, sentenceCase, getSourceLabel, formatClassification, formatContrastType, chipCase } from "@/lib/text";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -29,7 +29,8 @@ function FontSection({
   const sourceLabel = getSourceLabel(font.source);
 
   const allChips = [...new Set([...font.tags, ...font.toneDescriptors].map(t => t.toLowerCase()))]
-    .filter(t => t.split("-").length < 3 && t.length <= 25);
+    .filter(t => t.split("-").length < 3 && t.length <= 25)
+    .map(chipCase);
 
   return (
     <Link
@@ -87,7 +88,7 @@ function FontSection({
         </div>
         <div>
           <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>CLASSIFICATION</span>
-          <p>{titleCase(font.classification)}</p>
+          <p>{formatClassification(font.classification)}</p>
         </div>
         <div>
           <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>LICENSE</span>
@@ -245,13 +246,13 @@ export default function PairDetailPage() {
             <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
             <div>
               <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "4px" }}>CONTRAST TYPE</dt>
-              <dd className="text-neutral-700" style={{ fontSize: "16px" }}>{sentenceCase(pair.contrastType)}</dd>
+              <dd className="text-neutral-700" style={{ fontSize: "16px" }}>{formatContrastType(pair.contrastType)}</dd>
             </div>
           </SectionCard>
 
           {/* Card 3: use cases */}
           <SectionCard>
-            <ChipGroup label="USE CASES" chips={pair.useCases} />
+            <ChipGroup label="USE CASES" chips={pair.useCases.map(chipCase)} />
           </SectionCard>
         </div>
 

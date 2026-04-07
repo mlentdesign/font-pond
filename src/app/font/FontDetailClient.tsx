@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { fontsBySlug, fontsById } from "@/data/fonts";
 import { getPairsWithFont } from "@/lib/engine";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
-import { titleCase, sentenceCase, getSourceLabel } from "@/lib/text";
+import { titleCase, sentenceCase, getSourceLabel, formatClassification, chipCase } from "@/lib/text";
 import { pairsBySlug } from "@/data/pairs";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -15,12 +15,13 @@ import { ChipGroup } from "@/components/ChipGroup";
 import { PairPreviewGrid } from "@/components/PairPreviewGrid";
 import { useAppState } from "@/lib/store";
 
-function InfoRow({ label, value, useTitle }: { label: string; value: string | null | undefined; useTitle?: boolean }) {
+function InfoRow({ label, value, useTitle, useClassification }: { label: string; value: string | null | undefined; useTitle?: boolean; useClassification?: boolean }) {
   if (!value) return null;
+  const formatted = useClassification ? formatClassification(value) : useTitle ? titleCase(value) : sentenceCase(value);
   return (
     <div className="flex justify-between border-b border-neutral-100 last:border-0" style={{ padding: "12px 24px" }}>
       <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>{label.toUpperCase()}</dt>
-      <dd className="text-neutral-700 text-right max-w-[60%]" style={{ fontSize: "16px" }}>{useTitle ? titleCase(value) : sentenceCase(value)}</dd>
+      <dd className="text-neutral-700 text-right max-w-[60%]" style={{ fontSize: "16px" }}>{formatted}</dd>
     </div>
   );
 }
@@ -68,12 +69,17 @@ export default function FontDetailPage() {
 
   useEffect(() => {
     if (!downloadRef.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setShowStickyDownload(!entry.isIntersecting),
-      { threshold: 0 }
-    );
-    observer.observe(downloadRef.current);
-    return () => observer.disconnect();
+    const check = () => {
+      if (!downloadRef.current) return;
+      const rect = downloadRef.current.getBoundingClientRect();
+      const header = document.querySelector("header");
+      const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
+      // Show sticky download as soon as the download section scrolls behind the breadcrumb area
+      setShowStickyDownload(rect.bottom < headerBottom + 40);
+    };
+    window.addEventListener("scroll", check, { passive: true });
+    check();
+    return () => window.removeEventListener("scroll", check);
   }, [font]);
 
   const pairsUsing = font ? getPairsWithFont(font.id) : [];
@@ -193,7 +199,7 @@ export default function FontDetailPage() {
           {/* Card 1: Type info (desktop only — hidden on tablet or when compact) */}
           <SectionCard noPadding className="font-detail-card1" style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
-              <InfoRow label="Classification" value={font.classification} useTitle />
+              <InfoRow label="Classification" value={font.classification} useClassification />
               <InfoRow label="Subcategory" value={font.subcategory} />
               <InfoRow label="Variable font" value={font.variableFont ? "Yes" : "No"} />
               {!font.variableFont && (
@@ -219,7 +225,7 @@ export default function FontDetailPage() {
           {/* Combined card (tablet + mobile only — hidden on desktop) */}
           <SectionCard noPadding className="font-detail-combined" style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
-              <InfoRow label="Classification" value={font.classification} useTitle />
+              <InfoRow label="Classification" value={font.classification} useClassification />
               <InfoRow label="Subcategory" value={font.subcategory} />
               <InfoRow label="Variable font" value={font.variableFont ? "Yes" : "No"} />
               {!font.variableFont && (
@@ -240,19 +246,19 @@ export default function FontDetailPage() {
           <SectionCard>
             <div className="flex flex-col">
               {font.distinctiveTraits.length > 0 && (
-                <ChipGroup label="DISTINCTIVE TRAITS" chips={font.distinctiveTraits} />
+                <ChipGroup label="DISTINCTIVE TRAITS" chips={font.distinctiveTraits.map(chipCase)} />
               )}
               {font.distinctiveTraits.length > 0 && font.toneDescriptors.length > 0 && (
                 <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
               )}
               {font.toneDescriptors.length > 0 && (
-                <ChipGroup label="TONE" chips={font.toneDescriptors} />
+                <ChipGroup label="TONE" chips={font.toneDescriptors.map(chipCase)} />
               )}
               {font.toneDescriptors.length > 0 && font.useCases.length > 0 && (
                 <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
               )}
               {font.useCases.length > 0 && (
-                <ChipGroup label="USE CASES" chips={font.useCases} />
+                <ChipGroup label="USE CASES" chips={font.useCases.map(chipCase)} />
               )}
               {font.useCases.length > 0 && font.historicalNotes && (
                 <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
@@ -272,7 +278,7 @@ export default function FontDetailPage() {
           <SectionCard style={{ marginBottom: "24px" }}>
             <ChipGroup
               label="ALL CHARACTERISTICS"
-              chips={[...new Set(font.tags)].filter(t => t.split("-").length < 3 && t.length <= 25)}
+              chips={[...new Set(font.tags)].filter(t => t.split("-").length < 3 && t.length <= 25).map(chipCase)}
             />
           </SectionCard>
         )}
@@ -294,7 +300,8 @@ export default function FontDetailPage() {
                   const sfFamily = getFontFamily(sf.name, sf.source);
                   const sfSource = getSourceLabel(sf.source);
                   const sfChips = [...new Set([...sf.tags, ...sf.toneDescriptors].map(t => t.toLowerCase()))]
-                    .filter(t => t.split("-").length < 3 && t.length <= 25);
+                    .filter(t => t.split("-").length < 3 && t.length <= 25)
+                    .map(chipCase);
                   return (
                     <Link
                       key={sf.slug}
@@ -342,7 +349,7 @@ export default function FontDetailPage() {
                         </div>
                         <div>
                           <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>CLASSIFICATION</span>
-                          <p>{titleCase(sf.classification)}</p>
+                          <p>{formatClassification(sf.classification)}</p>
                         </div>
                         <div>
                           <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>LICENSE</span>
