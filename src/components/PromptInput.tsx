@@ -30,6 +30,7 @@ export function PromptInput() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [generateHover, setGenerateHover] = useState(false);
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
@@ -159,9 +160,9 @@ export function PromptInput() {
   const isDisabled = !query.trim() && images.length === 0;
 
   return (
-    <div className="w-full prompt-wrapper">
+    <div className="w-full prompt-wrapper" style={{ position: "relative" }}>
       <div
-        className="prompt-container rounded-xl transition-all"
+        className="prompt-container rounded-xl transition-all overflow-hidden"
         style={{ background: "var(--bg-card)", boxShadow: "var(--shadow-input)", border: "2px solid var(--border)" }}
       >
         {/* Textarea wrapper */}
@@ -274,8 +275,9 @@ export function PromptInput() {
                 color: "var(--add-image-color)",
                 gap: "4px",
                 padding: "4px 8px",
-                border: isDragging ? "2px dotted var(--accent)" : "2px dotted transparent",
+                border: isDragging ? "3px dashed var(--accent)" : "3px dashed transparent",
                 borderRadius: "8px",
+                backgroundClip: "padding-box",
               }}
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
@@ -295,46 +297,47 @@ export function PromptInput() {
             >
               Explore
             </button>
-            <span style={{ position: "relative" }} className="group">
-              <button
-                onClick={handleSubmit}
-                disabled={isDisabled}
-                className="font-medium rounded-lg transition-colors disabled:cursor-not-allowed"
-                style={{
-                  fontSize: "16px",
-                  background: isDisabled ? "var(--generate-bg-disabled)" : "var(--generate-bg)",
-                  color: isDisabled ? "var(--generate-text-disabled)" : "var(--generate-text)",
-                  border: "2px solid transparent",
-                  padding: "8px 24px",
-                  width: "100%",
-                }}
-              >
-                Generate
-              </button>
-              {isDisabled && (
-                <span
-                  className="absolute hidden group-hover:block rounded-lg shadow-lg"
-                  style={{
-                    top: "calc(100% + 8px)",
-                    right: 0,
-                    background: "var(--bg-card)",
-                    border: "2px solid var(--border)",
-                    padding: "8px 16px",
-                    whiteSpace: "nowrap",
-                    fontSize: "14px",
-                    color: "var(--text-muted)",
-                    zIndex: 100,
-                    pointerEvents: "none",
-                  }}
-                >
-                  Enter text or upload an image to generate
-                </span>
-              )}
-            </span>
+            <button
+              onClick={handleSubmit}
+              disabled={isDisabled}
+              onMouseEnter={() => isDisabled && setGenerateHover(true)}
+              onMouseLeave={() => setGenerateHover(false)}
+              className="font-medium rounded-lg transition-colors disabled:cursor-not-allowed"
+              style={{
+                fontSize: "16px",
+                background: isDisabled ? "var(--generate-bg-disabled)" : "var(--generate-bg)",
+                color: isDisabled ? "var(--generate-text-disabled)" : "var(--generate-text)",
+                border: "2px solid transparent",
+                padding: "8px 24px",
+                width: "100%",
+              }}
+            >
+              Generate
+            </button>
           </div>
         </div>
         </div>
       </div>
+      {generateHover && (
+        <div
+          className="rounded-lg shadow-lg"
+          style={{
+            position: "absolute",
+            bottom: "-40px",
+            right: 0,
+            background: "var(--bg-card)",
+            border: "2px solid var(--border)",
+            padding: "8px 16px",
+            whiteSpace: "nowrap",
+            fontSize: "14px",
+            color: "var(--text-muted)",
+            zIndex: 100,
+            pointerEvents: "none",
+          }}
+        >
+          Enter text or upload an image to generate
+        </div>
+      )}
     </div>
   );
 }
