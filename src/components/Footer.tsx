@@ -9,11 +9,10 @@ export function Footer() {
   const [paused, setPaused] = useState(false);
   const { recentItems } = useAppState();
   const hasHistory = recentItems.length >= 2;
-  const [mobile, setMobile] = useState(false);
+  const [mobile, setMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 640);
 
   useEffect(() => {
     const check = () => setMobile(window.innerWidth < 640);
-    check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
