@@ -2,7 +2,7 @@
 // Run: node scripts/download-fonts.mjs --google-all
 import { Font, FontClassification } from "./types";
 
-function gf(name: string, googleFamily: string, classification: string, tags: string[], tone: string[], isBody: boolean, hasRegular: boolean, designerName?: string, foundryName?: string): Font {
+function gf(name: string, googleFamily: string, classification: string, tags: string[], tone: string[], isBody: boolean, hasRegular: boolean, designerName?: string, foundryName?: string, legibilityOverride?: number): Font {
   const slug = name.toLowerCase().replace(/\s+/g, "-");
   return {
     id: `gf-${slug}`, name, slug,
@@ -18,7 +18,7 @@ function gf(name: string, googleFamily: string, classification: string, tags: st
     useCases: isBody ? ["body text", "headlines"] : ["headlines", "display"],
     variableFont: false, weights: [400], styles: ["normal"],
     isHeaderSuitable: true, isBodySuitable: isBody,
-    bodyLegibilityScore: isBody ? 7 : 3,
+    bodyLegibilityScore: legibilityOverride ?? (isBody ? 7 : 3),
     screenReadabilityNotes: null,
     distinctiveTraits: [], historicalNotes: null,
     notableUseExamples: [], similarFonts: [],
@@ -538,9 +538,9 @@ export const allGoogleFonts: Font[] = [
   gf("Flamenco", "Flamenco", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "LatinoType"),
   gf("Flavors", "Flavors", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Sideshow"),
   gf("Fleur De Leah", "Fleur De Leah", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Robert Leuschke"),
-  gf("Flow Block", "Flow Block", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Dan Ross"),
-  gf("Flow Circular", "Flow Circular", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Dan Ross"),
-  gf("Flow Rounded", "Flow Rounded", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Dan Ross"),
+  gf("Flow Block", "Flow Block", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Dan Ross", undefined, 1),
+  gf("Flow Circular", "Flow Circular", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Dan Ross", undefined, 1),
+  gf("Flow Rounded", "Flow Rounded", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Dan Ross", undefined, 1),
   gf("Foldit", "Foldit", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Sophia Tai"),
   gf("Fondamento", "Fondamento", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Astigmatic"),
   gf("Fontdiner Swanky", "Fontdiner Swanky", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Font Diner"),
@@ -1551,8 +1551,8 @@ export const allGoogleFonts: Font[] = [
   gf("Red Hat Mono", "Red Hat Mono", "monospace", ["monospace","code","technical","developer"], ["technical","precise","structured"], true, true, "MCKL"),
   gf("Red Hat Text", "Red Hat Text", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "MCKL"),
   gf("Red Rose", "Red Rose", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Jaikishan Patel"),
-  gf("Redacted", "Redacted", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Christian Naths"),
-  gf("Redacted Script", "Redacted Script", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Christian Naths"),
+  gf("Redacted", "Redacted", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Christian Naths", undefined, 1),
+  gf("Redacted Script", "Redacted Script", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Christian Naths", undefined, 1),
   gf("Reddit Mono", "Reddit Mono", "monospace", ["monospace","code","technical","developer"], ["technical","precise","structured"], true, true, "Stephen Hutchings & OrangeRed"),
   gf("Reddit Sans", "Reddit Sans", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Stephen Hutchings & OrangeRed"),
   gf("Reddit Sans Condensed", "Reddit Sans Condensed", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Stephen Hutchings & OrangeRed"),
