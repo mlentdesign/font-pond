@@ -29,6 +29,7 @@ export function PromptInput() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [isDragging, setIsDragging] = useState(false);
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
@@ -94,6 +95,21 @@ export function PromptInput() {
       });
     },
     [removeImage]
+  );
+
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault();
+      setIsDragging(false);
+      const files = e.dataTransfer.files;
+      if (!files) return;
+      for (const file of Array.from(files)) {
+        if (!file.type.startsWith("image/")) continue;
+        addImage(file);
+        setImagePreviews((prev) => [...prev, URL.createObjectURL(file)]);
+      }
+    },
+    [addImage]
   );
 
   // Revoke any remaining image object URLs on unmount
@@ -232,7 +248,13 @@ export function PromptInput() {
             </div>
           )}
         <div className="action-bar-inner flex items-center justify-between">
-          <div className="action-bar-image flex items-center">
+          <div
+            className="action-bar-image flex items-center"
+            onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+            onDragEnter={(e) => { e.preventDefault(); setIsDragging(true); }}
+            onDragLeave={() => setIsDragging(false)}
+            onDrop={handleDrop}
+          >
             <input
               ref={fileInputRef}
               type="file"
@@ -245,8 +267,16 @@ export function PromptInput() {
             />
             <label
               htmlFor="image-upload"
-              className="flex items-center rounded-lg cursor-pointer transition-colors hover:opacity-70"
-              style={{ fontSize: "16px", fontWeight: 600, color: "var(--add-image-color)", gap: "4px" }}
+              className="flex items-center rounded-lg cursor-pointer transition-colors"
+              style={{
+                fontSize: "16px",
+                fontWeight: 600,
+                color: "var(--add-image-color)",
+                gap: "4px",
+                padding: "4px 8px",
+                border: isDragging ? "2px dashed var(--accent)" : "2px dashed transparent",
+                borderRadius: "8px",
+              }}
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
                 <rect x="2" y="3" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
