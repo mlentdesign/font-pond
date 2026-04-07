@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { setHeaderAnimationPaused } from "./RansomHeader";
 import { useAppState } from "@/lib/store";
@@ -9,6 +9,14 @@ export function Footer() {
   const [paused, setPaused] = useState(false);
   const { recentItems } = useAppState();
   const hasHistory = recentItems.length >= 2;
+  const [mobile, setMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const togglePause = () => {
     const next = !paused;
@@ -21,15 +29,30 @@ export function Footer() {
   return (
     <footer
       className="w-full mt-auto shell-padding site-footer"
-      style={{ background: "var(--bg-footer)", borderTop: "1px solid var(--border)", minHeight: "88px", paddingTop: "16px", paddingBottom: "16px" }}
+      style={{
+        background: "var(--bg-footer)",
+        borderTop: "1px solid var(--border)",
+        minHeight: "88px",
+        paddingTop: "16px",
+        paddingBottom: "16px",
+        display: "flex",
+        ...(mobile
+          ? { flexDirection: "column" as const, justifyContent: "center", alignItems: "stretch", gap: "0px" }
+          : { flexWrap: "wrap" as const, alignItems: "center", gap: "8px" }),
+      }}
     >
-      {/* Tagline — full width on mobile, inline on desktop */}
-      <Link href="/database" className="footer-tagline hover:opacity-70 transition-opacity" style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
+      <Link
+        href="/database"
+        className="footer-tagline hover:opacity-70 transition-opacity"
+        style={{ fontSize: "16px", color: "var(--text-ransom)", marginBottom: mobile ? "4px" : undefined }}
+      >
         Free font combinations for design work
       </Link>
 
-      {/* Bottom row: copyright+about on left, pause+spacer on right */}
-      <div className="footer-bottom flex items-center justify-between">
+      <div
+        className="footer-bottom flex items-center justify-between"
+        style={{ flex: mobile ? "none" : 1 }}
+      >
         <div className="footer-left flex items-center" style={{ gap: "16px" }}>
           <p style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
             &copy; 2026{" "}
