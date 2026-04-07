@@ -909,6 +909,7 @@ body.animations-paused #water-bg * {
   .action-bar-ctas {
     flex-direction: column !important;
     gap: 16px !important;
+    width: 100% !important;
   }
   .action-bar-ctas button {
     width: 100% !important;

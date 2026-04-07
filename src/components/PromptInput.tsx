@@ -274,10 +274,10 @@ export function PromptInput() {
                 fontWeight: 600,
                 color: "var(--add-image-color)",
                 gap: "4px",
-                padding: "4px 8px",
-                border: isDragging ? "3px dashed var(--accent)" : "3px dashed transparent",
+                padding: "4px 4px",
+                margin: "-4px -4px",
+                border: isDragging ? "2px dashed var(--accent)" : "2px dashed transparent",
                 borderRadius: "8px",
-                backgroundClip: "padding-box",
               }}
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
