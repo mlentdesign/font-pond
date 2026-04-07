@@ -97,13 +97,21 @@ export default function FontDetailPage() {
         <Breadcrumb
           crumbs={crumbs}
           sticky
-          stickyAction={showStickyDownload && font.sourceUrl ? (
+          stickyAction={font.sourceUrl ? (
             <a
               href={font.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="outline-btn font-medium rounded-lg transition-colors"
-              style={{ fontSize: "14px", padding: "6px 16px", whiteSpace: "nowrap" }}
+              className="outline-btn font-medium rounded-lg"
+              style={{
+                fontSize: "14px",
+                padding: "6px 16px",
+                whiteSpace: "nowrap",
+                opacity: showStickyDownload ? 1 : 0,
+                transform: showStickyDownload ? "translateY(0)" : "translateY(-8px)",
+                transition: "opacity 0.25s ease, transform 0.25s ease",
+                pointerEvents: showStickyDownload ? "auto" : "none",
+              }}
             >
               Download ↗
             </a>
