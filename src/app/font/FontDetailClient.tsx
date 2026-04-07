@@ -80,7 +80,7 @@ export default function FontDetailPage() {
     <div className="flex-1 flex flex-col">
       <DetailPageHeader />
 
-      <main id="main-content" className="flex-1 mx-auto w-full content-padding results-bottom-padding" style={{ paddingBottom: "80px", maxWidth: "1280px" }}>
+      <main id="main-content" className="flex-1 mx-auto w-full content-padding results-top-padding results-bottom-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
         <Breadcrumb crumbs={crumbs} sticky />
 
         {/* Font name, source, and download */}
@@ -269,7 +269,7 @@ export default function FontDetailPage() {
                     >
                       <span
                         className="opacity-0 group-hover:opacity-100 transition-opacity"
-                        style={{ position: "absolute", top: "16px", right: "16px", color: "var(--text-heading)", fontSize: "16px", pointerEvents: "none" }}
+                        style={{ position: "absolute", top: "16px", right: "16px", color: "var(--text-ransom)", fontSize: "16px", pointerEvents: "none" }}
                       >
                         ↗
                       </span>
