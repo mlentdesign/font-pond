@@ -15,7 +15,7 @@ export function RecentHistory() {
       <div className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center rounded-lg shadow-sm transition-all hover:opacity-70"
+          className="flex items-center rounded-lg shadow-sm transition-all card-hover"
           style={{
             fontSize: "16px",
             color: "var(--text-ransom)",
@@ -48,7 +48,7 @@ export function RecentHistory() {
                 <li key={item.id}>
                   <Link
                     href={item.type === "pair" ? `/pair?p=${item.slug}` : `/font?f=${item.slug}`}
-                    className="flex items-center transition-colors hover:opacity-70"
+                    className="flex items-center transition-colors card-hover"
                     style={{ padding: "8px 16px", gap: "8px" }}
                     onClick={() => setIsOpen(false)}
                   >
