@@ -991,27 +991,30 @@ body.animations-paused #water-bg * {
     right: 16px !important;
   }
 
-  /* Footer — safe area padding on mobile */
+  /* Footer mobile — sized so the fixed history chip appears centered in the footer.
+     Chip is 40px tall, sits 24px from bottom + safe-area.
+     Footer padding: 24px top + content + 24px below content, then safe-area at bottom.
+     Total bottom = 24px + 40px spacer + 24px + safe-area = chip looks centered. */
   .site-footer {
+    padding-top: 24px !important;
     padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important;
+    min-height: auto !important;
   }
 
   /* Footer mobile: left side stacks vertically, zero gap */
   .footer-wrap {
     flex-wrap: nowrap !important;
+    align-items: center !important;
   }
   .footer-left {
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 0 !important;
   }
-  .footer-right {
-    align-self: flex-end !important;
-  }
 
   .footer-pause-label { display: none !important; }
 
-  /* Spacer matches mobile history chip (icon only, 40px height) */
+  /* Spacer matches mobile history chip (icon only, 40px tall) */
   .footer-spacer {
     width: 46px !important;
     height: 40px !important;
