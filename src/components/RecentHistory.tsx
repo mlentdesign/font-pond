@@ -58,7 +58,7 @@ export function RecentHistory() {
           style={{
             fontSize: "16px",
             color: "var(--text-ransom)",
-            background: "var(--bg-card)",
+            background: "var(--bg-input)",
             border: "2px solid var(--border)",
             padding: "8px 12px",
             gap: "8px",
