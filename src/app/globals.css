@@ -174,6 +174,16 @@ header { z-index: 30; }
 footer { z-index: 20; position: relative; }
 .footer-left { gap: 16px; }
 main { z-index: 10; position: relative; }
+
+/* ── Footer grid — CSS-only responsive layout (no JS needed) ── */
+.footer-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 16px;
+}
+.footer-pause-label { display: inline; }
 .fixed { z-index: 40; }
 nav { position: relative; z-index: 10; }
 
@@ -988,10 +998,30 @@ body.animations-paused #water-bg * {
     padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important;
   }
 
-  /* Footer right — 24px gap between pause icon and history chip spacer */
-  .footer-right {
+  /* Footer mobile: CSS grid, no JS needed
+     Row 1: tagline full width
+     Row 2: copyright left, pause+spacer right */
+  .footer-grid {
+    display: grid !important;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0 !important;
+    align-items: center;
+  }
+  .footer-grid .footer-tagline {
+    grid-column: 1 / -1;
+  }
+  .footer-grid .footer-copyright {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .footer-grid .footer-right {
+    grid-column: 2;
+    grid-row: 2;
     gap: 24px !important;
   }
+
+  .footer-pause-label { display: none !important; }
 
   /* Spacer matches mobile history chip (icon only, 40px height) */
   .footer-spacer {
