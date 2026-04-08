@@ -1117,6 +1117,36 @@ body.animations-paused #water-bg * {
 }
 
 /* ══════════════════════════════════════════
+   MOBILE STICKY DOWNLOAD CTA (< 768px)
+   ══════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .mobile-sticky-download {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 35;
+    background: var(--bg);
+    padding: 14px 16px 18px;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    box-shadow: var(--shadow-edge-top);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+  }
+  .mobile-sticky-download.is-hidden {
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .breadcrumb-sticky {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+    box-shadow: 0 -24px 0 24px var(--bg) !important;
+  }
+}
+
+/* ══════════════════════════════════════════
    MOBILE ADJUSTMENTS (< 640px)
    ══════════════════════════════════════════ */
 @media (max-width: 639px) {
@@ -1318,32 +1348,4 @@ body.animations-paused #water-bg * {
     outline-offset: -1px;
   }
 
-  /* Sticky bottom download CTA on font pages — left-aligned with header "Font Pond",
-     vertically centered with the history chip */
-  .mobile-sticky-download {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 35;
-    background: var(--bg);
-    padding: 14px 16px 18px;
-    padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-    box-shadow: var(--shadow-edge-top);
-    transition: transform 0.2s ease, opacity 0.2s ease;
-    display: flex;
-    align-items: center;
-  }
-
-  /* Breadcrumb sticky — tighter on mobile to match sticky CTA container */
-  .breadcrumb-sticky {
-    padding-top: 12px !important;
-    padding-bottom: 12px !important;
-    box-shadow: 0 -24px 0 24px var(--bg) !important;
-  }
-  .mobile-sticky-download.is-hidden {
-    transform: translateY(100%);
-    opacity: 0;
-    pointer-events: none;
-  }
 }
