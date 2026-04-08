@@ -245,12 +245,23 @@ h1, h2, h3, h4, h5, h6, p, span, a, div {
 *:focus:not(:focus-visible) {
   outline: none;
 }
-/* Cards use hover-style feedback for focus — lighter bg + shadow instead of thick outline */
-.card-hover:focus-visible,
-a.card-hover:focus-visible {
-  outline: none;
-  background: var(--bg-card-hover) !important;
-  box-shadow: var(--shadow-card-hover) !important;
+/* Mouse users: cards show hover feedback, not focus outline */
+@media (hover: hover) {
+  .card-hover:focus,
+  .card-hover:focus-visible,
+  a.card-hover:focus,
+  a.card-hover:focus-visible {
+    outline: none !important;
+  }
+}
+/* Keyboard-only users (no hover capability): show card hover style on focus */
+@media (hover: none) {
+  .card-hover:focus-visible,
+  a.card-hover:focus-visible {
+    outline: none;
+    background: var(--bg-card-hover) !important;
+    box-shadow: var(--shadow-card-hover) !important;
+  }
 }
 
 /* ══════════════════════════════════════════
