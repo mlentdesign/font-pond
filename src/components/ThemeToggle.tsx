@@ -18,8 +18,15 @@ export function ThemeToggle() {
   const toggle = () => {
     const next = !dark;
     setDark(next);
+    // Enable transitions for smooth theme animation
+    document.documentElement.classList.add("theme-transitioning");
     document.documentElement.setAttribute("data-theme", next ? "dark" : "light");
+    document.documentElement.style.colorScheme = next ? "dark" : "light";
     localStorage.setItem("theme", next ? "dark" : "light");
+    // Remove transition class after animation completes
+    setTimeout(() => {
+      document.documentElement.classList.remove("theme-transitioning");
+    }, 350);
   };
 
   // Render a placeholder with fixed dimensions during SSR to avoid hydration mismatch
