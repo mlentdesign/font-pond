@@ -359,13 +359,6 @@ input[type="range"]::-moz-range-track {
 textarea, input, button, a, [role="link"] {
   transition-duration: 0.1s;
 }
-/* Kill ALL transitions during initial page load to prevent theme flash */
-[data-loading] *,
-[data-loading] *::before,
-[data-loading] *::after,
-[data-loading] {
-  transition: none !important;
-}
 
 /* Water background handled by WaterBackground canvas component.
    Old #water-bg CSS below is inert (element removed from DOM). */
