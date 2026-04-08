@@ -216,8 +216,8 @@ export function PromptInput() {
 
           {/* Mobile-only "Add image" — inside the text field area */}
           <div
-            className="mobile-add-image items-center"
-            style={{ padding: "16px 24px 8px" }}
+            className="mobile-add-image"
+            style={{ padding: "16px 24px 8px", flexDirection: "column", alignItems: "flex-start" }}
             onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
             onDragEnter={(e) => { e.preventDefault(); setIsDragging(true); }}
             onDragLeave={() => setIsDragging(false)}
