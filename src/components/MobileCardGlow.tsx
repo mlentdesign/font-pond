@@ -127,7 +127,17 @@ export function MobileCardGlow() {
       let bestCard: HTMLElement | null = null;
 
       if (atBottom && lastVisibleCard) {
-        bestCard = lastVisibleCard;
+        // At bottom: advance one card at a time so every card gets its turn
+        if (!activeCard || activeCard === lastVisibleCard) {
+          bestCard = lastVisibleCard;
+        } else {
+          const currentIdx = cards.indexOf(activeCard);
+          if (currentIdx >= 0 && currentIdx + 1 < cards.length) {
+            bestCard = cards[currentIdx + 1];
+          } else {
+            bestCard = lastVisibleCard;
+          }
+        }
       } else if (topEdgeCard) {
         bestCard = topEdgeCard;
       } else if (firstFullyVisible) {
