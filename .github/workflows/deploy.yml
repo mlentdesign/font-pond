@@ -27,9 +27,10 @@ jobs:
 
       - run: npm ci
       - run: node --max-old-space-size=8192 scripts/generate-slugs.mjs
-      - run: node --max-old-space-size=8192 --stack-size=65536 node_modules/.bin/next build
+      - run: npx next build
         env:
           NEXT_PUBLIC_BASE_PATH: /font-pond
+          NODE_OPTIONS: "--max-old-space-size=8192"
 
       - uses: actions/upload-pages-artifact@v3
         with:
