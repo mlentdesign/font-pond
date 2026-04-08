@@ -62,6 +62,7 @@ export function MobileCardGlow() {
       let mostPixelsCard: Element | null = null;
       let mostPixels = 0;
       let lastVisibleCard: Element | null = null;
+      let lastCardFullyVisible = false;
 
       for (const card of cards) {
         const rect = card.getBoundingClientRect();
@@ -83,12 +84,16 @@ export function MobileCardGlow() {
         if (isFullyVisible && !firstFullyVisible) {
           firstFullyVisible = card;
         }
+        // Track if the last visible card is fully visible
+        lastCardFullyVisible = isFullyVisible;
       }
 
       let bestCard: Element | null = null;
 
-      if (atBottom && lastVisibleCard) {
-        // At the bottom, the last visible card always gets its turn
+      if (atBottom && lastVisibleCard && !lastCardFullyVisible) {
+        // At the bottom, force the last card only if it's partially clipped
+        // (it would never win otherwise). If it's fully visible, normal
+        // topmost logic will cycle through to it naturally.
         bestCard = lastVisibleCard;
       } else if (firstFullyVisible) {
         // Topmost fully-uncovered card wins — ensures every card gets a turn
