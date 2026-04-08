@@ -860,7 +860,7 @@ body.animations-paused #water-bg * {
   right: 0;
   bottom: 0;
   border: 2px solid var(--accent);
-  border-radius: 16px 16px 0 0;
+  border-radius: 10px 10px 0 0;
   pointer-events: none;
   z-index: 10;
 }
