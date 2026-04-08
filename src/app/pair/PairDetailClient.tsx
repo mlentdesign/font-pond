@@ -56,7 +56,7 @@ function FontSection({
             className="shrink-0 btn-generate font-medium rounded-lg transition-colors"
             style={{ fontSize: "16px", padding: "8px 24px", textDecoration: "none" }}
           >
-            {sourceLabel}
+            {sourceLabel} ↗
           </a>
         ) : (
           <span className="shrink-0 bg-neutral-100 text-neutral-500 rounded-md" style={{ fontSize: "14px", padding: "4px 12px" }}>
