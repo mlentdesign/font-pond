@@ -1099,7 +1099,8 @@ body.animations-paused #water-bg * {
   }
   /* Focus border should wrap only the textarea, not the mobile "Add image" below it */
   .prompt-textarea-wrap:focus-within::before {
-    bottom: 48px;
+    bottom: auto;
+    height: 120px;
   }
 
   /* Reduce top/bottom padding on results page */
