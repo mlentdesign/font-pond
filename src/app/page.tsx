@@ -10,11 +10,11 @@ import { useAppState } from "@/lib/store";
 import { rankPairs, explorePairs } from "@/lib/engine";
 
 export default function Home() {
-  const { hasSearched, setQuery, setResults, setHasSearched, setIsExploring, setVisibleCount, setIsLoading } = useAppState();
+  const { hasSearched, results, setQuery, setResults, setHasSearched, setIsExploring, setVisibleCount, setIsLoading } = useAppState();
 
   // Restore last search when returning via breadcrumb
   useEffect(() => {
-    if (hasSearched) return; // already showing results
+    if (hasSearched && results.length > 0) return; // already showing results
     try {
       const saved = localStorage.getItem("font-pond-last-query");
       if (!saved) return;
