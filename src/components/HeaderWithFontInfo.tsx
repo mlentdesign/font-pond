@@ -25,7 +25,7 @@ export function HeaderWithFontInfo() {
 
   const handleFontClick = () => {
     if (currentSlug) {
-      router.push(`/font?f=${currentSlug}`);
+      router.push(`/font/${currentSlug}`);
       setShowTooltip(false);
     }
   };

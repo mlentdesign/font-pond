@@ -1,5 +1,113 @@
 import { Font, FontClassification } from "./types";
 
+// Hand-researched anatomy for every Google Fonts Extended entry
+// [xHeightRatio, apertureOpenness, strokeContrast, letterSpacing, moodCategory]
+type AT = [Font["xHeightRatio"], Font["apertureOpenness"], Font["strokeContrast"], Font["letterSpacing"], Font["moodCategory"]];
+const GFE_ANATOMY: Record<string, AT> = {
+  // ── Display Serif / High-Contrast ──
+  "abril-fatface":        ["moderate", "moderate", "high",     "normal",   "elegant"],    // Didone display, extreme contrast
+  "yeseva-one":           ["moderate", "moderate", "high",     "normal",   "elegant"],    // Didone-inspired, decorative serifs
+  "ultra":                ["high",     "closed",   "low",      "tight",    "bold"],       // ultra-heavy serif
+  "vast-shadow":          ["moderate", "moderate", "high",     "normal",   "elegant"],    // drop-shadow Didone
+  "rye":                  ["moderate", "moderate", "moderate", "normal",   "traditional"], // western serif display
+  "baskervville":         ["moderate", "moderate", "moderate", "normal",   "traditional"], // Baskerville revival
+  "cinzel-decorative":    ["moderate", "moderate", "moderate", "generous", "elegant"],    // decorative Roman capitals
+  "yuji-mai":             ["moderate", "moderate", "moderate", "normal",   "elegant"],    // Japanese-influenced brush serif
+  // ── Slab Display ──
+  "alfa-slab-one":        ["high",     "closed",   "low",      "tight",    "bold"],       // ultra-heavy slab
+  "patua-one":            ["high",     "closed",   "low",      "tight",    "bold"],       // heavy slab display
+  "rammetto-one":         ["high",     "closed",   "low",      "tight",    "bold"],       // heavy rounded slab
+  "shrikhand":            ["high",     "closed",   "low",      "tight",    "bold"],       // Indian-inspired heavy slab
+  // ── Bold / Impact Sans ──
+  "bangers":              ["high",     "closed",   "none",     "tight",    "playful"],    // comic book impact
+  "luckiest-guy":         ["high",     "closed",   "low",      "tight",    "playful"],    // bouncy heavy display
+  "fugaz-one":            ["high",     "closed",   "none",     "tight",    "bold"],       // italic impact
+  "staatliches":          ["high",     "closed",   "none",     "tight",    "bold"],       // condensed geometric
+  "titan-one":            ["high",     "closed",   "low",      "tight",    "bold"],       // heavy rounded impact
+  "modak":                ["high",     "closed",   "low",      "tight",    "playful"],    // chunky Indian-inspired
+  "black-ops-one":        ["high",     "closed",   "none",     "tight",    "technical"],  // military stencil
+  // ── Rounded / Friendly Display ──
+  "fredoka":              ["moderate", "open",     "low",      "normal",   "playful"],    // fully rounded, bubbly
+  "bubblegum-sans":       ["moderate", "open",     "low",      "normal",   "playful"],    // bubbly casual
+  "comfortaa":            ["moderate", "open",     "none",     "normal",   "modern"],     // rounded geometric
+  "leckerli-one":         ["moderate", "moderate", "low",      "normal",   "warm"],       // rounded casual
+  // ── Experimental / Decorative ──
+  "bungee":               ["high",     "closed",   "none",     "tight",    "bold"],       // signage-inspired
+  "bungee-inline":        ["high",     "closed",   "none",     "tight",    "experimental"], // inline variant
+  "bungee-shade":         ["high",     "closed",   "none",     "tight",    "experimental"], // shadow variant
+  "tourney":              ["moderate", "moderate", "none",     "normal",   "technical"],  // variable sports display
+  "climate-crisis":       ["moderate", "moderate", "none",     "normal",   "experimental"], // eco-message font
+  "rubik-glitch":         ["moderate", "moderate", "none",     "normal",   "experimental"],
+  "rubik-vinyl":          ["moderate", "moderate", "none",     "normal",   "experimental"],
+  "rubik-wet-paint":      ["moderate", "moderate", "none",     "normal",   "experimental"],
+  "rubik-burned":         ["moderate", "moderate", "none",     "normal",   "experimental"],
+  "rubik-moonrocks":      ["moderate", "moderate", "none",     "normal",   "experimental"],
+  "rubik-puddles":        ["moderate", "moderate", "none",     "normal",   "experimental"],
+  "rubik-storm":          ["moderate", "moderate", "none",     "normal",   "experimental"],
+  "megrim":               ["low",      "moderate", "none",     "generous", "experimental"], // ultra-thin geometric
+  "nixie-one":            ["moderate", "moderate", "none",     "generous", "experimental"], // neon tube inspired
+  "poiret-one":           ["low",      "moderate", "none",     "generous", "elegant"],    // Art Deco geometric
+  "zen-dots":             ["moderate", "moderate", "none",     "normal",   "technical"],  // dotted futuristic
+  // ── Horror / Dark ──
+  "creepster":            ["moderate", "moderate", "low",      "normal",   "experimental"],
+  "nosifer":              ["moderate", "moderate", "low",      "normal",   "experimental"],
+  "butcherman":           ["moderate", "moderate", "low",      "normal",   "experimental"],
+  "eater":                ["moderate", "moderate", "low",      "normal",   "experimental"],
+  "metal-mania":          ["moderate", "closed",   "none",     "tight",    "experimental"],
+  // ── Fun / Quirky ──
+  "jolly-lodger":         ["moderate", "moderate", "low",      "normal",   "playful"],
+  "emilys-candy":         ["moderate", "moderate", "moderate", "normal",   "playful"],
+  "mystery-quest":        ["moderate", "moderate", "moderate", "normal",   "experimental"],
+  "flavors":              ["moderate", "moderate", "low",      "normal",   "playful"],
+  "freckle-face":         ["moderate", "open",     "low",      "normal",   "playful"],
+  "irish-grover":         ["moderate", "moderate", "low",      "normal",   "playful"],
+  "henny-penny":          ["moderate", "moderate", "moderate", "normal",   "playful"],
+  "kranky":               ["moderate", "moderate", "low",      "normal",   "playful"],
+  "dokdo":                ["moderate", "moderate", "low",      "normal",   "experimental"],
+  // ── Gothic / Blackletter ──
+  "unifrakturmaguntia":   ["low",      "closed",   "moderate", "normal",   "traditional"],
+  // ── Script / Calligraphic ──
+  "dancing-script":       ["moderate", "moderate", "moderate", "normal",   "warm"],
+  "great-vibes":          ["low",      "moderate", "high",     "normal",   "elegant"],
+  "sacramento":           ["low",      "moderate", "moderate", "normal",   "elegant"],
+  "pacifico":             ["moderate", "moderate", "moderate", "normal",   "warm"],
+  "satisfy":              ["low",      "moderate", "moderate", "normal",   "warm"],
+  "kaushan-script":       ["moderate", "moderate", "moderate", "normal",   "warm"],
+  "yellowtail":           ["moderate", "moderate", "moderate", "normal",   "warm"],
+  "passions-conflict":    ["low",      "moderate", "high",     "normal",   "elegant"],
+  "berkshire-swash":      ["moderate", "moderate", "moderate", "normal",   "elegant"],
+  "alex-brush":           ["low",      "moderate", "moderate", "normal",   "elegant"],
+  "almendra-display":     ["moderate", "moderate", "moderate", "normal",   "elegant"],
+  "lobster":              ["moderate", "moderate", "moderate", "normal",   "warm"],
+  // ── Handwritten ──
+  "caveat":               ["moderate", "open",     "low",      "normal",   "warm"],
+  "permanent-marker":     ["moderate", "moderate", "moderate", "normal",   "experimental"],
+  "rock-salt":            ["moderate", "moderate", "low",      "generous", "experimental"],
+  "homemade-apple":       ["moderate", "open",     "low",      "generous", "warm"],
+  "indie-flower":         ["moderate", "open",     "low",      "generous", "warm"],
+  "shadows-into-light":   ["moderate", "open",     "low",      "generous", "warm"],
+  "covered-by-your-grace":["moderate", "open",     "low",      "generous", "warm"],
+  "gloria-hallelujah":    ["moderate", "open",     "low",      "generous", "warm"],
+  "reenie-beanie":        ["moderate", "open",     "low",      "generous", "warm"],
+  "special-elite":        ["moderate", "moderate", "moderate", "normal",   "experimental"],
+  "amatic-sc":            ["low",      "moderate", "none",     "generous", "warm"],
+  // ── Tech / Pixel ──
+  "press-start-2p":       ["high",     "closed",   "none",     "tight",    "technical"],
+  "vt323":                ["high",     "closed",   "none",     "tight",    "technical"],
+  "silkscreen":           ["high",     "closed",   "none",     "tight",    "technical"],
+  "audiowide":            ["moderate", "closed",   "none",     "tight",    "modern"],
+  "orbitron":             ["moderate", "closed",   "none",     "tight",    "technical"],
+  // ── Retro / Pop ──
+  "righteous":            ["moderate", "moderate", "none",     "normal",   "playful"],
+  "syne":                 ["moderate", "moderate", "none",     "normal",   "experimental"],
+  "pirata-one":           ["moderate", "moderate", "moderate", "normal",   "traditional"],
+  "faster-one":           ["moderate", "moderate", "none",     "normal",   "bold"],
+  "monoton":              ["moderate", "moderate", "none",     "normal",   "experimental"],
+  "codystar":             ["low",      "moderate", "none",     "generous", "experimental"],
+  "fascinate":            ["moderate", "moderate", "none",     "normal",   "experimental"],
+  "fascinate-inline":     ["moderate", "moderate", "none",     "normal",   "experimental"],
+};
+
 // ── Factory for display-only Google Fonts ──
 // Keeps entries compact — all share OFL 1.1, google-fonts source, header-only defaults.
 
@@ -14,31 +122,13 @@ function gfDisplay(
   opts?: Partial<Font>,
 ): Font {
   const slug = name.toLowerCase().replace(/\s+/g, "-");
-  // Per-font anatomy derivation
-  const allWords = [...tags, ...toneDescriptors, ...distinctiveTraits].map(s => s.toLowerCase()).join(" ");
-  const xh: Font["xHeightRatio"] =
-    allWords.includes("condensed") || allWords.includes("impact") || allWords.includes("bold") ? "high" :
-    allWords.includes("script") || allWords.includes("calligraph") || allWords.includes("decorative") ? "low" : "moderate";
-  const ap: Font["apertureOpenness"] =
-    allWords.includes("condensed") || allWords.includes("tight") || allWords.includes("impact") || allWords.includes("heavy") ? "closed" :
-    allWords.includes("open") || allWords.includes("rounded") || allWords.includes("friendly") ? "open" : "moderate";
-  const sc: Font["strokeContrast"] =
-    allWords.includes("high-contrast") || allWords.includes("high contrast") || (allWords.includes("elegant") && classification === "serif") ? "high" :
-    allWords.includes("script") || allWords.includes("calligraph") || allWords.includes("brush") ? "moderate" :
-    allWords.includes("slab") || allWords.includes("rounded") ? "low" :
-    classification === "sans-serif" ? "none" : classification === "serif" ? "moderate" : "low";
-  const ls: Font["letterSpacing"] =
-    allWords.includes("condensed") || allWords.includes("tight") || allWords.includes("impact") ? "tight" :
-    allWords.includes("wide") || allWords.includes("generous") ? "generous" : "normal";
-  const mc: Font["moodCategory"] =
-    allWords.includes("grunge") || allWords.includes("punk") || allWords.includes("horror") || allWords.includes("experimental") || allWords.includes("raw") ? "experimental" :
-    allWords.includes("playful") || allWords.includes("fun") || allWords.includes("cute") || allWords.includes("bubbly") || allWords.includes("whimsical") ? "playful" :
-    allWords.includes("elegant") || allWords.includes("luxury") || allWords.includes("sophisticated") || allWords.includes("refined") ? "elegant" :
-    allWords.includes("bold") || allWords.includes("impactful") || allWords.includes("powerful") || allWords.includes("fierce") ? "bold" :
-    allWords.includes("warm") || allWords.includes("friendly") || allWords.includes("casual") || allWords.includes("handwritten") ? "warm" :
-    allWords.includes("retro") || allWords.includes("vintage") || allWords.includes("classic") || allWords.includes("western") ? "traditional" :
-    allWords.includes("pixel") || allWords.includes("stencil") || allWords.includes("military") || allWords.includes("digital") ? "technical" :
-    allWords.includes("modern") || allWords.includes("sleek") || allWords.includes("futuristic") ? "modern" : "bold";
+  // Look up hand-researched anatomy, fallback for any unlisted font
+  const a = GFE_ANATOMY[slug] ?? (
+    classification === "script" ? ["low", "moderate", "moderate", "normal", "elegant"] as AT :
+    classification === "handwritten" ? ["moderate", "open", "low", "generous", "warm"] as AT :
+    classification === "serif" ? ["moderate", "moderate", "moderate", "normal", "traditional"] as AT :
+    ["moderate", "moderate", "none", "normal", "bold"] as AT
+  );
   return {
     id: slug,
     name,
@@ -66,11 +156,11 @@ function gfDisplay(
     bodyLegibilityScore: null,
     screenReadabilityNotes: null,
     distinctiveTraits,
-    xHeightRatio: xh,
-    apertureOpenness: ap,
-    strokeContrast: sc,
-    letterSpacing: ls,
-    moodCategory: mc,
+    xHeightRatio: a[0],
+    apertureOpenness: a[1],
+    strokeContrast: a[2],
+    letterSpacing: a[3],
+    moodCategory: a[4],
     historicalNotes: null,
     notableUseExamples: [],
     similarFonts: [],

@@ -38,32 +38,139 @@ function fs(
   if (classification === "serif" && isBody) useCases.push("long-form reading", "editorial");
   if (classification === "sans-serif" && isBody) useCases.push("UI text", "navigation");
 
-  // Per-font anatomy derivation from tags/traits/tones
-  const allWords = [...tags, ...toneDescriptors, ...(opts?.distinctiveTraits || [])].map(s => s.toLowerCase()).join(" ");
-  const derivedXHeight: Font["xHeightRatio"] = opts?.xHeightRatio ??
-    (allWords.includes("generous x-height") || allWords.includes("tall x-height") || (isBody && (opts?.bodyLegibilityScore ?? 0) >= 9) ? "high" :
-     allWords.includes("condensed") || allWords.includes("compact") ? "moderate" :
-     allWords.includes("decorative") || allWords.includes("ornamental") || classification === "script" ? "low" : "moderate");
-  const derivedAperture: Font["apertureOpenness"] = opts?.apertureOpenness ??
-    (allWords.includes("open aperture") || allWords.includes("open forms") || allWords.includes("humanist") || (isBody && (opts?.bodyLegibilityScore ?? 0) >= 8) ? "open" :
-     allWords.includes("condensed") || allWords.includes("tight") || allWords.includes("compressed") || allWords.includes("blocky") ? "closed" : "moderate");
-  const derivedStroke: Font["strokeContrast"] = opts?.strokeContrast ??
-    (allWords.includes("high contrast") || allWords.includes("high-contrast") || allWords.includes("extreme contrast") || allWords.includes("didone") ? "high" :
-     allWords.includes("low contrast") || allWords.includes("rounded") || allWords.includes("slab") ? "low" :
-     classification === "sans-serif" || classification === "monospace" ? "none" :
-     classification === "serif" || classification === "script" ? "moderate" : "low");
-  const derivedSpacing: Font["letterSpacing"] = opts?.letterSpacing ??
-    (allWords.includes("condensed") || allWords.includes("tight") || allWords.includes("compressed") || allWords.includes("narrow") ? "tight" :
-     allWords.includes("wide") || allWords.includes("spacious") || classification === "monospace" ? "generous" : "normal");
-  const derivedMood: Font["moodCategory"] = opts?.moodCategory ??
-    (allWords.includes("experimental") || allWords.includes("avant-garde") || allWords.includes("unconventional") || allWords.includes("artistic") ? "experimental" :
-     allWords.includes("playful") || allWords.includes("fun") || allWords.includes("bubbly") || allWords.includes("cute") || allWords.includes("cheerful") ? "playful" :
-     allWords.includes("elegant") || allWords.includes("luxury") || allWords.includes("sophisticated") || allWords.includes("editorial") || allWords.includes("refined") ? "elegant" :
-     allWords.includes("bold") || allWords.includes("impactful") || allWords.includes("powerful") || allWords.includes("fierce") || allWords.includes("commanding") ? "bold" :
-     allWords.includes("warm") || allWords.includes("friendly") || allWords.includes("approachable") || allWords.includes("cozy") || allWords.includes("casual") ? "warm" :
-     allWords.includes("classic") || allWords.includes("traditional") || allWords.includes("vintage") || allWords.includes("literary") ? "traditional" :
-     allWords.includes("technical") || allWords.includes("precise") || allWords.includes("systematic") || allWords.includes("digital") || allWords.includes("coding") ? "technical" :
-     allWords.includes("modern") || allWords.includes("contemporary") || allWords.includes("geometric") || allWords.includes("minimal") ? "modern" : "neutral");
+  // Hand-researched anatomy lookup — every font gets explicit values
+  type AnatomyTuple = [Font["xHeightRatio"], Font["apertureOpenness"], Font["strokeContrast"], Font["letterSpacing"], Font["moodCategory"]];
+  const FONT_ANATOMY: Record<string, AnatomyTuple> = {
+    // ── Sans-Serif (body-suitable) ──
+    "kihim":            ["high",     "open",     "none",     "normal",   "warm"],       // rounded, friendly, generous x-height, open apertures
+    "synonym":          ["moderate", "open",     "none",     "normal",   "neutral"],    // workhorse neutral, even strokes, clear forms
+    "general-sans":     ["high",     "open",     "none",     "normal",   "neutral"],    // geometric-humanist hybrid, generous spacing, legibility-first
+    "rowan":            ["moderate", "open",     "none",     "normal",   "warm"],       // humanist, warm curves, calligraphic influence
+    "technor":          ["moderate", "moderate", "none",     "normal",   "technical"],  // squared terminals, tech precision, mono-width feel
+    "switzer":          ["high",     "open",     "none",     "normal",   "neutral"],    // Swiss grotesque, excellent readability, neo-grotesk
+    "pilcrow-rounded":  ["moderate", "open",     "low",      "normal",   "warm"],       // rounded terminals, soft, friendly reading
+    "kohinoor-zerone":  ["moderate", "moderate", "none",     "normal",   "modern"],     // geometric, structured, multilingual heritage
+    "alpino":           ["moderate", "moderate", "none",     "normal",   "technical"],  // geometric skeleton, crisp terminals, mathematical
+    "amulya":           ["moderate", "open",     "none",     "normal",   "warm"],       // humanist warmth, open apertures, comfortable
+    "array":            ["moderate", "moderate", "none",     "normal",   "technical"],  // grid-derived, systematic, digital-native
+    "bespoke-sans":     ["moderate", "open",     "none",     "normal",   "modern"],     // tailored proportions, refined, professional
+    "clash-grotesk":    ["moderate", "moderate", "none",     "normal",   "bold"],       // sharp geometric cuts, fashion-forward
+    "chubbo":           ["moderate", "open",     "low",      "normal",   "playful"],    // extra-rounded, bubbly, generously padded
+    "chillax":          ["moderate", "moderate", "none",     "normal",   "warm"],       // relaxed tension, casual curves, easy-going
+    "cabinet-grotesk":  ["moderate", "moderate", "none",     "normal",   "bold"],       // wide weight range, confident grotesk
+    "be-vietnam-pro":   ["moderate", "open",     "none",     "normal",   "modern"],     // Vietnamese-optimized, crisp modern forms
+    "nunito":           ["moderate", "open",     "low",      "normal",   "warm"],       // fully rounded terminals, warm sans
+    "epilogue":         ["moderate", "open",     "none",     "normal",   "elegant"],    // transitional sans, editorial sophistication
+    "spline-sans":      ["moderate", "open",     "none",     "normal",   "modern"],     // spline-curve construction, mathematical precision
+    "montserrat":       ["moderate", "moderate", "none",     "normal",   "bold"],       // Buenos Aires signage, geometric, urban
+    "manrope":          ["high",     "open",     "none",     "normal",   "modern"],     // semi-geometric, open forms, tech-forward
+    "outfit":           ["moderate", "open",     "none",     "normal",   "modern"],     // geometric with soft corners, friendly
+    "poppins":          ["moderate", "moderate", "none",     "normal",   "modern"],     // perfectly circular rounds, geometric purity
+    "work-sans":        ["high",     "open",     "none",     "normal",   "neutral"],    // screen body text optimized, grotesque-inspired
+    "asap":             ["moderate", "open",     "low",      "normal",   "warm"],       // subtly rounded terminals, body-text optimized
+    "public-sans":      ["high",     "open",     "none",     "normal",   "neutral"],    // US gov design system, extreme neutrality, accessibility-first
+    "plus-jakarta-sans":["moderate", "open",     "none",     "normal",   "modern"],     // geometric with humanist warmth, startup-darling
+    "satoshi":          ["high",     "open",     "none",     "normal",   "modern"],     // contemporary grotesk, Fontshare flagship, universally loved
+    "familjen-grotesk": ["moderate", "moderate", "none",     "normal",   "elegant"],    // quirky details, editorial character, Swedish
+    "excon":            ["moderate", "moderate", "none",     "normal",   "bold"],       // extended width, geometric, confident wide
+    "nippo":            ["moderate", "moderate", "none",     "normal",   "modern"],     // Japanese aesthetic, geometric purity
+    "pally":            ["moderate", "open",     "low",      "normal",   "playful"],    // bouncy rounded, playful, joyful soft
+    "roundo":           ["moderate", "open",     "low",      "normal",   "warm"],       // fully rounded stroke ends, soft geometric
+    "neco":             ["moderate", "moderate", "none",     "normal",   "experimental"], // unconventional shapes, quirky, art-directed
+    "space-grotesk":    ["moderate", "moderate", "none",     "normal",   "technical"],  // Space Mono sibling, geometric with quirks
+    "supreme":          ["moderate", "open",     "none",     "normal",   "neutral"],    // neo-grotesque, balanced, wide utility
+    "plein":            ["moderate", "moderate", "none",     "normal",   "bold"],       // strong geometric, confident bold, minimal
+    "zina":             ["moderate", "moderate", "none",     "normal",   "elegant"],    // refined feminine forms, elegant proportions
+    "red-hat-display":  ["moderate", "moderate", "none",     "normal",   "modern"],     // Red Hat brand heritage, display-optimized
+    "sora":             ["moderate", "moderate", "none",     "normal",   "technical"],  // Japanese typographic influence, geometric
+    "merriweather-sans":["high",     "open",     "none",     "normal",   "warm"],       // Merriweather companion, screen-optimized, humanist
+    "quicksand":        ["moderate", "open",     "low",      "normal",   "warm"],       // geometric rounded, soft friendly, wide apertures
+    "fraktion":         ["moderate", "moderate", "none",     "normal",   "technical"],  // fractional precision, grid-based, mathematical
+    "wotfard":          ["moderate", "open",     "none",     "normal",   "warm"],       // Futura-inspired with warmth, softened geometric
+    "aspekta":          ["moderate", "open",     "none",     "normal",   "modern"],     // geometric foundations, wide weights, screen-ready
+    "nohemi":           ["moderate", "open",     "none",     "normal",   "modern"],     // geometric clarity, contemporary neo-grotesque
+    "ranade":           ["moderate", "open",     "none",     "normal",   "warm"],       // humanist, Marathi influence, warm natural
+    "saturo":           ["moderate", "open",     "none",     "normal",   "neutral"],    // balanced geometric, versatile workhorse
+    "range":            ["moderate", "open",     "none",     "normal",   "modern"],     // wide geometric, spacious open forms
+    "hygge":            ["moderate", "open",     "low",      "normal",   "warm"],       // soft rounded terminals, cozy Scandinavian
+    "archivo":          ["high",     "open",     "none",     "normal",   "neutral"],    // grotesque heritage, high legibility
+    "segment":          ["moderate", "moderate", "none",     "normal",   "technical"],  // segment-display inspired, digital readout
+    "rx100":            ["moderate", "moderate", "none",     "normal",   "technical"],  // camera-model naming, angular digital
+    // ── Sans-Serif (display-only) ──
+    "oswald":           ["high",     "closed",   "none",     "tight",    "bold"],       // condensed gothic, strong vertical emphasis
+    "nekst":            ["moderate", "closed",   "none",     "tight",    "bold"],       // condensed industrial, tight headline spacing
+    "trench":           ["moderate", "closed",   "none",     "tight",    "bold"],       // military-inspired condensed, utilitarian
+    "integral-cf":      ["high",     "closed",   "none",     "tight",    "bold"],       // all-caps display, ultra-bold condensed
+    // ── Serif (body-suitable) ──
+    "gambetta":         ["moderate", "moderate", "moderate", "normal",   "traditional"], // old-style proportions, warm serif brackets
+    "sentient":         ["moderate", "moderate", "high",     "normal",   "elegant"],    // contemporary serif, sharp wedge serifs, high-contrast
+    "author":           ["moderate", "moderate", "moderate", "normal",   "warm"],       // calligraphic serif, literary character
+    "bespoke-serif":    ["moderate", "moderate", "moderate", "normal",   "elegant"],    // custom serif details, editorial polish
+    "bonny":            ["moderate", "moderate", "moderate", "normal",   "traditional"], // warm transitional serifs, old-style figures
+    "erode":            ["moderate", "moderate", "moderate", "normal",   "elegant"],    // sharp triangular serifs, contemporary
+    "crimson-pro":      ["moderate", "open",     "moderate", "normal",   "traditional"], // Garamond-inspired, old-style figures, book quality
+    "lora":             ["moderate", "open",     "moderate", "normal",   "warm"],       // calligraphic roots, moderate contrast
+    "literata":         ["moderate", "open",     "moderate", "normal",   "traditional"], // Google Play Books, long reading optimized
+    "recia":            ["moderate", "moderate", "moderate", "normal",   "traditional"], // transitional serif, refined classical
+    "telma":            ["moderate", "open",     "moderate", "normal",   "warm"],       // humanist serif warmth, friendly personality
+    "paquito":          ["moderate", "open",     "moderate", "normal",   "warm"],       // friendly serif, warm inviting forms
+    "quilon":           ["moderate", "moderate", "high",     "normal",   "elegant"],    // sharp wedge serifs, editorial refinement
+    "otterco":          ["moderate", "moderate", "moderate", "normal",   "elegant"],    // contemporary editorial serif, crisp details
+    "nueva":            ["moderate", "moderate", "moderate", "normal",   "elegant"],    // contemporary serif warmth, literary comfort
+    "migra":            ["moderate", "moderate", "high",     "normal",   "elegant"],    // optical size axis, dramatic contrast variation
+    // ── Serif (display-only) ──
+    "gambarino":        ["moderate", "moderate", "high",     "normal",   "elegant"],    // high stroke contrast, dramatic thick-thin
+    "boska":            ["moderate", "moderate", "high",     "normal",   "bold"],       // extreme stroke contrast, fashion-forward
+    "melodrama":        ["moderate", "moderate", "high",     "normal",   "bold"],       // extreme contrast, theatrical flair
+    "expose":           ["moderate", "moderate", "high",     "normal",   "elegant"],    // extreme thin-thick contrast, fashion magazine
+    "new-title":        ["moderate", "moderate", "high",     "normal",   "elegant"],    // title-optimized, high stroke contrast
+    "zodiak":           ["moderate", "moderate", "high",     "normal",   "elegant"],    // extreme stroke contrast, Didone elegance
+    "stardom":          ["moderate", "moderate", "high",     "normal",   "elegant"],    // dramatic weight contrast, fashion-forward
+    "magnat":           ["moderate", "moderate", "high",     "normal",   "elegant"],    // magnetic high-contrast, fashion editorial
+    "swear-display":    ["moderate", "moderate", "high",     "normal",   "elegant"],    // extreme contrast display serif, luxury
+    // ── Slab-Serif ──
+    "bespoke-slab":     ["moderate", "moderate", "low",      "normal",   "bold"],       // blocky slab serifs, sturdy construction
+    "trench-slab":      ["moderate", "moderate", "low",      "normal",   "bold"],       // heavy slab serifs, industrial
+    // ── Display (sans-based) ──
+    "comico":           ["moderate", "closed",   "low",      "normal",   "playful"],    // comic-inspired, exaggerated proportions
+    "tanker":           ["high",     "closed",   "none",     "tight",    "bold"],       // ultra-bold, compressed, industrial
+    "boxing":           ["high",     "closed",   "none",     "tight",    "bold"],       // blocky, athletic, high-impact
+    "clash-display":    ["moderate", "moderate", "low",      "normal",   "bold"],       // dramatic angular cuts, fashion-forward
+    "striper":          ["moderate", "moderate", "none",     "normal",   "experimental"], // inline striped, decorative, graphic
+    "aktura":           ["moderate", "moderate", "none",     "normal",   "experimental"], // decorative inline cuts, stencil-like
+    "bespoke-stencil":  ["moderate", "moderate", "none",     "normal",   "experimental"], // stencil cuts, graphic industrial
+    "kola":             ["moderate", "moderate", "low",      "normal",   "playful"],    // chunky rounded, playful bold
+    "panchang":         ["moderate", "moderate", "none",     "normal",   "bold"],       // angular geometric cuts, sharp pointed
+    "hoover":           ["moderate", "moderate", "none",     "normal",   "traditional"], // retro-industrial, heavy solid forms
+    "grifter":          ["moderate", "closed",   "low",      "normal",   "playful"],    // ultra-bold rounded, chunky playful
+    "cope":             ["moderate", "moderate", "none",     "normal",   "experimental"], // unconventional, artistic display
+    "humane":           ["low",      "closed",   "none",     "tight",    "elegant"],    // ultra-condensed, towering, fashion
+    "styro":            ["moderate", "moderate", "none",     "normal",   "experimental"], // dimensional, playful construction
+    "vasion":           ["moderate", "moderate", "none",     "normal",   "modern"],     // futuristic geometric, sci-fi display
+    "hallenger":        ["moderate", "moderate", "low",      "normal",   "traditional"], // vintage display, retro ornamental
+    "bevellier":        ["moderate", "moderate", "low",      "normal",   "elegant"],    // beveled edge, Art Deco, luxury
+    // ── Monospace ──
+    "tabular":          ["moderate", "moderate", "none",     "generous", "technical"],  // fixed-width, coding-optimized
+    "azeret-mono":      ["moderate", "moderate", "none",     "generous", "technical"],  // contemporary mono, crisp modern
+    "jetbrains-mono":   ["high",     "open",     "none",     "generous", "technical"],  // increased letter height, coding ligatures
+    // ── Script / Handwritten ──
+    "britney":          ["low",      "moderate", "moderate", "normal",   "elegant"],    // flowing connected script, decorative swashes
+    "pencerio":         ["low",      "moderate", "moderate", "normal",   "elegant"],    // ornamental script, flowing strokes
+    "rosaline":         ["low",      "moderate", "moderate", "normal",   "elegant"],    // elegant script loops, bridal sophistication
+    "dancing-script":   ["moderate", "moderate", "moderate", "normal",   "warm"],       // bouncy baseline, casual handwriting
+    "kalam":            ["moderate", "open",     "low",      "normal",   "warm"],       // pen-drawn, natural handwriting rhythm
+    "sharpie":          ["moderate", "moderate", "moderate", "normal",   "experimental"], // marker-pen texture, bold handwritten
+    // ── Duplicates of core fonts (Fontshare versions) ──
+    "bebas-neue":       ["high",     "closed",   "none",     "tight",    "bold"],
+    "anton":            ["high",     "closed",   "none",     "tight",    "bold"],
+    "pramukh-rounded":  ["moderate", "open",     "low",      "normal",   "warm"],       // rounded terminals, Gujarati heritage
+  };
+  const a = FONT_ANATOMY[slug] ?? (
+    // Fallback for any unlisted font (should not happen)
+    classification === "serif" ? ["moderate", "moderate", "moderate", "normal", "traditional"] as AnatomyTuple :
+    classification === "display" ? ["moderate", "moderate", "none", "normal", "bold"] as AnatomyTuple :
+    ["moderate", "moderate", "none", "normal", "neutral"] as AnatomyTuple
+  );
 
   return {
     id: `fs-${slug}`,
@@ -92,11 +199,11 @@ function fs(
     bodyLegibilityScore: opts?.bodyLegibilityScore ?? (isBody ? 7 : 4),
     screenReadabilityNotes: null,
     distinctiveTraits: opts?.distinctiveTraits ?? [],
-    xHeightRatio: derivedXHeight,
-    apertureOpenness: derivedAperture,
-    strokeContrast: derivedStroke,
-    letterSpacing: derivedSpacing,
-    moodCategory: derivedMood,
+    xHeightRatio: opts?.xHeightRatio ?? a[0],
+    apertureOpenness: opts?.apertureOpenness ?? a[1],
+    strokeContrast: opts?.strokeContrast ?? a[2],
+    letterSpacing: opts?.letterSpacing ?? a[3],
+    moodCategory: opts?.moodCategory ?? a[4],
     historicalNotes: null,
     notableUseExamples: [],
     similarFonts: [],
