@@ -183,7 +183,7 @@ export function PromptInput() {
               onChange={(e) => { setQuery(e.target.value); autoResize(); }}
               onKeyDown={handleKeyDown}
               onDragOver={(e) => e.preventDefault()}
-              onDrop={(e) => { e.preventDefault(); handleDrop(e as unknown as React.DragEvent); }}
+              onDrop={(e) => { e.preventDefault(); e.stopPropagation(); handleDrop(e as unknown as React.DragEvent); }}
               placeholder=" "
               className="w-full bg-transparent resize-none outline-none"
               style={{ fontSize: "16px", color: "var(--text-heading)", padding: "24px", minHeight: "56px", overflow: "hidden" }}
