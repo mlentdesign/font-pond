@@ -846,14 +846,10 @@ body.animations-paused #water-bg * {
    where it meets the action bar divider. */
 .prompt-textarea-wrap {
   position: relative;
-  border: 2px solid transparent;
   border-radius: 10px 10px 0 0;
-  margin: -2px -2px 0 -2px;
-  z-index: 1;
-  transition: border-color 0.15s;
 }
 .prompt-textarea-wrap:focus-within {
-  border-color: var(--accent);
+  box-shadow: inset 0 0 0 2px var(--accent);
 }
 /* Suppress the global focus-visible outline on the prompt textarea */
 .prompt-textarea-wrap textarea:focus,
