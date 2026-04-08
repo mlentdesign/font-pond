@@ -847,9 +847,10 @@ body.animations-paused #water-bg * {
 .prompt-textarea-wrap {
   position: relative;
   border-radius: 10px 10px 0 0;
+  z-index: 1;
 }
 .prompt-textarea-wrap:focus-within {
-  box-shadow: inset 0 0 0 2px var(--accent);
+  box-shadow: 0 0 0 2px var(--accent);
 }
 /* Suppress the global focus-visible outline on the prompt textarea */
 .prompt-textarea-wrap textarea:focus,
