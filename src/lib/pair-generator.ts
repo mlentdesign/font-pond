@@ -160,6 +160,36 @@ function makePair(header: Font, body: Font, existingSlugs: Set<string>): FontPai
   const shortExplanation = SHORT_TEMPLATES[hash % SHORT_TEMPLATES.length](header, body);
   const toneSummary = TONE_TEMPLATES[hash % TONE_TEMPLATES.length](header, body);
 
+  // ── Compute varied, honest scores based on actual quality signals ──
+
+  // Hierarchy: display/script headers dominate more than body-suitable ones
+  const hierarchy = header.classification === "display" || header.classification === "script" || header.classification === "handwritten"
+    ? 10
+    : header.isBodySuitable ? 7 : 9;
+
+  // Body legibility: use actual score, default 7
+  const legibility = body.bodyLegibilityScore || 7;
+
+  // Practicality: premium sources score higher, variable fonts get a bump
+  let practicality = 7;
+  if (header.source === "fontshare" && body.source === "fontshare") practicality = 9;
+  else if (header.source === "fontshare" || body.source === "fontshare") practicality = 8;
+  else if (header.source === "other") practicality = 6;
+  if (body.variableFont) practicality = Math.min(10, practicality + 1);
+
+  // Originality: cross-category pairs are more interesting; same-category less so
+  let originality = 7;
+  if (header.serifSansCategory !== body.serifSansCategory) originality = 8;
+  if (header.classification === "script" || header.classification === "handwritten") originality = 9;
+  if (header.classification === "display" && body.serifSansCategory === "serif") originality = 9;
+  if (header.serifSansCategory === body.serifSansCategory) originality = 6;
+
+  // Overall: weighted blend with deterministic variance from hash
+  const baseScore =
+    hierarchy * 0.25 + legibility * 0.30 + practicality * 0.25 + originality * 0.20;
+  // Scale to 78-92 range: best pairs rival hand-crafted, weakest still respectable
+  const overallScore = Math.min(92, Math.max(78, Math.round(78 + (baseScore - 7) * 4 + (hash % 3))));
+
   return {
     id,
     slug,
@@ -171,13 +201,13 @@ function makePair(header: Font, body: Font, existingSlugs: Set<string>): FontPai
     useCases: [...new Set([...header.useCases.slice(0, 3), ...body.useCases.slice(0, 2)])],
     tags: [...new Set([...header.tags.slice(0, 8), ...header.toneDescriptors.slice(0, 4)])].slice(0, 8),
     contrastType: contrast,
-    hierarchyStrength: header.isBodySuitable ? 7 : 9,
-    bodyLegibilityScore: body.bodyLegibilityScore || 7,
-    practicalityScore: header.source === "other" ? 6 : 7,
-    originalityScore: 8,
+    hierarchyStrength: hierarchy,
+    bodyLegibilityScore: legibility,
+    practicalityScore: practicality,
+    originalityScore: originality,
     sourceConfidence: header.source === "other" ? "medium" : "high",
     licenseConfidence: header.licenseConfidence,
-    overallScore: 80,
+    overallScore,
     rankingNotes: `Dynamic pair: ${header.name} (${header.source}) + ${body.name}`,
   };
 }
