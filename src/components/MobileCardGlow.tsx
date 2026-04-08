@@ -53,7 +53,7 @@ export function MobileCardGlow() {
       // Detect if user has scrolled near the bottom of the page
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
       const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-      const atBottom = (scrollTop + window.innerHeight) >= (docHeight - 150);
+      const atBottom = (scrollTop + window.innerHeight) >= (docHeight - 10);
 
       const cards = document.querySelectorAll(".card-hover");
 
@@ -90,10 +90,8 @@ export function MobileCardGlow() {
 
       let bestCard: Element | null = null;
 
-      if (atBottom && lastVisibleCard && !lastCardFullyVisible) {
-        // At the bottom, force the last card only if it's partially clipped
-        // (it would never win otherwise). If it's fully visible, normal
-        // topmost logic will cycle through to it naturally.
+      if (atBottom && lastVisibleCard) {
+        // At the very bottom, the last visible card always wins
         bestCard = lastVisibleCard;
       } else if (firstFullyVisible) {
         // Topmost fully-uncovered card wins — ensures every card gets a turn
