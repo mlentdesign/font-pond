@@ -130,14 +130,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
   overflow-x: hidden;
-  /* Prevent theme flash: html background matches theme before body paints */
-  background: var(--bg);
-}
-html[data-theme="dark"] {
-  color-scheme: dark;
-}
-html[data-theme="light"] {
-  color-scheme: light;
 }
 
 body {
@@ -146,16 +138,7 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  /* No transition here — prevents flash on reload. Theme toggle adds
-     a temporary class for smooth animation when user manually switches. */
-}
-
-/* Smooth theme switch — only applied briefly by ThemeToggle on click */
-html.theme-transitioning,
-html.theme-transitioning *,
-html.theme-transitioning *::before,
-html.theme-transitioning *::after {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+  transition: background 0.3s, color 0.3s;
 }
 
 * {
@@ -365,12 +348,15 @@ input[type="range"]::-moz-range-track {
 .specimen-14 { font-size: 14px !important; }
 
 /* ══════════════════════════════════════════
-   SMOOTH TRANSITIONS — interactive elements only (not global, to prevent theme flash)
+   SMOOTH TRANSITIONS
    ══════════════════════════════════════════ */
-textarea, input, button, a, [role="link"] {
+*, *::before, *::after {
   transition-property: background-color, border-color, color;
-  transition-duration: 0.1s;
+  transition-duration: 0.2s;
   transition-timing-function: ease;
+}
+textarea, input, button, a, [role="link"] {
+  transition-duration: 0.1s;
 }
 
 /* Water background handled by WaterBackground canvas component.
