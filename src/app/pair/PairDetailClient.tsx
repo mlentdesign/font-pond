@@ -113,6 +113,39 @@ function FontSection({
         </div>
       </div>
 
+      {/* Typography anatomy */}
+      {(font.xHeightRatio || font.apertureOpenness || font.strokeContrast || font.moodCategory) && (
+        <>
+          <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
+          <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-neutral-500" style={{ fontSize: "16px" }}>
+            {font.xHeightRatio && (
+              <div>
+                <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>X-HEIGHT</span>
+                <p>{titleCase(font.xHeightRatio)}</p>
+              </div>
+            )}
+            {font.apertureOpenness && (
+              <div>
+                <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>APERTURES</span>
+                <p>{titleCase(font.apertureOpenness)}</p>
+              </div>
+            )}
+            {font.strokeContrast && (
+              <div>
+                <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>STROKE CONTRAST</span>
+                <p>{titleCase(font.strokeContrast)}</p>
+              </div>
+            )}
+            {font.letterSpacing && (
+              <div>
+                <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>SPACING</span>
+                <p>{titleCase(font.letterSpacing)}</p>
+              </div>
+            )}
+          </div>
+        </>
+      )}
+
     </Link>
   );
 }
@@ -249,10 +282,28 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
                 <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>PRACTICALITY</dt>
                 <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.practicalityScore}/10</dd>
               </div>
-              <div className="flex justify-between" style={{ padding: "12px 24px" }}>
+              <div className="flex justify-between border-b border-neutral-100" style={{ padding: "12px 24px" }}>
                 <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>OVERALL</dt>
                 <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{Math.round(pair.overallScore / 10)}/10</dd>
               </div>
+              {pair.xHeightHarmony != null && (
+                <div className="flex justify-between border-b border-neutral-100" style={{ padding: "12px 24px" }}>
+                  <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>X-HEIGHT HARMONY</dt>
+                  <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.xHeightHarmony}/10</dd>
+                </div>
+              )}
+              {pair.roleFitness != null && (
+                <div className="flex justify-between border-b border-neutral-100" style={{ padding: "12px 24px" }}>
+                  <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>ROLE FITNESS</dt>
+                  <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.roleFitness}/10</dd>
+                </div>
+              )}
+              {pair.personalityContrast != null && (
+                <div className="flex justify-between" style={{ padding: "12px 24px" }}>
+                  <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>PERSONALITY CONTRAST</dt>
+                  <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.personalityContrast}/10</dd>
+                </div>
+              )}
             </dl>
           </SectionCard>
 
@@ -269,9 +320,18 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
             </div>
           </SectionCard>
 
-          {/* Card 3: use cases */}
+          {/* Card 3: use cases + mood */}
           <SectionCard>
             <ChipGroup label="USE CASES" chips={pair.useCases.map(chipCase)} />
+            {(headerFont.moodCategory || bodyFont.moodCategory) && (
+              <>
+                <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
+                <ChipGroup label="MOOD PAIRING" chips={[
+                  ...(headerFont.moodCategory ? [chipCase(`${headerFont.name}: ${headerFont.moodCategory}`)] : []),
+                  ...(bodyFont.moodCategory ? [chipCase(`${bodyFont.name}: ${bodyFont.moodCategory}`)] : []),
+                ]} />
+              </>
+            )}
           </SectionCard>
         </div>
 
