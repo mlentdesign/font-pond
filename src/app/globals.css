@@ -1136,6 +1136,10 @@ body.animations-paused #water-bg * {
   .action-bar .action-bar-image {
     display: none !important;
   }
+  /* Hide action bar image previews on mobile — they show above Add image instead */
+  .action-bar-previews {
+    display: none !important;
+  }
   /* Show the mobile "Add image" inside the text field area */
   .mobile-add-image {
     display: flex !important;
