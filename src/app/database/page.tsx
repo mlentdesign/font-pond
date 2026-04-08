@@ -274,6 +274,9 @@ export default function DatabasePage() {
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const pageRows = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
+  // Stable key for the current page's font set — triggers reload on sort/page/filter changes
+  const pageKey = useMemo(() => pageRows.map((r) => r.id).join(","), [pageRows]);
+
   useEffect(() => {
     let cancelled = false;
     async function loadPageFonts() {
@@ -291,7 +294,7 @@ export default function DatabasePage() {
     }
     loadPageFonts();
     return () => { cancelled = true; };
-  }, [pageRows]);
+  }, [pageKey]);
 
   useEffect(() => { setPage(0); }, [sortKey, sortDir, search, categoryFilters, sourceFilters]);
 
