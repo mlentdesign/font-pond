@@ -27,10 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <head>
-        {/* Theme script MUST be first — blocks rendering to prevent light mode flash */}
+        {/* Theme script MUST be first — blocks rendering to prevent light/dark mode flash */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme:dark)").matches);document.documentElement.setAttribute("data-theme",d?"dark":"light")}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme:dark)").matches);var h=document.documentElement;h.setAttribute("data-theme",d?"dark":"light");h.style.colorScheme=d?"dark":"light";h.setAttribute("data-loading","")}catch(e){}})()`,
           }}
         />
         <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
@@ -44,6 +44,12 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
+        {/* Remove data-loading after first paint so theme toggle transitions work */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.removeAttribute("data-loading")})})`,
+          }}
+        />
         {/* Skip to content link for keyboard/screen reader users */}
         <a
           href="#main-content"
