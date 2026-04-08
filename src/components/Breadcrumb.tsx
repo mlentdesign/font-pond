@@ -36,8 +36,8 @@ export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: C
         background: "var(--bg)",
       } : undefined}
     >
-      <div style={sticky ? { display: "flex", alignItems: "center", justifyContent: "space-between" } : undefined}>
-        <nav aria-label="Breadcrumb" style={sticky ? undefined : { marginBottom: "24px" }}>
+      <div style={sticky ? { display: "flex", alignItems: "center", justifyContent: stickyAction ? "space-between" : undefined } : undefined}>
+        <nav aria-label="Breadcrumb" style={sticky ? { flex: stickyAction ? undefined : 1 } : { marginBottom: "24px" }}>
           <ol className="flex items-center gap-2 text-xs text-neutral-400 flex-wrap">
             <li>
               <Link href="/?restore=1" className="transition-colors hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>

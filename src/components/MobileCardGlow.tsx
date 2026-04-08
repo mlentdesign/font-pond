@@ -1,24 +1,28 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * On mobile (< 768px), replaces hover-based card glow with viewport-based glow.
- * The card occupying the most viewport space gets the "card-viewport-active" class.
+ * The card occupying the most visible pixels gets the "card-viewport-active" class.
  * Only one card glows at a time.
  */
 export function MobileCardGlow() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const MOBILE_MAX = 768;
-    let observer: IntersectionObserver | null = null;
     let activeCard: Element | null = null;
-    const ratios = new Map<Element, number>();
-    const observed = new WeakSet<Element>();
-    let isMobile = window.innerWidth < MOBILE_MAX;
-    let rafId = 0;
+    let ticking = false;
 
-    function updateActive() {
-      if (!isMobile) {
+    function isMobile() {
+      return window.innerWidth < MOBILE_MAX;
+    }
+
+    function update() {
+      ticking = false;
+      if (!isMobile()) {
         if (activeCard) {
           activeCard.classList.remove("card-viewport-active");
           activeCard = null;
@@ -26,17 +30,24 @@ export function MobileCardGlow() {
         return;
       }
 
+      const cards = document.querySelectorAll(".card-hover");
+      const vh = window.innerHeight;
       let bestCard: Element | null = null;
-      let bestRatio = 0;
-      for (const [card, ratio] of ratios) {
-        if (ratio > bestRatio && document.body.contains(card)) {
-          bestRatio = ratio;
+      let bestPixels = 0;
+
+      for (const card of cards) {
+        const rect = card.getBoundingClientRect();
+        const top = Math.max(0, rect.top);
+        const bottom = Math.min(vh, rect.bottom);
+        const visible = Math.max(0, bottom - top);
+        if (visible > bestPixels) {
+          bestPixels = visible;
           bestCard = card;
         }
       }
 
-      // Only glow if card is meaningfully visible
-      if (bestRatio < 0.3) bestCard = null;
+      // Only glow if card occupies at least 15% of viewport
+      if (bestPixels < vh * 0.15) bestCard = null;
 
       if (bestCard !== activeCard) {
         if (activeCard) activeCard.classList.remove("card-viewport-active");
@@ -45,55 +56,26 @@ export function MobileCardGlow() {
       }
     }
 
-    function observeCards() {
-      if (!observer) return;
-      const cards = document.querySelectorAll(".card-hover");
-      for (const card of cards) {
-        if (!observed.has(card)) {
-          observed.add(card);
-          observer.observe(card);
-        }
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
       }
     }
 
-    observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            ratios.set(entry.target, entry.intersectionRatio);
-          } else {
-            ratios.delete(entry.target);
-          }
-        }
-        cancelAnimationFrame(rafId);
-        rafId = requestAnimationFrame(updateActive);
-      },
-      {
-        threshold: Array.from({ length: 21 }, (_, i) => i / 20),
-      }
-    );
-
-    observeCards();
-
-    // Watch for new cards appearing in DOM (page navigation, load-more, etc.)
-    const mo = new MutationObserver(() => observeCards());
-    mo.observe(document.body, { childList: true, subtree: true });
-
-    const handleResize = () => {
-      const wasMobile = isMobile;
-      isMobile = window.innerWidth < MOBILE_MAX;
-      if (wasMobile !== isMobile) updateActive();
-    };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    // Initial check + delayed check for content that renders after mount
+    requestAnimationFrame(update);
+    const timer = setTimeout(update, 200);
 
     return () => {
-      if (observer) observer.disconnect();
-      mo.disconnect();
-      window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      clearTimeout(timer);
       if (activeCard) activeCard.classList.remove("card-viewport-active");
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }
