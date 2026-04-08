@@ -213,7 +213,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
               <div className="space-y-2">
                 {font.weights.map((w) => (
                   <p key={w} style={{ fontWeight: w, fontSize: "18px" }} className="specimen-18 text-neutral-700">
-                    <span style={{ fontFamily: hasNums ? family : "system-ui, sans-serif" }}>{w}</span> — <span style={{ fontFamily: family }}>The quick brown fox jumps over the lazy dog</span>
+                    <span style={{ fontFamily: hasNums ? family : "system-ui, sans-serif" }}>{w} —</span> <span style={{ fontFamily: family }}>The quick brown fox jumps over the lazy dog</span>
                   </p>
                 ))}
               </div>

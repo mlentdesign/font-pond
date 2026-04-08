@@ -208,13 +208,21 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
             <p className="uppercase tracking-wider text-neutral-400 mb-3" style={{ fontSize: "12px" }}>
               SUGGESTED SCALE
             </p>
-            <div className="space-y-2">
-              <p style={{ fontFamily: headerHasNums ? headerFamily : "system-ui, sans-serif", fontWeight: 700, fontSize: "36px" }} className="text-neutral-800">H1 — 36px Bold</p>
-              <p style={{ fontFamily: headerHasNums ? headerFamily : "system-ui, sans-serif", fontWeight: 600, fontSize: "24px" }} className="text-neutral-800">H2 — 24px Semibold</p>
-              <p style={{ fontFamily: headerHasNums ? headerFamily : "system-ui, sans-serif", fontWeight: 500, fontSize: "18px" }} className="text-neutral-700">H3 — 18px Medium</p>
-              <p style={{ fontFamily: bodyHasNums ? bodyFamily : "system-ui, sans-serif", fontWeight: 400, fontSize: "16px" }} className="text-neutral-600">Body — 16px Regular</p>
-              <p style={{ fontFamily: bodyHasNums ? bodyFamily : "system-ui, sans-serif", fontWeight: 400, fontSize: "14px" }} className="text-neutral-500">Small — 14px Regular</p>
-            </div>
+            {(() => {
+              const fb = "system-ui, sans-serif";
+              const hFb = !headerHasNums;
+              const bFb = !bodyHasNums;
+              const N = (text: string) => <span style={{ fontFamily: fb }}>{text}</span>;
+              return (
+                <div className="space-y-2">
+                  <p style={{ fontFamily: headerFamily, fontWeight: 700, fontSize: "36px" }} className="text-neutral-800">H{hFb ? N("1") : "1"} {hFb ? N("—") : "—"} {hFb ? N("36") : "36"}px Bold</p>
+                  <p style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "24px" }} className="text-neutral-800">H{hFb ? N("2") : "2"} {hFb ? N("—") : "—"} {hFb ? N("24") : "24"}px Semibold</p>
+                  <p style={{ fontFamily: headerFamily, fontWeight: 500, fontSize: "18px" }} className="text-neutral-700">H{hFb ? N("3") : "3"} {hFb ? N("—") : "—"} {hFb ? N("18") : "18"}px Medium</p>
+                  <p style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "16px" }} className="text-neutral-600">Body {bFb ? N("—") : "—"} {bFb ? N("16") : "16"}px Regular</p>
+                  <p style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "14px" }} className="text-neutral-500">Small {bFb ? N("—") : "—"} {bFb ? N("14") : "14"}px Regular</p>
+                </div>
+              );
+            })()}
           </div>
         </SectionCard>
 
