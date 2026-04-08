@@ -130,6 +130,9 @@ export function PromptInput() {
     setIsExploring(false);
     setVisibleCount(3);
 
+    // Save query so breadcrumb "Results" can restore it
+    try { localStorage.setItem("font-pond-last-query", query.trim()); } catch {}
+
     // If images are attached, analyze them for color/mood keywords and combine with query
     let searchQuery = query;
     if (images.length > 0) {
@@ -150,6 +153,7 @@ export function PromptInput() {
     setHasSearched(true);
     setIsExploring(true);
     setVisibleCount(3);
+    try { localStorage.setItem("font-pond-last-query", "__explore__"); } catch {}
     setTimeout(() => { setResults(explorePairs()); setIsLoading(false); }, 300);
   }, [setResults, setIsLoading, setHasSearched, setIsExploring, setVisibleCount]);
 

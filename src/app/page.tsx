@@ -1,14 +1,37 @@
 "use client";
 
+import { useEffect } from "react";
 import { PromptInput } from "@/components/PromptInput";
 import { SampleTextInputs } from "@/components/SampleTextInputs";
 import { ResultsGrid } from "@/components/ResultsGrid";
 import { HeaderWithFontInfo } from "@/components/HeaderWithFontInfo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useAppState } from "@/lib/store";
+import { rankPairs, explorePairs } from "@/lib/engine";
 
 export default function Home() {
-  const { hasSearched, setQuery, setResults, setHasSearched, setIsExploring, setVisibleCount } = useAppState();
+  const { hasSearched, setQuery, setResults, setHasSearched, setIsExploring, setVisibleCount, setIsLoading } = useAppState();
+
+  // Restore last search when returning via breadcrumb
+  useEffect(() => {
+    if (hasSearched) return; // already showing results
+    try {
+      const saved = localStorage.getItem("font-pond-last-query");
+      if (!saved) return;
+      if (saved === "__explore__") {
+        setHasSearched(true);
+        setIsExploring(true);
+        setVisibleCount(3);
+        setResults(explorePairs());
+      } else {
+        setQuery(saved);
+        setHasSearched(true);
+        setIsExploring(false);
+        setVisibleCount(3);
+        setResults(rankPairs(saved));
+      }
+    } catch {}
+  }, []);
 
   const handleReset = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -17,6 +40,7 @@ export default function Home() {
     setHasSearched(false);
     setIsExploring(false);
     setVisibleCount(3);
+    try { localStorage.removeItem("font-pond-last-query"); } catch {}
   };
 
   return (
