@@ -396,11 +396,9 @@ export default function FontDetailPage() {
         {pairsUsing.length > 0 && (
           <PairPreviewGrid pairs={pairsUsing} title={`Pairs using ${font.name}`} />
         )}
-        {/* Mobile: extra bottom padding so content isn't hidden behind sticky CTA */}
-        {isMobile && font.sourceUrl && <div style={{ height: "80px" }} />}
       </main>
 
-      {/* Mobile: sticky bottom download CTA */}
+      {/* Mobile: sticky bottom download CTA — centered, floating above footer */}
       {isMobile && font.sourceUrl && (
         <div
           className={`mobile-sticky-download${!showStickyDownload || footerVisible ? " is-hidden" : ""}`}
@@ -409,7 +407,7 @@ export default function FontDetailPage() {
             href={font.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-generate font-medium rounded-lg transition-colors block text-center"
+            className="btn-generate font-medium rounded-lg transition-colors inline-block"
             style={{ fontSize: "16px", padding: "12px 24px", textDecoration: "none" }}
           >
             Download ↗
