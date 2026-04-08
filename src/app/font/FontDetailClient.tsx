@@ -66,6 +66,16 @@ export default function FontDetailPage() {
 
   const downloadRef = useRef<HTMLDivElement>(null);
   const [showStickyDownload, setShowStickyDownload] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [footerVisible, setFooterVisible] = useState(false);
+
+  // Track mobile breakpoint
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     if (!downloadRef.current) return;
@@ -81,6 +91,19 @@ export default function FontDetailPage() {
     check();
     return () => window.removeEventListener("scroll", check);
   }, [font]);
+
+  // Track footer visibility for mobile sticky CTA positioning
+  useEffect(() => {
+    if (!isMobile) return;
+    const footer = document.querySelector("footer");
+    if (!footer) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setFooterVisible(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, [isMobile]);
 
   const pairsUsing = font ? getPairsWithFont(font.id) : [];
 
@@ -103,7 +126,7 @@ export default function FontDetailPage() {
         <Breadcrumb
           crumbs={crumbs}
           sticky
-          stickyAction={font.sourceUrl ? (
+          stickyAction={font.sourceUrl && !isMobile ? (
             <a
               href={font.sourceUrl}
               target="_blank"
@@ -373,7 +396,26 @@ export default function FontDetailPage() {
         {pairsUsing.length > 0 && (
           <PairPreviewGrid pairs={pairsUsing} title={`Pairs using ${font.name}`} />
         )}
+        {/* Mobile: extra bottom padding so content isn't hidden behind sticky CTA */}
+        {isMobile && font.sourceUrl && <div style={{ height: "80px" }} />}
       </main>
+
+      {/* Mobile: sticky bottom download CTA */}
+      {isMobile && font.sourceUrl && (
+        <div
+          className={`mobile-sticky-download${!showStickyDownload || footerVisible ? " is-hidden" : ""}`}
+        >
+          <a
+            href={font.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-generate font-medium rounded-lg transition-colors block text-center"
+            style={{ fontSize: "16px", padding: "12px 24px", textDecoration: "none" }}
+          >
+            Download ↗
+          </a>
+        </div>
+      )}
     </div>
   );
 }
