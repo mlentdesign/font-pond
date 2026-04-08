@@ -245,6 +245,12 @@ h1, h2, h3, h4, h5, h6, p, span, a, div {
 *:focus:not(:focus-visible) {
   outline: none;
 }
+/* Cards have their own hover feedback — suppress focus ring flash */
+.card-hover:focus-visible,
+.card-hover a:focus-visible,
+a.card-hover:focus-visible {
+  outline: none;
+}
 
 /* ══════════════════════════════════════════
    Z-INDEX LAYERS — everything above the water canvas
