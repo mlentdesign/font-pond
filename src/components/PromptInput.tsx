@@ -292,8 +292,8 @@ export function PromptInput() {
                 fontWeight: 600,
                 color: "var(--add-image-color)",
                 gap: "4px",
-                padding: "8px 8px",
-                margin: "-8px -8px",
+                padding: "8px 12px",
+                margin: "-8px -12px",
                 position: "relative",
               }}
             >
@@ -366,11 +366,11 @@ export function PromptInput() {
               right: 0,
               maxWidth: "100%",
               width: "fit-content",
-              background: "var(--bg-card)",
-              border: "2px solid var(--border)",
+              background: "var(--generate-bg-disabled)",
+              border: "2px solid var(--generate-bg)",
               padding: "8px 16px",
               fontSize: "14px",
-              color: "var(--text-muted)",
+              color: "var(--generate-text)",
               zIndex: 100,
               pointerEvents: "none",
             }}
