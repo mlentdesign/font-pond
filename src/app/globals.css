@@ -215,6 +215,23 @@ h1, h2, h3, h4, h5, h6, p, span, a, div {
   color: var(--selection-text);
 }
 
+/* ── Theme toggle — active state driven by data-theme (works before JS) ── */
+.toggle-sun, .toggle-moon {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  color: var(--text-ransom);
+}
+[data-theme="light"] .toggle-sun,
+:root:not([data-theme]) .toggle-sun {
+  background: var(--toggle-active);
+  color: var(--toggle-active-text);
+}
+[data-theme="dark"] .toggle-moon {
+  background: var(--toggle-active);
+  color: var(--toggle-active-text);
+}
+
 /* Keyboard focus indicator — visible only on keyboard navigation */
 *:focus-visible {
   outline: 2px solid var(--accent);
