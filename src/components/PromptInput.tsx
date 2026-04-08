@@ -283,10 +283,29 @@ export function PromptInput() {
                 gap: "4px",
                 padding: "4px 4px",
                 margin: "-4px -4px",
-                border: isDragging ? "2px dashed var(--accent)" : "2px dashed transparent",
-                borderRadius: "8px",
+                position: "relative",
               }}
             >
+              {isDragging && (
+                <svg
+                  className="pointer-events-none"
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible" }}
+                >
+                  <rect
+                    x="1"
+                    y="1"
+                    width="calc(100% - 2px)"
+                    height="calc(100% - 2px)"
+                    rx="8"
+                    ry="8"
+                    fill="none"
+                    stroke="var(--accent)"
+                    strokeWidth="2"
+                    strokeDasharray="6 4"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              )}
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
                 <rect x="2" y="3" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
                 <circle cx="6.5" cy="7.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
