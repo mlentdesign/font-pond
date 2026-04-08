@@ -1,5 +1,5 @@
-import { FontPair } from "./types";
-import { fonts, fontsBySlug as allFontsBySlug } from "./fonts";
+import { Font, FontPair } from "./types";
+import { fonts, fontsById, fontsBySlug as allFontsBySlug } from "./fonts";
 import { generateDynamicPairs, generateCuratedPairs } from "@/lib/pair-generator";
 
 const handCraftedPairs: FontPair[] = [
@@ -1890,13 +1890,271 @@ const handCraftedPairs: FontPair[] = [
     overallScore: 86,
     rankingNotes: "Same-category pairing that works because both fonts have distinct character.",
   },
+
+  // ── New typography-research-informed pairs ──
+
+  {
+    id: "fraunces-satoshi",
+    slug: "fraunces-satoshi",
+    headerFontId: "fraunces",
+    bodyFontId: "satoshi",
+    rationale: "Fraunces' quirky soft serifs and optical size axis bring warmth and personality to headlines, while Satoshi's contemporary grotesque forms provide crisp, legible body text. The warm-to-modern mood contrast creates a pairing that feels both inviting and professional — ideal for lifestyle and creative brands.",
+    shortExplanation: "Warm quirky serif headlines grounded by Satoshi's clean modern clarity.",
+    toneSummary: "Friendly and warm up top, contemporary and professional throughout.",
+    useCases: ["lifestyle", "creative", "food & drink", "branding", "blog"],
+    tags: ["warm", "quirky", "modern", "friendly", "soft"],
+    contrastType: "soft serif / contemporary sans — personality contrast",
+    hierarchyStrength: 9,
+    bodyLegibilityScore: 9,
+    practicalityScore: 9,
+    originalityScore: 8,
+    sourceConfidence: "high",
+    licenseConfidence: "high",
+    overallScore: 89,
+    rankingNotes: "Typography-research pair: warm serif + neutral sans with complementary mood contrast.",
+  },
+  {
+    id: "instrument-serif-general-sans",
+    slug: "instrument-serif-general-sans",
+    headerFontId: "instrument-serif",
+    bodyFontId: "general-sans",
+    rationale: "Instrument Serif's refined old-style display character brings editorial elegance to headlines, while General Sans offers a geometric-humanist body that's one of the most legible on screen. The elegant-to-neutral mood contrast creates clear hierarchy without tension.",
+    shortExplanation: "Refined editorial serif paired with General Sans' balanced clarity.",
+    toneSummary: "Elegant editorial presence with grounded, versatile body text.",
+    useCases: ["editorial", "fashion", "luxury", "magazine", "portfolio"],
+    tags: ["editorial", "elegant", "refined", "modern-classic"],
+    contrastType: "old-style serif / geometric-humanist sans — category + mood contrast",
+    hierarchyStrength: 9,
+    bodyLegibilityScore: 9,
+    practicalityScore: 8,
+    originalityScore: 8,
+    sourceConfidence: "high",
+    licenseConfidence: "high",
+    overallScore: 88,
+    rankingNotes: "Typography-research pair: x-height harmony + complementary personality contrast.",
+  },
+  {
+    id: "young-serif-dm-sans",
+    slug: "young-serif-dm-sans",
+    headerFontId: "young-serif",
+    bodyFontId: "dm-sans",
+    rationale: "Young Serif's charming, approachable personality makes headlines feel inviting rather than formal. DM Sans' friendly geometric body maintains that warmth while offering excellent small-size legibility with open apertures. Both fonts share an approachable quality that keeps the pairing cohesive.",
+    shortExplanation: "Charming friendly serif headlines with DM Sans' geometric warmth.",
+    toneSummary: "Warm and inviting from headline to body. Approachable without being casual.",
+    useCases: ["lifestyle", "food & drink", "branding", "creative", "startup"],
+    tags: ["warm", "friendly", "charming", "approachable"],
+    contrastType: "warm serif / geometric sans — shared warmth, different structure",
+    hierarchyStrength: 8,
+    bodyLegibilityScore: 9,
+    practicalityScore: 9,
+    originalityScore: 7,
+    sourceConfidence: "high",
+    licenseConfidence: "high",
+    overallScore: 87,
+    rankingNotes: "Typography-research pair: mood harmony with structural contrast.",
+  },
+  {
+    id: "zodiak-switzer",
+    slug: "zodiak-switzer",
+    headerFontId: "zodiak",
+    bodyFontId: "switzer",
+    rationale: "Zodiak's high-contrast display serifs command attention with Didone-inspired drama, while Switzer's Swiss grotesque forms provide a clean, neutral foundation. The elegant-to-neutral contrast is one of the strongest possible — maximum visual interest in the headline, zero friction in the body.",
+    shortExplanation: "Dramatic editorial serif paired with Swiss-clean body text.",
+    toneSummary: "Editorial drama and precision. Elegant impact with neutral reliability.",
+    useCases: ["editorial", "luxury", "fashion", "magazine", "portfolio"],
+    tags: ["editorial", "dramatic", "elegant", "Swiss"],
+    contrastType: "high-contrast serif / Swiss grotesque — maximum contrast",
+    hierarchyStrength: 10,
+    bodyLegibilityScore: 9,
+    practicalityScore: 9,
+    originalityScore: 8,
+    sourceConfidence: "high",
+    licenseConfidence: "high",
+    overallScore: 90,
+    rankingNotes: "Typography-research pair: Fontshare duo with strong role fitness and personality contrast.",
+  },
+  {
+    id: "boska-ibm-plex-sans",
+    slug: "boska-ibm-plex-sans",
+    headerFontId: "boska",
+    bodyFontId: "ibm-plex-sans",
+    rationale: "Boska's dramatic editorial presence brings fashion-forward energy to headlines, while IBM Plex Sans' enterprise-grade readability anchors the body with technical precision. The bold-to-technical mood contrast creates a pairing that feels both creative and trustworthy.",
+    shortExplanation: "Fashion editorial serif headlines with IBM Plex's corporate clarity.",
+    toneSummary: "Dramatic creative energy balanced by corporate precision.",
+    useCases: ["editorial", "corporate creative", "agency", "tech magazine"],
+    tags: ["editorial", "dramatic", "corporate", "precision"],
+    contrastType: "display serif / neo-grotesque — creative meets corporate",
+    hierarchyStrength: 10,
+    bodyLegibilityScore: 9,
+    practicalityScore: 8,
+    originalityScore: 8,
+    sourceConfidence: "high",
+    licenseConfidence: "high",
+    overallScore: 88,
+    rankingNotes: "Typography-research pair: bold headline + technical body, strong role fitness.",
+  },
+  {
+    id: "syne-inter-research",
+    slug: "syne-inter",
+    headerFontId: "syne",
+    bodyFontId: "inter",
+    rationale: "Syne's experimental, art-world personality creates headlines that demand attention through unconventional proportions. Inter's purpose-built screen legibility — tall x-height, open apertures — provides the perfect counterbalance. The experimental-to-neutral contrast is dramatic but functional.",
+    shortExplanation: "Experimental creative headlines anchored by Inter's ultra-legible body.",
+    toneSummary: "Art-forward and experimental up top, clean and readable throughout.",
+    useCases: ["creative agency", "art direction", "music", "portfolio", "startup"],
+    tags: ["experimental", "creative", "art", "modern"],
+    contrastType: "experimental display / screen sans — personality vs legibility",
+    hierarchyStrength: 10,
+    bodyLegibilityScore: 10,
+    practicalityScore: 9,
+    originalityScore: 9,
+    sourceConfidence: "high",
+    licenseConfidence: "high",
+    overallScore: 90,
+    rankingNotes: "Typography-research pair: maximum role fitness — display-only header + best body font.",
+  },
+  {
+    id: "bricolage-source-serif",
+    slug: "bricolage-grotesque-source-serif-4",
+    headerFontId: "bricolage-grotesque",
+    bodyFontId: "source-serif-4",
+    rationale: "Bricolage Grotesque's charming irregularity and expressive heavy weights make it a compelling headline font. Source Serif 4's clean, professional proportions provide a serif body that's both legible and quietly authoritative. An unusual pairing — sans header over serif body — that works because of their complementary personalities.",
+    shortExplanation: "Quirky grotesque headlines with Source Serif's professional body.",
+    toneSummary: "Creative personality with professional substance.",
+    useCases: ["creative", "editorial", "startup", "agency", "blog"],
+    tags: ["creative", "quirky", "editorial", "unconventional"],
+    contrastType: "grotesque-display / transitional serif — reversed convention",
+    hierarchyStrength: 9,
+    bodyLegibilityScore: 9,
+    practicalityScore: 9,
+    originalityScore: 9,
+    sourceConfidence: "high",
+    licenseConfidence: "high",
+    overallScore: 89,
+    rankingNotes: "Typography-research pair: reversed serif/sans convention with strong anatomy match.",
+  },
+  {
+    id: "libre-caslon-manrope",
+    slug: "libre-caslon-display-manrope",
+    headerFontId: "libre-caslon-display",
+    bodyFontId: "manrope",
+    rationale: "Libre Caslon Display's classical authority — rooted in the 18th-century Caslon tradition — creates headlines with gravitas. Manrope's semi-geometric body brings modern clarity with open apertures and tall x-height. The traditional-to-modern mood contrast bridges old and new without conflict.",
+    shortExplanation: "Classical Caslon authority paired with Manrope's modern readability.",
+    toneSummary: "Classical gravitas meets contemporary clarity.",
+    useCases: ["editorial", "academic", "luxury", "publishing", "portfolio"],
+    tags: ["classical", "authoritative", "modern-classic", "elegant"],
+    contrastType: "display-transitional / semi-geometric sans — era contrast",
+    hierarchyStrength: 9,
+    bodyLegibilityScore: 9,
+    practicalityScore: 8,
+    originalityScore: 8,
+    sourceConfidence: "high",
+    licenseConfidence: "high",
+    overallScore: 88,
+    rankingNotes: "Typography-research pair: traditional-to-modern mood bridge, excellent x-height harmony.",
+  },
+  {
+    id: "cabinet-grotesk-crimson-pro",
+    slug: "cabinet-grotesk-crimson-pro",
+    headerFontId: "cabinet-grotesk",
+    bodyFontId: "crimson-pro",
+    rationale: "Cabinet Grotesk's confident bold presence dominates headlines with modern energy, while Crimson Pro's old-style serif elegance provides a literary body that's exceptional for long-form reading. The bold-to-elegant mood contrast and sans-over-serif reversal make this pair both distinctive and well-balanced.",
+    shortExplanation: "Confident modern headlines with Crimson Pro's literary body.",
+    toneSummary: "Bold confidence in the headline, refined elegance in the body.",
+    useCases: ["editorial", "literary", "publishing", "blog", "creative"],
+    tags: ["bold", "literary", "modern-classic", "editorial"],
+    contrastType: "grotesque / old-style serif — reversed convention with personality contrast",
+    hierarchyStrength: 9,
+    bodyLegibilityScore: 8,
+    practicalityScore: 8,
+    originalityScore: 9,
+    sourceConfidence: "high",
+    licenseConfidence: "high",
+    overallScore: 88,
+    rankingNotes: "Typography-research pair: reversed convention, bold-to-elegant personality contrast.",
+  },
+  {
+    id: "abril-fatface-work-sans",
+    slug: "abril-fatface-work-sans",
+    headerFontId: "abril-fatface",
+    bodyFontId: "work-sans",
+    rationale: "Abril Fatface's extreme Didone contrast creates one of the most dramatic headline treatments possible — thick serifs against delicate hairlines. Work Sans' workmanlike grotesque body provides versatile, highly legible support. The elegant-to-neutral contrast lets the headline command attention while the body quietly does its job.",
+    shortExplanation: "Dramatic Didone headlines with Work Sans' dependable clarity.",
+    toneSummary: "Maximum headline drama, zero body friction.",
+    useCases: ["editorial", "fashion", "luxury", "posters", "magazine"],
+    tags: ["dramatic", "high-contrast", "editorial", "elegant"],
+    contrastType: "Didone display / grotesque sans — extreme contrast",
+    hierarchyStrength: 10,
+    bodyLegibilityScore: 9,
+    practicalityScore: 8,
+    originalityScore: 7,
+    sourceConfidence: "high",
+    licenseConfidence: "high",
+    overallScore: 88,
+    rankingNotes: "Typography-research pair: maximum hierarchy, excellent role fitness.",
+  },
 ];
+
+// ── Enrich hand-crafted pairs with anatomy scores ──
+// Compute xHeightHarmony, roleFitness, personalityContrast from actual font data
+
+function enrichPairAnatomy(pair: FontPair): FontPair {
+  if (pair.xHeightHarmony && pair.roleFitness && pair.personalityContrast) return pair;
+  const hf = fontsById.get(pair.headerFontId);
+  const bf = fontsById.get(pair.bodyFontId);
+  if (!hf || !bf) return { ...pair, xHeightHarmony: pair.xHeightHarmony ?? 7, roleFitness: pair.roleFitness ?? 7, personalityContrast: pair.personalityContrast ?? 6 };
+
+  // X-height harmony
+  const hx = hf.xHeightRatio || "moderate";
+  const bx = bf.xHeightRatio || "moderate";
+  const scale: Record<string, number> = { low: 0, moderate: 1, high: 2 };
+  const xhDiff = Math.abs(scale[hx] - scale[bx]);
+  const xHeightHarmony = pair.xHeightHarmony ?? (xhDiff === 0 ? 9 : xhDiff === 1 ? 7 : 5);
+
+  // Role fitness
+  let rf = 5;
+  if (hf.classification === "display" || hf.classification === "script" || hf.classification === "handwritten") rf += 2;
+  else if (!hf.isBodySuitable) rf += 1;
+  const bodyLeg = bf.bodyLegibilityScore || 5;
+  if (bodyLeg >= 9) rf += 3; else if (bodyLeg >= 7) rf += 2; else if (bodyLeg >= 5) rf += 1;
+  if (bf.apertureOpenness === "open") rf += 1;
+  if (bf.xHeightRatio === "high") rf += 1;
+  if (bf.strokeContrast === "high" && bf.isBodySuitable) rf -= 1;
+  if (!bf.isBodySuitable) rf -= 2;
+  const roleFitness = pair.roleFitness ?? Math.min(10, Math.max(1, rf));
+
+  // Personality contrast
+  const hm = hf.moodCategory || "neutral";
+  const bm = bf.moodCategory || "neutral";
+  let pc = 6;
+  if (hm === bm) pc = 5;
+  else {
+    const comp: Record<string, string[]> = {
+      elegant: ["neutral","modern","warm","traditional"], bold: ["neutral","modern","warm"],
+      playful: ["neutral","modern","warm"], experimental: ["neutral","modern","technical"],
+      traditional: ["modern","neutral","elegant"], warm: ["modern","neutral","elegant","bold"],
+      modern: ["traditional","elegant","warm","bold"], technical: ["warm","elegant","modern"],
+      neutral: ["elegant","bold","playful","experimental","warm","traditional"],
+    };
+    const clash: Record<string, string[]> = {
+      playful: ["traditional","technical"], experimental: ["traditional"],
+      bold: ["elegant"], technical: ["playful"],
+    };
+    if (comp[hm]?.includes(bm)) pc = 8;
+    else if (clash[hm]?.includes(bm)) pc = 3;
+  }
+  const personalityContrast = pair.personalityContrast ?? pc;
+
+  return { ...pair, xHeightHarmony, roleFitness, personalityContrast };
+}
+
+const enrichedHandCrafted = handCraftedPairs.map(enrichPairAnatomy);
 
 // ── Merge hand-crafted + curated + dynamic pairs ──
 
 // 1. Generate curated pairs first (only avoiding hand-crafted slugs)
-const hcSlugs = new Set(handCraftedPairs.map((p) => p.slug));
-const curatedPairs = generateCuratedPairs(fonts, handCraftedPairs, new Set(hcSlugs));
+const hcSlugs = new Set(enrichedHandCrafted.map((p) => p.slug));
+const curatedPairs = generateCuratedPairs(fonts, enrichedHandCrafted, new Set(hcSlugs));
 
 // 2. Generate dynamic pairs
 const dynamicPairs = generateDynamicPairs(fonts);
@@ -1905,7 +2163,7 @@ const dynamicPairs = generateDynamicPairs(fonts);
 const prioritySlugs = new Set([...hcSlugs, ...curatedPairs.map((p) => p.slug)]);
 const uniqueDynamic = dynamicPairs.filter((p) => !prioritySlugs.has(p.slug));
 
-export const fontPairs: FontPair[] = [...handCraftedPairs, ...curatedPairs, ...uniqueDynamic];
+export const fontPairs: FontPair[] = [...enrichedHandCrafted, ...curatedPairs, ...uniqueDynamic];
 
 // ── Lookup helpers ──
 

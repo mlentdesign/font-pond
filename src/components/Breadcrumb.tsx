@@ -18,7 +18,10 @@ export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: C
     const update = () => {
       const h = header.getBoundingClientRect().height;
       const w = window.innerWidth;
-      const gap = w >= 1024 ? 80 : w >= 768 ? 56 : 12;
+      const vh = window.innerHeight;
+      // Reduce gap on known tablet dimensions (width + height both match real tablets)
+      const isTabletSize = (w >= 768 && w <= 1366 && vh <= 1180) || (w >= 1024 && w <= 1366 && vh <= 834);
+      const gap = w >= 1024 ? (isTabletSize ? 40 : 80) : w >= 768 ? (isTabletSize ? 24 : 56) : 12;
       setStickyTop(h + gap);
     };
     update();
@@ -38,7 +41,7 @@ export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: C
     >
       <div style={sticky ? { display: "flex", alignItems: "center", justifyContent: stickyAction ? "space-between" : undefined } : undefined}>
         <nav aria-label="Breadcrumb" style={sticky ? { flex: stickyAction ? undefined : 1 } : { marginBottom: "24px" }}>
-          <ol className="flex items-center gap-2 text-xs text-neutral-400 flex-wrap">
+          <ol className="flex items-center text-xs text-neutral-400 flex-wrap">
             <li>
               <Link href="/?restore=1" className="transition-colors hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>
                 Results

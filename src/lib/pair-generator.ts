@@ -66,6 +66,21 @@ function pickMultipleBodies(
     if (bf.source === "fontshare") score += 2;
     if (bf.variableFont) score += 1;
 
+    // Anatomy-informed bonuses
+    if (bf.apertureOpenness === "open") score += 2;
+    if (bf.xHeightRatio === "high") score += 1;
+    if (bf.strokeContrast === "high") score -= 1; // high contrast hurts body legibility
+
+    // X-height harmony bonus
+    const hx = headerFont.xHeightRatio || "moderate";
+    const bx = bf.xHeightRatio || "moderate";
+    if (hx === bx) score += 2;
+
+    // Personality contrast bonus
+    const hm = headerFont.moodCategory || "neutral";
+    const bm = bf.moodCategory || "neutral";
+    if (hm !== bm) score += 1; // some contrast is good
+
     // Add small random factor for variety across pairs
     score += rand() * 3;
 
@@ -152,6 +167,81 @@ function simpleHash(str: string): number {
   return Math.abs(hash);
 }
 
+// ── Typography-research-informed scoring helpers ──
+
+// X-height harmony: how well the header and body x-heights align for visual cohesion
+function computeXHeightHarmony(header: Font, body: Font): number {
+  const hx = header.xHeightRatio || "moderate";
+  const bx = body.xHeightRatio || "moderate";
+  // Same x-height = best harmony; adjacent = good; opposite = weaker
+  if (hx === bx) return 9;
+  const scale = { low: 0, moderate: 1, high: 2 };
+  const diff = Math.abs(scale[hx] - scale[bx]);
+  return diff === 1 ? 7 : 5;
+}
+
+// Role fitness: how well each font fits its assigned role (header vs body)
+function computeRoleFitness(header: Font, body: Font): number {
+  let score = 5;
+
+  // Header fitness: display/script fonts are ideal headers
+  if (header.classification === "display" || header.classification === "script" || header.classification === "handwritten") score += 2;
+  else if (!header.isBodySuitable) score += 1; // header-only fonts are good headers
+
+  // Body fitness: high legibility anatomy = great body font
+  const bodyLeg = body.bodyLegibilityScore || 5;
+  if (bodyLeg >= 9) score += 3;
+  else if (bodyLeg >= 7) score += 2;
+  else if (bodyLeg >= 5) score += 1;
+
+  // Anatomy bonuses for body font
+  if (body.apertureOpenness === "open") score += 1;
+  if (body.xHeightRatio === "high") score += 1;
+  if (body.strokeContrast === "high" && body.isBodySuitable) score -= 1; // high contrast hurts body legibility
+
+  // Penalty: display-only font used as body
+  if (!body.isBodySuitable) score -= 2;
+  if (body.letterSpacing === "tight") score -= 1;
+
+  return Math.min(10, Math.max(1, score));
+}
+
+// Personality contrast: complementary mood contrast (too similar = bland, too different = clash)
+function computePersonalityContrast(header: Font, body: Font): number {
+  const hm = header.moodCategory || "neutral";
+  const bm = body.moodCategory || "neutral";
+
+  // Same mood = low contrast, can work but less interesting
+  if (hm === bm) return 5;
+
+  // Complementary pairs score high
+  const complementary: Record<string, string[]> = {
+    elegant:      ["neutral", "modern", "warm", "traditional"],
+    bold:         ["neutral", "modern", "warm"],
+    playful:      ["neutral", "modern", "warm"],
+    experimental: ["neutral", "modern", "technical"],
+    traditional:  ["modern", "neutral", "elegant"],
+    warm:         ["modern", "neutral", "elegant", "bold"],
+    modern:       ["traditional", "elegant", "warm", "bold"],
+    technical:    ["warm", "elegant", "modern"],
+    neutral:      ["elegant", "bold", "playful", "experimental", "warm", "traditional"],
+  };
+
+  if (complementary[hm]?.includes(bm)) return 8;
+
+  // Clashing pairs score low
+  const clashing: Record<string, string[]> = {
+    playful:      ["traditional", "technical"],
+    experimental: ["traditional"],
+    bold:         ["elegant"],
+    technical:    ["playful"],
+  };
+
+  if (clashing[hm]?.includes(bm)) return 3;
+
+  return 6; // neutral default
+}
+
 function makePair(header: Font, body: Font, existingSlugs: Set<string>): FontPair | null {
   const slug = `${header.slug}-${body.slug}`;
   if (existingSlugs.has(slug)) return null;
@@ -190,9 +280,20 @@ function makePair(header: Font, body: Font, existingSlugs: Set<string>): FontPai
   if (header.classification === "display" && body.serifSansCategory === "serif") originality = 9;
   if (header.serifSansCategory === body.serifSansCategory) originality = 6;
 
-  // Overall: weighted blend with deterministic variance from hash
+  // New anatomy-informed dimensions
+  const xHeightHarmony = computeXHeightHarmony(header, body);
+  const roleFitness = computeRoleFitness(header, body);
+  const personalityContrast = computePersonalityContrast(header, body);
+
+  // Overall: weighted blend with new dimensions (rebalanced from original 4 to 7)
   const baseScore =
-    hierarchy * 0.25 + legibility * 0.30 + practicality * 0.25 + originality * 0.20;
+    hierarchy * 0.15 +
+    legibility * 0.20 +
+    practicality * 0.15 +
+    originality * 0.15 +
+    xHeightHarmony * 0.15 +
+    roleFitness * 0.10 +
+    personalityContrast * 0.10;
   // Scale to 78-92 range: best pairs rival hand-crafted, weakest still respectable
   const overallScore = Math.min(92, Math.max(78, Math.round(78 + (baseScore - 7) * 4 + (hash % 3))));
 
@@ -211,6 +312,9 @@ function makePair(header: Font, body: Font, existingSlugs: Set<string>): FontPai
     bodyLegibilityScore: legibility,
     practicalityScore: practicality,
     originalityScore: originality,
+    xHeightHarmony,
+    roleFitness,
+    personalityContrast,
     sourceConfidence: header.source === "other" ? "medium" : "high",
     licenseConfidence: header.licenseConfidence,
     overallScore,
@@ -336,7 +440,18 @@ function makeCuratedPair(header: Font, body: Font, existingSlugs: Set<string>): 
   if (header.classification === "script" || header.classification === "handwritten") originality = 9;
   if (header.classification === "display" && body.serifSansCategory === "serif") originality = 9;
 
-  const baseScore = hierarchy * 0.25 + legibility * 0.30 + practicality * 0.25 + originality * 0.20;
+  const xHeightHarmony = computeXHeightHarmony(header, body);
+  const roleFitness = computeRoleFitness(header, body);
+  const personalityContrast = computePersonalityContrast(header, body);
+
+  const baseScore =
+    hierarchy * 0.15 +
+    legibility * 0.20 +
+    practicality * 0.15 +
+    originality * 0.15 +
+    xHeightHarmony * 0.15 +
+    roleFitness * 0.10 +
+    personalityContrast * 0.10;
   const overallScore = Math.min(92, Math.max(78, Math.round(78 + (baseScore - 7) * 4 + (hash % 3))));
 
   return {
@@ -351,6 +466,9 @@ function makeCuratedPair(header: Font, body: Font, existingSlugs: Set<string>): 
     bodyLegibilityScore: legibility,
     practicalityScore: practicality,
     originalityScore: originality,
+    xHeightHarmony,
+    roleFitness,
+    personalityContrast,
     sourceConfidence: header.source === "other" ? "medium" : "high",
     licenseConfidence: header.licenseConfidence,
     overallScore,

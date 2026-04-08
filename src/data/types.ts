@@ -27,6 +27,13 @@ export interface Font {
   bodyLegibilityScore: number | null; // 1-10
   screenReadabilityNotes: string | null;
   distinctiveTraits: string[];
+
+  // Typography anatomy (research-informed legibility markers)
+  xHeightRatio?: "low" | "moderate" | "high";           // x-height relative to cap height — higher = more legible at small sizes
+  apertureOpenness?: "closed" | "moderate" | "open";     // openness of counters on c, e, a, s — open = easier letter distinction
+  strokeContrast?: "none" | "low" | "moderate" | "high"; // variation between thick/thin strokes — extreme contrast reduces body legibility
+  letterSpacing?: "tight" | "normal" | "generous";       // default inter-letter spacing — generous = better body readability
+  moodCategory?: "traditional" | "modern" | "elegant" | "playful" | "bold" | "neutral" | "technical" | "warm" | "experimental"; // primary personality
   historicalNotes: string | null;
   notableUseExamples: string[];
   similarFonts: string[];
@@ -61,6 +68,9 @@ export interface FontPair {
   bodyLegibilityScore: number; // 1-10
   practicalityScore: number; // 1-10
   originalityScore: number; // 1-10
+  xHeightHarmony?: number;       // 1-10: how well header/body x-heights align for visual cohesion
+  roleFitness?: number;          // 1-10: how well each font fits its role (display vs body)
+  personalityContrast?: number;  // 1-10: complementary mood contrast (too similar = bland, too different = clash)
   sourceConfidence: "high" | "medium" | "low";
   licenseConfidence: "high" | "medium" | "low";
   overallScore: number; // 1-100
