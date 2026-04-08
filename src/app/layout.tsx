@@ -31,6 +31,8 @@ export default function RootLayout({
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#c8e6e3" />
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d3b3f" />
         <meta name="color-scheme" content="light dark" />
+        {/* Allow search indexing but block AI training and scraping */}
+        <meta name="robots" content="noai, noimageai" />
         {/* Theme script — sets data-theme from localStorage before first paint */}
         <script
           dangerouslySetInnerHTML={{
