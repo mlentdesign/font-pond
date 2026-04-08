@@ -1,18 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { setHeaderAnimationPaused } from "./RansomHeader";
 import { useAppState } from "@/lib/store";
 
 export function Footer() {
-  const [paused, setPaused] = useState(false);
+  const [paused, setPaused] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return localStorage.getItem("font-pond-paused") === "true";
+  });
   const { recentItems } = useAppState();
   const hasHistory = recentItems.length >= 2;
+
+  // Restore pause state on mount
+  useEffect(() => {
+    if (paused) {
+      setHeaderAnimationPaused(true);
+      window.dispatchEvent(new CustomEvent("animationPauseToggle", { detail: true }));
+      document.body.classList.add("animations-paused");
+    }
+  }, []);
 
   const togglePause = () => {
     const next = !paused;
     setPaused(next);
+    localStorage.setItem("font-pond-paused", String(next));
     setHeaderAnimationPaused(next);
     window.dispatchEvent(new CustomEvent("animationPauseToggle", { detail: next }));
     document.body.classList.toggle("animations-paused", next);
