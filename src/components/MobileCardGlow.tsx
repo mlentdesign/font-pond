@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 
 /**
  * On mobile (< 768px), replaces hover-based card glow with viewport-based glow.
- * The card occupying the most visible pixels gets the "card-viewport-active" class.
- * Only one card glows at a time.
+ * The card with the most unobstructed visible pixels gets the "card-viewport-active" class.
+ * Only one card glows at a time. Areas covered by fixed header/footer don't count.
  */
 export function MobileCardGlow() {
   const pathname = usePathname();
@@ -30,15 +30,29 @@ export function MobileCardGlow() {
         return;
       }
 
+      // Measure the visible area not covered by fixed elements
+      const header = document.querySelector("header");
+      const stickyBreadcrumb = document.querySelector(".breadcrumb-sticky");
+      const stickyDownload = document.querySelector(".mobile-sticky-download:not(.is-hidden)");
+
+      // Top edge: below header and sticky breadcrumb
+      let visibleTop = 0;
+      if (header) visibleTop = Math.max(visibleTop, header.getBoundingClientRect().bottom);
+      if (stickyBreadcrumb) visibleTop = Math.max(visibleTop, stickyBreadcrumb.getBoundingClientRect().bottom);
+
+      // Bottom edge: above sticky download CTA or viewport bottom
+      let visibleBottom = window.innerHeight;
+      if (stickyDownload) visibleBottom = Math.min(visibleBottom, stickyDownload.getBoundingClientRect().top);
+
       const cards = document.querySelectorAll(".card-hover");
-      const vh = window.innerHeight;
       let bestCard: Element | null = null;
       let bestPixels = 0;
 
       for (const card of cards) {
         const rect = card.getBoundingClientRect();
-        const top = Math.max(0, rect.top);
-        const bottom = Math.min(vh, rect.bottom);
+        // Clamp card rect to the unobstructed visible area
+        const top = Math.max(visibleTop, rect.top);
+        const bottom = Math.min(visibleBottom, rect.bottom);
         const visible = Math.max(0, bottom - top);
         if (visible > bestPixels) {
           bestPixels = visible;
@@ -46,8 +60,9 @@ export function MobileCardGlow() {
         }
       }
 
-      // Only glow if card occupies at least 15% of viewport
-      if (bestPixels < vh * 0.15) bestCard = null;
+      // Only glow if card occupies at least 15% of the visible area
+      const visibleArea = Math.max(1, visibleBottom - visibleTop);
+      if (bestPixels < visibleArea * 0.15) bestCard = null;
 
       if (bestCard !== activeCard) {
         if (activeCard) activeCard.classList.remove("card-viewport-active");
