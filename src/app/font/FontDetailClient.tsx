@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { fontsBySlug, fontsById } from "@/data/fonts";
 import { getPairsWithFont } from "@/lib/engine";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
-import { titleCase, sentenceCase, getSourceLabel, formatClassification, chipCase } from "@/lib/text";
+import { titleCase, sentenceCase, getSourceLabel, formatClassification, chipCase, fontHasNumbers } from "@/lib/text";
 import { pairsBySlug } from "@/data/pairs";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -46,6 +46,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
   if (font) crumbs.push({ label: font.name });
 
   const { addHistoryItem } = useAppState();
+  const [hasNums, setHasNums] = useState(true);
 
   useEffect(() => {
     if (font) {
@@ -60,10 +61,14 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
         const similar = fontsBySlug.get(sf);
         if (similar) loadFont(similar);
       }
+      // Check if font has visible number glyphs
+      const fam = getFontFamily(font.name, font.source);
+      const checkNums = () => setHasNums(fontHasNumbers(fam));
+      setTimeout(checkNums, 500);
+      setTimeout(checkNums, 2000);
       return unpin;
     }
   }, [font]);
-
   const downloadRef = useRef<HTMLDivElement>(null);
   const [showStickyDownload, setShowStickyDownload] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
