@@ -223,11 +223,60 @@ export function PromptInput() {
             onDragLeave={() => setIsDragging(false)}
             onDrop={handleDrop}
           >
+            {/* Image previews — above Add image on mobile */}
+            {imagePreviews.length > 0 && (
+              <div className="flex flex-wrap" style={{ gap: "8px", marginBottom: "8px" }}>
+                {imagePreviews.map((url, i) => (
+                  <div key={i} className="relative">
+                    <img
+                      src={url}
+                      alt={`Reference ${i + 1}`}
+                      className="rounded-lg object-cover"
+                      style={{ width: "48px", height: "48px", border: "2px solid var(--border)" }}
+                    />
+                    <button
+                      onClick={() => handleRemoveImage(i)}
+                      className="absolute rounded-full flex items-center justify-center"
+                      style={{ top: "-8px", right: "-8px", width: "24px", height: "24px", background: "var(--btn-bg)", color: "var(--btn-text)", fontSize: "16px" }}
+                      aria-label={`Remove image ${i + 1}`}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
             <label
               htmlFor="image-upload"
               className="flex items-center rounded-lg cursor-pointer transition-colors add-image-hover"
-              style={{ fontSize: "16px", fontWeight: 600, color: "var(--add-image-color)", gap: "4px" }}
+              style={{
+                fontSize: "16px",
+                fontWeight: 600,
+                color: "var(--add-image-color)",
+                gap: "4px",
+                padding: "8px 12px",
+                margin: "-8px -12px",
+                position: "relative",
+              }}
             >
+              {isDragging && (
+                <svg
+                  className="pointer-events-none"
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible" }}
+                >
+                  <rect
+                    rx="8"
+                    ry="8"
+                    fill="none"
+                    stroke="var(--accent)"
+                    strokeWidth="2"
+                    strokeDasharray="6 4"
+                    strokeLinecap="round"
+                    pathLength="200"
+                    style={{ x: 1, y: 1, width: "calc(100% - 2px)", height: "calc(100% - 2px)" }}
+                  />
+                </svg>
+              )}
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
                 <rect x="2" y="3" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
                 <circle cx="6.5" cy="7.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
@@ -243,9 +292,9 @@ export function PromptInput() {
           className="action-bar action-bar-border"
           style={{ padding: imagePreviews.length > 0 ? "16px 24px 16px" : "16px 24px" }}
         >
-          {/* Image previews inside action bar */}
+          {/* Image previews inside action bar — hidden on mobile where they show above Add image */}
           {imagePreviews.length > 0 && (
-            <div className="flex flex-wrap" style={{ gap: "8px", marginBottom: "8px" }}>
+            <div className="action-bar-previews flex flex-wrap" style={{ gap: "8px", marginBottom: "8px" }}>
               {imagePreviews.map((url, i) => (
                 <div key={i} className="relative group">
                   <img
