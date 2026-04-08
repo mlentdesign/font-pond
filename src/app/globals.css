@@ -1037,6 +1037,11 @@ body.animations-paused #water-bg * {
   display: none !important;
 }
 
+/* Database filter checkboxes — use teal accent in dark mode */
+[data-theme="dark"] input[type="checkbox"] {
+  accent-color: #4db6ac;
+}
+
 /* Database specimen line break — hidden on desktop, shown on mobile + tablet */
 .db-specimen-break {
   display: none;
