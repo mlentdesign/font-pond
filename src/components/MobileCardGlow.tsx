@@ -128,10 +128,10 @@ export function MobileCardGlow() {
 
       if (atBottom && lastVisibleCard) {
         bestCard = lastVisibleCard;
-      } else if (firstFullyVisible) {
-        bestCard = firstFullyVisible;
       } else if (topEdgeCard) {
         bestCard = topEdgeCard;
+      } else if (firstFullyVisible) {
+        bestCard = firstFullyVisible;
       } else if (mostPixelsCard) {
         bestCard = mostPixelsCard;
       }
