@@ -29,19 +29,9 @@ export function ThemeToggle() {
     }, 350);
   };
 
-  // Render a placeholder with fixed dimensions during SSR to avoid hydration mismatch
-  if (!mounted) {
-    return (
-      <div
-        className="rounded-lg"
-        style={{ width: "80px", height: "40px", background: "var(--bg-chip)", border: "2px solid var(--border)" }}
-      />
-    );
-  }
-
   return (
     <button
-      onClick={toggle}
+      onClick={mounted ? toggle : undefined}
       aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
       className="flex items-center rounded-lg overflow-hidden"
       style={{
@@ -51,13 +41,7 @@ export function ThemeToggle() {
       }}
     >
       <span
-        className="flex items-center justify-center rounded-md transition-all"
-        style={{
-          width: "32px",
-          height: "32px",
-          background: !dark ? "var(--toggle-active)" : "transparent",
-          color: !dark ? "var(--toggle-active-text)" : "var(--text-ransom)",
-        }}
+        className="toggle-sun flex items-center justify-center rounded-md transition-all"
       >
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
           <circle cx="10" cy="10" r="3.5" stroke="currentColor" strokeWidth="1.5" />
@@ -65,13 +49,7 @@ export function ThemeToggle() {
         </svg>
       </span>
       <span
-        className="flex items-center justify-center rounded-md transition-all"
-        style={{
-          width: "32px",
-          height: "32px",
-          background: dark ? "var(--toggle-active)" : "transparent",
-          color: dark ? "var(--toggle-active-text)" : "var(--text-ransom)",
-        }}
+        className="toggle-moon flex items-center justify-center rounded-md transition-all"
       >
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
           <path d="M16 11.5a6 6 0 01-7.5-7.5A6 6 0 1016 11.5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
