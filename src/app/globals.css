@@ -844,20 +844,8 @@ body.animations-paused #water-bg * {
 /* Focus: outline wraps only the textarea area, not the action bar.
    Rounded corners on top to match the container, square on bottom
    where it meets the action bar divider. */
-.prompt-textarea-wrap {
-  position: relative;
-}
-.prompt-textarea-wrap:focus-within::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border: 2px solid var(--accent);
-  border-radius: 10px 10px 0 0;
-  pointer-events: none;
-  z-index: 2;
+.prompt-textarea-wrap:focus-within {
+  box-shadow: inset 0 0 0 2px var(--accent);
 }
 /* Suppress the global focus-visible outline on the prompt textarea */
 .prompt-textarea-wrap textarea:focus,
