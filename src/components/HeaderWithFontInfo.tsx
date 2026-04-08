@@ -3,7 +3,6 @@
 import { useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { RansomHeader } from "./RansomHeader";
-import { fontsBySlug } from "@/data/fonts";
 
 export function HeaderWithFontInfo() {
   const [currentFont, setCurrentFont] = useState("");
@@ -24,10 +23,8 @@ export function HeaderWithFontInfo() {
     if (hideTimeout.current) clearTimeout(hideTimeout.current);
   };
 
-  const fontExists = fontsBySlug.has(currentSlug);
-
   const handleFontClick = () => {
-    if (fontExists) {
+    if (currentSlug) {
       router.push(`/font?f=${currentSlug}`);
       setShowTooltip(false);
     }
@@ -76,23 +73,21 @@ export function HeaderWithFontInfo() {
                 top: "calc(100% + 4px)",
                 left: "50%",
                 transform: "translateX(-50%)",
-                background: "var(--bg-card)",
+                background: "var(--bg-input)",
                 border: "2px solid var(--border)",
                 padding: "8px 16px",
                 whiteSpace: "nowrap",
                 fontSize: "16px",
-                color: "var(--text-body)",
+                color: "var(--text-ransom)",
                 zIndex: 100,
-                cursor: fontExists ? "pointer" : "default",
+                cursor: "pointer",
               }}
-              role={fontExists ? "link" : undefined}
-              tabIndex={fontExists ? 0 : undefined}
+              role="link"
+              tabIndex={0}
               onClick={(e) => { e.stopPropagation(); handleFontClick(); }}
-              onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && fontExists) { e.preventDefault(); e.stopPropagation(); handleFontClick(); } }}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); handleFontClick(); } }}
             >
-              <span style={{ color: "var(--text-heading)", fontWeight: 600 }}>
-                {currentFont}
-              </span>
+              {currentFont}
             </span>
           )}
         </span>
