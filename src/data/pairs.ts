@@ -2163,7 +2163,12 @@ const dynamicPairs = generateDynamicPairs(fonts);
 const prioritySlugs = new Set([...hcSlugs, ...curatedPairs.map((p) => p.slug)]);
 const uniqueDynamic = dynamicPairs.filter((p) => !prioritySlugs.has(p.slug));
 
-export const fontPairs: FontPair[] = [...enrichedHandCrafted, ...curatedPairs, ...uniqueDynamic];
+// Concatenate without spread to avoid stack overflow with 200k+ items
+const _allPairs: FontPair[] = [];
+for (const p of enrichedHandCrafted) _allPairs.push(p);
+for (const p of curatedPairs) _allPairs.push(p);
+for (const p of uniqueDynamic) _allPairs.push(p);
+export const fontPairs: FontPair[] = _allPairs;
 
 // ── Lookup helpers ──
 
