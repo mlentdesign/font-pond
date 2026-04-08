@@ -237,7 +237,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
             </dl>
           </SectionCard>
 
-          {/* Card 2: Suitability (desktop only — hidden on tablet where it merges with card 1) */}
+          {/* Card 2: Suitability + Anatomy (desktop only — hidden on tablet where it merges with card 1) */}
           <SectionCard noPadding className="font-detail-card2" style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
               <InfoRow label="License" value={font.licenseType} />
@@ -246,7 +246,10 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
               {font.bodyLegibilityScore && (
                 <InfoRow label="Body legibility" value={`${font.bodyLegibilityScore}/10`} />
               )}
-              <InfoRow label="Screen readability" value={font.screenReadabilityNotes} />
+              <InfoRow label="X-height" value={font.xHeightRatio ? titleCase(font.xHeightRatio) : null} />
+              <InfoRow label="Apertures" value={font.apertureOpenness ? titleCase(font.apertureOpenness) : null} />
+              <InfoRow label="Stroke contrast" value={font.strokeContrast ? titleCase(font.strokeContrast) : null} />
+              <InfoRow label="Spacing" value={font.letterSpacing ? titleCase(font.letterSpacing) : null} />
             </dl>
           </SectionCard>
 
@@ -266,7 +269,10 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
               {font.bodyLegibilityScore && (
                 <InfoRow label="Body legibility" value={`${font.bodyLegibilityScore}/10`} />
               )}
-              <InfoRow label="Screen readability" value={font.screenReadabilityNotes} />
+              <InfoRow label="X-height" value={font.xHeightRatio ? titleCase(font.xHeightRatio) : null} />
+              <InfoRow label="Apertures" value={font.apertureOpenness ? titleCase(font.apertureOpenness) : null} />
+              <InfoRow label="Stroke contrast" value={font.strokeContrast ? titleCase(font.strokeContrast) : null} />
+              <InfoRow label="Spacing" value={font.letterSpacing ? titleCase(font.letterSpacing) : null} />
             </dl>
           </SectionCard>
 
@@ -288,7 +294,13 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
               {font.useCases.length > 0 && (
                 <ChipGroup label="USE CASES" chips={font.useCases.map(chipCase)} />
               )}
-              {font.useCases.length > 0 && font.historicalNotes && (
+              {font.useCases.length > 0 && (font.moodCategory || font.historicalNotes) && (
+                <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
+              )}
+              {font.moodCategory && (
+                <ChipGroup label="MOOD" chips={[chipCase(font.moodCategory)]} />
+              )}
+              {font.moodCategory && font.historicalNotes && (
                 <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
               )}
               {font.historicalNotes && (
