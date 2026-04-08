@@ -59,6 +59,8 @@ export function MobileCardGlow() {
 
       let firstFullyVisible: Element | null = null;
       let lastVisibleCard: Element | null = null;
+      let mostPixelsCard: Element | null = null;
+      let mostPixels = 0;
       // For tall cards: the card whose top is visible and closest to visibleTop
       let topEdgeCard: Element | null = null;
       let topEdgeDist = Infinity;
@@ -73,6 +75,11 @@ export function MobileCardGlow() {
 
         lastVisibleCard = card;
 
+        if (visible > mostPixels) {
+          mostPixels = visible;
+          mostPixelsCard = card;
+        }
+
         // Fully uncovered — entire card in the visible area
         const isFullyVisible = rect.top >= visibleTop && rect.bottom <= visibleBottom;
         if (isFullyVisible && !firstFullyVisible) {
@@ -80,7 +87,6 @@ export function MobileCardGlow() {
         }
 
         // Track the card whose real top edge is visible and nearest to visibleTop
-        // (card.top is within or just below the visible area)
         if (rect.top >= visibleTop && rect.top < visibleBottom) {
           const dist = rect.top - visibleTop;
           if (dist < topEdgeDist) {
@@ -99,13 +105,12 @@ export function MobileCardGlow() {
         // Topmost fully-uncovered card wins
         bestCard = firstFullyVisible;
       } else if (topEdgeCard) {
-        // No card fully visible (tall cards) —
-        // pick the card whose top is visible and closest to the top
+        // Tall cards: pick the card whose top just entered the viewport
         bestCard = topEdgeCard;
-      } else if (lastVisibleCard) {
-        // All card tops are above the visible area (scrolled deep into a tall card)
-        // Just keep the last card that has any visible pixels
-        bestCard = lastVisibleCard;
+      } else if (mostPixelsCard) {
+        // Scrolled deep into a tall card (top not visible) —
+        // pick the card occupying the most viewport space
+        bestCard = mostPixelsCard;
       }
 
       if (bestCard !== activeCard) {
