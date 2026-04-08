@@ -105,13 +105,25 @@ export function FishEasterEgg() {
     return () => window.removeEventListener("animationPauseToggle", handlePause);
   }, []);
 
-  // Track mouse position for fish curiosity
+  // Track mouse position for fish curiosity (desktop/tablet only)
   useEffect(() => {
+    // On mobile, skip mouse tracking entirely so fish don't get stuck
+    // congregating at a stale touch position
+    const isMobile = () => window.innerWidth < 768;
     const handleMove = (e: MouseEvent) => {
+      if (isMobile()) return;
       mouseRef.current = { x: e.clientX, y: e.clientY };
     };
+    // Reset mouse position when leaving the window (desktop)
+    const handleLeave = () => {
+      mouseRef.current = { x: -1, y: -1 };
+    };
     window.addEventListener("mousemove", handleMove);
-    return () => window.removeEventListener("mousemove", handleMove);
+    document.addEventListener("mouseleave", handleLeave);
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      document.removeEventListener("mouseleave", handleLeave);
+    };
   }, []);
 
   const addFish = useCallback(() => {
@@ -372,8 +384,8 @@ export function FishEasterEgg() {
             }
           }
 
-          // Check if mouse is nearby (within 120px) — fish gets curious
-          if (!attracted && mouse.x >= 0 && mouse.y >= vh * 0.5) {
+          // Check if mouse is nearby (within 120px) — fish gets curious (desktop/tablet only)
+          if (!attracted && mouse.x >= 0 && mouse.y >= vh * 0.5 && canvas.width >= 768) {
             const dmx = mouse.x - fish.x;
             const dmy = mouse.y - fish.y;
             const mouseDist = Math.sqrt(dmx * dmx + dmy * dmy);
