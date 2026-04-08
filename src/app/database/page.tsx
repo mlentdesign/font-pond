@@ -367,6 +367,8 @@ export default function DatabasePage() {
               {filterOpen && (
                 <div
                   className="absolute right-0 rounded-xl shadow-lg"
+                  role="dialog"
+                  aria-label="Filter fonts"
                   style={{
                     top: "calc(100% + 8px)",
                     background: "var(--bg-card)",
@@ -376,8 +378,8 @@ export default function DatabasePage() {
                     zIndex: 50,
                   }}
                 >
-                  <p className="uppercase tracking-wider font-medium" style={{ fontSize: "12px", color: "var(--text-label)", marginBottom: "8px" }}>Category</p>
-                  <div style={{ marginBottom: "16px" }}>
+                  <p id="filter-category-label" className="uppercase tracking-wider font-medium" style={{ fontSize: "12px", color: "var(--text-label)", marginBottom: "8px" }}>Category</p>
+                  <div role="group" aria-labelledby="filter-category-label" style={{ marginBottom: "16px" }}>
                     {uniqueCategories.map((c) => (
                       <label key={c} className="flex items-center cursor-pointer hover:opacity-70" style={{ gap: "8px", padding: "4px 0", fontSize: "16px", color: "var(--text-body)" }}>
                         <input
@@ -390,8 +392,8 @@ export default function DatabasePage() {
                       </label>
                     ))}
                   </div>
-                  <p className="uppercase tracking-wider font-medium" style={{ fontSize: "12px", color: "var(--text-label)", marginBottom: "8px" }}>Source</p>
-                  <div>
+                  <p id="filter-source-label" className="uppercase tracking-wider font-medium" style={{ fontSize: "12px", color: "var(--text-label)", marginBottom: "8px" }}>Source</p>
+                  <div role="group" aria-labelledby="filter-source-label">
                     {uniqueSources.map((s) => (
                       <label key={s} className="flex items-center cursor-pointer hover:opacity-70" style={{ gap: "8px", padding: "4px 0", fontSize: "16px", color: "var(--text-body)" }}>
                         <input
@@ -484,19 +486,19 @@ export default function DatabasePage() {
                 </colgroup>
                 <thead>
                   <tr>
-                    <th onClick={() => toggleSort("name")} className={thClass} style={thStyle}>
+                    <th onClick={() => toggleSort("name")} className={thClass} style={thStyle} aria-sort={sortKey === "name" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Font name{arrow("name")}
                     </th>
-                    <th className="text-left uppercase tracking-wider" style={{ ...thStyle, cursor: "default" }}>
+                    <th className="text-left uppercase tracking-wider" style={{ ...thStyle, cursor: "default" }} role="columnheader">
                       Specimen
                     </th>
-                    <th onClick={() => toggleSort("category")} className={thClass} style={thStyle}>
+                    <th onClick={() => toggleSort("category")} className={thClass} style={thStyle} aria-sort={sortKey === "category" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Category{arrow("category")}
                     </th>
-                    <th onClick={() => toggleSort("pairs")} className={thClass} style={{ ...thStyle, textAlign: "right" }}>
+                    <th onClick={() => toggleSort("pairs")} className={thClass} style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "pairs" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Pairs{arrow("pairs")}
                     </th>
-                    <th onClick={() => toggleSort("source")} className={thClass} style={{ ...thStyle, textAlign: "right" }}>
+                    <th onClick={() => toggleSort("source")} className={thClass} style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "source" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Source{arrow("source")}
                     </th>
                   </tr>

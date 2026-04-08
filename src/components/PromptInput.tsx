@@ -261,6 +261,7 @@ export function PromptInput() {
             onDragLeave={() => setIsDragging(false)}
             onDrop={handleDrop}
           >
+            <span id="image-upload-hint" className="sr-only">You can also drag and drop images here</span>
             <input
               ref={fileInputRef}
               type="file"
@@ -270,6 +271,7 @@ export function PromptInput() {
               className="sr-only"
               id="image-upload"
               aria-label="Upload reference images"
+              aria-describedby="image-upload-hint"
             />
             <label
               htmlFor="image-upload"
