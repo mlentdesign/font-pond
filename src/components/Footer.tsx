@@ -20,24 +20,28 @@ export function Footer() {
 
   return (
     <footer
-      className="w-full mt-auto shell-padding site-footer footer-grid"
+      className="w-full mt-auto shell-padding site-footer footer-wrap"
       style={{
         background: "var(--bg-footer)",
         boxShadow: "var(--shadow-edge-top)",
         borderTop: "var(--border-edge)",
+        minHeight: "88px",
         paddingTop: "16px",
         paddingBottom: "16px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
       }}
     >
-      <div className="footer-text-col">
+      <div className="footer-left" style={{ display: "flex", alignItems: "center", minWidth: 0 }}>
         <Link
           href="/database"
           className="footer-tagline hover:opacity-70 transition-opacity"
-          style={{ fontSize: "16px", color: "var(--text-ransom)", display: "block" }}
+          style={{ fontSize: "16px", color: "var(--text-ransom)" }}
         >
           Free font combinations for design work
         </Link>
-        <p className="footer-copyright" style={{ fontSize: "16px", color: "var(--text-ransom)", margin: 0 }}>
+        <p style={{ fontSize: "16px", color: "var(--text-ransom)", margin: 0 }}>
           &copy; 2026{" "}
           <a
             href="https://meet-mel-lent.framer.website/"
@@ -50,6 +54,7 @@ export function Footer() {
           </a>
         </p>
       </div>
+
       <div className="footer-right flex items-center shrink-0" style={{ gap: "24px" }}>
         <button
           onClick={togglePause}
