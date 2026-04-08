@@ -153,7 +153,7 @@ export default function FontDetailPage() {
           <div>
             <h2 className="text-3xl font-semibold text-neutral-900 mb-1">{font.name}</h2>
             <p className="text-sm text-neutral-400">
-              {font.designer ? `By ${font.designer}` : "Unknown creator"}
+              {font.designer ? `By ${font.designer}` : "By unknown creator"}
               {font.year && ` · ${font.year}`}
             </p>
           </div>
