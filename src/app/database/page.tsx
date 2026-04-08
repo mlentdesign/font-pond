@@ -390,7 +390,7 @@ export default function DatabasePage() {
                           type="checkbox"
                           checked={categoryFilters.has(c)}
                           onChange={() => toggleCategory(c)}
-                          style={{ accentColor: "var(--accent)" }}
+                          className="db-checkbox"
                         />
                         {titleCase(c)}
                       </label>
@@ -404,7 +404,7 @@ export default function DatabasePage() {
                           type="checkbox"
                           checked={sourceFilters.has(s)}
                           onChange={() => toggleSource(s)}
-                          style={{ accentColor: "var(--accent)" }}
+                          className="db-checkbox"
                         />
                         {s}
                       </label>
