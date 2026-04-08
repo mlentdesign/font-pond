@@ -1037,9 +1037,33 @@ body.animations-paused #water-bg * {
   display: none !important;
 }
 
-/* Database filter checkboxes — use teal accent in dark mode */
-[data-theme="dark"] input[type="checkbox"] {
-  accent-color: #4db6ac;
+/* Database filter checkboxes — custom styled for consistent theming */
+.db-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-input);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+}
+.db-checkbox:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.db-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 /* Database specimen line break — hidden on desktop, shown on mobile + tablet */
