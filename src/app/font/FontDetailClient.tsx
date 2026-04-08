@@ -338,15 +338,28 @@ export default function FontDetailPage() {
                       >
                         ↗
                       </span>
-                      <div className="flex items-baseline justify-between mb-4">
+                      <div className="flex items-center justify-between mb-4">
                         <div className="min-w-0 flex-1 mr-3">
                           <span className="text-lg font-semibold text-neutral-900 block break-words">
                             {sf.name}
                           </span>
                         </div>
-                        <span className="shrink-0 bg-neutral-100 text-neutral-500 rounded-md" style={{ fontSize: "14px", padding: "4px 12px" }}>
-                          {sfSource}
-                        </span>
+                        {sf.sourceUrl ? (
+                          <a
+                            href={sf.sourceUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="shrink-0 btn-generate font-medium rounded-lg transition-colors"
+                            style={{ fontSize: "16px", padding: "8px 24px", textDecoration: "none" }}
+                          >
+                            {sfSource} ↗
+                          </a>
+                        ) : (
+                          <span className="shrink-0 bg-neutral-100 text-neutral-500 rounded-md" style={{ fontSize: "14px", padding: "4px 12px" }}>
+                            {sfSource}
+                          </span>
+                        )}
                       </div>
                       <div
                         className="text-4xl leading-tight mb-4 text-neutral-800 break-words"
