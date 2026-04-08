@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { PromptInput } from "@/components/PromptInput";
 import { SampleTextInputs } from "@/components/SampleTextInputs";
 import { ResultsGrid } from "@/components/ResultsGrid";
@@ -10,11 +11,20 @@ import { useAppState } from "@/lib/store";
 import { rankPairs, explorePairs } from "@/lib/engine";
 
 export default function Home() {
+  return (
+    <Suspense>
+      <HomeContent />
+    </Suspense>
+  );
+}
+
+function HomeContent() {
+  const searchParams = useSearchParams();
   const { hasSearched, results, setQuery, setResults, setHasSearched, setIsExploring, setVisibleCount, setIsLoading } = useAppState();
 
-  // Restore last search when returning via breadcrumb
+  // Restore last search when returning via breadcrumb (?restore=1)
   useEffect(() => {
-    if (hasSearched && results.length > 0) return; // already showing results
+    if (searchParams.get("restore") !== "1") return;
     try {
       const saved = localStorage.getItem("font-pond-last-query");
       if (!saved) return;
@@ -31,7 +41,7 @@ export default function Home() {
         setResults(rankPairs(saved));
       }
     } catch {}
-  }, []);
+  }, [searchParams]);
 
   const handleReset = (e: React.MouseEvent) => {
     e.preventDefault();
