@@ -158,6 +158,7 @@ export function MobileCardGlow() {
         if (activeCard) removeGlow(activeCard);
         if (bestCard) applyGlow(bestCard);
         activeCard = bestCard;
+        activeCardSince = Date.now();
       }
     }
 
