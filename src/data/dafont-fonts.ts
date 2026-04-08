@@ -61,30 +61,225 @@ function dafont(
 ): Font {
   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
   const enrichedTags = enrichTags(tags, toneDescriptors);
-  // Per-font anatomy derivation from tags/traits/tones
-  const allWords = [...tags, ...toneDescriptors, ...distinctiveTraits].map(s => s.toLowerCase()).join(" ");
-  const derivedXHeight: Font["xHeightRatio"] = opts?.xHeightRatio ??
-    (allWords.includes("condensed") || allWords.includes("impact") || allWords.includes("bold") || allWords.includes("heavy") ? "high" :
-     allWords.includes("script") || allWords.includes("calligraph") || allWords.includes("decorative") || allWords.includes("ornate") ? "low" : "moderate");
-  const derivedAperture: Font["apertureOpenness"] = opts?.apertureOpenness ??
-    (allWords.includes("condensed") || allWords.includes("tight") || allWords.includes("impact") || allWords.includes("heavy") || allWords.includes("block") ? "closed" :
-     allWords.includes("open") || allWords.includes("rounded") || allWords.includes("friendly") ? "open" : "moderate");
-  const derivedStroke: Font["strokeContrast"] = opts?.strokeContrast ??
-    (allWords.includes("high-contrast") || allWords.includes("elegant") && classification === "serif" ? "high" :
-     allWords.includes("script") || allWords.includes("calligraph") || allWords.includes("brush") ? "moderate" :
-     allWords.includes("slab") || allWords.includes("rounded") ? "low" : "none");
-  const derivedSpacing: Font["letterSpacing"] = opts?.letterSpacing ??
-    (allWords.includes("condensed") || allWords.includes("tight") || allWords.includes("impact") || allWords.includes("heavy") ? "tight" :
-     allWords.includes("wide") || allWords.includes("spaced") || allWords.includes("generous") ? "generous" : "normal");
-  const derivedMood: Font["moodCategory"] = opts?.moodCategory ??
-    (allWords.includes("grunge") || allWords.includes("punk") || allWords.includes("horror") || allWords.includes("experimental") || allWords.includes("raw") ? "experimental" :
-     allWords.includes("playful") || allWords.includes("fun") || allWords.includes("cute") || allWords.includes("bubbly") || allWords.includes("cartoon") ? "playful" :
-     allWords.includes("elegant") || allWords.includes("luxury") || allWords.includes("sophisticated") || allWords.includes("refined") ? "elegant" :
-     allWords.includes("bold") || allWords.includes("impactful") || allWords.includes("powerful") || allWords.includes("fierce") || allWords.includes("commanding") ? "bold" :
-     allWords.includes("warm") || allWords.includes("friendly") || allWords.includes("casual") || allWords.includes("handwritten") ? "warm" :
-     allWords.includes("retro") || allWords.includes("vintage") || allWords.includes("classic") || allWords.includes("western") ? "traditional" :
-     allWords.includes("pixel") || allWords.includes("stencil") || allWords.includes("military") || allWords.includes("digital") ? "technical" :
-     allWords.includes("modern") || allWords.includes("sleek") || allWords.includes("futuristic") ? "modern" : "bold");
+
+  // Hand-researched anatomy map — every DaFont font gets explicit values
+  // [xHeightRatio, apertureOpenness, strokeContrast, letterSpacing, moodCategory]
+  type AT = [Font["xHeightRatio"], Font["apertureOpenness"], Font["strokeContrast"], Font["letterSpacing"], Font["moodCategory"]];
+  const DAFONT_ANATOMY: Record<string, AT> = {
+    // ── Grunge / Distressed ──
+    "a-damn-mess":        ["moderate", "moderate", "low",      "normal",   "experimental"],
+    "punkboy":            ["moderate", "moderate", "low",      "normal",   "experimental"],
+    "angst":              ["moderate", "moderate", "none",     "normal",   "experimental"],
+    "dirty-headline":     ["high",     "closed",   "none",     "tight",    "experimental"],
+    "capture-it":         ["high",     "closed",   "none",     "tight",    "experimental"],
+    "another-danger":     ["moderate", "moderate", "none",     "normal",   "experimental"],
+    "crust-clean":        ["moderate", "moderate", "low",      "normal",   "experimental"],
+    "dirty-ego":          ["moderate", "moderate", "none",     "normal",   "experimental"],
+    "28-days-later":      ["moderate", "moderate", "none",     "normal",   "experimental"],
+    "neuropol":           ["moderate", "moderate", "none",     "normal",   "modern"],
+    "guttural":           ["high",     "closed",   "none",     "tight",    "experimental"],
+    "eraser":             ["moderate", "moderate", "low",      "normal",   "experimental"],
+    "sewer-sys":          ["moderate", "moderate", "none",     "normal",   "experimental"],
+    "capture-smallz":     ["moderate", "moderate", "none",     "normal",   "experimental"],
+    "disorder":           ["moderate", "moderate", "none",     "normal",   "experimental"],
+    // ── Script / Calligraphic ──
+    "sacramento":         ["low",      "moderate", "moderate", "normal",   "elegant"],
+    "pacifico":           ["moderate", "moderate", "moderate", "normal",   "warm"],
+    "honey-script":       ["low",      "moderate", "moderate", "normal",   "warm"],
+    "angeline-vintage":   ["low",      "moderate", "moderate", "normal",   "elegant"],
+    "sophia":             ["low",      "moderate", "moderate", "normal",   "elegant"],
+    "scriptina":          ["low",      "moderate", "high",     "normal",   "elegant"],
+    "respective":         ["low",      "moderate", "moderate", "normal",   "elegant"],
+    "windsong":           ["low",      "moderate", "moderate", "generous", "elegant"],
+    "blessed-day":        ["low",      "moderate", "moderate", "normal",   "warm"],
+    "milkshake":          ["moderate", "moderate", "moderate", "normal",   "playful"],
+    "magnolia-sky":       ["low",      "moderate", "moderate", "normal",   "elegant"],
+    "nickainley":         ["low",      "moderate", "moderate", "normal",   "warm"],
+    "loveline":           ["low",      "moderate", "moderate", "normal",   "elegant"],
+    "braxton":            ["low",      "moderate", "moderate", "normal",   "warm"],
+    "satisfaction":       ["low",      "moderate", "moderate", "normal",   "warm"],
+    "tahu":               ["low",      "moderate", "low",      "normal",   "warm"],
+    "selima":             ["low",      "moderate", "moderate", "normal",   "elegant"],
+    "brownhill-script":   ["low",      "moderate", "moderate", "normal",   "elegant"],
+    "ahellya":            ["low",      "moderate", "moderate", "normal",   "elegant"],
+    "blackpine":          ["low",      "moderate", "moderate", "normal",   "warm"],
+    "raustila":           ["low",      "moderate", "moderate", "normal",   "warm"],
+    "thunderstorm":       ["low",      "moderate", "moderate", "normal",   "bold"],
+    "tomatoes":           ["low",      "moderate", "low",      "normal",   "warm"],
+    // ── Handwritten ──
+    "love-ya-like-a-sister": ["moderate", "open",  "low",      "normal",   "warm"],
+    "nothing-you-could-do":  ["moderate", "open",  "low",      "normal",   "warm"],
+    "kg-happy":           ["moderate", "open",     "low",      "normal",   "playful"],
+    "nickname":           ["moderate", "open",     "low",      "normal",   "warm"],
+    "short-stack":        ["moderate", "open",     "low",      "normal",   "warm"],
+    "tangerine":          ["low",      "moderate", "moderate", "normal",   "warm"],
+    // ── Retro / Pop ──
+    "groovy":             ["moderate", "moderate", "none",     "normal",   "playful"],
+    "lobster":            ["moderate", "moderate", "moderate", "normal",   "warm"],
+    "boogaloo":           ["moderate", "moderate", "none",     "normal",   "playful"],
+    "titan-one":          ["high",     "closed",   "low",      "tight",    "bold"],
+    "coiny":              ["moderate", "moderate", "low",      "normal",   "playful"],
+    "comfortaa":          ["moderate", "open",     "none",     "normal",   "modern"],
+    "sniglet":            ["moderate", "open",     "low",      "normal",   "playful"],
+    "cookies":            ["moderate", "moderate", "low",      "normal",   "playful"],
+    "diner":              ["moderate", "moderate", "none",     "normal",   "traditional"],
+    "pricedown":          ["high",     "closed",   "none",     "tight",    "bold"],
+    "yeasty-flavors":     ["moderate", "moderate", "low",      "normal",   "playful"],
+    "coolvetica":         ["moderate", "moderate", "none",     "normal",   "modern"],
+    "jelly-crazies":      ["moderate", "moderate", "low",      "normal",   "playful"],
+    "kawaii":             ["moderate", "open",     "low",      "normal",   "playful"],
+    // ── Serif / Classic ──
+    "cinzel":             ["moderate", "moderate", "moderate", "generous", "traditional"],
+    "foglihten":          ["moderate", "moderate", "high",     "normal",   "elegant"],
+    "fenwick":            ["moderate", "moderate", "moderate", "normal",   "traditional"],
+    "galette":            ["moderate", "moderate", "moderate", "normal",   "elegant"],
+    "kingthings-exeter":  ["moderate", "moderate", "moderate", "normal",   "traditional"],
+    "kingthings-petrock": ["moderate", "moderate", "moderate", "normal",   "traditional"],
+    "ruritania":          ["moderate", "moderate", "high",     "normal",   "elegant"],
+    // ── Slab ──
+    "chunk-five":         ["high",     "closed",   "low",      "tight",    "bold"],
+    // ── Bold / Impact ──
+    "blackout":           ["high",     "closed",   "none",     "tight",    "bold"],
+    "college":            ["high",     "closed",   "none",     "tight",    "bold"],
+    "impact-label":       ["high",     "closed",   "none",     "tight",    "bold"],
+    "blockletter":        ["high",     "closed",   "none",     "tight",    "bold"],
+    "cargo":              ["high",     "closed",   "none",     "tight",    "bold"],
+    "molot":              ["high",     "closed",   "none",     "tight",    "bold"],
+    "bebas-neue":         ["high",     "closed",   "none",     "tight",    "bold"],
+    "bebas-kai":          ["high",     "closed",   "none",     "tight",    "bold"],
+    "magnum":             ["high",     "closed",   "none",     "tight",    "bold"],
+    "upheaval":           ["high",     "closed",   "none",     "tight",    "bold"],
+    "plakkaat":           ["high",     "closed",   "none",     "tight",    "bold"],
+    "stencil":            ["high",     "closed",   "none",     "tight",    "technical"],
+    // ── Sci-Fi / Tech ──
+    "edo-sz":             ["moderate", "moderate", "none",     "normal",   "modern"],
+    "azonix":             ["moderate", "closed",   "none",     "tight",    "modern"],
+    "conthrax":           ["moderate", "closed",   "none",     "tight",    "modern"],
+    "ethnocentric":       ["moderate", "closed",   "none",     "tight",    "modern"],
+    "nasalization":       ["moderate", "closed",   "none",     "tight",    "modern"],
+    "neuropolitical":     ["moderate", "closed",   "none",     "tight",    "modern"],
+    "nulshock":           ["moderate", "closed",   "none",     "tight",    "modern"],
+    "orbitron":           ["moderate", "closed",   "none",     "tight",    "technical"],
+    "quantum":            ["moderate", "moderate", "none",     "normal",   "modern"],
+    "alien-encounters":   ["moderate", "moderate", "none",     "normal",   "experimental"],
+    "outrun-future":      ["moderate", "closed",   "none",     "tight",    "modern"],
+    "exoplanet":          ["moderate", "moderate", "none",     "normal",   "modern"],
+    "galaxy":             ["moderate", "moderate", "none",     "normal",   "modern"],
+    "borg":               ["moderate", "closed",   "none",     "tight",    "technical"],
+    "blade-runner-movie-font": ["moderate", "moderate", "none", "normal",  "modern"],
+    // ── Pixel / 8-bit ──
+    "press-start-2p":     ["high",     "closed",   "none",     "tight",    "technical"],
+    "minecraftia":        ["high",     "closed",   "none",     "tight",    "technical"],
+    "joystix":            ["high",     "closed",   "none",     "tight",    "technical"],
+    "visitor":            ["high",     "closed",   "none",     "tight",    "technical"],
+    "silkscreen":         ["high",     "closed",   "none",     "tight",    "technical"],
+    "dogica":             ["high",     "closed",   "none",     "tight",    "technical"],
+    "early-gameboy":      ["high",     "closed",   "none",     "tight",    "technical"],
+    "eight-bit-dragon":   ["high",     "closed",   "none",     "tight",    "technical"],
+    "super-mario-256":    ["high",     "closed",   "none",     "tight",    "playful"],
+    "bit-cell":           ["high",     "closed",   "none",     "tight",    "technical"],
+    "pixel-operator":     ["high",     "closed",   "none",     "generous", "technical"],
+    "commodore-64":       ["high",     "closed",   "none",     "generous", "technical"],
+    "vcr-osd-mono":       ["high",     "closed",   "none",     "generous", "technical"],
+    // ── Horror / Dark ──
+    "bloody":             ["moderate", "moderate", "low",      "normal",   "experimental"],
+    "feast-of-flesh-bb":  ["moderate", "moderate", "low",      "normal",   "experimental"],
+    "ghastly-panic":      ["moderate", "moderate", "low",      "normal",   "experimental"],
+    "gallow-tree":        ["moderate", "moderate", "low",      "normal",   "experimental"],
+    "zombie-holocaust":   ["moderate", "moderate", "low",      "normal",   "experimental"],
+    "grinched":           ["moderate", "moderate", "low",      "normal",   "experimental"],
+    "metal-mania":        ["moderate", "closed",   "none",     "tight",    "experimental"],
+    // ── Gothic / Blackletter ──
+    "cloister-black":     ["low",      "closed",   "moderate", "normal",   "traditional"],
+    "deutsch-gothic":     ["low",      "closed",   "moderate", "normal",   "traditional"],
+    "teutonic":           ["low",      "closed",   "moderate", "normal",   "traditional"],
+    "bastarda":           ["low",      "closed",   "moderate", "normal",   "traditional"],
+    // ── Western ──
+    "western":            ["moderate", "moderate", "low",      "normal",   "traditional"],
+    "saddlebag":          ["moderate", "moderate", "low",      "normal",   "traditional"],
+    "wanted-m54":         ["moderate", "moderate", "low",      "normal",   "traditional"],
+    "over-there":         ["moderate", "moderate", "low",      "normal",   "traditional"],
+    "cowboys":            ["moderate", "moderate", "low",      "normal",   "traditional"],
+    "pieces-of-eight":    ["moderate", "moderate", "moderate", "normal",   "traditional"],
+    "pirata-one":         ["moderate", "moderate", "moderate", "normal",   "traditional"],
+    // ── Art Deco / Elegant Display ──
+    "broadway":           ["moderate", "moderate", "high",     "normal",   "elegant"],
+    "diploma":            ["moderate", "moderate", "moderate", "normal",   "elegant"],
+    "riesling":           ["moderate", "moderate", "moderate", "normal",   "elegant"],
+    "beyond-wonderland":  ["low",      "moderate", "moderate", "generous", "elegant"],
+    // ── Geometric / Modern Sans ──
+    "aaargh":             ["moderate", "open",     "none",     "normal",   "neutral"],
+    "adam":               ["moderate", "moderate", "none",     "normal",   "modern"],
+    "biko":               ["moderate", "open",     "none",     "normal",   "modern"],
+    "caviar-dreams":      ["moderate", "open",     "none",     "normal",   "modern"],
+    "dited":              ["moderate", "moderate", "none",     "normal",   "modern"],
+    "existence":          ["moderate", "moderate", "none",     "normal",   "modern"],
+    "forza":              ["moderate", "moderate", "none",     "normal",   "modern"],
+    "halogen":            ["moderate", "moderate", "none",     "normal",   "modern"],
+    "helsinki":           ["moderate", "open",     "none",     "normal",   "neutral"],
+    "hero":               ["moderate", "moderate", "none",     "normal",   "modern"],
+    "hiruko":             ["moderate", "moderate", "none",     "normal",   "modern"],
+    "jura":               ["moderate", "open",     "none",     "normal",   "modern"],
+    "klill":              ["moderate", "moderate", "none",     "normal",   "neutral"],
+    "maxwell":            ["moderate", "moderate", "none",     "normal",   "modern"],
+    "neogrey":            ["moderate", "moderate", "none",     "normal",   "modern"],
+    "ostrich-sans":       ["low",      "moderate", "none",     "normal",   "modern"],
+    "porcelain":          ["moderate", "open",     "none",     "normal",   "modern"],
+    "prime":              ["moderate", "moderate", "none",     "normal",   "modern"],
+    "quark":              ["moderate", "moderate", "none",     "normal",   "modern"],
+    "radikal":            ["moderate", "open",     "none",     "normal",   "neutral"],
+    "reckoner":           ["moderate", "moderate", "none",     "normal",   "neutral"],
+    "rounded-elegance":   ["moderate", "open",     "low",      "normal",   "modern"],
+    "sansumi":            ["moderate", "moderate", "none",     "normal",   "neutral"],
+    "steelfish":          ["high",     "closed",   "none",     "tight",    "bold"],
+    "stilu":              ["moderate", "moderate", "none",     "normal",   "modern"],
+    "venera":             ["moderate", "moderate", "none",     "normal",   "modern"],
+    "verve":              ["moderate", "moderate", "none",     "normal",   "modern"],
+    "walkway":            ["moderate", "open",     "none",     "normal",   "neutral"],
+    "xolto":              ["moderate", "moderate", "none",     "normal",   "modern"],
+    "zag":                ["moderate", "moderate", "none",     "normal",   "modern"],
+    "znikomit":           ["moderate", "moderate", "none",     "normal",   "modern"],
+    // ── Playful / Fun Display ──
+    "komika-axis":        ["moderate", "moderate", "low",      "normal",   "playful"],
+    "burnstown-dam":      ["moderate", "moderate", "none",     "normal",   "experimental"],
+    "chinese-rocks":      ["moderate", "moderate", "none",     "normal",   "experimental"],
+    "chrome":             ["moderate", "moderate", "none",     "normal",   "modern"],
+    "cubic":              ["high",     "closed",   "none",     "tight",    "technical"],
+    "blox":               ["high",     "closed",   "none",     "tight",    "technical"],
+    "halo":               ["moderate", "moderate", "none",     "normal",   "modern"],
+    "horizon":            ["moderate", "closed",   "none",     "tight",    "modern"],
+    "junegull":           ["moderate", "moderate", "none",     "normal",   "modern"],
+    "london":             ["moderate", "moderate", "none",     "normal",   "traditional"],
+    "nordic":             ["moderate", "moderate", "none",     "normal",   "traditional"],
+    "nova-square":        ["moderate", "moderate", "none",     "normal",   "modern"],
+    "origami":            ["moderate", "moderate", "none",     "normal",   "experimental"],
+    "redux":              ["moderate", "moderate", "none",     "normal",   "modern"],
+    "rex":                ["moderate", "moderate", "none",     "tight",    "bold"],
+    "shlop":              ["moderate", "moderate", "low",      "normal",   "playful"],
+    "stroke-dimension":   ["moderate", "moderate", "none",     "normal",   "experimental"],
+    "tropical-asian":     ["moderate", "moderate", "none",     "normal",   "experimental"],
+    "whitin":             ["moderate", "moderate", "none",     "normal",   "modern"],
+    "woodgod":            ["moderate", "closed",   "none",     "tight",    "experimental"],
+    "caffeen":            ["moderate", "moderate", "none",     "normal",   "modern"],
+    "electroharmonix":    ["moderate", "moderate", "none",     "normal",   "experimental"],
+    "minster":            ["moderate", "moderate", "moderate", "normal",   "traditional"],
+    "abberancy":          ["moderate", "moderate", "none",     "normal",   "experimental"],
+    "adrenaline":         ["moderate", "moderate", "none",     "normal",   "bold"],
+    "arkhip":             ["moderate", "moderate", "none",     "normal",   "bold"],
+    "bushcraft":          ["moderate", "moderate", "low",      "normal",   "traditional"],
+    "gunplay":            ["high",     "closed",   "none",     "tight",    "bold"],
+    "kiona":              ["moderate", "moderate", "none",     "normal",   "modern"],
+    "mexcellent":         ["moderate", "moderate", "none",     "normal",   "playful"],
+    "neon":               ["moderate", "moderate", "none",     "normal",   "playful"],
+    "rumble-brave":       ["moderate", "moderate", "low",      "normal",   "bold"],
+    "stentiga":           ["moderate", "moderate", "none",     "normal",   "modern"],
+  };
+  const a = DAFONT_ANATOMY[slug] ?? (
+    classification === "script" || classification === "handwritten" ? ["low", "moderate", "moderate", "normal", "warm"] as AT :
+    classification === "serif" ? ["moderate", "moderate", "moderate", "normal", "traditional"] as AT :
+    classification === "monospace" ? ["moderate", "moderate", "none", "generous", "technical"] as AT :
+    ["moderate", "moderate", "none", "normal", "bold"] as AT
+  );
   return {
     id: `dafont-${slug}`,
     name,
@@ -112,11 +307,11 @@ function dafont(
     bodyLegibilityScore: 2,
     screenReadabilityNotes: null,
     distinctiveTraits,
-    xHeightRatio: derivedXHeight,
-    apertureOpenness: derivedAperture,
-    strokeContrast: derivedStroke,
-    letterSpacing: derivedSpacing,
-    moodCategory: derivedMood,
+    xHeightRatio: opts?.xHeightRatio ?? a[0],
+    apertureOpenness: opts?.apertureOpenness ?? a[1],
+    strokeContrast: opts?.strokeContrast ?? a[2],
+    letterSpacing: opts?.letterSpacing ?? a[3],
+    moodCategory: opts?.moodCategory ?? a[4],
     historicalNotes: null,
     notableUseExamples: [],
     similarFonts: [],

@@ -529,7 +529,7 @@ export default function DatabasePage() {
                   >
                     <td style={{ padding: "16px" }}>
                       <Link
-                        href={`/font?f=${row.slug}`}
+                        href={`/font/${row.slug}`}
                         className="font-medium hover:opacity-70 transition-opacity"
                         style={{ fontSize: "16px", color: "var(--text-heading)" }}
                       >
