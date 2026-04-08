@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 
 /**
  * On mobile (< 768px), replaces hover-based card glow with viewport-based glow.
- * The card with the most unobstructed visible pixels gets the "card-viewport-active" class.
- * Only one card glows at a time. Areas covered by fixed header/footer don't count.
- * When scrolled to the bottom, the last visible card always wins.
+ * Priority: topmost fully-uncovered card wins. If none fully visible, most-pixels wins.
+ * At the bottom of the page, the last visible card always wins.
+ * Only one card glows at a time.
  */
 export function MobileCardGlow() {
   const pathname = usePathname();
@@ -56,46 +56,48 @@ export function MobileCardGlow() {
       const atBottom = (scrollTop + window.innerHeight) >= (docHeight - 150);
 
       const cards = document.querySelectorAll(".card-hover");
-      let bestCard: Element | null = null;
-      let bestPixels = 0;
 
-      // Collect all visible cards with their pixel counts
-      const visibleCards: { card: Element; pixels: number }[] = [];
+      // Collect info about each card
+      let firstFullyVisible: Element | null = null;
+      let mostPixelsCard: Element | null = null;
+      let mostPixels = 0;
+      let lastVisibleCard: Element | null = null;
 
       for (const card of cards) {
         const rect = card.getBoundingClientRect();
-        // Clamp card rect to the unobstructed visible area
-        const top = Math.max(visibleTop, rect.top);
-        const bottom = Math.min(visibleBottom, rect.bottom);
-        const visible = Math.max(0, bottom - top);
-        if (visible > 0) {
-          visibleCards.push({ card, pixels: visible });
+        const clampedTop = Math.max(visibleTop, rect.top);
+        const clampedBottom = Math.min(visibleBottom, rect.bottom);
+        const visible = Math.max(0, clampedBottom - clampedTop);
+
+        if (visible <= 0) continue;
+
+        lastVisibleCard = card;
+
+        if (visible > mostPixels) {
+          mostPixels = visible;
+          mostPixelsCard = card;
         }
-        if (visible > bestPixels) {
-          bestPixels = visible;
-          bestCard = card;
+
+        // A card is "fully uncovered" if none of it is clipped
+        const isFullyVisible = rect.top >= visibleTop && rect.bottom <= visibleBottom;
+        if (isFullyVisible && !firstFullyVisible) {
+          firstFullyVisible = card;
         }
       }
 
-      // At the bottom of the page, the last visible card always wins
-      // (it may be short and never get a chance to be the biggest otherwise)
-      if (atBottom && visibleCards.length > 0) {
-        const lastVisible = visibleCards[visibleCards.length - 1];
-        if (lastVisible.pixels > 0) {
-          bestCard = lastVisible.card;
-          // Skip the minimum threshold for bottom cards
-          if (bestCard !== activeCard) {
-            if (activeCard) activeCard.classList.remove("card-viewport-active");
-            bestCard.classList.add("card-viewport-active");
-            activeCard = bestCard;
-          }
-          return;
-        }
-      }
+      let bestCard: Element | null = null;
 
-      // Only glow if card occupies at least 15% of the visible area
-      const visibleArea = Math.max(1, visibleBottom - visibleTop);
-      if (bestPixels < visibleArea * 0.15) bestCard = null;
+      if (atBottom && lastVisibleCard) {
+        // At the bottom, the last visible card always gets its turn
+        bestCard = lastVisibleCard;
+      } else if (firstFullyVisible) {
+        // Topmost fully-uncovered card wins — ensures every card gets a turn
+        bestCard = firstFullyVisible;
+      } else if (mostPixelsCard) {
+        // Fallback: most visible pixels (for when all cards are partially clipped)
+        const visibleArea = Math.max(1, visibleBottom - visibleTop);
+        bestCard = mostPixels >= visibleArea * 0.15 ? mostPixelsCard : null;
+      }
 
       if (bestCard !== activeCard) {
         if (activeCard) activeCard.classList.remove("card-viewport-active");
