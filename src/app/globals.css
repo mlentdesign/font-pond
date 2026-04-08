@@ -1264,8 +1264,8 @@ body.animations-paused #water-bg * {
 /* ══════════════════════════════════════════
    MOBILE CARD GLOW — viewport-based instead of hover
    ══════════════════════════════════════════ */
-@media (max-width: 767px) {
-  /* Neutralize hover-based glow on mobile (touch causes sticky hover) */
+@media (max-width: 767px) and (max-height: 932px) and (hover: none) {
+  /* Neutralize hover-based glow on actual touch devices (not narrow desktop windows) */
   .card-hover:hover { background: var(--bg-card) !important; }
   .hover\:shadow-md:hover,
   .hover\:shadow-sm:hover { box-shadow: var(--shadow-card) !important; }
@@ -1281,7 +1281,7 @@ body.animations-paused #water-bg * {
     outline: none !important;
   }
 
-  /* Viewport-active card glow — high specificity to override base card styles */
+  /* Viewport-active card glow — only on touch devices, not narrow desktop windows */
   .card-hover.card-viewport-active,
   div.card-viewport-active,
   a.card-viewport-active {
