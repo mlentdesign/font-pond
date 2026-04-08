@@ -249,8 +249,16 @@ h1, h2, h3, h4, h5, h6, p, span, a, div {
 @media (hover: hover) {
   .card-hover:focus,
   .card-hover:focus-visible,
+  .card-hover *:focus,
+  .card-hover *:focus-visible,
   a.card-hover:focus,
-  a.card-hover:focus-visible {
+  a.card-hover:focus-visible,
+  a.card-hover *:focus,
+  a.card-hover *:focus-visible,
+  .group.card-hover:focus,
+  .group.card-hover:focus-visible,
+  .group.card-hover *:focus,
+  .group.card-hover *:focus-visible {
     outline: none !important;
   }
 }
