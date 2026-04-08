@@ -11,8 +11,9 @@ const fontSlugs = execSync(
   { maxBuffer: 50 * 1024 * 1024, cwd: process.cwd() }
 ).toString().trim();
 
+// Only generate static pages for hand-crafted and curated pairs (not 200K+ dynamic pairs)
 const pairSlugs = execSync(
-  `npx tsx -e "import { fontPairs } from './src/data/pairs'; console.log(JSON.stringify(fontPairs.map(p => p.slug)))"`,
+  `npx tsx -e "import { fontPairs } from './src/data/pairs'; console.log(JSON.stringify(fontPairs.filter(p => !p.id.startsWith('gen-')).map(p => p.slug)))"`,
   { maxBuffer: 50 * 1024 * 1024, cwd: process.cwd() }
 ).toString().trim();
 
