@@ -15,6 +15,7 @@ export function MobileCardGlow() {
     const MOBILE_MAX = 768;
     let activeCard: HTMLElement | null = null;
     let activeArrow: HTMLElement | null = null;
+    let activeCardSince = 0;
 
     function isMobile() {
       return window.innerWidth < MOBILE_MAX;
@@ -131,11 +132,18 @@ export function MobileCardGlow() {
         if (!activeCard || activeCard === lastVisibleCard) {
           bestCard = lastVisibleCard;
         } else {
-          const currentIdx = cards.indexOf(activeCard);
-          if (currentIdx >= 0 && currentIdx + 1 < cards.length) {
-            bestCard = cards[currentIdx + 1];
+          const elapsed = Date.now() - activeCardSince;
+          if (elapsed >= 1000) {
+            // Card has been active long enough — advance to next
+            const currentIdx = cards.indexOf(activeCard);
+            if (currentIdx >= 0 && currentIdx + 1 < cards.length) {
+              bestCard = cards[currentIdx + 1];
+            } else {
+              bestCard = lastVisibleCard;
+            }
           } else {
-            bestCard = lastVisibleCard;
+            // Hold current card until minimum time elapses
+            bestCard = activeCard;
           }
         }
       } else if (topEdgeCard) {

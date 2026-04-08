@@ -292,10 +292,6 @@ export function PromptInput() {
                   style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible" }}
                 >
                   <rect
-                    x="1"
-                    y="1"
-                    width="calc(100% - 2px)"
-                    height="calc(100% - 2px)"
                     rx="8"
                     ry="8"
                     fill="none"
@@ -303,6 +299,8 @@ export function PromptInput() {
                     strokeWidth="2"
                     strokeDasharray="6 4"
                     strokeLinecap="round"
+                    pathLength="200"
+                    style={{ x: 1, y: 1, width: "calc(100% - 2px)", height: "calc(100% - 2px)" }}
                   />
                 </svg>
               )}
