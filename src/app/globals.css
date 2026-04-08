@@ -1004,7 +1004,7 @@ body.animations-paused #water-bg * {
   /* Footer mobile: left side stacks vertically, zero gap */
   .footer-wrap {
     flex-wrap: nowrap !important;
-    align-items: center !important;
+    align-items: flex-end !important;
   }
   .footer-left {
     flex-direction: column !important;
