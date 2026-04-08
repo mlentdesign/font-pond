@@ -143,19 +143,18 @@ export default function FontDetailPage() {
                 pointerEvents: showStickyDownload ? "auto" : "none",
               }}
             >
-              Download ↗
+              {sourceLabel} ↗
             </a>
           ) : undefined}
         />
 
-        {/* Font name, source, and download */}
+        {/* Font name, creator, and download */}
         <div ref={downloadRef} className="flex flex-col sm:flex-row sm:items-start sm:justify-between" style={{ marginBottom: "24px", gap: "16px" }}>
           <div>
             <h2 className="text-3xl font-semibold text-neutral-900 mb-1">{font.name}</h2>
             <p className="text-sm text-neutral-400">
-              {font.designer && `By ${font.designer}`}
-              {font.year && `${font.designer ? " · " : ""}${font.year}`}
-              {(font.designer || font.year) ? ` · ${sourceLabel}` : sourceLabel}
+              {font.designer ? `By ${font.designer}` : "Unknown creator"}
+              {font.year && ` · ${font.year}`}
             </p>
           </div>
           <div className="flex gap-2 shrink-0 mt-1">
@@ -166,7 +165,7 @@ export default function FontDetailPage() {
                 rel="noopener noreferrer"
                 className="btn-generate font-medium rounded-lg transition-colors" style={{ fontSize: "16px", padding: "8px 24px" }}
               >
-                Download ↗
+                {sourceLabel} ↗
               </a>
             )}
           </div>
@@ -398,7 +397,7 @@ export default function FontDetailPage() {
         )}
       </main>
 
-      {/* Mobile: sticky bottom download CTA — centered, floating above footer */}
+      {/* Mobile: sticky bottom CTA — left-aligned, floating above footer */}
       {isMobile && font.sourceUrl && (
         <div
           className={`mobile-sticky-download${!showStickyDownload || footerVisible ? " is-hidden" : ""}`}
@@ -408,9 +407,9 @@ export default function FontDetailPage() {
             target="_blank"
             rel="noopener noreferrer"
             className="btn-generate font-medium rounded-lg transition-colors inline-block"
-            style={{ fontSize: "16px", padding: "12px 24px", textDecoration: "none" }}
+            style={{ fontSize: "16px", padding: "8px 24px", textDecoration: "none" }}
           >
-            Download ↗
+            {sourceLabel} ↗
           </a>
         </div>
       )}
