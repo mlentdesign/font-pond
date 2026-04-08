@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { pairsBySlug, getPairOrConstruct } from "@/data/pairs";
 import { fontsById } from "@/data/fonts";
 import { getRelatedPairs } from "@/lib/engine";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
-import { titleCase, sentenceCase, getSourceLabel, formatClassification, formatContrastType, chipCase } from "@/lib/text";
+import { titleCase, sentenceCase, getSourceLabel, formatClassification, formatContrastType, chipCase, fontHasNumbers } from "@/lib/text";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -117,9 +117,9 @@ function FontSection({
   );
 }
 
-export default function PairDetailPage() {
+export default function PairDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
   const searchParams = useSearchParams();
-  const slug = searchParams.get("p") || "";
+  const slug = slugOverride || searchParams.get("p") || "";
   const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
 
   const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
@@ -148,6 +148,18 @@ export default function PairDetailPage() {
       });
     }
   }, [pair, headerFont, bodyFont, addToHistory]);
+
+  const [headerHasNums, setHeaderHasNums] = useState(true);
+  const [bodyHasNums, setBodyHasNums] = useState(true);
+  useEffect(() => {
+    if (!headerFont || !bodyFont) return;
+    const hf = getFontFamily(headerFont.name, headerFont.source);
+    const bf = getFontFamily(bodyFont.name, bodyFont.source);
+    const check = () => { setHeaderHasNums(fontHasNumbers(hf)); setBodyHasNums(fontHasNumbers(bf)); };
+    const t = setTimeout(check, 500);
+    document.fonts?.ready?.then(check);
+    return () => clearTimeout(t);
+  }, [headerFont, bodyFont]);
 
   const related = pair ? getRelatedPairs(pair.id, 6) : [];
 
@@ -197,11 +209,11 @@ export default function PairDetailPage() {
               SUGGESTED SCALE
             </p>
             <div className="space-y-2">
-              <p style={{ fontFamily: `${headerFamily}, system-ui, sans-serif`, fontWeight: 700, fontSize: "36px" }} className="text-neutral-800">H1 — 36px Bold</p>
-              <p style={{ fontFamily: `${headerFamily}, system-ui, sans-serif`, fontWeight: 600, fontSize: "24px" }} className="text-neutral-800">H2 — 24px Semibold</p>
-              <p style={{ fontFamily: `${headerFamily}, system-ui, sans-serif`, fontWeight: 500, fontSize: "18px" }} className="text-neutral-700">H3 — 18px Medium</p>
-              <p style={{ fontFamily: `${bodyFamily}, system-ui, sans-serif`, fontWeight: 400, fontSize: "16px" }} className="text-neutral-600">Body — 16px Regular</p>
-              <p style={{ fontFamily: `${bodyFamily}, system-ui, sans-serif`, fontWeight: 400, fontSize: "14px" }} className="text-neutral-500">Small — 14px Regular</p>
+              <p style={{ fontFamily: headerFamily, fontWeight: 700, fontSize: "36px" }} className="text-neutral-800">H1 {!headerHasNums ? <span style={{ fontFamily: "system-ui, sans-serif" }}>— 36px Bold</span> : "— 36px Bold"}</p>
+              <p style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "24px" }} className="text-neutral-800">H2 {!headerHasNums ? <span style={{ fontFamily: "system-ui, sans-serif" }}>— 24px Semibold</span> : "— 24px Semibold"}</p>
+              <p style={{ fontFamily: headerFamily, fontWeight: 500, fontSize: "18px" }} className="text-neutral-700">H3 {!headerHasNums ? <span style={{ fontFamily: "system-ui, sans-serif" }}>— 18px Medium</span> : "— 18px Medium"}</p>
+              <p style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "16px" }} className="text-neutral-600">Body {!bodyHasNums ? <span style={{ fontFamily: "system-ui, sans-serif" }}>— 16px Regular</span> : "— 16px Regular"}</p>
+              <p style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "14px" }} className="text-neutral-500">Small {!bodyHasNums ? <span style={{ fontFamily: "system-ui, sans-serif" }}>— 14px Regular</span> : "— 14px Regular"}</p>
             </div>
           </div>
         </SectionCard>
