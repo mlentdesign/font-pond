@@ -1120,7 +1120,7 @@ body.animations-paused #water-bg * {
     outline-offset: -1px;
   }
 
-  /* Sticky bottom download CTA on font pages — left-aligned, floating */
+  /* Sticky bottom download CTA on font pages — left-aligned with header "Font Pond" */
   .mobile-sticky-download {
     position: fixed;
     bottom: 0;
@@ -1128,7 +1128,7 @@ body.animations-paused #water-bg * {
     right: 0;
     z-index: 35;
     background: var(--bg);
-    padding: 12px 24px;
+    padding: 12px 16px;
     padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
     box-shadow: var(--shadow-edge-top);
     transition: transform 0.2s ease, opacity 0.2s ease;
