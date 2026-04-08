@@ -212,7 +212,7 @@ export function PromptInput() {
           <div className="mobile-add-image items-center" style={{ padding: "16px 24px 8px" }}>
             <label
               htmlFor="image-upload"
-              className="flex items-center rounded-lg cursor-pointer transition-colors hover:opacity-70"
+              className="flex items-center rounded-lg cursor-pointer transition-colors add-image-hover"
               style={{ fontSize: "16px", fontWeight: 600, color: "var(--add-image-color)", gap: "4px" }}
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
