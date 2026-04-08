@@ -1,6 +1,6 @@
 import { FontPair } from "./types";
 import { fonts, fontsBySlug as allFontsBySlug } from "./fonts";
-import { generateDynamicPairs } from "@/lib/pair-generator";
+import { generateDynamicPairs, generateCuratedPairs } from "@/lib/pair-generator";
 
 const handCraftedPairs: FontPair[] = [
   // ── Serif header + Sans body (classic editorial contrast) ──
@@ -1892,15 +1892,20 @@ const handCraftedPairs: FontPair[] = [
   },
 ];
 
-// ── Merge hand-crafted + dynamic pairs ──
+// ── Merge hand-crafted + curated + dynamic pairs ──
 
+// 1. Generate curated pairs first (only avoiding hand-crafted slugs)
+const hcSlugs = new Set(handCraftedPairs.map((p) => p.slug));
+const curatedPairs = generateCuratedPairs(fonts, handCraftedPairs, new Set(hcSlugs));
+
+// 2. Generate dynamic pairs
 const dynamicPairs = generateDynamicPairs(fonts);
 
-// Deduplicate: hand-crafted pairs take priority over generated ones
-const handCraftedSlugs = new Set(handCraftedPairs.map((p) => p.slug));
-const uniqueDynamic = dynamicPairs.filter((p) => !handCraftedSlugs.has(p.slug));
+// 3. Deduplicate: hand-crafted > curated > dynamic
+const prioritySlugs = new Set([...hcSlugs, ...curatedPairs.map((p) => p.slug)]);
+const uniqueDynamic = dynamicPairs.filter((p) => !prioritySlugs.has(p.slug));
 
-export const fontPairs: FontPair[] = [...handCraftedPairs, ...uniqueDynamic];
+export const fontPairs: FontPair[] = [...handCraftedPairs, ...curatedPairs, ...uniqueDynamic];
 
 // ── Lookup helpers ──
 
