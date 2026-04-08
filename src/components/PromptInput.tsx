@@ -288,13 +288,15 @@ export function PromptInput() {
                 fontWeight: 600,
                 color: "var(--add-image-color)",
                 gap: "4px",
+                padding: "8px 4px",
+                margin: "-8px -4px",
                 position: "relative",
               }}
             >
               {isDragging && (
                 <svg
                   className="pointer-events-none"
-                  style={{ position: "absolute", top: "-8px", bottom: "-8px", left: "-12px", right: "-12px", overflow: "visible" }}
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible" }}
                 >
                   <rect
                     rx="8"
