@@ -225,9 +225,13 @@ export default function PairDetailPage() {
                 <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>LEGIBILITY</dt>
                 <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.bodyLegibilityScore}/10</dd>
               </div>
-              <div className="flex justify-between" style={{ padding: "12px 24px" }}>
+              <div className="flex justify-between border-b border-neutral-100" style={{ padding: "12px 24px" }}>
                 <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>PRACTICALITY</dt>
                 <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.practicalityScore}/10</dd>
+              </div>
+              <div className="flex justify-between" style={{ padding: "12px 24px" }}>
+                <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>OVERALL</dt>
+                <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{Math.round(pair.overallScore / 10)}/10</dd>
               </div>
             </dl>
           </SectionCard>
