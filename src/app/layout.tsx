@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { WaterBackground } from "@/components/WaterBackground";
 import { FishEasterEgg } from "@/components/FishEasterEgg";
 import { MobileCardGlow } from "@/components/MobileCardGlow";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -55,6 +56,7 @@ export default function RootLayout({
         <AppProvider>
           <FishEasterEgg />
           <MobileCardGlow />
+          <ScrollToTop />
           {children}
           <Footer />
           <RecentHistory />
