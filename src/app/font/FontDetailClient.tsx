@@ -234,14 +234,14 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                 <InfoRow label="Weights" value={font.weights.join(", ")} />
               )}
               <InfoRow label="Styles" value={font.styles.join(", ")} />
+              <InfoRow label="License" value={font.licenseType} />
+              <InfoRow label="Header suitable" value={font.isHeaderSuitable ? "Yes" : "No"} />
             </dl>
           </SectionCard>
 
           {/* Card 2: Suitability + Anatomy (desktop only — hidden on tablet where it merges with card 1) */}
           <SectionCard noPadding className="font-detail-card2" style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
-              <InfoRow label="License" value={font.licenseType} />
-              <InfoRow label="Header suitable" value={font.isHeaderSuitable ? "Yes" : "No"} />
               <InfoRow label="Body suitable" value={font.isBodySuitable ? "Yes" : "Not recommended"} />
               {font.bodyLegibilityScore && (
                 <InfoRow label="Body legibility" value={`${font.bodyLegibilityScore}/10`} />
