@@ -413,7 +413,14 @@ export function FishEasterEgg() {
 
           fish.flipX = fish.vx < 0;
           fish.tailPhase += 0.08 + Math.abs(fish.vx) * 0.1;
-          if (fish.eatingTimer > 0) fish.eatingTimer--;
+          if (fish.eatingTimer > 0) {
+            fish.eatingTimer--;
+            // When done eating, swim to a new random spot
+            if (fish.eatingTimer === 0) {
+              fish.targetX = Math.random() * canvas.width;
+              fish.targetY = vh * 0.67 + Math.random() * (vh * 0.28);
+            }
+          }
 
           // Trigger water ripple at fish position
           const waterRipple = (window as any).__waterAddRipple;
@@ -431,7 +438,7 @@ export function FishEasterEgg() {
             const fdy = f.y - fish.y;
             if (Math.sqrt(fdx * fdx + fdy * fdy) < fish.size) {
               f.opacity = 0;
-              fish.eatingTimer = 25;
+              fish.eatingTimer = 15;
             }
           }
           return f.opacity > 0 && f.y < vh;
@@ -444,8 +451,8 @@ export function FishEasterEgg() {
           foodGoneTimerRef.current = 0;
         } else if (hadFoodRef.current) {
           foodGoneTimerRef.current++;
-          // ~1.5 seconds at 60fps = 90 frames
-          if (foodGoneTimerRef.current >= 90) {
+          // ~0.5 seconds at 60fps = 30 frames
+          if (foodGoneTimerRef.current >= 30) {
             hadFoodRef.current = false;
             foodGoneTimerRef.current = 0;
             // Scatter all fish to different random positions
