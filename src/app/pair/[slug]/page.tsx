@@ -2,13 +2,10 @@ import { fontPairs } from "@/data/pairs";
 import PairSlugClient from "./PairSlugClient";
 
 export function generateStaticParams() {
-  // Generate static pages for hand-crafted + curated pairs
-  // Dynamic pairs (gen-*) fall back to /pair?p=slug
+  // Generate a static page for every pair
   const params: { slug: string }[] = [];
-  for (const p of fontPairs) {
-    if (!p.id.startsWith("gen-")) {
-      params.push({ slug: p.slug });
-    }
+  for (let i = 0; i < fontPairs.length; i++) {
+    params.push({ slug: fontPairs[i].slug });
   }
   return params;
 }
