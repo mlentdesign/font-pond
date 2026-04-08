@@ -189,7 +189,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
               Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes, line lengths, line-spacing, and letter-spacing, and adjusting the space between pairs of letters.
             </p>
             <p style={{ fontFamily: family, fontWeight: 400, fontSize: "14px", lineHeight: 1.6 }} className="specimen-14 text-neutral-500">
-              At 14 px: Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes, line lengths, line-spacing, and letter-spacing.
+              At {hasNums ? "14" : <span style={{ fontFamily: "system-ui, sans-serif" }}>14</span>} px: Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes, line lengths, line-spacing, and letter-spacing.
             </p>
           </div>
 
