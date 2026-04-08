@@ -674,11 +674,12 @@ body.animations-paused #water-bg * {
 .pair-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 24px;
 }
 @media (min-width: 768px) {
   .pair-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 }
 @media (min-width: 1024px) {
@@ -691,11 +692,12 @@ body.animations-paused #water-bg * {
 .related-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 24px;
 }
 @media (min-width: 768px) {
   .related-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 }
 @media (min-width: 1024px) {
@@ -708,16 +710,18 @@ body.animations-paused #water-bg * {
 .two-col-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 24px;
 }
 @media (min-width: 768px) and (orientation: landscape) {
   .two-col-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 }
 @media (min-width: 1024px) {
   .two-col-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 }
 
@@ -725,11 +729,12 @@ body.animations-paused #water-bg * {
 .three-col-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 24px;
 }
 @media (min-width: 768px) {
   .three-col-grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
   }
 }
 
@@ -737,7 +742,12 @@ body.animations-paused #water-bg * {
 .font-detail-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 24px;
+}
+@media (min-width: 768px) {
+  .font-detail-grid {
+    gap: 16px;
+  }
 }
 /* Mobile + tablet: show combined card, hide individual cards 1 & 2 */
 .font-detail-card1,
@@ -901,6 +911,12 @@ body.animations-paused #water-bg * {
 /* Similar fonts grid: stacks on mobile, expands on wider screens */
 .similar-fonts-grid, .similar-fonts-grid-2 {
   grid-template-columns: 1fr !important;
+  gap: 24px !important;
+}
+@media (min-width: 768px) {
+  .similar-fonts-grid, .similar-fonts-grid-2 {
+    gap: 16px !important;
+  }
 }
 @media (min-width: 768px) {
   .similar-fonts-grid, .similar-fonts-grid-2 {
