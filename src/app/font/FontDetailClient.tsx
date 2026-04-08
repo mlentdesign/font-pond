@@ -40,7 +40,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
     if (pair) {
       const hf = fontsById.get(pair.headerFontId);
       const bf = fontsById.get(pair.bodyFontId);
-      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair?p=${fromPair}` });
+      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair/${fromPair}` });
     }
   }
   if (font) crumbs.push({ label: font.name });
@@ -196,8 +196,8 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
             <p style={{ fontFamily: family, fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600 mb-2">
               abcdefghijklmnopqrstuvwxyz
             </p>
-            <p style={{ fontFamily: `${family}, system-ui, sans-serif`, fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600">
-              0123456789 !@#$%^&*()-=+[]{'{'}|;:&apos;,./&lt;&gt;?
+            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600">
+              {hasNums ? "0123456789" : <span style={{ fontFamily: "system-ui, sans-serif" }}>0123456789</span>} !@#$%^&*()-=+[]{'{'}|;:&apos;,./&lt;&gt;?
             </p>
           </div>
 
@@ -207,8 +207,8 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
               <p className="uppercase tracking-wider text-neutral-400 mb-3" style={{ fontSize: "12px" }}>WEIGHTS</p>
               <div className="space-y-2">
                 {font.weights.map((w) => (
-                  <p key={w} style={{ fontFamily: `${family}, system-ui, sans-serif`, fontWeight: w, fontSize: "18px" }} className="specimen-18 text-neutral-700">
-                    {w} — The quick brown fox jumps over the lazy dog
+                  <p key={w} style={{ fontFamily: family, fontWeight: w, fontSize: "18px" }} className="specimen-18 text-neutral-700">
+                    {hasNums ? w : <span style={{ fontFamily: "system-ui, sans-serif" }}>{w}</span>} — The quick brown fox jumps over the lazy dog
                   </p>
                 ))}
               </div>
@@ -328,7 +328,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                   return (
                     <Link
                       key={sf.slug}
-                      href={`/font?f=${sf.slug}`}
+                      href={`/font/${sf.slug}`}
                       className="group block border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
                       style={{ position: "relative" }}
                     >
@@ -363,7 +363,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                       </div>
                       <div
                         className="leading-relaxed text-neutral-600 break-words"
-                        style={{ fontFamily: `${sfFamily}, system-ui, sans-serif`, fontWeight: 400, fontSize: "16px" }}
+                        style={{ fontFamily: sfFamily, fontWeight: 400, fontSize: "16px" }}
                       >
                         ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789
                       </div>

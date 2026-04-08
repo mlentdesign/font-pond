@@ -34,7 +34,7 @@ function FontSection({
 
   return (
     <Link
-      href={`/font?f=${font.slug}&from=${pairSlug}`}
+      href={`/font/${font.slug}`}
       className="group flex flex-col border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
       style={{ position: "relative" }}
     >
@@ -209,11 +209,11 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
               SUGGESTED SCALE
             </p>
             <div className="space-y-2">
-              <p style={{ fontFamily: headerFamily, fontWeight: 700, fontSize: "36px" }} className="text-neutral-800">H1 {!headerHasNums ? <span style={{ fontFamily: "system-ui, sans-serif" }}>— 36px Bold</span> : "— 36px Bold"}</p>
-              <p style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "24px" }} className="text-neutral-800">H2 {!headerHasNums ? <span style={{ fontFamily: "system-ui, sans-serif" }}>— 24px Semibold</span> : "— 24px Semibold"}</p>
-              <p style={{ fontFamily: headerFamily, fontWeight: 500, fontSize: "18px" }} className="text-neutral-700">H3 {!headerHasNums ? <span style={{ fontFamily: "system-ui, sans-serif" }}>— 18px Medium</span> : "— 18px Medium"}</p>
-              <p style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "16px" }} className="text-neutral-600">Body {!bodyHasNums ? <span style={{ fontFamily: "system-ui, sans-serif" }}>— 16px Regular</span> : "— 16px Regular"}</p>
-              <p style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "14px" }} className="text-neutral-500">Small {!bodyHasNums ? <span style={{ fontFamily: "system-ui, sans-serif" }}>— 14px Regular</span> : "— 14px Regular"}</p>
+              <p style={{ fontFamily: headerFamily, fontWeight: 700, fontSize: "36px" }} className="text-neutral-800">H1 — {headerHasNums ? "36" : <span style={{ fontFamily: "system-ui, sans-serif" }}>36</span>}px Bold</p>
+              <p style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "24px" }} className="text-neutral-800">H2 — {headerHasNums ? "24" : <span style={{ fontFamily: "system-ui, sans-serif" }}>24</span>}px Semibold</p>
+              <p style={{ fontFamily: headerFamily, fontWeight: 500, fontSize: "18px" }} className="text-neutral-700">H3 — {headerHasNums ? "18" : <span style={{ fontFamily: "system-ui, sans-serif" }}>18</span>}px Medium</p>
+              <p style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "16px" }} className="text-neutral-600">Body — {bodyHasNums ? "16" : <span style={{ fontFamily: "system-ui, sans-serif" }}>16</span>}px Regular</p>
+              <p style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "14px" }} className="text-neutral-500">Small — {bodyHasNums ? "14" : <span style={{ fontFamily: "system-ui, sans-serif" }}>14</span>}px Regular</p>
             </div>
           </div>
         </SectionCard>
