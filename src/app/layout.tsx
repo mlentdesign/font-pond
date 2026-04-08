@@ -30,7 +30,7 @@ export default function RootLayout({
         {/* Theme script MUST be first — blocks rendering to prevent light mode flash */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){var h=document.documentElement;h.style.visibility="hidden";try{var t=localStorage.getItem("theme");var d=t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme:dark)").matches);h.setAttribute("data-theme",d?"dark":"light")}catch(e){}requestAnimationFrame(function(){h.style.visibility=""})})()`,
+            __html: `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme:dark)").matches);document.documentElement.setAttribute("data-theme",d?"dark":"light")}catch(e){}})()`,
           }}
         />
         <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
