@@ -3048,6 +3048,64 @@ function scoreSpecificity(
 // FIT REASON GENERATOR
 // ══════════════════════════════════════════
 
+function bodyCloser(bf: Font, idx: number): string {
+  const t0 = bf.toneDescriptors[0] || "clean";
+  const t1 = bf.toneDescriptors[1] || "readable";
+  const closers = [
+    `${bf.name} keeps everything readable`,
+    `${bf.name} grounds the layout with ${t0} composure`,
+    `${bf.name} carries the longer passages`,
+    `${bf.name} provides a ${t0} foundation`,
+    `${bf.name} rounds out the system`,
+    `${bf.name} handles the rest with ease`,
+    `${bf.name} supports with ${t0} reliability`,
+    `${bf.name} balances things out underneath`,
+    `${bf.name} takes over where the headline ends`,
+    `${bf.name} fills in with ${t0} comfort`,
+    `${bf.name} does the quiet work of readability`,
+    `${bf.name} steadies the page`,
+    `${bf.name} picks up from there with ${t1} ease`,
+    `${bf.name} holds everything together`,
+    `${bf.name} gives the eye somewhere comfortable to land`,
+    `${bf.name} lets the content breathe`,
+    `${bf.name} makes the reading experience effortless`,
+    `${bf.name} stays out of the way — in the best sense`,
+    `${bf.name} settles into the background gracefully`,
+    `${bf.name} brings ${t0} consistency to everything else`,
+    `${bf.name} completes the pairing with understated clarity`,
+    `${bf.name} is the workhorse of this combination`,
+    `${bf.name} ensures nothing fights for attention`,
+    `${bf.name} adds ${t0} structure without weight`,
+    `${bf.name} provides the legibility this pair needs`,
+    `${bf.name} supports without stealing the show`,
+    `${bf.name} smooths out the reading experience`,
+    `${bf.name} is a natural fit for the supporting role`,
+    `${bf.name} makes long-form content feel approachable`,
+    `${bf.name} follows through with ${t0} dependability`,
+    `${bf.name} finishes what the headline starts`,
+    `${bf.name} delivers where it matters most — in the reading`,
+    `${bf.name} keeps the pace even and comfortable`,
+    `${bf.name} creates a ${t0} runway for content`,
+    `${bf.name} eases the transition from headline to paragraph`,
+    `${bf.name} lends ${t1} support throughout`,
+    `${bf.name} is right at home in the supporting role`,
+    `${bf.name} sustains the tone with ${t0} forms`,
+    `${bf.name} stays composed at every size`,
+    `${bf.name} is built for the long stretches`,
+    `${bf.name} carries the weight of the content`,
+    `${bf.name} quietly does its job`,
+    `${bf.name} fills the page with ${t0} confidence`,
+    `${bf.name} extends the design language into paragraphs`,
+    `${bf.name} makes everything after the headline feel intentional`,
+    `${bf.name} lays a ${t0} track for the reader`,
+    `${bf.name} bridges the gap between style and substance`,
+    `${bf.name} takes care of the details`,
+    `${bf.name} wraps the content in ${t0} legibility`,
+    `${bf.name} is the steady hand in this pairing`,
+  ];
+  return closers[Math.abs(idx) % closers.length];
+}
+
 function generateFitReason(
   pair: FontPair, hf: Font, bf: Font, promptWords: string[], query: string
 ): string {
@@ -3081,18 +3139,8 @@ function generateFitReason(
     parts.push(`captures the ${uniqueConns.join(", ")} feel`);
   }
 
-  const closers = [
-    `${bf.name} keeps everything readable`,
-    `${bf.name} grounds the layout with ${bf.toneDescriptors[0] || "clean"} composure`,
-    `${bf.name} carries the longer passages`,
-    `${bf.name} provides a ${bf.toneDescriptors[0] || "steady"} foundation`,
-    `${bf.name} rounds out the system`,
-    `${bf.name} handles the rest with ease`,
-    `${bf.name} supports with ${bf.toneDescriptors[0] || "quiet"} reliability`,
-    `${bf.name} balances things out underneath`,
-  ];
-  const idx = ((hf.id + bf.id).split("").reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0)) % closers.length;
-  parts.push(closers[idx]);
+  const hash = (hf.id + bf.id).split("").reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0);
+  parts.push(bodyCloser(bf, hash));
 
   return parts.join(". ") + ".";
 }
@@ -3257,7 +3305,7 @@ export function rankPairs(
   }
 
   // Append skipped pairs at the end so they're still accessible
-  deduped.push(...skipped);
+  for (const s of skipped) deduped.push(s);
 
   const offset = options?.offset ?? 0;
   const limit = options?.limit ?? deduped.length;
@@ -3293,18 +3341,8 @@ export function rankPairs(
       if (uniqueConns.length > 0) {
         parts.push(`captures the ${uniqueConns.join(", ")} feel`);
       }
-      const bodyClosers = [
-        `${bf.name} keeps everything readable`,
-        `${bf.name} grounds the layout with ${bf.toneDescriptors[0] || "clean"} composure`,
-        `${bf.name} carries the longer passages`,
-        `${bf.name} provides a ${bf.toneDescriptors[0] || "steady"} foundation`,
-        `${bf.name} rounds out the system with ${bf.toneDescriptors[0] || "clear"} readability`,
-        `${bf.name} handles the rest with ease`,
-        `${bf.name} supports with ${bf.toneDescriptors[0] || "quiet"} reliability`,
-        `${bf.name} balances things out underneath`,
-      ];
-      const closerIdx = ((hf.id + bf.id).split("").reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0)) % bodyClosers.length;
-      parts.push(bodyClosers[closerIdx]);
+      const closerHash = (hf.id + bf.id).split("").reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0);
+      parts.push(bodyCloser(bf, closerHash));
       sp.promptFitReason = parts.join(". ") + ".";
     } else if (hasQuery) {
       sp.promptFitReason = generateFitReason(sp, sp.headerFont, sp.bodyFont, promptWords, query);
