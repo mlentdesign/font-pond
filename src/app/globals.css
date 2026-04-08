@@ -1073,4 +1073,65 @@ body.animations-paused #water-bg * {
     padding: 4px 4px !important;
     font-size: 14px !important;
   }
+
+  /* Breadcrumb: allow long font names to break */
+  .breadcrumb-sticky ol {
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+}
+
+/* ══════════════════════════════════════════
+   MOBILE CARD GLOW — viewport-based instead of hover
+   ══════════════════════════════════════════ */
+@media (max-width: 767px) {
+  /* Neutralize hover-based glow on mobile (touch causes sticky hover) */
+  .card-hover:hover { background: var(--bg-card) !important; }
+  .hover\:shadow-md:hover,
+  .hover\:shadow-sm:hover { box-shadow: var(--shadow-card) !important; }
+  .hover\:border-neutral-300:hover { border-color: transparent !important; }
+  .group:hover .group-hover\:opacity-100 { opacity: 0 !important; }
+
+  /* Dark mode: no outline on hover for mobile */
+  [data-theme="dark"] [role="link"]:hover,
+  [data-theme="dark"] a.block:hover,
+  [data-theme="dark"] a.group:hover,
+  [data-theme="dark"] .hover\:shadow-sm:hover,
+  [data-theme="dark"] .hover\:shadow-md:hover {
+    outline: none !important;
+  }
+
+  /* Viewport-active card glow */
+  .card-viewport-active {
+    background: var(--bg-card-hover) !important;
+    box-shadow: var(--shadow-card-hover) !important;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease !important;
+  }
+  .card-viewport-active .opacity-0 {
+    opacity: 1 !important;
+    transition: opacity 0.3s ease !important;
+  }
+  [data-theme="dark"] .card-viewport-active {
+    outline: 1px solid rgba(130, 210, 200, 0.12);
+    outline-offset: -1px;
+  }
+
+  /* Sticky bottom download CTA on font pages */
+  .mobile-sticky-download {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 35;
+    background: var(--bg);
+    padding: 16px 24px;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    box-shadow: var(--shadow-edge-top);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .mobile-sticky-download.is-hidden {
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
+  }
 }
