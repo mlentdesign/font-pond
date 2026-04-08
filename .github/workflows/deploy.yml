@@ -26,10 +26,13 @@ jobs:
           cache: npm
 
       - run: npm ci
+      - run: node scripts/generate-slugs.mjs
+        env:
+          NODE_OPTIONS: "--max-old-space-size=8192"
       - run: npx next build
         env:
           NEXT_PUBLIC_BASE_PATH: /font-pond
-          NODE_OPTIONS: "--max-old-space-size=8192 --stack-size=65536"
+          NODE_OPTIONS: "--max-old-space-size=8192"
 
       - uses: actions/upload-pages-artifact@v3
         with:
