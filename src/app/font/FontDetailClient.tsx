@@ -201,8 +201,8 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
             <p style={{ fontFamily: family, fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600 mb-2">
               abcdefghijklmnopqrstuvwxyz
             </p>
-            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600">
-              {hasNums ? "0123456789" : <span style={{ fontFamily: "system-ui, sans-serif" }}>0123456789</span>} !@#$%^&*()-=+[]{'{'}|;:&apos;,./&lt;&gt;?
+            <p style={{ fontFamily: hasNums ? family : "system-ui, sans-serif", fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600">
+              0123456789 !@#$%^&*()-=+[]{'{'}|;:&apos;,./&lt;&gt;?
             </p>
           </div>
 
@@ -212,8 +212,8 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
               <p className="uppercase tracking-wider text-neutral-400 mb-3" style={{ fontSize: "12px" }}>WEIGHTS</p>
               <div className="space-y-2">
                 {font.weights.map((w) => (
-                  <p key={w} style={{ fontFamily: family, fontWeight: w, fontSize: "18px" }} className="specimen-18 text-neutral-700">
-                    {hasNums ? w : <span style={{ fontFamily: "system-ui, sans-serif" }}>{w}</span>} — The quick brown fox jumps over the lazy dog
+                  <p key={w} style={{ fontWeight: w, fontSize: "18px" }} className="specimen-18 text-neutral-700">
+                    <span style={{ fontFamily: hasNums ? family : "system-ui, sans-serif" }}>{w}</span> — <span style={{ fontFamily: family }}>The quick brown fox jumps over the lazy dog</span>
                   </p>
                 ))}
               </div>
