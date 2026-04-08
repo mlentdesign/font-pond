@@ -63,7 +63,66 @@
   --border-edge: 1px solid rgba(0, 77, 64, 0.06);
 }
 
-/* ── Dark mode ── */
+/* ── System dark preference — provides correct colors before JS runs ── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d3b3f;
+    --bg-card: #11474c;
+    --bg-card-hover: #185459;
+    --bg-header: #0a2f32;
+    --bg-footer: #0a2f32;
+    --bg-chip: #0f4045;
+    --bg-input: #164f54;
+    --bg-action-bar: #134a4f;
+    --border: rgba(130, 200, 190, 0.15);
+    --border-card: rgba(130, 200, 190, 0.12);
+    --border-chip: rgba(130, 200, 190, 0.08);
+    --divider: rgba(130, 200, 190, 0.08);
+
+    --text-heading: #ffffff;
+    --text-body: #dcdcdc;
+    --text-muted: #b8b8b8;
+    --text-label: #a0a0a0;
+    --text-chip: #d0d0d0;
+    --text-placeholder: #a0a0a0;
+    --text-ransom: #ffffff;
+    --text-link: #b0ccc8;
+
+    --accent: #4db6ac;
+    --btn-bg: #e0e0e0;
+    --btn-bg-disabled: #1e5558;
+    --btn-text: #111111;
+    --btn-text-disabled: #6a9995;
+    --btn-hover: #f0f0f0;
+    --btn-outline-border: #cccccc;
+    --btn-outline-text: #cccccc;
+    --btn-outline-hover: #ffffff;
+    --btn-outline-hover-bg: #164f54;
+    --toggle-active: rgba(255, 255, 255, 0.15);
+    --toggle-active-text: #ffffff;
+    --add-image-color: #cccccc;
+
+    --generate-bg: #a06828;
+    --generate-bg-hover: #b87830;
+    --generate-bg-disabled: #7a5530;
+    --generate-text: #ffffff;
+    --generate-text-disabled: #c4a880;
+
+    --selection-bg: #4db6ac;
+    --selection-text: #000000;
+    --shadow: 0 2px 16px rgba(0, 30, 28, 0.30);
+    --shadow-hover: 0 4px 24px rgba(100, 200, 180, 0.22);
+    --shadow-card: 0 2px 12px rgba(0, 30, 28, 0.25);
+    --shadow-card-hover: 0 4px 24px rgba(100, 200, 180, 0.18);
+    --shadow-input: 0 2px 12px rgba(0, 30, 28, 0.25);
+    --shadow-input-focus: 0 2px 16px rgba(100, 200, 180, 0.14);
+    --shadow-edge: 0 2px 12px rgba(0, 30, 28, 0.25);
+    --shadow-edge-top: 0 -2px 12px rgba(0, 30, 28, 0.25);
+    --border-edge: 1px solid rgba(130, 200, 190, 0.06);
+  }
+}
+
+/* ── Dark mode (explicit toggle) ── */
 [data-theme="dark"] {
   --bg: #0d3b3f;
   --bg-card: #11474c;
