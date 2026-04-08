@@ -205,6 +205,7 @@ const coreFonts: Font[] = [
     bodyLegibilityScore: 8,
     screenReadabilityNotes: "Optimized for body text on screens. Based on the American Type Founders Baskerville.",
     distinctiveTraits: ["classic proportions", "optimized for body text", "strong italic"],
+    xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "moderate", letterSpacing: "normal", moodCategory: "traditional",
     historicalNotes: "Based on the American Type Founders Baskerville from 1941, optimized for web.",
     notableUseExamples: [],
     similarFonts: ["lora", "merriweather"],
@@ -307,6 +308,7 @@ const coreFonts: Font[] = [
     bodyLegibilityScore: 5,
     screenReadabilityNotes: "Distinctive soft serifs work well at display sizes. The optical axis adds flexibility.",
     distinctiveTraits: ["soft serif endings", "variable optical size", "goofy alternate glyphs"],
+    xHeightRatio: "moderate", apertureOpenness: "open", strokeContrast: "high", letterSpacing: "normal", moodCategory: "warm",
     historicalNotes: "Inspired by early American typefaces with a contemporary twist.",
     notableUseExamples: [],
     similarFonts: ["playfair-display"],
@@ -2273,6 +2275,96 @@ const coreFonts: Font[] = [
   },
 ];
 
+// ── Typography anatomy overrides — hand-researched per font ──
+// Each entry: [xHeightRatio, apertureOpenness, strokeContrast, letterSpacing, moodCategory]
+type AnatomyTuple = [Font["xHeightRatio"], Font["apertureOpenness"], Font["strokeContrast"], Font["letterSpacing"], Font["moodCategory"]];
+const ANATOMY_MAP: Record<string, AnatomyTuple> = {
+  // ── Serif ──
+  "playfair-display":       ["moderate", "moderate", "high",     "normal",   "elegant"],
+  "lora":                   ["moderate", "open",     "moderate", "normal",   "warm"],
+  "merriweather":           ["high",     "open",     "moderate", "generous", "traditional"],
+  "cormorant":              ["low",      "moderate", "high",     "normal",   "elegant"],
+  "source-serif-4":         ["moderate", "open",     "moderate", "normal",   "neutral"],
+  "libre-baskerville":      ["moderate", "moderate", "moderate", "normal",   "traditional"],
+  "dm-serif-display":       ["moderate", "moderate", "high",     "normal",   "elegant"],
+  "noto-serif":             ["moderate", "open",     "moderate", "normal",   "neutral"],
+  "fraunces":               ["moderate", "open",     "high",     "normal",   "warm"],
+  "pt-serif":               ["moderate", "moderate", "moderate", "normal",   "traditional"],
+  "ibm-plex-serif":         ["moderate", "open",     "moderate", "normal",   "technical"],
+  "crimson-pro":            ["moderate", "open",     "moderate", "normal",   "elegant"],
+  "newsreader":             ["moderate", "moderate", "moderate", "normal",   "traditional"],
+  "author":                 ["moderate", "moderate", "moderate", "normal",   "warm"],
+  "young-serif":            ["moderate", "open",     "moderate", "normal",   "warm"],
+  "instrument-serif":       ["moderate", "moderate", "high",     "normal",   "elegant"],
+  "dm-serif-text":          ["moderate", "moderate", "moderate", "normal",   "elegant"],
+  "zodiak":                 ["moderate", "moderate", "high",     "normal",   "elegant"],
+  "boska":                  ["moderate", "moderate", "high",     "normal",   "bold"],
+  "libre-caslon-display":   ["moderate", "moderate", "high",     "normal",   "traditional"],
+  // ── Slab Serif ──
+  "bitter":                 ["high",     "open",     "low",      "normal",   "neutral"],
+  "roboto-slab":            ["moderate", "moderate", "low",      "normal",   "modern"],
+  "zilla-slab":             ["moderate", "moderate", "low",      "normal",   "bold"],
+  // ── Sans Serif ──
+  "inter":                  ["high",     "open",     "none",     "normal",   "neutral"],
+  "dm-sans":                ["moderate", "open",     "none",     "normal",   "modern"],
+  "plus-jakarta-sans":      ["moderate", "open",     "none",     "normal",   "modern"],
+  "work-sans":              ["high",     "open",     "none",     "normal",   "neutral"],
+  "space-grotesk":          ["moderate", "moderate", "none",     "normal",   "technical"],
+  "outfit":                 ["moderate", "open",     "none",     "normal",   "modern"],
+  "manrope":                ["high",     "open",     "none",     "normal",   "modern"],
+  "poppins":                ["moderate", "moderate", "none",     "normal",   "modern"],
+  "raleway":                ["moderate", "moderate", "low",      "normal",   "elegant"],
+  "montserrat":             ["moderate", "moderate", "none",     "normal",   "bold"],
+  "nunito-sans":            ["moderate", "open",     "none",     "generous", "warm"],
+  "sora":                   ["moderate", "moderate", "none",     "normal",   "technical"],
+  "rubik":                  ["moderate", "open",     "none",     "normal",   "modern"],
+  "josefin-sans":           ["low",      "moderate", "none",     "generous", "elegant"],
+  "cabin":                  ["high",     "open",     "none",     "normal",   "warm"],
+  "archivo":                ["high",     "open",     "none",     "normal",   "neutral"],
+  "satoshi":                ["high",     "open",     "none",     "normal",   "modern"],
+  "general-sans":           ["high",     "open",     "none",     "normal",   "neutral"],
+  "cabinet-grotesk":        ["moderate", "moderate", "none",     "normal",   "bold"],
+  "clash-display":          ["moderate", "moderate", "low",      "normal",   "bold"],
+  "switzer":                ["high",     "open",     "none",     "normal",   "neutral"],
+  "clash-grotesk":          ["moderate", "moderate", "none",     "normal",   "modern"],
+  "ibm-plex-sans":          ["moderate", "open",     "none",     "normal",   "technical"],
+  "bricolage-grotesque":    ["high",     "open",     "low",      "normal",   "playful"],
+  // ── Monospace ──
+  "jetbrains-mono":         ["high",     "open",     "none",     "generous", "technical"],
+  "space-mono":             ["moderate", "moderate", "none",     "generous", "technical"],
+  // ── Display ──
+  "bebas-neue":             ["high",     "closed",   "none",     "tight",    "bold"],
+  "anton":                  ["high",     "closed",   "none",     "tight",    "bold"],
+  "abril-fatface":          ["moderate", "moderate", "high",     "normal",   "elegant"],
+  "syne":                   ["moderate", "moderate", "none",     "normal",   "experimental"],
+  "unbounded":              ["moderate", "moderate", "none",     "normal",   "playful"],
+  "bungee":                 ["high",     "closed",   "none",     "tight",    "bold"],
+  "righteous":              ["moderate", "moderate", "none",     "normal",   "playful"],
+  "fredoka":                ["moderate", "moderate", "none",     "normal",   "playful"],
+  "alfa-slab-one":          ["high",     "closed",   "low",      "tight",    "bold"],
+  "archivo-black":          ["high",     "closed",   "none",     "tight",    "bold"],
+  "lilita-one":             ["high",     "closed",   "none",     "tight",    "playful"],
+  "special-elite":          ["moderate", "moderate", "moderate", "normal",   "experimental"],
+  "press-start-2p":         ["high",     "closed",   "none",     "tight",    "technical"],
+  // ── Script / Handwritten ──
+  "permanent-marker":       ["moderate", "moderate", "moderate", "normal",   "experimental"],
+  "pacifico":               ["moderate", "moderate", "moderate", "normal",   "warm"],
+  "dancing-script":         ["moderate", "moderate", "moderate", "normal",   "elegant"],
+  "caveat":                 ["moderate", "open",     "low",      "normal",   "warm"],
+};
+
+// Apply anatomy overrides to core fonts
+for (const font of coreFonts) {
+  const anatomy = ANATOMY_MAP[font.id];
+  if (anatomy) {
+    font.xHeightRatio = anatomy[0];
+    font.apertureOpenness = anatomy[1];
+    font.strokeContrast = anatomy[2];
+    font.letterSpacing = anatomy[3];
+    font.moodCategory = anatomy[4];
+  }
+}
+
 // ── Universal tag enrichment using 5,000-word adjective library ──
 // Pulls from the comprehensive adjective library to give EVERY font
 // rich, expressive personality descriptors as chip tags.
@@ -2385,11 +2477,107 @@ function enrichFontTags(font: Font): Font {
     }
   }
 
-  if (newTags.length === 0 && newTones.length === 0) return font;
+  // ── Typography anatomy inference ──
+  // Derive anatomy from existing properties when not explicitly set
+
+  const allTraits = [...(font.distinctiveTraits || []), ...font.tags].map(s => s.toLowerCase());
+  const traitStr = allTraits.join(" ");
+
+  let xHeightRatio = font.xHeightRatio;
+  if (!xHeightRatio) {
+    if (traitStr.includes("tall x-height") || traitStr.includes("high x-height") || traitStr.includes("increased x-height") || traitStr.includes("generous x-height")) {
+      xHeightRatio = "high";
+    } else if (traitStr.includes("low x-height")) {
+      xHeightRatio = "low";
+    } else if (font.bodyLegibilityScore && font.bodyLegibilityScore >= 9 && font.isBodySuitable) {
+      xHeightRatio = "high";
+    } else if (font.bodyLegibilityScore && font.bodyLegibilityScore <= 3) {
+      xHeightRatio = "moderate"; // display fonts vary; default moderate
+    } else {
+      xHeightRatio = "moderate";
+    }
+  }
+
+  let apertureOpenness = font.apertureOpenness;
+  if (!apertureOpenness) {
+    if (traitStr.includes("open aperture") || traitStr.includes("open counter")) {
+      apertureOpenness = "open";
+    } else if (traitStr.includes("condensed") || traitStr.includes("impact") || traitStr.includes("tight")) {
+      apertureOpenness = "closed";
+    } else if (font.isBodySuitable && font.bodyLegibilityScore && font.bodyLegibilityScore >= 8) {
+      apertureOpenness = "open";
+    } else if (font.classification === "display" || font.classification === "script" || font.classification === "handwritten") {
+      apertureOpenness = "moderate";
+    } else {
+      apertureOpenness = "moderate";
+    }
+  }
+
+  let strokeContrast = font.strokeContrast;
+  if (!strokeContrast) {
+    if (traitStr.includes("high contrast") || traitStr.includes("high stroke contrast") || traitStr.includes("extreme contrast")) {
+      strokeContrast = "high";
+    } else if (traitStr.includes("low contrast") || traitStr.includes("low-contrast") || traitStr.includes("even stroke") || traitStr.includes("consistent stroke")) {
+      strokeContrast = "low";
+    } else if (font.classification === "sans-serif" || font.classification === "monospace") {
+      strokeContrast = "none";
+    } else if (font.classification === "slab-serif") {
+      strokeContrast = "low";
+    } else if (font.classification === "serif") {
+      strokeContrast = "moderate";
+    } else {
+      strokeContrast = "low";
+    }
+  }
+
+  let letterSpacing = font.letterSpacing;
+  if (!letterSpacing) {
+    if (traitStr.includes("generous spacing") || traitStr.includes("wide spacing") || traitStr.includes("generous letter")) {
+      letterSpacing = "generous";
+    } else if (traitStr.includes("condensed") || traitStr.includes("tight") || traitStr.includes("impact")) {
+      letterSpacing = "tight";
+    } else if (font.classification === "monospace") {
+      letterSpacing = "generous";
+    } else {
+      letterSpacing = "normal";
+    }
+  }
+
+  let moodCategory = font.moodCategory;
+  if (!moodCategory) {
+    const t0 = (font.toneDescriptors[0] || "").toLowerCase();
+    const moodMap: Record<string, Font["moodCategory"]> = {
+      "sophisticated": "elegant", "editorial": "elegant", "luxurious": "elegant",
+      "refined": "elegant", "elegant": "elegant", "literary": "elegant",
+      "authoritative": "traditional", "classic": "traditional", "professional": "traditional",
+      "dependable": "traditional", "traditional": "traditional",
+      "modern": "modern", "contemporary": "modern", "geometric": "modern",
+      "corporate": "technical", "technical": "technical", "precise": "technical",
+      "retro-tech": "technical",
+      "friendly": "warm", "warm": "warm", "approachable": "warm",
+      "soft": "warm", "casual": "warm", "charming": "warm",
+      "bold": "bold", "powerful": "bold", "impactful": "bold",
+      "striking": "bold", "confident": "bold", "heavy": "bold",
+      "playful": "playful", "fun": "playful", "bubbly": "playful",
+      "retro": "playful", "groovy": "playful", "cute": "playful",
+      "raw": "experimental", "experimental": "experimental", "creative": "experimental",
+      "futuristic": "experimental", "artistic": "experimental",
+      "neutral": "neutral", "clean": "neutral", "versatile": "neutral",
+      "balanced": "neutral", "reliable": "neutral",
+    };
+    moodCategory = moodMap[t0] || "neutral";
+  }
+
+  if (newTags.length === 0 && newTones.length === 0 && font.xHeightRatio && font.apertureOpenness && font.strokeContrast && font.letterSpacing && font.moodCategory) return font;
   return {
     ...font,
     tags: [...font.tags, ...newTags],
     toneDescriptors: [...font.toneDescriptors, ...newTones],
+    xHeightRatio,
+    apertureOpenness,
+    strokeContrast,
+    letterSpacing,
+    moodCategory,
   };
 }
 

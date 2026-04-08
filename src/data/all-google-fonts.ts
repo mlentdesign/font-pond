@@ -2,8 +2,43 @@
 // Run: node scripts/download-fonts.mjs --google-all
 import { Font, FontClassification } from "./types";
 
-function gf(name: string, googleFamily: string, classification: string, tags: string[], tone: string[], isBody: boolean, hasRegular: boolean, designerName?: string, foundryName?: string, legibilityOverride?: number): Font {
+// anatomy tuple: [xHeightRatio, apertureOpenness, strokeContrast, letterSpacing, moodCategory]
+type GfAnatomy = [Font["xHeightRatio"], Font["apertureOpenness"], Font["strokeContrast"], Font["letterSpacing"], Font["moodCategory"]];
+
+function gf(name: string, googleFamily: string, classification: string, tags: string[], tone: string[], isBody: boolean, hasRegular: boolean, designerName?: string, foundryName?: string, legibilityOverride?: number, anatomy?: GfAnatomy): Font {
   const slug = name.toLowerCase().replace(/\s+/g, "-");
+  // Per-font anatomy derivation from tags/tone/classification
+  const allWords = [...tags, ...tone].map(s => s.toLowerCase()).join(" ");
+  const leg = legibilityOverride ?? (isBody ? 7 : 3);
+  const xh: Font["xHeightRatio"] = anatomy?.[0] ??
+    (isBody && leg >= 9 ? "high" :
+     allWords.includes("condensed") || allWords.includes("impact") ? "high" :
+     classification === "script" || classification === "handwritten" || allWords.includes("decorative") ? "low" : "moderate");
+  const ap: Font["apertureOpenness"] = anatomy?.[1] ??
+    (isBody && leg >= 8 ? "open" :
+     allWords.includes("humanist") || allWords.includes("friendly") || allWords.includes("rounded") ? "open" :
+     allWords.includes("condensed") || allWords.includes("impact") || allWords.includes("heavy") ? "closed" : "moderate");
+  const sc: Font["strokeContrast"] = anatomy?.[2] ??
+    (allWords.includes("high-contrast") || allWords.includes("high contrast") ? "high" :
+     classification === "sans-serif" || classification === "monospace" ? "none" :
+     classification === "slab-serif" || allWords.includes("slab") || allWords.includes("rounded") ? "low" :
+     classification === "serif" ? "moderate" :
+     allWords.includes("script") || allWords.includes("calligraph") || allWords.includes("brush") ? "moderate" : "low");
+  const ls: Font["letterSpacing"] = anatomy?.[3] ??
+    (allWords.includes("condensed") || allWords.includes("tight") || allWords.includes("impact") ? "tight" :
+     classification === "monospace" || allWords.includes("wide") || allWords.includes("generous") ? "generous" : "normal");
+  const mc: Font["moodCategory"] = anatomy?.[4] ??
+    (allWords.includes("grunge") || allWords.includes("punk") || allWords.includes("horror") || allWords.includes("experimental") || allWords.includes("raw") ? "experimental" :
+     allWords.includes("playful") || allWords.includes("fun") || allWords.includes("cute") || allWords.includes("bubbly") || allWords.includes("whimsical") ? "playful" :
+     allWords.includes("elegant") || allWords.includes("luxury") || allWords.includes("sophisticated") || allWords.includes("refined") ? "elegant" :
+     allWords.includes("bold") || allWords.includes("impactful") || allWords.includes("powerful") || allWords.includes("expressive") || allWords.includes("distinctive") ? "bold" :
+     allWords.includes("warm") || allWords.includes("friendly") || allWords.includes("casual") || allWords.includes("personal") ? "warm" :
+     allWords.includes("classic") || allWords.includes("traditional") || allWords.includes("literary") ? "traditional" :
+     allWords.includes("technical") || allWords.includes("precise") || allWords.includes("systematic") || allWords.includes("digital") ? "technical" :
+     classification === "serif" ? "traditional" :
+     classification === "display" ? "bold" :
+     classification === "handwritten" || classification === "script" ? "warm" :
+     allWords.includes("modern") || allWords.includes("clean") ? "modern" : "neutral");
   return {
     id: `gf-${slug}`, name, slug,
     source: "google-fonts",
@@ -18,12 +53,13 @@ function gf(name: string, googleFamily: string, classification: string, tags: st
     useCases: isBody ? ["body text", "headlines"] : ["headlines", "display"],
     variableFont: false, weights: [400], styles: ["normal"],
     isHeaderSuitable: true, isBodySuitable: isBody,
-    bodyLegibilityScore: legibilityOverride ?? (isBody ? 7 : 3),
+    bodyLegibilityScore: leg,
     screenReadabilityNotes: null,
     distinctiveTraits: [], historicalNotes: null,
     notableUseExamples: [], similarFonts: [],
     popularityConfidence: "medium", metadataConfidence: "low",
     googleFontsFamily: googleFamily,
+    xHeightRatio: xh, apertureOpenness: ap, strokeContrast: sc, letterSpacing: ls, moodCategory: mc,
   };
 }
 
@@ -828,83 +864,83 @@ export const allGoogleFonts: Font[] = [
   gf("Lacquer", "Lacquer", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Niki Polyocan & Eli Block"),
   gf("Laila", "Laila", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Indian Type Foundry"),
   gf("Lakki Reddy", "Lakki Reddy", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Appaji Ambarisha Darbha"),
-  gf("Lalezar", "Lalezar", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Borna Izadpanah"),
-  gf("Lancelot", "Lancelot", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Marion Kadi"),
-  gf("Langar", "Langar", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Typeland & Alessia Mazzarella"),
-  gf("Lateef", "Lateef", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "SIL International"),
-  gf("Lato", "Lato", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Łukasz Dziedzic"),
-  gf("Lavishly Yours", "Lavishly Yours", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Robert Leuschke"),
-  gf("League Gothic", "League Gothic", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Tyler Finck & Caroline Hadilaksono & Micah Rich"),
-  gf("League Script", "League Script", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Haley Fiege"),
-  gf("League Spartan", "League Spartan", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Matt Bailey & Tyler Finck"),
-  gf("Leckerli One", "Leckerli One", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Gesine Todt"),
-  gf("Ledger", "Ledger", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Denis Masharov"),
-  gf("Lekton", "Lekton", "monospace", ["monospace","code","technical","developer"], ["technical","precise","structured"], true, true, "ISIA Urbino"),
-  gf("Lemon", "Lemon", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Eduardo Tunni"),
-  gf("Lemonada", "Lemonada", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Mohamed Gaber & Eduardo Tunni"),
-  gf("Lexend", "Lexend", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion"),
-  gf("Lexend Deca", "Lexend Deca", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion"),
-  gf("Lexend Exa", "Lexend Exa", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion"),
-  gf("Lexend Giga", "Lexend Giga", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion"),
-  gf("Lexend Mega", "Lexend Mega", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion"),
-  gf("Lexend Peta", "Lexend Peta", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion"),
-  gf("Lexend Tera", "Lexend Tera", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion"),
-  gf("Lexend Zetta", "Lexend Zetta", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion"),
-  gf("Libertinus Keyboard", "Libertinus Keyboard", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Philipp H. Poll"),
-  gf("Libertinus Math", "Libertinus Math", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Philipp H. Poll"),
-  gf("Libertinus Mono", "Libertinus Mono", "monospace", ["monospace","code","technical","developer"], ["technical","precise","structured"], true, true, "Philipp H. Poll"),
-  gf("Libertinus Sans", "Libertinus Sans", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Philipp H. Poll"),
-  gf("Libertinus Serif", "Libertinus Serif", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Philipp H. Poll"),
-  gf("Libertinus Serif Display", "Libertinus Serif Display", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Philipp H. Poll"),
-  gf("Libre Barcode 128", "Libre Barcode 128", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Lasse Fister"),
-  gf("Libre Barcode 128 Text", "Libre Barcode 128 Text", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Lasse Fister"),
-  gf("Libre Barcode 39", "Libre Barcode 39", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Lasse Fister"),
-  gf("Libre Barcode 39 Extended", "Libre Barcode 39 Extended", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Lasse Fister"),
-  gf("Libre Barcode 39 Extended Text", "Libre Barcode 39 Extended Text", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Lasse Fister"),
-  gf("Libre Barcode 39 Text", "Libre Barcode 39 Text", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Lasse Fister"),
-  gf("Libre Barcode EAN13 Text", "Libre Barcode EAN13 Text", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Lasse Fister"),
-  gf("Libre Baskerville", "Libre Baskerville", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Impallari Type"),
-  gf("Libre Bodoni", "Libre Bodoni", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Pablo Impallari & Rodrigo Fuenzalida"),
-  gf("Libre Caslon Display", "Libre Caslon Display", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Impallari Type"),
-  gf("Libre Caslon Text", "Libre Caslon Text", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Impallari Type"),
-  gf("Libre Franklin", "Libre Franklin", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Impallari Type"),
-  gf("Licorice", "Licorice", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Robert Leuschke"),
-  gf("Life Savers", "Life Savers", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Impallari Type"),
-  gf("Lilex", "Lilex", "monospace", ["monospace","code","technical","developer"], ["technical","precise","structured"], true, true, "Mike Abbink & Paul van der Laan & Pieter van Rosmalen & Mikhael Khrustik"),
-  gf("Lilita One", "Lilita One", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Juan Montoreano"),
-  gf("Lily Script One", "Lily Script One", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Julia Petretta"),
-  gf("Limelight", "Limelight", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Nicole Fally & Sorkin Type"),
-  gf("Linden Hill", "Linden Hill", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Barry Schwartz"),
-  gf("LINE Seed JP", "LINE Seed JP", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "LY Corporation & Fontrix & Fontworks"),
-  gf("Linefont", "Linefont", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Dmitry Ivanov"),
-  gf("Lisu Bosa", "Lisu Bosa", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "SIL International"),
-  gf("Liter", "Liter", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Anton Skugarov & Alexandr Ivanin"),
-  gf("Literata", "Literata", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "TypeTogether"),
-  gf("Liu Jian Mao Cao", "Liu Jian Mao Cao", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Liu Zhengjiang & Kimberly Geswein & ZhongQi"),
-  gf("Livvic", "Livvic", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "LV= & Jacques Le Bailly"),
-  gf("Lobster", "Lobster", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Impallari Type"),
-  gf("Lobster Two", "Lobster Two", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Impallari Type"),
-  gf("Londrina Outline", "Londrina Outline", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Marcelo Magalhães"),
-  gf("Londrina Shadow", "Londrina Shadow", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Marcelo Magalhães"),
-  gf("Londrina Sketch", "Londrina Sketch", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Marcelo Magalhães"),
-  gf("Londrina Solid", "Londrina Solid", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Marcelo Magalhães"),
-  gf("Long Cang", "Long Cang", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Chen Xiaomin"),
-  gf("Lora", "Lora", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Cyreal"),
-  gf("Love Light", "Love Light", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Robert Leuschke"),
-  gf("Love Ya Like A Sister", "Love Ya Like A Sister", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Kimberly Geswein"),
-  gf("Loved by the King", "Loved by the King", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Kimberly Geswein"),
-  gf("Lovers Quarrel", "Lovers Quarrel", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Robert Leuschke"),
-  gf("Luckiest Guy", "Luckiest Guy", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Astigmatic"),
-  gf("Lugrasimo", "Lugrasimo", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "The DocRepair Project & Astigmatic"),
-  gf("Lumanosimo", "Lumanosimo", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "The DocRepair Project & Eduardo Tunni"),
-  gf("Lunasima", "Lunasima", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "The DocRepair Project & Google"),
-  gf("Lusitana", "Lusitana", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Ana Paula Megda"),
-  gf("Lustria", "Lustria", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "MADType"),
-  gf("Luxurious Roman", "Luxurious Roman", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Robert Leuschke"),
-  gf("Luxurious Script", "Luxurious Script", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Robert Leuschke"),
-  gf("LXGW Marker Gothic", "LXGW Marker Gothic", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "LXGW"),
-  gf("LXGW WenKai Mono TC", "LXGW WenKai Mono TC", "monospace", ["monospace","code","technical","developer"], ["technical","precise","structured"], true, true, "LXGW"),
-  gf("LXGW WenKai TC", "LXGW WenKai TC", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "LXGW"),
+  gf("Lalezar", "Lalezar", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Borna Izadpanah", undefined, undefined, ["moderate", "closed", "none", "tight", "bold"]),
+  gf("Lancelot", "Lancelot", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Marion Kadi", undefined, undefined, ["moderate", "moderate", "moderate", "normal", "traditional"]),
+  gf("Langar", "Langar", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Typeland & Alessia Mazzarella", undefined, undefined, ["moderate", "moderate", "none", "normal", "bold"]),
+  gf("Lateef", "Lateef", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "SIL International", undefined, undefined, ["moderate", "open", "moderate", "normal", "traditional"]),
+  gf("Lato", "Lato", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Łukasz Dziedzic", undefined, undefined, ["high", "open", "none", "normal", "neutral"]),
+  gf("Lavishly Yours", "Lavishly Yours", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Robert Leuschke", undefined, undefined, ["low", "open", "moderate", "normal", "elegant"]),
+  gf("League Gothic", "League Gothic", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Tyler Finck & Caroline Hadilaksono & Micah Rich", undefined, undefined, ["high", "closed", "none", "tight", "bold"]),
+  gf("League Script", "League Script", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Haley Fiege", undefined, undefined, ["low", "open", "moderate", "normal", "elegant"]),
+  gf("League Spartan", "League Spartan", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Matt Bailey & Tyler Finck", undefined, undefined, ["high", "open", "none", "normal", "modern"]),
+  gf("Leckerli One", "Leckerli One", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Gesine Todt", undefined, undefined, ["moderate", "moderate", "low", "normal", "playful"]),
+  gf("Ledger", "Ledger", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Denis Masharov", undefined, undefined, ["moderate", "moderate", "moderate", "normal", "traditional"]),
+  gf("Lekton", "Lekton", "monospace", ["monospace","code","technical","developer"], ["technical","precise","structured"], true, true, "ISIA Urbino", undefined, undefined, ["moderate", "moderate", "none", "generous", "technical"]),
+  gf("Lemon", "Lemon", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Eduardo Tunni", undefined, undefined, ["moderate", "closed", "none", "tight", "playful"]),
+  gf("Lemonada", "Lemonada", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Mohamed Gaber & Eduardo Tunni", undefined, undefined, ["moderate", "moderate", "none", "normal", "playful"]),
+  gf("Lexend", "Lexend", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion", undefined, undefined, ["high", "open", "none", "normal", "modern"]),
+  gf("Lexend Deca", "Lexend Deca", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion", undefined, undefined, ["high", "open", "none", "normal", "modern"]),
+  gf("Lexend Exa", "Lexend Exa", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion", undefined, undefined, ["high", "open", "none", "generous", "modern"]),
+  gf("Lexend Giga", "Lexend Giga", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion", undefined, undefined, ["high", "open", "none", "generous", "modern"]),
+  gf("Lexend Mega", "Lexend Mega", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion", undefined, undefined, ["high", "open", "none", "generous", "modern"]),
+  gf("Lexend Peta", "Lexend Peta", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion", undefined, undefined, ["high", "open", "none", "generous", "modern"]),
+  gf("Lexend Tera", "Lexend Tera", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion", undefined, undefined, ["high", "open", "none", "generous", "modern"]),
+  gf("Lexend Zetta", "Lexend Zetta", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Bonnie Shaver-Troup & Thomas Jockin & Santiago Orozco & Héctor Gómez & Superunion", undefined, undefined, ["high", "open", "none", "generous", "modern"]),
+  gf("Libertinus Keyboard", "Libertinus Keyboard", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Philipp H. Poll", undefined, undefined, ["moderate", "moderate", "none", "generous", "technical"]),
+  gf("Libertinus Math", "Libertinus Math", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Philipp H. Poll", undefined, undefined, ["moderate", "moderate", "moderate", "normal", "technical"]),
+  gf("Libertinus Mono", "Libertinus Mono", "monospace", ["monospace","code","technical","developer"], ["technical","precise","structured"], true, true, "Philipp H. Poll", undefined, undefined, ["moderate", "moderate", "none", "generous", "technical"]),
+  gf("Libertinus Sans", "Libertinus Sans", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Philipp H. Poll", undefined, undefined, ["moderate", "open", "none", "normal", "neutral"]),
+  gf("Libertinus Serif", "Libertinus Serif", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Philipp H. Poll", undefined, undefined, ["moderate", "open", "moderate", "normal", "traditional"]),
+  gf("Libertinus Serif Display", "Libertinus Serif Display", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Philipp H. Poll", undefined, undefined, ["moderate", "open", "high", "normal", "elegant"]),
+  gf("Libre Barcode 128", "Libre Barcode 128", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Lasse Fister", undefined, undefined, ["moderate", "moderate", "none", "normal", "technical"]),
+  gf("Libre Barcode 128 Text", "Libre Barcode 128 Text", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Lasse Fister", undefined, undefined, ["moderate", "moderate", "none", "normal", "technical"]),
+  gf("Libre Barcode 39", "Libre Barcode 39", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Lasse Fister", undefined, undefined, ["moderate", "moderate", "none", "normal", "technical"]),
+  gf("Libre Barcode 39 Extended", "Libre Barcode 39 Extended", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Lasse Fister", undefined, undefined, ["moderate", "moderate", "none", "normal", "technical"]),
+  gf("Libre Barcode 39 Extended Text", "Libre Barcode 39 Extended Text", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Lasse Fister", undefined, undefined, ["moderate", "moderate", "none", "normal", "technical"]),
+  gf("Libre Barcode 39 Text", "Libre Barcode 39 Text", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Lasse Fister", undefined, undefined, ["moderate", "moderate", "none", "normal", "technical"]),
+  gf("Libre Barcode EAN13 Text", "Libre Barcode EAN13 Text", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Lasse Fister", undefined, undefined, ["moderate", "moderate", "none", "normal", "technical"]),
+  gf("Libre Baskerville", "Libre Baskerville", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Impallari Type", undefined, undefined, ["moderate", "open", "moderate", "normal", "traditional"]),
+  gf("Libre Bodoni", "Libre Bodoni", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Pablo Impallari & Rodrigo Fuenzalida", undefined, undefined, ["moderate", "moderate", "high", "normal", "elegant"]),
+  gf("Libre Caslon Display", "Libre Caslon Display", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Impallari Type", undefined, undefined, ["moderate", "moderate", "high", "normal", "elegant"]),
+  gf("Libre Caslon Text", "Libre Caslon Text", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Impallari Type", undefined, undefined, ["moderate", "open", "moderate", "normal", "traditional"]),
+  gf("Libre Franklin", "Libre Franklin", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Impallari Type", undefined, undefined, ["high", "open", "none", "normal", "neutral"]),
+  gf("Licorice", "Licorice", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Robert Leuschke", undefined, undefined, ["low", "open", "moderate", "normal", "elegant"]),
+  gf("Life Savers", "Life Savers", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Impallari Type", undefined, undefined, ["moderate", "open", "low", "normal", "playful"]),
+  gf("Lilex", "Lilex", "monospace", ["monospace","code","technical","developer"], ["technical","precise","structured"], true, true, "Mike Abbink & Paul van der Laan & Pieter van Rosmalen & Mikhael Khrustik", undefined, undefined, ["high", "moderate", "none", "generous", "technical"]),
+  gf("Lilita One", "Lilita One", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Juan Montoreano", undefined, undefined, ["high", "closed", "none", "tight", "bold"]),
+  gf("Lily Script One", "Lily Script One", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Julia Petretta", undefined, undefined, ["low", "moderate", "moderate", "normal", "elegant"]),
+  gf("Limelight", "Limelight", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Nicole Fally & Sorkin Type", undefined, undefined, ["moderate", "closed", "high", "normal", "bold"]),
+  gf("Linden Hill", "Linden Hill", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Barry Schwartz", undefined, undefined, ["moderate", "open", "moderate", "normal", "traditional"]),
+  gf("LINE Seed JP", "LINE Seed JP", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "LY Corporation & Fontrix & Fontworks", undefined, undefined, ["high", "open", "none", "normal", "modern"]),
+  gf("Linefont", "Linefont", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Dmitry Ivanov", undefined, undefined, ["moderate", "moderate", "none", "normal", "experimental"]),
+  gf("Lisu Bosa", "Lisu Bosa", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "SIL International", undefined, undefined, ["moderate", "open", "moderate", "normal", "traditional"]),
+  gf("Liter", "Liter", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Anton Skugarov & Alexandr Ivanin", undefined, undefined, ["high", "open", "none", "normal", "modern"]),
+  gf("Literata", "Literata", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "TypeTogether", undefined, undefined, ["high", "open", "moderate", "normal", "traditional"]),
+  gf("Liu Jian Mao Cao", "Liu Jian Mao Cao", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Liu Zhengjiang & Kimberly Geswein & ZhongQi", undefined, undefined, ["low", "moderate", "moderate", "normal", "warm"]),
+  gf("Livvic", "Livvic", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "LV= & Jacques Le Bailly", undefined, undefined, ["high", "open", "none", "normal", "modern"]),
+  gf("Lobster", "Lobster", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Impallari Type", undefined, undefined, ["moderate", "closed", "low", "tight", "bold"]),
+  gf("Lobster Two", "Lobster Two", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Impallari Type", undefined, undefined, ["moderate", "closed", "low", "tight", "bold"]),
+  gf("Londrina Outline", "Londrina Outline", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Marcelo Magalhães", undefined, undefined, ["moderate", "moderate", "none", "normal", "playful"]),
+  gf("Londrina Shadow", "Londrina Shadow", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Marcelo Magalhães", undefined, undefined, ["moderate", "moderate", "none", "normal", "playful"]),
+  gf("Londrina Sketch", "Londrina Sketch", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Marcelo Magalhães", undefined, undefined, ["moderate", "moderate", "none", "normal", "playful"]),
+  gf("Londrina Solid", "Londrina Solid", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Marcelo Magalhães", undefined, undefined, ["moderate", "moderate", "none", "normal", "playful"]),
+  gf("Long Cang", "Long Cang", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Chen Xiaomin", undefined, undefined, ["low", "moderate", "moderate", "normal", "warm"]),
+  gf("Lora", "Lora", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Cyreal", undefined, undefined, ["moderate", "open", "moderate", "normal", "traditional"]),
+  gf("Love Light", "Love Light", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Robert Leuschke", undefined, undefined, ["low", "open", "moderate", "normal", "elegant"]),
+  gf("Love Ya Like A Sister", "Love Ya Like A Sister", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Kimberly Geswein", undefined, undefined, ["moderate", "moderate", "none", "normal", "playful"]),
+  gf("Loved by the King", "Loved by the King", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Kimberly Geswein", undefined, undefined, ["low", "open", "none", "normal", "warm"]),
+  gf("Lovers Quarrel", "Lovers Quarrel", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Robert Leuschke", undefined, undefined, ["low", "open", "moderate", "normal", "elegant"]),
+  gf("Luckiest Guy", "Luckiest Guy", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Astigmatic", undefined, undefined, ["high", "closed", "none", "tight", "bold"]),
+  gf("Lugrasimo", "Lugrasimo", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "The DocRepair Project & Astigmatic", undefined, undefined, ["moderate", "open", "low", "normal", "warm"]),
+  gf("Lumanosimo", "Lumanosimo", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "The DocRepair Project & Eduardo Tunni", undefined, undefined, ["moderate", "open", "low", "normal", "warm"]),
+  gf("Lunasima", "Lunasima", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "The DocRepair Project & Google", undefined, undefined, ["high", "open", "none", "normal", "neutral"]),
+  gf("Lusitana", "Lusitana", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Ana Paula Megda", undefined, undefined, ["moderate", "open", "moderate", "normal", "traditional"]),
+  gf("Lustria", "Lustria", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "MADType", undefined, undefined, ["moderate", "open", "moderate", "normal", "traditional"]),
+  gf("Luxurious Roman", "Luxurious Roman", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Robert Leuschke", undefined, undefined, ["moderate", "moderate", "high", "normal", "elegant"]),
+  gf("Luxurious Script", "Luxurious Script", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Robert Leuschke", undefined, undefined, ["low", "open", "high", "normal", "elegant"]),
+  gf("LXGW Marker Gothic", "LXGW Marker Gothic", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "LXGW", undefined, undefined, ["moderate", "moderate", "none", "normal", "warm"]),
+  gf("LXGW WenKai Mono TC", "LXGW WenKai Mono TC", "monospace", ["monospace","code","technical","developer"], ["technical","precise","structured"], true, true, "LXGW", undefined, undefined, ["moderate", "moderate", "none", "generous", "technical"]),
+  gf("LXGW WenKai TC", "LXGW WenKai TC", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "LXGW", undefined, undefined, ["moderate", "moderate", "low", "normal", "warm"]),
   gf("M PLUS 1", "M PLUS 1", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Coji Morishita"),
   gf("M PLUS 1 Code", "M PLUS 1 Code", "monospace", ["monospace","code","technical","developer"], ["technical","precise","structured"], true, true, "Coji Morishita"),
   gf("M PLUS 1p", "M PLUS 1p", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Coji Morishita & M+ Fonts Project"),

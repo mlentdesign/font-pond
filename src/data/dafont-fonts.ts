@@ -52,10 +52,39 @@ function dafont(
     year?: number;
     licenseType?: string;
     serifSansCategory?: Font["serifSansCategory"];
+    xHeightRatio?: Font["xHeightRatio"];
+    apertureOpenness?: Font["apertureOpenness"];
+    strokeContrast?: Font["strokeContrast"];
+    letterSpacing?: Font["letterSpacing"];
+    moodCategory?: Font["moodCategory"];
   }
 ): Font {
   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
   const enrichedTags = enrichTags(tags, toneDescriptors);
+  // Per-font anatomy derivation from tags/traits/tones
+  const allWords = [...tags, ...toneDescriptors, ...distinctiveTraits].map(s => s.toLowerCase()).join(" ");
+  const derivedXHeight: Font["xHeightRatio"] = opts?.xHeightRatio ??
+    (allWords.includes("condensed") || allWords.includes("impact") || allWords.includes("bold") || allWords.includes("heavy") ? "high" :
+     allWords.includes("script") || allWords.includes("calligraph") || allWords.includes("decorative") || allWords.includes("ornate") ? "low" : "moderate");
+  const derivedAperture: Font["apertureOpenness"] = opts?.apertureOpenness ??
+    (allWords.includes("condensed") || allWords.includes("tight") || allWords.includes("impact") || allWords.includes("heavy") || allWords.includes("block") ? "closed" :
+     allWords.includes("open") || allWords.includes("rounded") || allWords.includes("friendly") ? "open" : "moderate");
+  const derivedStroke: Font["strokeContrast"] = opts?.strokeContrast ??
+    (allWords.includes("high-contrast") || allWords.includes("elegant") && classification === "serif" ? "high" :
+     allWords.includes("script") || allWords.includes("calligraph") || allWords.includes("brush") ? "moderate" :
+     allWords.includes("slab") || allWords.includes("rounded") ? "low" : "none");
+  const derivedSpacing: Font["letterSpacing"] = opts?.letterSpacing ??
+    (allWords.includes("condensed") || allWords.includes("tight") || allWords.includes("impact") || allWords.includes("heavy") ? "tight" :
+     allWords.includes("wide") || allWords.includes("spaced") || allWords.includes("generous") ? "generous" : "normal");
+  const derivedMood: Font["moodCategory"] = opts?.moodCategory ??
+    (allWords.includes("grunge") || allWords.includes("punk") || allWords.includes("horror") || allWords.includes("experimental") || allWords.includes("raw") ? "experimental" :
+     allWords.includes("playful") || allWords.includes("fun") || allWords.includes("cute") || allWords.includes("bubbly") || allWords.includes("cartoon") ? "playful" :
+     allWords.includes("elegant") || allWords.includes("luxury") || allWords.includes("sophisticated") || allWords.includes("refined") ? "elegant" :
+     allWords.includes("bold") || allWords.includes("impactful") || allWords.includes("powerful") || allWords.includes("fierce") || allWords.includes("commanding") ? "bold" :
+     allWords.includes("warm") || allWords.includes("friendly") || allWords.includes("casual") || allWords.includes("handwritten") ? "warm" :
+     allWords.includes("retro") || allWords.includes("vintage") || allWords.includes("classic") || allWords.includes("western") ? "traditional" :
+     allWords.includes("pixel") || allWords.includes("stencil") || allWords.includes("military") || allWords.includes("digital") ? "technical" :
+     allWords.includes("modern") || allWords.includes("sleek") || allWords.includes("futuristic") ? "modern" : "bold");
   return {
     id: `dafont-${slug}`,
     name,
@@ -83,6 +112,11 @@ function dafont(
     bodyLegibilityScore: 2,
     screenReadabilityNotes: null,
     distinctiveTraits,
+    xHeightRatio: derivedXHeight,
+    apertureOpenness: derivedAperture,
+    strokeContrast: derivedStroke,
+    letterSpacing: derivedSpacing,
+    moodCategory: derivedMood,
     historicalNotes: null,
     notableUseExamples: [],
     similarFonts: [],
@@ -102,7 +136,7 @@ export const dafontFonts: Font[] = [
     ["chaotic", "raw", "anarchic", "unpolished"],
     ["punk flyer", "underground event", "skateboard graphic", "zine"],
     ["intentionally messy letter construction", "anti-design aesthetic"],
-    { designer: "Spork Thug Typography" },
+    { designer: "Spork Thug Typography", xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "normal", moodCategory: "experimental" },
   ),
 
   dafont("Punkboy", "display",
@@ -110,7 +144,7 @@ export const dafontFonts: Font[] = [
     ["rebellious", "loud", "confrontational", "energetic"],
     ["concert poster", "skateboard deck", "punk merch", "street art"],
     ["angular punk-influenced forms", "heavy ink distortion"],
-    { designer: "PressGang Studios" },
+    { designer: "PressGang Studios", xHeightRatio: "high", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "tight", moodCategory: "experimental" },
   ),
 
 
@@ -119,6 +153,7 @@ export const dafontFonts: Font[] = [
     ["brooding", "intense", "dark", "emotional"],
     ["metal poster", "dark themed events", "album cover", "editorial"],
     ["heavy blackened letterforms", "emotionally charged weight"],
+    { xHeightRatio: "high", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "tight", moodCategory: "experimental" },
   ),
 
 
@@ -127,6 +162,7 @@ export const dafontFonts: Font[] = [
     ["loud", "bold", "gritty", "impactful"],
     ["newspaper headline", "protest poster", "bold statement", "editorial"],
     ["thick bold forms with grime overlay", "newspaper distress"],
+    { xHeightRatio: "high", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "tight", moodCategory: "bold" },
   ),
 
   dafont("Capture It", "display",
@@ -134,13 +170,14 @@ export const dafontFonts: Font[] = [
     ["rugged", "tactical", "urban", "street"],
     ["military poster", "street art", "urban branding", "action movie"],
     ["stencil with spray-paint bleed", "urban military hybrid"],
+    { xHeightRatio: "high", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "normal", moodCategory: "technical" },
   ),
   dafont("Another Danger", "display",
     ["grunge", "brush", "rough", "danger", "aggressive", "textured", "distressed", "edgy"],
     ["dangerous", "edgy", "raw", "intense"],
     ["action movie", "extreme sports", "warning poster", "aggressive branding"],
     ["rough brush strokes", "danger-sign aesthetic"],
-    { designer: "The Branded Quotes" },
+    { designer: "The Branded Quotes", xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "low", letterSpacing: "normal", moodCategory: "experimental" },
   ),
 
   dafont("Crust Clean", "display",
@@ -148,7 +185,7 @@ export const dafontFonts: Font[] = [
     ["crusty", "raw", "underground", "aggressive"],
     ["crust punk", "DIY show flyer", "underground zine", "noise music"],
     ["heavily degraded crust punk style", "hand-cut stencil look"],
-    { designer: "alien foundery" },
+    { designer: "alien foundery", xHeightRatio: "high", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "tight", moodCategory: "experimental" },
   ),
 
 
@@ -158,6 +195,7 @@ export const dafontFonts: Font[] = [
     ["urban", "contemporary", "gritty", "bold"],
     ["streetwear", "urban branding", "hip-hop poster", "fashion"],
     ["modern sans with grime overlay", "clean structure + dirty texture"],
+    { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "normal", moodCategory: "experimental" },
   ),
 
   dafont("28 Days Later", "display",
@@ -165,7 +203,7 @@ export const dafontFonts: Font[] = [
     ["terrifying", "post-apocalyptic", "tense", "desperate"],
     ["horror movie", "apocalypse theme", "survival game", "dark poster"],
     ["scratched survival-horror letterforms", "infected/degraded feel"],
-    { designer: "Filmhimmel" },
+    { designer: "Filmhimmel", xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "normal", moodCategory: "experimental" },
   ),
 
   dafont("Neuropol", "display",
@@ -173,6 +211,7 @@ export const dafontFonts: Font[] = [
     ["technological", "edgy", "futuristic", "digital"],
     ["tech poster", "sci-fi game", "cyber event", "digital art"],
     ["angular tech forms with distress", "cyberpunk grunge hybrid"],
+    { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "normal", moodCategory: "technical" },
   ),
 
   dafont("Guttural", "display",
@@ -180,7 +219,7 @@ export const dafontFonts: Font[] = [
     ["brutal", "extreme", "visceral", "relentless"],
     ["death metal", "extreme music", "horror", "dark poster"],
     ["extreme metal-influenced letterforms", "visceral distortion"],
-    { designer: "James Stone" },
+    { designer: "James Stone", xHeightRatio: "high", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "tight", moodCategory: "experimental" },
   ),
 
   dafont("Eraser", "display",
@@ -188,6 +227,7 @@ export const dafontFonts: Font[] = [
     ["faded", "ghostly", "worn", "subtle"],
     ["minimal poster", "faded vintage", "artistic branding", "gallery"],
     ["partially erased letterforms", "chalk-on-blackboard texture"],
+    { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "normal", moodCategory: "experimental" },
   ),
 
   // ─── SCRIPT / FEMININE / HANDWRITTEN (~25) ───
