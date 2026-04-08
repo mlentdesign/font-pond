@@ -25,6 +25,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <head>
+        {/* Theme script MUST be first — blocks rendering to prevent light mode flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme:dark)").matches);document.documentElement.setAttribute("data-theme",d?"dark":"light")}catch(e){}})()`,
+          }}
+        />
         <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         {/* Google Analytics */}
@@ -32,12 +38,6 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-N6BYH6MQKP');`,
-          }}
-        />
-        {/* Inline script to set theme before first paint — prevents light mode flash */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(! t&&window.matchMedia("(prefers-color-scheme:dark)").matches);document.documentElement.setAttribute("data-theme",d?"dark":"light")}catch(e){}})()`,
           }}
         />
       </head>
