@@ -27,21 +27,22 @@ export function MobileCardGlow() {
     }
 
     function applyGlow(card: HTMLElement) {
-      card.style.background = getVar("--bg-card-hover");
-      card.style.boxShadow = getVar("--shadow-card-hover");
+      // Must use "important" to override .bg-white and .border-neutral-200 !important rules
+      card.style.setProperty("background", getVar("--bg-card-hover"), "important");
+      card.style.setProperty("box-shadow", getVar("--shadow-card-hover"), "important");
       // Show the arrow indicator if present
       const arrow = card.querySelector(".opacity-0") as HTMLElement | null;
       if (arrow) {
-        arrow.style.opacity = "1";
+        arrow.style.setProperty("opacity", "1", "important");
         activeArrow = arrow;
       }
     }
 
     function removeGlow(card: HTMLElement) {
-      card.style.background = "";
-      card.style.boxShadow = "";
+      card.style.removeProperty("background");
+      card.style.removeProperty("box-shadow");
       if (activeArrow) {
-        activeArrow.style.opacity = "";
+        activeArrow.style.removeProperty("opacity");
         activeArrow = null;
       }
     }
