@@ -1,8 +1,8 @@
-import { fonts } from "@/data/fonts";
+import fontSlugs from "@/data/font-slugs.json";
 import FontSlugClient from "./FontSlugClient";
 
 export function generateStaticParams() {
-  return fonts.map((f) => ({ slug: f.slug }));
+  return fontSlugs.map((slug: string) => ({ slug }));
 }
 
 export default async function FontSlugPage({

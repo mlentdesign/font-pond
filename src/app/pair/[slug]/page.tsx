@@ -1,13 +1,8 @@
-import { fontPairs } from "@/data/pairs";
+import pairSlugs from "@/data/pair-slugs.json";
 import PairSlugClient from "./PairSlugClient";
 
 export function generateStaticParams() {
-  // Generate a static page for every pair
-  const params: { slug: string }[] = [];
-  for (let i = 0; i < fontPairs.length; i++) {
-    params.push({ slug: fontPairs[i].slug });
-  }
-  return params;
+  return pairSlugs.map((slug: string) => ({ slug }));
 }
 
 export default async function PairSlugPage({
