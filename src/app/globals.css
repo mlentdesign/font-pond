@@ -987,7 +987,7 @@ body.animations-paused #water-bg * {
 
   /* History chip — safe area for Android nav bar, ensure right padding */
   .history-chip-fixed {
-    bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
     right: 16px !important;
   }
 
@@ -996,8 +996,8 @@ body.animations-paused #water-bg * {
      Footer padding: 24px top + content + 24px below content, then safe-area at bottom.
      Total bottom = 24px + 40px spacer + 24px + safe-area = chip looks centered. */
   .site-footer {
-    padding-top: 24px !important;
-    padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important;
+    padding-top: 16px !important;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
     min-height: auto !important;
   }
 
