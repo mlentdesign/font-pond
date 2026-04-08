@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
  * On mobile (< 768px), replaces hover-based card glow with viewport-based glow.
  * The card with the most unobstructed visible pixels gets the "card-viewport-active" class.
  * Only one card glows at a time. Areas covered by fixed header/footer don't count.
+ * When scrolled to the bottom, the last visible card always wins.
  */
 export function MobileCardGlow() {
   const pathname = usePathname();
@@ -34,20 +35,25 @@ export function MobileCardGlow() {
       const header = document.querySelector("header");
       const stickyBreadcrumb = document.querySelector(".breadcrumb-sticky");
       const stickyDownload = document.querySelector(".mobile-sticky-download:not(.is-hidden)");
+      const footer = document.querySelector("footer");
 
       // Top edge: below header and sticky breadcrumb
       let visibleTop = 0;
       if (header) visibleTop = Math.max(visibleTop, header.getBoundingClientRect().bottom);
       if (stickyBreadcrumb) visibleTop = Math.max(visibleTop, stickyBreadcrumb.getBoundingClientRect().bottom);
 
-      // Bottom edge: above sticky download CTA or viewport bottom
+      // Bottom edge: above sticky download CTA, footer, or viewport bottom
       let visibleBottom = window.innerHeight;
       if (stickyDownload) visibleBottom = Math.min(visibleBottom, stickyDownload.getBoundingClientRect().top);
+      if (footer) {
+        const footerTop = footer.getBoundingClientRect().top;
+        if (footerTop < visibleBottom) visibleBottom = footerTop;
+      }
 
-      // Detect if user has scrolled to the bottom of the page
+      // Detect if user has scrolled near the bottom of the page
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
       const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-      const atBottom = (scrollTop + window.innerHeight) >= (docHeight - 50);
+      const atBottom = (scrollTop + window.innerHeight) >= (docHeight - 150);
 
       const cards = document.querySelectorAll(".card-hover");
       let bestCard: Element | null = null;
@@ -71,14 +77,19 @@ export function MobileCardGlow() {
         }
       }
 
-      // At the bottom of the page, the last visible card wins
+      // At the bottom of the page, the last visible card always wins
       // (it may be short and never get a chance to be the biggest otherwise)
       if (atBottom && visibleCards.length > 0) {
-        // Pick the bottommost card (last in DOM order that's visible)
         const lastVisible = visibleCards[visibleCards.length - 1];
         if (lastVisible.pixels > 0) {
           bestCard = lastVisible.card;
-          bestPixels = lastVisible.pixels;
+          // Skip the minimum threshold for bottom cards
+          if (bestCard !== activeCard) {
+            if (activeCard) activeCard.classList.remove("card-viewport-active");
+            bestCard.classList.add("card-viewport-active");
+            activeCard = bestCard;
+          }
+          return;
         }
       }
 
