@@ -1109,8 +1109,10 @@ body.animations-paused #water-bg * {
     outline: none !important;
   }
 
-  /* Viewport-active card glow */
-  .card-viewport-active {
+  /* Viewport-active card glow — high specificity to override base card styles */
+  .card-hover.card-viewport-active,
+  div.card-viewport-active,
+  a.card-viewport-active {
     background: var(--bg-card-hover) !important;
     box-shadow: var(--shadow-card-hover) !important;
     transition: background-color 0.3s ease, box-shadow 0.3s ease !important;
@@ -1119,7 +1121,9 @@ body.animations-paused #water-bg * {
     opacity: 1 !important;
     transition: opacity 0.3s ease !important;
   }
-  [data-theme="dark"] .card-viewport-active {
+  [data-theme="dark"] .card-hover.card-viewport-active,
+  [data-theme="dark"] div.card-viewport-active,
+  [data-theme="dark"] a.card-viewport-active {
     outline: 1px solid rgba(130, 210, 200, 0.12);
     outline-offset: -1px;
   }

@@ -129,16 +129,21 @@ export function MobileCardGlow() {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
-    // Initial check + delayed checks for dynamically rendered content
+
+    // Watch for new cards appearing in DOM (e.g., explore/generate search results)
+    const mo = new MutationObserver(() => {
+      // New content appeared — re-check which card should glow
+      requestAnimationFrame(update);
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+
+    // Initial check
     requestAnimationFrame(update);
-    const t1 = setTimeout(update, 200);
-    const t2 = setTimeout(update, 1000);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
-      clearTimeout(t1);
-      clearTimeout(t2);
+      mo.disconnect();
       if (activeCard) activeCard.classList.remove("card-viewport-active");
     };
   }, [pathname]);
