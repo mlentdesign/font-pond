@@ -29,25 +29,27 @@ export function Footer() {
         paddingBottom: "16px",
       }}
     >
-      <Link
-        href="/database"
-        className="footer-tagline hover:opacity-70 transition-opacity"
-        style={{ fontSize: "16px", color: "var(--text-ransom)" }}
-      >
-        Free font combinations for design work
-      </Link>
-      <p className="footer-copyright" style={{ fontSize: "16px", color: "var(--text-ransom)" }}>
-        &copy; 2026{" "}
-        <a
-          href="https://meet-mel-lent.framer.website/"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ textDecoration: "underline" }}
-          className="hover:opacity-70 transition-opacity"
+      <div className="footer-text-col">
+        <Link
+          href="/database"
+          className="footer-tagline hover:opacity-70 transition-opacity"
+          style={{ fontSize: "16px", color: "var(--text-ransom)", display: "block" }}
         >
-          Mel Lent
-        </a>
-      </p>
+          Free font combinations for design work
+        </Link>
+        <p className="footer-copyright" style={{ fontSize: "16px", color: "var(--text-ransom)", margin: 0 }}>
+          &copy; 2026{" "}
+          <a
+            href="https://meet-mel-lent.framer.website/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "underline" }}
+            className="hover:opacity-70 transition-opacity"
+          >
+            Mel Lent
+          </a>
+        </p>
+      </div>
       <div className="footer-right flex items-center shrink-0" style={{ gap: "24px" }}>
         <button
           onClick={togglePause}
