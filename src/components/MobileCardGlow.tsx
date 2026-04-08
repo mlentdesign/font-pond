@@ -44,9 +44,17 @@ export function MobileCardGlow() {
       let visibleBottom = window.innerHeight;
       if (stickyDownload) visibleBottom = Math.min(visibleBottom, stickyDownload.getBoundingClientRect().top);
 
+      // Detect if user has scrolled to the bottom of the page
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+      const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      const atBottom = (scrollTop + window.innerHeight) >= (docHeight - 50);
+
       const cards = document.querySelectorAll(".card-hover");
       let bestCard: Element | null = null;
       let bestPixels = 0;
+
+      // Collect all visible cards with their pixel counts
+      const visibleCards: { card: Element; pixels: number }[] = [];
 
       for (const card of cards) {
         const rect = card.getBoundingClientRect();
@@ -54,9 +62,23 @@ export function MobileCardGlow() {
         const top = Math.max(visibleTop, rect.top);
         const bottom = Math.min(visibleBottom, rect.bottom);
         const visible = Math.max(0, bottom - top);
+        if (visible > 0) {
+          visibleCards.push({ card, pixels: visible });
+        }
         if (visible > bestPixels) {
           bestPixels = visible;
           bestCard = card;
+        }
+      }
+
+      // At the bottom of the page, the last visible card wins
+      // (it may be short and never get a chance to be the biggest otherwise)
+      if (atBottom && visibleCards.length > 0) {
+        // Pick the bottommost card (last in DOM order that's visible)
+        const lastVisible = visibleCards[visibleCards.length - 1];
+        if (lastVisible.pixels > 0) {
+          bestCard = lastVisible.card;
+          bestPixels = lastVisible.pixels;
         }
       }
 
