@@ -240,7 +240,7 @@ export default function PairDetailPage() {
           <SectionCard>
             <div>
               <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "4px" }}>TONE</dt>
-              <dd className="text-neutral-700" style={{ fontSize: "16px" }}>{sentenceCase(pair.toneSummary)}</dd>
+              <dd className="text-neutral-700" style={{ fontSize: "16px" }}>{sentenceCase(pair.toneSummary).replace(/\.+$/, '')}</dd>
             </div>
             <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
             <div>

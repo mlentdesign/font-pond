@@ -13,6 +13,11 @@ function fs(
     bodyLegibilityScore?: number;
     variableFont?: boolean;
     distinctiveTraits?: string[];
+    xHeightRatio?: "low" | "moderate" | "high";
+    apertureOpenness?: "closed" | "moderate" | "open";
+    strokeContrast?: "none" | "low" | "moderate" | "high";
+    letterSpacing?: "tight" | "normal" | "generous";
+    moodCategory?: "traditional" | "modern" | "elegant" | "playful" | "bold" | "neutral" | "technical" | "warm" | "experimental";
   }
 ): Font {
   const isBody = opts?.isBodySuitable ?? false;
@@ -32,6 +37,33 @@ function fs(
   if (classification === "monospace") useCases.push("code", "data tables");
   if (classification === "serif" && isBody) useCases.push("long-form reading", "editorial");
   if (classification === "sans-serif" && isBody) useCases.push("UI text", "navigation");
+
+  // Per-font anatomy derivation from tags/traits/tones
+  const allWords = [...tags, ...toneDescriptors, ...(opts?.distinctiveTraits || [])].map(s => s.toLowerCase()).join(" ");
+  const derivedXHeight: Font["xHeightRatio"] = opts?.xHeightRatio ??
+    (allWords.includes("generous x-height") || allWords.includes("tall x-height") || (isBody && (opts?.bodyLegibilityScore ?? 0) >= 9) ? "high" :
+     allWords.includes("condensed") || allWords.includes("compact") ? "moderate" :
+     allWords.includes("decorative") || allWords.includes("ornamental") || classification === "script" ? "low" : "moderate");
+  const derivedAperture: Font["apertureOpenness"] = opts?.apertureOpenness ??
+    (allWords.includes("open aperture") || allWords.includes("open forms") || allWords.includes("humanist") || (isBody && (opts?.bodyLegibilityScore ?? 0) >= 8) ? "open" :
+     allWords.includes("condensed") || allWords.includes("tight") || allWords.includes("compressed") || allWords.includes("blocky") ? "closed" : "moderate");
+  const derivedStroke: Font["strokeContrast"] = opts?.strokeContrast ??
+    (allWords.includes("high contrast") || allWords.includes("high-contrast") || allWords.includes("extreme contrast") || allWords.includes("didone") ? "high" :
+     allWords.includes("low contrast") || allWords.includes("rounded") || allWords.includes("slab") ? "low" :
+     classification === "sans-serif" || classification === "monospace" ? "none" :
+     classification === "serif" || classification === "script" ? "moderate" : "low");
+  const derivedSpacing: Font["letterSpacing"] = opts?.letterSpacing ??
+    (allWords.includes("condensed") || allWords.includes("tight") || allWords.includes("compressed") || allWords.includes("narrow") ? "tight" :
+     allWords.includes("wide") || allWords.includes("spacious") || classification === "monospace" ? "generous" : "normal");
+  const derivedMood: Font["moodCategory"] = opts?.moodCategory ??
+    (allWords.includes("experimental") || allWords.includes("avant-garde") || allWords.includes("unconventional") || allWords.includes("artistic") ? "experimental" :
+     allWords.includes("playful") || allWords.includes("fun") || allWords.includes("bubbly") || allWords.includes("cute") || allWords.includes("cheerful") ? "playful" :
+     allWords.includes("elegant") || allWords.includes("luxury") || allWords.includes("sophisticated") || allWords.includes("editorial") || allWords.includes("refined") ? "elegant" :
+     allWords.includes("bold") || allWords.includes("impactful") || allWords.includes("powerful") || allWords.includes("fierce") || allWords.includes("commanding") ? "bold" :
+     allWords.includes("warm") || allWords.includes("friendly") || allWords.includes("approachable") || allWords.includes("cozy") || allWords.includes("casual") ? "warm" :
+     allWords.includes("classic") || allWords.includes("traditional") || allWords.includes("vintage") || allWords.includes("literary") ? "traditional" :
+     allWords.includes("technical") || allWords.includes("precise") || allWords.includes("systematic") || allWords.includes("digital") || allWords.includes("coding") ? "technical" :
+     allWords.includes("modern") || allWords.includes("contemporary") || allWords.includes("geometric") || allWords.includes("minimal") ? "modern" : "neutral");
 
   return {
     id: `fs-${slug}`,
@@ -60,6 +92,11 @@ function fs(
     bodyLegibilityScore: opts?.bodyLegibilityScore ?? (isBody ? 7 : 4),
     screenReadabilityNotes: null,
     distinctiveTraits: opts?.distinctiveTraits ?? [],
+    xHeightRatio: derivedXHeight,
+    apertureOpenness: derivedAperture,
+    strokeContrast: derivedStroke,
+    letterSpacing: derivedSpacing,
+    moodCategory: derivedMood,
     historicalNotes: null,
     notableUseExamples: [],
     similarFonts: [],
@@ -73,7 +110,7 @@ export const allFontshareFonts: Font[] = [
   fs("Kihim", "kihim", "sans-serif",
     ["geometric", "minimal", "crisp", "contemporary", "approachable", "friendly", "rounded", "soft", "youthful", "fresh"],
     ["friendly", "approachable", "modern", "casual"],
-    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["soft rounded terminals", "generous x-height", "open apertures"] }),
+    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["soft rounded terminals", "generous x-height", "open apertures"], xHeightRatio: "high", apertureOpenness: "open", strokeContrast: "none", letterSpacing: "normal", moodCategory: "warm" }),
 
   // ── C ──
   fs("Comico", "comico", "display",

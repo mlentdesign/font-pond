@@ -3231,17 +3231,28 @@ function headerBonus(hf: Font): number {
   return bonus;
 }
 
-// Utility score (readability, practicality)
+// Utility score (readability, practicality, anatomy-informed quality)
 function scoreUtility(pair: FontPair, bf: Font): number {
   let s = 0;
-  s += (pair.bodyLegibilityScore / 10) * 25;
-  s += (pair.hierarchyStrength / 10) * 15;
-  s += (pair.practicalityScore / 10) * 15;
-  if (bf.bodyLegibilityScore && bf.bodyLegibilityScore >= 8) s += 10;
-  if (pair.sourceConfidence === "high") s += 5;
-  // Variable body fonts are extra valuable (Fontshare fonts are all variable)
-  if (bf.variableFont) s += 5;
-  if (bf.source === "fontshare") s += 5;
+  s += (pair.bodyLegibilityScore / 10) * 20;
+  s += (pair.hierarchyStrength / 10) * 10;
+  s += (pair.practicalityScore / 10) * 10;
+  if (bf.bodyLegibilityScore && bf.bodyLegibilityScore >= 8) s += 8;
+  if (pair.sourceConfidence === "high") s += 3;
+  if (bf.variableFont) s += 3;
+  if (bf.source === "fontshare") s += 3;
+
+  // Anatomy-informed scoring (new dimensions from typography research)
+  s += ((pair.roleFitness ?? 7) / 10) * 12;          // how well each font fits its role
+  s += ((pair.xHeightHarmony ?? 7) / 10) * 10;       // visual cohesion through x-height alignment
+  s += ((pair.personalityContrast ?? 6) / 10) * 8;   // complementary personality contrast
+
+  // Body font anatomy bonuses
+  if (bf.apertureOpenness === "open") s += 4;   // open apertures = better body legibility
+  if (bf.xHeightRatio === "high") s += 3;       // tall x-height = better small-size reading
+  if (bf.strokeContrast === "high") s -= 3;     // high contrast hurts body readability
+  if (bf.letterSpacing === "generous") s += 2;  // generous spacing aids legibility
+
   return s;
 }
 
