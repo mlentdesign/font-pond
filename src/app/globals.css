@@ -245,11 +245,12 @@ h1, h2, h3, h4, h5, h6, p, span, a, div {
 *:focus:not(:focus-visible) {
   outline: none;
 }
-/* Cards have their own hover feedback — suppress focus ring flash */
+/* Cards use hover-style feedback for focus — lighter bg + shadow instead of thick outline */
 .card-hover:focus-visible,
-.card-hover a:focus-visible,
 a.card-hover:focus-visible {
   outline: none;
+  background: var(--bg-card-hover) !important;
+  box-shadow: var(--shadow-card-hover) !important;
 }
 
 /* ══════════════════════════════════════════
