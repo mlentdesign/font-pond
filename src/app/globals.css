@@ -1116,7 +1116,7 @@ body.animations-paused #water-bg * {
     outline-offset: -1px;
   }
 
-  /* Sticky bottom download CTA on font pages — centered, floating */
+  /* Sticky bottom download CTA on font pages — left-aligned, floating */
   .mobile-sticky-download {
     position: fixed;
     bottom: 0;
@@ -1128,7 +1128,13 @@ body.animations-paused #water-bg * {
     padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
     box-shadow: var(--shadow-edge-top);
     transition: transform 0.2s ease, opacity 0.2s ease;
-    text-align: center;
+    text-align: left;
+  }
+
+  /* Breadcrumb sticky — tighter padding on mobile to match sticky CTA container */
+  .breadcrumb-sticky {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
   }
   .mobile-sticky-download.is-hidden {
     transform: translateY(100%);
