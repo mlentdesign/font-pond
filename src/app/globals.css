@@ -846,6 +846,7 @@ body.animations-paused #water-bg * {
    where it meets the action bar divider. */
 .prompt-textarea-wrap {
   position: relative;
+  background: var(--bg-card);
   border: 2px solid var(--border);
   border-radius: 12px 12px 0 0;
   border-bottom: none;
@@ -854,7 +855,8 @@ body.animations-paused #water-bg * {
 .prompt-textarea-wrap:focus-within {
   border-color: var(--accent);
 }
-.action-bar {
+.prompt-container .action-bar {
+  background: var(--bg-card);
   border: 2px solid var(--border);
   border-radius: 0 0 12px 12px;
   border-top: 1px solid var(--divider);
