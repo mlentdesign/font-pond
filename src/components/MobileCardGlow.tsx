@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 
 /**
  * On mobile (< 768px), replaces hover-based card glow with viewport-based glow.
- * Applies glow via inline styles to bypass CSS specificity issues.
- * Only one card glows at a time. Only applies to interactive cards (.card-hover).
+ * Applies glow via inline styles with !important to bypass all CSS specificity.
+ * Uses scroll, touch, resize, MutationObserver, and polling to ensure reliability.
  */
 export function MobileCardGlow() {
   const pathname = usePathname();
@@ -15,23 +15,25 @@ export function MobileCardGlow() {
     const MOBILE_MAX = 768;
     let activeCard: HTMLElement | null = null;
     let activeArrow: HTMLElement | null = null;
-    let ticking = false;
-
-    // Read CSS variable values from the document
-    function getVar(name: string) {
-      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-    }
 
     function isMobile() {
       return window.innerWidth < MOBILE_MAX;
     }
 
+    function getGlowBg(): string {
+      const v = getComputedStyle(document.documentElement).getPropertyValue("--bg-card-hover").trim();
+      return v || "#ddf3f1";
+    }
+
+    function getGlowShadow(): string {
+      const v = getComputedStyle(document.documentElement).getPropertyValue("--shadow-card-hover").trim();
+      return v || "0 4px 24px rgba(0, 77, 64, 0.20)";
+    }
+
     function applyGlow(card: HTMLElement) {
-      // Must use "important" to override .bg-white and .border-neutral-200 !important rules
-      card.style.setProperty("background", getVar("--bg-card-hover"), "important");
-      card.style.setProperty("box-shadow", getVar("--shadow-card-hover"), "important");
-      // Show the arrow indicator if present
-      const arrow = card.querySelector(".opacity-0") as HTMLElement | null;
+      card.style.setProperty("background", getGlowBg(), "important");
+      card.style.setProperty("box-shadow", getGlowShadow(), "important");
+      const arrow = card.querySelector('[class*="opacity-0"]') as HTMLElement | null;
       if (arrow) {
         arrow.style.setProperty("opacity", "1", "important");
         activeArrow = arrow;
@@ -48,7 +50,6 @@ export function MobileCardGlow() {
     }
 
     function update() {
-      ticking = false;
       if (!isMobile()) {
         if (activeCard) {
           removeGlow(activeCard);
@@ -57,7 +58,6 @@ export function MobileCardGlow() {
         return;
       }
 
-      // Measure the visible area not covered by fixed elements
       const header = document.querySelector("header");
       const stickyBreadcrumb = document.querySelector(".breadcrumb-sticky");
       const stickyDownload = document.querySelector(".mobile-sticky-download:not(.is-hidden)");
@@ -74,12 +74,19 @@ export function MobileCardGlow() {
         if (footerTop < visibleBottom) visibleBottom = footerTop;
       }
 
-      // Detect if at the very bottom of the page
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
       const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
       const atBottom = (scrollTop + window.innerHeight) >= (docHeight - 10);
 
-      const cards = document.querySelectorAll<HTMLElement>(".card-hover");
+      // Exclude history chip and its items — they use card-hover but aren't content cards
+      const allCards = document.querySelectorAll<HTMLElement>(".card-hover");
+      const cards: HTMLElement[] = [];
+      for (const card of allCards) {
+        if (!card.closest(".history-chip-fixed")) {
+          cards.push(card);
+        }
+      }
+      if (cards.length === 0) return;
 
       let firstFullyVisible: HTMLElement | null = null;
       let lastVisibleCard: HTMLElement | null = null;
@@ -136,27 +143,33 @@ export function MobileCardGlow() {
       }
     }
 
-    function onScroll() {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    }
+    // Multiple event sources for maximum reliability on mobile
+    const handler = () => requestAnimationFrame(update);
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("scroll", handler, { passive: true });
+    window.addEventListener("resize", handler);
+    window.addEventListener("touchstart", handler, { passive: true });
+    window.addEventListener("touchmove", handler, { passive: true });
+    window.addEventListener("touchend", handler, { passive: true });
 
-    // Watch for new cards appearing in DOM (e.g., explore/generate search results)
-    const mo = new MutationObserver(() => requestAnimationFrame(update));
+    // Detect new cards appearing (search results, load more, etc.)
+    const mo = new MutationObserver(handler);
     mo.observe(document.body, { childList: true, subtree: true });
 
+    // Polling fallback — catches anything the events miss
+    const poll = setInterval(update, 500);
+
     // Initial check
-    requestAnimationFrame(update);
+    update();
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("scroll", handler);
+      window.removeEventListener("resize", handler);
+      window.removeEventListener("touchstart", handler);
+      window.removeEventListener("touchmove", handler);
+      window.removeEventListener("touchend", handler);
       mo.disconnect();
+      clearInterval(poll);
       if (activeCard) removeGlow(activeCard);
     };
   }, [pathname]);
