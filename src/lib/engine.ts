@@ -3081,8 +3081,6 @@ function generateFitReason(
     parts.push(`captures the ${uniqueConns.join(", ")} feel`);
   }
 
-  parts.push(`${bf.name} anchors the body text`);
-
   return parts.join(". ") + ".";
 }
 
