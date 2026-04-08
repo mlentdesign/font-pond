@@ -43,7 +43,7 @@ function fs(
     specimenUrl: null,
     licenseType: "ITF Free Font License",
     licenseConfidence: "high",
-    designer: null,
+    designer: "Indian Type Foundry",
     foundry: "Indian Type Foundry",
     year: null,
     classification,
