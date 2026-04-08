@@ -363,14 +363,15 @@ export default function DatabasePage() {
                 </svg>
               </button>
 
-              {/* Filter dropdown */}
+              {/* Filter dropdown — right-aligned on desktop, left-aligned on mobile */}
               {filterOpen && (
                 <div
-                  className="absolute right-0 rounded-xl shadow-lg"
+                  className="absolute rounded-xl shadow-lg db-filter-dropdown"
                   role="dialog"
                   aria-label="Filter fonts"
                   style={{
                     top: "calc(100% + 8px)",
+                    right: 0,
                     background: "var(--bg-card)",
                     border: "2px solid var(--border)",
                     padding: "16px",
