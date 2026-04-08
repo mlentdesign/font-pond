@@ -43,6 +43,7 @@
   --toggle-active: #e0f2f0;
   --toggle-active-text: #0d4a44;
   --add-image-color: #0d4a44;
+  --add-image-hover-color: #2a7a72;
 
   --generate-bg: #f0bb7a;
   --generate-bg-hover: #f5cfa0;
@@ -101,6 +102,7 @@
     --toggle-active: rgba(255, 255, 255, 0.15);
     --toggle-active-text: #ffffff;
     --add-image-color: #cccccc;
+    --add-image-hover-color: #ffffff;
 
     --generate-bg: #a06828;
     --generate-bg-hover: #b87830;
@@ -159,6 +161,7 @@
   --toggle-active: rgba(255, 255, 255, 0.15);
   --toggle-active-text: #ffffff;
   --add-image-color: #cccccc;
+  --add-image-hover-color: #ffffff;
 
   --generate-bg: #a06828;
   --generate-bg-hover: #b87830;
@@ -1045,6 +1048,9 @@ body.animations-paused #water-bg * {
   .db-specimen-break {
     display: block !important;
   }
+  .db-pairs-col {
+    display: none !important;
+  }
 }
 
 /* ══════════════════════════════════════════
@@ -1104,6 +1110,10 @@ body.animations-paused #water-bg * {
   /* Show the mobile "Add image" inside the text field area */
   .mobile-add-image {
     display: flex !important;
+  }
+  /* Add image hover — color-based since opacity hover is globally disabled */
+  .add-image-hover:hover {
+    color: var(--add-image-hover-color) !important;
   }
   /* Focus border: move from outer wrap to inner textarea-only div on mobile */
   .prompt-textarea-wrap:focus-within::before {
