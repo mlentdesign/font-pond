@@ -149,6 +149,13 @@ body {
   transition: background 0.3s, color 0.3s;
 }
 
+/* Suppress all transitions on initial load to prevent theme flash */
+html[data-no-transition] *,
+html[data-no-transition] *::before,
+html[data-no-transition] *::after {
+  transition: none !important;
+}
+
 * {
   overflow-wrap: break-word;
   word-wrap: break-word;
