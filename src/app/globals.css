@@ -1105,9 +1105,9 @@ body.animations-paused #water-bg * {
     content: "";
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
     border: 2px solid var(--accent);
     border-radius: 11px 11px 0 0;
     pointer-events: none;
