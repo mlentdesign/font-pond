@@ -1078,9 +1078,12 @@ body.animations-paused #water-bg * {
     font-size: 14px !important;
   }
 
-  /* Breadcrumb: allow long font names to break within words */
-  .breadcrumb-sticky ol,
+  /* Breadcrumb: flow as inline text so words fill available space on each line */
+  .breadcrumb-sticky ol {
+    display: inline !important;
+  }
   .breadcrumb-sticky ol li {
+    display: inline !important;
     word-break: break-all !important;
     overflow-wrap: anywhere !important;
   }
@@ -1130,7 +1133,7 @@ body.animations-paused #water-bg * {
     right: 0;
     z-index: 35;
     background: var(--bg);
-    padding: 18px 16px;
+    padding: 14px 16px 18px;
     padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
     box-shadow: var(--shadow-edge-top);
     transition: transform 0.2s ease, opacity 0.2s ease;
