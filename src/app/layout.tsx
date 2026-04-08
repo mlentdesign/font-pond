@@ -27,10 +27,20 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <head>
-        {/* Theme script MUST be first — blocks rendering to prevent light/dark mode flash */}
+        {/* Theme-color meta tags — Chrome/Safari use these for pull-to-refresh background */}
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#c8e6e3" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d3b3f" />
+        <meta name="color-scheme" content="light dark" />
+        {/* Inline critical CSS — sets correct background before external CSS loads */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `html{background:#c8e6e3;color:#444}@media(prefers-color-scheme:dark){html{background:#0d3b3f;color:#ccc}}html[data-theme="dark"]{background:#0d3b3f;color:#ccc}html[data-theme="light"]{background:#c8e6e3;color:#444}`,
+          }}
+        />
+        {/* Theme script — sets data-theme from localStorage before first paint */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme:dark)").matches);var h=document.documentElement;h.setAttribute("data-theme",d?"dark":"light");h.style.colorScheme=d?"dark":"light";h.style.background=d?"#0d3b3f":"#c8e6e3";h.style.color=d?"#cccccc":"#444444"}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme:dark)").matches);var h=document.documentElement;h.setAttribute("data-theme",d?"dark":"light");h.style.colorScheme=d?"dark":"light"}catch(e){}})()`,
           }}
         />
         <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
