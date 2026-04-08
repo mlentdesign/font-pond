@@ -40,7 +40,7 @@
   --btn-outline-text: #0d4a44;
   --btn-outline-hover: #1a6b5a;
   --btn-outline-hover-bg: #bddbd8;
-  --toggle-active: #d4edeb;
+  --toggle-active: #e0f2f0;
   --toggle-active-text: #0d4a44;
   --add-image-color: #0d4a44;
 
@@ -860,7 +860,7 @@ body.animations-paused #water-bg * {
   right: 0;
   bottom: 0;
   border: 2px solid var(--accent);
-  border-radius: 12px 12px 0 0;
+  border-radius: 16px 16px 0 0;
   pointer-events: none;
   z-index: 10;
 }
