@@ -175,14 +175,20 @@ footer { z-index: 20; position: relative; }
 .footer-left { gap: 16px; }
 main { z-index: 10; position: relative; }
 
-/* ── Footer grid — CSS-only responsive layout (no JS needed) ── */
+/* ── Footer layout ── */
 .footer-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 88px;
+}
+.footer-text-col {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
   gap: 0 16px;
-  min-height: 88px;
+  min-width: 0;
 }
 .footer-pause-label { display: inline; }
 .fixed { z-index: 40; }
@@ -1000,38 +1006,14 @@ body.animations-paused #water-bg * {
     padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
   }
 
-  /* Footer mobile: text column left, pause+spacer right */
+  /* Footer mobile: text stacked left, pause right */
   .footer-grid {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    gap: 0 !important;
     min-height: auto !important;
   }
-  /* Tagline + copyright stack vertically with zero gap */
-  .footer-grid .footer-tagline,
-  .footer-grid .footer-copyright {
-    display: block !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    line-height: 1.4 !important;
-  }
-  /* Tagline takes full row above copyright — use order + width trick */
-  .footer-grid .footer-tagline {
-    order: -1;
-  }
-  /* Wrap tagline onto its own line */
-  .footer-grid {
-    flex-wrap: wrap !important;
-  }
-  .footer-grid .footer-tagline {
-    flex-basis: 100% !important;
-  }
-  /* Copyright + right share the second line */
-  .footer-grid .footer-copyright {
-    flex: 1 !important;
-    min-width: 0 !important;
+  .footer-text-col {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0 !important;
   }
 
   .footer-pause-label { display: none !important; }
