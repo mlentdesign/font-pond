@@ -1016,11 +1016,15 @@ body.animations-paused #water-bg * {
     right: 16px !important;
   }
 
-  /* Footer mobile — symmetric 16px padding, auto height */
+  /* Footer mobile — symmetric 16px padding, auto height, smaller text */
   .site-footer {
     padding-top: 16px !important;
     padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
     min-height: auto !important;
+  }
+  .footer-tagline,
+  .footer-left p {
+    font-size: 14px !important;
   }
 
   /* Footer mobile: everything vertically centered */
