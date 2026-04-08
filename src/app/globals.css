@@ -139,7 +139,6 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  transition: background 0.3s, color 0.3s;
 }
 
 * {
@@ -349,14 +348,26 @@ input[type="range"]::-moz-range-track {
 .specimen-14 { font-size: 14px !important; }
 
 /* ══════════════════════════════════════════
-   SMOOTH TRANSITIONS
+   SMOOTH TRANSITIONS — only during theme toggle
    ══════════════════════════════════════════ */
-*, *::before, *::after {
+/* Transitions are OFF by default to prevent flash on page load.
+   The ThemeToggle component adds .theme-transitioning to <html>
+   when the user clicks the toggle, enabling smooth animation. */
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
   transition-property: background-color, border-color, color;
   transition-duration: 0.2s;
   transition-timing-function: ease;
 }
-textarea, input, button, a, [role="link"] {
+html.theme-transitioning body {
+  transition-duration: 0.3s;
+}
+html.theme-transitioning textarea,
+html.theme-transitioning input,
+html.theme-transitioning button,
+html.theme-transitioning a,
+html.theme-transitioning [role="link"] {
   transition-duration: 0.1s;
 }
 
