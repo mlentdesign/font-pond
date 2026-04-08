@@ -63,6 +63,32 @@ export function chipCase(raw: string): string {
   return lower.charAt(0).toUpperCase() + lower.slice(1);
 }
 
+/**
+ * Test whether a loaded font has visible number glyphs.
+ * Renders "0" on a canvas in the given font and checks if any pixels were drawn.
+ * Returns false if the font produces blank/invisible output for digits.
+ */
+export function fontHasNumbers(fontFamily: string): boolean {
+  if (typeof document === "undefined") return true;
+  try {
+    const canvas = document.createElement("canvas");
+    canvas.width = 60;
+    canvas.height = 60;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return true;
+    ctx.font = `400 48px ${fontFamily}`;
+    ctx.fillStyle = "#000";
+    ctx.fillText("0", 5, 45);
+    const data = ctx.getImageData(0, 0, 60, 60).data;
+    for (let i = 3; i < data.length; i += 4) {
+      if (data[i] > 0) return true;
+    }
+    return false;
+  } catch {
+    return true;
+  }
+}
+
 /** Human-readable label for a font source */
 export function getSourceLabel(source: string): string {
   if (source === "google-fonts") return "Google Fonts";
