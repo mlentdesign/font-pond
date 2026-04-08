@@ -103,30 +103,36 @@ function describeContrast(header: Font, body: Font): string {
 // Varied rationale templates — uses a hash of the pair slug to pick one deterministically
 const RATIONALE_TEMPLATES = [
   (h: Font, b: Font, ht: string, ct: string) =>
-    `${h.name} brings ${ht} to headlines, setting a tone that's unmistakably ${h.toneDescriptors[0] || "expressive"}. ${b.name} steps in as the body font with ${b.toneDescriptors[0] || "clean"} clarity, creating a ${ct} that feels intentional and balanced.`,
+    `${h.name} brings ${ht} to headlines, setting a tone that's unmistakably ${h.toneDescriptors[0] || "expressive"}. ${b.name} rounds out the system with ${b.toneDescriptors[0] || "clean"} clarity — a ${ct} that feels intentional and balanced.`,
   (h: Font, b: Font, ht: string, ct: string) =>
-    `The ${ht} of ${h.name} gives headlines a strong visual identity, while ${b.name}'s ${b.toneDescriptors[0] || "readable"} forms keep body text comfortable. Together they create a ${ct} that works well for ${h.useCases[0] || "various contexts"}.`,
+    `The ${ht} of ${h.name} gives headlines a strong visual identity, while ${b.name}'s ${b.toneDescriptors[0] || "readable"} forms keep longer passages comfortable. A combination well suited for ${h.useCases[0] || "various contexts"}.`,
   (h: Font, b: Font, ht: string, ct: string) =>
-    `Pairing ${h.name} with ${b.name} creates a deliberate contrast: ${h.toneDescriptors[0] || "expressive"} headlines against ${b.toneDescriptors[0] || "clean"} body text. ${h.name}'s ${ht} commands attention while ${b.name} ensures readability.`,
+    `Pairing ${h.name} with ${b.name} creates a deliberate contrast: ${h.toneDescriptors[0] || "expressive"} headlines against ${b.toneDescriptors[0] || "clean"} running copy. ${h.name}'s ${ht} commands attention while ${b.name} keeps things effortlessly readable.`,
   (h: Font, b: Font, ht: string, ct: string) =>
-    `${h.name}'s ${ht} makes it a compelling headline choice — ${h.toneDescriptors[0] || "distinctive"} and ${h.toneDescriptors[1] || "bold"}. Paired with ${b.name}, which brings ${b.toneDescriptors[0] || "clean"} reliability to body text, this combination balances personality with function.`,
+    `${h.name}'s ${ht} makes it a compelling headline choice — ${h.toneDescriptors[0] || "distinctive"} and ${h.toneDescriptors[1] || "bold"}. ${b.name} brings ${b.toneDescriptors[0] || "clean"} reliability to everything underneath, balancing personality with comfort.`,
   (h: Font, b: Font, ht: string, ct: string) =>
-    `This pairing leverages ${h.name}'s ${h.toneDescriptors[0] || "distinctive"} character for headlines and ${b.name}'s ${b.toneDescriptors[0] || "versatile"} nature for body text. The ${ct} creates clear hierarchy while maintaining visual cohesion.`,
+    `This pairing leverages ${h.name}'s ${h.toneDescriptors[0] || "distinctive"} character up top and ${b.name}'s ${b.toneDescriptors[0] || "versatile"} nature everywhere else. The ${ct} gives each font a clear role without competing for attention.`,
   (h: Font, b: Font, ht: string, ct: string) =>
-    `${h.name} delivers ${h.toneDescriptors[0] || "expressive"}, ${h.toneDescriptors[1] || "striking"} headlines through its ${ht}. ${b.name} provides the perfect counterbalance — ${b.toneDescriptors[0] || "clean"} and easy to read at any size.`,
+    `${h.name} delivers ${h.toneDescriptors[0] || "expressive"}, ${h.toneDescriptors[1] || "striking"} headlines through its ${ht}. ${b.name} offers the perfect counterbalance — ${b.toneDescriptors[0] || "clean"} and comfortable at every size.`,
   (h: Font, b: Font, ht: string, ct: string) =>
-    `When ${h.name}'s ${ht} leads the way in headlines, ${b.name} follows with steady, ${b.toneDescriptors[0] || "readable"} body text. The result is a pairing that feels both ${h.toneDescriptors[0] || "dynamic"} and grounded.`,
+    `When ${h.name}'s ${ht} leads the way, ${b.name} follows with steady, ${b.toneDescriptors[0] || "readable"} support. The result is something that feels both ${h.toneDescriptors[0] || "dynamic"} and grounded — a natural hierarchy.`,
   (h: Font, b: Font, ht: string, ct: string) =>
-    `${h.name} and ${b.name} work together through ${ct}. The headline font's ${ht} creates immediate visual interest, while the body font's ${b.toneDescriptors[0] || "clean"} character supports sustained reading.`,
+    `${h.name} and ${b.name} make a strong team through ${ct}. One draws you in with ${ht}; the other keeps you reading with ${b.toneDescriptors[0] || "clean"}, composed forms.`,
 ];
 
 const SHORT_TEMPLATES = [
-  (h: Font, b: Font) => `${h.toneDescriptors[0] || "Expressive"} ${h.name} headlines anchored by ${b.name}'s clarity.`,
-  (h: Font, b: Font) => `${h.name}'s personality meets ${b.name}'s readability.`,
-  (h: Font, b: Font) => `${h.toneDescriptors[0] || "Bold"} headlines from ${h.name}, clean body from ${b.name}.`,
-  (h: Font, b: Font) => `A ${h.toneDescriptors[0] || "distinctive"} header paired with ${b.toneDescriptors[0] || "versatile"} body text.`,
-  (h: Font, b: Font) => `${h.name} leads with character, ${b.name} delivers on readability.`,
-  (h: Font, b: Font) => `${h.toneDescriptors[0] || "Striking"} display energy balanced by ${b.name}'s composure.`,
+  (h: Font, b: Font) => `${cap(h.toneDescriptors[0] || "Expressive")} ${h.name} headlines anchored by ${b.name}'s ${b.toneDescriptors[0] || "clean"} clarity.`,
+  (h: Font, b: Font) => `${h.name}'s ${h.toneDescriptors[0] || "bold"} personality meets ${b.name}'s composure.`,
+  (h: Font, b: Font) => `${cap(h.toneDescriptors[0] || "Bold")} headlines from ${h.name}, grounded by ${b.name}'s ${b.toneDescriptors[0] || "steady"} forms.`,
+  (h: Font, b: Font) => `${h.name} for impact, ${b.name} for everything else.`,
+  (h: Font, b: Font) => `${h.name} leads with ${h.toneDescriptors[0] || "character"}; ${b.name} keeps things comfortable.`,
+  (h: Font, b: Font) => `${cap(h.toneDescriptors[0] || "Striking")} display energy paired with ${b.name}'s ${b.toneDescriptors[0] || "quiet"} reliability.`,
+  (h: Font, b: Font) => `A ${h.toneDescriptors[0] || "distinctive"} headline voice matched by ${b.name}'s ${b.toneDescriptors[0] || "even"} tone.`,
+  (h: Font, b: Font) => `${h.name} sets the mood. ${b.name} carries the message.`,
+  (h: Font, b: Font) => `${cap(h.toneDescriptors[0] || "Confident")} ${h.name} up top, ${b.toneDescriptors[0] || "versatile"} ${b.name} throughout.`,
+  (h: Font, b: Font) => `Two fonts, one system — ${h.name}'s ${h.toneDescriptors[0] || "presence"} and ${b.name}'s clarity.`,
+  (h: Font, b: Font) => `${h.name} brings the ${h.toneDescriptors[0] || "personality"}. ${b.name} brings the readability.`,
+  (h: Font, b: Font) => `A pairing that balances ${h.name}'s ${h.toneDescriptors[0] || "energy"} with ${b.name}'s restraint.`,
 ];
 
 const TONE_TEMPLATES = [
@@ -284,12 +290,16 @@ const CURATED_RATIONALES = [
 ];
 
 const CURATED_SHORT = [
-  (h: Font, b: Font) => `${cap(h.toneDescriptors[0] || "Expressive")} ${h.name} headlines paired with ${b.name}'s ${b.toneDescriptors[0] || "clean"} readability.`,
-  (h: Font, b: Font) => `${h.name}'s ${h.toneDescriptors[0] || "bold"} character balanced by ${b.name}'s ${b.toneDescriptors[0] || "quiet"} clarity.`,
-  (h: Font, b: Font) => `${cap(h.toneDescriptors[0] || "Distinctive")} headlines from ${h.name}, grounded by ${b.name}'s ${b.toneDescriptors[0] || "readable"} body text.`,
-  (h: Font, b: Font) => `A ${h.toneDescriptors[0] || "striking"} header paired with ${b.toneDescriptors[0] || "versatile"} body text.`,
-  (h: Font, b: Font) => `${h.name} leads with ${h.toneDescriptors[0] || "presence"}, ${b.name} delivers on readability.`,
-  (h: Font, b: Font) => `${cap(h.toneDescriptors[0] || "Bold")} display energy balanced by ${b.name}'s composure.`,
+  (h: Font, b: Font) => `${cap(h.toneDescriptors[0] || "Expressive")} ${h.name} paired with ${b.name}'s ${b.toneDescriptors[0] || "clean"} composure.`,
+  (h: Font, b: Font) => `${h.name}'s ${h.toneDescriptors[0] || "bold"} character, tempered by ${b.name}.`,
+  (h: Font, b: Font) => `${cap(h.toneDescriptors[0] || "Distinctive")} headlines from ${h.name}. ${b.name} handles the rest.`,
+  (h: Font, b: Font) => `${h.name} for the first impression, ${b.name} for the lasting one.`,
+  (h: Font, b: Font) => `${h.name} and ${b.name} — ${h.toneDescriptors[0] || "presence"} meets ${b.toneDescriptors[0] || "clarity"}.`,
+  (h: Font, b: Font) => `${cap(h.toneDescriptors[0] || "Bold")} display energy grounded by ${b.name}'s ${b.toneDescriptors[0] || "steady"} forms.`,
+  (h: Font, b: Font) => `A ${h.toneDescriptors[0] || "striking"} voice up top, ${b.toneDescriptors[0] || "measured"} tone below.`,
+  (h: Font, b: Font) => `${h.name} draws you in. ${b.name} keeps you reading.`,
+  (h: Font, b: Font) => `${cap(h.toneDescriptors[0] || "Confident")} headlines with a ${b.toneDescriptors[0] || "quiet"}, capable foundation.`,
+  (h: Font, b: Font) => `${h.name} brings ${h.toneDescriptors[0] || "personality"}; ${b.name} brings balance.`,
 ];
 
 const CURATED_TONE = [
