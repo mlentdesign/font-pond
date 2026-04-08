@@ -196,7 +196,7 @@ export default function FontDetailPage() {
             <p style={{ fontFamily: family, fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600 mb-2">
               abcdefghijklmnopqrstuvwxyz
             </p>
-            <p style={{ fontFamily: family, fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600">
+            <p style={{ fontFamily: `${family}, system-ui, sans-serif`, fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600">
               0123456789 !@#$%^&*()-=+[]{'{'}|;:&apos;,./&lt;&gt;?
             </p>
           </div>
@@ -207,7 +207,7 @@ export default function FontDetailPage() {
               <p className="uppercase tracking-wider text-neutral-400 mb-3" style={{ fontSize: "12px" }}>WEIGHTS</p>
               <div className="space-y-2">
                 {font.weights.map((w) => (
-                  <p key={w} style={{ fontFamily: family, fontWeight: w, fontSize: "18px" }} className="specimen-18 text-neutral-700">
+                  <p key={w} style={{ fontFamily: `${family}, system-ui, sans-serif`, fontWeight: w, fontSize: "18px" }} className="specimen-18 text-neutral-700">
                     {w} — The quick brown fox jumps over the lazy dog
                   </p>
                 ))}
@@ -363,7 +363,7 @@ export default function FontDetailPage() {
                       </div>
                       <div
                         className="leading-relaxed text-neutral-600 break-words"
-                        style={{ fontFamily: sfFamily, fontWeight: 400, fontSize: "16px" }}
+                        style={{ fontFamily: `${sfFamily}, system-ui, sans-serif`, fontWeight: 400, fontSize: "16px" }}
                       >
                         ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789
                       </div>
