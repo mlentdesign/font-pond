@@ -855,8 +855,11 @@ body.animations-paused #water-bg * {
   border-color: var(--accent);
 }
 /* Suppress the global focus-visible outline on the prompt textarea */
+.prompt-textarea-wrap textarea:focus,
 .prompt-textarea-wrap textarea:focus-visible {
   outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* Prevent CTA text from wrapping inside buttons */
