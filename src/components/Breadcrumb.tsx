@@ -18,7 +18,7 @@ export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: C
     const update = () => {
       const h = header.getBoundingClientRect().height;
       const w = window.innerWidth;
-      const gap = w >= 1024 ? 80 : w >= 768 ? 56 : 40;
+      const gap = w >= 1024 ? 80 : w >= 768 ? 56 : 24;
       setStickyTop(h + gap);
     };
     update();

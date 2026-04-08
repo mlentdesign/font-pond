@@ -1135,10 +1135,11 @@ body.animations-paused #water-bg * {
     text-align: left;
   }
 
-  /* Breadcrumb sticky — tighter padding on mobile to match sticky CTA container */
+  /* Breadcrumb sticky — tighter on mobile to match sticky CTA container */
   .breadcrumb-sticky {
     padding-top: 12px !important;
     padding-bottom: 12px !important;
+    box-shadow: 0 -24px 0 24px var(--bg) !important;
   }
   .mobile-sticky-download.is-hidden {
     transform: translateY(100%);
