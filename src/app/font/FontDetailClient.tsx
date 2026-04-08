@@ -26,9 +26,9 @@ function InfoRow({ label, value, useTitle, useClassification }: { label: string;
   );
 }
 
-export default function FontDetailPage() {
+export default function FontDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
   const searchParams = useSearchParams();
-  const slug = searchParams.get("f") || "";
+  const slug = slugOverride || searchParams.get("f") || "";
   const fromPair = searchParams.get("from");
 
   const font = fontsBySlug.get(slug);
