@@ -46,7 +46,7 @@ export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: C
             </li>
             {crumbs.map((crumb, i) => (
               <li key={i} className={i === crumbs.length - 1 ? "text-neutral-600" : ""}>
-                <span aria-hidden="true" className="text-neutral-400" style={{ marginRight: "8px" }}>/</span>
+                <span aria-hidden="true" className="text-neutral-400" style={{ marginLeft: "8px", marginRight: "8px" }}>/</span>
                 {crumb.href ? (
                   <Link href={crumb.href} className="transition-colors hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>
                     {crumb.label}
