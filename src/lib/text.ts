@@ -3,10 +3,10 @@ export function titleCase(s: string): string {
   return s.replace(/\b[a-z]/g, (c) => c.toUpperCase());
 }
 
-/** Capitalize just the first letter */
+/** Capitalize the first letter and the first letter after every sentence-ending period */
 export function sentenceCase(text: string): string {
   if (!text) return text;
-  return text.charAt(0).toUpperCase() + text.slice(1);
+  return text.replace(/(^|[.!?]\s+)([a-z])/g, (_, prefix, char) => prefix + char.toUpperCase());
 }
 
 /** Format a classification for display — capitalises each word, keeps hyphen for Sans-Serif / Slab-Serif */
