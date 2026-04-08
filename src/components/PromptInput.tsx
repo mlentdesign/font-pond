@@ -172,7 +172,7 @@ export function PromptInput() {
       >
         {/* Textarea wrapper */}
         <div className="prompt-textarea-wrap">
-          <div style={{ position: "relative" }}>
+          <div className="prompt-textarea-inner" style={{ position: "relative" }}>
             <textarea
               ref={textareaRef}
               value={query}
