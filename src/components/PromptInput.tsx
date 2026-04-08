@@ -169,6 +169,10 @@ export function PromptInput() {
       <div
         className="prompt-container rounded-xl transition-all overflow-hidden"
         style={{ background: "var(--bg-card)", boxShadow: "var(--shadow-input)" }}
+        onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+        onDragEnter={(e) => { e.preventDefault(); setIsDragging(true); }}
+        onDragLeave={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setIsDragging(false); }}
+        onDrop={handleDrop}
       >
         {/* Textarea wrapper */}
         <div className="prompt-textarea-wrap">
@@ -288,8 +292,8 @@ export function PromptInput() {
                 fontWeight: 600,
                 color: "var(--add-image-color)",
                 gap: "4px",
-                padding: "8px 4px",
-                margin: "-8px -4px",
+                padding: "8px 8px",
+                margin: "-8px -8px",
                 position: "relative",
               }}
             >
