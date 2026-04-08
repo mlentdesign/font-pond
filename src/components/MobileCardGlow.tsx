@@ -5,10 +5,7 @@ import { usePathname } from "next/navigation";
 
 /**
  * On mobile (< 768px), replaces hover-based card glow with viewport-based glow.
- * - Short cards: topmost fully-uncovered card wins (each gets a turn)
- * - Tall cards (taller than viewport): card whose top is visible and closest to
- *   the top of the visible area wins (switches when next card's top scrolls in)
- * - At the bottom of the page, the last visible card always wins
+ * Applies glow via inline styles to bypass CSS specificity issues.
  * Only one card glows at a time. Only applies to interactive cards (.card-hover).
  */
 export function MobileCardGlow() {
@@ -16,18 +13,44 @@ export function MobileCardGlow() {
 
   useEffect(() => {
     const MOBILE_MAX = 768;
-    let activeCard: Element | null = null;
+    let activeCard: HTMLElement | null = null;
+    let activeArrow: HTMLElement | null = null;
     let ticking = false;
+
+    // Read CSS variable values from the document
+    function getVar(name: string) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
 
     function isMobile() {
       return window.innerWidth < MOBILE_MAX;
+    }
+
+    function applyGlow(card: HTMLElement) {
+      card.style.background = getVar("--bg-card-hover");
+      card.style.boxShadow = getVar("--shadow-card-hover");
+      // Show the arrow indicator if present
+      const arrow = card.querySelector(".opacity-0") as HTMLElement | null;
+      if (arrow) {
+        arrow.style.opacity = "1";
+        activeArrow = arrow;
+      }
+    }
+
+    function removeGlow(card: HTMLElement) {
+      card.style.background = "";
+      card.style.boxShadow = "";
+      if (activeArrow) {
+        activeArrow.style.opacity = "";
+        activeArrow = null;
+      }
     }
 
     function update() {
       ticking = false;
       if (!isMobile()) {
         if (activeCard) {
-          activeCard.classList.remove("card-viewport-active");
+          removeGlow(activeCard);
           activeCard = null;
         }
         return;
@@ -55,14 +78,13 @@ export function MobileCardGlow() {
       const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
       const atBottom = (scrollTop + window.innerHeight) >= (docHeight - 10);
 
-      const cards = document.querySelectorAll(".card-hover");
+      const cards = document.querySelectorAll<HTMLElement>(".card-hover");
 
-      let firstFullyVisible: Element | null = null;
-      let lastVisibleCard: Element | null = null;
-      let mostPixelsCard: Element | null = null;
+      let firstFullyVisible: HTMLElement | null = null;
+      let lastVisibleCard: HTMLElement | null = null;
+      let mostPixelsCard: HTMLElement | null = null;
       let mostPixels = 0;
-      // For tall cards: the card whose top is visible and closest to visibleTop
-      let topEdgeCard: Element | null = null;
+      let topEdgeCard: HTMLElement | null = null;
       let topEdgeDist = Infinity;
 
       for (const card of cards) {
@@ -80,13 +102,11 @@ export function MobileCardGlow() {
           mostPixelsCard = card;
         }
 
-        // Fully uncovered — entire card in the visible area
         const isFullyVisible = rect.top >= visibleTop && rect.bottom <= visibleBottom;
         if (isFullyVisible && !firstFullyVisible) {
           firstFullyVisible = card;
         }
 
-        // Track the card whose real top edge is visible and nearest to visibleTop
         if (rect.top >= visibleTop && rect.top < visibleBottom) {
           const dist = rect.top - visibleTop;
           if (dist < topEdgeDist) {
@@ -96,26 +116,21 @@ export function MobileCardGlow() {
         }
       }
 
-      let bestCard: Element | null = null;
+      let bestCard: HTMLElement | null = null;
 
       if (atBottom && lastVisibleCard) {
-        // At the very bottom, the last visible card always wins
         bestCard = lastVisibleCard;
       } else if (firstFullyVisible) {
-        // Topmost fully-uncovered card wins
         bestCard = firstFullyVisible;
       } else if (topEdgeCard) {
-        // Tall cards: pick the card whose top just entered the viewport
         bestCard = topEdgeCard;
       } else if (mostPixelsCard) {
-        // Scrolled deep into a tall card (top not visible) —
-        // pick the card occupying the most viewport space
         bestCard = mostPixelsCard;
       }
 
       if (bestCard !== activeCard) {
-        if (activeCard) activeCard.classList.remove("card-viewport-active");
-        if (bestCard) bestCard.classList.add("card-viewport-active");
+        if (activeCard) removeGlow(activeCard);
+        if (bestCard) applyGlow(bestCard);
         activeCard = bestCard;
       }
     }
@@ -131,10 +146,7 @@ export function MobileCardGlow() {
     window.addEventListener("resize", onScroll);
 
     // Watch for new cards appearing in DOM (e.g., explore/generate search results)
-    const mo = new MutationObserver(() => {
-      // New content appeared — re-check which card should glow
-      requestAnimationFrame(update);
-    });
+    const mo = new MutationObserver(() => requestAnimationFrame(update));
     mo.observe(document.body, { childList: true, subtree: true });
 
     // Initial check
@@ -144,7 +156,7 @@ export function MobileCardGlow() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       mo.disconnect();
-      if (activeCard) activeCard.classList.remove("card-viewport-active");
+      if (activeCard) removeGlow(activeCard);
     };
   }, [pathname]);
 
