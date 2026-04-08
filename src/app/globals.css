@@ -985,26 +985,26 @@ body.animations-paused #water-bg * {
     margin-bottom: 40px !important;
   }
 
-  /* History chip — safe area for Android nav bar, ensure right padding */
+  /* History chip — vertically centered in footer.
+     Footer inner content is ~44px (two text lines), padding 16px top/bottom.
+     Content center = 16 + 22 = 38px from bottom. Chip is 40px, so
+     bottom = 38 - 20 = 18px + safe-area. */
   .history-chip-fixed {
-    bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px)) !important;
     right: 16px !important;
   }
 
-  /* Footer mobile — sized so the fixed history chip appears centered in the footer.
-     Chip is 40px tall, sits 24px from bottom + safe-area.
-     Footer padding: 24px top + content + 24px below content, then safe-area at bottom.
-     Total bottom = 24px + 40px spacer + 24px + safe-area = chip looks centered. */
+  /* Footer mobile — symmetric 16px padding, auto height */
   .site-footer {
     padding-top: 16px !important;
     padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
     min-height: auto !important;
   }
 
-  /* Footer mobile: left side stacks vertically, zero gap */
+  /* Footer mobile: everything vertically centered */
   .footer-wrap {
     flex-wrap: nowrap !important;
-    align-items: flex-end !important;
+    align-items: center !important;
   }
   .footer-left {
     flex-direction: column !important;
