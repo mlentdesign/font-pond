@@ -393,12 +393,20 @@ export function generateCuratedPairs(
     const needed = TARGET - current;
     if (needed <= 0) continue;
 
-    // Try as header first — pair with body fonts (request extra to handle slug collisions)
+    // Try as header first — pick body fonts from full pool with rotation for diversity
     let created = 0;
     if (font.isHeaderSuitable) {
-      const bodies = pickMultipleBodies(font, sortedBodies, Math.min(sortedBodies.length, needed * 5), rand);
-      for (const body of bodies) {
+      // Shuffle body fonts using seeded random to spread across entire pool
+      const shuffled = [...sortedBodies];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(rand() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      // Prioritize body fonts that also need more curated pairs
+      shuffled.sort((a, b) => (counts.get(a.id) || 0) - (counts.get(b.id) || 0));
+      for (const body of shuffled) {
         if (created >= needed) break;
+        if (body.id === font.id) continue;
         const pair = makeCuratedPair(font, body, existingSlugs);
         if (pair) {
           pairs.push(pair);
