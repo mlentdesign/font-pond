@@ -197,11 +197,11 @@ export default function PairDetailPage() {
               SUGGESTED SCALE
             </p>
             <div className="space-y-2">
-              <p style={{ fontFamily: headerFamily, fontWeight: 700, fontSize: "36px" }} className="text-neutral-800">H1 <span style={{ fontFamily: "system-ui, sans-serif" }}>— 36px Bold</span></p>
-              <p style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "24px" }} className="text-neutral-800">H2 <span style={{ fontFamily: "system-ui, sans-serif" }}>— 24px Semibold</span></p>
-              <p style={{ fontFamily: headerFamily, fontWeight: 500, fontSize: "18px" }} className="text-neutral-700">H3 <span style={{ fontFamily: "system-ui, sans-serif" }}>— 18px Medium</span></p>
-              <p style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "16px" }} className="text-neutral-600">Body <span style={{ fontFamily: "system-ui, sans-serif" }}>— 16px Regular</span></p>
-              <p style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "14px" }} className="text-neutral-500">Small <span style={{ fontFamily: "system-ui, sans-serif" }}>— 14px Regular</span></p>
+              <p style={{ fontFamily: `${headerFamily}, system-ui, sans-serif`, fontWeight: 700, fontSize: "36px" }} className="text-neutral-800">H1 — 36px Bold</p>
+              <p style={{ fontFamily: `${headerFamily}, system-ui, sans-serif`, fontWeight: 600, fontSize: "24px" }} className="text-neutral-800">H2 — 24px Semibold</p>
+              <p style={{ fontFamily: `${headerFamily}, system-ui, sans-serif`, fontWeight: 500, fontSize: "18px" }} className="text-neutral-700">H3 — 18px Medium</p>
+              <p style={{ fontFamily: `${bodyFamily}, system-ui, sans-serif`, fontWeight: 400, fontSize: "16px" }} className="text-neutral-600">Body — 16px Regular</p>
+              <p style={{ fontFamily: `${bodyFamily}, system-ui, sans-serif`, fontWeight: 400, fontSize: "14px" }} className="text-neutral-500">Small — 14px Regular</p>
             </div>
           </div>
         </SectionCard>
