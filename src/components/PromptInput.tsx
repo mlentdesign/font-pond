@@ -163,8 +163,8 @@ export function PromptInput() {
   return (
     <div className="w-full prompt-wrapper" style={{ position: "relative" }}>
       <div
-        className="prompt-container transition-all"
-        style={{ boxShadow: "var(--shadow-input)", borderRadius: "12px" }}
+        className="prompt-container rounded-xl transition-all"
+        style={{ boxShadow: "var(--shadow-input)" }}
       >
         {/* Textarea wrapper */}
         <div className="prompt-textarea-wrap">
