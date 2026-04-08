@@ -176,19 +176,10 @@ footer { z-index: 20; position: relative; }
 main { z-index: 10; position: relative; }
 
 /* ── Footer layout ── */
-.footer-grid {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  min-height: 88px;
-}
-.footer-text-col {
-  display: flex;
+/* Desktop: left side is a row (tagline + copyright inline with gap) */
+.footer-left {
   flex-wrap: wrap;
-  align-items: center;
   gap: 0 16px;
-  min-width: 0;
 }
 .footer-pause-label { display: inline; }
 .fixed { z-index: 40; }
@@ -1000,20 +991,22 @@ body.animations-paused #water-bg * {
     right: 16px !important;
   }
 
-  /* Footer — safe area on mobile, symmetric padding */
+  /* Footer — safe area padding on mobile */
   .site-footer {
-    padding-top: 12px !important;
-    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important;
   }
 
-  /* Footer mobile: text stacked left, pause right */
-  .footer-grid {
-    min-height: auto !important;
+  /* Footer mobile: left side stacks vertically, zero gap */
+  .footer-wrap {
+    flex-wrap: nowrap !important;
   }
-  .footer-text-col {
+  .footer-left {
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 0 !important;
+  }
+  .footer-right {
+    align-self: flex-end !important;
   }
 
   .footer-pause-label { display: none !important; }
