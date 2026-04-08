@@ -1000,32 +1000,38 @@ body.animations-paused #water-bg * {
     padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
   }
 
-  /* Footer mobile layout — no grid, pure flex */
+  /* Footer mobile: text column left, pause+spacer right */
   .footer-grid {
     display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: baseline !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
     gap: 0 !important;
     min-height: auto !important;
   }
-  .footer-grid .footer-tagline {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
+  /* Tagline + copyright stack vertically with zero gap */
+  .footer-grid .footer-tagline,
   .footer-grid .footer-copyright {
-    flex: 1;
-    margin: 0;
-    padding: 0;
-    min-width: 0;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.4 !important;
   }
-  .footer-grid .footer-right {
-    gap: 24px !important;
-    align-self: baseline;
-    height: auto !important;
+  /* Tagline takes full row above copyright — use order + width trick */
+  .footer-grid .footer-tagline {
+    order: -1;
   }
-  .footer-grid .footer-pause-btn {
-    height: auto !important;
+  /* Wrap tagline onto its own line */
+  .footer-grid {
+    flex-wrap: wrap !important;
+  }
+  .footer-grid .footer-tagline {
+    flex-basis: 100% !important;
+  }
+  /* Copyright + right share the second line */
+  .footer-grid .footer-copyright {
+    flex: 1 !important;
+    min-width: 0 !important;
   }
 
   .footer-pause-label { display: none !important; }
