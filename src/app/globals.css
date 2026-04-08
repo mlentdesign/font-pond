@@ -1034,9 +1034,17 @@ body.animations-paused #water-bg * {
   display: none !important;
 }
 
-/* Database specimen line break — hidden by default, shown on mobile */
+/* Database specimen line break — hidden on desktop, shown on mobile + tablet */
 .db-specimen-break {
   display: none;
+}
+@media (max-width: 1023px) {
+  .db-specimen {
+    white-space: normal !important;
+  }
+  .db-specimen-break {
+    display: block !important;
+  }
 }
 
 /* ══════════════════════════════════════════
@@ -1166,13 +1174,7 @@ body.animations-paused #water-bg * {
     height: 40px !important;
   }
 
-  /* Database: specimen text wraps to two lines on mobile */
-  .db-specimen {
-    white-space: normal !important;
-  }
-  .db-specimen-break {
-    display: block !important;
-  }
+  /* Database: specimen text wraps to two lines (mobile + tablet — see below) */
 
   /* Database: search row fills width, stays in place on focus */
   .db-search-row {
