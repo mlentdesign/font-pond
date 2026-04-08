@@ -44,7 +44,7 @@ export function Footer() {
         <p style={{ fontSize: "16px", color: "var(--text-ransom)", margin: 0 }}>
           &copy; 2026{" "}
           <a
-            href="https://meet-mel-lent.framer.website/"
+            href="https://www.linkedin.com/in/melanielent/"
             target="_blank"
             rel="noopener noreferrer"
             style={{ textDecoration: "underline" }}
