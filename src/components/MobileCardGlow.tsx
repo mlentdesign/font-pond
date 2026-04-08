@@ -13,12 +13,12 @@ export function MobileCardGlow() {
 
   useEffect(() => {
     const MOBILE_MAX = 768;
+    const MOBILE_MAX_HEIGHT = 950;
     let activeCard: HTMLElement | null = null;
     let activeArrow: HTMLElement | null = null;
-    let activeCardSince = 0;
 
     function isMobile() {
-      return window.innerWidth < MOBILE_MAX;
+      return window.innerWidth < MOBILE_MAX && window.innerHeight <= MOBILE_MAX_HEIGHT;
     }
 
     function getGlowBg(): string {
@@ -128,28 +128,11 @@ export function MobileCardGlow() {
       let bestCard: HTMLElement | null = null;
 
       if (atBottom && lastVisibleCard) {
-        // At bottom: advance one card at a time so every card gets its turn
-        if (!activeCard || activeCard === lastVisibleCard) {
-          bestCard = lastVisibleCard;
-        } else {
-          const elapsed = Date.now() - activeCardSince;
-          if (elapsed >= 1000) {
-            // Card has been active long enough — advance to next
-            const currentIdx = cards.indexOf(activeCard);
-            if (currentIdx >= 0 && currentIdx + 1 < cards.length) {
-              bestCard = cards[currentIdx + 1];
-            } else {
-              bestCard = lastVisibleCard;
-            }
-          } else {
-            // Hold current card until minimum time elapses
-            bestCard = activeCard;
-          }
-        }
-      } else if (topEdgeCard) {
-        bestCard = topEdgeCard;
+        bestCard = lastVisibleCard;
       } else if (firstFullyVisible) {
         bestCard = firstFullyVisible;
+      } else if (topEdgeCard) {
+        bestCard = topEdgeCard;
       } else if (mostPixelsCard) {
         bestCard = mostPixelsCard;
       }
@@ -158,7 +141,6 @@ export function MobileCardGlow() {
         if (activeCard) removeGlow(activeCard);
         if (bestCard) applyGlow(bestCard);
         activeCard = bestCard;
-        activeCardSince = Date.now();
       }
     }
 
