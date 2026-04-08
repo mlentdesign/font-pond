@@ -3081,6 +3081,19 @@ function generateFitReason(
     parts.push(`captures the ${uniqueConns.join(", ")} feel`);
   }
 
+  const closers = [
+    `${bf.name} keeps everything readable`,
+    `${bf.name} grounds the layout with ${bf.toneDescriptors[0] || "clean"} composure`,
+    `${bf.name} carries the longer passages`,
+    `${bf.name} provides a ${bf.toneDescriptors[0] || "steady"} foundation`,
+    `${bf.name} rounds out the system`,
+    `${bf.name} handles the rest with ease`,
+    `${bf.name} supports with ${bf.toneDescriptors[0] || "quiet"} reliability`,
+    `${bf.name} balances things out underneath`,
+  ];
+  const idx = ((hf.id + bf.id).split("").reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0)) % closers.length;
+  parts.push(closers[idx]);
+
   return parts.join(". ") + ".";
 }
 
@@ -3280,7 +3293,18 @@ export function rankPairs(
       if (uniqueConns.length > 0) {
         parts.push(`captures the ${uniqueConns.join(", ")} feel`);
       }
-      parts.push(`${bf.name} anchors the body text`);
+      const bodyClosers = [
+        `${bf.name} keeps everything readable`,
+        `${bf.name} grounds the layout with ${bf.toneDescriptors[0] || "clean"} composure`,
+        `${bf.name} carries the longer passages`,
+        `${bf.name} provides a ${bf.toneDescriptors[0] || "steady"} foundation`,
+        `${bf.name} rounds out the system with ${bf.toneDescriptors[0] || "clear"} readability`,
+        `${bf.name} handles the rest with ease`,
+        `${bf.name} supports with ${bf.toneDescriptors[0] || "quiet"} reliability`,
+        `${bf.name} balances things out underneath`,
+      ];
+      const closerIdx = ((hf.id + bf.id).split("").reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0)) % bodyClosers.length;
+      parts.push(bodyClosers[closerIdx]);
       sp.promptFitReason = parts.join(". ") + ".";
     } else if (hasQuery) {
       sp.promptFitReason = generateFitReason(sp, sp.headerFont, sp.bodyFont, promptWords, query);
