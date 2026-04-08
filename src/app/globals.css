@@ -846,6 +846,8 @@ body.animations-paused #water-bg * {
    where it meets the action bar divider. */
 .prompt-container {
   border: 2px solid var(--border);
+  overflow: hidden !important;
+  border-radius: 12px !important;
 }
 .prompt-textarea-wrap {
   position: relative;
@@ -858,6 +860,7 @@ body.animations-paused #water-bg * {
   right: 0;
   bottom: 0;
   border: 2px solid var(--accent);
+  border-radius: 10px 10px 0 0;
   pointer-events: none;
   z-index: 10;
 }
