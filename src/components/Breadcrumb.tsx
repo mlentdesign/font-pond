@@ -40,7 +40,7 @@ export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: C
         <nav aria-label="Breadcrumb" style={sticky ? undefined : { marginBottom: "24px" }}>
           <ol className="flex items-center gap-2 text-xs text-neutral-400 flex-wrap">
             <li>
-              <Link href="/" className="transition-colors hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>
+              <Link href="/?restore=1" className="transition-colors hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>
                 Results
               </Link>
             </li>
