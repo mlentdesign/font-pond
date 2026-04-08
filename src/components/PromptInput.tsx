@@ -281,8 +281,8 @@ export function PromptInput() {
                 fontWeight: 600,
                 color: "var(--add-image-color)",
                 gap: "4px",
-                padding: "8px 24px",
-                margin: "-8px -24px",
+                padding: "8px 12px",
+                margin: "-8px -12px",
                 position: "relative",
               }}
             >
