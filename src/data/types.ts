@@ -4,7 +4,7 @@ export interface Font {
   id: string;
   name: string;
   slug: string;
-  url: string; // Clean CMS URL: /font/{slug}
+  url?: string; // Clean CMS URL: /font/{slug} — computed from slug
   source: "google-fonts" | "fontshare" | "other";
   sourceUrl: string;
   downloadUrl: string | null;
@@ -57,7 +57,7 @@ export type FontClassification =
 export interface FontPair {
   id: string;
   slug: string;
-  url: string; // Clean CMS URL: /pair/{slug}
+  url?: string; // Clean CMS URL: /pair/{slug} — computed from slug
   headerFontId: string;
   bodyFontId: string;
   rationale: string;
