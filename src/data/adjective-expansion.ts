@@ -365,6 +365,22 @@ export const SYNONYM_MAP: Record<string, string[]> = {
   "disc-ic": ["friendly", "analytical", "warm", "precise", "approachable", "structured"],
   "disc-ci": ["analytical", "friendly", "precise", "warm", "technical", "approachable"],
 
+  // ── Brand Archetypes (Jungian) ──
+  "innocent": ["pure", "simple", "clean", "optimistic", "minimal", "light", "friendly", "soft"],
+  "explorer": ["adventurous", "rugged", "free", "independent", "bold", "organic", "natural", "dynamic"],
+  "sage": ["wise", "intellectual", "refined", "literary", "serif", "traditional", "thoughtful", "editorial"],
+  "hero": ["bold", "courageous", "strong", "impactful", "commanding", "dynamic", "powerful", "condensed"],
+  "outlaw": ["rebellious", "edgy", "grunge", "raw", "fierce", "distressed", "punk", "experimental"],
+  "rebel": ["rebellious", "edgy", "grunge", "raw", "fierce", "distressed", "punk", "experimental"],
+  "magician": ["visionary", "mystical", "elegant", "transformative", "experimental", "creative", "imaginative"],
+  "everyman": ["approachable", "honest", "readable", "neutral", "friendly", "grounded", "reliable", "clean"],
+  "regular-guy": ["approachable", "honest", "readable", "neutral", "friendly", "grounded", "reliable"],
+  "lover": ["romantic", "elegant", "sensual", "flowing", "script", "warm", "intimate", "feminine"],
+  "jester": ["playful", "fun", "humorous", "bouncy", "rounded", "colorful", "energetic", "bubbly"],
+  "caregiver": ["nurturing", "warm", "soft", "gentle", "friendly", "rounded", "approachable", "caring"],
+  "creator": ["artistic", "creative", "expressive", "unique", "handwritten", "experimental", "distinctive"],
+  "ruler": ["authoritative", "premium", "commanding", "luxury", "serif", "structured", "powerful", "elegant"],
+
   // ── Western Zodiac ──
   "aries": ["bold", "competitive", "energetic", "impactful", "fierce", "dynamic"],
   "taurus": ["reliable", "warm", "luxurious", "serif", "grounded", "earthy"],
