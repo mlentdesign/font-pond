@@ -560,15 +560,17 @@ export default function DatabasePage() {
                       {row.pairCount}
                     </td>
                     <td style={{ padding: "16px" }}>
+                      <div style={{ textAlign: "right" }}>
                       <a
                         href={row.sourceUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="outline-btn font-medium rounded-lg"
-                        style={{ fontSize: "16px", padding: "8px 24px", whiteSpace: "nowrap", display: "block", marginLeft: "auto", width: "fit-content" }}
+                        className="outline-btn font-medium rounded-lg inline-block"
+                        style={{ fontSize: "16px", padding: "8px 24px", whiteSpace: "nowrap" }}
                       >
                         {row.sourceLabel} ↗
                       </a>
+                      </div>
                     </td>
                   </tr>
                 ))}
