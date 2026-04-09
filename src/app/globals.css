@@ -1092,9 +1092,8 @@ body.animations-paused #water-bg * {
   .db-pairs-col {
     display: none !important;
   }
-  /* Let table columns size naturally when pairs column is hidden */
-  table { table-layout: auto !important; min-width: 0 !important; }
-  .db-source-col { width: 1% !important; white-space: nowrap !important; }
+  /* Source column right-aligned, pushed to edge */
+  .db-source-col { text-align: right !important; }
 }
 
 .breadcrumb-inner {
