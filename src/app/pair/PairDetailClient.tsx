@@ -153,15 +153,19 @@ function FontSection({
 
 export default function PairDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
   const searchParams = useSearchParams();
-  const slug = slugOverride || searchParams.get("p") || "";
+  const paramSlug = slugOverride || searchParams.get("p") || "";
+  const [slug, setSlug] = useState(paramSlug);
   const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
 
-  // Show clean URL in address bar after navigation settles
+  // Lock in the slug when it arrives, then clean the URL
   useEffect(() => {
-    if (slug && window.location.search.includes("p=")) {
-      window.history.replaceState(null, "", `/font-pond/pair/${slug}`);
+    if (paramSlug) {
+      setSlug(paramSlug);
+      if (window.location.search.includes("p=")) {
+        window.history.replaceState(null, "", `/font-pond/pair/${paramSlug}`);
+      }
     }
-  }, [slug]);
+  }, [paramSlug]);
 
   const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
