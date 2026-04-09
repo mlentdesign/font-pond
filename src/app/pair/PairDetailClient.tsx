@@ -220,7 +220,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
             </h1>
             <Link
               href="/?explore=1"
-              className="outline-btn font-medium rounded-lg inline-block transition-colors"
+              className="btn-generate font-medium rounded-lg inline-block"
               style={{ fontSize: "16px", padding: "8px 24px", marginTop: "8px" }}
             >
               Explore font pairs
