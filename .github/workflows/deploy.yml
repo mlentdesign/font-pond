@@ -26,12 +26,24 @@ jobs:
           cache: npm
 
       - run: npm ci
+
+      # Restore cached font/pair pages from previous builds
+      - name: Restore CMS page cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            out/font
+            out/pair
+          key: cms-pages-${{ hashFiles('src/data/all-pair-slugs.json', 'src/data/font-slugs.json') }}
+          restore-keys: |
+            cms-pages-
+
       - run: npx next build
         env:
           NEXT_PUBLIC_BASE_PATH: /font-pond
           NODE_OPTIONS: "--max-old-space-size=8192"
 
-      - name: Generate remaining pair pages
+      - name: Generate remaining CMS pages
         run: node scripts/generate-remaining-pairs.mjs
 
       - uses: actions/upload-pages-artifact@v3
