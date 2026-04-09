@@ -1113,10 +1113,10 @@ body.animations-paused #water-bg * {
   }
   .breadcrumb-sticky {
     padding-top: 8px !important;
-    padding-bottom: 14px !important;
+    padding-bottom: 24px !important;
   }
   .breadcrumb-inner {
-    align-items: flex-end !important;
+    align-items: center !important;
   }
 }
 
