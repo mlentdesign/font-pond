@@ -4,25 +4,11 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
+import { FishingLine } from "@/components/FishingLine";
 
 // Render pair/font detail directly on 404 — keeps the clean URL without redirect
 const PairDetailClient = dynamic(() => import("./pair/PairDetailClient"), { ssr: false });
 const FontDetailClient = dynamic(() => import("./font/FontDetailClient"), { ssr: false });
-
-function FishingLine() {
-  return (
-    <svg width="120" height="160" viewBox="0 0 120 160" fill="none" style={{ margin: "24px auto 0" }}>
-      {/* Rod */}
-      <line x1="60" y1="0" x2="90" y2="8" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round" />
-      {/* Line */}
-      <path d="M90 8 Q85 60, 60 90 Q50 110, 55 130" stroke="var(--text-muted)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-      {/* Hook */}
-      <path d="M55 130 Q50 140, 55 145 Q62 148, 60 138" stroke="rgba(240, 140, 50, 0.8)" strokeWidth="2" fill="none" strokeLinecap="round" />
-      {/* Bobber */}
-      <circle cx="60" cy="90" r="5" fill="rgba(240, 140, 50, 0.7)" stroke="rgba(200, 100, 30, 0.8)" strokeWidth="1.5" />
-    </svg>
-  );
-}
 
 export default function NotFound() {
   const [route, setRoute] = useState<{ type: "pair" | "font" | "unknown"; slug: string } | null>(null);
@@ -55,7 +41,6 @@ export default function NotFound() {
           <p style={{ fontSize: "16px", color: "var(--text-muted)", marginBottom: "0" }}>
             We&rsquo;re not sure how you ended up here, but we can help you get back.
           </p>
-          <FishingLine />
           <Link
             href="/?explore=1"
             className="btn-generate font-medium rounded-lg inline-block"
@@ -63,6 +48,7 @@ export default function NotFound() {
           >
             Explore font pairs
           </Link>
+          <FishingLine />
         </div>
       </main>
     </div>
