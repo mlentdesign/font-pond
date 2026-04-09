@@ -195,7 +195,7 @@ export function FishingLine() {
   return (
     <canvas
       ref={canvasRef}
-      style={{ width: "160px", height: "240px", margin: "32px auto 0", display: "block" }}
+      style={{ width: "160px", height: "240px", margin: "16px auto 0", display: "block" }}
       aria-hidden="true"
     />
   );
