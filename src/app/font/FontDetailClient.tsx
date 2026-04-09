@@ -41,7 +41,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
     if (pair) {
       const hf = fontsById.get(pair.headerFontId);
       const bf = fontsById.get(pair.bodyFontId);
-      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair/${fromPair}` });
+      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair?p=${fromPair}` });
     }
   }
   if (font) crumbs.push({ label: font.name });
@@ -357,7 +357,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                   return (
                     <Link
                       key={sf.slug}
-                      href={`/font/${sf.slug}`}
+                      href={`/font?f=${sf.slug}`}
                       onMouseDown={(e) => e.preventDefault()}
                       className="group block border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
                       style={{ position: "relative" }}
