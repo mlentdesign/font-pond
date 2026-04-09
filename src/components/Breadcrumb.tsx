@@ -39,7 +39,7 @@ export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: C
         background: "var(--bg)",
       } : undefined}
     >
-      <div style={sticky ? { display: "flex", alignItems: "center", justifyContent: stickyAction ? "space-between" : undefined } : undefined}>
+      <div className={sticky ? "breadcrumb-inner" : ""} style={sticky ? { display: "flex", justifyContent: stickyAction ? "space-between" : undefined } : undefined}>
         <nav aria-label="Breadcrumb" style={sticky ? { flex: stickyAction ? undefined : 1 } : { marginBottom: "24px" }}>
           <ol className="flex items-center text-xs text-neutral-400 flex-wrap">
             <li>
