@@ -36,7 +36,7 @@ export default function RootLayout({
         {/* Theme script — sets data-theme from localStorage before first paint */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme:dark)").matches);var h=document.documentElement;h.setAttribute("data-theme",d?"dark":"light");h.style.colorScheme=d?"dark":"light";h.style.background=d?"#0d3b3f":"#c8e6e3";h.style.color=d?"#dcdcdc":"#444444";document.body&&(document.body.style.background=d?"#0d3b3f":"#c8e6e3");var m=document.querySelector('meta[name=theme-color][media*=light]');if(m)m.content=d?"#0d3b3f":"#c8e6e3"}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme:dark)").matches);var h=document.documentElement;h.setAttribute("data-theme",d?"dark":"light");h.style.colorScheme=d?"dark":"light";h.style.background=d?"#0d3b3f":"#c8e6e3";h.style.color=d?"#dcdcdc":"#444444";var m=document.querySelector('meta[name=theme-color][media*=light]');if(m)m.content=d?"#0d3b3f":"#c8e6e3"}catch(e){}})()`,
           }}
         />
         <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
