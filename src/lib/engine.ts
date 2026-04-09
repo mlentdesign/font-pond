@@ -3460,13 +3460,55 @@ function bodyCloser(bf: Font, idx: number): string {
   return closers[Math.abs(idx) % closers.length];
 }
 
-function detectPersonalityTypes(words: string[], query: string): { label: string; traits: string }[] {
-  const found: { label: string; traits: string }[] = [];
+const ZODIAC_SIGNS = new Set(["aries","taurus","gemini","cancer","leo","virgo","libra","scorpio","sagittarius","capricorn","aquarius","pisces"]);
+const CHINESE_ZODIAC = new Set(["rat","ox","tiger","rabbit","dragon","snake","horse","goat","monkey","rooster","dog","pig"]);
+
+interface PersonalityMatch { label: string; traits: string }
+
+function detectPersonalityTypes(words: string[], query: string): PersonalityMatch[] {
+  const found: PersonalityMatch[] = [];
   const lower = query.toLowerCase();
 
-  // Check for Enneagram with wings (e.g., "3w2", "4w5")
+  // ── Zodiac sun/moon/rising placements ──
+  // Detect patterns like "aries sun", "pisces moon", "libra rising/ascendant"
+  const placements: { sign: string; placement: string }[] = [];
+  const placementRegex = /(\w+)\s+(sun|moon|rising|ascendant)/gi;
+  let pm;
+  while ((pm = placementRegex.exec(lower)) !== null) {
+    const sign = pm[1].toLowerCase();
+    const placement = pm[2].toLowerCase() === "ascendant" ? "rising" : pm[2].toLowerCase();
+    if (ZODIAC_SIGNS.has(sign)) {
+      placements.push({ sign, placement });
+    }
+  }
+
+  if (placements.length > 0) {
+    // Build a combined description from all placements
+    const parts: string[] = [];
+    for (const { sign, placement } of placements) {
+      const desc = PERSONALITY_DESCRIPTIONS[sign];
+      if (!desc) continue;
+      if (placement === "sun") parts.push(`${desc.label} sun's ${desc.traits} as core identity`);
+      else if (placement === "moon") parts.push(`${desc.label} moon's ${desc.traits} as emotional undertone`);
+      else if (placement === "rising") parts.push(`${desc.label} rising's ${desc.traits} as first impression`);
+    }
+    if (parts.length > 0) {
+      const labels = placements.map(p => {
+        const cap = p.sign.charAt(0).toUpperCase() + p.sign.slice(1);
+        return `${cap} ${p.placement}`;
+      });
+      found.push({
+        label: labels.join(", "),
+        traits: parts.join(", blended with "),
+      });
+    }
+  }
+
+  // ── Standard personality type matching ──
   for (const word of words) {
-    if (PERSONALITY_DESCRIPTIONS[word]) {
+    // Skip zodiac signs if already handled as placements
+    if (placements.length > 0 && (ZODIAC_SIGNS.has(word) || ["sun","moon","rising","ascendant"].includes(word))) continue;
+    if (PERSONALITY_DESCRIPTIONS[word] && !found.some(f => f.label === PERSONALITY_DESCRIPTIONS[word].label)) {
       found.push(PERSONALITY_DESCRIPTIONS[word]);
     }
   }
