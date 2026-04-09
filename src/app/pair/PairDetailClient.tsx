@@ -35,7 +35,6 @@ function FontSection({
   return (
     <Link
       href={`/font?f=${font.slug}`}
-      onClick={() => requestAnimationFrame(() => window.history.replaceState(null, "", `/font-pond/font/${font.slug}`))}
       onMouseDown={(e) => e.preventDefault()}
       className="group flex flex-col border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
       style={{ position: "relative" }}
