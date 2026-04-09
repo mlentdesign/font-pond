@@ -504,7 +504,7 @@ export default function DatabasePage() {
                     <th onClick={() => toggleSort("pairs")} className={`${thClass} db-pairs-col`} style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "pairs" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Pairs{arrow("pairs")}
                     </th>
-                    <th onClick={() => toggleSort("source")} className={thClass} style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "source" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
+                    <th onClick={() => toggleSort("source")} className={thClass.replace("text-left", "text-right")} style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "source" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Source{arrow("source")}
                     </th>
                   </tr>
