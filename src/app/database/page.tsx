@@ -130,7 +130,7 @@ export default function DatabasePage() {
   const [categoryFilters, setCategoryFilters] = useState<Set<string>>(new Set());
   const [sourceFilters, setSourceFilters] = useState<Set<string>>(new Set());
   const tableRef = useRef<HTMLDivElement>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLTableSectionElement>(null);
   const filterRef = useRef<HTMLDivElement>(null);
   const headerScrollRef = useRef<HTMLDivElement>(null);
   const bodyScrollRef = useRef<HTMLDivElement>(null);
