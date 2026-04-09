@@ -1096,6 +1096,9 @@ body.animations-paused #water-bg * {
   .db-body-table {
     table-layout: auto !important;
   }
+  .db-body-table colgroup {
+    display: none !important;
+  }
   th:last-child {
     text-align: right !important;
   }
