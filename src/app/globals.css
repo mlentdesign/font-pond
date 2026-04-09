@@ -1108,7 +1108,8 @@ body.animations-paused #water-bg * {
     margin-bottom: 40px !important;
   }
   .breadcrumb-sticky {
-    padding-bottom: 18px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
   }
 }
 
