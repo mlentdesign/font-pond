@@ -156,6 +156,13 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const slug = slugOverride || searchParams.get("p") || "";
   const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
 
+  // Show clean URL in address bar after navigation settles
+  useEffect(() => {
+    if (slug && window.location.search.includes("p=")) {
+      window.history.replaceState(null, "", `/font-pond/pair/${slug}`);
+    }
+  }, [slug]);
+
   const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
   const bodyFont = pair ? fontsById.get(pair.bodyFontId) : undefined;
