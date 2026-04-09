@@ -16,6 +16,7 @@ import { SectionCard } from "@/components/SectionCard";
 import { ChipGroup } from "@/components/ChipGroup";
 import { PairPreviewGrid } from "@/components/PairPreviewGrid";
 import { SampleTextInputs } from "@/components/SampleTextInputs";
+import { InfoTooltip } from "@/components/InfoTooltip";
 
 function FontSection({
   font,
@@ -122,25 +123,25 @@ function FontSection({
           <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-neutral-500" style={{ fontSize: "16px" }}>
             {font.xHeightRatio && (
               <div>
-                <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>X-HEIGHT</span>
+                <span className="uppercase tracking-wider text-neutral-400 flex items-center flex-wrap mb-0.5" style={{ fontSize: "12px" }}>X-HEIGHT<InfoTooltip label="x-height" /></span>
                 <p>{titleCase(font.xHeightRatio)}</p>
               </div>
             )}
             {font.apertureOpenness && (
               <div>
-                <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>APERTURES</span>
+                <span className="uppercase tracking-wider text-neutral-400 flex items-center flex-wrap mb-0.5" style={{ fontSize: "12px" }}>APERTURES<InfoTooltip label="apertures" /></span>
                 <p>{titleCase(font.apertureOpenness)}</p>
               </div>
             )}
             {font.strokeContrast && (
               <div>
-                <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>STROKE CONTRAST</span>
+                <span className="uppercase tracking-wider text-neutral-400 flex items-center flex-wrap mb-0.5" style={{ fontSize: "12px" }}>STROKE CONTRAST<InfoTooltip label="stroke contrast" /></span>
                 <p>{titleCase(font.strokeContrast)}</p>
               </div>
             )}
             {font.letterSpacing && (
               <div>
-                <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>SPACING</span>
+                <span className="uppercase tracking-wider text-neutral-400 flex items-center flex-wrap mb-0.5" style={{ fontSize: "12px" }}>SPACING<InfoTooltip label="spacing" /></span>
                 <p>{titleCase(font.letterSpacing)}</p>
               </div>
             )}
@@ -304,36 +305,36 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
           <SectionCard noPadding style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
               <div className="flex justify-between items-baseline border-b border-neutral-100" style={{ padding: "12px 24px", gap: "12px" }}>
-                <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>HIERARCHY</dt>
+                <dt className="uppercase tracking-wider text-neutral-400 flex items-center flex-wrap" style={{ fontSize: "12px" }}>HIERARCHY<InfoTooltip label="hierarchy" /></dt>
                 <dd className="text-neutral-700 font-medium shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{pair.hierarchyStrength}/10</dd>
               </div>
               <div className="flex justify-between items-baseline border-b border-neutral-100" style={{ padding: "12px 24px", gap: "12px" }}>
-                <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>LEGIBILITY</dt>
+                <dt className="uppercase tracking-wider text-neutral-400 flex items-center flex-wrap" style={{ fontSize: "12px" }}>LEGIBILITY<InfoTooltip label="legibility" /></dt>
                 <dd className="text-neutral-700 font-medium shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{pair.bodyLegibilityScore}/10</dd>
               </div>
               <div className="flex justify-between items-baseline border-b border-neutral-100" style={{ padding: "12px 24px", gap: "12px" }}>
-                <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>PRACTICALITY</dt>
+                <dt className="uppercase tracking-wider text-neutral-400 flex items-center flex-wrap" style={{ fontSize: "12px" }}>PRACTICALITY<InfoTooltip label="practicality" /></dt>
                 <dd className="text-neutral-700 font-medium shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{pair.practicalityScore}/10</dd>
               </div>
               <div className="flex justify-between items-baseline border-b border-neutral-100" style={{ padding: "12px 24px", gap: "12px" }}>
-                <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>OVERALL</dt>
+                <dt className="uppercase tracking-wider text-neutral-400 flex items-center flex-wrap" style={{ fontSize: "12px" }}>OVERALL<InfoTooltip label="overall" /></dt>
                 <dd className="text-neutral-700 font-medium shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{Math.round(pair.overallScore / 10)}/10</dd>
               </div>
               {pair.xHeightHarmony != null && (
                 <div className="flex justify-between border-b border-neutral-100" style={{ padding: "12px 24px" }}>
-                  <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>X-HEIGHT HARMONY</dt>
+                  <dt className="uppercase tracking-wider text-neutral-400 flex items-center flex-wrap" style={{ fontSize: "12px" }}>X-HEIGHT HARMONY<InfoTooltip label="x-height harmony" /></dt>
                   <dd className="text-neutral-700 font-medium shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{pair.xHeightHarmony}/10</dd>
                 </div>
               )}
               {pair.roleFitness != null && (
                 <div className="flex justify-between border-b border-neutral-100" style={{ padding: "12px 24px" }}>
-                  <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>ROLE FITNESS</dt>
+                  <dt className="uppercase tracking-wider text-neutral-400 flex items-center flex-wrap" style={{ fontSize: "12px" }}>ROLE FITNESS<InfoTooltip label="role fitness" /></dt>
                   <dd className="text-neutral-700 font-medium shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{pair.roleFitness}/10</dd>
                 </div>
               )}
               {pair.personalityContrast != null && (
                 <div className="flex justify-between items-baseline" style={{ padding: "12px 24px", gap: "12px" }}>
-                  <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>PERSONALITY CONTRAST</dt>
+                  <dt className="uppercase tracking-wider text-neutral-400 flex items-center flex-wrap" style={{ fontSize: "12px" }}>PERSONALITY CONTRAST<InfoTooltip label="personality contrast" /></dt>
                   <dd className="text-neutral-700 font-medium shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{pair.personalityContrast}/10</dd>
                 </div>
               )}
@@ -348,7 +349,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
             </div>
             <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
             <div>
-              <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "4px" }}>CONTRAST TYPE</dt>
+              <dt className="uppercase tracking-wider text-neutral-400 flex items-center flex-wrap" style={{ fontSize: "12px", marginBottom: "4px" }}>CONTRAST TYPE<InfoTooltip label="contrast type" /></dt>
               <dd className="text-neutral-700" style={{ fontSize: "16px" }}>{formatContrastType(pair.contrastType)}</dd>
             </div>
           </SectionCard>
