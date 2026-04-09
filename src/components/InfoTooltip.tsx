@@ -29,6 +29,17 @@ const TOOLTIP_DESCRIPTIONS: Record<string, string> = {
   "variable font": "A single font file that contains a range of weights and styles, allowing smooth adjustments instead of fixed steps.",
 };
 
+function useIsMobile() {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return mobile;
+}
+
 export function InfoTooltip({ label }: { label: string }) {
   const key = label.toLowerCase();
   const description = TOOLTIP_DESCRIPTIONS[key];
@@ -38,6 +49,7 @@ export function InfoTooltip({ label }: { label: string }) {
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
   const iconRef = useRef<HTMLSpanElement>(null);
   const hideTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isMobile = useIsMobile();
 
   const scheduleHide = () => {
     hideTimeout.current = setTimeout(() => setShow(false), 300);
@@ -62,12 +74,30 @@ export function InfoTooltip({ label }: { label: string }) {
     setShow(true);
   };
 
+  // On mobile, close this tooltip when user taps anywhere else
+  useEffect(() => {
+    if (!isMobile || !show) return;
+    const handleTap = (e: MouseEvent | TouchEvent) => {
+      if (iconRef.current && !iconRef.current.contains(e.target as Node)) {
+        setShow(false);
+      }
+    };
+    document.addEventListener("click", handleTap);
+    document.addEventListener("touchstart", handleTap);
+    return () => {
+      document.removeEventListener("click", handleTap);
+      document.removeEventListener("touchstart", handleTap);
+    };
+  }, [isMobile, show]);
+
   return (
     <span
       ref={iconRef}
       style={{ marginLeft: "4px", display: "inline", verticalAlign: "baseline" }}
-      onMouseEnter={handleShow}
-      onMouseLeave={scheduleHide}
+      // Desktop: hover to show/hide
+      onMouseEnter={isMobile ? undefined : handleShow}
+      onMouseLeave={isMobile ? undefined : scheduleHide}
+      // Both: click/tap to toggle
       onClick={(e) => { e.stopPropagation(); if (show) { setShow(false); } else { handleShow(); } }}
       role="button"
       tabIndex={0}
@@ -93,8 +123,8 @@ export function InfoTooltip({ label }: { label: string }) {
       {show && pos && typeof document !== "undefined" && createPortal(
         <span
           className="rounded-lg shadow-lg"
-          onMouseEnter={cancelHide}
-          onMouseLeave={scheduleHide}
+          onMouseEnter={isMobile ? undefined : cancelHide}
+          onMouseLeave={isMobile ? undefined : scheduleHide}
           style={{
             position: "absolute",
             top: pos.top,
@@ -112,7 +142,7 @@ export function InfoTooltip({ label }: { label: string }) {
             zIndex: 9999,
             width: "240px",
             whiteSpace: "normal",
-            pointerEvents: "auto",
+            pointerEvents: isMobile ? "none" : "auto",
           }}
         >
           {description}
