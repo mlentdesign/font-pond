@@ -205,7 +205,7 @@ export default function DatabasePage() {
         }
       });
     };
-    syncWidths();
+    requestAnimationFrame(syncWidths);
     window.addEventListener("resize", syncWidths);
     return () => window.removeEventListener("resize", syncWidths);
   }, [page, sortKey, sortDir, search]);
@@ -506,7 +506,7 @@ export default function DatabasePage() {
             }}
           >
             {/* Horizontal scroll wrapper for mobile */}
-            <div ref={headerScrollRef} style={{ overflowX: "auto", width: "100%" }}>
+            <div ref={headerScrollRef} className="db-table-header" style={{ overflowX: "auto", width: "100%" }}>
               <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed", minWidth: "800px" }}>
                 <colgroup>
                   <col style={{ width: "20%" }} />
@@ -539,7 +539,7 @@ export default function DatabasePage() {
           </div>
 
           {/* Table body — horizontal scroll for mobile, z-index below sticky header */}
-          <div ref={bodyScrollRef} style={{ overflowX: "auto", background: "var(--bg-card)", position: "relative", zIndex: 1 }}>
+          <div ref={bodyScrollRef} className="db-table-body" style={{ overflowX: "auto", background: "var(--bg-card)", position: "relative", zIndex: 1 }}>
             <table className="w-full db-body-table" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed", minWidth: "800px" }}>
               <colgroup>
                 <col style={{ width: "20%" }} />
