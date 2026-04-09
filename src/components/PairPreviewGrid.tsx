@@ -74,6 +74,7 @@ export function PairPreviewGrid({
             <Link
               key={p.id}
               href={`/pair/${p.slug}`}
+              onMouseDown={(e) => e.preventDefault()}
               className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
               style={{ padding: "24px", position: "relative" }}
             >
