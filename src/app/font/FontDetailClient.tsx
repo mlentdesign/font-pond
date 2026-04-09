@@ -55,7 +55,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
     if (pair) {
       const hf = fontsById.get(pair.headerFontId);
       const bf = fontsById.get(pair.bodyFontId);
-      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair?p=${fromPair}` });
+      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair/${fromPair}` });
     }
   }
   if (font) crumbs.push({ label: font.name });
@@ -164,8 +164,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                   {topSuggestions.map((s) => (
                     <Link
                       key={s.slug}
-                      href={`/font?f=${s.slug}`}
-                      onClick={() => setTimeout(() => window.history.replaceState(null, "", `/font-pond/font/${s.slug}`), 100)}
+                      href={`/font/${s.slug}`}
                       className="outline-btn font-medium rounded-lg inline-block transition-colors"
                       style={{ fontSize: "16px", padding: "8px 16px" }}
                     >
@@ -407,8 +406,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                   return (
                     <Link
                       key={sf.slug}
-                      href={`/font?f=${sf.slug}`}
-                      onClick={() => setTimeout(() => window.history.replaceState(null, "", `/font-pond/font/${sf.slug}`), 100)}
+                      href={`/font/${sf.slug}`}
                       onMouseDown={(e) => e.preventDefault()}
                       className="group block border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
                       style={{ position: "relative" }}
