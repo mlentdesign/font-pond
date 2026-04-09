@@ -26,9 +26,9 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
       role="link"
       tabIndex={0}
       aria-label={`View font pair: ${headerFont.name} and ${bodyFont.name}`}
-      onClick={() => router.push(`/pair?p=${pair.slug}`)}
+      onClick={() => { router.push(`/pair?p=${pair.slug}`); setTimeout(() => window.history.replaceState(null, "", `/font-pond/pair/${pair.slug}`), 100); }}
       onMouseDown={(e) => e.preventDefault()}
-      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push(`/pair?p=${pair.slug}`); } }}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push(`/pair?p=${pair.slug}`); setTimeout(() => window.history.replaceState(null, "", `/font-pond/pair/${pair.slug}`), 100); } }}
       className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-md transition-all cursor-pointer overflow-hidden"
       style={{ position: "relative" }}
     >
