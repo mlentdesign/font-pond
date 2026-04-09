@@ -303,38 +303,38 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
           {/* Card 1: scores — label left, value right, lines between */}
           <SectionCard noPadding style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <dl>
-              <div className="flex justify-between border-b border-neutral-100" style={{ padding: "12px 24px" }}>
+              <div className="flex justify-between items-baseline border-b border-neutral-100" style={{ padding: "12px 24px", gap: "12px" }}>
                 <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>HIERARCHY</dt>
-                <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.hierarchyStrength}/10</dd>
+                <dd className="text-neutral-700 font-medium shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{pair.hierarchyStrength}/10</dd>
               </div>
-              <div className="flex justify-between border-b border-neutral-100" style={{ padding: "12px 24px" }}>
+              <div className="flex justify-between items-baseline border-b border-neutral-100" style={{ padding: "12px 24px", gap: "12px" }}>
                 <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>LEGIBILITY</dt>
-                <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.bodyLegibilityScore}/10</dd>
+                <dd className="text-neutral-700 font-medium shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{pair.bodyLegibilityScore}/10</dd>
               </div>
-              <div className="flex justify-between border-b border-neutral-100" style={{ padding: "12px 24px" }}>
+              <div className="flex justify-between items-baseline border-b border-neutral-100" style={{ padding: "12px 24px", gap: "12px" }}>
                 <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>PRACTICALITY</dt>
-                <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.practicalityScore}/10</dd>
+                <dd className="text-neutral-700 font-medium shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{pair.practicalityScore}/10</dd>
               </div>
-              <div className="flex justify-between border-b border-neutral-100" style={{ padding: "12px 24px" }}>
+              <div className="flex justify-between items-baseline border-b border-neutral-100" style={{ padding: "12px 24px", gap: "12px" }}>
                 <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>OVERALL</dt>
-                <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{Math.round(pair.overallScore / 10)}/10</dd>
+                <dd className="text-neutral-700 font-medium shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{Math.round(pair.overallScore / 10)}/10</dd>
               </div>
               {pair.xHeightHarmony != null && (
                 <div className="flex justify-between border-b border-neutral-100" style={{ padding: "12px 24px" }}>
                   <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>X-HEIGHT HARMONY</dt>
-                  <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.xHeightHarmony}/10</dd>
+                  <dd className="text-neutral-700 font-medium shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{pair.xHeightHarmony}/10</dd>
                 </div>
               )}
               {pair.roleFitness != null && (
                 <div className="flex justify-between border-b border-neutral-100" style={{ padding: "12px 24px" }}>
                   <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>ROLE FITNESS</dt>
-                  <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.roleFitness}/10</dd>
+                  <dd className="text-neutral-700 font-medium shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{pair.roleFitness}/10</dd>
                 </div>
               )}
               {pair.personalityContrast != null && (
-                <div className="flex justify-between" style={{ padding: "12px 24px" }}>
+                <div className="flex justify-between items-baseline" style={{ padding: "12px 24px", gap: "12px" }}>
                   <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>PERSONALITY CONTRAST</dt>
-                  <dd className="text-neutral-700 font-medium" style={{ fontSize: "16px" }}>{pair.personalityContrast}/10</dd>
+                  <dd className="text-neutral-700 font-medium shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{pair.personalityContrast}/10</dd>
                 </div>
               )}
             </dl>
