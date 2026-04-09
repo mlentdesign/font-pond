@@ -82,18 +82,32 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const displayRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // Preload queue — always keep the next 5 fonts ready
+  const preloadQueueRef = useRef<PoolFont[]>([]);
+
+  const preloadNext = useCallback((count: number) => {
+    const upcoming = peekNext(count);
+    preloadQueueRef.current = upcoming;
+    for (const f of upcoming) ensureLoaded(f);
+  }, [ensureLoaded]);
+
   useEffect(() => {
     setMounted(true);
     const initial = pickRandom();
     setDisplayFont(initial);
     ensureLoaded(initial);
 
-    // Preload a random subset of fonts for smooth animation
-    const shuffled = [...FONT_POOL].sort(() => Math.random() - 0.5);
-    for (const f of shuffled.slice(0, PRELOAD_COUNT)) {
-      ensureLoaded(f);
-    }
-  }, [setDisplayFont, ensureLoaded]);
+    // Preload the next 5 fonts immediately so they're ready for navigation
+    preloadNext(5);
+
+    // Also preload a broader set in the background for animation variety
+    setTimeout(() => {
+      const shuffled = [...FONT_POOL].sort(() => Math.random() - 0.5);
+      for (const f of shuffled.slice(0, PRELOAD_COUNT)) {
+        ensureLoaded(f);
+      }
+    }, 100);
+  }, [setDisplayFont, ensureLoaded, preloadNext]);
 
   const clearAllTimers = useCallback(() => {
     for (const t of timersRef.current) clearTimeout(t);
@@ -114,9 +128,9 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
     setLetterStates(newStates);
 
     const finalFont = pickRandom(displayFont.name);
-    // Preload the next 2 fonts in the queue so they're ready when needed
-    for (const upcoming of peekNext(2)) ensureLoaded(upcoming);
     ensureLoaded(finalFont);
+    // Preload next 5 so they're ready for upcoming navigations
+    preloadNext(5);
 
     for (const idx of NON_SPACE_INDICES) {
       const numFlips = 4 + Math.floor(Math.random() * 5);

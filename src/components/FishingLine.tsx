@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { headerAnimationPaused } from "./RansomHeader";
 
 export function FishingLine() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -114,10 +115,13 @@ export function FishingLine() {
     function draw(timestamp: number) {
       const dt = Math.min((timestamp - lastTime) / 1000, 0.05);
       lastTime = timestamp;
-      time += dt;
 
-      rodAngle = getRodAngle(time);
-      simulate();
+      // Respect animation pause — keep the loop running but freeze motion
+      if (!headerAnimationPaused) {
+        time += dt;
+        rodAngle = getRodAngle(time);
+        simulate();
+      }
 
       const { rod } = getColors();
 
