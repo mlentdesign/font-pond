@@ -32,7 +32,7 @@ const TOOLTIP_DESCRIPTIONS: Record<string, string> = {
 function useIsMobile() {
   const [mobile, setMobile] = useState(false);
   useEffect(() => {
-    const check = () => setMobile(window.innerWidth < 768);
+    const check = () => setMobile(window.innerWidth < 768 && window.innerHeight <= 932);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
