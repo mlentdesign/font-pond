@@ -236,7 +236,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, div {
 }
 
 /* Keyboard focus indicator — visible only on keyboard navigation */
-/* Focus ring only for keyboard navigation, never for mouse clicks */
+/* Focus ring for keyboard navigation on non-card elements */
 *:focus:not(:focus-visible) {
   outline: none !important;
 }
@@ -245,38 +245,17 @@ h1, h2, h3, h4, h5, h6, p, span, a, div {
   outline-offset: 2px;
   border-radius: 4px;
 }
-/* Firefox: suppress its internal focus ring for mouse clicks */
-*:focus:not(:focus-visible)::-moz-focus-inner {
-  border: 0;
-}
-*:-moz-focusring:not(:focus-visible) {
+
+/* Cards never show focus outlines — they have their own hover/active feedback.
+   This covers all states, all breakpoints, all elements inside cards. */
+.card-hover, .card-hover *,
+a.card-hover, a.card-hover *,
+[role="link"].card-hover, [role="link"].card-hover * {
   outline: none !important;
+  -moz-outline-radius: 0 !important;
 }
-/* Mouse users: cards show hover feedback, not focus outline */
-@media (hover: hover) {
-  .card-hover:focus,
-  .card-hover:focus-visible,
-  .card-hover *:focus,
-  .card-hover *:focus-visible,
-  a.card-hover:focus,
-  a.card-hover:focus-visible,
-  a.card-hover *:focus,
-  a.card-hover *:focus-visible,
-  .group.card-hover:focus,
-  .group.card-hover:focus-visible,
-  .group.card-hover *:focus,
-  .group.card-hover *:focus-visible {
-    outline: none !important;
-  }
-}
-/* Keyboard-only users (no hover capability): show card hover style on focus */
-@media (hover: none) {
-  .card-hover:focus-visible,
-  a.card-hover:focus-visible {
-    outline: none;
-    background: var(--bg-card-hover) !important;
-    box-shadow: var(--shadow-card-hover) !important;
-  }
+.card-hover::-moz-focus-inner, .card-hover *::-moz-focus-inner {
+  border: 0 !important;
 }
 
 /* ══════════════════════════════════════════
