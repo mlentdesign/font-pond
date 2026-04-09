@@ -559,13 +559,13 @@ export default function DatabasePage() {
                     <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", textAlign: "right" }} className="tabular-nums db-pairs-col">
                       {row.pairCount}
                     </td>
-                    <td className="db-source-cell" style={{ padding: "16px", textAlign: "right" }}>
+                    <td style={{ padding: "16px" }}>
                       <a
                         href={row.sourceUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="outline-btn font-medium rounded-lg transition-colors inline-block"
-                        style={{ fontSize: "16px", padding: "8px 24px", whiteSpace: "nowrap" }}
+                        className="outline-btn font-medium rounded-lg"
+                        style={{ fontSize: "16px", padding: "8px 24px", whiteSpace: "nowrap", display: "block", marginLeft: "auto", width: "fit-content" }}
                       >
                         {row.sourceLabel} ↗
                       </a>
