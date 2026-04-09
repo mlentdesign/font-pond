@@ -170,7 +170,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
             <h1 className="font-semibold tracking-tight describe-heading" style={{ color: "var(--text-heading)", fontSize: "24px", marginBottom: "8px" }}>
               Font not found
             </h1>
-            {bestMatch ? (
+            {bestMatch && (
               <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
                 Did you mean{" "}
                 <Link
@@ -181,15 +181,14 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                 </Link>
                 ?
               </p>
-            ) : (
-              <Link
-                href="/?explore=1"
-                className="btn-generate font-medium rounded-lg inline-block"
-                style={{ fontSize: "16px", padding: "8px 24px", marginTop: "8px" }}
-              >
-                Explore font pairs
-              </Link>
             )}
+            <Link
+              href="/?explore=1"
+              className="btn-generate font-medium rounded-lg inline-block"
+              style={{ fontSize: "16px", padding: "8px 24px", marginTop: "16px" }}
+            >
+              Explore font pairs
+            </Link>
             <FishingLine />
           </div>
         </main>
