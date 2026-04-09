@@ -1,5 +1,16 @@
 import { Font, FontClassification } from "./types";
 
+// Compute body legibility from measured anatomy (research-backed formula)
+function calcLegibility(cls: string, xH?: string, ap?: string, sc?: string, sp?: string): number {
+  const c = cls.toLowerCase();
+  let s = c === "script" || c === "handwritten" ? 2 : c === "display" ? 3 : c === "monospace" ? 5 : 6;
+  if (xH === "high") s += 1.5; else if (xH === "moderate") s += 0.5; else if (xH === "low") s -= 1;
+  if (ap === "open") s += 1; else if (ap === "closed") s -= 1;
+  if (sc === "high") s -= 1; else if (sc === "none") s += 0.5;
+  if (sp === "generous") s += 0.5; else if (sp === "tight") s -= 1;
+  return Math.round(Math.max(1, Math.min(10, s)));
+}
+
 // Measured font anatomy for Google Fonts Extended — values from opentype.js analysis
 // [xHeightRatio, apertureOpenness, strokeContrast, letterSpacing, moodCategory]
 type AT = [Font["xHeightRatio"], Font["apertureOpenness"], Font["strokeContrast"], Font["letterSpacing"], Font["moodCategory"]];
@@ -153,7 +164,7 @@ function gfDisplay(
     styles: ["normal"],
     isHeaderSuitable: true,
     isBodySuitable: false,
-    bodyLegibilityScore: null,
+    bodyLegibilityScore: calcLegibility(classification, a[0], a[1], a[2], a[3]),
     screenReadabilityNotes: null,
     distinctiveTraits,
     xHeightRatio: a[0],
