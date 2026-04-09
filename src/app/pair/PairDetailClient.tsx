@@ -157,12 +157,17 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const slug = slugOverride || searchParams.get("p") || "";
   const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
 
-  // Note: not rewriting URL via replaceState — it desynchronises Next.js router
-  // and causes stale page content on back/forward navigation
-
   const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
   const bodyFont = pair ? fontsById.get(pair.bodyFontId) : undefined;
+
+  // Swap to clean CMS URL after pair loads
+  useEffect(() => {
+    if (pair && slug && searchParams.get("p") === slug) {
+      const cleanUrl = pair.url ? `/font-pond${pair.url}` : `/font-pond/pair/${slug}`;
+      window.history.replaceState(null, "", cleanUrl);
+    }
+  }, [pair, slug, searchParams]);
 
   useEffect(() => {
     if (headerFont) loadFont(headerFont);
