@@ -114,8 +114,24 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
 
   if (!font) {
     return (
-      <div className="flex-1 flex items-center justify-center">
-        <p className="text-neutral-400">Font not found.</p>
+      <div className="flex-1 flex flex-col">
+        <DetailPageHeader />
+        <main className="flex-1 flex items-center justify-center" style={{ textAlign: "center", padding: "0 24px" }}>
+          <div>
+            <h1 className="font-semibold tracking-tight describe-heading" style={{ color: "var(--text-heading)", fontSize: "24px", marginBottom: "8px" }}>
+              We&rsquo;re so sorry.
+            </h1>
+            <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
+              Font not found.
+            </p>
+            <svg width="120" height="160" viewBox="0 0 120 160" fill="none" style={{ margin: "24px auto 0" }}>
+              <line x1="60" y1="0" x2="90" y2="8" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round" />
+              <path d="M90 8 Q85 60, 60 90 Q50 110, 55 130" stroke="var(--text-muted)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+              <path d="M55 130 Q50 140, 55 145 Q62 148, 60 138" stroke="rgba(240, 140, 50, 0.8)" strokeWidth="2" fill="none" strokeLinecap="round" />
+              <circle cx="60" cy="90" r="5" fill="rgba(240, 140, 50, 0.7)" stroke="rgba(200, 100, 30, 0.8)" strokeWidth="1.5" />
+            </svg>
+          </div>
+        </main>
       </div>
     );
   }
