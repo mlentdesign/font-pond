@@ -26,6 +26,18 @@ jobs:
           cache: npm
 
       - run: npm ci
+      - name: Generate slug lists for all fonts and pairs
+        run: |
+          npx tsx -e "
+            import { fonts } from './src/data/fonts';
+            import { fontPairs } from './src/data/pairs';
+            import { writeFileSync } from 'fs';
+            writeFileSync('src/data/font-slugs.json', JSON.stringify(fonts.map(f => f.slug)));
+            writeFileSync('src/data/all-pair-slugs.json', JSON.stringify(fontPairs.map(p => p.slug)));
+            console.log('Generated', fonts.length, 'font slugs and', fontPairs.length, 'pair slugs');
+          "
+        env:
+          NODE_OPTIONS: "--max-old-space-size=8192"
       - run: npx next build
         env:
           NEXT_PUBLIC_BASE_PATH: /font-pond
