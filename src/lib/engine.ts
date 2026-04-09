@@ -3564,9 +3564,14 @@ function generateFitReason(
   const parts: string[] = [];
 
   if (personalities.length > 0) {
-    // Personality-aware description
-    const p = personalities[0];
-    parts.push(`Echoing ${p.label}'s ${p.traits} — ${hf.name} brings ${headerTone.toLowerCase()} energy with its ${headerTrait}`);
+    // Personality-aware description — combine all detected types
+    if (personalities.length === 1) {
+      const p = personalities[0];
+      parts.push(`Echoing ${p.label}'s ${p.traits} — ${hf.name} brings ${headerTone.toLowerCase()} energy with its ${headerTrait}`);
+    } else {
+      const combined = personalities.map(p => `${p.label}'s ${p.traits}`).join(" and ");
+      parts.push(`Blending ${combined} — ${hf.name} brings ${headerTone.toLowerCase()} energy with its ${headerTrait}`);
+    }
     if (uniqueConns.length > 0) {
       parts.push(`reflecting the ${uniqueConns.join(", ")} qualities`);
     }
@@ -3779,8 +3784,13 @@ export function rankPairs(
       const personalities = detectPersonalityTypes(promptWords, query);
       const parts: string[] = [];
       if (personalities.length > 0) {
-        const p = personalities[0];
-        parts.push(`Echoing ${p.label}'s ${p.traits} — this pair uses ${hf.name}, which brings ${headerTone.toLowerCase()} energy with its ${headerTrait}`);
+        if (personalities.length === 1) {
+          const p = personalities[0];
+          parts.push(`Echoing ${p.label}'s ${p.traits} — this pair uses ${hf.name}, which brings ${headerTone.toLowerCase()} energy with its ${headerTrait}`);
+        } else {
+          const combined = personalities.map(p => `${p.label}'s ${p.traits}`).join(" and ");
+          parts.push(`Blending ${combined} — this pair uses ${hf.name}, which brings ${headerTone.toLowerCase()} energy with its ${headerTrait}`);
+        }
       } else {
         parts.push(`For "${short}" — this pair uses ${hf.name}, which brings ${headerTone.toLowerCase()} energy with its ${headerTrait}`);
       }
