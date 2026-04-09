@@ -46,7 +46,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
     ? window.location.pathname.replace("/font-pond", "").replace(/\/$/, "").replace(/^\/font\//, "")
     : "";
   const slug = slugOverride || (pathSlug && pathSlug !== "/font" && pathSlug !== "" ? pathSlug : "");
-  const fromPair = searchParams.get("from");
+  const fromPair = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("from") : null;
 
   const font = fontsBySlug.get(slug);
 
