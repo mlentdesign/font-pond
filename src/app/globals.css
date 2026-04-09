@@ -1096,6 +1096,7 @@ body.animations-paused #water-bg * {
   col:nth-child(4) { width: 0 !important; }
   col:nth-child(5) { width: 35% !important; }
   .db-source-col { text-align: right !important; }
+  .db-source-col a, .db-source-col .outline-btn { float: right !important; }
 }
 
 .breadcrumb-inner {
