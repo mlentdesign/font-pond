@@ -317,13 +317,27 @@ export default function DatabasePage() {
         }
         if (i % 10 === 0) await new Promise((r) => setTimeout(r, 0));
       }
-      if (!cancelled) ensureFontsRendered(fontNames);
+      if (!cancelled) {
+        // Ensure fonts render after DOM updates with new font-family styles
+        ensureFontsRendered(fontNames);
+        // Second pass after a short delay to catch fonts that needed more time
+        setTimeout(() => { if (!cancelled) ensureFontsRendered(fontNames); }, 800);
+      }
     }
     loadPageFonts();
     return () => { cancelled = true; };
   }, [pageKey]);
 
   useEffect(() => { setPage(0); }, [sortKey, sortDir, search, categoryFilters, sourceFilters]);
+
+  // When filters change, force re-render of font specimens after a tick
+  // (pageKey effect handles loading, but this ensures a second render pass)
+  useEffect(() => {
+    const fontNames = pageRows.map((r) => r.name);
+    // Small delay to let React update the DOM with new font-family styles first
+    const t = setTimeout(() => ensureFontsRendered(fontNames), 200);
+    return () => clearTimeout(t);
+  }, [categoryFilters, sourceFilters]);
 
   const toggleSort = (key: SortKey) => {
     if (sortKey === key) setSortDir(sortDir === "asc" ? "desc" : "asc");
