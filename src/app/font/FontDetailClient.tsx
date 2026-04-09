@@ -237,7 +237,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
         {/* Font name, creator, and download */}
         <div ref={downloadRef} className="flex flex-col sm:flex-row sm:items-start sm:justify-between" style={{ marginBottom: "24px", gap: "16px" }}>
           <div>
-            <h2 className="text-3xl font-semibold text-neutral-900 mb-1">{font.name}</h2>
+            <h1 className="text-3xl font-semibold text-neutral-900 mb-1">{font.name}</h1>
             <p className="text-sm text-neutral-400">
               {font.designer ? `By ${font.designer}` : "By unknown creator"}
               {font.year && ` · ${font.year}`}

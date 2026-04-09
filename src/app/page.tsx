@@ -81,9 +81,9 @@ export default function Home() {
           style={hasSearched ? { paddingTop: "80px", flex: "none" } : { justifyContent: "center" }}
         >
           <div style={{ marginBottom: hasSearched ? "24px" : "40px", textAlign: "center" }}>
-            <h2 className="describe-heading font-semibold tracking-tight" style={{ color: "var(--text-ransom)", fontSize: "24px" }}>
+            <h1 className="describe-heading font-semibold tracking-tight" style={{ color: "var(--text-ransom)", fontSize: "24px" }}>
               Describe your project, mood, or brand
-            </h2>
+            </h1>
           </div>
 
           <PromptInput />
