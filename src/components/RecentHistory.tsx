@@ -87,7 +87,7 @@ export function RecentHistory() {
               {recentItems.map((item) => (
                 <li key={item.id}>
                   <Link
-                    href={item.type === "pair" ? `/pair/${item.slug}` : `/font/${item.slug}`}
+                    href={item.type === "pair" ? `/pair?p=${item.slug}` : `/font?f=${item.slug}`}
                     className="flex items-center transition-colors card-hover"
                     style={{ padding: "8px 16px", gap: "8px" }}
                     onClick={() => setIsOpen(false)}
