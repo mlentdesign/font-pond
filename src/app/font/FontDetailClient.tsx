@@ -46,10 +46,14 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
   const slug = slugOverride || searchParams.get("f") || "";
   const fromPair = searchParams.get("from");
 
-  // Note: not rewriting URL via replaceState — it desynchronises Next.js router
-  // and causes stale page content on back/forward navigation
-
   const font = fontsBySlug.get(slug);
+
+  // Swap to clean CMS URL after font loads
+  useEffect(() => {
+    if (font && slug && searchParams.get("f") === slug) {
+      window.history.replaceState(null, "", `/font-pond/font/${slug}`);
+    }
+  }, [font, slug, searchParams]);
 
   // Build breadcrumb trail
   const crumbs: { label: string; href?: string }[] = [];
