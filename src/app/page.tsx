@@ -12,9 +12,16 @@ import { rankPairs, explorePairs } from "@/lib/engine";
 export default function Home() {
   const { hasSearched, results, setQuery, setResults, setHasSearched, setIsExploring, setVisibleCount, setIsLoading } = useAppState();
 
-  // Restore last search when returning via breadcrumb (?restore=1)
+  // Restore last search (?restore=1) or trigger explore (?explore=1)
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    if (params.get("explore") === "1") {
+      setHasSearched(true);
+      setIsExploring(true);
+      setVisibleCount(3);
+      setResults(explorePairs());
+      return;
+    }
     if (params.get("restore") !== "1") return;
     try {
       const saved = localStorage.getItem("font-pond-last-query");
