@@ -581,7 +581,7 @@ export default function DatabasePage() {
                     <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>
                       {titleCase(row.category)}
                     </td>
-                    <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", textAlign: "right" }} className="tabular-nums db-pairs-col">
+                    <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", textAlign: "center" }} className="tabular-nums db-pairs-col">
                       {row.pairCount}
                     </td>
                     <td style={{ padding: "16px" }}>
