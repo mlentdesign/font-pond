@@ -208,7 +208,7 @@ export default function DatabasePage() {
     syncWidths();
     window.addEventListener("resize", syncWidths);
     return () => window.removeEventListener("resize", syncWidths);
-  }, [pageRows]);
+  }, [page, sortKey, sortDir, search]);
 
   // Detect when sticky header is stuck via scroll position
   useEffect(() => {
