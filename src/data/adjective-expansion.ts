@@ -347,11 +347,23 @@ export const SYNONYM_MAP: Record<string, string[]> = {
   "9w8": ["balanced", "grounded", "neutral", "calm", "strong", "readable"],
   "9w1": ["balanced", "principled", "neutral", "clean", "structured", "serif"],
 
-  // ── DISC types ──
+  // ── DISC types (single + blends) ──
   "disc-d": ["bold", "direct", "condensed", "commanding", "impactful", "heavy"],
   "disc-i": ["friendly", "rounded", "warm", "approachable", "energetic", "social"],
   "disc-s": ["reliable", "traditional", "readable", "trustworthy", "calm", "serif"],
   "disc-c": ["analytical", "monospace", "precise", "technical", "structured", "clean"],
+  "disc-di": ["bold", "warm", "confident", "charismatic", "modern", "energetic"],
+  "disc-id": ["warm", "bold", "enthusiastic", "confident", "dynamic", "approachable"],
+  "disc-dc": ["bold", "precise", "structured", "commanding", "analytical", "clean"],
+  "disc-cd": ["precise", "bold", "technical", "structured", "commanding", "analytical"],
+  "disc-is": ["warm", "reliable", "friendly", "approachable", "calm", "readable"],
+  "disc-si": ["reliable", "warm", "trustworthy", "friendly", "approachable", "calm"],
+  "disc-sc": ["reliable", "precise", "structured", "trustworthy", "analytical", "clean"],
+  "disc-cs": ["precise", "reliable", "analytical", "structured", "trustworthy", "technical"],
+  "disc-ds": ["bold", "reliable", "commanding", "grounded", "structured", "strong"],
+  "disc-sd": ["reliable", "bold", "calm", "structured", "grounded", "commanding"],
+  "disc-ic": ["friendly", "analytical", "warm", "precise", "approachable", "structured"],
+  "disc-ci": ["analytical", "friendly", "precise", "warm", "technical", "approachable"],
 
   // ── Western Zodiac ──
   "aries": ["bold", "competitive", "energetic", "impactful", "fierce", "dynamic"],
