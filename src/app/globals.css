@@ -1100,6 +1100,9 @@ body.animations-paused #water-bg * {
   th:last-child {
     text-align: right !important;
   }
+  .db-source-cell {
+    text-align: right !important;
+  }
 }
 
 .breadcrumb-inner {

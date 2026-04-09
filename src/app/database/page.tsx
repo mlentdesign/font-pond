@@ -314,7 +314,7 @@ export default function DatabasePage() {
   };
 
   const arrow = (key: SortKey) =>
-    sortKey === key ? (sortDir === "asc" ? " ▲" : " ▼") : "";
+    sortKey === key ? (sortDir === "asc" ? " ▲" : " ▼") : " \u2003";
 
   const thClass = "text-left uppercase tracking-wider cursor-pointer hover:opacity-70 select-none";
   const thStyle = { fontSize: "12px", padding: "20px 16px", whiteSpace: "nowrap" as const, color: "var(--text-label)" };
@@ -559,7 +559,7 @@ export default function DatabasePage() {
                     <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", textAlign: "right" }} className="tabular-nums db-pairs-col">
                       {row.pairCount}
                     </td>
-                    <td style={{ padding: "16px", textAlign: "right" }}>
+                    <td className="db-source-cell" style={{ padding: "16px" }}>
                       <a
                         href={row.sourceUrl}
                         target="_blank"
