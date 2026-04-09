@@ -3663,7 +3663,7 @@ export function explorePairs(): ScoredPair[] {
 }
 
 export function getPairsWithFont(fontId: string): ScoredPair[] {
-  return fontPairs
+  const results = fontPairs
     .filter((p) => p.headerFontId === fontId || p.bodyFontId === fontId)
     .map((p) => {
       const h = fontsById.get(p.headerFontId);
@@ -3672,4 +3672,6 @@ export function getPairsWithFont(fontId: string): ScoredPair[] {
       return { ...p, relevanceScore: p.overallScore, promptFitReason: p.shortExplanation, headerFont: h, bodyFont: b } as ScoredPair;
     })
     .filter(Boolean) as ScoredPair[];
+  results.sort((a, b) => b.overallScore - a.overallScore);
+  return results;
 }
