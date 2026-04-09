@@ -299,6 +299,7 @@ function makePair(header: Font, body: Font, existingSlugs: Set<string>): FontPai
 
   return {
     id,
+    url: `/pair/${slug}`,
     slug,
     headerFontId: header.id,
     bodyFontId: body.id,
@@ -455,7 +456,8 @@ function makeCuratedPair(header: Font, body: Font, existingSlugs: Set<string>): 
   const overallScore = Math.min(92, Math.max(78, Math.round(78 + (baseScore - 7) * 4 + (hash % 3))));
 
   return {
-    id, slug,
+    id,
+    url: `/pair/${slug}`, slug,
     headerFontId: header.id,
     bodyFontId: body.id,
     rationale, shortExplanation, toneSummary,
