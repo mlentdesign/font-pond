@@ -1089,19 +1089,14 @@ body.animations-paused #water-bg * {
   .db-specimen-break {
     display: block !important;
   }
-  col:nth-child(1) { width: 22% !important; }
-  col:nth-child(2) { width: 33% !important; }
-  col:nth-child(3) { width: 17% !important; }
-  col:nth-child(4) { width: 0% !important; }
-  col:nth-child(5) { width: 28% !important; }
-  .db-pairs-col {
+  table {
+    table-layout: auto !important;
+  }
+  colgroup {
     display: none !important;
   }
-  th:last-child {
-    text-align: right !important;
-  }
-  .db-source-cell {
-    text-align: right !important;
+  .db-pairs-col {
+    display: none !important;
   }
 }
 
