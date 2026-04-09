@@ -43,7 +43,7 @@ export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: C
         <nav aria-label="Breadcrumb" style={sticky ? { flex: stickyAction ? undefined : 1 } : { marginBottom: "24px" }}>
           <ol className="flex items-center text-xs text-neutral-400 flex-wrap">
             <li>
-              <Link href="/?restore=1" className="transition-colors hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>
+              <Link href="/?restore=1" className="hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>
                 Results
               </Link>
             </li>
@@ -51,7 +51,7 @@ export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: C
               <li key={i} className={i === crumbs.length - 1 ? "text-neutral-600" : ""}>
                 <span aria-hidden="true" className="text-neutral-400" style={{ marginLeft: "8px", marginRight: "8px" }}>/</span>
                 {crumb.href ? (
-                  <Link href={crumb.href} className="transition-colors hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>
+                  <Link href={crumb.href} className="hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>
                     {crumb.label}
                   </Link>
                 ) : (

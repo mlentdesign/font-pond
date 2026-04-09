@@ -30,7 +30,7 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
       onClick={() => { navigateToPair(router, pair.slug); }}
       onMouseDown={(e) => e.preventDefault()}
       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navigateToPair(router, pair.slug); } }}
-      className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-md transition-all cursor-pointer overflow-hidden"
+      className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-md cursor-pointer overflow-hidden"
       style={{ position: "relative" }}
     >
       {/* Hover arrow */}
