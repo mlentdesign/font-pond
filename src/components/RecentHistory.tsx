@@ -88,10 +88,9 @@ export function RecentHistory() {
                 <li key={item.id}>
                   <Link
                     href={item.type === "pair" ? `/pair?p=${item.slug}` : `/font?f=${item.slug}`}
-                    onClick={() => requestAnimationFrame(() => window.history.replaceState(null, "", `/font-pond/${item.type === "pair" ? "pair" : "font"}/${item.slug}`))}
                     className="flex items-center transition-colors card-hover"
                     style={{ padding: "8px 16px", gap: "8px" }}
-                    onClick={() => { setIsOpen(false); }}
+                    onClick={() => { setIsOpen(false); requestAnimationFrame(() => window.history.replaceState(null, "", `/font-pond/${item.type === "pair" ? "pair" : "font"}/${item.slug}`)); }}
                   >
                     <span
                       className="shrink-0 rounded uppercase tracking-wider font-medium"
