@@ -39,7 +39,6 @@ function gf(name: string, googleFamily: string, classification: string, tags: st
 }
 
 export const allGoogleFonts: Font[] = [
-  gf("42dot Sans", "42dot Sans", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "42dot"),
   gf("ABeeZee", "ABeeZee", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Anja Meiners"),
   gf("Abel", "Abel", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "MADType"),
   gf("Abhaya Libre", "Abhaya Libre", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Mooniak"),
@@ -296,7 +295,6 @@ export const allGoogleFonts: Font[] = [
   gf("Brawler", "Brawler", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Cyreal"),
   gf("Bree Serif", "Bree Serif", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "TypeTogether"),
   gf("Bricolage Grotesque", "Bricolage Grotesque", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Mathieu Triay"),
-  gf("Briem Hand", "Briem Hand", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true),
   gf("Bruno Ace", "Bruno Ace", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Astigmatic"),
   gf("Bruno Ace SC", "Bruno Ace SC", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Astigmatic"),
   gf("Brygada 1918", "Brygada 1918", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Capitalics & Mateusz Machalski & Borys Kosmynka & Ania Wieluńska & Przemysław Hoffer"),
@@ -1525,7 +1523,6 @@ export const allGoogleFonts: Font[] = [
   gf("Puppies Play", "Puppies Play", "handwritten", ["handwritten","casual","personal","script","fun"], ["casual","personal","friendly"], false, true, "Robert Leuschke"),
   gf("Puritan", "Puritan", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Ben Weiner"),
   gf("Purple Purse", "Purple Purse", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Astigmatic"),
-  gf("Pushster", "Pushster", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true),
   gf("Qahiri", "Qahiri", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Khaled Hosny"),
   gf("Quando", "Quando", "serif", ["serif","classic","traditional","readable","editorial"], ["classic","traditional","literary"], true, true, "Joana Correia"),
   gf("Quantico", "Quantico", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "MADType"),

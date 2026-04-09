@@ -3,7 +3,6 @@
 import { Font } from "./types";
 type GfAnatomyTuple = [Font["xHeightRatio"], Font["apertureOpenness"], Font["strokeContrast"], Font["letterSpacing"], Font["moodCategory"]];
 export const GF_ANATOMY: Record<string, GfAnatomyTuple> = {
-"42dot-sans": ["moderate", "moderate", "none", "normal", "modern"],
   "abeezee": ["moderate", "moderate", "none", "normal", "modern"],
   "abel": ["moderate", "moderate", "none", "normal", "modern"],
   "abhaya-libre": ["moderate", "moderate", "moderate", "normal", "traditional"],
@@ -260,7 +259,6 @@ export const GF_ANATOMY: Record<string, GfAnatomyTuple> = {
   "brawler": ["moderate", "moderate", "moderate", "normal", "traditional"],
   "bree-serif": ["moderate", "moderate", "moderate", "normal", "traditional"],
   "bricolage-grotesque": ["moderate", "moderate", "none", "normal", "modern"],
-  "briem-hand": ["low", "open", "low", "normal", "warm"],
   "bruno-ace": ["moderate", "moderate", "low", "normal", "bold"],
   "bruno-ace-sc": ["moderate", "moderate", "low", "normal", "bold"],
   "brygada-1918": ["moderate", "moderate", "moderate", "normal", "traditional"],
@@ -1489,7 +1487,6 @@ export const GF_ANATOMY: Record<string, GfAnatomyTuple> = {
   "puppies-play": ["low", "open", "low", "normal", "warm"],
   "puritan": ["moderate", "moderate", "none", "normal", "modern"],
   "purple-purse": ["moderate", "moderate", "low", "normal", "bold"],
-  "pushster": ["moderate", "moderate", "low", "normal", "bold"],
   "qahiri": ["moderate", "moderate", "none", "normal", "modern"],
   "quando": ["moderate", "moderate", "moderate", "normal", "traditional"],
   "quantico": ["moderate", "moderate", "none", "normal", "modern"],
