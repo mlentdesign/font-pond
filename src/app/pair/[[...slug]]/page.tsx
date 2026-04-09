@@ -1,10 +1,11 @@
-"use client";
+import PairSlugClient from "./PairSlugClient";
 
-import { use } from "react";
-import PairDetailClient from "../PairDetailClient";
+export function generateStaticParams() {
+  return [{ slug: [] }];
+}
 
-export default function PairPage({ params }: { params: Promise<{ slug?: string[] }> }) {
-  const { slug } = use(params);
+export default async function PairPage({ params }: { params: Promise<{ slug?: string[] }> }) {
+  const { slug } = await params;
   const pairSlug = slug?.[0] || "";
-  return <PairDetailClient slugOverride={pairSlug || undefined} />;
+  return <PairSlugClient slug={pairSlug} />;
 }
