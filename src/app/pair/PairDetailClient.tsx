@@ -153,7 +153,11 @@ function FontSection({
 
 export default function PairDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
   const searchParams = useSearchParams();
-  const slug = slugOverride || searchParams.get("p") || "";
+  // Read slug from: prop override → query param → URL path
+  const pathSlug = typeof window !== "undefined"
+    ? window.location.pathname.replace("/font-pond", "").replace(/\/$/, "").replace(/^\/pair\//, "")
+    : "";
+  const slug = slugOverride || searchParams.get("p") || (pathSlug && pathSlug !== "/pair" ? pathSlug : "");
   const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
 
   const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
