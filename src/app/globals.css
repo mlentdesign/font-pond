@@ -1097,6 +1097,9 @@ body.animations-paused #water-bg * {
   .db-pairs-col {
     display: none !important;
   }
+  th:last-child, td:last-child {
+    text-align: right !important;
+  }
 }
 
 .breadcrumb-inner {
