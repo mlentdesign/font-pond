@@ -30,6 +30,8 @@ jobs:
         env:
           NEXT_PUBLIC_BASE_PATH: /font-pond
           NODE_OPTIONS: "--max-old-space-size=8192"
+      - name: Generate remaining pair pages
+        run: node scripts/generate-remaining-pairs.mjs
 
       - uses: actions/upload-pages-artifact@v3
         with:
