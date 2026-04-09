@@ -25,7 +25,8 @@ export function HeaderWithFontInfo() {
 
   const handleFontClick = () => {
     if (currentSlug) {
-      window.location.href = `/font-pond/font/${currentSlug}`;
+      router.push(`/font?f=${currentSlug}`);
+      setTimeout(() => window.history.replaceState(null, "", `/font-pond/font/${currentSlug}`), 100);
       setShowTooltip(false);
     }
   };
