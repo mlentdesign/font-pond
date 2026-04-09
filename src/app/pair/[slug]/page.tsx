@@ -1,8 +1,12 @@
 import pairSlugs from "@/data/pair-slugs.json";
-import PairSlugClient from "./PairSlugClient";
+import PairSlugLoader from "./PairSlugLoader";
 
 export function generateStaticParams() {
-  return pairSlugs.map((slug: string) => ({ slug }));
+  const params: { slug: string }[] = [];
+  for (let i = 0; i < pairSlugs.length; i++) {
+    params.push({ slug: pairSlugs[i] as string });
+  }
+  return params;
 }
 
 export default async function PairSlugPage({
@@ -11,5 +15,5 @@ export default async function PairSlugPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  return <PairSlugClient slug={slug} />;
+  return <PairSlugLoader slug={slug} />;
 }

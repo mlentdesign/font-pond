@@ -1,21 +1,29 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+
+// Render pair/font detail directly on 404 — keeps the clean URL without redirect
+const PairDetailClient = dynamic(() => import("./pair/PairDetailClient"), { ssr: false });
+const FontDetailClient = dynamic(() => import("./font/FontDetailClient"), { ssr: false });
 
 export default function NotFound() {
+  const [route, setRoute] = useState<{ type: "pair" | "font"; slug: string } | null>(null);
+
   useEffect(() => {
-    // SPA redirect: convert clean URLs to query-param format for pairs/fonts
-    // that don't have static pages (dynamic pairs)
-    const path = window.location.pathname.replace("/font-pond", "");
+    const path = window.location.pathname.replace("/font-pond", "").replace(/\/$/, "");
     const pairMatch = path.match(/^\/pair\/(.+)/);
     const fontMatch = path.match(/^\/font\/(.+)/);
 
-    if (pairMatch) {
-      window.location.replace("/font-pond/pair?p=" + pairMatch[1]);
-    } else if (fontMatch) {
-      window.location.replace("/font-pond/font?f=" + fontMatch[1]);
-    }
+    if (pairMatch) setRoute({ type: "pair", slug: pairMatch[1] });
+    else if (fontMatch) setRoute({ type: "font", slug: fontMatch[1] });
   }, []);
+
+  if (route?.type === "pair") return <PairDetailClient slugOverride={route.slug} />;
+  if (route?.type === "font") return <FontDetailClient slugOverride={route.slug} />;
+
+  // Actual 404 — not a font/pair URL
+  if (route === null) return null; // Still detecting
 
   return (
     <div
@@ -32,7 +40,7 @@ export default function NotFound() {
           Page not found
         </h1>
         <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
-          Redirecting...
+          <a href="/font-pond/" style={{ color: "var(--accent)" }}>Go to Font Pond</a>
         </p>
       </div>
     </div>
