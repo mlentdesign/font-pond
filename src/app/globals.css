@@ -1092,8 +1092,6 @@ body.animations-paused #water-bg * {
   .db-pairs-col {
     display: none !important;
   }
-  /* Hide pairs column entirely including its col element */
-  col:nth-child(4) { visibility: collapse !important; }
   /* Source column right-aligned on tablet/mobile */
 }
 
