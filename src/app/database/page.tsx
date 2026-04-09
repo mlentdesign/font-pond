@@ -485,11 +485,11 @@ export default function DatabasePage() {
             <div ref={headerScrollRef} style={{ overflowX: "auto", width: "100%" }}>
               <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed", minWidth: "800px" }}>
                 <colgroup>
-                  <col style={{ width: showPairs ? "20%" : "22%" }} />
-                  <col style={{ width: showPairs ? "30%" : "35%" }} />
-                  <col style={{ width: showPairs ? "15%" : "18%" }} />
+                  <col style={{ width: showPairs ? "20%" : "20%" }} />
+                  <col style={{ width: showPairs ? "30%" : "30%" }} />
+                  <col style={{ width: showPairs ? "15%" : "20%" }} />
                   {showPairs && <col style={{ width: "10%" }} />}
-                  <col style={{ width: "25%" }} />
+                  <col style={{ width: showPairs ? "25%" : "30%" }} />
                 </colgroup>
                 <thead>
                   <tr>
