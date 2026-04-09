@@ -1092,6 +1092,13 @@ body.animations-paused #water-bg * {
   .db-pairs-col {
     display: none !important;
   }
+  /* Body table auto-sizes, JS syncs widths to header */
+  .db-body-table {
+    table-layout: auto !important;
+  }
+  th:last-child {
+    text-align: right !important;
+  }
 }
 
 .breadcrumb-inner {
