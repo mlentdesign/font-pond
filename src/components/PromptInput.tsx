@@ -248,7 +248,7 @@ export function PromptInput() {
             )}
             <label
               htmlFor="image-upload"
-              className="flex items-center rounded-lg cursor-pointer transition-colors add-image-hover"
+              className="flex items-center rounded-lg cursor-pointer add-image-hover"
               style={{
                 fontSize: "16px",
                 fontWeight: 600,
@@ -337,7 +337,7 @@ export function PromptInput() {
             />
             <label
               htmlFor="image-upload"
-              className="flex items-center rounded-lg cursor-pointer transition-colors"
+              className="flex items-center rounded-lg cursor-pointer "
               style={{
                 fontSize: "16px",
                 fontWeight: 600,
@@ -378,7 +378,7 @@ export function PromptInput() {
           <div className="action-bar-ctas flex items-center" style={{ gap: "16px" }}>
             <button
               onClick={handleExplore}
-              className="outline-btn font-medium rounded-lg transition-colors"
+              className="outline-btn font-medium rounded-lg"
               style={{ fontSize: "16px", padding: "8px 24px" }}
             >
               Explore
@@ -392,7 +392,7 @@ export function PromptInput() {
               <button
                 onClick={handleSubmit}
                 disabled={isDisabled}
-                className={`font-medium rounded-lg transition-colors disabled:cursor-not-allowed${isDisabled ? "" : " btn-generate"}`}
+                className={`font-medium rounded-lg disabled:cursor-not-allowed${isDisabled ? "" : " btn-generate"}`}
                 style={{
                   fontSize: "16px",
                   ...(isDisabled ? { background: "var(--generate-bg-disabled)", color: "var(--generate-text-disabled)", border: "2px solid transparent" } : {}),
