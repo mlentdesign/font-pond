@@ -236,14 +236,21 @@ h1, h2, h3, h4, h5, h6, p, span, a, div {
 }
 
 /* Keyboard focus indicator — visible only on keyboard navigation */
+/* Focus ring only for keyboard navigation, never for mouse clicks */
+*:focus:not(:focus-visible) {
+  outline: none !important;
+}
 *:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 4px;
 }
-/* Remove default outline for mouse users */
-*:focus:not(:focus-visible) {
-  outline: none;
+/* Firefox: suppress its internal focus ring for mouse clicks */
+*:focus:not(:focus-visible)::-moz-focus-inner {
+  border: 0;
+}
+*:-moz-focusring:not(:focus-visible) {
+  outline: none !important;
 }
 /* Mouse users: cards show hover feedback, not focus outline */
 @media (hover: hover) {
