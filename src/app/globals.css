@@ -1089,6 +1089,13 @@ body.animations-paused #water-bg * {
   .db-specimen-break {
     display: block !important;
   }
+  .db-pairs-col {
+    display: none !important;
+    width: 0 !important;
+    max-width: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
 }
 
 .breadcrumb-inner {
