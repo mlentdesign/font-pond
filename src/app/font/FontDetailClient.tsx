@@ -255,7 +255,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
               Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes, line lengths, line-spacing, and letter-spacing, and adjusting the space between pairs of letters.
             </p>
             <p style={{ fontFamily: family, fontWeight: 400, fontSize: "14px", lineHeight: 1.6 }} className="specimen-14 text-neutral-500">
-              At {hasNums ? "14" : <span style={{ fontFamily: "system-ui, sans-serif" }}>14</span>} px: Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes, line lengths, line-spacing, and letter-spacing.
+              At {hasNums ? "14" : <span style={{ fontFamily: "system-ui, sans-serif", color: "inherit" }}>14</span>} px: Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes, line lengths, line-spacing, and letter-spacing.
             </p>
           </div>
 
@@ -267,7 +267,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
             <p style={{ fontFamily: family, fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600 mb-2">
               abcdefghijklmnopqrstuvwxyz
             </p>
-            <p style={{ fontFamily: hasNums ? family : "system-ui, sans-serif", fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600">
+            <p style={{ fontFamily: hasNums ? family : "system-ui, sans-serif", color: "inherit", fontWeight: 400, fontSize: "18px" }} className="specimen-18 text-neutral-600">
               0123456789 !@#$%^&*()-=+[]{'{'}|;:&apos;,./&lt;&gt;?
             </p>
           </div>
@@ -279,7 +279,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
               <div className="space-y-2">
                 {font.weights.map((w) => (
                   <p key={w} style={{ fontWeight: w, fontSize: "18px" }} className="specimen-18 text-neutral-700">
-                    <span style={{ fontFamily: hasNums ? family : "system-ui, sans-serif" }}>{w} —</span> <span style={{ fontFamily: family }}>The quick brown fox jumps over the lazy dog</span>
+                    <span style={{ fontFamily: hasNums ? family : "system-ui, sans-serif", color: "inherit" }}>{w} —</span> <span style={{ fontFamily: family }}>The quick brown fox jumps over the lazy dog</span>
                   </p>
                 ))}
               </div>
