@@ -27,6 +27,7 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
       tabIndex={0}
       aria-label={`View font pair: ${headerFont.name} and ${bodyFont.name}`}
       onClick={() => router.push(`/pair/${pair.slug}`)}
+      onMouseDown={(e) => e.preventDefault()}
       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push(`/pair/${pair.slug}`); } }}
       className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-md transition-all cursor-pointer overflow-hidden"
       style={{ position: "relative" }}
