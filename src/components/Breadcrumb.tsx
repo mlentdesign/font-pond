@@ -19,9 +19,9 @@ export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: C
       const h = header.getBoundingClientRect().height;
       const w = window.innerWidth;
       const vh = window.innerHeight;
-      // Reduce gap on known tablet dimensions (width + height both match real tablets)
-      const isTabletSize = (w >= 768 && w <= 1366 && vh <= 1180) || (w >= 1024 && w <= 1366 && vh <= 834);
-      const gap = w >= 1024 ? (isTabletSize ? 40 : 80) : w >= 768 ? (isTabletSize ? 24 : 56) : 12;
+      // Reduce gap when viewport height is short (tablet or shorter desktop windows)
+      const isShortHeight = vh <= 900;
+      const gap = w >= 1024 ? (isShortHeight ? 40 : 80) : w >= 768 ? (isShortHeight ? 24 : 56) : 12;
       setStickyTop(h + gap);
     };
     update();
