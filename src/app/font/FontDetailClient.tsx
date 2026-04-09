@@ -149,7 +149,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
       }
       suggestions.sort((a, b) => a.dist - b.dist);
     }
-    const topSuggestions = suggestions.slice(0, 5);
+    const bestMatch = suggestions.length > 0 ? suggestions[0] : null;
 
     return (
       <div className="flex-1 flex flex-col">
@@ -157,29 +157,27 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
         <main className="flex-1 flex items-center justify-center" style={{ textAlign: "center", padding: "0 24px" }}>
           <div>
             <h1 className="font-semibold tracking-tight describe-heading" style={{ color: "var(--text-heading)", fontSize: "24px", marginBottom: "8px" }}>
-              We&rsquo;re so sorry
+              Font not found
             </h1>
-            <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
-              Font not found.
-            </p>
-            {topSuggestions.length > 0 && (
-              <div style={{ marginTop: "16px" }}>
-                <p style={{ fontSize: "14px", color: "var(--text-muted)", marginBottom: "8px" }}>
-                  Did you mean
-                </p>
-                <div className="flex items-center justify-center flex-wrap" style={{ gap: "8px" }}>
-                  {topSuggestions.map((s) => (
-                    <Link
-                      key={s.slug}
-                      href={`/font?f=${s.slug}`}
-                      className="outline-btn font-medium rounded-lg inline-block transition-colors"
-                      style={{ fontSize: "16px", padding: "8px 16px" }}
-                    >
-                      {s.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
+            {bestMatch ? (
+              <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
+                Did you mean{" "}
+                <Link
+                  href={`/font?f=${bestMatch.slug}`}
+                  style={{ color: "var(--text-link)", textDecoration: "underline" }}
+                >
+                  {bestMatch.name}
+                </Link>
+                ?
+              </p>
+            ) : (
+              <Link
+                href="/?explore=1"
+                className="outline-btn font-medium rounded-lg inline-block transition-colors"
+                style={{ fontSize: "16px", padding: "8px 24px", marginTop: "8px" }}
+              >
+                Explore font pairs
+              </Link>
             )}
             <FishingLine />
           </div>
