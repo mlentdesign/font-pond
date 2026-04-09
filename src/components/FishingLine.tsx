@@ -11,13 +11,13 @@ export function FishingLine() {
     const ctx = canvas.getContext("2d")!;
     if (!ctx) return;
 
-    const W = 160, H = 200;
+    const W = 160, H = 240;
     canvas.width = W * 2; // retina
     canvas.height = H * 2;
     ctx.scale(2, 2);
 
-    // Rod pivot (handle)
-    const pivotX = 50, pivotY = 30;
+    // Rod pivot (handle) — pushed down to give room for upswing
+    const pivotX = 50, pivotY = 65;
     const rodLen = 60;
 
     // Line segments (rope simulation)
@@ -195,7 +195,7 @@ export function FishingLine() {
   return (
     <canvas
       ref={canvasRef}
-      style={{ width: "160px", height: "200px", margin: "48px auto 0", display: "block" }}
+      style={{ width: "160px", height: "240px", margin: "32px auto 0", display: "block" }}
       aria-hidden="true"
     />
   );
