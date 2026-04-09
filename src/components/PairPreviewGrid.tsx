@@ -75,7 +75,7 @@ export function PairPreviewGrid({
               key={p.id}
               href={`/pair?p=${p.slug}`}
               onMouseDown={(e) => e.preventDefault()}
-              className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
+              className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden"
               style={{ padding: "24px", position: "relative" }}
             >
               <span
@@ -113,7 +113,7 @@ export function PairPreviewGrid({
         <div className="text-center" style={{ marginTop: "32px" }}>
           <button
             onClick={() => setVisible(Math.min(visible + adjustedIncrement, pairs.length))}
-            className="outline-btn font-medium rounded-lg transition-colors"
+            className="outline-btn font-medium rounded-lg"
             style={{ fontSize: "16px", padding: "8px 24px" }}
           >
             Load more pairs

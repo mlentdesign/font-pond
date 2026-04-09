@@ -133,7 +133,7 @@ export function ResultsGrid() {
         <div className="text-center" style={{ marginTop: "32px" }}>
           <button
             onClick={() => setVisibleCount(Math.min(visibleCount + loadIncrement, results.length))}
-            className="outline-btn font-medium rounded-lg transition-colors"
+            className="outline-btn font-medium rounded-lg"
             style={{ fontSize: "16px", padding: "8px 24px" }}
           >
             Load more pairs

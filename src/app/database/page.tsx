@@ -57,7 +57,7 @@ function Pagination({ page, totalPages, goPage, pageWindow }: { page: number; to
           <button
             key={p}
             onClick={() => goPage(p)}
-            className={`rounded-md transition-colors ${p === page ? "font-semibold" : "hover:opacity-70"}`}
+            className={`rounded-md ${p === page ? "font-semibold" : "hover:opacity-70"}`}
             style={{
               ...btnStyle,
               color: p === page ? "var(--text-heading)" : "var(--text-muted)",
@@ -346,7 +346,7 @@ export default function DatabasePage() {
             <div ref={filterRef} style={{ position: "relative" }}>
               <button
                 onClick={() => setFilterOpen(!filterOpen)}
-                className="flex items-center justify-center rounded-lg transition-colors hover:opacity-70"
+                className="flex items-center justify-center rounded-lg hover:opacity-70"
                 style={{
                   height: "44px",
                   padding: activeFilterCount > 0 ? "0 12px" : "0",

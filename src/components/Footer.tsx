@@ -71,7 +71,7 @@ export function Footer() {
       <div className="footer-right flex items-center shrink-0" style={{ gap: "24px" }}>
         <button
           onClick={togglePause}
-          className="flex items-center transition-colors hover:opacity-70 footer-pause-btn"
+          className="flex items-center hover:opacity-70 footer-pause-btn"
           style={{
             fontSize: "16px",
             color: "var(--text-ransom)",
