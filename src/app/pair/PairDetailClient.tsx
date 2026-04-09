@@ -10,6 +10,7 @@ import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fo
 import { titleCase, sentenceCase, getSourceLabel, formatClassification, formatContrastType, chipCase, fontHasNumbers } from "@/lib/text";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
+import { FishingLine } from "@/components/FishingLine";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { SectionCard } from "@/components/SectionCard";
 import { ChipGroup } from "@/components/ChipGroup";
@@ -210,8 +211,23 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
   if (!pair || !headerFont || !bodyFont) {
     return (
-      <div className="flex-1 flex items-center justify-center">
-        <p className="text-neutral-400">Pair not found.</p>
+      <div className="flex-1 flex flex-col">
+        <DetailPageHeader />
+        <main className="flex-1 flex items-center justify-center" style={{ textAlign: "center", padding: "0 24px" }}>
+          <div>
+            <h1 className="font-semibold tracking-tight describe-heading" style={{ color: "var(--text-heading)", fontSize: "24px", marginBottom: "8px" }}>
+              Pair not found
+            </h1>
+            <Link
+              href="/?explore=1"
+              className="outline-btn font-medium rounded-lg inline-block transition-colors"
+              style={{ fontSize: "16px", padding: "8px 24px", marginTop: "8px" }}
+            >
+              Explore font pairs
+            </Link>
+            <FishingLine />
+          </div>
+        </main>
       </div>
     );
   }
