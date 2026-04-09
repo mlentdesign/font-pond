@@ -165,7 +165,6 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                     <Link
                       key={s.slug}
                       href={`/font?f=${s.slug}`}
-                      onClick={() => requestAnimationFrame(() => window.history.replaceState(null, "", `/font-pond/font/${s.slug}`))}
                       className="outline-btn font-medium rounded-lg inline-block transition-colors"
                       style={{ fontSize: "16px", padding: "8px 16px" }}
                     >
@@ -408,7 +407,6 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                     <Link
                       key={sf.slug}
                       href={`/font?f=${sf.slug}`}
-                      onClick={() => requestAnimationFrame(() => window.history.replaceState(null, "", `/font-pond/font/${sf.slug}`))}
                       onMouseDown={(e) => e.preventDefault()}
                       className="group block border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
                       style={{ position: "relative" }}
