@@ -43,8 +43,19 @@ function InfoRow({ label, value, useTitle, useClassification }: { label: string;
 
 export default function FontDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
   const searchParams = useSearchParams();
-  const slug = slugOverride || searchParams.get("f") || "";
+  const paramSlug = slugOverride || searchParams.get("f") || "";
+  const [slug, setSlug] = useState(paramSlug);
   const fromPair = searchParams.get("from");
+
+  // Lock in the slug, then clean the URL
+  useEffect(() => {
+    if (paramSlug) {
+      setSlug(paramSlug);
+      if (window.location.search.includes("f=")) {
+        window.history.replaceState(null, "", `/font-pond/font/${paramSlug}`);
+      }
+    }
+  }, [paramSlug]);
 
   const font = fontsBySlug.get(slug);
 
