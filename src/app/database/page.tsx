@@ -137,7 +137,7 @@ export default function DatabasePage() {
   const [stickyTop, setStickyTop] = useState(100);
   const [searchExpanded, setSearchExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [showPairs, setShowPairs] = useState(true);
+  const [showPairs, setShowPairs] = useState(false);
 
   // Track mobile viewport
   useEffect(() => {
