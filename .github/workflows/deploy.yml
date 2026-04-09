@@ -26,7 +26,19 @@ jobs:
           cache: npm
 
       - run: npm ci
+
+      # Check if font/pair data changed — only regenerate slugs + pair pages if so
+      - name: Check if data files changed
+        id: data-check
+        run: |
+          if git diff HEAD~1 --name-only | grep -qE '^src/data/|^src/lib/pair-generator'; then
+            echo "data_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "data_changed=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Generate slug lists for all fonts and pairs
+        if: steps.data-check.outputs.data_changed == 'true'
         run: |
           npx tsx -e "
             import { fonts } from './src/data/fonts';
@@ -38,10 +50,12 @@ jobs:
           "
         env:
           NODE_OPTIONS: "--max-old-space-size=8192"
+
       - run: npx next build
         env:
           NEXT_PUBLIC_BASE_PATH: /font-pond
           NODE_OPTIONS: "--max-old-space-size=8192"
+
       - name: Generate remaining pair pages
         run: node scripts/generate-remaining-pairs.mjs
 
