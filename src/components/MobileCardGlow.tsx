@@ -32,8 +32,8 @@ export function MobileCardGlow() {
     }
 
     function applyGlow(card: HTMLElement) {
-      card.style.setProperty("background", getGlowBg(), "important");
-      card.style.setProperty("box-shadow", getGlowShadow(), "important");
+      card.style.setProperty("background", "var(--bg-card-hover)", "important");
+      card.style.setProperty("box-shadow", "var(--shadow-card-hover)", "important");
       const arrow = card.querySelector('[class*="opacity-0"]') as HTMLElement | null;
       if (arrow) {
         arrow.style.setProperty("opacity", "1", "important");
