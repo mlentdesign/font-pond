@@ -7,6 +7,86 @@ import { SYNONYM_BATCH3 } from "@/data/adjective-batch3";
 // Merge synonym maps
 const ALL_SYNONYMS: Record<string, string[]> = { ...SYNONYM_MAP, ...SYNONYM_BATCH3 };
 
+// Personality type descriptions for search result fit reasons
+const PERSONALITY_DESCRIPTIONS: Record<string, { label: string; traits: string }> = {
+  // MBTI
+  "intj": { label: "INTJ", traits: "strategic precision and minimal clarity" },
+  "intp": { label: "INTP", traits: "analytical curiosity and unconventional thinking" },
+  "entj": { label: "ENTJ", traits: "commanding confidence and structured authority" },
+  "entp": { label: "ENTP", traits: "inventive energy and clever dynamism" },
+  "infj": { label: "INFJ", traits: "thoughtful idealism and quiet refinement" },
+  "infp": { label: "INFP", traits: "creative authenticity and gentle warmth" },
+  "enfj": { label: "ENFJ", traits: "inspiring warmth and charismatic approachability" },
+  "enfp": { label: "ENFP", traits: "enthusiastic creativity and free-spirited energy" },
+  "istj": { label: "ISTJ", traits: "dependable tradition and methodical structure" },
+  "isfj": { label: "ISFJ", traits: "loyal warmth and quiet reliability" },
+  "estj": { label: "ESTJ", traits: "organized directness and professional authority" },
+  "esfj": { label: "ESFJ", traits: "caring harmony and social warmth" },
+  "istp": { label: "ISTP", traits: "practical precision and hands-on utility" },
+  "isfp": { label: "ISFP", traits: "artistic sensitivity and organic beauty" },
+  "estp": { label: "ESTP", traits: "bold directness and energetic impact" },
+  "esfp": { label: "ESFP", traits: "spontaneous fun and expressive personality" },
+  // Enneagram
+  "enneagram-1": { label: "Type 1", traits: "principled precision and orderly clarity" },
+  "enneagram-2": { label: "Type 2", traits: "generous warmth and caring approachability" },
+  "enneagram-3": { label: "Type 3", traits: "polished ambition and image-conscious sleekness" },
+  "enneagram-4": { label: "Type 4", traits: "expressive individuality and authentic distinction" },
+  "enneagram-5": { label: "Type 5", traits: "analytical depth and minimal intellectual clarity" },
+  "enneagram-6": { label: "Type 6", traits: "loyal reliability and trustworthy stability" },
+  "enneagram-7": { label: "Type 7", traits: "adventurous optimism and playful energy" },
+  "enneagram-8": { label: "Type 8", traits: "powerful decisiveness and commanding presence" },
+  "enneagram-9": { label: "Type 9", traits: "peaceful harmony and easygoing balance" },
+  "1w9": { label: "1w9", traits: "reserved precision and calm principled clarity" },
+  "1w2": { label: "1w2", traits: "warm precision and helpful structured care" },
+  "2w1": { label: "2w1", traits: "organized warmth and structured friendliness" },
+  "2w3": { label: "2w3", traits: "polished warmth and professional approachability" },
+  "3w2": { label: "3w2", traits: "charismatic polish and warm confidence" },
+  "3w4": { label: "3w4", traits: "unique ambition and distinctive editorial polish" },
+  "4w3": { label: "4w3", traits: "artistic polish and expressive elegance" },
+  "4w5": { label: "4w5", traits: "introspective depth and intellectual individuality" },
+  "5w4": { label: "5w4", traits: "creative analysis and experimental precision" },
+  "5w6": { label: "5w6", traits: "systematic rigor and methodical clarity" },
+  "6w5": { label: "6w5", traits: "analytical reliability and structured trust" },
+  "6w7": { label: "6w7", traits: "warm reliability and friendly dependability" },
+  "7w6": { label: "7w6", traits: "responsible playfulness and grounded energy" },
+  "7w8": { label: "7w8", traits: "bold enthusiasm and impactful fun" },
+  "8w7": { label: "8w7", traits: "energetic power and dynamic command" },
+  "8w9": { label: "8w9", traits: "calm authority and grounded strength" },
+  "9w8": { label: "9w8", traits: "grounded peace and quiet strength" },
+  "9w1": { label: "9w1", traits: "principled calm and structured harmony" },
+  // DISC
+  "disc-d": { label: "DISC D (Dominance)", traits: "direct authority and results-driven boldness" },
+  "disc-i": { label: "DISC I (Influence)", traits: "enthusiastic warmth and collaborative energy" },
+  "disc-s": { label: "DISC S (Steadiness)", traits: "patient reliability and consistent trust" },
+  "disc-c": { label: "DISC C (Conscientiousness)", traits: "analytical precision and systematic rigor" },
+  // Western Zodiac
+  "aries": { label: "Aries", traits: "bold competitive fire and fearless energy" },
+  "taurus": { label: "Taurus", traits: "grounded sensuality and reliable luxury" },
+  "gemini": { label: "Gemini", traits: "versatile curiosity and communicative wit" },
+  "cancer": { label: "Cancer", traits: "nurturing warmth and protective softness" },
+  "leo": { label: "Leo", traits: "dramatic confidence and magnetic presence" },
+  "virgo": { label: "Virgo", traits: "meticulous refinement and analytical precision" },
+  "libra": { label: "Libra", traits: "balanced beauty and harmonious elegance" },
+  "scorpio": { label: "Scorpio", traits: "intense mystery and powerful depth" },
+  "sagittarius": { label: "Sagittarius", traits: "adventurous optimism and bold freedom" },
+  "capricorn": { label: "Capricorn", traits: "disciplined ambition and traditional authority" },
+  "aquarius": { label: "Aquarius", traits: "innovative vision and unconventional intellect" },
+  "pisces": { label: "Pisces", traits: "dreamy creativity and flowing intuition" },
+  // Chinese Zodiac
+  "rat": { label: "Year of the Rat", traits: "resourceful cleverness and adaptive versatility" },
+  "ox": { label: "Year of the Ox", traits: "steadfast strength and patient reliability" },
+  "tiger": { label: "Year of the Tiger", traits: "brave boldness and fierce competitive spirit" },
+  "rabbit": { label: "Year of the Rabbit", traits: "gentle elegance and refined grace" },
+  "dragon": { label: "Year of the Dragon", traits: "powerful ambition and commanding presence" },
+  "snake": { label: "Year of the Snake", traits: "wise sophistication and mysterious elegance" },
+  "horse": { label: "Year of the Horse", traits: "free-spirited energy and adventurous dynamism" },
+  "goat": { label: "Year of the Goat", traits: "creative gentleness and artistic warmth" },
+  "monkey": { label: "Year of the Monkey", traits: "playful inventiveness and clever experimentation" },
+  "rooster": { label: "Year of the Rooster", traits: "confident structure and hardworking polish" },
+  "dog": { label: "Year of the Dog", traits: "loyal warmth and honest approachability" },
+  "pig": { label: "Year of the Pig", traits: "generous warmth and comfortable ease" },
+};
+
 // ══════════════════════════════════════════
 // TYPO-TOLERANT EDIT DISTANCE
 // ══════════════════════════════════════════
@@ -3354,6 +3434,38 @@ function bodyCloser(bf: Font, idx: number): string {
   return closers[Math.abs(idx) % closers.length];
 }
 
+function detectPersonalityTypes(words: string[], query: string): { label: string; traits: string }[] {
+  const found: { label: string; traits: string }[] = [];
+  const lower = query.toLowerCase();
+
+  // Check for Enneagram with wings (e.g., "3w2", "4w5")
+  for (const word of words) {
+    if (PERSONALITY_DESCRIPTIONS[word]) {
+      found.push(PERSONALITY_DESCRIPTIONS[word]);
+    }
+  }
+
+  // Check for "enneagram N" or "type N" patterns
+  const enneagramMatch = lower.match(/(?:enneagram|type)\s*(\d)(?:w(\d))?/);
+  if (enneagramMatch) {
+    const wing = enneagramMatch[2] ? `${enneagramMatch[1]}w${enneagramMatch[2]}` : `enneagram-${enneagramMatch[1]}`;
+    if (PERSONALITY_DESCRIPTIONS[wing] && !found.some(f => f.label === PERSONALITY_DESCRIPTIONS[wing].label)) {
+      found.push(PERSONALITY_DESCRIPTIONS[wing]);
+    }
+  }
+
+  // Check for "disc" prefix patterns
+  const discMatch = lower.match(/disc[\s-]?([disc])/i);
+  if (discMatch) {
+    const key = `disc-${discMatch[1].toLowerCase()}`;
+    if (PERSONALITY_DESCRIPTIONS[key] && !found.some(f => f.label === PERSONALITY_DESCRIPTIONS[key].label)) {
+      found.push(PERSONALITY_DESCRIPTIONS[key]);
+    }
+  }
+
+  return found;
+}
+
 function generateFitReason(
   pair: FontPair, hf: Font, bf: Font, promptWords: string[], query: string
 ): string {
@@ -3363,10 +3475,14 @@ function generateFitReason(
   const headerTrait = hf.distinctiveTraits[0] || hf.toneDescriptors[0] || "distinctive character";
   const headerTone = hf.toneDescriptors.slice(0, 2).join(" and ") || "expressive";
 
+  // Detect personality types in the query
+  const personalities = detectPersonalityTypes(promptWords, query);
+
   // Find which user words this pair connects to
   const tagSet = getAllPairTags(pair, hf, bf);
   const connections: string[] = [];
   for (const word of promptWords) {
+    if (PERSONALITY_DESCRIPTIONS[word]) continue; // skip personality keywords from tag matching
     const wants = KEYWORD_WANT[word];
     if (wants) {
       for (const w of wants) {
@@ -3379,12 +3495,20 @@ function generateFitReason(
 
   const parts: string[] = [];
 
-  const short = promptPhrase.length <= 45 ? promptPhrase : promptPhrase.split(/[,.\-—]/).filter(s => s.trim().length > 3)[0]?.trim() || promptPhrase.slice(0, 40);
-  const toneCap = headerTone.charAt(0).toUpperCase() + headerTone.slice(1);
-  parts.push(`For "${short}" — ${hf.name} brings ${toneCap.toLowerCase()} energy with its ${headerTrait}`);
-
-  if (uniqueConns.length > 0) {
-    parts.push(`captures the ${uniqueConns.join(", ")} feel`);
+  if (personalities.length > 0) {
+    // Personality-aware description
+    const p = personalities[0];
+    parts.push(`Echoing ${p.label}'s ${p.traits} — ${hf.name} brings ${headerTone.toLowerCase()} energy with its ${headerTrait}`);
+    if (uniqueConns.length > 0) {
+      parts.push(`reflecting the ${uniqueConns.join(", ")} qualities`);
+    }
+  } else {
+    // Standard description
+    const short = promptPhrase.length <= 45 ? promptPhrase : promptPhrase.split(/[,.\-—]/).filter(s => s.trim().length > 3)[0]?.trim() || promptPhrase.slice(0, 40);
+    parts.push(`For "${short}" — ${hf.name} brings ${headerTone.toLowerCase()} energy with its ${headerTrait}`);
+    if (uniqueConns.length > 0) {
+      parts.push(`captures the ${uniqueConns.join(", ")} feel`);
+    }
   }
 
   const hash = (hf.id + bf.id).split("").reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0);
@@ -3584,10 +3708,16 @@ export function rankPairs(
       }
       const uniqueConns = [...new Set(connections)].slice(0, 3);
 
+      const personalities = detectPersonalityTypes(promptWords, query);
       const parts: string[] = [];
-      parts.push(`For "${short}" — this pair uses ${hf.name}, which brings ${headerTone.toLowerCase()} energy with its ${headerTrait}`);
+      if (personalities.length > 0) {
+        const p = personalities[0];
+        parts.push(`Echoing ${p.label}'s ${p.traits} — this pair uses ${hf.name}, which brings ${headerTone.toLowerCase()} energy with its ${headerTrait}`);
+      } else {
+        parts.push(`For "${short}" — this pair uses ${hf.name}, which brings ${headerTone.toLowerCase()} energy with its ${headerTrait}`);
+      }
       if (uniqueConns.length > 0) {
-        parts.push(`captures the ${uniqueConns.join(", ")} feel`);
+        parts.push(personalities.length > 0 ? `reflecting the ${uniqueConns.join(", ")} qualities` : `captures the ${uniqueConns.join(", ")} feel`);
       }
       const closerHash = (hf.id + bf.id).split("").reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0);
       parts.push(bodyCloser(bf, closerHash));
