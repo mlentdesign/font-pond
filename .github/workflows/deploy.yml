@@ -29,6 +29,7 @@ jobs:
 
       # Restore cached font/pair pages from previous builds
       - name: Restore CMS page cache
+        id: cms-cache
         uses: actions/cache@v4
         with:
           path: |
@@ -43,7 +44,9 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: /font-pond
           NODE_OPTIONS: "--max-old-space-size=8192"
 
+      # Only generate CMS pages if cache missed (slug files changed)
       - name: Generate remaining CMS pages
+        if: steps.cms-cache.outputs.cache-hit != 'true'
         run: node scripts/generate-remaining-pairs.mjs
 
       - uses: actions/upload-pages-artifact@v3
