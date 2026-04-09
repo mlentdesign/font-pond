@@ -34,9 +34,9 @@ function InfoRow({ label, value, useTitle, useClassification }: { label: string;
   if (!value) return null;
   const formatted = useClassification ? formatClassification(value) : useTitle ? titleCase(value) : sentenceCase(value);
   return (
-    <div className="flex justify-between border-b border-neutral-100 last:border-0" style={{ padding: "12px 24px" }}>
+    <div className="flex justify-between items-baseline border-b border-neutral-100 last:border-0" style={{ padding: "12px 24px", gap: "12px" }}>
       <dt className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px" }}>{label.toUpperCase()}</dt>
-      <dd className="text-neutral-700 text-right max-w-[60%]" style={{ fontSize: "16px" }}>{formatted}</dd>
+      <dd className="text-neutral-700 text-right shrink-0" style={{ fontSize: "16px", whiteSpace: "nowrap" }}>{formatted}</dd>
     </div>
   );
 }
