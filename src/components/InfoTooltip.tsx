@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 
 // Tooltip descriptions for technical typography terms
 const TOOLTIP_DESCRIPTIONS: Record<string, string> = {
@@ -34,6 +35,8 @@ export function InfoTooltip({ label }: { label: string }) {
   if (!description) return null;
 
   const [show, setShow] = useState(false);
+  const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
+  const iconRef = useRef<HTMLSpanElement>(null);
   const hideTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const scheduleHide = () => {
@@ -43,13 +46,29 @@ export function InfoTooltip({ label }: { label: string }) {
     if (hideTimeout.current) clearTimeout(hideTimeout.current);
   };
 
+  const updatePos = useCallback(() => {
+    if (iconRef.current) {
+      const rect = iconRef.current.getBoundingClientRect();
+      setPos({
+        top: rect.bottom + window.scrollY + 4,
+        left: rect.left + rect.width / 2 + window.scrollX,
+      });
+    }
+  }, []);
+
+  const handleShow = () => {
+    cancelHide();
+    updatePos();
+    setShow(true);
+  };
+
   return (
     <span
-      className="relative"
+      ref={iconRef}
       style={{ marginLeft: "4px", display: "inline", verticalAlign: "baseline" }}
-      onMouseEnter={() => { cancelHide(); setShow(true); }}
+      onMouseEnter={handleShow}
       onMouseLeave={scheduleHide}
-      onClick={(e) => { e.stopPropagation(); setShow(!show); }}
+      onClick={(e) => { e.stopPropagation(); if (show) { setShow(false); } else { handleShow(); } }}
       role="button"
       tabIndex={0}
       aria-label={`Info about ${label}`}
@@ -71,14 +90,15 @@ export function InfoTooltip({ label }: { label: string }) {
         <circle cx="10" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
       </svg>
 
-      {show && (
+      {show && pos && typeof document !== "undefined" && createPortal(
         <span
-          className="absolute rounded-lg shadow-lg"
+          className="rounded-lg shadow-lg"
           onMouseEnter={cancelHide}
           onMouseLeave={scheduleHide}
           style={{
-            top: "calc(100% + 4px)",
-            left: "50%",
+            position: "absolute",
+            top: pos.top,
+            left: pos.left,
             transform: "translateX(-50%)",
             background: "var(--bg-input)",
             border: "2px solid var(--border)",
@@ -92,10 +112,12 @@ export function InfoTooltip({ label }: { label: string }) {
             zIndex: 9999,
             width: "240px",
             whiteSpace: "normal",
+            pointerEvents: "auto",
           }}
         >
           {description}
-        </span>
+        </span>,
+        document.body,
       )}
     </span>
   );
