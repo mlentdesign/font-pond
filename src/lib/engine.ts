@@ -3653,11 +3653,13 @@ export function explorePairs(): ScoredPair[] {
     });
   }
 
-  // True random shuffle using Math.random — completely different order every call
-  for (let i = all.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [all[i], all[j]] = [all[j], all[i]];
-  }
+  // Sort by quality first, with random variance within similar scores
+  // so it doesn't look identical every time but best pairs surface first
+  all.sort((a, b) => {
+    const scoreDiff = b.overallScore - a.overallScore;
+    if (Math.abs(scoreDiff) > 2) return scoreDiff;
+    return Math.random() - 0.5; // randomize within ±2 score points
+  });
 
   return all;
 }
