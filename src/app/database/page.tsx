@@ -130,7 +130,7 @@ export default function DatabasePage() {
   const [categoryFilters, setCategoryFilters] = useState<Set<string>>(new Set());
   const [sourceFilters, setSourceFilters] = useState<Set<string>>(new Set());
   const tableRef = useRef<HTMLDivElement>(null);
-  const stickyRef = useRef<HTMLTableSectionElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const filterRef = useRef<HTMLDivElement>(null);
   const headerScrollRef = useRef<HTMLDivElement>(null);
   const bodyScrollRef = useRef<HTMLDivElement>(null);
@@ -465,35 +465,64 @@ export default function DatabasePage() {
             zIndex: 1,
           }}
         >
-          {/* Single table with sticky thead */}
-          <div style={{ overflowX: "auto", background: "var(--bg-card)", position: "relative" }}>
+          {/* Sticky table header */}
+          <div
+            ref={stickyRef}
+            className="db-sticky-clip"
+            style={{
+              position: "sticky",
+              top: `${stickyTop}px`,
+              zIndex: 10,
+              background: headerFooterBg,
+              border: "2px solid var(--border)",
+              borderBottom: "1px solid var(--divider)",
+              borderRadius: "12px 12px 0 0",
+              margin: "-2px -2px 0 -2px",
+            }}
+          >
+            {/* Horizontal scroll wrapper for mobile */}
+            <div ref={headerScrollRef} style={{ overflowX: "auto", width: "100%" }}>
+              <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed", minWidth: "800px" }}>
+                <colgroup>
+                  <col style={{ width: "20%" }} />
+                  <col style={{ width: "30%" }} />
+                  <col style={{ width: "15%" }} />
+                  <col className="db-pairs-col" style={{ width: "10%" }} />
+                  <col style={{ width: "25%" }} />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th onClick={() => toggleSort("name")} className={thClass} style={thStyle} aria-sort={sortKey === "name" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
+                      Font name{arrow("name")}
+                    </th>
+                    <th className="text-left uppercase tracking-wider" style={{ ...thStyle, cursor: "default" }} role="columnheader">
+                      Specimen
+                    </th>
+                    <th onClick={() => toggleSort("category")} className={thClass} style={thStyle} aria-sort={sortKey === "category" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
+                      Category{arrow("category")}
+                    </th>
+                    <th onClick={() => toggleSort("pairs")} className={`${thClass} db-pairs-col`} style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "pairs" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
+                      Pairs{arrow("pairs")}
+                    </th>
+                    <th onClick={() => toggleSort("source")} className="uppercase tracking-wider cursor-pointer hover:opacity-70 select-none" style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "source" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
+                      Source{arrow("source")}
+                    </th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+
+          {/* Table body — horizontal scroll for mobile, z-index below sticky header */}
+          <div ref={bodyScrollRef} style={{ overflowX: "auto", background: "var(--bg-card)", position: "relative", zIndex: 1 }}>
             <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed", minWidth: "800px" }}>
               <colgroup>
                 <col style={{ width: "20%" }} />
                 <col style={{ width: "30%" }} />
                 <col style={{ width: "15%" }} />
-                <col className="db-pairs-col" style={{ width: "10%" }} />
+                <col style={{ width: "10%" }} />
                 <col style={{ width: "25%" }} />
               </colgroup>
-              <thead ref={stickyRef} style={{ position: "sticky", top: `${stickyTop}px`, zIndex: 10, background: headerFooterBg }}>
-                <tr style={{ borderBottom: "1px solid var(--divider)" }}>
-                  <th onClick={() => toggleSort("name")} className={thClass} style={thStyle} aria-sort={sortKey === "name" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
-                    Font name{arrow("name")}
-                  </th>
-                  <th className="text-left uppercase tracking-wider" style={{ ...thStyle, cursor: "default" }} role="columnheader">
-                    Specimen
-                  </th>
-                  <th onClick={() => toggleSort("category")} className={thClass} style={thStyle} aria-sort={sortKey === "category" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
-                    Category{arrow("category")}
-                  </th>
-                  <th onClick={() => toggleSort("pairs")} className={`${thClass} db-pairs-col`} style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "pairs" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
-                    Pairs{arrow("pairs")}
-                  </th>
-                  <th onClick={() => toggleSort("source")} className="uppercase tracking-wider cursor-pointer hover:opacity-70 select-none" style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "source" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
-                    Source{arrow("source")}
-                  </th>
-                </tr>
-              </thead>
               <tbody>
                 {pageRows.map((row, i) => (
                   <tr
