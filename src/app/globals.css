@@ -1111,6 +1111,9 @@ body.animations-paused #water-bg * {
     padding-top: 8px !important;
     padding-bottom: 14px !important;
   }
+  .breadcrumb-sticky > div {
+    align-items: flex-end !important;
+  }
 }
 
 /* ══════════════════════════════════════════
