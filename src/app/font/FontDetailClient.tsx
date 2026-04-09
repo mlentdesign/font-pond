@@ -43,7 +43,11 @@ function InfoRow({ label, value, useTitle, useClassification }: { label: string;
 
 export default function FontDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
   const searchParams = useSearchParams();
-  const slug = slugOverride || searchParams.get("f") || "";
+  // Read slug from: prop override → query param → URL path
+  const pathSlug = typeof window !== "undefined"
+    ? window.location.pathname.replace("/font-pond", "").replace(/\/$/, "").replace(/^\/font\//, "")
+    : "";
+  const slug = slugOverride || searchParams.get("f") || (pathSlug && pathSlug !== "/font" ? pathSlug : "");
   const fromPair = searchParams.get("from");
 
   const font = fontsBySlug.get(slug);
