@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import { loadFont, getFontFamily } from "@/lib/fonts";
 import { fonts as allFonts } from "@/data/fonts";
 
@@ -59,6 +60,8 @@ interface LetterState {
 }
 
 export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: string, fontSlug: string) => void }) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [mounted, setMounted] = useState(false);
   const [displayFont, setDisplayFontRaw] = useState<PoolFont>(() => pickRandom());
   const loadedRef = useRef(new Set<string>());
@@ -163,6 +166,17 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
       clearAllTimers();
     };
   }, [mounted, runTicker, clearAllTimers]);
+
+  // Trigger new font on page navigation (font→font, pair→pair, etc.)
+  const navKey = `${pathname}${searchParams.toString()}`;
+  const prevNavRef = useRef(navKey);
+  useEffect(() => {
+    if (!mounted) return;
+    if (navKey !== prevNavRef.current) {
+      prevNavRef.current = navKey;
+      if (!headerAnimationPaused) runTicker();
+    }
+  }, [navKey, mounted, runTicker]);
 
   if (!mounted) {
     return <span style={{ color: "var(--text-ransom)", fontWeight: 700 }}>{TITLE}</span>;
