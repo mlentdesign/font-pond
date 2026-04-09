@@ -1094,6 +1094,10 @@ body.animations-paused #water-bg * {
   }
 }
 
+.breadcrumb-inner {
+  align-items: center;
+}
+
 /* ══════════════════════════════════════════
    SHORT HEIGHT ADJUSTMENTS (any width >= 768px, height <= 900px)
    ══════════════════════════════════════════ */
@@ -1111,7 +1115,7 @@ body.animations-paused #water-bg * {
     padding-top: 8px !important;
     padding-bottom: 14px !important;
   }
-  .breadcrumb-sticky > div {
+  .breadcrumb-inner {
     align-items: flex-end !important;
   }
 }
