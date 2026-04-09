@@ -171,7 +171,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
               Font not found
             </h1>
             {bestMatch && (
-              <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
+              <p style={{ fontSize: "16px", color: "var(--text-muted)", marginBottom: "0" }}>
                 Did you mean{" "}
                 <Link
                   href={`/font?f=${bestMatch.slug}`}
@@ -185,7 +185,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
             <Link
               href="/?explore=1"
               className="btn-generate font-medium rounded-lg inline-block"
-              style={{ fontSize: "16px", padding: "8px 24px", marginTop: "16px" }}
+              style={{ fontSize: "16px", padding: "12px 24px", marginTop: "24px" }}
             >
               Explore font pairs
             </Link>
