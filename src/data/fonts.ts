@@ -2353,7 +2353,18 @@ const ANATOMY_MAP: Record<string, AnatomyTuple> = {
   "caveat":                   ["moderate", "moderate"  , "none", "tight"     , "warm"          ],
 };
 
-// Apply anatomy overrides to core fonts
+// Compute body legibility from measured anatomy (research-backed formula)
+function calcLegibility(cls: string, xH?: string, ap?: string, sc?: string, sp?: string): number {
+  const c = cls.toLowerCase();
+  let s = c === "script" || c === "handwritten" ? 2 : c === "display" ? 3 : c === "monospace" ? 5 : 6;
+  if (xH === "high") s += 1.5; else if (xH === "moderate") s += 0.5; else if (xH === "low") s -= 1;
+  if (ap === "open") s += 1; else if (ap === "closed") s -= 1;
+  if (sc === "high") s -= 1; else if (sc === "none") s += 0.5;
+  if (sp === "generous") s += 0.5; else if (sp === "tight") s -= 1;
+  return Math.round(Math.max(1, Math.min(10, s)));
+}
+
+// Apply anatomy overrides to core fonts and recalculate legibility
 for (const font of coreFonts) {
   const anatomy = ANATOMY_MAP[font.id];
   if (anatomy) {
@@ -2362,6 +2373,7 @@ for (const font of coreFonts) {
     font.strokeContrast = anatomy[2];
     font.letterSpacing = anatomy[3];
     font.moodCategory = anatomy[4];
+    font.bodyLegibilityScore = calcLegibility(font.classification, anatomy[0], anatomy[1], anatomy[2], anatomy[3]);
   }
 }
 

@@ -3,10 +3,20 @@
 import { Font, FontClassification } from "./types";
 import { GF_ANATOMY } from "./gf-anatomy-map";
 
+// Compute body legibility from measured anatomy (research-backed formula)
+function calcLegibility(cls: string, xH?: string, ap?: string, sc?: string, sp?: string): number {
+  const c = cls.toLowerCase();
+  let s = c === "script" || c === "handwritten" ? 2 : c === "display" ? 3 : c === "monospace" ? 5 : 6;
+  if (xH === "high") s += 1.5; else if (xH === "moderate") s += 0.5; else if (xH === "low") s -= 1;
+  if (ap === "open") s += 1; else if (ap === "closed") s -= 1;
+  if (sc === "high") s -= 1; else if (sc === "none") s += 0.5;
+  if (sp === "generous") s += 0.5; else if (sp === "tight") s -= 1;
+  return Math.round(Math.max(1, Math.min(10, s)));
+}
+
 function gf(name: string, googleFamily: string, classification: string, tags: string[], tone: string[], isBody: boolean, hasRegular: boolean, designerName?: string, foundryName?: string, legibilityOverride?: number): Font {
   const slug = name.toLowerCase().replace(/\s+/g, "-");
-  const leg = legibilityOverride ?? (isBody ? 7 : 3);
-  // Look up hand-researched anatomy from map
+  // Look up measured anatomy from map
   const a = GF_ANATOMY[slug] ?? (
     classification === "serif" ? ["moderate", "moderate", "moderate", "normal", "traditional"] as const :
     classification === "handwritten" ? ["low", "open", "low", "normal", "warm"] as const :
@@ -28,7 +38,7 @@ function gf(name: string, googleFamily: string, classification: string, tags: st
     useCases: isBody ? ["body text", "headlines"] : ["headlines", "display"],
     variableFont: false, weights: [400], styles: ["normal"],
     isHeaderSuitable: true, isBodySuitable: isBody,
-    bodyLegibilityScore: leg,
+    bodyLegibilityScore: legibilityOverride ?? calcLegibility(classification, a[0], a[1], a[2], a[3]),
     screenReadabilityNotes: null,
     distinctiveTraits: [], historicalNotes: null,
     notableUseExamples: [], similarFonts: [],
