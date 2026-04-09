@@ -1092,7 +1092,12 @@ body.animations-paused #water-bg * {
   .db-pairs-col {
     display: none !important;
   }
-  /* Source column right-aligned on tablet/mobile */
+  /* Redistribute col widths to fill hidden pairs column space */
+  colgroup col:nth-child(1) { width: 22% !important; }
+  colgroup col:nth-child(2) { width: 33% !important; }
+  colgroup col:nth-child(3) { width: 17% !important; }
+  colgroup col:nth-child(4) { width: 0% !important; }
+  colgroup col:nth-child(5) { width: 28% !important; }
 }
 
 .breadcrumb-inner {
