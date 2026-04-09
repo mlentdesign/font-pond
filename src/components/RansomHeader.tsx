@@ -20,10 +20,32 @@ const PRELOAD_COUNT = 80;
 
 type PoolFont = typeof FONT_POOL[number];
 
+// Shuffled queue — cycles through ALL fonts before repeating
+let fontQueue: PoolFont[] = [];
+function shuffleQueue() {
+  fontQueue = [...FONT_POOL];
+  for (let i = fontQueue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [fontQueue[i], fontQueue[j]] = [fontQueue[j], fontQueue[i]];
+  }
+}
+shuffleQueue();
+
 function pickRandom(exclude?: string): PoolFont {
-  let font: PoolFont;
-  do { font = FONT_POOL[Math.floor(Math.random() * FONT_POOL.length)]; } while (font.name === exclude);
+  if (fontQueue.length === 0) shuffleQueue();
+  let font = fontQueue.pop()!;
+  // Skip the current font to avoid showing the same one twice in a row
+  if (font.name === exclude && fontQueue.length > 0) {
+    fontQueue.unshift(font);
+    font = fontQueue.pop()!;
+  }
   return font;
+}
+
+// Peek at the next N fonts in the queue (for preloading)
+function peekNext(count: number): PoolFont[] {
+  if (fontQueue.length < count) shuffleQueue();
+  return fontQueue.slice(-count);
 }
 
 export let headerAnimationPaused = false;
@@ -90,6 +112,8 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
     setLetterStates(newStates);
 
     const finalFont = pickRandom(displayFont.name);
+    // Preload the next 2 fonts in the queue so they're ready when needed
+    for (const upcoming of peekNext(2)) ensureLoaded(upcoming);
     ensureLoaded(finalFont);
 
     for (const idx of NON_SPACE_INDICES) {
