@@ -1,10 +1,12 @@
-"use client";
+import FontSlugClient from "./FontSlugClient";
 
-import { use } from "react";
-import FontDetailClient from "../FontDetailClient";
+// Only generate the base /font route — all /font/slug URLs work via client-side routing
+export function generateStaticParams() {
+  return [{ slug: [] }];
+}
 
-export default function FontPage({ params }: { params: Promise<{ slug?: string[] }> }) {
-  const { slug } = use(params);
+export default async function FontPage({ params }: { params: Promise<{ slug?: string[] }> }) {
+  const { slug } = await params;
   const fontSlug = slug?.[0] || "";
-  return <FontDetailClient slugOverride={fontSlug || undefined} />;
+  return <FontSlugClient slug={fontSlug} />;
 }
