@@ -54,7 +54,7 @@ export function ChipGroup({ label, chips, maxVisible, maxLines }: ChipGroupProps
   return (
     <div>
       {label && (
-        <p className="uppercase tracking-wider text-neutral-400 flex items-center flex-wrap mb-2" style={{ fontSize: "12px" }}>{label}<InfoTooltip label={label} /></p>
+        <p className="uppercase tracking-wider text-neutral-400 mb-2" style={{ fontSize: "12px" }}>{label}<InfoTooltip label={label} /></p>
       )}
       <div ref={containerRef} className="flex flex-wrap items-center" style={{ gap: "8px" }}>
         {visible.map((chip, i) => (

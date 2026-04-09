@@ -45,8 +45,8 @@ export function InfoTooltip({ label }: { label: string }) {
 
   return (
     <span
-      className="relative inline-flex items-center"
-      style={{ marginLeft: "4px", verticalAlign: "baseline" }}
+      className="relative"
+      style={{ marginLeft: "4px", display: "inline", verticalAlign: "baseline" }}
       onMouseEnter={() => { cancelHide(); setShow(true); }}
       onMouseLeave={scheduleHide}
       onClick={(e) => { e.stopPropagation(); setShow(!show); }}
@@ -64,7 +64,7 @@ export function InfoTooltip({ label }: { label: string }) {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        style={{ color: "currentColor", opacity: 0.6, cursor: "help", flexShrink: 0 }}
+        style={{ color: "currentColor", opacity: 0.6, cursor: "help", display: "inline", verticalAlign: "-1px" }}
       >
         <circle cx="10" cy="10" r="8.5" />
         <line x1="10" y1="9" x2="10" y2="14" />
@@ -83,10 +83,13 @@ export function InfoTooltip({ label }: { label: string }) {
             background: "var(--bg-input)",
             border: "2px solid var(--border)",
             padding: "8px 16px",
-            fontSize: "14px",
+            fontSize: "16px",
+            fontWeight: 400,
             lineHeight: "1.4",
             color: "var(--text-ransom)",
-            zIndex: 100,
+            textTransform: "none",
+            letterSpacing: "normal",
+            zIndex: 9999,
             width: "240px",
             whiteSpace: "normal",
           }}
