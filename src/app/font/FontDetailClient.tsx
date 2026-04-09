@@ -212,7 +212,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
               href={font.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-generate font-medium rounded-lg transition-colors"
+              className="btn-generate font-medium rounded-lg"
               style={{
                 fontSize: "16px",
                 padding: "8px 24px",
@@ -244,7 +244,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                 href={font.sourceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-generate font-medium rounded-lg transition-colors" style={{ fontSize: "16px", padding: "8px 24px" }}
+                className="btn-generate font-medium rounded-lg" style={{ fontSize: "16px", padding: "8px 24px" }}
               >
                 {sourceLabel} ↗
               </a>
@@ -423,7 +423,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                       key={sf.slug}
                       href={`/font?f=${sf.slug}`}
                       onMouseDown={(e) => e.preventDefault()}
-                      className="group block border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
+                      className="group block border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden"
                       style={{ position: "relative" }}
                     >
                       <div className="flex items-center justify-between mb-4">
@@ -438,7 +438,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="shrink-0 btn-generate font-medium rounded-lg transition-colors"
+                            className="shrink-0 btn-generate font-medium rounded-lg"
                             style={{ fontSize: "16px", padding: "8px 24px", textDecoration: "none" }}
                           >
                             {sfSource} ↗
@@ -507,7 +507,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
             href={font.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-generate font-medium rounded-lg transition-colors inline-block"
+            className="btn-generate font-medium rounded-lg inline-block"
             style={{ fontSize: "16px", padding: "8px 24px", textDecoration: "none" }}
           >
             {sourceLabel} ↗

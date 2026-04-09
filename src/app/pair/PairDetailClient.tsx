@@ -37,7 +37,7 @@ function FontSection({
     <Link
       href={`/font?f=${font.slug}`}
       onMouseDown={(e) => e.preventDefault()}
-      className="group flex flex-col border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
+      className="group flex flex-col border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden"
       style={{ position: "relative" }}
     >
       <div className="flex items-center justify-between">
@@ -55,7 +55,7 @@ function FontSection({
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="shrink-0 btn-generate font-medium rounded-lg transition-colors"
+            className="shrink-0 btn-generate font-medium rounded-lg"
             style={{ fontSize: "16px", padding: "8px 24px", textDecoration: "none" }}
           >
             {sourceLabel} ↗

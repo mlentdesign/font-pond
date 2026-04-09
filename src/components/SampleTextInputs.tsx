@@ -22,7 +22,7 @@ export function SampleTextInputs({ alwaysShow = false }: { alwaysShow?: boolean 
       <details className="group">
         {/* Summary — left-aligned with "Exploring — shuffled randomly" */}
         <summary
-          className="cursor-pointer select-none list-none flex items-center font-semibold text-neutral-700 transition-colors hover:opacity-70"
+          className="cursor-pointer select-none list-none flex items-center font-semibold text-neutral-700 hover:opacity-70"
           style={{ fontSize: "16px", gap: "4px" }}
         >
           <svg
@@ -51,7 +51,7 @@ export function SampleTextInputs({ alwaysShow = false }: { alwaysShow?: boolean 
                 value={sampleHeadline}
                 onChange={(e) => setSampleHeadline(e.target.value)}
                 placeholder="Custom headline text..."
-                className="w-full rounded-lg outline-none transition-colors"
+                className="w-full rounded-lg outline-none"
                 style={{ fontSize: "16px", background: "var(--bg-input)", color: "var(--text-heading)", boxShadow: "var(--shadow-input)", padding: "8px 16px" }}
               />
             </div>
@@ -83,7 +83,7 @@ export function SampleTextInputs({ alwaysShow = false }: { alwaysShow?: boolean 
                 value={sampleBody}
                 onChange={(e) => setSampleBody(e.target.value)}
                 placeholder="Custom body text..."
-                className="w-full rounded-lg outline-none transition-colors"
+                className="w-full rounded-lg outline-none"
                 style={{ fontSize: "16px", background: "var(--bg-input)", color: "var(--text-heading)", boxShadow: "var(--shadow-input)", padding: "8px 16px" }}
               />
             </div>
