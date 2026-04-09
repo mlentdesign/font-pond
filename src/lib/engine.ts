@@ -59,6 +59,18 @@ const PERSONALITY_DESCRIPTIONS: Record<string, { label: string; traits: string }
   "disc-i": { label: "DISC I (Influence)", traits: "enthusiastic warmth and collaborative energy" },
   "disc-s": { label: "DISC S (Steadiness)", traits: "patient reliability and consistent trust" },
   "disc-c": { label: "DISC C (Conscientiousness)", traits: "analytical precision and systematic rigor" },
+  "disc-di": { label: "DISC DI", traits: "bold charisma and confident warmth" },
+  "disc-id": { label: "DISC ID", traits: "enthusiastic confidence and warm authority" },
+  "disc-dc": { label: "DISC DC", traits: "decisive precision and commanding clarity" },
+  "disc-cd": { label: "DISC CD", traits: "precise authority and analytical command" },
+  "disc-is": { label: "DISC IS", traits: "warm reliability and friendly steadiness" },
+  "disc-si": { label: "DISC SI", traits: "steady warmth and reliable friendliness" },
+  "disc-sc": { label: "DISC SC", traits: "reliable precision and steady analytical care" },
+  "disc-cs": { label: "DISC CS", traits: "systematic reliability and precise consistency" },
+  "disc-ds": { label: "DISC DS", traits: "bold reliability and commanding groundedness" },
+  "disc-sd": { label: "DISC SD", traits: "grounded authority and calm decisiveness" },
+  "disc-ic": { label: "DISC IC", traits: "friendly precision and warm analytical clarity" },
+  "disc-ci": { label: "DISC CI", traits: "analytical warmth and precise approachability" },
   // Western Zodiac
   "aries": { label: "Aries", traits: "bold competitive fire and fearless energy" },
   "taurus": { label: "Taurus", traits: "grounded sensuality and reliable luxury" },
@@ -3454,8 +3466,8 @@ function detectPersonalityTypes(words: string[], query: string): { label: string
     }
   }
 
-  // Check for "disc" prefix patterns
-  const discMatch = lower.match(/disc[\s-]?([disc])/i);
+  // Check for "disc" prefix patterns (single or two-letter: "disc D", "disc DI", "disc-SC")
+  const discMatch = lower.match(/disc[\s-]?([disc]{1,2})/i);
   if (discMatch) {
     const key = `disc-${discMatch[1].toLowerCase()}`;
     if (PERSONALITY_DESCRIPTIONS[key] && !found.some(f => f.label === PERSONALITY_DESCRIPTIONS[key].label)) {
