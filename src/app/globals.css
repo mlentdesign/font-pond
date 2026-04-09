@@ -1095,6 +1095,24 @@ body.animations-paused #water-bg * {
 }
 
 /* ══════════════════════════════════════════
+   SHORT HEIGHT ADJUSTMENTS (any width >= 768px, height <= 900px)
+   ══════════════════════════════════════════ */
+@media (min-width: 768px) and (max-height: 900px) {
+  .results-top-padding {
+    padding-top: 40px !important;
+  }
+  .results-bottom-padding {
+    padding-bottom: 40px !important;
+  }
+  .preview-settings-spacing {
+    margin-bottom: 40px !important;
+  }
+  .breadcrumb-sticky {
+    padding-bottom: 12px !important;
+  }
+}
+
+/* ══════════════════════════════════════════
    TABLET ADJUSTMENTS (768px – 1023px)
    ══════════════════════════════════════════ */
 @media (min-width: 768px) and (max-width: 1023px) {
