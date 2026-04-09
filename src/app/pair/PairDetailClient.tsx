@@ -154,8 +154,16 @@ function FontSection({
 
 export default function PairDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
   const searchParams = useSearchParams();
-  const slug = slugOverride || searchParams.get("p") || "";
+  const paramSlug = slugOverride || searchParams.get("p") || "";
+  const [slug, setSlug] = useState(paramSlug);
   const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
+
+  // Update slug when searchParams changes (handles navigation between tiles)
+  useEffect(() => {
+    if (paramSlug && paramSlug !== slug) {
+      setSlug(paramSlug);
+    }
+  }, [paramSlug, slug]);
 
   const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
@@ -163,11 +171,11 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
   // Swap to clean CMS URL after pair loads
   useEffect(() => {
-    if (pair && slug && searchParams.get("p") === slug) {
+    if (pair && slug && window.location.search.includes("p=")) {
       const cleanUrl = pair.url ? `/font-pond${pair.url}` : `/font-pond/pair/${slug}`;
       window.history.replaceState(null, "", cleanUrl);
     }
-  }, [pair, slug, searchParams]);
+  }, [pair, slug]);
 
   useEffect(() => {
     if (headerFont) loadFont(headerFont);

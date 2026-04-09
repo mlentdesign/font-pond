@@ -43,17 +43,25 @@ function InfoRow({ label, value, useTitle, useClassification }: { label: string;
 
 export default function FontDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
   const searchParams = useSearchParams();
-  const slug = slugOverride || searchParams.get("f") || "";
+  const paramSlug = slugOverride || searchParams.get("f") || "";
+  const [slug, setSlug] = useState(paramSlug);
   const fromPair = searchParams.get("from");
+
+  // Update slug when searchParams changes (handles navigation between tiles)
+  useEffect(() => {
+    if (paramSlug && paramSlug !== slug) {
+      setSlug(paramSlug);
+    }
+  }, [paramSlug, slug]);
 
   const font = fontsBySlug.get(slug);
 
   // Swap to clean CMS URL after font loads
   useEffect(() => {
-    if (font && slug && searchParams.get("f") === slug) {
+    if (font && slug && window.location.search.includes("f=")) {
       window.history.replaceState(null, "", `/font-pond/font/${slug}`);
     }
-  }, [font, slug, searchParams]);
+  }, [font, slug]);
 
   // Build breadcrumb trail
   const crumbs: { label: string; href?: string }[] = [];
