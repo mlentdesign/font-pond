@@ -36,7 +36,7 @@ export default function NotFound() {
       <main className="flex-1 flex items-center justify-center" style={{ textAlign: "center", padding: "0 24px" }}>
         <div>
           <h1 className="font-semibold tracking-tight describe-heading" style={{ color: "var(--text-heading)", fontSize: "24px", marginBottom: "8px" }}>
-            404
+            Gone fishing?
           </h1>
           <p style={{ fontSize: "16px", color: "var(--text-muted)", marginBottom: "0" }}>
             We&rsquo;re not sure how you ended up here, but we can help you get back.
