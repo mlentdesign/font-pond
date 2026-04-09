@@ -1,0 +1,117 @@
+{
+  "kohinoor-zerone": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns comment '/* Kohinoor Zerone */' but no @font-face rules at @400 or @300. Tried slug 'kohinoor' too. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "fraktion": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400 and @300. Tried 'fraktion-sans', 'fraktion-mono'. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "wotfard": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400 and @300. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "aspekta": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400 and @300. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "nohemi": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400 and @300. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "saturo": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400 and @300. Tried 'saturo-rounded'. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "range": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400 and @1. Tried 'range-sans', 'range-serif', 'range-mono'. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "hygge": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400 and @300. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "rx100": {
+    "found": true,
+    "source": "fontshare-cdn-slug-rx-100",
+    "notes": "CDN works with hyphenated slug 'rx-100' (not 'rx100'). Use https://api.fontshare.com/v2/css?f[]=rx-100@400&display=swap"
+  },
+  "nekst": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400, @300, @700. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "trench": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400. Note: 'trench-slab' (different font) DOES work on CDN and is cached, but 'trench' sans-serif itself is not available. Not in .font-cache, not in ~/Library/Fonts."
+  },
+  "integral-cf": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400. Tried 'integralcf', 'integral'. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "otterco": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400 and @1. Tried 'otter-co'. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "nueva": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400 and @1. Tried 'nueva-standard', 'nueva-mono'. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "migra": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400, @300, @1. Tried 'migra-italic', 'migra-extrabold'. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "magnat": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400 and @1. Tried 'magnat-head', 'magnat-text', 'magnat-poster', 'magnat-display'. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "swear-display": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400 and @700. Tried 'swear'. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "grifter": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400, @300, @700. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "cope": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400, @300, @700. Tried 'cope-display'. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "humane": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400, @300, @700. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "vasion": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400, @300, @700. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "hallenger": {
+    "found": false,
+    "source": null,
+    "notes": "CDN returns empty at @400, @300, @700. Not in .font-cache, not in ~/Library/Fonts, not on Google Fonts. Likely removed from Fontshare CDN."
+  },
+  "pencerio": {
+    "found": true,
+    "source": "local-file",
+    "notes": "Not on Fontshare CDN (returns only comment, no @font-face). CDN slug 'pencerio-hairline' also failed. However, found installed locally at ~/Library/Fonts/Pencerio-Hairline.otf"
+  }
+}
