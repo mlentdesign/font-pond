@@ -157,12 +157,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const slug = slugOverride || searchParams.get("p") || "";
   const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
 
-  // Clean the URL to the CMS-style path
-  useEffect(() => {
-    if (slug && window.location.search.includes("p=")) {
-      window.history.replaceState(null, "", `/font-pond/pair/${slug}`);
-    }
-  }, [slug]);
+  // Note: not rewriting URL via replaceState — it desynchronises Next.js router
+  // and causes stale page content on back/forward navigation
 
   const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
