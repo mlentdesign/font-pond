@@ -1097,7 +1097,10 @@ body.animations-paused #water-bg * {
   .db-pairs-col {
     display: none !important;
   }
-  th:last-child, td:last-child {
+  td:last-child a {
+    float: right !important;
+  }
+  th:last-child {
     text-align: right !important;
   }
 }
