@@ -487,7 +487,7 @@ export default function DatabasePage() {
                   <col style={{ width: "20%" }} />
                   <col style={{ width: "30%" }} />
                   <col style={{ width: "15%" }} />
-                  <col style={{ width: "10%" }} />
+                  <col className="db-pairs-col" style={{ width: "10%" }} />
                   <col style={{ width: "25%" }} />
                 </colgroup>
                 <thead>
