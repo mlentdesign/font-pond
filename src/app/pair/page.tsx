@@ -1,12 +1,9 @@
 "use client";
 
-import { Suspense } from "react";
-import PairDetailClient from "./PairDetailClient";
+import dynamic from "next/dynamic";
+
+const PairDetailClient = dynamic(() => import("./PairDetailClient"), { ssr: false });
 
 export default function PairPage() {
-  return (
-    <Suspense>
-      <PairDetailClient />
-    </Suspense>
-  );
+  return <PairDetailClient />;
 }
