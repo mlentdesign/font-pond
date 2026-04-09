@@ -49,8 +49,12 @@ function peekNext(count: number): PoolFont[] {
   return fontQueue.slice(-count);
 }
 
-export let headerAnimationPaused = false;
-export function setHeaderAnimationPaused(v: boolean) { headerAnimationPaused = v; }
+// Persist pause state across pages and reloads
+export let headerAnimationPaused = typeof window !== "undefined" && localStorage.getItem("animation-paused") === "true";
+export function setHeaderAnimationPaused(v: boolean) {
+  headerAnimationPaused = v;
+  if (typeof window !== "undefined") localStorage.setItem("animation-paused", String(v));
+}
 
 interface LetterState {
   fontName: string;
