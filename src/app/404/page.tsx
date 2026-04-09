@@ -1,10 +1,33 @@
 "use client";
 
+import { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
 import { FishingLine } from "@/components/FishingLine";
+import FontDetailClient from "../font/FontDetailClient";
+import PairDetailClient from "../pair/PairDetailClient";
 
 export default function NotFoundPage() {
+  const [route, setRoute] = useState<{ type: "pair" | "font" | "404"; slug: string } | null>(null);
+
+  useEffect(() => {
+    const path = window.location.pathname.replace("/font-pond", "").replace(/\/$/, "");
+    const pairMatch = path.match(/^\/pair\/(.+)/);
+    const fontMatch = path.match(/^\/font\/(.+)/);
+
+    if (pairMatch) setRoute({ type: "pair", slug: pairMatch[1] });
+    else if (fontMatch) setRoute({ type: "font", slug: fontMatch[1] });
+    else setRoute({ type: "404", slug: "" });
+  }, []);
+
+  // Render font/pair content for clean URLs
+  if (route?.type === "pair") return <Suspense><PairDetailClient slugOverride={route.slug} /></Suspense>;
+  if (route?.type === "font") return <Suspense><FontDetailClient slugOverride={route.slug} /></Suspense>;
+
+  // Still detecting URL
+  if (route === null) return null;
+
+  // Actual 404
   return (
     <div className="flex-1 flex flex-col">
       <DetailPageHeader />
