@@ -43,11 +43,11 @@ export function FishingLine() {
       `}</style>
       <g className="fishing-rod">
         {/* Rod */}
-        <line x1="40" y1="15" x2="95" y2="12" stroke="var(--text-muted)" strokeWidth="2.5" strokeLinecap="round" />
-        <circle cx="40" cy="15" r="2" fill="var(--text-muted)" />
+        <line x1="40" y1="15" x2="95" y2="12" stroke="var(--text-ransom)" strokeWidth="2.5" strokeLinecap="round" />
+        <circle cx="40" cy="15" r="2" fill="var(--text-ransom)" />
       </g>
       {/* Line */}
-      <path className="fishing-line" d="M95 12 Q90 50, 80 85 Q72 110, 75 140" stroke="var(--text-muted)" strokeWidth="1" fill="none" strokeLinecap="round" opacity="0.6" />
+      <path className="fishing-line" d="M95 12 Q90 50, 80 85 Q72 110, 75 140" stroke="var(--text-ransom)" strokeWidth="1" fill="none" strokeLinecap="round" opacity="0.6" />
       {/* Bobber */}
       <circle className="fishing-bobber" cx="80" cy="85" r="5" fill="rgba(240, 140, 50, 0.7)" stroke="rgba(200, 100, 30, 0.8)" strokeWidth="1.5" />
       {/* Hook */}
