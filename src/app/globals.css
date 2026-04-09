@@ -1083,7 +1083,7 @@ body.animations-paused #water-bg * {
   display: none;
 }
 /* Center-align pairs column on desktop */
-th.db-pairs-col, td.db-pairs-col {
+th:nth-child(4), td:nth-child(4) {
   text-align: center !important;
 }
 @media (max-width: 1023px) {
