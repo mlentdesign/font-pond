@@ -1095,8 +1095,8 @@ body.animations-paused #water-bg * {
   /* Redistribute column widths when pairs is hidden, source right-aligned */
   col:nth-child(4) { width: 0 !important; }
   col:nth-child(5) { width: 35% !important; }
-  .db-source-col { text-align: right !important; }
-  .db-source-col a { margin-left: auto !important; display: block !important; width: fit-content !important; margin-right: 0 !important; }
+  th.db-source-col, td.db-source-col { text-align: right !important; }
+  td.db-source-col a { margin-left: auto !important; display: block !important; width: fit-content !important; margin-right: 0 !important; }
 }
 
 .breadcrumb-inner {
