@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { fontsBySlug, fontsById } from "@/data/fonts";
 import { getPairsWithFont } from "@/lib/engine";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
@@ -42,12 +41,11 @@ function InfoRow({ label, value, useTitle, useClassification }: { label: string;
 }
 
 export default function FontDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
-  const searchParams = useSearchParams();
-  // Read slug from: prop override → query param → URL path
+  // Read slug from prop override or URL path
   const pathSlug = typeof window !== "undefined"
     ? window.location.pathname.replace("/font-pond", "").replace(/\/$/, "").replace(/^\/font\//, "")
     : "";
-  const slug = slugOverride || searchParams.get("f") || (pathSlug && pathSlug !== "/font" ? pathSlug : "");
+  const slug = slugOverride || (pathSlug && pathSlug !== "/font" && pathSlug !== "" ? pathSlug : "");
   const fromPair = searchParams.get("from");
 
   const font = fontsBySlug.get(slug);

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { pairsBySlug, getPairOrConstruct } from "@/data/pairs";
 import { fontsById } from "@/data/fonts";
 import { getRelatedPairs } from "@/lib/engine";
@@ -152,12 +151,11 @@ function FontSection({
 }
 
 export default function PairDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
-  const searchParams = useSearchParams();
-  // Read slug from: prop override → query param → URL path
+  // Read slug from prop override or URL path
   const pathSlug = typeof window !== "undefined"
     ? window.location.pathname.replace("/font-pond", "").replace(/\/$/, "").replace(/^\/pair\//, "")
     : "";
-  const slug = slugOverride || searchParams.get("p") || (pathSlug && pathSlug !== "/pair" ? pathSlug : "");
+  const slug = slugOverride || (pathSlug && pathSlug !== "/pair" && pathSlug !== "" ? pathSlug : "");
   const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
 
   const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
