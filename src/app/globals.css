@@ -1092,9 +1092,6 @@ body.animations-paused #water-bg * {
   table {
     table-layout: auto !important;
   }
-  colgroup {
-    display: none !important;
-  }
   .db-pairs-col {
     display: none !important;
   }
