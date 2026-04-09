@@ -1,14 +1,10 @@
 "use client";
 
-import { Suspense, lazy } from "react";
+import dynamic from "next/dynamic";
 
-// Lazy import prevents loading the 210k+ pair data during build-time page collection
-const PairDetailClient = lazy(() => import("../PairDetailClient"));
+// ssr:false prevents loading the 210k+ pair data module during build
+const PairDetailClient = dynamic(() => import("../PairDetailClient"), { ssr: false });
 
 export default function PairSlugClient({ slug }: { slug: string }) {
-  return (
-    <Suspense>
-      <PairDetailClient slugOverride={slug} />
-    </Suspense>
-  );
+  return <PairDetailClient slugOverride={slug} />;
 }
