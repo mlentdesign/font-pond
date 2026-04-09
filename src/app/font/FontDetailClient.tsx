@@ -184,7 +184,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
             ) : (
               <Link
                 href="/?explore=1"
-                className="outline-btn font-medium rounded-lg inline-block transition-colors"
+                className="btn-generate font-medium rounded-lg inline-block"
                 style={{ fontSize: "16px", padding: "8px 24px", marginTop: "8px" }}
               >
                 Explore font pairs
