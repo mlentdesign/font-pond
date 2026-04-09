@@ -153,7 +153,9 @@ export default function DatabasePage() {
     const updateTop = () => {
       const h = header.getBoundingClientRect().height;
       const w = window.innerWidth;
-      const gap = w >= 1024 ? 80 : w >= 768 ? 56 : 40;
+      const vh = window.innerHeight;
+      const isShortHeight = vh <= 900;
+      const gap = w >= 1024 ? (isShortHeight ? 40 : 80) : w >= 768 ? (isShortHeight ? 24 : 56) : 40;
       setStickyTop(h + gap);
     };
     updateTop();
