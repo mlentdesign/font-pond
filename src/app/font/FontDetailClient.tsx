@@ -63,6 +63,13 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
   const { addHistoryItem } = useAppState();
   const [hasNums, setHasNums] = useState(true);
 
+  // Show clean URL in address bar after navigation settles
+  useEffect(() => {
+    if (slug && window.location.search.includes("f=")) {
+      window.history.replaceState(null, "", `/font-pond/font/${slug}`);
+    }
+  }, [slug]);
+
   useEffect(() => {
     if (font) {
       loadFont(font);
