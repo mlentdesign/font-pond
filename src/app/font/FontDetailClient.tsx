@@ -41,11 +41,12 @@ function InfoRow({ label, value, useTitle, useClassification }: { label: string;
 }
 
 export default function FontDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
-  // Read slug from prop override or URL path
+  // Read slug from: prop override → query param → URL path
+  const querySlug = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("f") : null;
   const pathSlug = typeof window !== "undefined"
-    ? window.location.pathname.replace("/font-pond", "").replace(/\/$/, "").replace(/^\/font\//, "")
+    ? window.location.pathname.replace("/font-pond", "").replace(/\/$/, "").replace(/^\/font\/?/, "")
     : "";
-  const slug = slugOverride || (pathSlug && pathSlug !== "/font" && pathSlug !== "" ? pathSlug : "");
+  const slug = slugOverride || querySlug || (pathSlug || "");
   const fromPair = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("from") : null;
 
   const font = fontsBySlug.get(slug);
@@ -57,7 +58,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
     if (pair) {
       const hf = fontsById.get(pair.headerFontId);
       const bf = fontsById.get(pair.bodyFontId);
-      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair/${fromPair}` });
+      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair?p=${fromPair}` });
     }
   }
   if (font) crumbs.push({ label: font.name });
@@ -166,7 +167,8 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                   {topSuggestions.map((s) => (
                     <Link
                       key={s.slug}
-                      href={`/font/${s.slug}`}
+                      href={`/font?f=${s.slug}`}
+                      onClick={() => requestAnimationFrame(() => window.history.replaceState(null, "", `/font-pond/font/${s.slug}`))}
                       className="outline-btn font-medium rounded-lg inline-block transition-colors"
                       style={{ fontSize: "16px", padding: "8px 16px" }}
                     >
@@ -408,7 +410,8 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                   return (
                     <Link
                       key={sf.slug}
-                      href={`/font/${sf.slug}`}
+                      href={`/font?f=${sf.slug}`}
+                      onClick={() => requestAnimationFrame(() => window.history.replaceState(null, "", `/font-pond/font/${sf.slug}`))}
                       onMouseDown={(e) => e.preventDefault()}
                       className="group block border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
                       style={{ position: "relative" }}
