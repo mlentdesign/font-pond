@@ -442,7 +442,7 @@ export default function DatabasePage() {
                 onChange={(e) => setSearch(e.target.value)}
                 onFocus={() => setSearchExpanded(true)}
                 placeholder="Search fonts..."
-                className="db-search-input rounded-lg outline-none transition-all w-full"
+                className="db-search-input rounded-lg outline-none w-full"
                 style={{
                   fontSize: "16px",
                   padding: search ? "8px 16px" : "8px 16px 8px 40px",
