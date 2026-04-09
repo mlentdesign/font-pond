@@ -1089,9 +1089,6 @@ body.animations-paused #water-bg * {
   .db-specimen-break {
     display: block !important;
   }
-  table {
-    table-layout: auto !important;
-  }
   .db-pairs-col {
     display: none !important;
   }
