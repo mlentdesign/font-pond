@@ -1089,8 +1089,12 @@ body.animations-paused #water-bg * {
   .db-specimen-break {
     display: block !important;
   }
-  .db-pairs-col {
-    display: none !important;
+  th.db-pairs-col, td.db-pairs-col {
+    visibility: hidden !important;
+    padding: 0 !important;
+    border: 0 !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
   }
   col:nth-child(1) { width: 22% !important; }
   col:nth-child(2) { width: 33% !important; }
