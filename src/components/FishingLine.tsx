@@ -168,17 +168,17 @@ export function FishingLine() {
       ctx.fillStyle = "rgba(255, 255, 255, 0.35)";
       ctx.fill();
 
-      // Hook — at the end
+      // Hook — hangs down from end of line
       const hx = points[SEGS].x, hy = points[SEGS].y;
       const hpx = points[SEGS - 1].x, hpy = points[SEGS - 1].y;
       const angle = Math.atan2(hy - hpy, hx - hpx);
       ctx.save();
       ctx.translate(hx, hy);
-      ctx.rotate(angle + Math.PI * 0.5);
+      ctx.rotate(angle - Math.PI * 0.5);
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      ctx.quadraticCurveTo(-6, 10, 0, 16);
-      ctx.quadraticCurveTo(5, 14, 3, 8);
+      ctx.quadraticCurveTo(6, 8, 2, 16);
+      ctx.quadraticCurveTo(-2, 14, -1, 10);
       ctx.strokeStyle = "rgba(240, 140, 50, 0.8)";
       ctx.lineWidth = 2;
       ctx.lineCap = "round";
