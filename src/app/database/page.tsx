@@ -559,7 +559,7 @@ export default function DatabasePage() {
                     <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", textAlign: "right" }} className="tabular-nums db-pairs-col">
                       {row.pairCount}
                     </td>
-                    <td className="db-source-cell" style={{ padding: "16px" }}>
+                    <td className="db-source-cell" style={{ padding: "16px", textAlign: "right" }}>
                       <a
                         href={row.sourceUrl}
                         target="_blank"
