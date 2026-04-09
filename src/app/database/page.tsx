@@ -137,10 +137,11 @@ export default function DatabasePage() {
   const [stickyTop, setStickyTop] = useState(100);
   const [searchExpanded, setSearchExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showPairs, setShowPairs] = useState(true);
 
   // Track mobile viewport
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 640);
+    const check = () => { setIsMobile(window.innerWidth < 640); setShowPairs(window.innerWidth >= 1024); };
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -484,10 +485,10 @@ export default function DatabasePage() {
             <div ref={headerScrollRef} style={{ overflowX: "auto", width: "100%" }}>
               <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed", minWidth: "800px" }}>
                 <colgroup>
-                  <col style={{ width: "20%" }} />
-                  <col style={{ width: "30%" }} />
-                  <col style={{ width: "15%" }} />
-                  <col style={{ width: "10%" }} />
+                  <col style={{ width: showPairs ? "20%" : "22%" }} />
+                  <col style={{ width: showPairs ? "30%" : "35%" }} />
+                  <col style={{ width: showPairs ? "15%" : "18%" }} />
+                  {showPairs && <col style={{ width: "10%" }} />}
                   <col style={{ width: "25%" }} />
                 </colgroup>
                 <thead>
@@ -501,9 +502,9 @@ export default function DatabasePage() {
                     <th onClick={() => toggleSort("category")} className={thClass} style={thStyle} aria-sort={sortKey === "category" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Category{arrow("category")}
                     </th>
-                    <th onClick={() => toggleSort("pairs")} className={`${thClass} db-pairs-col`} style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "pairs" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
+                    {showPairs && <th onClick={() => toggleSort("pairs")} className={thClass} style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "pairs" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Pairs{arrow("pairs")}
-                    </th>
+                    </th>}
                     <th onClick={() => toggleSort("source")} className="uppercase tracking-wider cursor-pointer hover:opacity-70 select-none" style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "source" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Source{arrow("source")}
                     </th>
@@ -556,9 +557,9 @@ export default function DatabasePage() {
                     <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>
                       {titleCase(row.category)}
                     </td>
-                    <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", textAlign: "right" }} className="tabular-nums db-pairs-col">
+                    {showPairs && <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", textAlign: "right" }} className="tabular-nums">
                       {row.pairCount}
-                    </td>
+                    </td>}
                     <td style={{ padding: "16px" }}>
                       <div style={{ display: "flex", justifyContent: "flex-end" }}>
                         <a
