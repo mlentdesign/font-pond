@@ -1092,6 +1092,15 @@ body.animations-paused #water-bg * {
   .db-pairs-col {
     display: none !important;
   }
+  /* Redistribute column widths when pairs column is hidden */
+  table col:nth-child(1) { width: 20% !important; }
+  table col:nth-child(2) { width: 30% !important; }
+  table col:nth-child(3) { width: 15% !important; }
+  table col:nth-child(5) { width: 35% !important; }
+  /* Right-align source column content */
+  td:last-child {
+    text-align: right !important;
+  }
 }
 
 .breadcrumb-inner {
