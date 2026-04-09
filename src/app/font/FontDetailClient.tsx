@@ -16,6 +16,20 @@ import { ChipGroup } from "@/components/ChipGroup";
 import { PairPreviewGrid } from "@/components/PairPreviewGrid";
 import { useAppState } from "@/lib/store";
 
+function editDistance(a: string, b: string): number {
+  if (a === b) return 0;
+  const la = a.length, lb = b.length;
+  let prev = Array.from({ length: lb + 1 }, (_, i) => i);
+  for (let i = 1; i <= la; i++) {
+    const curr = [i];
+    for (let j = 1; j <= lb; j++) {
+      curr[j] = a[i - 1] === b[j - 1] ? prev[j - 1] : 1 + Math.min(prev[j - 1], prev[j], curr[j - 1]);
+    }
+    prev = curr;
+  }
+  return prev[lb];
+}
+
 function InfoRow({ label, value, useTitle, useClassification }: { label: string; value: string | null | undefined; useTitle?: boolean; useClassification?: boolean }) {
   if (!value) return null;
   const formatted = useClassification ? formatClassification(value) : useTitle ? titleCase(value) : sentenceCase(value);
@@ -114,6 +128,22 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
   const pairsUsing = font ? getPairsWithFont(font.id) : [];
 
   if (!font) {
+    // Find similar fonts by edit distance
+    const suggestions: { slug: string; name: string; dist: number }[] = [];
+    if (slug) {
+      const slugLower = slug.toLowerCase();
+      for (const [fSlug, f] of fontsBySlug) {
+        // Quick length check to skip wildly different lengths
+        if (Math.abs(fSlug.length - slugLower.length) > 3) continue;
+        const dist = editDistance(slugLower, fSlug.toLowerCase());
+        if (dist > 0 && dist <= 3) {
+          suggestions.push({ slug: fSlug, name: f.name, dist });
+        }
+      }
+      suggestions.sort((a, b) => a.dist - b.dist);
+    }
+    const topSuggestions = suggestions.slice(0, 5);
+
     return (
       <div className="flex-1 flex flex-col">
         <DetailPageHeader />
@@ -125,6 +155,25 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
             <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
               Font not found.
             </p>
+            {topSuggestions.length > 0 && (
+              <div style={{ marginTop: "16px" }}>
+                <p style={{ fontSize: "14px", color: "var(--text-muted)", marginBottom: "8px" }}>
+                  Did you mean
+                </p>
+                <div className="flex items-center justify-center flex-wrap" style={{ gap: "8px" }}>
+                  {topSuggestions.map((s) => (
+                    <Link
+                      key={s.slug}
+                      href={`/font?f=${s.slug}`}
+                      className="outline-btn font-medium rounded-lg inline-block transition-colors"
+                      style={{ fontSize: "16px", padding: "8px 16px" }}
+                    >
+                      {s.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
             <FishingLine />
           </div>
         </main>
