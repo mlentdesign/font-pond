@@ -3624,7 +3624,7 @@ export function getRelatedPairs(pairId: string, limit = 4): ScoredPair[] {
       return { ...p, relevanceScore: sim, promptFitReason: p.shortExplanation, headerFont: h, bodyFont: b } as ScoredPair;
     })
     .filter(Boolean)
-    .sort((a, b) => b!.relevanceScore - a!.relevanceScore)
+    .sort((a, b) => b!.relevanceScore - a!.relevanceScore || b!.overallScore - a!.overallScore)
     .slice(0, limit) as ScoredPair[];
 }
 
