@@ -1092,6 +1092,9 @@ body.animations-paused #water-bg * {
   .db-pairs-col {
     display: none !important;
   }
+  colgroup col:nth-child(4) {
+    width: 0 !important;
+  }
 }
 
 .breadcrumb-inner {
