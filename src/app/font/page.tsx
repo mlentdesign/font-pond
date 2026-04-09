@@ -1,12 +1,9 @@
 "use client";
 
-import { Suspense } from "react";
-import FontDetailClient from "./FontDetailClient";
+import dynamic from "next/dynamic";
+
+const FontDetailClient = dynamic(() => import("./FontDetailClient"), { ssr: false });
 
 export default function FontPage() {
-  return (
-    <Suspense>
-      <FontDetailClient />
-    </Suspense>
-  );
+  return <FontDetailClient />;
 }
