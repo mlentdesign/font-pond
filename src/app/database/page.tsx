@@ -559,16 +559,18 @@ export default function DatabasePage() {
                     <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", textAlign: "right" }} className="tabular-nums db-pairs-col">
                       {row.pairCount}
                     </td>
-                    <td style={{ padding: "16px", textAlign: "right" }}>
-                      <a
-                        href={row.sourceUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="outline-btn font-medium rounded-lg transition-colors inline-block"
-                        style={{ fontSize: "16px", padding: "8px 24px", whiteSpace: "nowrap" }}
-                      >
-                        {row.sourceLabel} ↗
-                      </a>
+                    <td style={{ padding: "16px" }}>
+                      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <a
+                          href={row.sourceUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="outline-btn font-medium rounded-lg transition-colors"
+                          style={{ fontSize: "16px", padding: "8px 24px", whiteSpace: "nowrap" }}
+                        >
+                          {row.sourceLabel} ↗
+                        </a>
+                      </div>
                     </td>
                   </tr>
                 ))}
