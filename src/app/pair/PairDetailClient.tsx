@@ -252,12 +252,12 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
         {/* Pair specimen */}
         <SectionCard style={{ marginBottom: "24px" }}>
-          <h2
+          <h1
             className="leading-tight mb-4"
             style={{ fontFamily: headerFamily, fontWeight: 700, color: "var(--text-heading)", fontSize: `${headerSize}px` }}
           >
             {headline}
-          </h2>
+          </h1>
           <p
             className="text-neutral-600 leading-relaxed max-w-2xl"
             style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: `${bodySize}px`, lineHeight: 1.7 }}

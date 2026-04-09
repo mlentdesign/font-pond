@@ -17,6 +17,18 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Font Pond",
   description: "Discover free font pairings for your next project. Describe your mood, brand, or vibe — get ranked typography recommendations.",
+  openGraph: {
+    title: "Font Pond",
+    description: "Discover free font pairings for your next project. Describe your mood, brand, or vibe — get ranked typography recommendations.",
+    url: "https://mlentdesign.github.io/font-pond",
+    siteName: "Font Pond",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Font Pond",
+    description: "Discover free font pairings for your next project. Describe your mood, brand, or vibe — get ranked typography recommendations.",
+  },
 };
 
 export default function RootLayout({

@@ -370,12 +370,12 @@ export default function DatabasePage() {
       >
         <div className="flex items-start justify-between flex-wrap" style={{ gap: "16px", marginBottom: "24px" }}>
           <div style={{ minWidth: 0 }}>
-            <h2
+            <h1
               className="font-semibold tracking-tight"
               style={{ color: "var(--text-heading)", fontSize: "24px", marginBottom: "4px" }}
             >
               Font database
-            </h2>
+            </h1>
             <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
               {search.trim() || activeFilterCount > 0 ? `${filtered.length} of ${rows.length} fonts` : `${rows.length} fonts in the collection`}
             </p>
@@ -482,6 +482,7 @@ export default function DatabasePage() {
                 onChange={(e) => setSearch(e.target.value)}
                 onFocus={() => setSearchExpanded(true)}
                 placeholder="Search fonts..."
+                aria-label="Search fonts"
                 className="db-search-input rounded-lg outline-none w-full"
                 style={{
                   fontSize: "16px",
@@ -532,19 +533,19 @@ export default function DatabasePage() {
                 </colgroup>
                 <thead>
                   <tr>
-                    <th onClick={() => toggleSort("name")} className={thClass} style={thStyle} aria-sort={sortKey === "name" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
+                    <th onClick={() => toggleSort("name")} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleSort("name"); } }} tabIndex={0} className={thClass} style={thStyle} aria-sort={sortKey === "name" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Font name{arrow("name")}
                     </th>
                     <th className="text-left uppercase tracking-wider" style={{ ...thStyle, cursor: "default" }} role="columnheader">
                       Specimen
                     </th>
-                    <th onClick={() => toggleSort("category")} className={thClass} style={thStyle} aria-sort={sortKey === "category" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
+                    <th onClick={() => toggleSort("category")} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleSort("category"); } }} tabIndex={0} className={thClass} style={thStyle} aria-sort={sortKey === "category" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Category{arrow("category")}
                     </th>
-                    <th onClick={() => toggleSort("pairs")} className={`uppercase tracking-wider cursor-pointer hover:opacity-70 select-none db-pairs-col`} style={{ ...thStyle, textAlign: "center" }} aria-sort={sortKey === "pairs" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
+                    <th onClick={() => toggleSort("pairs")} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleSort("pairs"); } }} tabIndex={0} className={`uppercase tracking-wider cursor-pointer hover:opacity-70 select-none db-pairs-col`} style={{ ...thStyle, textAlign: "center" }} aria-sort={sortKey === "pairs" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Pairs{arrow("pairs")}
                     </th>
-                    <th onClick={() => toggleSort("source")} className="uppercase tracking-wider cursor-pointer hover:opacity-70 select-none" style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "source" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
+                    <th onClick={() => toggleSort("source")} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleSort("source"); } }} tabIndex={0} className="uppercase tracking-wider cursor-pointer hover:opacity-70 select-none" style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "source" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Source{arrow("source")}
                     </th>
                   </tr>
