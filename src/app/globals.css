@@ -1093,7 +1093,15 @@ body.animations-paused #water-bg * {
     display: none !important;
   }
   colgroup col:nth-child(4) {
-    width: 0 !important;
+    width: 0px !important;
+    max-width: 0px !important;
+    overflow: hidden !important;
+  }
+  th:nth-child(4), td:nth-child(4) {
+    width: 0px !important;
+    max-width: 0px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
   }
 }
 
