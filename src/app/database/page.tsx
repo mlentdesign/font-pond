@@ -185,6 +185,31 @@ export default function DatabasePage() {
     };
   }, []);
 
+  // Sync header column widths to body column widths on tablet/mobile
+  useEffect(() => {
+    const syncWidths = () => {
+      if (window.innerWidth >= 1024) return; // Only on tablet/mobile
+      const body = bodyScrollRef.current;
+      const header = headerScrollRef.current;
+      if (!body || !header) return;
+      const bodyRow = body.querySelector("tr");
+      const headerRow = header.querySelector("tr");
+      if (!bodyRow || !headerRow) return;
+      const bodyCells = bodyRow.querySelectorAll("td");
+      const headerCells = headerRow.querySelectorAll("th");
+      const tableWidth = body.querySelector("table")?.offsetWidth || 1;
+      bodyCells.forEach((td, i) => {
+        if (i < headerCells.length) {
+          const pct = (td.offsetWidth / tableWidth * 100).toFixed(2) + "%";
+          (headerCells[i] as HTMLElement).style.width = pct;
+        }
+      });
+    };
+    syncWidths();
+    window.addEventListener("resize", syncWidths);
+    return () => window.removeEventListener("resize", syncWidths);
+  }, [pageRows]);
+
   // Detect when sticky header is stuck via scroll position
   useEffect(() => {
     const el = stickyRef.current;
@@ -515,12 +540,12 @@ export default function DatabasePage() {
 
           {/* Table body — horizontal scroll for mobile, z-index below sticky header */}
           <div ref={bodyScrollRef} style={{ overflowX: "auto", background: "var(--bg-card)", position: "relative", zIndex: 1 }}>
-            <table className="w-full" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed", minWidth: "800px" }}>
+            <table className="w-full db-body-table" style={{ fontSize: "16px", borderCollapse: "collapse", tableLayout: "fixed", minWidth: "800px" }}>
               <colgroup>
                 <col style={{ width: "20%" }} />
                 <col style={{ width: "30%" }} />
                 <col style={{ width: "15%" }} />
-                <col style={{ width: "10%" }} />
+                <col className="db-pairs-col" style={{ width: "10%" }} />
                 <col style={{ width: "25%" }} />
               </colgroup>
               <tbody>
