@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { RansomHeader } from "./RansomHeader";
+import { navigateToFont } from "@/lib/navigate";
 
 export function HeaderWithFontInfo() {
   const [currentFont, setCurrentFont] = useState("");
@@ -25,7 +26,7 @@ export function HeaderWithFontInfo() {
 
   const handleFontClick = () => {
     if (currentSlug) {
-      router.push(`/font/${currentSlug}`);
+      navigateToFont(router, currentSlug);
       setShowTooltip(false);
     }
   };
