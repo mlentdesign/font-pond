@@ -696,7 +696,6 @@ export const dafontFonts: Font[] = [
     ["historic", "scribal", "medieval", "academic"],
     ["medieval manuscript", "academic heading", "historic event"],
     ["bastarda calligraphic blackletter", "scribal manuscript style"],
-    { designer: "Dieter Steffmann" },
   ),
 
   // ─── PIXEL / GAMING / 8-BIT (~15) ───
@@ -801,7 +800,6 @@ export const dafontFonts: Font[] = [
     ["sweet", "warm", "friendly", "cozy"],
     ["bakery brand", "kids menu", "sweet shop", "cute packaging"],
     ["cookie-sweet rounded display", "warm bakery feel"],
-    { designer: "Haley Fiege" },
   ),
 
   dafont("Sniglet", "display",
