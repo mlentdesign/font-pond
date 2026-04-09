@@ -504,7 +504,7 @@ export default function DatabasePage() {
                     <th onClick={() => toggleSort("pairs")} className={`${thClass} db-pairs-col`} style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "pairs" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Pairs{arrow("pairs")}
                     </th>
-                    <th onClick={() => toggleSort("source")} className={thClass.replace("text-left", "text-right")} style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "source" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
+                    <th onClick={() => toggleSort("source")} className={thClass.replace("text-left", "text-right") + " db-source-col"} style={{ ...thStyle, textAlign: "right" }} aria-sort={sortKey === "source" ? (sortDir === "asc" ? "ascending" : "descending") : undefined} role="columnheader">
                       Source{arrow("source")}
                     </th>
                   </tr>
@@ -559,7 +559,7 @@ export default function DatabasePage() {
                     <td style={{ padding: "16px", fontSize: "16px", color: "var(--text-muted)", textAlign: "right" }} className="tabular-nums db-pairs-col">
                       {row.pairCount}
                     </td>
-                    <td style={{ padding: "16px", textAlign: "right" }}>
+                    <td className="db-source-col" style={{ padding: "16px", textAlign: "right" }}>
                       <a
                         href={row.sourceUrl}
                         target="_blank"
