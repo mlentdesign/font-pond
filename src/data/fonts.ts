@@ -2669,7 +2669,7 @@ function isBlocklisted(font: Font): boolean {
 export const fonts: Font[] = [...curatedFonts, ...extraGoogle, ...extraFontshare]
   .filter((f) => !isBlocklisted(f))
   .map(enrichFontTags)
-  .map((f) => ({ ...f, url: `/font/${f.slug}` }));
+  .map((f) => ({ ...f, url: `/font/${f.slug}`, queryUrl: `/font?f=${f.slug}` }));
 
 // ── Lookup helpers ──
 

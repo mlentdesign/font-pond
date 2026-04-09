@@ -2169,7 +2169,10 @@ for (const p of enrichedHandCrafted) _allPairs.push(p);
 for (const p of curatedPairs) _allPairs.push(p);
 for (const p of uniqueDynamic) _allPairs.push(p);
 // Add CMS URLs to all pairs (hand-crafted pairs get url added here)
-for (const p of _allPairs) { (p as any).url = `/pair/${p.slug}`; }
+for (const p of _allPairs) {
+  (p as any).url = `/pair/${p.slug}`;
+  (p as any).queryUrl = `/pair?p=${p.slug}`;
+}
 export const fontPairs: FontPair[] = _allPairs;
 
 // ── Lookup helpers ──
