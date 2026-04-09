@@ -1,111 +1,111 @@
 import { Font, FontClassification } from "./types";
 
-// Hand-researched anatomy for every Google Fonts Extended entry
+// Measured font anatomy for Google Fonts Extended — values from opentype.js analysis
 // [xHeightRatio, apertureOpenness, strokeContrast, letterSpacing, moodCategory]
 type AT = [Font["xHeightRatio"], Font["apertureOpenness"], Font["strokeContrast"], Font["letterSpacing"], Font["moodCategory"]];
 const GFE_ANATOMY: Record<string, AT> = {
   // ── Display Serif / High-Contrast ──
-  "abril-fatface":        ["moderate", "moderate", "high",     "normal",   "elegant"],    // Didone display, extreme contrast
-  "yeseva-one":           ["moderate", "moderate", "high",     "normal",   "elegant"],    // Didone-inspired, decorative serifs
-  "ultra":                ["high",     "closed",   "low",      "tight",    "bold"],       // ultra-heavy serif
-  "vast-shadow":          ["moderate", "moderate", "high",     "normal",   "elegant"],    // drop-shadow Didone
-  "rye":                  ["moderate", "moderate", "moderate", "normal",   "traditional"], // western serif display
-  "baskervville":         ["moderate", "moderate", "moderate", "normal",   "traditional"], // Baskerville revival
-  "cinzel-decorative":    ["moderate", "moderate", "moderate", "generous", "elegant"],    // decorative Roman capitals
-  "yuji-mai":             ["moderate", "moderate", "moderate", "normal",   "elegant"],    // Japanese-influenced brush serif
+  "abril-fatface":          ["moderate", "closed"    , "high", "normal"    , "elegant"       ],  // Didone display, extreme contrast
+  "yeseva-one":             ["moderate", "closed"    , "high", "normal"    , "elegant"       ],  // Didone-inspired, decorative serifs
+  "ultra":                  ["high", "closed"    , "moderate", "generous"  , "traditional"   ],  // ultra-heavy serif
+  "vast-shadow":            ["high", "moderate"  , "none", "generous"  , "neutral"       ],  // drop-shadow Didone
+  "rye":                    ["high", "closed"    , "high", "generous"  , "elegant"       ],  // western serif display
+  "baskervville":           ["low", "open"      , "high", "normal"    , "elegant"       ],  // Baskerville revival
+  "cinzel-decorative":      ["high", "open"      , "moderate", "generous"  , "bold"          ],  // decorative Roman capitals
+  "yuji-mai":               ["moderate", "closed"    , "moderate", "generous"  , "traditional"   ],  // Japanese-influenced brush serif
   // ── Slab Display ──
-  "alfa-slab-one":        ["high",     "closed",   "low",      "tight",    "bold"],       // ultra-heavy slab
-  "patua-one":            ["high",     "closed",   "low",      "tight",    "bold"],       // heavy slab display
-  "rammetto-one":         ["high",     "closed",   "low",      "tight",    "bold"],       // heavy rounded slab
-  "shrikhand":            ["high",     "closed",   "low",      "tight",    "bold"],       // Indian-inspired heavy slab
+  "alfa-slab-one":          ["moderate", "closed"    , "low", "generous"  , "bold"          ],  // ultra-heavy slab
+  "patua-one":              ["moderate", "closed"    , "low", "normal"    , "bold"          ],  // heavy slab display
+  "rammetto-one":           ["high", "closed"    , "low", "generous"  , "bold"          ],  // heavy rounded slab
+  "shrikhand":              ["high", "closed"    , "moderate", "generous"  , "bold"          ],  // Indian-inspired heavy slab
   // ── Bold / Impact Sans ──
-  "bangers":              ["high",     "closed",   "none",     "tight",    "playful"],    // comic book impact
-  "luckiest-guy":         ["high",     "closed",   "low",      "tight",    "playful"],    // bouncy heavy display
-  "fugaz-one":            ["high",     "closed",   "none",     "tight",    "bold"],       // italic impact
-  "staatliches":          ["high",     "closed",   "none",     "tight",    "bold"],       // condensed geometric
-  "titan-one":            ["high",     "closed",   "low",      "tight",    "bold"],       // heavy rounded impact
-  "modak":                ["high",     "closed",   "low",      "tight",    "playful"],    // chunky Indian-inspired
-  "black-ops-one":        ["high",     "closed",   "none",     "tight",    "technical"],  // military stencil
+  "bangers":                ["high", "closed"    , "low", "tight"     , "bold"          ],  // comic book impact
+  "luckiest-guy":           ["high", "closed"    , "none", "generous"  , "bold"          ],  // bouncy heavy display
+  "fugaz-one":              ["moderate", "closed"    , "low", "normal"    , "bold"          ],  // italic impact
+  "staatliches":            ["moderate", "moderate"  , "none", "tight"     , "bold"          ],  // condensed geometric
+  "titan-one":              ["high", "closed"    , "moderate", "generous"  , "bold"          ],  // heavy rounded impact
+  "modak":                  ["high", "closed"    , "low", "normal"    , "bold"          ],  // chunky Indian-inspired
+  "black-ops-one":          ["high", "closed"    , "low", "generous"  , "bold"          ],  // military stencil
   // ── Rounded / Friendly Display ──
-  "fredoka":              ["moderate", "open",     "low",      "normal",   "playful"],    // fully rounded, bubbly
-  "bubblegum-sans":       ["moderate", "open",     "low",      "normal",   "playful"],    // bubbly casual
-  "comfortaa":            ["moderate", "open",     "none",     "normal",   "modern"],     // rounded geometric
-  "leckerli-one":         ["moderate", "moderate", "low",      "normal",   "warm"],       // rounded casual
+  "fredoka":                ["moderate", "open"      , "none", "normal"    , "modern"        ],  // fully rounded, bubbly
+  "bubblegum-sans":         ["high", "closed"    , "none", "tight"     , "bold"          ],  // bubbly casual
+  "comfortaa":              ["moderate", "open"      , "none", "generous"  , "bold"          ],  // rounded geometric
+  "leckerli-one":           ["low", "closed"    , "low", "normal"    , "warm"          ],  // rounded casual
   // ── Experimental / Decorative ──
-  "bungee":               ["high",     "closed",   "none",     "tight",    "bold"],       // signage-inspired
-  "bungee-inline":        ["high",     "closed",   "none",     "tight",    "experimental"], // inline variant
-  "bungee-shade":         ["high",     "closed",   "none",     "tight",    "experimental"], // shadow variant
-  "tourney":              ["moderate", "moderate", "none",     "normal",   "technical"],  // variable sports display
-  "climate-crisis":       ["moderate", "moderate", "none",     "normal",   "experimental"], // eco-message font
-  "rubik-glitch":         ["moderate", "moderate", "none",     "normal",   "experimental"],
-  "rubik-vinyl":          ["moderate", "moderate", "none",     "normal",   "experimental"],
-  "rubik-wet-paint":      ["moderate", "moderate", "none",     "normal",   "experimental"],
-  "rubik-burned":         ["moderate", "moderate", "none",     "normal",   "experimental"],
-  "rubik-moonrocks":      ["moderate", "moderate", "none",     "normal",   "experimental"],
-  "rubik-puddles":        ["moderate", "moderate", "none",     "normal",   "experimental"],
-  "rubik-storm":          ["moderate", "moderate", "none",     "normal",   "experimental"],
-  "megrim":               ["low",      "moderate", "none",     "generous", "experimental"], // ultra-thin geometric
-  "nixie-one":            ["moderate", "moderate", "none",     "generous", "experimental"], // neon tube inspired
-  "poiret-one":           ["low",      "moderate", "none",     "generous", "elegant"],    // Art Deco geometric
-  "zen-dots":             ["moderate", "moderate", "none",     "normal",   "technical"],  // dotted futuristic
+  "bungee":                 ["moderate", "closed"    , "none", "generous"  , "bold"          ],  // signage-inspired
+  "bungee-inline":          ["moderate", "closed"    , "none", "generous"  , "bold"          ],  // inline variant
+  "bungee-shade":           ["moderate", "closed"    , "none", "generous"  , "bold"          ],  // shadow variant
+  "tourney":                ["high", "moderate"  , "none", "generous"  , "bold"          ],  // variable sports display
+  "climate-crisis":         ["high", "closed"    , "low", "generous"  , "bold"          ],  // eco-message font
+  "rubik-glitch":           ["high", "closed"    , "none", "generous"  , "bold"          ],
+  "rubik-vinyl":            ["high", "closed"    , "low", "generous"  , "bold"          ],
+  "rubik-wet-paint":        ["high", "closed"    , "low", "generous"  , "bold"          ],
+  "rubik-burned":           ["high", "closed"    , "moderate", "generous"  , "bold"          ],
+  "rubik-moonrocks":        ["high", "closed"    , "moderate", "generous"  , "bold"          ],
+  "rubik-puddles":          ["high", "closed"    , "high", "generous"  , "elegant"       ],
+  "rubik-storm":            ["high", "closed"    , "high", "generous"  , "elegant"       ],
+  "megrim":                 ["high", "open"      , "none", "normal"    , "bold"          ],  // ultra-thin geometric
+  "nixie-one":              ["moderate", "open"      , "none", "normal"    , "bold"          ],  // neon tube inspired
+  "poiret-one":             ["low", "open"      , "none", "tight"     , "bold"          ],  // Art Deco geometric
+  "zen-dots":               ["moderate", "open"      , "low", "generous"  , "bold"          ],  // dotted futuristic
   // ── Horror / Dark ──
-  "creepster":            ["moderate", "moderate", "low",      "normal",   "experimental"],
-  "nosifer":              ["moderate", "moderate", "low",      "normal",   "experimental"],
-  "butcherman":           ["moderate", "moderate", "low",      "normal",   "experimental"],
-  "eater":                ["moderate", "moderate", "low",      "normal",   "experimental"],
-  "metal-mania":          ["moderate", "closed",   "none",     "tight",    "experimental"],
+  "creepster":              ["high", "closed"    , "low", "tight"     , "bold"          ],
+  "nosifer":                ["high", "closed"    , "low", "generous"  , "bold"          ],
+  "butcherman":             ["high", "closed"    , "low", "generous"  , "bold"          ],
+  "eater":                  ["high", "moderate"  , "moderate", "generous"  , "bold"          ],
+  "metal-mania":            ["high", "moderate"  , "none", "tight"     , "bold"          ],
   // ── Fun / Quirky ──
-  "jolly-lodger":         ["moderate", "moderate", "low",      "normal",   "playful"],
-  "emilys-candy":         ["moderate", "moderate", "moderate", "normal",   "playful"],
-  "mystery-quest":        ["moderate", "moderate", "moderate", "normal",   "experimental"],
-  "flavors":              ["moderate", "moderate", "low",      "normal",   "playful"],
-  "freckle-face":         ["moderate", "open",     "low",      "normal",   "playful"],
-  "irish-grover":         ["moderate", "moderate", "low",      "normal",   "playful"],
-  "henny-penny":          ["moderate", "moderate", "moderate", "normal",   "playful"],
-  "kranky":               ["moderate", "moderate", "low",      "normal",   "playful"],
-  "dokdo":                ["moderate", "moderate", "low",      "normal",   "experimental"],
+  "jolly-lodger":           ["high", "closed"    , "low", "tight"     , "bold"          ],
+  "emilys-candy":           ["moderate", "moderate"  , "high", "tight"     , "elegant"       ],
+  "mystery-quest":          ["high", "open"      , "low", "normal"    , "bold"          ],
+  "flavors":                ["high", "moderate"  , "none", "normal"    , "bold"          ],
+  "freckle-face":           ["moderate", "moderate"  , "none", "normal"    , "bold"          ],
+  "irish-grover":           ["high", "open"      , "moderate", "normal"    , "bold"          ],
+  "henny-penny":            ["moderate", "closed"    , "high", "normal"    , "elegant"       ],
+  "kranky":                 ["low", "moderate"  , "moderate", "normal"    , "bold"          ],
+  "dokdo":                  ["low", "moderate"  , "none", "normal"    , "bold"          ],
   // ── Gothic / Blackletter ──
-  "unifrakturmaguntia":   ["low",      "closed",   "moderate", "normal",   "traditional"],
+  "unifrakturmaguntia":     ["high", "moderate"  , "low", "tight"     , "bold"          ],
   // ── Script / Calligraphic ──
-  "dancing-script":       ["moderate", "moderate", "moderate", "normal",   "warm"],
-  "great-vibes":          ["low",      "moderate", "high",     "normal",   "elegant"],
-  "sacramento":           ["low",      "moderate", "moderate", "normal",   "elegant"],
-  "pacifico":             ["moderate", "moderate", "moderate", "normal",   "warm"],
-  "satisfy":              ["low",      "moderate", "moderate", "normal",   "warm"],
-  "kaushan-script":       ["moderate", "moderate", "moderate", "normal",   "warm"],
-  "yellowtail":           ["moderate", "moderate", "moderate", "normal",   "warm"],
-  "passions-conflict":    ["low",      "moderate", "high",     "normal",   "elegant"],
-  "berkshire-swash":      ["moderate", "moderate", "moderate", "normal",   "elegant"],
-  "alex-brush":           ["low",      "moderate", "moderate", "normal",   "elegant"],
-  "almendra-display":     ["moderate", "moderate", "moderate", "normal",   "elegant"],
-  "lobster":              ["moderate", "moderate", "moderate", "normal",   "warm"],
+  "dancing-script":         ["low", "closed"    , "moderate", "tight"     , "elegant"       ],
+  "great-vibes":            ["low", "closed"    , "high", "tight"     , "elegant"       ],
+  "sacramento":             ["low", "closed"    , "moderate", "tight"     , "elegant"       ],
+  "pacifico":               ["low", "moderate"  , "moderate", "tight"     , "elegant"       ],
+  "satisfy":                ["low", "closed"    , "low", "tight"     , "warm"          ],
+  "kaushan-script":         ["moderate", "moderate"  , "low", "tight"     , "warm"          ],
+  "yellowtail":             ["low", "moderate"  , "low", "tight"     , "warm"          ],
+  "passions-conflict":      ["low", "open"      , "moderate", "tight"     , "elegant"       ],
+  "berkshire-swash":        ["low", "closed"    , "high", "normal"    , "elegant"       ],
+  "alex-brush":             ["low", "closed"    , "low", "tight"     , "warm"          ],
+  "almendra-display":       ["high", "open"      , "low", "normal"    , "bold"          ],
+  "lobster":                ["moderate", "closed"    , "moderate", "tight"     , "bold"          ],
   // ── Handwritten ──
-  "caveat":               ["moderate", "open",     "low",      "normal",   "warm"],
-  "permanent-marker":     ["moderate", "moderate", "moderate", "normal",   "experimental"],
-  "rock-salt":            ["moderate", "moderate", "low",      "generous", "experimental"],
-  "homemade-apple":       ["moderate", "open",     "low",      "generous", "warm"],
-  "indie-flower":         ["moderate", "open",     "low",      "generous", "warm"],
-  "shadows-into-light":   ["moderate", "open",     "low",      "generous", "warm"],
-  "covered-by-your-grace":["moderate", "open",     "low",      "generous", "warm"],
-  "gloria-hallelujah":    ["moderate", "open",     "low",      "generous", "warm"],
-  "reenie-beanie":        ["moderate", "open",     "low",      "generous", "warm"],
-  "special-elite":        ["moderate", "moderate", "moderate", "normal",   "experimental"],
-  "amatic-sc":            ["low",      "moderate", "none",     "generous", "warm"],
+  "caveat":                 ["moderate", "moderate"  , "none", "tight"     , "warm"          ],
+  "permanent-marker":       ["high", "closed"    , "low", "normal"    , "warm"          ],
+  "rock-salt":              ["moderate", "open"      , "none", "generous"  , "warm"          ],
+  "homemade-apple":         ["low", "closed"    , "moderate", "generous"  , "elegant"       ],
+  "indie-flower":           ["moderate", "open"      , "none", "tight"     , "warm"          ],
+  "shadows-into-light":     ["high", "open"      , "low", "tight"     , "warm"          ],
+  "covered-by-your-grace":  ["moderate", "closed"    , "none", "tight"     , "warm"          ],
+  "gloria-hallelujah":      ["moderate", "open"      , "none", "normal"    , "warm"          ],
+  "reenie-beanie":          ["moderate", "closed"    , "none", "tight"     , "warm"          ],
+  "special-elite":          ["high", "open"      , "low", "normal"    , "bold"          ],
+  "amatic-sc":              ["high", "open"      , "none", "tight"     , "warm"          ],
   // ── Tech / Pixel ──
-  "press-start-2p":       ["high",     "closed",   "none",     "tight",    "technical"],
-  "vt323":                ["high",     "closed",   "none",     "tight",    "technical"],
-  "silkscreen":           ["high",     "closed",   "none",     "tight",    "technical"],
-  "audiowide":            ["moderate", "closed",   "none",     "tight",    "modern"],
-  "orbitron":             ["moderate", "closed",   "none",     "tight",    "technical"],
+  "press-start-2p":         ["high", "moderate"  , "moderate", "generous"  , "bold"          ],
+  "vt323":                  ["moderate", "moderate"  , "none", "tight"     , "technical"     ],
+  "silkscreen":             ["moderate", "moderate"  , "none", "generous"  , "bold"          ],
+  "audiowide":              ["high", "moderate"  , "none", "generous"  , "bold"          ],
+  "orbitron":               ["high", "open"      , "none", "generous"  , "modern"        ],
   // ── Retro / Pop ──
-  "righteous":            ["moderate", "moderate", "none",     "normal",   "playful"],
-  "syne":                 ["moderate", "moderate", "none",     "normal",   "experimental"],
-  "pirata-one":           ["moderate", "moderate", "moderate", "normal",   "traditional"],
-  "faster-one":           ["moderate", "moderate", "none",     "normal",   "bold"],
-  "monoton":              ["moderate", "moderate", "none",     "normal",   "experimental"],
-  "codystar":             ["low",      "moderate", "none",     "generous", "experimental"],
-  "fascinate":            ["moderate", "moderate", "none",     "normal",   "experimental"],
-  "fascinate-inline":     ["moderate", "moderate", "none",     "normal",   "experimental"],
+  "righteous":              ["high", "moderate"  , "none", "normal"    , "bold"          ],
+  "syne":                   ["high", "open"      , "none", "normal"    , "modern"        ],
+  "pirata-one":             ["high", "moderate"  , "low", "tight"     , "bold"          ],
+  "faster-one":             ["high", "closed"    , "none", "generous"  , "bold"          ],
+  "monoton":                ["high", "closed"    , "none", "generous"  , "bold"          ],
+  "codystar":               ["high", "open"      , "high", "generous"  , "elegant"       ],
+  "fascinate":              ["moderate", "closed"    , "moderate", "generous"  , "bold"          ],
+  "fascinate-inline":       ["moderate", "closed"    , "moderate", "generous"  , "bold"          ],
 };
 
 // ── Factory for display-only Google Fonts ──
