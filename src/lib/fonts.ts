@@ -85,23 +85,33 @@ export function pinFonts(fonts: { id?: string; slug: string }[]): () => void {
 
 /**
  * Force-load fonts using the CSS Font Loading API.
- * Waits briefly for stylesheets to be parsed, then triggers the load.
- * Retries after 2s if the first attempt fails (stylesheet not ready yet).
+ * Waits for document.fonts.ready (stylesheets parsed), then loads each font.
+ * Retries until every font is confirmed loaded or max attempts reached.
  */
 export function ensureFontsRendered(fontNames: string[]): void {
-  if (typeof window === "undefined" || !document.fonts) return;
+  if (typeof window === "undefined" || !document.fonts || fontNames.length === 0) return;
 
-  const doLoad = () => {
-    for (const name of fontNames) {
-      document.fonts.load(`400 16px "${name}"`).catch(() => {});
-      document.fonts.load(`700 16px "${name}"`).catch(() => {});
+  const unique = [...new Set(fontNames)];
+
+  const attempt = (remaining: number) => {
+    const notLoaded = unique.filter(
+      (name) => !document.fonts.check(`400 16px "${name}"`) || !document.fonts.check(`700 16px "${name}"`)
+    );
+    if (notLoaded.length === 0 || remaining <= 0) return;
+
+    const loads: Promise<FontFace[]>[] = [];
+    for (const name of notLoaded) {
+      loads.push(document.fonts.load(`400 16px "${name}"`).catch(() => []));
+      loads.push(document.fonts.load(`700 16px "${name}"`).catch(() => []));
     }
+    Promise.all(loads).then(() => {
+      // Re-check after a short delay and retry if any still missing
+      setTimeout(() => attempt(remaining - 1), 400);
+    });
   };
 
-  // First attempt after a short delay to let stylesheets parse
-  setTimeout(doLoad, 100);
-  // Retry to catch any that weren't ready on first pass
-  setTimeout(doLoad, 2000);
+  // Wait for stylesheets to be parsed first, then start loading
+  document.fonts.ready.then(() => attempt(6));
 }
 
 export function loadGoogleFont(family: string): void {
