@@ -1092,9 +1092,17 @@ body.animations-paused #water-bg * {
   table {
     table-layout: auto !important;
   }
+  colgroup {
+    display: none !important;
+  }
   .db-pairs-col {
     display: none !important;
   }
+  /* Match header widths to body content */
+  th:nth-child(1) { width: 20% !important; }
+  th:nth-child(2) { width: 35% !important; }
+  th:nth-child(3) { width: 15% !important; }
+  th:nth-child(5) { width: 30% !important; text-align: right !important; }
 }
 
 .breadcrumb-inner {
