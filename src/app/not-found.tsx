@@ -1,11 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-
-// Render pair/font detail directly — keeps the clean URL without redirect
-const PairDetailClient = dynamic(() => import("./pair/PairDetailClient"), { ssr: false });
-const FontDetailClient = dynamic(() => import("./font/FontDetailClient"), { ssr: false });
+import { useEffect, useState, Suspense } from "react";
+import PairDetailClient from "./pair/PairDetailClient";
+import FontDetailClient from "./font/FontDetailClient";
 
 export default function NotFound() {
   const [route, setRoute] = useState<{ type: "pair" | "font" | "redirect"; slug: string } | null>(null);
@@ -23,8 +20,8 @@ export default function NotFound() {
     }
   }, []);
 
-  if (route?.type === "pair") return <PairDetailClient slugOverride={route.slug} />;
-  if (route?.type === "font") return <FontDetailClient slugOverride={route.slug} />;
+  if (route?.type === "pair") return <Suspense><PairDetailClient slugOverride={route.slug} /></Suspense>;
+  if (route?.type === "font") return <Suspense><FontDetailClient slugOverride={route.slug} /></Suspense>;
 
   return null;
 }
