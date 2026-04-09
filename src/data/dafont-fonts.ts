@@ -273,6 +273,18 @@ function dafont(
     "neon":               ["moderate", "moderate", "none",     "normal",   "playful"],
     "rumble-brave":       ["moderate", "moderate", "low",      "normal",   "bold"],
     "stentiga":           ["moderate", "moderate", "none",     "normal",   "modern"],
+    // ── Additional fonts (filling to 200+) ──
+    "alte-haas-grotesk":  ["moderate", "open",     "none",     "normal",   "neutral"],    // classic grotesque, clean, Swiss-style
+    "lemon-milk":         ["moderate", "moderate", "none",     "normal",   "modern"],     // geometric rounded, bold, friendly
+    "akira-expanded":     ["high",     "closed",   "none",     "tight",    "bold"],       // ultra-wide expanded, maximum impact
+    "starborn":           ["low",      "moderate", "low",      "normal",   "playful"],    // whimsical celestial, decorative
+    "birds-of-paradise":  ["moderate", "moderate", "moderate", "normal",   "traditional"], // art-deco revival, vintage glamour
+    "vogue":              ["moderate", "moderate", "high",     "normal",   "elegant"],    // fashion-editorial thin, high-contrast
+    "cheri":              ["moderate", "open",     "low",      "normal",   "playful"],    // cute casual rounded script
+    "porky-s":            ["moderate", "moderate", "low",      "normal",   "playful"],    // retro cartoon, chunky rounded
+    "lacheyard-script":   ["low",      "moderate", "moderate", "normal",   "elegant"],    // elegant flowing calligraphy
+    "aston-script":       ["low",      "moderate", "moderate", "normal",   "modern"],     // modern casual brush script
+    "keshia":             ["low",      "moderate", "moderate", "normal",   "elegant"],    // elegant feminine calligraphy
   };
   const a = DAFONT_ANATOMY[slug] ?? (
     classification === "script" || classification === "handwritten" ? ["low", "moderate", "moderate", "normal", "warm"] as AT :
@@ -1906,6 +1918,96 @@ export const dafontFonts: Font[] = [
     ["tech display", "digital branding", "futuristic heading", "unique title"],
     ["dotted/dashed modern sans with digital feel", "tech-inspired display letterforms"],
     { designer: "Jovanny Lemonad" },
+  ),
+
+  // ── ADDITIONAL FONTS (filling to 200+) ──
+
+  dafont("Alte Haas Grotesk", "sans-serif",
+    ["grotesque", "classic", "neutral", "clean", "versatile", "professional", "swiss", "readable"],
+    ["classic", "neutral", "professional", "clean"],
+    ["body text", "professional heading", "editorial", "neutral display"],
+    ["classic grotesque revival", "clean neutral Swiss-style sans"],
+    { designer: "Yann Le Coroller", licenseType: "Public domain / GPL / OFL", serifSansCategory: "sans-serif" },
+  ),
+
+  dafont("Lemon Milk", "sans-serif",
+    ["geometric", "modern", "bold", "rounded", "friendly", "clean", "contemporary", "display"],
+    ["modern", "bold", "friendly", "clean"],
+    ["modern branding", "product heading", "bold title", "clean display"],
+    ["geometric rounded modern sans", "friendly bold display letterforms"],
+    { designer: "Marsnev", licenseType: "Donationware", serifSansCategory: "sans-serif" },
+  ),
+
+  dafont("Akira Expanded", "display",
+    ["expanded", "bold", "wide", "modern", "geometric", "impactful", "futuristic", "strong"],
+    ["bold", "expansive", "modern", "powerful"],
+    ["hero heading", "poster title", "fashion display", "bold branding"],
+    ["ultra-wide expanded geometric display", "maximum horizontal impact"],
+    { designer: "Typologic" },
+  ),
+
+  dafont("Starborn", "display",
+    ["whimsical", "celestial", "decorative", "fantasy", "magical", "distinctive", "ethereal", "dreamy"],
+    ["whimsical", "magical", "dreamy", "ethereal"],
+    ["fantasy branding", "children's book", "magical theme", "celestial design"],
+    ["celestial whimsical display", "star-inspired decorative letterforms"],
+    { designer: "Darrell Flood" },
+  ),
+
+  dafont("Birds of Paradise", "display",
+    ["retro", "art-deco", "elegant", "vintage", "decorative", "glamorous", "classic", "ornate"],
+    ["elegant", "vintage", "glamorous", "retro"],
+    ["art deco poster", "vintage branding", "glamorous heading", "retro display"],
+    ["1975 art-deco revival display", "vintage glamorous letterforms"],
+    { designer: "Herofonts" },
+  ),
+
+  dafont("Vogue", "display",
+    ["fashion", "elegant", "thin", "modern", "luxury", "editorial", "high-contrast", "refined"],
+    ["elegant", "luxurious", "editorial", "refined"],
+    ["fashion magazine", "luxury brand", "editorial heading", "beauty display"],
+    ["fashion-editorial thin display", "luxury high-contrast letterforms"],
+    { designer: "Vladimir Nikolic" },
+  ),
+
+  dafont("Cheri", "script",
+    ["script", "cute", "playful", "casual", "friendly", "rounded", "fun", "sweet"],
+    ["cute", "playful", "friendly", "sweet"],
+    ["kids branding", "cute packaging", "playful heading", "friendly display"],
+    ["cute casual rounded script", "playful sweet hand-lettered style"],
+    { designer: "Fontalicious", serifSansCategory: "script" },
+  ),
+
+  dafont("Porky's", "display",
+    ["retro", "cartoon", "fun", "bold", "rounded", "playful", "nostalgic", "chunky"],
+    ["fun", "retro", "playful", "bold"],
+    ["cartoon branding", "fun heading", "retro poster", "playful display"],
+    ["retro cartoon rounded display", "chunky nostalgic bold letterforms"],
+    { designer: "Fontalicious" },
+  ),
+
+  dafont("Lacheyard Script", "script",
+    ["script", "elegant", "calligraphy", "flowing", "romantic", "bridal", "luxury", "decorative"],
+    ["elegant", "romantic", "flowing", "refined"],
+    ["wedding invitation", "luxury branding", "elegant heading", "romantic display"],
+    ["elegant flowing calligraphic script", "romantic bridal-quality lettering"],
+    { designer: "Måns Grebäck", serifSansCategory: "script" },
+  ),
+
+  dafont("Aston Script", "script",
+    ["script", "modern", "brush", "casual", "flowing", "contemporary", "stylish", "dynamic"],
+    ["modern", "stylish", "dynamic", "casual"],
+    ["modern branding", "lifestyle heading", "stylish display", "casual logo"],
+    ["modern casual brush script", "stylish contemporary hand-lettering"],
+    { designer: "TRF", serifSansCategory: "script" },
+  ),
+
+  dafont("Keshia", "script",
+    ["script", "elegant", "feminine", "decorative", "bridal", "romantic", "flowing", "calligraphy"],
+    ["elegant", "feminine", "romantic", "decorative"],
+    ["bridal brand", "feminine heading", "romantic card", "beauty display"],
+    ["elegant feminine calligraphic script", "decorative romantic lettering"],
+    { designer: "PutraCetol Studio", serifSansCategory: "script" },
   ),
 
 ];
