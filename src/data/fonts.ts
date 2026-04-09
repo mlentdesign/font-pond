@@ -2668,7 +2668,8 @@ function isBlocklisted(font: Font): boolean {
 // Enrich ALL fonts with personality tags, then filter out blocklisted fonts
 export const fonts: Font[] = [...curatedFonts, ...extraGoogle, ...extraFontshare]
   .filter((f) => !isBlocklisted(f))
-  .map(enrichFontTags);
+  .map(enrichFontTags)
+  .map((f) => ({ ...f, url: `/font/${f.slug}` }));
 
 // ── Lookup helpers ──
 
