@@ -33,7 +33,8 @@ function FontSection({
 
   return (
     <Link
-      href={`/font/${font.slug}`}
+      href={`/font?f=${font.slug}`}
+      onClick={() => requestAnimationFrame(() => window.history.replaceState(null, "", `/font-pond/font/${font.slug}`))}
       onMouseDown={(e) => e.preventDefault()}
       className="group flex flex-col border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm transition-all overflow-hidden"
       style={{ position: "relative" }}
@@ -151,11 +152,12 @@ function FontSection({
 }
 
 export default function PairDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
-  // Read slug from prop override or URL path
+  // Read slug from: prop override → query param → URL path
+  const querySlug = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("p") : null;
   const pathSlug = typeof window !== "undefined"
-    ? window.location.pathname.replace("/font-pond", "").replace(/\/$/, "").replace(/^\/pair\//, "")
+    ? window.location.pathname.replace("/font-pond", "").replace(/\/$/, "").replace(/^\/pair\/?/, "")
     : "";
-  const slug = slugOverride || (pathSlug && pathSlug !== "/pair" && pathSlug !== "" ? pathSlug : "");
+  const slug = slugOverride || querySlug || (pathSlug || "");
   const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
 
   const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
