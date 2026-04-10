@@ -1,5 +1,5 @@
 import { fonts, fontsById } from "@/data/fonts";
-import { fontPairs } from "@/data/pairs";
+import { fontPairs, ensureDynamicPairs } from "@/data/pairs";
 import { Font, FontPair, ScoredPair, StyleSignals } from "@/data/types";
 import { SYNONYM_MAP } from "@/data/adjective-expansion";
 import { SYNONYM_BATCH3 } from "@/data/adjective-batch3";
@@ -3264,6 +3264,7 @@ const KEYWORD_KEYS: string[] = Object.keys(KEYWORD_WANT);
 // Caches for expensive lookups (persist across searches)
 const keywordMatchCache = new Map<string, string[] | null>();
 const pairTagCache = new Map<string, Set<string>>();
+const tagIndex = new Map<string, number[]>(); // tag → pair indices (built lazily)
 
 // ══════════════════════════════════════════
 // SCORING
@@ -3748,6 +3749,7 @@ export function rankPairs(
   query: string,
   options?: { limit?: number; offset?: number }
 ): ScoredPair[] {
+  ensureDynamicPairs();
   const promptWords = extractPromptWords(query);
   const hasQuery = query.trim().length > 0;
   const stylized = hasQuery && isStylizedPrompt(promptWords);
@@ -3758,7 +3760,23 @@ export function rankPairs(
 
   const scored: ScoredPair[] = [];
 
-  // Pre-expand prompt words to their target tags for fast pre-filtering
+  // ── Build inverted tag index on first use (persists across searches) ──
+  if (tagIndex.size === 0) {
+    for (let i = 0; i < fontPairs.length; i++) {
+      const pair = fontPairs[i];
+      const hf = fontsById.get(pair.headerFontId);
+      const bf = fontsById.get(pair.bodyFontId);
+      if (!hf || !bf) continue;
+      const tags = getAllPairTags(pair, hf, bf);
+      for (const tag of tags) {
+        let list = tagIndex.get(tag);
+        if (!list) { list = []; tagIndex.set(tag, list); }
+        list.push(i);
+      }
+    }
+  }
+
+  // Pre-expand prompt words to target tags
   const targetTags = new Set<string>();
   if (hasQuery) {
     for (const word of promptWords) {
@@ -3768,76 +3786,82 @@ export function rankPairs(
     }
   }
 
-  // Fast pre-filter: for large pair sets, only fully score pairs with tag overlap
-  const SCORE_LIMIT = 1500;
-  let candidates: { pair: FontPair; hf: Font; bf: Font; quickScore: number }[] = [];
-
-  for (const pair of fontPairs) {
-    const hf = fontsById.get(pair.headerFontId);
-    const bf = fontsById.get(pair.bodyFontId);
-    if (!hf || !bf) continue;
-
-    if (!hasQuery) {
-      // No query: score all pairs by quality
+  if (!hasQuery) {
+    // No query: score all pairs by quality
+    for (const pair of fontPairs) {
+      const hf = fontsById.get(pair.headerFontId);
+      const bf = fontsById.get(pair.bodyFontId);
+      if (!hf || !bf) continue;
       let totalScore = pair.overallScore;
       if (hf.classification === "display") totalScore += 5;
       if (!hf.isBodySuitable) totalScore += 3;
       scored.push({ ...pair, relevanceScore: totalScore, promptFitReason: "", headerFont: hf, bodyFont: bf });
-      continue;
     }
+  } else {
+    // Use inverted index: collect candidate pair indices from matching tags
+    const SCORE_LIMIT = 1500;
+    const candidateScores = new Map<number, number>(); // pair index → quick hit count
 
-    // Font name match always gets full scoring
-    let fontNameBonus = 0;
+    // Font name matches always included
     if (hasFontNameMatch) {
-      const hMatch = matchedFontIds.get(hf.id);
-      const bMatch = matchedFontIds.get(bf.id);
-      if (hMatch === "full") fontNameBonus += 200;
-      else if (hMatch === "partial") fontNameBonus += 60;
-      if (bMatch === "full") fontNameBonus += 200;
-      else if (bMatch === "partial") fontNameBonus += 60;
+      for (let i = 0; i < fontPairs.length; i++) {
+        const pair = fontPairs[i];
+        const hMatch = matchedFontIds.get(pair.headerFontId);
+        const bMatch = matchedFontIds.get(pair.bodyFontId);
+        if (hMatch || bMatch) candidateScores.set(i, 1000); // force inclusion
+      }
     }
 
-    if (fontNameBonus > 0) {
-      // Font name match — always score fully
+    // Look up each target tag in the index → collect matching pair indices
+    for (const tag of targetTags) {
+      const indices = tagIndex.get(tag);
+      if (!indices) continue;
+      for (const idx of indices) {
+        candidateScores.set(idx, (candidateScores.get(idx) || 0) + 1);
+      }
+    }
+
+    // Sort candidates by hit count, take top SCORE_LIMIT
+    let candidates = [...candidateScores.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, SCORE_LIMIT);
+
+    for (const [idx] of candidates) {
+      const pair = fontPairs[idx];
+      const hf = fontsById.get(pair.headerFontId);
+      const bf = fontsById.get(pair.bodyFontId);
+      if (!hf || !bf) continue;
+
+      let fontNameBonus = 0;
+      if (hasFontNameMatch) {
+        const hMatch = matchedFontIds.get(hf.id);
+        const bMatch = matchedFontIds.get(bf.id);
+        if (hMatch === "full") fontNameBonus += 200;
+        else if (hMatch === "partial") fontNameBonus += 60;
+        if (bMatch === "full") fontNameBonus += 200;
+        else if (bMatch === "partial") fontNameBonus += 60;
+      }
+
       const utility = scoreUtility(pair, bf);
       const specificity = scoreSpecificity(pair, hf, bf, promptWords);
-      const totalScore = fontNameBonus + (0.3 * utility) + (0.3 * specificity);
-      scored.push({ ...pair, relevanceScore: totalScore, promptFitReason: "", headerFont: hf, bodyFont: bf });
-      continue;
+      let totalScore: number;
+      if (fontNameBonus > 0) {
+        totalScore = fontNameBonus + (0.3 * utility) + (0.3 * specificity);
+      } else if (stylized) {
+        totalScore = (0.20 * utility) + (0.80 * specificity);
+      } else {
+        totalScore = (0.45 * utility) + (0.55 * specificity);
+      }
+
+      // Defer fit reason generation — just score for now
+      scored.push({
+        ...pair,
+        relevanceScore: totalScore,
+        promptFitReason: "", // filled in after sort/dedup
+        headerFont: hf,
+        bodyFont: bf,
+      });
     }
-
-    // Quick tag overlap check — count how many target tags this pair has
-    const tagSet = getAllPairTags(pair, hf, bf);
-    let quickHits = 0;
-    for (const t of targetTags) { if (tagSet.has(t)) quickHits++; }
-
-    candidates.push({ pair, hf, bf, quickScore: quickHits + pair.overallScore / 100 });
-  }
-
-  // Sort candidates by quick score and only fully score the top SCORE_LIMIT
-  if (candidates.length > SCORE_LIMIT) {
-    candidates.sort((a, b) => b.quickScore - a.quickScore);
-    candidates = candidates.slice(0, SCORE_LIMIT);
-  }
-
-  for (const { pair, hf, bf } of candidates) {
-    const utility = scoreUtility(pair, bf);
-    const specificity = scoreSpecificity(pair, hf, bf, promptWords);
-    let totalScore: number;
-    if (stylized) {
-      totalScore = (0.20 * utility) + (0.80 * specificity);
-    } else {
-      totalScore = (0.45 * utility) + (0.55 * specificity);
-    }
-
-    // Defer fit reason generation — just score for now
-    scored.push({
-      ...pair,
-      relevanceScore: totalScore,
-      promptFitReason: "", // filled in after sort/dedup
-      headerFont: hf,
-      bodyFont: bf,
-    });
   }
 
   scored.sort((a, b) => b.relevanceScore - a.relevanceScore);
@@ -3943,6 +3967,7 @@ export function rankPairs(
 }
 
 export function getRelatedPairs(pairId: string, limit = 4): ScoredPair[] {
+  ensureDynamicPairs();
   const pair = fontPairs.find((p) => p.id === pairId || p.slug === pairId);
   if (!pair) return [];
   const hf = fontsById.get(pair.headerFontId);
@@ -3979,6 +4004,7 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 export function explorePairs(): ScoredPair[] {
+  ensureDynamicPairs();
   const all: ScoredPair[] = [];
   for (const pair of fontPairs) {
     const hf = fontsById.get(pair.headerFontId);
@@ -4005,6 +4031,7 @@ export function explorePairs(): ScoredPair[] {
 }
 
 export function getPairsWithFont(fontId: string): ScoredPair[] {
+  ensureDynamicPairs();
   const results = fontPairs
     .filter((p) => p.headerFontId === fontId || p.bodyFontId === fontId)
     .map((p) => {
