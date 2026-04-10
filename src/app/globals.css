@@ -209,6 +209,12 @@ body {
   word-break: break-word;
 }
 
+/* Remove 300ms tap delay on mobile */
+a, button, input, textarea, select, [role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
 h1, h2, h3, h4, h5, h6, p, span, a, div {
   -webkit-text-fill-color: currentColor;
 }
