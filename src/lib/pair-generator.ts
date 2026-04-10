@@ -345,6 +345,7 @@ export function generateDynamicPairs(allFonts: Font[]): FontPair[] {
 
   // PAIRS_PER_FONT: generate body pairings per header font
   const PAIRS_PER_FONT = 100;
+  const MAX_DYNAMIC_PAIRS = 200000;
 
   // Prioritize Fontshare and DaFont headers first
   const prioritized = [
@@ -354,11 +355,13 @@ export function generateDynamicPairs(allFonts: Font[]): FontPair[] {
   ];
 
   for (const header of prioritized) {
+    if (pairs.length >= MAX_DYNAMIC_PAIRS) break;
     const bodies = pickMultipleBodies(header, bodyFonts, PAIRS_PER_FONT, rand);
 
     for (const body of bodies) {
       const pair = makePair(header, body, existingSlugs);
       if (pair) pairs.push(pair);
+      if (pairs.length >= MAX_DYNAMIC_PAIRS) break;
     }
   }
 
