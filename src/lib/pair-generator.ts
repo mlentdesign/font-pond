@@ -343,9 +343,9 @@ export function generateDynamicPairs(allFonts: Font[]): FontPair[] {
   // Use deterministic random for consistent results across restarts
   const rand = seededRandom(42);
 
-  // PAIRS_PER_FONT: generate body pairings per header font
-  const PAIRS_PER_FONT = 100;
-  const MAX_DYNAMIC_PAIRS = 200000;
+  // Generate enough pairs for variety but cap total to keep bundle/load fast
+  const PAIRS_PER_FONT = 5;
+  const MAX_DYNAMIC_PAIRS = 6000;
 
   // Prioritize Fontshare and DaFont headers first
   const prioritized = [
