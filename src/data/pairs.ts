@@ -2016,24 +2016,39 @@ const enrichedHandCrafted = handCraftedPairs.map(enrichPairAnatomy);
 const hcSlugs = new Set(enrichedHandCrafted.map((p) => p.slug));
 const curatedPairs = generateCuratedPairs(fonts, enrichedHandCrafted, new Set(hcSlugs));
 
-// 2. Generate dynamic pairs
-const dynamicPairs = generateDynamicPairs(fonts);
-
-// 3. Deduplicate: hand-crafted > curated > dynamic
-const prioritySlugs = new Set([...hcSlugs, ...curatedPairs.map((p) => p.slug)]);
-const uniqueDynamic = dynamicPairs.filter((p) => !prioritySlugs.has(p.slug));
-
-// Concatenate without spread to avoid stack overflow with 200k+ items
-const _allPairs: FontPair[] = [];
-for (const p of enrichedHandCrafted) _allPairs.push(p);
-for (const p of curatedPairs) _allPairs.push(p);
-for (const p of uniqueDynamic) _allPairs.push(p);
-// Add CMS URLs to all pairs (hand-crafted pairs get url added here)
-for (const p of _allPairs) {
+// 2. Start with hand-crafted + curated (small, instant)
+const _basePairs: FontPair[] = [];
+for (const p of enrichedHandCrafted) _basePairs.push(p);
+for (const p of curatedPairs) _basePairs.push(p);
+for (const p of _basePairs) {
   (p as any).url = `/pair/${p.slug}`;
   (p as any).queryUrl = `/pair?p=${p.slug}`;
 }
+
+// 3. Dynamic pairs generated lazily on first access (keeps page load fast)
+let _dynamicGenerated = false;
+const _allPairs: FontPair[] = [..._basePairs];
+
+function ensureDynamicPairs(): void {
+  if (_dynamicGenerated) return;
+  _dynamicGenerated = true;
+  const prioritySlugs = new Set(_basePairs.map((p) => p.slug));
+  const dynamicPairs = generateDynamicPairs(fonts);
+  for (const p of dynamicPairs) {
+    if (!prioritySlugs.has(p.slug)) {
+      (p as any).url = `/pair/${p.slug}`;
+      (p as any).queryUrl = `/pair?p=${p.slug}`;
+      _allPairs.push(p);
+      pairsById.set(p.id, p);
+      pairsBySlug.set(p.slug, p);
+    }
+  }
+}
+
+// fontPairs starts with base pairs; dynamic pairs added on first search
 export const fontPairs: FontPair[] = _allPairs;
+// Export the init function so the search engine can trigger it
+export { ensureDynamicPairs };
 
 // ── Lookup helpers ──
 
