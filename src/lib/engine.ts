@@ -3205,14 +3205,9 @@ const KEYWORD_WANT: Record<string, string[]> = {
   aquarius: ["geometric", "experimental", "monospace", "modern", "minimal", "technical"],
   pisces: ["script", "flowing", "soft", "elegant", "handwritten", "organic"],
 
-  // ── Chinese Zodiac (new entries — others already exist above) ──
-  rat: ["modern", "clean", "sans-serif", "sleek", "minimal", "sharp"],
-  ox: ["slab", "bold", "serif", "heavy", "strong", "traditional"],
-  rabbit: ["serif", "elegant", "delicate", "light", "refined", "soft"],
-  goat: ["script", "handwritten", "warm", "organic", "artistic", "soft"],
-  rooster: ["sans-serif", "bold", "geometric", "clean", "modern", "professional"],
-  dog: ["rounded", "friendly", "warm", "readable", "sans-serif", "approachable"],
-  pig: ["rounded", "soft", "warm", "friendly", "readable", "casual"],
+  // Chinese zodiac animals handled via detectPersonalityTypes when
+  // "year of the" or "lunar"/"chinese" context is present.
+  // Without that context, animal words use their general associations above.
 };
 
 // Tags that PENALIZE a pair when this prompt word appears
@@ -3583,10 +3578,33 @@ function detectPersonalityTypes(words: string[], query: string): PersonalityMatc
     }
   }
 
+  // ── Chinese zodiac: only match with "year of the [animal]" or "lunar"/"chinese" context ──
+  const hasChineseContext = /year\s+of\s+the|chinese|lunar/i.test(lower);
+  if (hasChineseContext) {
+    const yearOfRegex = /year\s+of\s+the\s+(\w+)/gi;
+    let ym;
+    while ((ym = yearOfRegex.exec(lower)) !== null) {
+      const animal = ym[1].toLowerCase();
+      if (CHINESE_ZODIAC.has(animal) && PERSONALITY_DESCRIPTIONS[animal] && !found.some(f => f.label === PERSONALITY_DESCRIPTIONS[animal].label)) {
+        found.push(PERSONALITY_DESCRIPTIONS[animal]);
+      }
+    }
+    // Also check bare animal names if "chinese" or "lunar" is in the query
+    if (/chinese|lunar/i.test(lower)) {
+      for (const word of words) {
+        if (CHINESE_ZODIAC.has(word) && PERSONALITY_DESCRIPTIONS[word] && !found.some(f => f.label === PERSONALITY_DESCRIPTIONS[word].label)) {
+          found.push(PERSONALITY_DESCRIPTIONS[word]);
+        }
+      }
+    }
+  }
+
   // ── Standard personality type matching ──
   for (const word of words) {
     // Skip zodiac signs if already handled as placements
     if (placements.length > 0 && (ZODIAC_SIGNS.has(word) || ["sun","moon","rising","ascendant"].includes(word))) continue;
+    // Skip Chinese zodiac animals (only matched with context above)
+    if (CHINESE_ZODIAC.has(word)) continue;
     if (PERSONALITY_DESCRIPTIONS[word] && !found.some(f => f.label === PERSONALITY_DESCRIPTIONS[word].label)) {
       found.push(PERSONALITY_DESCRIPTIONS[word]);
     }
