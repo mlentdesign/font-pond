@@ -377,6 +377,7 @@ export function PromptInput() {
 
           <div className="action-bar-ctas flex items-center" style={{ gap: "16px" }}>
             <button
+              type="button"
               onClick={handleExplore}
               className="outline-btn font-medium rounded-lg"
               style={{ fontSize: "16px", padding: "8px 24px" }}
@@ -390,6 +391,7 @@ export function PromptInput() {
               style={{ width: "100%", display: "block" }}
             >
               <button
+                type="button"
                 onClick={handleSubmit}
                 disabled={isDisabled}
                 className={`font-medium rounded-lg disabled:cursor-not-allowed${isDisabled ? "" : " btn-generate"}`}
