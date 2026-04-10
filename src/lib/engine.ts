@@ -3740,41 +3740,76 @@ export function rankPairs(
 
   const scored: ScoredPair[] = [];
 
+  // Pre-expand prompt words to their target tags for fast pre-filtering
+  const targetTags = new Set<string>();
+  if (hasQuery) {
+    for (const word of promptWords) {
+      const wants = findKeywordMatch(word);
+      if (wants) for (const w of wants) targetTags.add(w);
+      targetTags.add(word);
+    }
+  }
+
+  // Fast pre-filter: for large pair sets, only fully score pairs with tag overlap
+  const SCORE_LIMIT = 1500;
+  let candidates: { pair: FontPair; hf: Font; bf: Font; quickScore: number }[] = [];
+
   for (const pair of fontPairs) {
     const hf = fontsById.get(pair.headerFontId);
     const bf = fontsById.get(pair.bodyFontId);
     if (!hf || !bf) continue;
 
-    let totalScore: number;
-
-    if (hasQuery) {
-      // If the query contains a font name, boost pairs using that font
-      // Full match (exact name) = massive boost; partial (one word) = moderate boost to mix in
-      let fontNameBonus = 0;
-      if (hasFontNameMatch) {
-        const hMatch = matchedFontIds.get(hf.id);
-        const bMatch = matchedFontIds.get(bf.id);
-        if (hMatch === "full") fontNameBonus += 200;
-        else if (hMatch === "partial") fontNameBonus += 60;
-        if (bMatch === "full") fontNameBonus += 200;
-        else if (bMatch === "partial") fontNameBonus += 60;
-      }
-
-      const utility = scoreUtility(pair, bf);
-      const specificity = scoreSpecificity(pair, hf, bf, promptWords);
-
-      if (fontNameBonus > 0) {
-        // Font name match dominates — still add some utility/specificity for ordering
-        totalScore = fontNameBonus + (0.3 * utility) + (0.3 * specificity);
-      } else if (stylized) {
-        totalScore = (0.20 * utility) + (0.80 * specificity);
-      } else {
-        totalScore = (0.45 * utility) + (0.55 * specificity);
-      }
-    } else {
-      totalScore = pair.overallScore;
+    if (!hasQuery) {
+      // No query: score all pairs by quality
+      let totalScore = pair.overallScore;
       if (hf.classification === "display") totalScore += 5;
       if (!hf.isBodySuitable) totalScore += 3;
+      scored.push({ ...pair, relevanceScore: totalScore, promptFitReason: "", headerFont: hf, bodyFont: bf });
+      continue;
+    }
+
+    // Font name match always gets full scoring
+    let fontNameBonus = 0;
+    if (hasFontNameMatch) {
+      const hMatch = matchedFontIds.get(hf.id);
+      const bMatch = matchedFontIds.get(bf.id);
+      if (hMatch === "full") fontNameBonus += 200;
+      else if (hMatch === "partial") fontNameBonus += 60;
+      if (bMatch === "full") fontNameBonus += 200;
+      else if (bMatch === "partial") fontNameBonus += 60;
+    }
+
+    if (fontNameBonus > 0) {
+      // Font name match — always score fully
+      const utility = scoreUtility(pair, bf);
+      const specificity = scoreSpecificity(pair, hf, bf, promptWords);
+      const totalScore = fontNameBonus + (0.3 * utility) + (0.3 * specificity);
+      scored.push({ ...pair, relevanceScore: totalScore, promptFitReason: "", headerFont: hf, bodyFont: bf });
+      continue;
+    }
+
+    // Quick tag overlap check — count how many target tags this pair has
+    const tagSet = getAllPairTags(pair, hf, bf);
+    let quickHits = 0;
+    for (const t of targetTags) { if (tagSet.has(t)) quickHits++; }
+
+    candidates.push({ pair, hf, bf, quickScore: quickHits + pair.overallScore / 100 });
+  }
+
+  // Sort candidates by quick score and only fully score the top SCORE_LIMIT
+  if (candidates.length > SCORE_LIMIT) {
+    candidates.sort((a, b) => b.quickScore - a.quickScore);
+    candidates = candidates.slice(0, SCORE_LIMIT);
+  }
+
+  for (const { pair, hf, bf } of candidates) {
+    const utility = scoreUtility(pair, bf);
+    const specificity = scoreSpecificity(pair, hf, bf, promptWords);
+    let totalScore: number;
+    if (stylized) {
+      totalScore = (0.20 * utility) + (0.80 * specificity);
+    } else {
+      totalScore = (0.45 * utility) + (0.55 * specificity);
     }
 
     // Defer fit reason generation — just score for now
