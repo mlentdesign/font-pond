@@ -44,8 +44,17 @@ export function ResultsGrid() {
 
   // Batch-load fonts for all currently visible results
   const lastLoadedCount = useRef(0);
+  const lastResultsRef = useRef(results);
   useEffect(() => {
     if (!hasSearched || isLoading || results.length === 0) return;
+
+    // Reset the already-loaded counter when results change (new search),
+    // so the new top batch's fonts get loaded instead of being skipped.
+    if (lastResultsRef.current !== results) {
+      lastResultsRef.current = results;
+      lastLoadedCount.current = 0;
+    }
+
     // Only load fonts for the new batch (not re-loading already-loaded ones)
     const start = lastLoadedCount.current;
     const end = Math.min(visibleCount, results.length);
@@ -61,11 +70,6 @@ export function ResultsGrid() {
     ensureFontsRendered(fontNames);
     lastLoadedCount.current = end;
   }, [visibleCount, results, hasSearched, isLoading]);
-
-  // Reset counter when results change (new search)
-  useEffect(() => {
-    lastLoadedCount.current = 0;
-  }, [results]);
 
   if (!hasSearched) return null;
 
