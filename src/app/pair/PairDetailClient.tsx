@@ -159,12 +159,11 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const [slug, setSlug] = useState(paramSlug);
   const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
 
-  // Update slug when searchParams changes (handles navigation between tiles)
-  useEffect(() => {
-    if (paramSlug && paramSlug !== slug) {
-      setSlug(paramSlug);
-    }
-  }, [paramSlug, slug]);
+  // Sync slug immediately during render (not in useEffect) to prevent
+  // stale pair showing for one frame when navigating between pairs
+  if (paramSlug && paramSlug !== slug) {
+    setSlug(paramSlug);
+  }
 
   const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
