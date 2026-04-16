@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { RansomHeader } from "./RansomHeader";
 import { navigateToFont } from "@/lib/navigate";
@@ -34,7 +34,11 @@ export function HeaderWithFontInfo() {
   return (
     <span className="inline-flex items-center" style={{ gap: "8px" }}>
       <span className="ransom-title">
-        <RansomHeader onFontChange={handleFontChange} />
+        {/* Suspense boundary required because RansomHeader uses useSearchParams,
+            which needs Suspense during static prerender (output: export). */}
+        <Suspense fallback={<span style={{ color: "var(--text-ransom)", fontWeight: 700 }}>FONT POND</span>}>
+          <RansomHeader onFontChange={handleFontChange} />
+        </Suspense>
       </span>
 
       {currentFont && (
