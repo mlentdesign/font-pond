@@ -198,22 +198,23 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
 
   // Trigger a new font on:
   //   1. URL changes (pathname or query: home→pair, pair→pair, font→font, eye click, etc.)
-  //   2. Results changes on home page (Generate / Explore buttons — URL doesn't change)
+  //   2. Results array identity changes on home page (every Generate / Explore click
+  //      creates a new results array — even Explore→Explore swaps fonts, since the
+  //      pair ordering is fresh each time)
   // Whether we animate or just swap depends on the animation-paused setting.
   const navKey = `${pathname}?${searchParams?.toString() ?? ""}`;
-  const resultsKey = results.length > 0 ? `${results[0]?.id ?? ""}|${results.length}` : "";
   const prevNavRef = useRef(navKey);
-  const prevResultsRef = useRef(resultsKey);
+  const prevResultsRef = useRef<typeof results>(results);
   useEffect(() => {
     if (!mounted) return;
     const navChanged = navKey !== prevNavRef.current;
-    const resultsChanged = !!resultsKey && resultsKey !== prevResultsRef.current;
+    const resultsChanged = results !== prevResultsRef.current;
     if (!navChanged && !resultsChanged) return;
     prevNavRef.current = navKey;
-    prevResultsRef.current = resultsKey;
+    prevResultsRef.current = results;
     if (headerAnimationPaused) swapInstantly();
     else runTicker();
-  }, [navKey, resultsKey, mounted, runTicker, swapInstantly]);
+  }, [navKey, results, mounted, runTicker, swapInstantly]);
 
   if (!mounted) {
     return <span style={{ color: "var(--text-ransom)", fontWeight: 700 }}>{TITLE}</span>;

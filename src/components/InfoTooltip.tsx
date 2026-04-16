@@ -120,6 +120,7 @@ export function InfoTooltip({ label }: { label: string }) {
         <circle cx="10" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
       </svg>
 
+      {/* Trailing portal tooltip */}
       {show && pos && typeof document !== "undefined" && createPortal(
         <span
           className="rounded-lg shadow-lg"
@@ -150,5 +151,30 @@ export function InfoTooltip({ label }: { label: string }) {
         document.body,
       )}
     </span>
+  );
+}
+
+/**
+ * Renders an uppercase label with the info icon bound to it, with smart wrapping:
+ * - Multi-word labels: the last word and the icon stay together on a line so the
+ *   icon is never stranded alone when the label wraps.
+ * - Single-word labels: default flow (icon may wrap below the word if the row is
+ *   too narrow — acceptable fallback).
+ *
+ * Pair this with `gap: 16px` on the flex row so there's always breathing room
+ * before the score; when the gap can't be maintained, the label wraps instead.
+ */
+export function LabelWithTooltip({ label }: { label: string }) {
+  const words = label.split(/\s+/).filter(Boolean);
+  if (words.length <= 1) {
+    return <>{label}<InfoTooltip label={label} /></>;
+  }
+  const lead = words.slice(0, -1).join(" ");
+  const tail = words[words.length - 1];
+  return (
+    <>
+      {lead}{" "}
+      <span style={{ whiteSpace: "nowrap" }}>{tail}<InfoTooltip label={label} /></span>
+    </>
   );
 }
