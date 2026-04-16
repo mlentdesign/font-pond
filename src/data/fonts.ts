@@ -2678,15 +2678,30 @@ function isBlocklisted(font: Font): boolean {
   return false;
 }
 
+// Cap legibility by classification — display/script/handwritten fonts aren't
+// designed for body text. Even with ideal anatomy, they shouldn't score like
+// a purpose-built body sans/serif. Illegible fonts get a stricter cap.
+const LEGIBILITY_CAP_BY_CLASSIFICATION: Record<string, number> = {
+  display: 5,
+  script: 4,
+  handwritten: 4,
+};
+
+function cappedLegibility(f: Font): number {
+  if (SEVERELY_ILLEGIBLE_FONT_IDS.has(f.id)) return 1;
+  const classCap = LEGIBILITY_CAP_BY_CLASSIFICATION[f.classification];
+  const raw = f.bodyLegibilityScore ?? 5;
+  return classCap !== undefined ? Math.min(raw, classCap) : raw;
+}
+
 // Enrich ALL fonts with personality tags, then filter out blocklisted fonts
 export const fonts: Font[] = [...curatedFonts, ...extraGoogle, ...extraFontshare]
   .filter((f) => !isBlocklisted(f))
   .map(enrichFontTags)
   .map((f) => {
-    // Cap legibility score for barcode/waveform/decorated fonts where
-    // individual letters aren't actually readable (see illegible-fonts.ts).
-    const capped = SEVERELY_ILLEGIBLE_FONT_IDS.has(f.id)
-      ? { ...f, bodyLegibilityScore: 1 }
+    const newScore = cappedLegibility(f);
+    const capped = newScore !== f.bodyLegibilityScore
+      ? { ...f, bodyLegibilityScore: newScore }
       : f;
     return { ...capped, url: `/font/${capped.slug}`, queryUrl: `/font?f=${capped.slug}` };
   });
