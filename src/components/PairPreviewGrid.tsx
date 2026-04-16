@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ScoredPair } from "@/data/types";
 import { loadFont, getFontFamily, ensureFontsRendered } from "@/lib/fonts";
 import { sentenceCase } from "@/lib/text";
+import { navigateToPair } from "@/lib/navigate";
 
 function useColumns(): number {
   const [cols, setCols] = useState(3);
@@ -41,6 +42,7 @@ export function PairPreviewGrid({
   showRationale = false,
 }: PairPreviewGridProps) {
   const cols = useColumns();
+  const router = useRouter();
   // Fill complete rows: round up initialVisible to nearest multiple of cols
   const adjustedInitial = Math.ceil(initialVisible / cols) * cols;
   const adjustedIncrement = Math.ceil(loadMoreIncrement / cols) * cols;
@@ -71,11 +73,15 @@ export function PairPreviewGrid({
           const hFamily = getFontFamily(p.headerFont.name, p.headerFont.source);
           const bFamily = getFontFamily(p.bodyFont.name, p.bodyFont.source);
           return (
-            <Link
+            <div
               key={p.id}
-              href={`/pair?p=${p.slug}`}
+              role="link"
+              tabIndex={0}
+              aria-label={`View font pair: ${p.headerFont.name} and ${p.bodyFont.name}`}
+              onClick={() => { navigateToPair(router, p.slug); }}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navigateToPair(router, p.slug); } }}
               onMouseDown={(e) => e.preventDefault()}
-              className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden"
+              className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden cursor-pointer"
               style={{ padding: "24px", position: "relative" }}
             >
               <span
@@ -105,7 +111,7 @@ export function PairPreviewGrid({
                   {sentenceCase(p.rationale)}
                 </p>
               )}
-            </Link>
+            </div>
           );
         })}
       </div>
