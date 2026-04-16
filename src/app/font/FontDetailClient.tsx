@@ -45,19 +45,21 @@ function InfoRow({ label, value, useTitle, useClassification }: { label: string;
 export default function FontDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
   const searchParams = useSearchParams();
   const paramSlug = slugOverride || searchParams.get("f") || "";
-  const [slug, setSlug] = useState(paramSlug);
   const fromPair = searchParams.get("from");
 
-  // Update slug when searchParams changes (handles navigation between tiles)
-  useEffect(() => {
-    if (paramSlug && paramSlug !== slug) {
-      setSlug(paramSlug);
-    }
-  }, [paramSlug, slug]);
+  // Single source of truth for the current font slug. Ref holds the last
+  // non-empty paramSlug so that after URL cleanup (which removes `?f=`),
+  // the component keeps rendering the correct font. When the user
+  // navigates to a different font, paramSlug advances the ref.
+  const slugRef = useRef(paramSlug);
+  if (paramSlug && paramSlug !== slugRef.current) {
+    slugRef.current = paramSlug;
+  }
+  const slug = slugRef.current;
 
   const font = fontsBySlug.get(slug);
 
-  // Swap to clean CMS URL after font loads
+  // Swap to clean CMS URL after font has rendered. Runs only when URL still has ?f=.
   useEffect(() => {
     if (font && slug && window.location.search.includes("f=")) {
       window.history.replaceState(null, "", `/font-pond/font/${slug}`);
@@ -78,13 +80,6 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
 
   const { addHistoryItem } = useAppState();
   const [hasNums, setHasNums] = useState(true);
-
-  // Show clean URL in address bar after navigation settles
-  useEffect(() => {
-    if (slug && window.location.search.includes("f=")) {
-      window.history.replaceState(null, "", `/font-pond/font/${slug}`);
-    }
-  }, [slug]);
 
   useEffect(() => {
     if (font) {
