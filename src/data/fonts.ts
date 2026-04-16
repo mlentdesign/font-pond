@@ -3,6 +3,7 @@ import { dafontFonts } from "./dafont-fonts";
 import { googleFontsExtended } from "./google-fonts-extended";
 import { allGoogleFonts } from "./all-google-fonts";
 import { allFontshareFonts } from "./all-fontshare-fonts";
+import { SEVERELY_ILLEGIBLE_FONT_IDS } from "./illegible-fonts";
 
 const coreFonts: Font[] = [
   // ════════════════════════════════════════
@@ -2681,7 +2682,14 @@ function isBlocklisted(font: Font): boolean {
 export const fonts: Font[] = [...curatedFonts, ...extraGoogle, ...extraFontshare]
   .filter((f) => !isBlocklisted(f))
   .map(enrichFontTags)
-  .map((f) => ({ ...f, url: `/font/${f.slug}`, queryUrl: `/font?f=${f.slug}` }));
+  .map((f) => {
+    // Cap legibility score for barcode/waveform/decorated fonts where
+    // individual letters aren't actually readable (see illegible-fonts.ts).
+    const capped = SEVERELY_ILLEGIBLE_FONT_IDS.has(f.id)
+      ? { ...f, bodyLegibilityScore: 1 }
+      : f;
+    return { ...capped, url: `/font/${capped.slug}`, queryUrl: `/font?f=${capped.slug}` };
+  });
 
 // ── Lookup helpers ──
 
