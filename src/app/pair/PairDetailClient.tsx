@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { pairsBySlug, getPairOrConstruct } from "@/data/pairs";
@@ -156,22 +156,26 @@ function FontSection({
 export default function PairDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
   const searchParams = useSearchParams();
   const paramSlug = slugOverride || searchParams.get("p") || "";
-  const [slug, setSlug] = useState(paramSlug);
   const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
 
-  // Sync slug before browser paints (not useEffect which runs after paint)
-  // so navigating between pairs never flashes the previous pair
-  useLayoutEffect(() => {
-    if (paramSlug && paramSlug !== slug) {
-      setSlug(paramSlug);
-    }
-  }, [paramSlug, slug]);
+  // Single source of truth for the current slug. Held in a ref that only
+  // updates when paramSlug is non-empty — so after we clean the URL and
+  // searchParams no longer carries `?p=`, the ref still points at the
+  // pair we're showing. When the user navigates to a different pair,
+  // paramSlug becomes the new slug and the ref advances. No stale state,
+  // no flash of the previous pair, and the clean-URL swap is preserved.
+  const slugRef = useRef(paramSlug);
+  if (paramSlug && paramSlug !== slugRef.current) {
+    slugRef.current = paramSlug;
+  }
+  const slug = slugRef.current;
 
   const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
   const bodyFont = pair ? fontsById.get(pair.bodyFontId) : undefined;
 
-  // Swap to clean CMS URL after pair loads
+  // Swap to clean CMS URL after the pair has rendered — never before, so the
+  // user always sees the correct pair first. Runs only when URL still has ?p=.
   useEffect(() => {
     if (pair && slug && window.location.search.includes("p=")) {
       const cleanUrl = pair.url ? `/font-pond${pair.url}` : `/font-pond/pair/${slug}`;
