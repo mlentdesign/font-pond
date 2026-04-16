@@ -365,9 +365,12 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
             {(headerFont.moodCategory || bodyFont.moodCategory) && (
               <>
                 <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
+                {/* Chips show only the mood word (e.g. "Bold", "Modern"); the
+                    per-font mapping (header/body → mood) is still in the
+                    backend data on each Font object for API/analytics use. */}
                 <ChipGroup label="MOOD PAIRING" chips={[
-                  ...(headerFont.moodCategory ? [chipCase(`${headerFont.name}: ${headerFont.moodCategory}`)] : []),
-                  ...(bodyFont.moodCategory ? [chipCase(`${bodyFont.name}: ${bodyFont.moodCategory}`)] : []),
+                  ...(headerFont.moodCategory ? [chipCase(headerFont.moodCategory)] : []),
+                  ...(bodyFont.moodCategory ? [chipCase(bodyFont.moodCategory)] : []),
                 ]} />
               </>
             )}
