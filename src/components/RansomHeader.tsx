@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { loadFont, getFontFamily } from "@/lib/fonts";
 import { fonts as allFonts } from "@/data/fonts";
+import { useAppState } from "@/lib/store";
 
 // Build pool from all header-suitable fonts in the database
 const FONT_POOL = allFonts
@@ -65,6 +66,8 @@ interface LetterState {
 
 export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: string, fontSlug: string) => void }) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { results } = useAppState();
   const [mounted, setMounted] = useState(false);
   const [displayFont, setDisplayFontRaw] = useState<PoolFont>(() => pickRandom());
   const loadedRef = useRef(new Set<string>());
@@ -184,16 +187,33 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
     };
   }, [mounted, runTicker, clearAllTimers]);
 
-  // Trigger new font on page navigation (font→font, pair→pair, etc.)
-  const navKey = typeof window !== "undefined" ? window.location.href : pathname;
+  // Swap the header font without the flip animation — used when animation is off
+  // but the user still navigates to different content (we want to see variety).
+  const swapInstantly = useCallback(() => {
+    const next = pickRandom(displayFont.name);
+    ensureLoaded(next);
+    setDisplayFont(next);
+    preloadNext(5);
+  }, [displayFont.name, ensureLoaded, setDisplayFont, preloadNext]);
+
+  // Trigger a new font on:
+  //   1. URL changes (pathname or query: home→pair, pair→pair, font→font, eye click, etc.)
+  //   2. Results changes on home page (Generate / Explore buttons — URL doesn't change)
+  // Whether we animate or just swap depends on the animation-paused setting.
+  const navKey = `${pathname}?${searchParams?.toString() ?? ""}`;
+  const resultsKey = results.length > 0 ? `${results[0]?.id ?? ""}|${results.length}` : "";
   const prevNavRef = useRef(navKey);
+  const prevResultsRef = useRef(resultsKey);
   useEffect(() => {
     if (!mounted) return;
-    if (navKey !== prevNavRef.current) {
-      prevNavRef.current = navKey;
-      if (!headerAnimationPaused) runTicker();
-    }
-  }, [navKey, mounted, runTicker]);
+    const navChanged = navKey !== prevNavRef.current;
+    const resultsChanged = !!resultsKey && resultsKey !== prevResultsRef.current;
+    if (!navChanged && !resultsChanged) return;
+    prevNavRef.current = navKey;
+    prevResultsRef.current = resultsKey;
+    if (headerAnimationPaused) swapInstantly();
+    else runTicker();
+  }, [navKey, resultsKey, mounted, runTicker, swapInstantly]);
 
   if (!mounted) {
     return <span style={{ color: "var(--text-ransom)", fontWeight: 700 }}>{TITLE}</span>;
