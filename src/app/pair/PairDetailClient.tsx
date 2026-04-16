@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { pairsBySlug, getPairOrConstruct } from "@/data/pairs";
@@ -159,11 +159,13 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const [slug, setSlug] = useState(paramSlug);
   const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
 
-  // Sync slug immediately during render (not in useEffect) to prevent
-  // stale pair showing for one frame when navigating between pairs
-  if (paramSlug && paramSlug !== slug) {
-    setSlug(paramSlug);
-  }
+  // Sync slug before browser paints (not useEffect which runs after paint)
+  // so navigating between pairs never flashes the previous pair
+  useLayoutEffect(() => {
+    if (paramSlug && paramSlug !== slug) {
+      setSlug(paramSlug);
+    }
+  }, [paramSlug, slug]);
 
   const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
