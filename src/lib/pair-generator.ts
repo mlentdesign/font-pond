@@ -110,10 +110,27 @@ function describeContrast(header: Font, body: Font): string {
   const hClass = header.classification;
   const hLabel = fmtClass(hClass);
   const bLabel = fmtClass(body.classification);
-  if (hClass === "handwritten" || hClass === "script") return `${hLabel} / ${bLabel} — texture and personality contrast`;
-  if (hClass === "display") return `Display / ${bLabel} — dramatic weight and scale contrast`;
-  if (hClass !== body.classification) return `${hLabel} / ${bLabel} — category contrast`;
-  return "weight and personality contrast";
+  const headerIllegible = SEVERELY_ILLEGIBLE_FONT_IDS.has(header.id);
+  const bodyIllegible = SEVERELY_ILLEGIBLE_FONT_IDS.has(body.id);
+
+  // Base contrast description
+  let base: string;
+  if (hClass === "handwritten" || hClass === "script") base = `${hLabel} / ${bLabel} — texture and personality contrast`;
+  else if (hClass === "display") base = `Display / ${bLabel} — dramatic weight and scale contrast`;
+  else if (hClass !== body.classification) base = `${hLabel} / ${bLabel} — category contrast`;
+  else base = "weight and personality contrast";
+
+  // Flag illegibility so users know why scores are low
+  if (headerIllegible && bodyIllegible) {
+    return `${base}. Note: both ${header.name} and ${body.name} have decorative letterforms that are hard to read — best used sparingly for visual effect.`;
+  }
+  if (headerIllegible) {
+    return `${base}. Note: ${header.name}'s letterforms are decorative and not truly legible — pair works visually but headlines won't be easy to read.`;
+  }
+  if (bodyIllegible) {
+    return `${base}. Note: ${body.name} has decorative letterforms that aren't legible for body text — use for effect, not for reading.`;
+  }
+  return base;
 }
 
 // Varied rationale templates — uses a hash of the pair slug to pick one deterministically
@@ -298,13 +315,16 @@ function makePair(header: Font, body: Font, existingSlugs: Set<string>): FontPai
   // Scale to 78-92 range: best pairs rival hand-crafted, weakest still respectable
   let overallScore = Math.min(92, Math.max(78, Math.round(78 + (baseScore - 7) * 4 + (hash % 3))));
   // Penalty: if header OR body is categorically illegible (barcode/waveform/etc.),
-  // knock the pair's overall score down so ranking reflects hard-to-read reality.
+  // the whole pair is hard to read — legibility, practicality, and overall all drop.
   const headerIllegible = SEVERELY_ILLEGIBLE_FONT_IDS.has(header.id);
   const bodyIllegible = SEVERELY_ILLEGIBLE_FONT_IDS.has(body.id);
-  if (headerIllegible || bodyIllegible) overallScore = Math.max(50, overallScore - 25);
-  // If the body itself is illegible, the pair's legibility score must reflect that
-  const finalLegibility = bodyIllegible ? 1 : legibility;
-  // Role fitness: an illegible header can't actually perform the header role
+  const anyIllegible = headerIllegible || bodyIllegible;
+  if (anyIllegible) overallScore = Math.max(50, overallScore - 25);
+  // Pair legibility: if either font is illegible, cap at 2/10. Body illegible is worst (1).
+  const finalLegibility = bodyIllegible ? 1 : headerIllegible ? Math.min(2, legibility) : legibility;
+  // Practicality: hard-to-read pairs aren't practical for real-world use
+  const finalPracticality = anyIllegible ? Math.min(3, practicality) : practicality;
+  // Role fitness: an illegible header can't perform the header role
   const finalRoleFitness = headerIllegible ? Math.max(1, roleFitness - 5) : roleFitness;
 
   return {
@@ -321,7 +341,7 @@ function makePair(header: Font, body: Font, existingSlugs: Set<string>): FontPai
     contrastType: contrast,
     hierarchyStrength: hierarchy,
     bodyLegibilityScore: finalLegibility,
-    practicalityScore: practicality,
+    practicalityScore: finalPracticality,
     originalityScore: originality,
     xHeightHarmony,
     roleFitness: finalRoleFitness,
@@ -470,8 +490,10 @@ function makeCuratedPair(header: Font, body: Font, existingSlugs: Set<string>): 
   // Mirror the dynamic-pair illegible penalty
   const headerIllegible = SEVERELY_ILLEGIBLE_FONT_IDS.has(header.id);
   const bodyIllegible = SEVERELY_ILLEGIBLE_FONT_IDS.has(body.id);
-  if (headerIllegible || bodyIllegible) overallScore = Math.max(50, overallScore - 25);
-  const finalLegibility = bodyIllegible ? 1 : legibility;
+  const anyIllegible = headerIllegible || bodyIllegible;
+  if (anyIllegible) overallScore = Math.max(50, overallScore - 25);
+  const finalLegibility = bodyIllegible ? 1 : headerIllegible ? Math.min(2, legibility) : legibility;
+  const finalPracticality = anyIllegible ? Math.min(3, practicality) : practicality;
   const finalRoleFitness = headerIllegible ? Math.max(1, roleFitness - 5) : roleFitness;
 
   return {
@@ -485,7 +507,7 @@ function makeCuratedPair(header: Font, body: Font, existingSlugs: Set<string>): 
     contrastType: contrast,
     hierarchyStrength: hierarchy,
     bodyLegibilityScore: finalLegibility,
-    practicalityScore: practicality,
+    practicalityScore: finalPracticality,
     originalityScore: originality,
     xHeightHarmony,
     roleFitness: finalRoleFitness,
