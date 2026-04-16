@@ -1,4 +1,5 @@
 import { Font, FontPair } from "@/data/types";
+import { SEVERELY_ILLEGIBLE_FONT_IDS } from "@/data/illegible-fonts";
 
 // Known chromatic/color fonts that don't render in standard black
 // No longer needed here — blocklisted fonts are already filtered out in fonts.ts
@@ -295,7 +296,16 @@ function makePair(header: Font, body: Font, existingSlugs: Set<string>): FontPai
     roleFitness * 0.10 +
     personalityContrast * 0.10;
   // Scale to 78-92 range: best pairs rival hand-crafted, weakest still respectable
-  const overallScore = Math.min(92, Math.max(78, Math.round(78 + (baseScore - 7) * 4 + (hash % 3))));
+  let overallScore = Math.min(92, Math.max(78, Math.round(78 + (baseScore - 7) * 4 + (hash % 3))));
+  // Penalty: if header OR body is categorically illegible (barcode/waveform/etc.),
+  // knock the pair's overall score down so ranking reflects hard-to-read reality.
+  const headerIllegible = SEVERELY_ILLEGIBLE_FONT_IDS.has(header.id);
+  const bodyIllegible = SEVERELY_ILLEGIBLE_FONT_IDS.has(body.id);
+  if (headerIllegible || bodyIllegible) overallScore = Math.max(50, overallScore - 25);
+  // If the body itself is illegible, the pair's legibility score must reflect that
+  const finalLegibility = bodyIllegible ? 1 : legibility;
+  // Role fitness: an illegible header can't actually perform the header role
+  const finalRoleFitness = headerIllegible ? Math.max(1, roleFitness - 5) : roleFitness;
 
   return {
     id,
@@ -310,11 +320,11 @@ function makePair(header: Font, body: Font, existingSlugs: Set<string>): FontPai
     tags: [...new Set([...header.tags.slice(0, 8), ...header.toneDescriptors.slice(0, 4)])].slice(0, 8),
     contrastType: contrast,
     hierarchyStrength: hierarchy,
-    bodyLegibilityScore: legibility,
+    bodyLegibilityScore: finalLegibility,
     practicalityScore: practicality,
     originalityScore: originality,
     xHeightHarmony,
-    roleFitness,
+    roleFitness: finalRoleFitness,
     personalityContrast,
     sourceConfidence: header.source === "other" ? "medium" : "high",
     licenseConfidence: header.licenseConfidence,
@@ -456,7 +466,13 @@ function makeCuratedPair(header: Font, body: Font, existingSlugs: Set<string>): 
     xHeightHarmony * 0.15 +
     roleFitness * 0.10 +
     personalityContrast * 0.10;
-  const overallScore = Math.min(92, Math.max(78, Math.round(78 + (baseScore - 7) * 4 + (hash % 3))));
+  let overallScore = Math.min(92, Math.max(78, Math.round(78 + (baseScore - 7) * 4 + (hash % 3))));
+  // Mirror the dynamic-pair illegible penalty
+  const headerIllegible = SEVERELY_ILLEGIBLE_FONT_IDS.has(header.id);
+  const bodyIllegible = SEVERELY_ILLEGIBLE_FONT_IDS.has(body.id);
+  if (headerIllegible || bodyIllegible) overallScore = Math.max(50, overallScore - 25);
+  const finalLegibility = bodyIllegible ? 1 : legibility;
+  const finalRoleFitness = headerIllegible ? Math.max(1, roleFitness - 5) : roleFitness;
 
   return {
     id,
@@ -468,11 +484,11 @@ function makeCuratedPair(header: Font, body: Font, existingSlugs: Set<string>): 
     tags: [...new Set([...header.tags.slice(0, 6), ...header.toneDescriptors.slice(0, 3), ...body.toneDescriptors.slice(0, 2)])].slice(0, 8),
     contrastType: contrast,
     hierarchyStrength: hierarchy,
-    bodyLegibilityScore: legibility,
+    bodyLegibilityScore: finalLegibility,
     practicalityScore: practicality,
     originalityScore: originality,
     xHeightHarmony,
-    roleFitness,
+    roleFitness: finalRoleFitness,
     personalityContrast,
     sourceConfidence: header.source === "other" ? "medium" : "high",
     licenseConfidence: header.licenseConfidence,
