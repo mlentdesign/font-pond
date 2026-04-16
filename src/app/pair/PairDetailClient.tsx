@@ -177,8 +177,10 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   // Swap to clean CMS URL after the pair has rendered — never before, so the
   // user always sees the correct pair first. Runs only when URL still has ?p=.
   useEffect(() => {
+    console.log('[PD effect]', { slug, pairSlug: pair?.slug, url: window.location.href, search: window.location.search });
     if (pair && slug && window.location.search.includes("p=")) {
       const cleanUrl = pair.url ? `/font-pond${pair.url}` : `/font-pond/pair/${slug}`;
+      console.log('[PD cleanup]', { to: cleanUrl });
       window.history.replaceState(null, "", cleanUrl);
     }
   }, [pair, slug]);
