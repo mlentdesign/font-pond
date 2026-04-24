@@ -26,7 +26,7 @@ export function ResultsGrid() {
 
   // Initial count and increment based on column layout
   const initialCount = cols >= 3 ? 3 : cols >= 2 ? 4 : 3;
-  const loadIncrement = cols >= 3 ? 3 : cols >= 2 ? 2 : 1;
+  const loadIncrement = cols >= 3 ? 3 : cols >= 2 ? 2 : 3;
 
   // On first render or column change, snap visibleCount to fill complete rows
   useEffect(() => {
