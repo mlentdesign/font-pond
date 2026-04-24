@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { fontsBySlug, fontsById } from "@/data/fonts";
 import { getPairsWithFont } from "@/lib/engine";
@@ -43,6 +44,7 @@ function InfoRow({ label, value, useTitle, useClassification }: { label: string;
 }
 
 export default function FontDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const paramSlug = slugOverride || searchParams.get("f") || "";
   const fromPair = searchParams.get("from");
@@ -419,11 +421,14 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                     .filter(t => t.split("-").length < 3 && t.length <= 25)
                     .map(chipCase);
                   return (
-                    <Link
+                    <div
                       key={sf.slug}
-                      href={`/font?f=${sf.slug}`}
+                      role="link"
+                      tabIndex={0}
+                      onClick={() => router.push(`/font?f=${sf.slug}`)}
+                      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push(`/font?f=${sf.slug}`); } }}
                       onMouseDown={(e) => e.preventDefault()}
-                      className="group block border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden"
+                      className="group border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden cursor-pointer"
                       style={{ position: "relative" }}
                     >
                       <div className="flex items-center justify-between mb-4">
@@ -484,7 +489,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                           <p>{sf.variableFont ? "Yes" : "No"}</p>
                         </div>
                       </div>
-                    </Link>
+                    </div>
                   );
                 })}
               </div>
