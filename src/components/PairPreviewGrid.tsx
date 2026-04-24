@@ -81,7 +81,7 @@ export function PairPreviewGrid({
               onClick={() => { navigateToPair(router, p.slug); }}
               onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navigateToPair(router, p.slug); } }}
               onMouseDown={(e) => e.preventDefault()}
-              className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden cursor-pointer"
+              className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden cursor-pointer flex flex-col"
               style={{ padding: "24px", position: "relative" }}
             >
               <span
@@ -90,27 +90,31 @@ export function PairPreviewGrid({
               >
                 ↗
               </span>
-              <p
-                className="leading-tight text-neutral-800 break-words"
-                style={{ fontFamily: hFamily, fontWeight: 700, fontSize: "24px", marginBottom: "8px" }}
-              >
-                {headlineText}
-              </p>
-              <p
-                className="text-neutral-500 line-clamp-2 break-words"
-                style={{ fontFamily: bFamily, fontWeight: 400, fontSize: "16px", lineHeight: 1.5 }}
-              >
-                {bodyText}
-              </p>
-              <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
-              <p className="font-medium text-neutral-700 break-words" style={{ fontSize: "16px", marginBottom: showRationale ? "8px" : undefined }}>
-                {p.headerFont.name} + {p.bodyFont.name}
-              </p>
-              {showRationale && (
-                <p className="text-neutral-400 break-words" style={{ fontSize: "16px" }}>
-                  {sentenceCase(p.rationale)}
+              <div>
+                <p
+                  className="leading-tight text-neutral-800 break-words"
+                  style={{ fontFamily: hFamily, fontWeight: 700, fontSize: "24px", marginBottom: "8px" }}
+                >
+                  {headlineText}
                 </p>
-              )}
+                <p
+                  className="text-neutral-500 line-clamp-2 break-words"
+                  style={{ fontFamily: bFamily, fontWeight: 400, fontSize: "16px", lineHeight: 1.5 }}
+                >
+                  {bodyText}
+                </p>
+              </div>
+              <div style={{ marginTop: "auto" }}>
+                <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
+                <p className="font-medium text-neutral-700 break-words" style={{ fontSize: "16px", marginBottom: showRationale ? "8px" : undefined }}>
+                  {p.headerFont.name} + {p.bodyFont.name}
+                </p>
+                {showRationale && (
+                  <p className="text-neutral-400 break-words" style={{ fontSize: "16px" }}>
+                    {sentenceCase(p.rationale)}
+                  </p>
+                )}
+              </div>
             </div>
           );
         })}
