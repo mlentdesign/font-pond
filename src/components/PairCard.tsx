@@ -30,7 +30,7 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
       onClick={() => { navigateToPair(router, pair.slug); }}
       onMouseDown={(e) => e.preventDefault()}
       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navigateToPair(router, pair.slug); } }}
-      className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-md cursor-pointer overflow-hidden"
+      className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-md cursor-pointer overflow-hidden flex flex-col"
       style={{ position: "relative" }}
     >
       {/* Hover arrow */}
@@ -41,7 +41,7 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
         ↗
       </span>
 
-      {/* Section 1: Sample header + body text */}
+      {/* Section 1: Sample header + body text — pinned to top */}
       <div style={{ padding: "24px", paddingBottom: "16px" }}>
         <h3
           className="text-neutral-900 break-words"
@@ -68,68 +68,70 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
         </p>
       </div>
 
-      <div className="border-t border-neutral-100" />
+      {/* Sections 2–4 pinned to bottom */}
+      <div style={{ marginTop: "auto" }}>
+        <div className="border-t border-neutral-100" />
 
-      {/* Section 2: Description */}
-      <div style={{ padding: "16px 24px" }}>
-        <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
-          DESCRIPTION
-        </span>
-        <p className="text-neutral-500 break-words" style={{ fontSize: "16px", lineHeight: 1.5 }}>
-          {description}
-        </p>
-      </div>
-
-      <div className="border-t border-neutral-100" />
-
-      {/* Section 3: Header font + chips */}
-      <div style={{ padding: "16px 24px" }}>
-        <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
-          HEADER
-        </span>
-        <span
-          className="text-neutral-800 block"
-          style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "22px", lineHeight: 1.3, marginBottom: "8px" }}
-        >
-          {headerFont.name}
-        </span>
-        <div className="flex flex-wrap" style={{ gap: "8px" }}>
-          {[...new Set(headerFont.tags)].slice(0, 6).map((tag, i) => (
-            <span
-              key={`h-${i}-${tag}`}
-              className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100"
-              style={{ fontSize: "14px", padding: "4px 12px" }}
-            >
-              {chipCase(tag)}
-            </span>
-          ))}
+        {/* Section 2: Description */}
+        <div style={{ padding: "16px 24px" }}>
+          <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
+            DESCRIPTION
+          </span>
+          <p className="text-neutral-500 break-words" style={{ fontSize: "16px", lineHeight: 1.5 }}>
+            {description}
+          </p>
         </div>
-      </div>
 
-      {/* Divider between header and body */}
-      <div className="border-t border-neutral-100" />
+        <div className="border-t border-neutral-100" />
 
-      {/* Section 4: Body font + chips */}
-      <div style={{ padding: "16px 24px 24px" }}>
-        <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
-          BODY
-        </span>
-        <span
-          className="text-neutral-800 block"
-          style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "22px", lineHeight: 1.3, marginBottom: "8px" }}
-        >
-          {bodyFont.name}
-        </span>
-        <div className="flex flex-wrap" style={{ gap: "8px" }}>
-          {[...new Set(bodyFont.tags)].slice(0, 6).map((tag, i) => (
-            <span
-              key={`b-${i}-${tag}`}
-              className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100"
-              style={{ fontSize: "14px", padding: "4px 12px" }}
-            >
-              {chipCase(tag)}
-            </span>
-          ))}
+        {/* Section 3: Header font + chips */}
+        <div style={{ padding: "16px 24px" }}>
+          <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
+            HEADER
+          </span>
+          <span
+            className="text-neutral-800 block"
+            style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "22px", lineHeight: 1.3, marginBottom: "8px" }}
+          >
+            {headerFont.name}
+          </span>
+          <div className="flex flex-wrap" style={{ gap: "8px" }}>
+            {[...new Set(headerFont.tags)].slice(0, 6).map((tag, i) => (
+              <span
+                key={`h-${i}-${tag}`}
+                className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100"
+                style={{ fontSize: "14px", padding: "4px 12px" }}
+              >
+                {chipCase(tag)}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="border-t border-neutral-100" />
+
+        {/* Section 4: Body font + chips */}
+        <div style={{ padding: "16px 24px 24px" }}>
+          <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
+            BODY
+          </span>
+          <span
+            className="text-neutral-800 block"
+            style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "22px", lineHeight: 1.3, marginBottom: "8px" }}
+          >
+            {bodyFont.name}
+          </span>
+          <div className="flex flex-wrap" style={{ gap: "8px" }}>
+            {[...new Set(bodyFont.tags)].slice(0, 6).map((tag, i) => (
+              <span
+                key={`b-${i}-${tag}`}
+                className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100"
+                style={{ fontSize: "14px", padding: "4px 12px" }}
+              >
+                {chipCase(tag)}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
