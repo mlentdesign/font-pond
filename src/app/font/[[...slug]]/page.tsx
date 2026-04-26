@@ -1,8 +1,9 @@
 import FontSlugClient from "./FontSlugClient";
+import { fontsBySlug } from "@/data/fonts";
 
-// Only generate the base /font route — all /font/slug URLs work via client-side routing
 export function generateStaticParams() {
-  return [{ slug: [] }];
+  const slugs = Array.from(fontsBySlug.keys());
+  return [{ slug: [] }, ...slugs.map((s) => ({ slug: [s] }))];
 }
 
 export default async function FontPage({ params }: { params: Promise<{ slug?: string[] }> }) {
