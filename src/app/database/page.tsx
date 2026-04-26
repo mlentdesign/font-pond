@@ -302,7 +302,7 @@ export default function DatabasePage() {
       );
     }
     return result;
-  }, [sorted, search, categoryFilters, sourceFilters]);
+  }, [sorted, search, categoryFilters, sourceFilters, variableOnly]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const pageRows = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
