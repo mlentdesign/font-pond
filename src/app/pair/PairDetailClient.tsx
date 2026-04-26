@@ -46,8 +46,8 @@ function FontSection({
       className="group flex flex-col border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden cursor-pointer"
       style={{ position: "relative" }}
     >
-      <div className="flex items-center justify-between">
-        <div className="min-w-0 flex-1 mr-4">
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ flex: "1 1 0%", minWidth: 0, marginRight: "16px" }}>
           <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}>
             {role === "Header" ? "HEADER FONT" : "BODY FONT"}
           </span>
