@@ -4005,8 +4005,15 @@ function shuffle<T>(arr: T[]): T[] {
 
 export function explorePairs(): ScoredPair[] {
   ensureDynamicPairs();
+  const seenIds = new Set<string>();
+  const seenSlugs = new Set<string>();
   const all: ScoredPair[] = [];
   for (const pair of fontPairs) {
+    // Guard against duplicate IDs or slugs — either would cause React key
+    // collisions that make cards navigate to the wrong pair on click.
+    if (seenIds.has(pair.id) || seenSlugs.has(pair.slug)) continue;
+    seenIds.add(pair.id);
+    seenSlugs.add(pair.slug);
     const hf = fontsById.get(pair.headerFontId);
     const bf = fontsById.get(pair.bodyFontId);
     if (!hf || !bf) continue;
