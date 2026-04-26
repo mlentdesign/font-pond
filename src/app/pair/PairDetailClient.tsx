@@ -74,7 +74,7 @@ function FontSection({
       </div>
 
       {/* Divider: between header info and specimen */}
-      <div className="border-t border-neutral-100" style={{ margin: "24px -24px 0", padding: "0" }} />
+      <div className="border-t border-neutral-100" style={{ margin: "24px -24px 16px", padding: "0" }} />
 
       {/* Specimen */}
       <div
