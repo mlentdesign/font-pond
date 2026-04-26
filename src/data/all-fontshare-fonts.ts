@@ -228,7 +228,7 @@ export const allFontshareFonts: Font[] = [
   fs("Kihim", "kihim", "sans-serif",
     ["geometric", "minimal", "crisp", "contemporary", "approachable", "friendly", "rounded", "soft", "youthful", "fresh"],
     ["friendly", "approachable", "modern", "casual"],
-    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["soft rounded terminals", "generous x-height", "open apertures"], xHeightRatio: "high", apertureOpenness: "open", strokeContrast: "none", letterSpacing: "normal", moodCategory: "warm" }),
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["soft rounded terminals", "geometric proportions", "stylised enclosed counters"], moodCategory: "warm" }),
 
   // ── C ──
   fs("Comico", "comico", "display",

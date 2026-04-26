@@ -28,9 +28,10 @@ export function ResultsGrid() {
   const initialCount = cols >= 3 ? 3 : cols >= 2 ? 4 : 3;
   const loadIncrement = cols >= 3 ? 3 : cols >= 2 ? 2 : 3;
 
-  // On first render or column change, snap visibleCount to fill complete rows
+  // On first render, column change, or new results: snap visibleCount to fill complete rows.
+  // results in deps ensures a re-explore (same hasSearched=true) also resets correctly.
   useEffect(() => {
-    if (hasSearched) {
+    if (hasSearched && results.length > 0) {
       const extra = visibleCount - initialCount;
       if (extra <= 0) {
         setVisibleCount(initialCount);
@@ -40,7 +41,7 @@ export function ResultsGrid() {
         setVisibleCount(initialCount + snapped);
       }
     }
-  }, [cols, hasSearched]);
+  }, [cols, hasSearched, results]);
 
   // Batch-load fonts for all currently visible results
   const lastLoadedCount = useRef(0);
