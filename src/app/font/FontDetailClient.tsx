@@ -488,7 +488,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                           </span>
                         )}
                       </div>
-                      <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
+                      <div className="border-t border-neutral-100" style={{ margin: "24px -24px 16px", padding: "0" }} />
                       <div
                         className="text-4xl leading-tight mb-4 text-neutral-800 break-words"
                         style={{ fontFamily: sfFamily, fontWeight: 600 }}

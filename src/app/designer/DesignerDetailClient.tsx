@@ -159,7 +159,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                     </span>
                   )}
                 </div>
-                <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
+                <div className="border-t border-neutral-100" style={{ margin: "24px -24px 16px", padding: "0" }} />
 
                 {/* Specimen */}
                 <div
