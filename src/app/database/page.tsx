@@ -21,6 +21,7 @@ interface FontRow {
   sourceLabel: string;
   sourceUrl: string;
   pairCount: number;
+  variableFont: boolean;
 }
 
 const PAGE_SIZE = 50;
@@ -129,6 +130,7 @@ export default function DatabasePage() {
   const [filterOpen, setFilterOpen] = useState(false);
   const [categoryFilters, setCategoryFilters] = useState<Set<string>>(new Set());
   const [sourceFilters, setSourceFilters] = useState<Set<string>>(new Set());
+  const [variableOnly, setVariableOnly] = useState(false);
   const tableRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const filterRef = useRef<HTMLDivElement>(null);
@@ -241,6 +243,7 @@ export default function DatabasePage() {
       sourceLabel: getSourceLabel(f.source),
       sourceUrl: f.sourceUrl,
       pairCount: pairCounts.get(f.id) || 0,
+      variableFont: f.variableFont,
     }));
   }, []);
 
@@ -264,7 +267,7 @@ export default function DatabasePage() {
     setSourceFilters((prev) => { const next = new Set(prev); next.has(s) ? next.delete(s) : next.add(s); return next; });
   };
 
-  const activeFilterCount = categoryFilters.size + sourceFilters.size;
+  const activeFilterCount = categoryFilters.size + sourceFilters.size + (variableOnly ? 1 : 0);
 
   const sorted = useMemo(() => {
     const copy = [...rows];
@@ -286,6 +289,9 @@ export default function DatabasePage() {
     }
     if (sourceFilters.size > 0) {
       result = result.filter((r) => sourceFilters.has(r.sourceLabel));
+    }
+    if (variableOnly) {
+      result = result.filter((r) => r.variableFont);
     }
     if (search.trim()) {
       const q = search.trim();
@@ -318,17 +324,20 @@ export default function DatabasePage() {
         if (i % 10 === 0) await new Promise((r) => setTimeout(r, 0));
       }
       if (!cancelled) {
-        // Ensure fonts render after DOM updates with new font-family styles
-        ensureFontsRendered(fontNames);
-        // Second pass after a short delay to catch fonts that needed more time
-        setTimeout(() => { if (!cancelled) ensureFontsRendered(fontNames); }, 800);
+        // Stagger multiple passes: CDN stylesheets are fetched async, so the
+        // first call fires when they may still be parsing. Later calls catch
+        // any fonts that needed more time on slow connections.
+        setTimeout(() => { if (!cancelled) ensureFontsRendered(fontNames); }, 50);
+        setTimeout(() => { if (!cancelled) ensureFontsRendered(fontNames); }, 400);
+        setTimeout(() => { if (!cancelled) ensureFontsRendered(fontNames); }, 1000);
+        setTimeout(() => { if (!cancelled) ensureFontsRendered(fontNames); }, 2000);
       }
     }
     loadPageFonts();
     return () => { cancelled = true; };
   }, [pageKey]);
 
-  useEffect(() => { setPage(0); }, [sortKey, sortDir, search, categoryFilters, sourceFilters]);
+  useEffect(() => { setPage(0); }, [sortKey, sortDir, search, categoryFilters, sourceFilters, variableOnly]);
 
   // When filters change, force re-render of font specimens after a tick
   // (pageKey effect handles loading, but this ensures a second render pass)
@@ -439,7 +448,7 @@ export default function DatabasePage() {
                     ))}
                   </div>
                   <p id="filter-source-label" className="uppercase tracking-wider font-medium" style={{ fontSize: "12px", color: "var(--text-label)", marginBottom: "8px" }}>Source</p>
-                  <div role="group" aria-labelledby="filter-source-label">
+                  <div role="group" aria-labelledby="filter-source-label" style={{ marginBottom: "16px" }}>
                     {uniqueSources.map((s) => (
                       <label key={s} className="flex items-center cursor-pointer hover:opacity-70" style={{ gap: "8px", padding: "4px 0", fontSize: "16px", color: "var(--text-body)" }}>
                         <input
@@ -452,9 +461,22 @@ export default function DatabasePage() {
                       </label>
                     ))}
                   </div>
+                  <p id="filter-variable-label" className="uppercase tracking-wider font-medium" style={{ fontSize: "12px", color: "var(--text-label)", marginBottom: "8px" }}>Type</p>
+                  <div role="group" aria-labelledby="filter-variable-label">
+                    <label className="flex items-center cursor-pointer hover:opacity-70" style={{ gap: "8px", padding: "4px 0", fontSize: "16px", color: "var(--text-body)" }}>
+                      <input
+                        type="checkbox"
+                        checked={variableOnly}
+                        onChange={() => setVariableOnly((v) => !v)}
+                        className="db-checkbox"
+                      />
+                      Variable fonts only
+                    </label>
+                  </div>
                   {activeFilterCount > 0 && (
                     <button
-                      onClick={() => { setCategoryFilters(new Set()); setSourceFilters(new Set()); }}
+                      type="button"
+                      onClick={() => { setCategoryFilters(new Set()); setSourceFilters(new Set()); setVariableOnly(false); }}
                       className="hover:opacity-70 transition-opacity"
                       style={{ fontSize: "16px", color: "var(--accent)", marginTop: "12px", background: "none", border: "none", cursor: "pointer", padding: 0 }}
                     >
