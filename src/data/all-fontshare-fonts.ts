@@ -29,6 +29,8 @@ function fs(
     strokeContrast?: "none" | "low" | "moderate" | "high";
     letterSpacing?: "tight" | "normal" | "generous";
     moodCategory?: "traditional" | "modern" | "elegant" | "playful" | "bold" | "neutral" | "technical" | "warm" | "experimental";
+    designer?: string;
+    foundry?: string;
   }
 ): Font {
   const isBody = opts?.isBodySuitable ?? false;
@@ -69,7 +71,7 @@ function fs(
     "chubbo":              ["moderate", "open", "none", "normal", "modern"],  // extra-rounded, bubbly, generously padded
     "chillax":             ["moderate", "open", "none", "normal", "modern"],  // relaxed tension, casual curves, easy-going
     "cabinet-grotesk":     ["moderate", "open", "low", "normal", "modern"],  // wide weight range, confident grotesk
-    "be-vietnam-pro":      ["moderate", "open", "none", "normal", "modern"],  // Vietnamese-optimized, crisp modern forms
+    "beVietnam-pro":       ["moderate", "open", "none", "normal", "modern"],  // Vietnamese-optimized, crisp modern forms
     "nunito":              ["moderate", "open", "low", "normal", "modern"],  // fully rounded terminals, warm sans
     "epilogue":            ["moderate", "open", "none", "normal", "modern"],  // transitional sans, editorial sophistication
     "spline-sans":         ["high", "open", "none", "normal", "modern"],  // spline-curve construction, mathematical precision
@@ -106,7 +108,7 @@ function fs(
     "hygge":               ["moderate", "open", "low", "normal", "warm"],  // soft rounded terminals, cozy Scandinavian
     "archivo":             ["high", "open", "low", "normal", "modern"],  // grotesque heritage, high legibility
     "segment":             ["high", "open", "low", "generous", "modern"],  // segment-display inspired, digital readout
-    "rx100":               ["high", "moderate", "none", "tight", "technical"],  // measured — camera-model naming, angular digital
+    "rx-100":              ["high", "moderate", "none", "tight", "technical"],  // measured — camera-model naming, angular digital
     // ── Sans-Serif (display-only) ──
     "oswald":              ["moderate", "moderate", "low", "tight", "modern"],  // condensed gothic, strong vertical emphasis
     "nekst":               ["moderate", "closed", "none", "tight", "bold"],  // condensed industrial, tight headline spacing
@@ -193,8 +195,8 @@ function fs(
     specimenUrl: null,
     licenseType: "ITF Free Font License",
     licenseConfidence: "high",
-    designer: "Indian Type Foundry",
-    foundry: "Indian Type Foundry",
+    designer: opts?.designer ?? "Indian Type Foundry",
+    foundry: opts?.foundry ?? "Indian Type Foundry",
     year: null,
     classification,
     subcategory: null,
@@ -228,219 +230,219 @@ export const allFontshareFonts: Font[] = [
   fs("Kihim", "kihim", "sans-serif",
     ["geometric", "minimal", "crisp", "contemporary", "approachable", "friendly", "rounded", "soft", "youthful", "fresh"],
     ["friendly", "approachable", "modern", "casual"],
-    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["soft rounded terminals", "geometric proportions", "stylised enclosed counters"], moodCategory: "warm" }),
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["soft rounded terminals", "geometric proportions", "stylised enclosed counters"], moodCategory: "warm", designer: "Rocky Malaviya" }),
 
   // ── C ──
   fs("Comico", "comico", "display",
     ["playful", "bold", "fun", "expressive", "whimsical", "youthful", "energetic", "quirky", "cartoon", "loud"],
     ["playful", "energetic", "bold", "fun", "eye-catching"],
-    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["comic-inspired letterforms", "exaggerated proportions", "thick strokes"] }),
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["comic-inspired letterforms", "exaggerated proportions", "thick strokes"], designer: "Frode Helland" }),
 
   // ── S ──
   fs("Synonym", "synonym", "sans-serif",
     ["neutral", "versatile", "clean", "corporate", "professional", "modern", "reliable", "balanced", "functional", "understated"],
     ["neutral", "professional", "balanced", "dependable"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["workhorse proportions", "even stroke widths", "clear letterforms"] }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["workhorse proportions", "even stroke widths", "clear letterforms"], designer: "Hugo Dumont" }),
 
   // ── G ──
   fs("General Sans", "general-sans", "sans-serif",
     ["versatile", "crisp", "professional", "sleek", "contemporary", "approachable", "functional", "fresh", "balanced", "startup"],
     ["contemporary", "professional", "approachable", "fresh"],
-    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["slightly squared terminals", "generous spacing", "excellent legibility at small sizes"] }),
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["slightly squared terminals", "generous spacing", "excellent legibility at small sizes"], designer: "Frode Helland" }),
 
   fs("Gambarino", "gambarino", "serif",
     ["editorial", "dramatic", "sophisticated", "literary", "refined", "distinctive", "elegant", "high-contrast", "premium", "magazine"],
     ["dramatic", "sophisticated", "editorial", "refined"],
-    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["high stroke contrast", "dramatic thick-thin transitions", "sharp serifs"] }),
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["high stroke contrast", "dramatic thick-thin transitions", "sharp serifs"], designer: "Théo Guillard" }),
 
   // ── R ──
-  fs("Rowan", "rowan", "sans-serif",
+  fs("Rowan", "rowan", "serif",
     ["warm", "approachable", "friendly", "humanist", "cozy", "organic", "gentle", "readable", "inviting", "natural"],
     ["warm", "approachable", "inviting", "gentle"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["humanist construction", "warm curves", "slightly calligraphic influence"] }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["humanist construction", "warm curves", "slightly calligraphic influence"], designer: "Inga Plönnigs" }),
 
   // ── T ──
   fs("Technor", "technor", "sans-serif",
     ["techy", "futuristic", "geometric", "sleek", "cool", "sharp", "digital", "modern", "minimal", "precise"],
     ["futuristic", "precise", "technical", "cool"],
-    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["squared-off terminals", "technical precision", "mono-width feel"] }),
+    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["squared-off terminals", "technical precision", "mono-width feel"], designer: "Jean-Baptiste Morizot" }),
 
   // ── G ──
   fs("Gambetta", "gambetta", "serif",
     ["literary", "refined", "sophisticated", "classic", "editorial", "bookish", "elegant", "warm", "mature", "traditional"],
     ["literary", "refined", "elegant", "cultured"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["old-style proportions", "smooth serif brackets", "warm color on the page"] }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["old-style proportions", "smooth serif brackets", "warm color on the page"], designer: "Paul Troppmar" }),
 
   fs("Sentient", "sentient", "serif",
     ["editorial", "contemporary", "refined", "sophisticated", "premium", "literary", "crisp", "luxurious", "magazine", "intelligent"],
     ["sophisticated", "intelligent", "editorial", "premium"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["contemporary serif design", "sharp wedge serifs", "elegant high-contrast strokes"] }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["contemporary serif design", "sharp wedge serifs", "elegant high-contrast strokes"], designer: "Noopur Choksi" }),
 
   fs("Boska", "boska", "serif",
     ["dramatic", "editorial", "bold", "expressive", "fierce", "distinctive", "fashion", "luxurious", "striking", "statement"],
     ["dramatic", "bold", "expressive", "fierce"],
-    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["extreme stroke contrast", "dramatic display proportions", "fashion-forward energy"] }),
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["extreme stroke contrast", "dramatic display proportions", "fashion-forward energy"], designer: "Barbara Bigosinska" }),
 
   fs("Switzer", "switzer", "sans-serif",
     ["neutral", "professional", "versatile", "clean", "corporate", "reliable", "modern", "functional", "polished", "refined"],
     ["professional", "neutral", "reliable", "polished"],
-    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["neo-grotesque construction", "tight but readable spacing", "wide weight range"] }),
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["neo-grotesque construction", "tight but readable spacing", "wide weight range"], designer: "Jérémie Hornus" }),
 
   fs("Tabular", "tabular", "monospace",
     ["technical", "precise", "digital", "developer", "functional", "systematic", "structured", "coding", "crisp", "data"],
     ["technical", "systematic", "precise", "functional"],
-    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["fixed-width characters", "clear number differentiation", "coding-optimized forms"] }),
+    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["fixed-width characters", "clear number differentiation", "coding-optimized forms"], designer: "Jérémie Hornus, Julie Soudanne" }),
 
   fs("Tanker", "tanker", "display",
     ["bold", "fierce", "impactful", "heavy", "industrial", "loud", "powerful", "strong", "edgy", "commanding"],
     ["powerful", "bold", "commanding", "fierce"],
-    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["ultra-bold weight", "compressed letterforms", "industrial strength"] }),
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["ultra-bold weight", "compressed letterforms", "industrial strength"], designer: "Ruosi Huang" }),
 
   fs("Expose", "expose", "display",
     ["editorial", "fashion", "elegant", "high-contrast", "dramatic", "sophisticated", "luxurious", "striking", "magazine", "premium"],
     ["elegant", "dramatic", "editorial", "luxurious"],
-    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["extreme thin-thick contrast", "fashion magazine aesthetic", "refined display proportions"] }),
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["extreme thin-thick contrast", "fashion magazine aesthetic", "refined display proportions"], designer: "Lukas Schneider" }),
 
   fs("Boxing", "boxing", "display",
     ["bold", "sporty", "impactful", "energetic", "strong", "fierce", "athletic", "dynamic", "punchy", "loud"],
     ["bold", "energetic", "fierce", "dynamic"],
-    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["blocky letterforms", "athletic energy", "high-impact presence"] }),
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["blocky letterforms", "athletic energy", "high-impact presence"], designer: "Ruosi Huang" }),
 
   fs("Striper", "striper", "display",
     ["decorative", "experimental", "playful", "artsy", "creative", "distinctive", "whimsical", "graphic", "unconventional", "fun"],
     ["experimental", "creative", "playful", "graphic"],
-    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["inline striped detail", "decorative construction", "graphic texture"] }),
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["inline striped detail", "decorative construction", "graphic texture"], designer: "Jitka Janečková" }),
 
   fs("Pilcrow Rounded", "pilcrow-rounded", "sans-serif",
     ["friendly", "soft", "approachable", "rounded", "warm", "cozy", "gentle", "playful", "youthful", "casual"],
     ["friendly", "warm", "approachable", "gentle"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded terminals", "soft personality", "friendly reading experience"] }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded terminals", "soft personality", "friendly reading experience"], designer: "Satya Rajpurohit" }),
 
   fs("Melodrama", "melodrama", "serif",
     ["dramatic", "editorial", "expressive", "bold", "fashion", "fierce", "striking", "luxurious", "theatrical", "intense"],
     ["dramatic", "theatrical", "expressive", "bold"],
-    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["extreme contrast", "theatrical flair", "dramatic serif details"] }),
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["extreme contrast", "theatrical flair", "dramatic serif details"], designer: "Shaily Patel" }),
 
   // ── A ──
   fs("Aktura", "aktura", "display",
     ["blackletter", "gothic", "medieval", "ornate", "dark", "dramatic", "historical", "bold", "intense", "decorative"],
     ["dramatic", "historical", "intense", "bold"],
-    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["blackletter construction", "gothic arches", "medieval texture"], moodCategory: "experimental" }),
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["blackletter construction", "gothic arches", "medieval texture"], moodCategory: "experimental", designer: "Gaetan Baehr" }),
 
   fs("Alpino", "alpino", "sans-serif",
     ["rounded", "friendly", "soft", "approachable", "warm", "playful", "modern", "casual", "youthful", "accessible"],
     ["friendly", "warm", "approachable", "modern"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded terminals", "soft geometric forms", "friendly open apertures"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded terminals", "soft geometric forms", "friendly open apertures"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm", designer: "Alisa Nowak, Jérémie Hornus" }),
 
   fs("Amulya", "amulya", "sans-serif",
     ["clean", "modern", "neutral", "versatile", "professional", "geometric", "balanced", "functional", "crisp", "contemporary"],
     ["modern", "neutral", "professional", "clean"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["clean geometric construction", "balanced proportions", "excellent legibility range"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "modern" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["clean geometric construction", "balanced proportions", "excellent legibility range"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "modern", designer: "Joana Correia" }),
 
   fs("Array", "array", "display",
     ["technical", "geometric", "grid", "modular", "digital", "systematic", "precise", "structured", "futuristic", "architectural"],
     ["technical", "precise", "systematic", "structured"],
-    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["modular grid construction", "geometric modules", "pixel-influenced forms"], moodCategory: "technical" }),
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["modular grid construction", "geometric modules", "pixel-influenced forms"], moodCategory: "technical", designer: "Frode Helland" }),
 
   fs("Asap", "asap", "sans-serif",
     ["versatile", "neutral", "readable", "professional", "clean", "modern", "balanced", "functional", "approachable", "screen-optimized"],
     ["professional", "neutral", "balanced", "readable"],
-    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["subtle humanist details", "optimized for screens", "wide spacing"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral" }),
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["subtle humanist details", "optimized for screens", "wide spacing"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral", designer: "Omnibus-Type", foundry: "Omnibus-Type" }),
 
   fs("Azeret Mono", "azeret-mono", "monospace",
     ["technical", "coding", "developer", "functional", "systematic", "clean", "precise", "digital", "structured", "modern"],
     ["technical", "functional", "precise", "modern"],
-    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["rounded monospace forms", "clear character differentiation", "humanist mono feel"], moodCategory: "technical" }),
+    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["rounded monospace forms", "clear character differentiation", "humanist mono feel"], moodCategory: "technical", designer: "Displaay", foundry: "Displaay" }),
 
   // ── B ──
   fs("Be Vietnam Pro", "beVietnam-pro", "sans-serif",
     ["humanist", "warm", "versatile", "readable", "approachable", "modern", "clean", "professional", "balanced", "friendly"],
     ["warm", "approachable", "professional", "versatile"],
-    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["humanist sans proportions", "generous x-height", "open apertures", "excellent multilingual support"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm" }),
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["humanist sans proportions", "generous x-height", "open apertures", "excellent multilingual support"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm", designer: "Lam Bao, Tony Le, Vietanh Nguyen" }),
 
   fs("Bespoke Sans", "bespoke-sans", "sans-serif",
     ["editorial", "refined", "versatile", "modern", "clean", "professional", "sharp", "contemporary", "neutral", "balanced"],
     ["refined", "professional", "contemporary", "balanced"],
-    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["crisp terminals", "refined proportions", "editorial-quality spacing"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "modern" }),
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["crisp terminals", "refined proportions", "editorial-quality spacing"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "modern", designer: "Jérémie Hornus, Théo Guillard, Morgane Pambrun, Alisa Nowak, Joachim Vu" }),
 
   fs("Bespoke Serif", "bespoke-serif", "serif",
     ["editorial", "refined", "literary", "elegant", "sophisticated", "classic", "traditional", "premium", "bookish", "cultured"],
     ["refined", "literary", "elegant", "sophisticated"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["sharp bracketed serifs", "editorial proportions", "refined stroke contrast"], xHeightRatio: "moderate", strokeContrast: "moderate", moodCategory: "elegant" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["sharp bracketed serifs", "editorial proportions", "refined stroke contrast"], xHeightRatio: "moderate", strokeContrast: "moderate", moodCategory: "elegant", designer: "Jérémie Hornus, Théo Guillard, Morgane Pambrun, Alisa Nowak, Joachim Vu" }),
 
   fs("Bespoke Slab", "bespoke-slab", "serif",
     ["editorial", "sturdy", "readable", "confident", "modern", "slab", "grounded", "reliable", "versatile", "professional"],
     ["confident", "grounded", "professional", "modern"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["slab serifs", "sturdy construction", "reliable at all sizes"], xHeightRatio: "high", strokeContrast: "low", moodCategory: "bold" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["slab serifs", "sturdy construction", "reliable at all sizes"], xHeightRatio: "high", strokeContrast: "low", moodCategory: "bold", designer: "Jérémie Hornus, Théo Guillard, Morgane Pambrun, Alisa Nowak, Joachim Vu" }),
 
   fs("Bespoke Stencil", "bespoke-stencil", "display",
     ["stencil", "editorial", "industrial", "bold", "graphic", "distinctive", "urban", "strong", "designed", "confident"],
     ["bold", "industrial", "graphic", "distinctive"],
-    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["stencil breaks", "strong industrial character", "graphic texture"], moodCategory: "bold" }),
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["stencil breaks", "strong industrial character", "graphic texture"], moodCategory: "bold", designer: "Jérémie Hornus, Théo Guillard, Morgane Pambrun, Alisa Nowak, Joachim Vu" }),
 
   fs("Bevellier", "bevellier", "display",
     ["luxury", "elegant", "fashion", "refined", "high-end", "sophisticated", "premium", "editorial", "striking", "distinctive"],
     ["luxurious", "elegant", "sophisticated", "refined"],
-    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["beveled letterforms", "luxury display proportions", "refined editorial presence"], moodCategory: "elegant" }),
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["beveled letterforms", "luxury display proportions", "refined editorial presence"], moodCategory: "elegant", designer: "Arya Purohit, Barbara Bigosinska" }),
 
   fs("Bonny", "bonny", "serif",
     ["warm", "humanist", "literary", "friendly", "readable", "approachable", "cozy", "inviting", "comfortable", "classic"],
     ["warm", "friendly", "readable", "inviting"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["warm humanist serifs", "inviting proportions", "friendly letter shapes"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "warm" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["warm humanist serifs", "inviting proportions", "friendly letter shapes"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "warm", designer: "Barbara Bigosinska" }),
 
   fs("Britney", "britney", "script",
     ["playful", "expressive", "fun", "casual", "handwritten", "youthful", "energetic", "bubbly", "friendly", "vibrant"],
     ["playful", "energetic", "fun", "expressive"],
-    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["bouncy baseline", "casual script energy", "expressive lettering"], moodCategory: "playful" }),
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["bouncy baseline", "casual script energy", "expressive lettering"], moodCategory: "playful", designer: "Diana Ovezea, Sabina Chipară" }),
 
   // ── C ──
   fs("Chillax", "chillax", "sans-serif",
     ["relaxed", "friendly", "casual", "modern", "approachable", "soft", "rounded", "clean", "easy", "contemporary"],
     ["relaxed", "friendly", "approachable", "modern"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["slightly rounded terminals", "relaxed spacing", "casual geometric proportions"], xHeightRatio: "moderate", moodCategory: "warm" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["slightly rounded terminals", "relaxed spacing", "casual geometric proportions"], xHeightRatio: "moderate", moodCategory: "warm", designer: "Manushi Parikh" }),
 
   fs("Chubbo", "chubbo", "display",
     ["bold", "rounded", "playful", "fun", "chubby", "friendly", "casual", "expressive", "youthful", "bubbly"],
     ["bold", "playful", "fun", "friendly"],
-    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["exaggerated round forms", "heavy weight presence", "fun proportions"], moodCategory: "playful" }),
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["exaggerated round forms", "heavy weight presence", "fun proportions"], moodCategory: "playful", designer: "Rafał Buchner" }),
 
   // ── E ──
   fs("Epilogue", "epilogue", "sans-serif",
     ["neutral", "versatile", "clean", "professional", "modern", "reliable", "balanced", "functional", "readable", "understated"],
     ["neutral", "professional", "versatile", "clean"],
-    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["wide weight range", "excellent screen legibility", "neutral grotesque personality"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral" }),
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["wide weight range", "excellent screen legibility", "neutral grotesque personality"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral", designer: "Tyler Finck", foundry: "Etcetera Type Co" }),
 
   fs("Erode", "erode", "serif",
     ["editorial", "refined", "literary", "crisp", "sophisticated", "elegant", "contemporary", "sharp", "premium", "magazine"],
     ["refined", "editorial", "sophisticated", "elegant"],
-    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["sharp serif details", "elegant proportions", "excellent for long-form reading"], xHeightRatio: "high", strokeContrast: "moderate", moodCategory: "elegant" }),
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["sharp serif details", "elegant proportions", "excellent for long-form reading"], xHeightRatio: "high", strokeContrast: "moderate", moodCategory: "elegant", designer: "Nikhil Ranganathan" }),
 
   fs("Excon", "excon", "sans-serif",
     ["condensed", "strong", "compact", "bold", "efficient", "modern", "functional", "structured", "tight", "utilitarian"],
     ["strong", "efficient", "functional", "modern"],
-    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["condensed proportions", "space-efficient", "strong backbone"], xHeightRatio: "high", letterSpacing: "tight", moodCategory: "bold" }),
+    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["condensed proportions", "space-efficient", "strong backbone"], xHeightRatio: "high", letterSpacing: "tight", moodCategory: "bold", designer: "Alisa Nowak" }),
 
   // ── F ──
   fs("Familjen Grotesk", "familjen-grotesk", "sans-serif",
     ["quirky", "modern", "playful", "contemporary", "editorial", "distinctive", "character", "fresh", "individual", "lively"],
     ["modern", "quirky", "fresh", "contemporary"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["quirky details", "lively character shapes", "fresh grotesque personality"], xHeightRatio: "high", moodCategory: "modern" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["quirky details", "lively character shapes", "fresh grotesque personality"], xHeightRatio: "high", moodCategory: "modern", designer: "Familjen STHLM AB", foundry: "Familjen STHLM AB" }),
 
   fs("Fira Sans", "fira-sans", "sans-serif",
     ["humanist", "readable", "professional", "screen-optimized", "versatile", "clean", "modern", "functional", "balanced", "reliable"],
     ["professional", "readable", "versatile", "reliable"],
-    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["humanist construction", "excellent screen hinting", "wide weight range"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral" }),
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["humanist construction", "excellent screen hinting", "wide weight range"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral", designer: "Carrois Apostrophe", foundry: "Carrois Apostrophe" }),
 
   // ── H ──
   fs("Hind", "hind", "sans-serif",
     ["clean", "humanist", "readable", "functional", "neutral", "professional", "screen-optimized", "versatile", "modern", "balanced"],
     ["clean", "readable", "neutral", "functional"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["Devanagari-influenced spacing", "clean humanist forms", "excellent small sizes"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["Devanagari-influenced spacing", "clean humanist forms", "excellent small sizes"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral", designer: "Manushi Parikh" }),
 
   fs("Hoover", "hoover", "serif",
     ["slab", "sturdy", "editorial", "confident", "bold", "grounded", "industrial", "robust", "reliable", "american"],
     ["confident", "grounded", "robust", "bold"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["slab serif construction", "sturdy confident forms", "editorial backbone"], xHeightRatio: "high", strokeContrast: "low", moodCategory: "bold" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["slab serif construction", "sturdy confident forms", "editorial backbone"], xHeightRatio: "high", strokeContrast: "low", moodCategory: "bold", designer: "Gaetan Baehr" }),
 
   // ── K ──
   fs("Kalam", "kalam", "handwritten",
@@ -451,61 +453,61 @@ export const allFontshareFonts: Font[] = [
   fs("Karma", "karma", "serif",
     ["warm", "literary", "readable", "traditional", "classic", "elegant", "bookish", "comfortable", "humanist", "trustworthy"],
     ["warm", "literary", "trustworthy", "comfortable"],
-    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["generous x-height", "warm humanist serifs", "optimized for long-form reading"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "traditional" }),
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["generous x-height", "warm humanist serifs", "optimized for long-form reading"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "traditional", designer: "Joana Correia" }),
 
   fs("Khand", "khand", "sans-serif",
     ["condensed", "editorial", "crisp", "structured", "modern", "clean", "efficient", "versatile", "refined", "contemporary"],
     ["crisp", "structured", "editorial", "modern"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["subtle condensed proportions", "crisp terminals", "editorial character"], xHeightRatio: "moderate", letterSpacing: "tight", moodCategory: "modern" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["subtle condensed proportions", "crisp terminals", "editorial character"], xHeightRatio: "moderate", letterSpacing: "tight", moodCategory: "modern", designer: "Satya Rajpurohit" }),
 
   fs("Kohinoor Zerone", "kohinoor-zerone", "display",
     ["geometric", "structured", "architectural", "precise", "bold", "modern", "graphic", "strong", "systematic", "designed"],
     ["bold", "precise", "architectural", "modern"],
-    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["geometric construction", "architectural presence", "structured forms"], moodCategory: "technical" }),
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["geometric construction", "architectural presence", "structured forms"], moodCategory: "technical", designer: "Satya Rajpurohit" }),
 
   fs("Kola", "kola", "display",
     ["retro", "vintage", "bold", "nostalgic", "expressive", "fun", "playful", "characterful", "graphic", "distinctive"],
     ["retro", "expressive", "fun", "distinctive"],
-    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["retro display proportions", "vintage energy", "expressive character"], moodCategory: "playful" }),
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["retro display proportions", "vintage energy", "expressive character"], moodCategory: "playful", designer: "Jean-Baptiste Morizot" }),
 
   // ── L ──
   fs("Literata", "literata", "serif",
     ["literary", "readable", "elegant", "sophisticated", "bookish", "editorial", "refined", "classical", "long-form", "cultured"],
     ["literary", "elegant", "refined", "sophisticated"],
-    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["optimized for long-form reading", "elegant proportions", "refined serif details"], xHeightRatio: "moderate", strokeContrast: "moderate", moodCategory: "elegant" }),
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["optimized for long-form reading", "elegant proportions", "refined serif details"], xHeightRatio: "moderate", strokeContrast: "moderate", moodCategory: "elegant", designer: "TypeTogether", foundry: "TypeTogether" }),
 
   // ── M ──
   fs("Merriweather Sans", "merriweather-sans", "sans-serif",
     ["readable", "screen-optimized", "warm", "humanist", "professional", "functional", "clean", "comfortable", "versatile", "reliable"],
     ["readable", "warm", "professional", "comfortable"],
-    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["screen-first design", "comfortable spacing", "warm humanist character"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm" }),
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["screen-first design", "comfortable spacing", "warm humanist character"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm", designer: "Eben Sorkin", foundry: "Sorkin Type" }),
 
   // ── N ──
   fs("Neco", "neco", "serif",
     ["editorial", "contemporary", "refined", "precise", "sophisticated", "elegant", "sharp", "magazine", "literary", "crisp"],
     ["refined", "contemporary", "sophisticated", "precise"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["contemporary serif forms", "precise details", "elegant spacing"], strokeContrast: "moderate", moodCategory: "elegant" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["contemporary serif forms", "precise details", "elegant spacing"], strokeContrast: "moderate", moodCategory: "elegant", designer: "Jitka Janečková" }),
 
   fs("New Title", "new-title", "display",
     ["editorial", "bold", "strong", "contemporary", "magazine", "headline", "confident", "modern", "impactful", "stark"],
     ["bold", "confident", "contemporary", "impactful"],
-    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["strong headline presence", "editorial proportions", "contemporary display character"], moodCategory: "bold" }),
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["strong headline presence", "editorial proportions", "contemporary display character"], moodCategory: "bold", designer: "Julie Soudanne, Jérémie Hornus" }),
 
   fs("Nippo", "nippo", "display",
     ["geometric", "futuristic", "minimal", "sharp", "modern", "clean", "architectural", "precise", "technical", "bold"],
     ["futuristic", "minimal", "sharp", "modern"],
-    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["geometric precision", "futuristic proportions", "clean modern display"], moodCategory: "technical" }),
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["geometric precision", "futuristic proportions", "clean modern display"], moodCategory: "technical", designer: "Manushi Parikh" }),
 
   fs("Nunito", "nunito", "sans-serif",
     ["rounded", "friendly", "warm", "approachable", "soft", "clean", "modern", "comfortable", "youthful", "accessible"],
     ["friendly", "warm", "approachable", "comfortable"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded terminals", "warm friendly proportions", "excellent UI font"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded terminals", "warm friendly proportions", "excellent UI font"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm", designer: "Vernon Adams" }),
 
   // ── O ──
   fs("Oswald", "oswald", "display",
     ["condensed", "bold", "strong", "impactful", "structured", "clean", "modern", "editorial", "confident", "sharp"],
     ["bold", "strong", "confident", "editorial"],
-    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["condensed proportions", "strong backbone", "impactful at large sizes"], letterSpacing: "tight", moodCategory: "bold" }),
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["condensed proportions", "strong backbone", "impactful at large sizes"], letterSpacing: "tight", moodCategory: "bold", designer: "Vernon Adams" }),
 
   // ── P ──
   fs("Pally", "pally", "sans-serif",
@@ -516,27 +518,27 @@ export const allFontshareFonts: Font[] = [
   fs("Panchang", "panchang", "display",
     ["bold", "expressive", "graphic", "contemporary", "strong", "editorial", "modern", "impactful", "distinctive", "confident"],
     ["bold", "expressive", "contemporary", "confident"],
-    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["bold expressive forms", "graphic energy", "strong display presence"], moodCategory: "bold" }),
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["bold expressive forms", "graphic energy", "strong display presence"], moodCategory: "bold", designer: "Barbara Bigosinska, Hitesh Malaviya" }),
 
   fs("Paquito", "paquito", "serif",
     ["slab", "friendly", "approachable", "warm", "sturdy", "editorial", "trustworthy", "grounded", "readable", "confident"],
     ["friendly", "warm", "trustworthy", "grounded"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded slab serifs", "friendly construction", "warm reliable feel"], xHeightRatio: "high", strokeContrast: "low", moodCategory: "warm" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded slab serifs", "friendly construction", "warm reliable feel"], xHeightRatio: "high", strokeContrast: "low", moodCategory: "warm", designer: "Juanjo Lopez" }),
 
   fs("Pencerio", "pencerio", "script",
     ["elegant", "calligraphic", "refined", "sophisticated", "formal", "classic", "luxurious", "fluid", "graceful", "premium"],
     ["elegant", "refined", "sophisticated", "graceful"],
-    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["calligraphic rhythm", "elegant script flourishes", "refined letterforms"], moodCategory: "elegant" }),
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["calligraphic rhythm", "elegant script flourishes", "refined letterforms"], moodCategory: "elegant", designer: "Manushi Parikh" }),
 
   fs("Plein", "plein", "sans-serif",
     ["neutral", "functional", "clean", "modern", "professional", "versatile", "balanced", "reliable", "understated", "crisp"],
     ["neutral", "functional", "professional", "reliable"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["clean neutral forms", "excellent legibility", "no-nonsense personality"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "neutral" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["clean neutral forms", "excellent legibility", "no-nonsense personality"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "neutral", designer: "Inga Plönnigs" }),
 
   fs("Pramukh Rounded", "pramukh-rounded", "sans-serif",
     ["rounded", "friendly", "modern", "approachable", "clean", "warm", "accessible", "soft", "contemporary", "functional"],
     ["friendly", "approachable", "warm", "modern"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded terminals", "clean modern construction", "approachable personality"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm" }),
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded terminals", "clean modern construction", "approachable personality"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm", designer: "Aarya Purohit" }),
 
   fs("Public Sans", "public-sans", "sans-serif",
     ["neutral", "clean", "professional", "functional", "reliable", "government", "accessible", "modern", "versatile", "trustworthy"],
