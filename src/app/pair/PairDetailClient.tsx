@@ -46,15 +46,13 @@ function FontSection({
       className="group flex flex-col border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden cursor-pointer"
       style={{ position: "relative" }}
     >
-      <div style={{ display: "grid", gridTemplateColumns: "1fr auto", alignItems: "center", gap: "16px" }}>
-        <div>
-          <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}>
-            {role === "Header" ? "HEADER FONT" : "BODY FONT"}
-          </span>
-          <span className="text-lg font-semibold text-neutral-900 block leading-tight break-words">
-            {font.name}
-          </span>
-        </div>
+      <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", marginBottom: "4px" }}>
+        {role === "Header" ? "HEADER FONT" : "BODY FONT"}
+      </span>
+      <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "0" }}>
+        <span className="text-lg font-semibold text-neutral-900 flex-1 leading-tight break-words">
+          {font.name}
+        </span>
         {font.sourceUrl ? (
           <a
             href={font.sourceUrl}
