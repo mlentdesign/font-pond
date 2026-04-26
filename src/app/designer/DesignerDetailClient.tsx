@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { designersBySlug } from "@/data/designers";
+import { fontsBySlug } from "@/data/fonts";
+import { getPairOrConstruct } from "@/data/pairs";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
 import { getSourceLabel, formatClassification, chipCase } from "@/lib/text";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
@@ -17,14 +19,24 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
   const router = useRouter();
   const searchParams = useSearchParams();
   const paramSlug = slugOverride || searchParams.get("d") || "";
+  const rawFontSlug = searchParams.get("font") || "";
+  const rawFromPair = searchParams.get("from") || "";
 
   const slugRef = useRef(paramSlug);
-  if (paramSlug && paramSlug !== slugRef.current) {
-    slugRef.current = paramSlug;
-  }
+  if (paramSlug && paramSlug !== slugRef.current) slugRef.current = paramSlug;
   const slug = slugRef.current;
 
+  const fontSlugRef = useRef(rawFontSlug);
+  if (rawFontSlug && rawFontSlug !== fontSlugRef.current) fontSlugRef.current = rawFontSlug;
+  const fontSlug = fontSlugRef.current;
+
+  const fromPairRef = useRef(rawFromPair);
+  if (rawFromPair && rawFromPair !== fromPairRef.current) fromPairRef.current = rawFromPair;
+  const fromPair = fromPairRef.current;
+
   const designer = designersBySlug.get(slug);
+  const fromFont = fontSlug ? fontsBySlug.get(fontSlug) : undefined;
+  const fromPairData = fromPair ? getPairOrConstruct(fromPair) : undefined;
 
   useEffect(() => {
     if (designer && slug && window.location.search.includes("d=")) {
@@ -43,6 +55,13 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
   }, [designer]);
 
   const crumbs: { label: string; href?: string }[] = [];
+  if (fromPairData) {
+    const hName = fontsBySlug.get(fromPairData.headerFontId)?.name;
+    const bName = fontsBySlug.get(fromPairData.bodyFontId)?.name;
+    const pairLabel = hName && bName ? `${hName} + ${bName}` : fromPairData.slug;
+    crumbs.push({ label: pairLabel, href: `/pair?p=${fromPair}` });
+  }
+  if (fromFont) crumbs.push({ label: fromFont.name, href: `/font?f=${fontSlug}${fromPair ? `&from=${fromPair}` : ""}` });
   if (designer) crumbs.push({ label: designer.name });
 
   if (!designer) {
