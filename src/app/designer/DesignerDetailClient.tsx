@@ -1,0 +1,203 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { designersBySlug } from "@/data/designers";
+import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
+import { getSourceLabel, formatClassification, chipCase } from "@/lib/text";
+import { DetailPageHeader } from "@/components/DetailPageHeader";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { SectionCard } from "@/components/SectionCard";
+import { ChipGroup } from "@/components/ChipGroup";
+import { FishingLine } from "@/components/FishingLine";
+import Link from "next/link";
+
+export default function DesignerDetailClient({ slugOverride }: { slugOverride?: string } = {}) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const paramSlug = slugOverride || searchParams.get("d") || "";
+
+  const slugRef = useRef(paramSlug);
+  if (paramSlug && paramSlug !== slugRef.current) {
+    slugRef.current = paramSlug;
+  }
+  const slug = slugRef.current;
+
+  const designer = designersBySlug.get(slug);
+
+  useEffect(() => {
+    if (designer && slug && window.location.search.includes("d=")) {
+      window.history.replaceState(null, "", `/font-pond/designer/${slug}`);
+    }
+  }, [designer, slug]);
+
+  useEffect(() => {
+    if (!designer) return;
+    const unpin = pinFonts(designer.fonts);
+    for (const font of designer.fonts) {
+      loadFont(font);
+    }
+    ensureFontsRendered(designer.fonts.map((f) => f.name));
+    return unpin;
+  }, [designer]);
+
+  const crumbs: { label: string; href?: string }[] = [];
+  if (designer) crumbs.push({ label: designer.name });
+
+  if (!designer) {
+    return (
+      <div className="flex-1 flex flex-col">
+        <DetailPageHeader />
+        <main className="flex-1 flex items-center justify-center" style={{ textAlign: "center", padding: "0 24px" }}>
+          <div>
+            <h1 className="font-semibold tracking-tight" style={{ color: "var(--text-heading)", fontSize: "24px", marginBottom: "8px" }}>
+              Designer not found
+            </h1>
+            <Link
+              href="/?explore=1"
+              className="btn-generate font-medium rounded-lg inline-block"
+              style={{ fontSize: "16px", padding: "12px 24px", marginTop: "24px" }}
+            >
+              Explore font pairs
+            </Link>
+            <FishingLine />
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  const sorted = [...designer.fonts].sort((a, b) => a.name.localeCompare(b.name));
+  const fontCount = sorted.length;
+
+  return (
+    <div className="flex-1 flex flex-col">
+      <DetailPageHeader />
+
+      <main id="main-content" className="flex-1 mx-auto w-full content-padding results-top-padding results-bottom-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
+        <Breadcrumb crumbs={crumbs} sticky />
+
+        {/* Designer name + count */}
+        <div style={{ marginBottom: "32px" }}>
+          <p className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "8px" }}>
+            TYPE DESIGNER
+          </p>
+          <h1 className="font-semibold text-neutral-900" style={{ fontSize: "40px", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: "8px" }}>
+            {designer.name}
+          </h1>
+          <p className="text-neutral-400" style={{ fontSize: "16px" }}>
+            {fontCount} {fontCount === 1 ? "font" : "fonts"} in Font Pond
+          </p>
+        </div>
+
+        {/* Font grid */}
+        <div className="designer-font-grid">
+          {sorted.map((font) => {
+            const family = getFontFamily(font.name, font.source);
+            const sourceLabel = getSourceLabel(font.source);
+            const chips = [...new Set([...font.tags, ...font.toneDescriptors].map((t) => t.toLowerCase()))]
+              .filter((t) => t.split("-").length < 3 && t.length <= 25)
+              .map(chipCase);
+
+            return (
+              <div
+                key={font.slug}
+                role="link"
+                tabIndex={0}
+                onClick={() => router.push(`/font?f=${font.slug}`)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    router.push(`/font?f=${font.slug}`);
+                  }
+                }}
+                onMouseDown={(e) => e.preventDefault()}
+                className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-sm cursor-pointer"
+                style={{ padding: "24px", position: "relative", overflow: "hidden" }}
+              >
+                {/* Font name + source */}
+                <div className="flex items-start justify-between" style={{ marginBottom: "16px", gap: "12px" }}>
+                  <span className="text-lg font-semibold text-neutral-900 break-words min-w-0">
+                    {font.name}
+                  </span>
+                  {font.sourceUrl ? (
+                    <a
+                      href={font.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="shrink-0 btn-generate font-medium rounded-lg"
+                      style={{ fontSize: "14px", padding: "6px 16px", textDecoration: "none" }}
+                    >
+                      {sourceLabel} ↗
+                    </a>
+                  ) : (
+                    <span className="shrink-0 bg-neutral-100 text-neutral-500 rounded-md" style={{ fontSize: "14px", padding: "4px 12px" }}>
+                      {sourceLabel}
+                    </span>
+                  )}
+                </div>
+
+                {/* Specimen */}
+                <div
+                  className="text-4xl leading-tight text-neutral-800 break-words"
+                  style={{ fontFamily: family, fontWeight: 600, marginBottom: "8px" }}
+                >
+                  Aa Bb Cc Dd Ee Ff
+                </div>
+                <div
+                  className="leading-relaxed text-neutral-500 break-words"
+                  style={{ fontFamily: family, fontWeight: 400, fontSize: "15px", marginBottom: "16px" }}
+                >
+                  The quick brown fox jumps over the lazy dog
+                </div>
+
+                <div className="border-t border-neutral-100" style={{ margin: "0 -24px 16px" }} />
+
+                {/* Characteristics */}
+                {chips.length > 0 && (
+                  <div style={{ marginBottom: "16px" }}>
+                    <ChipGroup chips={chips} maxVisible={6} />
+                  </div>
+                )}
+
+                <div className="border-t border-neutral-100" style={{ margin: "0 -24px 16px" }} />
+
+                {/* Meta row */}
+                <div className="grid grid-cols-2 text-neutral-500" style={{ fontSize: "14px", gap: "12px" }}>
+                  <div>
+                    <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "11px", marginBottom: "2px" }}>
+                      CLASSIFICATION
+                    </span>
+                    <span>{formatClassification(font.classification)}</span>
+                  </div>
+                  <div>
+                    <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "11px", marginBottom: "2px" }}>
+                      LICENSE
+                    </span>
+                    <span>{font.licenseType}</span>
+                  </div>
+                  {font.year && (
+                    <div>
+                      <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "11px", marginBottom: "2px" }}>
+                        YEAR
+                      </span>
+                      <span>{font.year}</span>
+                    </div>
+                  )}
+                  <div>
+                    <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "11px", marginBottom: "2px" }}>
+                      VARIABLE
+                    </span>
+                    <span>{font.variableFont ? "Yes" : "No"}</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </main>
+    </div>
+  );
+}
