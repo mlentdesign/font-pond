@@ -46,7 +46,7 @@ export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: C
             <li>
               <button
                 type="button"
-                onClick={() => router.push("/")}
+                onClick={() => router.push("/?restore=1")}
                 className="hover:underline"
                 style={{ color: "var(--text-muted)", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-heading)"; }}
