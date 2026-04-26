@@ -48,10 +48,11 @@ const CHIP_PROPER_NOUNS = new Set([
   "google fonts", "fontshare", "dafont",
 ]);
 
-/** Hyphenated terms where both parts should be capitalised */
+/** Hyphenated terms where both parts should be capitalised, or acronyms */
 const CHIP_CAPITALIZE_BOTH: Record<string, string> = {
   "sans-serif": "Sans-Serif",
   "slab-serif": "Slab-Serif",
+  "ui": "UI",
 };
 
 /** Convert a chip label to sentence case, preserving hyphens and proper nouns */
