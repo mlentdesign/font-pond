@@ -466,7 +466,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                       style={{ position: "relative" }}
                     >
                       <div className="flex items-center justify-between">
-                        <div className="min-w-0 flex-1 mr-3">
+                        <div className="min-w-0 flex-1 mr-4">
                           <span className="text-lg font-semibold text-neutral-900 block break-words">
                             {sf.name}
                           </span>
@@ -506,21 +506,21 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                         <ChipGroup label="CHARACTERISTICS" chips={sfChips} maxVisible={8} maxLines={2} />
                       </div>
                       <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
-                      <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-neutral-500" style={{ fontSize: "16px" }}>
+                      <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-neutral-500" style={{ fontSize: "16px" }}>
                         <div>
-                          <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>DESIGNER</span>
+                          <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>DESIGNER</span>
                           <p>{sf.designer || "Unknown"}</p>
                         </div>
                         <div>
-                          <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>CLASSIFICATION</span>
+                          <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>CLASSIFICATION</span>
                           <p>{formatClassification(sf.classification)}</p>
                         </div>
                         <div>
-                          <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>LICENSE</span>
+                          <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>LICENSE</span>
                           <p>{titleCase(sf.licenseType)}</p>
                         </div>
                         <div>
-                          <span className="uppercase tracking-wider text-neutral-400 block mb-0.5" style={{ fontSize: "12px" }}>VARIABLE</span>
+                          <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>VARIABLE</span>
                           <p>{sf.variableFont ? "Yes" : "No"}</p>
                         </div>
                       </div>
