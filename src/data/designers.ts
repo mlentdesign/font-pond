@@ -18,23 +18,45 @@ export function designerToSlug(name: string): string {
     .trim();
 }
 
+// Split on both ", " and " & " delimiters
 export function splitDesigners(designerStr: string): string[] {
-  return designerStr.split(",").map((s) => s.trim()).filter(Boolean);
+  return designerStr
+    .split(/,\s*|\s+&\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+const ITF = "Indian Type Foundry";
+const ITF_SLUG = designerToSlug(ITF);
+
+function addFontToDesigner(map: Map<string, Designer>, name: string, font: Font) {
+  const slug = designerToSlug(name);
+  if (!map.has(slug)) {
+    map.set(slug, { name, slug, fonts: [] });
+  }
+  map.get(slug)!.fonts.push(font);
 }
 
 function buildDesignerMap(): Map<string, Designer> {
   const map = new Map<string, Designer>();
+
   for (const font of fonts) {
-    if (!font.designer) continue;
-    const names = splitDesigners(font.designer);
+    const names = font.designer ? splitDesigners(font.designer) : [];
+
     for (const name of names) {
-      const slug = designerToSlug(name);
-      if (!map.has(slug)) {
-        map.set(slug, { name, slug, fonts: [] });
+      addFontToDesigner(map, name, font);
+    }
+
+    // All Fontshare fonts belong to Indian Type Foundry as the foundry.
+    // Only add ITF if it isn't already credited as a named designer.
+    if (font.source === "fontshare") {
+      const alreadyCredited = names.some((n) => designerToSlug(n) === ITF_SLUG);
+      if (!alreadyCredited) {
+        addFontToDesigner(map, ITF, font);
       }
-      map.get(slug)!.fonts.push(font);
     }
   }
+
   return map;
 }
 
