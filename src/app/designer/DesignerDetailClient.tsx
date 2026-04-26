@@ -117,7 +117,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                 style={{ padding: "24px", position: "relative", overflow: "hidden" }}
               >
                 {/* Font name + source */}
-                <div className="flex items-center justify-between" style={{ gap: "12px" }}>
+                <div className="flex items-center justify-between" style={{ gap: "16px" }}>
                   <span className="text-lg font-semibold text-neutral-900 break-words min-w-0">
                     {font.name}
                   </span>
@@ -166,29 +166,29 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                 <div className="border-t border-neutral-100" style={{ margin: "0 -24px 16px" }} />
 
                 {/* Meta row */}
-                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-neutral-500" style={{ fontSize: "16px" }}>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-neutral-500" style={{ fontSize: "16px" }}>
                   <div>
-                    <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "2px" }}>
+                    <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "4px" }}>
                       CLASSIFICATION
                     </span>
                     <span>{formatClassification(font.classification)}</span>
                   </div>
                   <div>
-                    <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "2px" }}>
+                    <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "4px" }}>
                       LICENSE
                     </span>
                     <span>{font.licenseType}</span>
                   </div>
                   {font.year && (
                     <div>
-                      <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "2px" }}>
+                      <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "4px" }}>
                         YEAR
                       </span>
                       <span>{font.year}</span>
                     </div>
                   )}
                   <div>
-                    <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "2px" }}>
+                    <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "4px" }}>
                       VARIABLE
                     </span>
                     <span>{font.variableFont ? "Yes" : "No"}</span>
