@@ -136,10 +136,12 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                 style={{ padding: "24px", position: "relative", overflow: "hidden" }}
               >
                 {/* Font name + source */}
-                <div className="flex items-center justify-between" style={{ gap: "16px" }}>
-                  <span className="text-lg font-semibold text-neutral-900 break-words min-w-0">
-                    {font.name}
-                  </span>
+                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                  <div style={{ flex: 1 }}>
+                    <span className="text-lg font-semibold text-neutral-900 block break-words">
+                      {font.name}
+                    </span>
+                  </div>
                   {font.sourceUrl ? (
                     <a
                       href={font.sourceUrl}

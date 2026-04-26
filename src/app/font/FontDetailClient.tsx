@@ -465,8 +465,8 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                       className="group border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden cursor-pointer"
                       style={{ position: "relative" }}
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="min-w-0 flex-1 mr-4">
+                      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                        <div style={{ flex: 1 }}>
                           <span className="text-lg font-semibold text-neutral-900 block break-words">
                             {sf.name}
                           </span>
