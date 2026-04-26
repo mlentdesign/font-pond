@@ -4026,19 +4026,16 @@ export function explorePairs(): ScoredPair[] {
     });
   }
 
-  // Sort by quality first, with random variance within similar scores
-  all.sort((a, b) => {
-    const scoreDiff = b.overallScore - a.overallScore;
-    if (Math.abs(scoreDiff) > 2) return scoreDiff;
-    return Math.random() - 0.5;
-  });
+  // Full Fisher-Yates shuffle — explore should surface any pair, not bias toward
+  // high-scoring fonts (which would cause the same fonts to dominate every click).
+  const shuffled = shuffle(all);
 
-  // Cap each font to 2 appearances in the front of explore results so no single
-  // font (e.g. Abril Fatface) dominates the first page.
+  // Diversity cap: no font appears more than twice in the front of results,
+  // so a single popular font can't claim the first N slots every time.
   const fontAppearances = new Map<string, number>();
   const front: ScoredPair[] = [];
   const overflow: ScoredPair[] = [];
-  for (const pair of all) {
+  for (const pair of shuffled) {
     const hc = fontAppearances.get(pair.headerFontId) ?? 0;
     const bc = fontAppearances.get(pair.bodyFontId) ?? 0;
     if (hc < 2 && bc < 2) {
