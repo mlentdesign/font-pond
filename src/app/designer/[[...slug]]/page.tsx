@@ -3,7 +3,7 @@ import { designersBySlug } from "@/data/designers";
 
 export function generateStaticParams() {
   const slugs = Array.from(designersBySlug.keys());
-  return [{ slug: [] }, ...slugs.map((s) => ({ slug: [s] }))];
+  return [{ slug: undefined }, ...slugs.map((s) => ({ slug: [s] }))];
 }
 
 export default async function DesignerPage({ params }: { params: Promise<{ slug?: string[] }> }) {
