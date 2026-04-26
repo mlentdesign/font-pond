@@ -47,7 +47,7 @@ function FontSection({
       style={{ position: "relative" }}
     >
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ flexGrow: 1, flexShrink: 1, minWidth: 0, marginRight: "16px", alignSelf: "center" }}>
+        <div style={{ flexGrow: 1, flexShrink: 1, minWidth: 0, marginRight: "16px", alignSelf: "stretch", display: "flex", flexDirection: "column", justifyContent: "center" }}>
           <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}>
             {role === "Header" ? "HEADER FONT" : "BODY FONT"}
           </span>
