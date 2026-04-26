@@ -116,6 +116,13 @@ export function ensureFontsRendered(fontNames: string[]): void {
 
   // Wait for stylesheets to be parsed first, then start loading
   document.fonts.ready.then(() => attempt(6));
+
+  // When CDN links are re-injected after eviction, the browser fetches them async.
+  // document.fonts.ready won't wait for those new stylesheets — but loadingdone
+  // fires each time a newly-parsed stylesheet's fonts finish loading.
+  const onLoadingDone = () => attempt(3);
+  document.fonts.addEventListener("loadingdone", onLoadingDone);
+  setTimeout(() => document.fonts.removeEventListener("loadingdone", onLoadingDone), 8000);
 }
 
 export function loadGoogleFont(family: string): void {
