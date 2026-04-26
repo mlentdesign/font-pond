@@ -1043,6 +1043,24 @@ body.animations-paused #water-bg * {
   }
 }
 
+/* Designer page font grid */
+.designer-font-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 768px) {
+  .designer-font-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+@media (min-width: 1024px) {
+  .designer-font-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 /* Specimen sizes must never be overridden by responsive rules */
 .exact-size {
   font-size: inherit !important;

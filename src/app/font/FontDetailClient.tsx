@@ -8,6 +8,7 @@ import { fontsBySlug, fontsById } from "@/data/fonts";
 import { getPairsWithFont } from "@/lib/engine";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
 import { titleCase, sentenceCase, getSourceLabel, formatClassification, chipCase, fontHasNumbers } from "@/lib/text";
+import { splitDesigners, designerToSlug } from "@/data/designers";
 import { pairsBySlug } from "@/data/pairs";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
 import { FishingLine } from "@/components/FishingLine";
@@ -236,7 +237,24 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
           <div>
             <h1 className="text-3xl font-semibold text-neutral-900 mb-1">{font.name}</h1>
             <p className="text-sm text-neutral-400">
-              {font.designer ? `By ${font.designer}` : "By unknown creator"}
+              {font.designer ? (
+                <>
+                  By{" "}
+                  {splitDesigners(font.designer).map((name, i, arr) => (
+                    <span key={name}>
+                      <button
+                        type="button"
+                        onClick={() => router.push(`/designer?d=${designerToSlug(name)}`)}
+                        className="hover:underline"
+                        style={{ color: "inherit", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
+                      >
+                        {name}
+                      </button>
+                      {i < arr.length - 1 && ", "}
+                    </span>
+                  ))}
+                </>
+              ) : "By unknown creator"}
               {font.year && ` · ${font.year}`}
             </p>
           </div>
