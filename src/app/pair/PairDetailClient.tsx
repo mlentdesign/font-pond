@@ -48,7 +48,7 @@ function FontSection({
     >
       <div className="flex items-center justify-between">
         <div className="min-w-0 flex-1 mr-3">
-          <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", marginBottom: "2px" }}>
+          <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px" }}>
             {role === "Header" ? "HEADER FONT" : "BODY FONT"}
           </span>
           <span className="text-lg font-semibold text-neutral-900 block leading-tight break-words">
