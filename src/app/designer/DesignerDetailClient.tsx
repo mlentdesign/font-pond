@@ -200,14 +200,12 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                     </span>
                     <span>{font.licenseType}</span>
                   </div>
-                  {font.year && (
-                    <div>
-                      <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "4px" }}>
-                        YEAR
-                      </span>
-                      <span>{font.year}</span>
-                    </div>
-                  )}
+                  <div>
+                    <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "4px" }}>
+                      YEAR
+                    </span>
+                    <span>{font.year || "Unknown"}</span>
+                  </div>
                   <div>
                     <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "4px" }}>
                       VARIABLE
