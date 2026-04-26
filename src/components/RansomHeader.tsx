@@ -22,7 +22,9 @@ const PRELOAD_COUNT = 80;
 
 type PoolFont = typeof FONT_POOL[number];
 
-// Shuffled queue — cycles through ALL fonts before repeating
+// Shuffled display queue — cycles through ALL fonts before repeating.
+// Only the final sustained font per animation consumes this queue.
+// Intermediate flip fonts use pickRandomIntermediate() to avoid depleting it.
 let fontQueue: PoolFont[] = [];
 function shuffleQueue() {
   fontQueue = [...FONT_POOL];
@@ -42,6 +44,11 @@ function pickRandom(exclude?: string): PoolFont {
     font = fontQueue.pop()!;
   }
   return font;
+}
+
+// Picks a random font for intermediate flip frames without consuming the display queue
+function pickRandomIntermediate(): PoolFont {
+  return FONT_POOL[Math.floor(Math.random() * FONT_POOL.length)];
 }
 
 // Peek at the next N fonts in the queue (for preloading)
@@ -151,7 +158,7 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
 
         const timer = setTimeout(() => {
           if (headerAnimationPaused) return;
-          const nextFont = isLast ? finalFont : pickRandom(undefined);
+          const nextFont = isLast ? finalFont : pickRandomIntermediate();
           ensureLoaded(nextFont);
           setLetterStates((prev) => {
             const next = [...prev];
