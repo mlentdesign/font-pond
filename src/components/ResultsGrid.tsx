@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useAppState } from "@/lib/store";
 import { PairCard } from "./PairCard";
-import { loadFont, ensureFontsRendered } from "@/lib/fonts";
+import { loadFont, ensureFontsRendered, pinFonts } from "@/lib/fonts";
 
 function useColumns(): number {
   const [cols, setCols] = useState(3);
@@ -52,14 +52,18 @@ export function ResultsGrid() {
   useEffect(() => {
     if (!hasSearched || isLoading || results.length === 0) return;
     const end = Math.min(visibleCount, results.length);
+    const fonts: { id?: string; slug: string }[] = [];
     const fontNames: string[] = [];
     for (let i = 0; i < end; i++) {
       const pair = results[i];
       loadFont(pair.headerFont);
       loadFont(pair.bodyFont);
+      fonts.push(pair.headerFont, pair.bodyFont);
       fontNames.push(pair.headerFont.name, pair.bodyFont.name);
     }
+    const unpin = pinFonts(fonts);
     ensureFontsRendered(fontNames);
+    return unpin;
   }, [visibleCount, results, hasSearched, isLoading]);
 
   if (!hasSearched) return null;
