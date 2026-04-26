@@ -5,6 +5,10 @@
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const loaded = new Set<string>();
 
+// fonts.css is already in the static <head> via layout.tsx — mark it loaded so
+// loadFont() never adds a duplicate dynamic <link>
+loaded.add("__css__");
+
 // Cap CDN stylesheets to prevent unbounded DOM growth
 const MAX_CDN_LINKS = 120;
 const cdnLinks: { key: string; fontKey: string; el: HTMLLinkElement }[] = [];
