@@ -46,13 +46,15 @@ function FontSection({
       className="group flex flex-col border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden cursor-pointer"
       style={{ position: "relative" }}
     >
-      <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", marginBottom: "4px" }}>
-        {role === "Header" ? "HEADER FONT" : "BODY FONT"}
-      </span>
-      <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "0" }}>
-        <span className="text-lg font-semibold text-neutral-900 flex-1 leading-tight break-words">
-          {font.name}
-        </span>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "16px" }}>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}>
+            {role === "Header" ? "HEADER FONT" : "BODY FONT"}
+          </span>
+          <span className="text-lg font-semibold text-neutral-900 block leading-tight break-words">
+            {font.name}
+          </span>
+        </div>
         {font.sourceUrl ? (
           <a
             href={font.sourceUrl}
@@ -60,12 +62,12 @@ function FontSection({
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
             className="shrink-0 btn-generate font-medium rounded-lg"
-            style={{ fontSize: "16px", padding: "8px 24px", textDecoration: "none" }}
+            style={{ fontSize: "16px", padding: "8px 24px", textDecoration: "none", display: "flex", alignItems: "center" }}
           >
             {sourceLabel} ↗
           </a>
         ) : (
-          <span className="shrink-0 bg-neutral-100 text-neutral-500 rounded-md" style={{ fontSize: "14px", padding: "4px 12px" }}>
+          <span className="shrink-0 bg-neutral-100 text-neutral-500 rounded-md" style={{ fontSize: "14px", padding: "4px 12px", display: "flex", alignItems: "center" }}>
             {sourceLabel}
           </span>
         )}
