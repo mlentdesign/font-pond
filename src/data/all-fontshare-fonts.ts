@@ -195,7 +195,7 @@ function fs(
     specimenUrl: null,
     licenseType: "ITF Free Font License",
     licenseConfidence: "high",
-    designer: opts?.designer ?? "Indian Type Foundry",
+    designer: opts?.designer ? `${opts.designer} & Indian Type Foundry` : "Indian Type Foundry",
     foundry: opts?.foundry ?? "Indian Type Foundry",
     year: null,
     classification,
@@ -388,7 +388,7 @@ export const allFontshareFonts: Font[] = [
   fs("Bonny", "bonny", "serif",
     ["warm", "humanist", "literary", "friendly", "readable", "approachable", "cozy", "inviting", "comfortable", "classic"],
     ["warm", "friendly", "readable", "inviting"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["warm humanist serifs", "inviting proportions", "friendly letter shapes"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "warm", designer: "Barbara Bigosinska" }),
+    { isBodySuitable: false, bodyLegibilityScore: 8, distinctiveTraits: ["warm humanist serifs", "inviting proportions", "friendly letter shapes"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "warm", designer: "Barbara Bigosinska" }),
 
   fs("Britney", "britney", "script",
     ["playful", "expressive", "fun", "casual", "handwritten", "youthful", "energetic", "bubbly", "friendly", "vibrant"],
