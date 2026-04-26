@@ -1340,7 +1340,7 @@ export const dafontFonts: Font[] = [
 
   // ─── SERIF (additional) ───
 
-  dafont("Cinzel", "serif",
+  dafont("Cinzel", "display",
     ["serif", "classic", "Roman", "elegant", "display", "uppercase", "monumental", "timeless"],
     ["classic", "elegant", "monumental", "timeless"],
     ["luxury brand", "book title", "classical event", "elegant heading"],
@@ -1379,7 +1379,7 @@ export const dafontFonts: Font[] = [
     { designer: "Christopher Hansen" },
   ),
 
-  dafont("Kingthings Exeter", "serif",
+  dafont("Kingthings Exeter", "display",
     ["medieval", "historical", "old-english", "traditional", "ornate"],
     ["historical", "traditional", "noble", "classic"],
     ["medieval theme", "historical document", "period piece", "heritage"],
@@ -1440,7 +1440,7 @@ export const dafontFonts: Font[] = [
     { designer: "Genumano" },
   ),
 
-  dafont("Existence", "sans-serif",
+  dafont("Existence", "display",
     ["stencil", "modern", "clean", "geometric", "light", "minimal"],
     ["modern", "minimal", "clean", "airy"],
     ["modern branding", "stencil heading", "minimal display", "clean title"],
@@ -1494,7 +1494,7 @@ export const dafontFonts: Font[] = [
     { designer: "Billy Argel Fonts ®" },
   ),
 
-  dafont("Aaargh", "sans-serif",
+  dafont("Aaargh", "display",
     ["bold", "strong", "modern", "geometric", "display", "sturdy"],
     ["bold", "strong", "direct", "modern"],
     ["bold heading", "modern display", "strong branding", "direct title"],
@@ -1548,8 +1548,8 @@ export const dafontFonts: Font[] = [
     { designer: "Marco Ugolini" },
   ),
 
-  dafont("Maxwell", "sans-serif",
-    ["sans-serif", "condensed", "bold", "modern", "strong", "clean", "geometric", "display"],
+  dafont("Maxwell", "display",
+    ["condensed", "bold", "modern", "strong", "clean", "geometric", "display"],
     ["bold", "strong", "contemporary", "impactful"],
     ["bold heading", "poster title", "brand display", "packaging"],
     ["condensed modern geometric sans", "strong vertical emphasis"],
@@ -1636,7 +1636,7 @@ export const dafontFonts: Font[] = [
     { designer: "Will Turnbow" },
   ),
 
-  dafont("Foglihten", "serif",
+  dafont("Foglihten", "display",
     ["serif", "elegant", "decorative", "art-nouveau", "ornamental", "classic", "refined", "display"],
     ["elegant", "ornamental", "refined", "classic"],
     ["luxury branding", "elegant invitation", "decorative title", "wine label"],
@@ -1787,7 +1787,7 @@ export const dafontFonts: Font[] = [
     ["heavy textured poster display", "rough industrial letterforms"],
     { designer: "Hanoded" },
   ),
-  dafont("Steelfish", "sans-serif",
+  dafont("Steelfish", "display",
     ["sans-serif", "condensed", "bold", "narrow", "modern", "strong", "display", "headline"],
     ["strong", "condensed", "modern", "impactful"],
     ["headline display", "condensed title", "sports branding", "news heading"],
@@ -1909,7 +1909,7 @@ export const dafontFonts: Font[] = [
     ["bold dramatic brush script", "energetic hand-lettered character"],
     { designer: "Excellent Ritma Florendia", serifSansCategory: "script" as const }
   ),
-  dafont("Dited", "sans-serif",
+  dafont("Dited", "display",
     ["sans-serif", "modern", "dotted", "tech", "unique", "futuristic", "digital", "display"],
     ["tech", "futuristic", "unique", "digital"],
     ["tech display", "digital branding", "futuristic heading", "unique title"],
@@ -1927,12 +1927,12 @@ export const dafontFonts: Font[] = [
     { designer: "Yann Le Coroller", licenseType: "Public domain / GPL / OFL", serifSansCategory: "sans-serif" },
   ),
 
-  dafont("Lemon Milk", "sans-serif",
+  dafont("Lemon Milk", "display",
     ["geometric", "modern", "bold", "rounded", "friendly", "clean", "contemporary", "display"],
     ["modern", "bold", "friendly", "clean"],
     ["modern branding", "product heading", "bold title", "clean display"],
     ["geometric rounded modern sans", "friendly bold display letterforms"],
-    { designer: "Marsnev", licenseType: "Donationware", serifSansCategory: "sans-serif" },
+    { designer: "Marsnev", licenseType: "Donationware" },
   ),
 
   dafont("Akira Expanded", "display",

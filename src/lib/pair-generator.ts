@@ -282,7 +282,15 @@ function makePair(header: Font, body: Font, existingSlugs: Set<string>): FontPai
     : header.isBodySuitable ? 7 : 9;
 
   // Body legibility: use actual score, default 7
-  const legibility = body.bodyLegibilityScore || 7;
+  const bodyLeg = body.bodyLegibilityScore || 7;
+  // Pair legibility: if the header is very hard to read (score ≤ 4), blend it in
+  // equally so the pair score honestly reflects how hard the overall pairing is.
+  // A pair where the header is Blackout (3) should not show 9/10 legibility even
+  // if the body font is Inter — users see both fonts.
+  const headerLegScore = header.bodyLegibilityScore ?? 5;
+  const legibility = headerLegScore <= 4
+    ? Math.round((bodyLeg + headerLegScore) / 2)
+    : bodyLeg;
 
   // Practicality: premium sources score higher, variable fonts get a bump
   let practicality = 7;
@@ -463,7 +471,11 @@ function makeCuratedPair(header: Font, body: Font, existingSlugs: Set<string>): 
 
   const hierarchy = header.classification === "display" || header.classification === "script" || header.classification === "handwritten"
     ? 10 : header.isBodySuitable ? 7 : 9;
-  const legibility = body.bodyLegibilityScore || 7;
+  const bodyLeg = body.bodyLegibilityScore || 7;
+  const headerLegScore = header.bodyLegibilityScore ?? 5;
+  const legibility = headerLegScore <= 4
+    ? Math.round((bodyLeg + headerLegScore) / 2)
+    : bodyLeg;
   let practicality = 7;
   if (header.source === "fontshare" && body.source === "fontshare") practicality = 9;
   else if (header.source === "fontshare" || body.source === "fontshare") practicality = 8;
