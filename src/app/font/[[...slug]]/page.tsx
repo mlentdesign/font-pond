@@ -3,7 +3,7 @@ import { fontsBySlug } from "@/data/fonts";
 
 export function generateStaticParams() {
   const slugs = Array.from(fontsBySlug.keys());
-  return [{ slug: [] }, ...slugs.map((s) => ({ slug: [s] }))];
+  return [{ slug: undefined }, ...slugs.map((s) => ({ slug: [s] }))];
 }
 
 export default async function FontPage({ params }: { params: Promise<{ slug?: string[] }> }) {
