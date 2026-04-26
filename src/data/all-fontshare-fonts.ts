@@ -420,7 +420,7 @@ export const allFontshareFonts: Font[] = [
   fs("Excon", "excon", "sans-serif",
     ["condensed", "strong", "compact", "bold", "efficient", "modern", "functional", "structured", "tight", "utilitarian"],
     ["strong", "efficient", "functional", "modern"],
-    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["condensed proportions", "space-efficient", "strong backbone"], xHeightRatio: "high", letterSpacing: "tight", moodCategory: "bold", designer: "Alisa Nowak" }),
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["condensed proportions", "space-efficient", "strong backbone"], xHeightRatio: "high", letterSpacing: "tight", moodCategory: "bold", designer: "Alisa Nowak" }),
 
   // ── F ──
   fs("Familjen Grotesk", "familjen-grotesk", "sans-serif",
@@ -458,7 +458,7 @@ export const allFontshareFonts: Font[] = [
   fs("Khand", "khand", "sans-serif",
     ["condensed", "editorial", "crisp", "structured", "modern", "clean", "efficient", "versatile", "refined", "contemporary"],
     ["crisp", "structured", "editorial", "modern"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["subtle condensed proportions", "crisp terminals", "editorial character"], xHeightRatio: "moderate", letterSpacing: "tight", moodCategory: "modern", designer: "Satya Rajpurohit" }),
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["subtle condensed proportions", "crisp terminals", "editorial character"], xHeightRatio: "moderate", letterSpacing: "tight", moodCategory: "modern", designer: "Satya Rajpurohit" }),
 
   fs("Kohinoor Zerone", "kohinoor-zerone", "display",
     ["geometric", "structured", "architectural", "precise", "bold", "modern", "graphic", "strong", "systematic", "designed"],
@@ -565,7 +565,7 @@ export const allFontshareFonts: Font[] = [
   fs("Rajdhani", "rajdhani", "sans-serif",
     ["condensed", "modern", "clean", "structured", "versatile", "editorial", "crisp", "functional", "balanced", "contemporary"],
     ["modern", "structured", "crisp", "versatile"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["Devanagari-influenced forms", "clean condensed character", "crisp terminals"], xHeightRatio: "moderate", letterSpacing: "tight", moodCategory: "modern", designer: "Shiva Nallaperumal" }),
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["Devanagari-influenced forms", "clean condensed character", "crisp terminals"], xHeightRatio: "moderate", letterSpacing: "tight", moodCategory: "modern", designer: "Shiva Nallaperumal" }),
 
   fs("Ranade", "ranade", "sans-serif",
     ["humanist", "warm", "modern", "approachable", "readable", "friendly", "versatile", "clean", "professional", "balanced"],
