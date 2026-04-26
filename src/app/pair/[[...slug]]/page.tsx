@@ -1,7 +1,8 @@
 import PairSlugClient from "./PairSlugClient";
-import { pairsBySlug } from "@/data/pairs";
+import { pairsBySlug, ensureDynamicPairs } from "@/data/pairs";
 
 export function generateStaticParams() {
+  ensureDynamicPairs();
   const slugs = Array.from(pairsBySlug.keys());
   return [{ slug: undefined }, ...slugs.map((s) => ({ slug: [s] }))];
 }
