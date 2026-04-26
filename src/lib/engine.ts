@@ -4027,14 +4027,29 @@ export function explorePairs(): ScoredPair[] {
   }
 
   // Sort by quality first, with random variance within similar scores
-  // so it doesn't look identical every time but best pairs surface first
   all.sort((a, b) => {
     const scoreDiff = b.overallScore - a.overallScore;
     if (Math.abs(scoreDiff) > 2) return scoreDiff;
-    return Math.random() - 0.5; // randomize within ±2 score points
+    return Math.random() - 0.5;
   });
 
-  return all;
+  // Cap each font to 2 appearances in the front of explore results so no single
+  // font (e.g. Abril Fatface) dominates the first page.
+  const fontAppearances = new Map<string, number>();
+  const front: ScoredPair[] = [];
+  const overflow: ScoredPair[] = [];
+  for (const pair of all) {
+    const hc = fontAppearances.get(pair.headerFontId) ?? 0;
+    const bc = fontAppearances.get(pair.bodyFontId) ?? 0;
+    if (hc < 2 && bc < 2) {
+      fontAppearances.set(pair.headerFontId, hc + 1);
+      fontAppearances.set(pair.bodyFontId, bc + 1);
+      front.push(pair);
+    } else {
+      overflow.push(pair);
+    }
+  }
+  return [...front, ...overflow];
 }
 
 export function getPairsWithFont(fontId: string): ScoredPair[] {

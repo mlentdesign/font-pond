@@ -17,8 +17,8 @@ const NON_SPACE_INDICES = LETTERS.map((c, i) => c !== " " ? i : -1).filter((i) =
 const ANIMATION_DURATION = 2200;
 const DISPLAY_INTERVAL = 30000;
 
-// Pre-load a batch of fonts on mount (randomized subset to avoid loading all at once)
-const PRELOAD_COUNT = 80;
+// Pre-load a batch of fonts on mount; keep small to avoid evicting explore grid fonts
+const PRELOAD_COUNT = 30;
 
 type PoolFont = typeof FONT_POOL[number];
 
@@ -112,7 +112,7 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
     ensureLoaded(initial);
 
     // Preload the next 5 fonts immediately so they're ready for navigation
-    preloadNext(5);
+    preloadNext(10);
 
     // Also preload a broader set in the background for animation variety
     setTimeout(() => {
@@ -144,7 +144,7 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
     const finalFont = pickRandom(displayFont.name);
     ensureLoaded(finalFont);
     // Preload next 5 so they're ready for upcoming navigations
-    preloadNext(5);
+    preloadNext(10);
 
     for (const idx of NON_SPACE_INDICES) {
       const numFlips = 4 + Math.floor(Math.random() * 5);
@@ -200,7 +200,7 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
     const next = pickRandom(displayFont.name);
     ensureLoaded(next);
     setDisplayFont(next);
-    preloadNext(5);
+    preloadNext(10);
   }, [displayFont.name, ensureLoaded, setDisplayFont, preloadNext]);
 
   // Trigger a new font on:

@@ -538,7 +538,7 @@ export const allFontshareFonts: Font[] = [
   fs("Pramukh Rounded", "pramukh-rounded", "sans-serif",
     ["rounded", "friendly", "modern", "approachable", "clean", "warm", "accessible", "soft", "contemporary", "functional"],
     ["friendly", "approachable", "warm", "modern"],
-    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded terminals", "clean modern construction", "approachable personality"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm", designer: "Aarya Purohit" }),
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["rounded terminals", "clean modern construction", "approachable personality"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm", designer: "Aarya Purohit" }),
 
   fs("Public Sans", "public-sans", "sans-serif",
     ["neutral", "clean", "professional", "functional", "reliable", "government", "accessible", "modern", "versatile", "trustworthy"],
