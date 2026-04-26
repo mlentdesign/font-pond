@@ -321,4 +321,326 @@ export const allFontshareFonts: Font[] = [
     ["dramatic", "theatrical", "expressive", "bold"],
     { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["extreme contrast", "theatrical flair", "dramatic serif details"] }),
 
+  // ── A ──
+  fs("Aktura", "aktura", "display",
+    ["blackletter", "gothic", "medieval", "ornate", "dark", "dramatic", "historical", "bold", "intense", "decorative"],
+    ["dramatic", "historical", "intense", "bold"],
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["blackletter construction", "gothic arches", "medieval texture"], moodCategory: "experimental" }),
+
+  fs("Alpino", "alpino", "sans-serif",
+    ["rounded", "friendly", "soft", "approachable", "warm", "playful", "modern", "casual", "youthful", "accessible"],
+    ["friendly", "warm", "approachable", "modern"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded terminals", "soft geometric forms", "friendly open apertures"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm" }),
+
+  fs("Amulya", "amulya", "sans-serif",
+    ["clean", "modern", "neutral", "versatile", "professional", "geometric", "balanced", "functional", "crisp", "contemporary"],
+    ["modern", "neutral", "professional", "clean"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["clean geometric construction", "balanced proportions", "excellent legibility range"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "modern" }),
+
+  fs("Array", "array", "display",
+    ["technical", "geometric", "grid", "modular", "digital", "systematic", "precise", "structured", "futuristic", "architectural"],
+    ["technical", "precise", "systematic", "structured"],
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["modular grid construction", "geometric modules", "pixel-influenced forms"], moodCategory: "technical" }),
+
+  fs("Asap", "asap", "sans-serif",
+    ["versatile", "neutral", "readable", "professional", "clean", "modern", "balanced", "functional", "approachable", "screen-optimized"],
+    ["professional", "neutral", "balanced", "readable"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["subtle humanist details", "optimized for screens", "wide spacing"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral" }),
+
+  fs("Azeret Mono", "azeret-mono", "monospace",
+    ["technical", "coding", "developer", "functional", "systematic", "clean", "precise", "digital", "structured", "modern"],
+    ["technical", "functional", "precise", "modern"],
+    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["rounded monospace forms", "clear character differentiation", "humanist mono feel"], moodCategory: "technical" }),
+
+  // ── B ──
+  fs("Be Vietnam Pro", "beVietnam-pro", "sans-serif",
+    ["humanist", "warm", "versatile", "readable", "approachable", "modern", "clean", "professional", "balanced", "friendly"],
+    ["warm", "approachable", "professional", "versatile"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["humanist sans proportions", "generous x-height", "open apertures", "excellent multilingual support"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm" }),
+
+  fs("Bespoke Sans", "bespoke-sans", "sans-serif",
+    ["editorial", "refined", "versatile", "modern", "clean", "professional", "sharp", "contemporary", "neutral", "balanced"],
+    ["refined", "professional", "contemporary", "balanced"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["crisp terminals", "refined proportions", "editorial-quality spacing"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "modern" }),
+
+  fs("Bespoke Serif", "bespoke-serif", "serif",
+    ["editorial", "refined", "literary", "elegant", "sophisticated", "classic", "traditional", "premium", "bookish", "cultured"],
+    ["refined", "literary", "elegant", "sophisticated"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["sharp bracketed serifs", "editorial proportions", "refined stroke contrast"], xHeightRatio: "moderate", strokeContrast: "moderate", moodCategory: "elegant" }),
+
+  fs("Bespoke Slab", "bespoke-slab", "serif",
+    ["editorial", "sturdy", "readable", "confident", "modern", "slab", "grounded", "reliable", "versatile", "professional"],
+    ["confident", "grounded", "professional", "modern"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["slab serifs", "sturdy construction", "reliable at all sizes"], xHeightRatio: "high", strokeContrast: "low", moodCategory: "bold" }),
+
+  fs("Bespoke Stencil", "bespoke-stencil", "display",
+    ["stencil", "editorial", "industrial", "bold", "graphic", "distinctive", "urban", "strong", "designed", "confident"],
+    ["bold", "industrial", "graphic", "distinctive"],
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["stencil breaks", "strong industrial character", "graphic texture"], moodCategory: "bold" }),
+
+  fs("Bevellier", "bevellier", "display",
+    ["luxury", "elegant", "fashion", "refined", "high-end", "sophisticated", "premium", "editorial", "striking", "distinctive"],
+    ["luxurious", "elegant", "sophisticated", "refined"],
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["beveled letterforms", "luxury display proportions", "refined editorial presence"], moodCategory: "elegant" }),
+
+  fs("Bonny", "bonny", "serif",
+    ["warm", "humanist", "literary", "friendly", "readable", "approachable", "cozy", "inviting", "comfortable", "classic"],
+    ["warm", "friendly", "readable", "inviting"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["warm humanist serifs", "inviting proportions", "friendly letter shapes"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "warm" }),
+
+  fs("Britney", "britney", "script",
+    ["playful", "expressive", "fun", "casual", "handwritten", "youthful", "energetic", "bubbly", "friendly", "vibrant"],
+    ["playful", "energetic", "fun", "expressive"],
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["bouncy baseline", "casual script energy", "expressive lettering"], moodCategory: "playful" }),
+
+  // ── C ──
+  fs("Chillax", "chillax", "sans-serif",
+    ["relaxed", "friendly", "casual", "modern", "approachable", "soft", "rounded", "clean", "easy", "contemporary"],
+    ["relaxed", "friendly", "approachable", "modern"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["slightly rounded terminals", "relaxed spacing", "casual geometric proportions"], xHeightRatio: "moderate", moodCategory: "warm" }),
+
+  fs("Chubbo", "chubbo", "display",
+    ["bold", "rounded", "playful", "fun", "chubby", "friendly", "casual", "expressive", "youthful", "bubbly"],
+    ["bold", "playful", "fun", "friendly"],
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["exaggerated round forms", "heavy weight presence", "fun proportions"], moodCategory: "playful" }),
+
+  // ── E ──
+  fs("Epilogue", "epilogue", "sans-serif",
+    ["neutral", "versatile", "clean", "professional", "modern", "reliable", "balanced", "functional", "readable", "understated"],
+    ["neutral", "professional", "versatile", "clean"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["wide weight range", "excellent screen legibility", "neutral grotesque personality"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral" }),
+
+  fs("Erode", "erode", "serif",
+    ["editorial", "refined", "literary", "crisp", "sophisticated", "elegant", "contemporary", "sharp", "premium", "magazine"],
+    ["refined", "editorial", "sophisticated", "elegant"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["sharp serif details", "elegant proportions", "excellent for long-form reading"], xHeightRatio: "high", strokeContrast: "moderate", moodCategory: "elegant" }),
+
+  fs("Excon", "excon", "sans-serif",
+    ["condensed", "strong", "compact", "bold", "efficient", "modern", "functional", "structured", "tight", "utilitarian"],
+    ["strong", "efficient", "functional", "modern"],
+    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["condensed proportions", "space-efficient", "strong backbone"], xHeightRatio: "high", letterSpacing: "tight", moodCategory: "bold" }),
+
+  // ── F ──
+  fs("Familjen Grotesk", "familjen-grotesk", "sans-serif",
+    ["quirky", "modern", "playful", "contemporary", "editorial", "distinctive", "character", "fresh", "individual", "lively"],
+    ["modern", "quirky", "fresh", "contemporary"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["quirky details", "lively character shapes", "fresh grotesque personality"], xHeightRatio: "high", moodCategory: "modern" }),
+
+  fs("Fira Sans", "fira-sans", "sans-serif",
+    ["humanist", "readable", "professional", "screen-optimized", "versatile", "clean", "modern", "functional", "balanced", "reliable"],
+    ["professional", "readable", "versatile", "reliable"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["humanist construction", "excellent screen hinting", "wide weight range"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral" }),
+
+  // ── H ──
+  fs("Hind", "hind", "sans-serif",
+    ["clean", "humanist", "readable", "functional", "neutral", "professional", "screen-optimized", "versatile", "modern", "balanced"],
+    ["clean", "readable", "neutral", "functional"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["Devanagari-influenced spacing", "clean humanist forms", "excellent small sizes"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral" }),
+
+  fs("Hoover", "hoover", "serif",
+    ["slab", "sturdy", "editorial", "confident", "bold", "grounded", "industrial", "robust", "reliable", "american"],
+    ["confident", "grounded", "robust", "bold"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["slab serif construction", "sturdy confident forms", "editorial backbone"], xHeightRatio: "high", strokeContrast: "low", moodCategory: "bold" }),
+
+  // ── K ──
+  fs("Kalam", "kalam", "handwritten",
+    ["handwritten", "casual", "friendly", "personal", "warm", "natural", "relaxed", "authentic", "informal", "approachable"],
+    ["friendly", "casual", "warm", "personal"],
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["natural handwritten rhythm", "personal warmth", "authentic informal character"], moodCategory: "warm" }),
+
+  fs("Karma", "karma", "serif",
+    ["warm", "literary", "readable", "traditional", "classic", "elegant", "bookish", "comfortable", "humanist", "trustworthy"],
+    ["warm", "literary", "trustworthy", "comfortable"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["generous x-height", "warm humanist serifs", "optimized for long-form reading"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "traditional" }),
+
+  fs("Khand", "khand", "sans-serif",
+    ["condensed", "editorial", "crisp", "structured", "modern", "clean", "efficient", "versatile", "refined", "contemporary"],
+    ["crisp", "structured", "editorial", "modern"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["subtle condensed proportions", "crisp terminals", "editorial character"], xHeightRatio: "moderate", letterSpacing: "tight", moodCategory: "modern" }),
+
+  fs("Kohinoor Zerone", "kohinoor-zerone", "display",
+    ["geometric", "structured", "architectural", "precise", "bold", "modern", "graphic", "strong", "systematic", "designed"],
+    ["bold", "precise", "architectural", "modern"],
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["geometric construction", "architectural presence", "structured forms"], moodCategory: "technical" }),
+
+  fs("Kola", "kola", "display",
+    ["retro", "vintage", "bold", "nostalgic", "expressive", "fun", "playful", "characterful", "graphic", "distinctive"],
+    ["retro", "expressive", "fun", "distinctive"],
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["retro display proportions", "vintage energy", "expressive character"], moodCategory: "playful" }),
+
+  // ── L ──
+  fs("Literata", "literata", "serif",
+    ["literary", "readable", "elegant", "sophisticated", "bookish", "editorial", "refined", "classical", "long-form", "cultured"],
+    ["literary", "elegant", "refined", "sophisticated"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["optimized for long-form reading", "elegant proportions", "refined serif details"], xHeightRatio: "moderate", strokeContrast: "moderate", moodCategory: "elegant" }),
+
+  // ── M ──
+  fs("Merriweather Sans", "merriweather-sans", "sans-serif",
+    ["readable", "screen-optimized", "warm", "humanist", "professional", "functional", "clean", "comfortable", "versatile", "reliable"],
+    ["readable", "warm", "professional", "comfortable"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["screen-first design", "comfortable spacing", "warm humanist character"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm" }),
+
+  // ── N ──
+  fs("Neco", "neco", "serif",
+    ["editorial", "contemporary", "refined", "precise", "sophisticated", "elegant", "sharp", "magazine", "literary", "crisp"],
+    ["refined", "contemporary", "sophisticated", "precise"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["contemporary serif forms", "precise details", "elegant spacing"], strokeContrast: "moderate", moodCategory: "elegant" }),
+
+  fs("New Title", "new-title", "display",
+    ["editorial", "bold", "strong", "contemporary", "magazine", "headline", "confident", "modern", "impactful", "stark"],
+    ["bold", "confident", "contemporary", "impactful"],
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["strong headline presence", "editorial proportions", "contemporary display character"], moodCategory: "bold" }),
+
+  fs("Nippo", "nippo", "display",
+    ["geometric", "futuristic", "minimal", "sharp", "modern", "clean", "architectural", "precise", "technical", "bold"],
+    ["futuristic", "minimal", "sharp", "modern"],
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["geometric precision", "futuristic proportions", "clean modern display"], moodCategory: "technical" }),
+
+  fs("Nunito", "nunito", "sans-serif",
+    ["rounded", "friendly", "warm", "approachable", "soft", "clean", "modern", "comfortable", "youthful", "accessible"],
+    ["friendly", "warm", "approachable", "comfortable"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded terminals", "warm friendly proportions", "excellent UI font"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm" }),
+
+  // ── O ──
+  fs("Oswald", "oswald", "display",
+    ["condensed", "bold", "strong", "impactful", "structured", "clean", "modern", "editorial", "confident", "sharp"],
+    ["bold", "strong", "confident", "editorial"],
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["condensed proportions", "strong backbone", "impactful at large sizes"], letterSpacing: "tight", moodCategory: "bold" }),
+
+  // ── P ──
+  fs("Pally", "pally", "sans-serif",
+    ["playful", "rounded", "friendly", "casual", "fun", "youthful", "approachable", "soft", "warm", "cheerful"],
+    ["playful", "friendly", "cheerful", "warm"],
+    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["playful rounded forms", "cheerful proportions", "friendly personality"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "playful" }),
+
+  fs("Panchang", "panchang", "display",
+    ["bold", "expressive", "graphic", "contemporary", "strong", "editorial", "modern", "impactful", "distinctive", "confident"],
+    ["bold", "expressive", "contemporary", "confident"],
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["bold expressive forms", "graphic energy", "strong display presence"], moodCategory: "bold" }),
+
+  fs("Paquito", "paquito", "serif",
+    ["slab", "friendly", "approachable", "warm", "sturdy", "editorial", "trustworthy", "grounded", "readable", "confident"],
+    ["friendly", "warm", "trustworthy", "grounded"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded slab serifs", "friendly construction", "warm reliable feel"], xHeightRatio: "high", strokeContrast: "low", moodCategory: "warm" }),
+
+  fs("Pencerio", "pencerio", "script",
+    ["elegant", "calligraphic", "refined", "sophisticated", "formal", "classic", "luxurious", "fluid", "graceful", "premium"],
+    ["elegant", "refined", "sophisticated", "graceful"],
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["calligraphic rhythm", "elegant script flourishes", "refined letterforms"], moodCategory: "elegant" }),
+
+  fs("Plein", "plein", "sans-serif",
+    ["neutral", "functional", "clean", "modern", "professional", "versatile", "balanced", "reliable", "understated", "crisp"],
+    ["neutral", "functional", "professional", "reliable"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["clean neutral forms", "excellent legibility", "no-nonsense personality"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "neutral" }),
+
+  fs("Pramukh Rounded", "pramukh-rounded", "sans-serif",
+    ["rounded", "friendly", "modern", "approachable", "clean", "warm", "accessible", "soft", "contemporary", "functional"],
+    ["friendly", "approachable", "warm", "modern"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded terminals", "clean modern construction", "approachable personality"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm" }),
+
+  fs("Public Sans", "public-sans", "sans-serif",
+    ["neutral", "clean", "professional", "functional", "reliable", "government", "accessible", "modern", "versatile", "trustworthy"],
+    ["neutral", "professional", "reliable", "trustworthy"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["strong neutrality", "high legibility", "wide range of weights", "designed for accessibility"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral" }),
+
+  // ── Q ──
+  fs("Quicksand", "quicksand", "sans-serif",
+    ["rounded", "friendly", "modern", "clean", "approachable", "soft", "contemporary", "geometric", "warm", "accessible"],
+    ["friendly", "approachable", "modern", "warm"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded terminals", "geometric proportions", "friendly modern feel"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm" }),
+
+  fs("Quilon", "quilon", "display",
+    ["editorial", "refined", "elegant", "contemporary", "sophisticated", "sharp", "magazine", "striking", "modern", "premium"],
+    ["refined", "elegant", "sophisticated", "contemporary"],
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["editorial display presence", "refined proportions", "contemporary design"], moodCategory: "elegant" }),
+
+  // ── R ──
+  fs("RX100", "rx-100", "display",
+    ["technical", "futuristic", "digital", "sharp", "modern", "clean", "geometric", "precise", "angular", "systematic"],
+    ["technical", "futuristic", "sharp", "precise"],
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["technical precision", "futuristic geometry", "sharp angular forms"], moodCategory: "technical" }),
+
+  fs("Rajdhani", "rajdhani", "sans-serif",
+    ["condensed", "modern", "clean", "structured", "versatile", "editorial", "crisp", "functional", "balanced", "contemporary"],
+    ["modern", "structured", "crisp", "versatile"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["Devanagari-influenced forms", "clean condensed character", "crisp terminals"], xHeightRatio: "moderate", letterSpacing: "tight", moodCategory: "modern" }),
+
+  fs("Ranade", "ranade", "sans-serif",
+    ["humanist", "warm", "modern", "approachable", "readable", "friendly", "versatile", "clean", "professional", "balanced"],
+    ["warm", "approachable", "professional", "balanced"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["warm humanist construction", "natural letterforms", "excellent readability"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm" }),
+
+  fs("Recia", "recia", "serif",
+    ["editorial", "literary", "sophisticated", "refined", "contemporary", "sharp", "elegant", "crisp", "magazine", "premium"],
+    ["literary", "sophisticated", "refined", "elegant"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["contemporary serif detailing", "editorial proportions", "crisp text performance"], strokeContrast: "moderate", moodCategory: "elegant" }),
+
+  fs("Red Hat Display", "red-hat-display", "display",
+    ["technical", "bold", "geometric", "modern", "strong", "professional", "clean", "sharp", "confident", "engineering"],
+    ["technical", "bold", "professional", "confident"],
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["geometric boldness", "technical precision", "strong display character"], moodCategory: "technical" }),
+
+  fs("Rosaline", "rosaline", "script",
+    ["romantic", "elegant", "feminine", "graceful", "flowing", "soft", "dreamy", "luxurious", "refined", "beautiful"],
+    ["romantic", "elegant", "graceful", "soft"],
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["flowing romantic script", "elegant flourishes", "graceful letterforms"], moodCategory: "elegant" }),
+
+  fs("Roundo", "roundo", "sans-serif",
+    ["rounded", "geometric", "modern", "clean", "friendly", "approachable", "soft", "contemporary", "minimal", "warm"],
+    ["modern", "friendly", "clean", "approachable"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded geometric forms", "clean modern construction", "soft minimal personality"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "warm" }),
+
+  // ── S ──
+  fs("Segment", "segment", "display",
+    ["digital", "technical", "futuristic", "lcd", "pixel", "systematic", "precise", "electronic", "sci-fi", "screen"],
+    ["technical", "futuristic", "systematic", "precise"],
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["LCD segment aesthetics", "digital display influence", "systematic construction"], moodCategory: "technical" }),
+
+  fs("Sharpie", "sharpie", "display",
+    ["bold", "expressive", "loud", "impactful", "strong", "commanding", "graphic", "attention", "distinctive", "forceful"],
+    ["bold", "commanding", "expressive", "forceful"],
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["bold thick strokes", "commanding presence", "graphic boldness"], moodCategory: "bold" }),
+
+  fs("Spline Sans", "spline-sans", "sans-serif",
+    ["modern", "clean", "versatile", "professional", "geometric", "neutral", "balanced", "contemporary", "functional", "crisp"],
+    ["modern", "clean", "professional", "balanced"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["clean modern construction", "geometric neutrality", "reliable performance"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "modern" }),
+
+  fs("Stardom", "stardom", "display",
+    ["glamorous", "bold", "dramatic", "attention", "showstopper", "luxurious", "entertainment", "expressive", "striking", "confident"],
+    ["glamorous", "dramatic", "bold", "striking"],
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["glamour display proportions", "star power presence", "dramatic letterforms"], moodCategory: "bold" }),
+
+  fs("Styro", "styro", "display",
+    ["retro", "bold", "chunky", "graphic", "nostalgic", "expressive", "fun", "playful", "vintage", "distinctive"],
+    ["retro", "bold", "expressive", "fun"],
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["retro chunky forms", "bold graphic energy", "vintage display character"], moodCategory: "playful" }),
+
+  fs("Supreme", "supreme", "sans-serif",
+    ["modern", "neutral", "versatile", "professional", "clean", "reliable", "balanced", "functional", "crisp", "understated"],
+    ["modern", "neutral", "professional", "reliable"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["clean modern proportions", "excellent legibility", "versatile weight range"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "modern" }),
+
+  // ── T ──
+  fs("Teko", "teko", "sans-serif",
+    ["condensed", "bold", "modern", "strong", "compact", "geometric", "structured", "editorial", "confident", "clean"],
+    ["bold", "modern", "confident", "structured"],
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["condensed proportions", "strong geometric forms", "editorial boldness"], letterSpacing: "tight", moodCategory: "bold" }),
+
+  fs("Telma", "telma", "script",
+    ["elegant", "refined", "calligraphic", "sophisticated", "fluid", "graceful", "classic", "premium", "formal", "beautiful"],
+    ["elegant", "refined", "sophisticated", "graceful"],
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["refined calligraphic letterforms", "elegant flow", "sophisticated script character"], moodCategory: "elegant" }),
+
+  fs("Trench Slab", "trench-slab", "serif",
+    ["slab", "editorial", "strong", "grounded", "bold", "industrial", "reliable", "confident", "structured", "modern"],
+    ["strong", "grounded", "confident", "bold"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["slab construction", "strong editorial presence", "bold but readable"], xHeightRatio: "high", strokeContrast: "low", moodCategory: "bold" }),
+
+  // ── Z ──
+  fs("Zina", "zina", "display",
+    ["editorial", "sophisticated", "contemporary", "refined", "fashion", "luxury", "elegant", "striking", "distinctive", "premium"],
+    ["sophisticated", "elegant", "refined", "editorial"],
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["contemporary display elegance", "refined proportions", "fashion-forward energy"], moodCategory: "elegant" }),
+
 ];

@@ -47,10 +47,10 @@ const coreFonts: Font[] = [
     id: "lora",
     name: "Lora",
     slug: "lora",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/Lora",
-    downloadUrl: "https://fonts.google.com/specimen/Lora",
-    specimenUrl: "https://fonts.google.com/specimen/Lora",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/lora",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "Cyreal",
@@ -461,10 +461,10 @@ const coreFonts: Font[] = [
     id: "plus-jakarta-sans",
     name: "Plus Jakarta Sans",
     slug: "plus-jakarta-sans",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/Plus+Jakarta+Sans",
-    downloadUrl: "https://fonts.google.com/specimen/Plus+Jakarta+Sans",
-    specimenUrl: "https://fonts.google.com/specimen/Plus+Jakarta+Sans",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/plus-jakarta-sans",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "Gumpita Rahayu",
@@ -495,10 +495,10 @@ const coreFonts: Font[] = [
     id: "work-sans",
     name: "Work Sans",
     slug: "work-sans",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/Work+Sans",
-    downloadUrl: "https://fonts.google.com/specimen/Work+Sans",
-    specimenUrl: "https://fonts.google.com/specimen/Work+Sans",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/work-sans",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "Wei Huang",
@@ -529,10 +529,10 @@ const coreFonts: Font[] = [
     id: "space-grotesk",
     name: "Space Grotesk",
     slug: "space-grotesk",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/Space+Grotesk",
-    downloadUrl: "https://fonts.google.com/specimen/Space+Grotesk",
-    specimenUrl: "https://fonts.google.com/specimen/Space+Grotesk",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/space-grotesk",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "Florian Karsten",
@@ -563,10 +563,10 @@ const coreFonts: Font[] = [
     id: "outfit",
     name: "Outfit",
     slug: "outfit",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/Outfit",
-    downloadUrl: "https://fonts.google.com/specimen/Outfit",
-    specimenUrl: "https://fonts.google.com/specimen/Outfit",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/outfit",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "Rodrigo Fuenzalida",
@@ -597,10 +597,10 @@ const coreFonts: Font[] = [
     id: "manrope",
     name: "Manrope",
     slug: "manrope",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/Manrope",
-    downloadUrl: "https://fonts.google.com/specimen/Manrope",
-    specimenUrl: "https://fonts.google.com/specimen/Manrope",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/manrope",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "Mikhail Sharanda",
@@ -631,10 +631,10 @@ const coreFonts: Font[] = [
     id: "poppins",
     name: "Poppins",
     slug: "poppins",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/Poppins",
-    downloadUrl: "https://fonts.google.com/specimen/Poppins",
-    specimenUrl: "https://fonts.google.com/specimen/Poppins",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/poppins",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "Indian Type Foundry",
@@ -699,10 +699,10 @@ const coreFonts: Font[] = [
     id: "montserrat",
     name: "Montserrat",
     slug: "montserrat",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/Montserrat",
-    downloadUrl: "https://fonts.google.com/specimen/Montserrat",
-    specimenUrl: "https://fonts.google.com/specimen/Montserrat",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/montserrat",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "Julieta Ulanovsky",
@@ -767,10 +767,10 @@ const coreFonts: Font[] = [
     id: "sora",
     name: "Sora",
     slug: "sora",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/Sora",
-    downloadUrl: "https://fonts.google.com/specimen/Sora",
-    specimenUrl: "https://fonts.google.com/specimen/Sora",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/sora",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "Jonathan Barnbrook, Julián Moncada",
@@ -907,10 +907,10 @@ const coreFonts: Font[] = [
     id: "bebas-neue",
     name: "Bebas Neue",
     slug: "bebas-neue",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/Bebas+Neue",
-    downloadUrl: "https://fonts.google.com/specimen/Bebas+Neue",
-    specimenUrl: "https://fonts.google.com/specimen/Bebas+Neue",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/bebas-neue",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "Ryoichi Tsunekawa",
@@ -941,10 +941,10 @@ const coreFonts: Font[] = [
     id: "archivo",
     name: "Archivo",
     slug: "archivo",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/Archivo",
-    downloadUrl: "https://fonts.google.com/specimen/Archivo",
-    specimenUrl: "https://fonts.google.com/specimen/Archivo",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/archivo",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "Héctor Gatti, Omnibus-Type",
@@ -979,10 +979,10 @@ const coreFonts: Font[] = [
     id: "jetbrains-mono",
     name: "JetBrains Mono",
     slug: "jetbrains-mono",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/JetBrains+Mono",
-    downloadUrl: "https://fonts.google.com/specimen/JetBrains+Mono",
-    specimenUrl: "https://fonts.google.com/specimen/JetBrains+Mono",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/jetbrains-mono",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "JetBrains, Philipp Nurullin",
@@ -1488,10 +1488,10 @@ const coreFonts: Font[] = [
     id: "crimson-pro",
     name: "Crimson Pro",
     slug: "crimson-pro",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/Crimson+Pro",
-    downloadUrl: "https://fonts.google.com/specimen/Crimson+Pro",
-    specimenUrl: "https://fonts.google.com/specimen/Crimson+Pro",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/crimson-pro",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "Jacques Le Bailly",
@@ -1560,10 +1560,10 @@ const coreFonts: Font[] = [
     id: "anton",
     name: "Anton",
     slug: "anton",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/Anton",
-    downloadUrl: "https://fonts.google.com/specimen/Anton",
-    specimenUrl: "https://fonts.google.com/specimen/Anton",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/anton",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "Vernon Adams",
@@ -2006,10 +2006,10 @@ const coreFonts: Font[] = [
     id: "dancing-script",
     name: "Dancing Script",
     slug: "dancing-script",
-    source: "google-fonts",
-    sourceUrl: "https://fonts.google.com/specimen/Dancing+Script",
-    downloadUrl: "https://fonts.google.com/specimen/Dancing+Script",
-    specimenUrl: "https://fonts.google.com/specimen/Dancing+Script",
+    source: "fontshare",
+    sourceUrl: "https://www.fontshare.com/fonts/dancing-script",
+    downloadUrl: null,
+    specimenUrl: null,
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
     designer: "Pablo Impallari",
@@ -2595,10 +2595,17 @@ function enrichFontTags(font: Font): Font {
 }
 
 // ── Merge all font sources (curated fonts take priority, then auto-generated) ──
+// Priority order: coreFonts > googleFontsExtended > DaFont > Fontshare > Google Fonts
+// When a font appears on both Fontshare and Google Fonts, Fontshare wins.
 
-// Google Fonts takes priority: DaFont entries that share a name with Google Fonts are excluded
+// Build name sets for dedup
 const googleNames = new Set(allGoogleFonts.map((f) => f.name.toLowerCase()));
-const dedupedDafont = dafontFonts.filter((f) => !googleNames.has(f.name.toLowerCase()));
+const fontshareNames = new Set(allFontshareFonts.map((f) => f.name.toLowerCase()));
+
+// DaFont: exclude any that share a name with Google Fonts or Fontshare
+const dedupedDafont = dafontFonts.filter(
+  (f) => !googleNames.has(f.name.toLowerCase()) && !fontshareNames.has(f.name.toLowerCase())
+);
 
 // Merge curated sources, deduping by name (first occurrence wins)
 const curatedFonts: Font[] = [];
@@ -2613,10 +2620,12 @@ for (const f of [...coreFonts, ...googleFontsExtended, ...dedupedDafont]) {
 const curatedIds = new Set(curatedFonts.map((f) => f.slug));
 const curatedNames = seenCuratedNames;
 
-// Add auto-generated Google fonts that aren't already in the curated set (by slug OR name)
-const extraGoogle = allGoogleFonts.filter((f) => !curatedIds.has(f.slug) && !curatedNames.has(f.name.toLowerCase()));
-// Fontshare: also exclude fonts that share a name with Google Fonts or curated entries
-const extraFontshare = allFontshareFonts.filter((f) => !curatedIds.has(f.slug) && !curatedNames.has(f.name.toLowerCase()) && !googleNames.has(f.name.toLowerCase()));
+// Fontshare takes priority over Google Fonts: add all Fontshare fonts not already in curated
+const extraFontshare = allFontshareFonts.filter((f) => !curatedIds.has(f.slug) && !curatedNames.has(f.name.toLowerCase()));
+// Build combined name set (curated + fontshare) to exclude matching Google Fonts entries
+const allFontshareAndCuratedNames = new Set([...curatedNames, ...extraFontshare.map((f) => f.name.toLowerCase())]);
+// Google Fonts: only add entries not already covered by curated or Fontshare
+const extraGoogle = allGoogleFonts.filter((f) => !curatedIds.has(f.slug) && !allFontshareAndCuratedNames.has(f.name.toLowerCase()));
 
 // ── Blocklist: chromatic/color fonts, symbol-only fonts, icon fonts ──
 // These render in fixed colors (not black/white) or contain only symbols/icons
