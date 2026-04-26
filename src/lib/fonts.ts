@@ -10,7 +10,7 @@ const loaded = new Set<string>();
 loaded.add("__css__");
 
 // Cap CDN stylesheets to prevent unbounded DOM growth
-const MAX_CDN_LINKS = 120;
+const MAX_CDN_LINKS = 200;
 const cdnLinks: { key: string; fontKey: string; el: HTMLLinkElement }[] = [];
 
 // Fonts that are pinned and must not be evicted (currently visible on detail pages)
