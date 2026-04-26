@@ -53,6 +53,7 @@ export default function RootLayout({
         />
         <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="stylesheet" href="/font-pond/fonts/fonts.css" />
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-N6BYH6MQKP" />
         <script
