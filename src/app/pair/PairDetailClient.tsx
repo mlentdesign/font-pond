@@ -48,10 +48,10 @@ function FontSection({
     >
       <div className="flex items-center justify-between">
         <div className="min-w-0 flex-1 mr-3">
-          <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>
+          <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", marginBottom: "2px" }}>
             {role === "Header" ? "HEADER FONT" : "BODY FONT"}
           </span>
-          <span className="text-lg font-semibold text-neutral-900 block break-words">
+          <span className="text-lg font-semibold text-neutral-900 block leading-tight break-words">
             {font.name}
           </span>
         </div>
@@ -180,10 +180,11 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
   const bodyFont = pair ? fontsById.get(pair.bodyFontId) : undefined;
 
-  // Swap to clean CMS URL after the pair has rendered — never before, so the
-  // user always sees the correct pair first. Runs only when URL still has ?p=.
+  // Swap to clean CMS URL only for pre-defined pairs (not constructed ones).
+  // Constructed pairs have no pre-rendered page so their URL must stay as ?p=.
   useEffect(() => {
-    if (pair && slug && window.location.search.includes("p=")) {
+    const isConstructed = pair?.id?.startsWith("constructed-");
+    if (pair && slug && !isConstructed && window.location.search.includes("p=")) {
       const cleanUrl = pair.url ? `/font-pond${pair.url}` : `/font-pond/pair/${slug}`;
       window.history.replaceState(null, "", cleanUrl);
     }
