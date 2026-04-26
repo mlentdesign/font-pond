@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, ReactNode } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Crumb {
   label: string;
@@ -9,6 +9,7 @@ interface Crumb {
 }
 
 export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: Crumb[]; sticky?: boolean; stickyAction?: ReactNode }) {
+  const router = useRouter();
   const [stickyTop, setStickyTop] = useState(100);
 
   useEffect(() => {
@@ -43,17 +44,31 @@ export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: C
         <nav aria-label="Breadcrumb" style={sticky ? { flex: stickyAction ? undefined : 1 } : { marginBottom: "24px" }}>
           <ol className="flex items-center text-xs text-neutral-400 flex-wrap">
             <li>
-              <Link href="/?restore=1" className="hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>
+              <button
+                type="button"
+                onClick={() => router.push("/?restore=1")}
+                className="hover:underline"
+                style={{ color: "var(--text-muted)", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-heading)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-muted)"; }}
+              >
                 Results
-              </Link>
+              </button>
             </li>
             {crumbs.map((crumb, i) => (
               <li key={i} className={i === crumbs.length - 1 ? "text-neutral-600" : ""}>
                 <span aria-hidden="true" className="text-neutral-400" style={{ marginLeft: "8px", marginRight: "8px" }}>/</span>
                 {crumb.href ? (
-                  <Link href={crumb.href} className="hover:underline" style={{ color: "var(--text-muted)" }} onMouseEnter={e => { e.currentTarget.style.color = "var(--text-heading)"; }} onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; }}>
+                  <button
+                    type="button"
+                    onClick={() => router.push(crumb.href!)}
+                    className="hover:underline"
+                    style={{ color: "var(--text-muted)", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-heading)"; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-muted)"; }}
+                  >
                     {crumb.label}
-                  </Link>
+                  </button>
                 ) : (
                   crumb.label
                 )}

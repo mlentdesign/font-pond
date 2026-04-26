@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { pairsBySlug, getPairOrConstruct } from "@/data/pairs";
 import { fontsById } from "@/data/fonts";
 import { getRelatedPairs } from "@/lib/engine";
@@ -22,10 +22,12 @@ function FontSection({
   font,
   role,
   pairSlug,
+  onNavigate,
 }: {
   font: import("@/data/types").Font;
   role: "Header" | "Body";
   pairSlug: string;
+  onNavigate: (slug: string) => void;
 }) {
   const family = getFontFamily(font.name, font.source);
   const sourceLabel = getSourceLabel(font.source);
@@ -35,10 +37,13 @@ function FontSection({
     .map(chipCase);
 
   return (
-    <Link
-      href={`/font?f=${font.slug}`}
+    <div
+      role="link"
+      tabIndex={0}
+      onClick={() => onNavigate(font.slug)}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onNavigate(font.slug); } }}
       onMouseDown={(e) => e.preventDefault()}
-      className="group flex flex-col border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden"
+      className="group flex flex-col border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden cursor-pointer"
       style={{ position: "relative" }}
     >
       <div className="flex items-center justify-between">
@@ -149,11 +154,12 @@ function FontSection({
         </>
       )}
 
-    </Link>
+    </div>
   );
 }
 
 export default function PairDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const paramSlug = slugOverride || searchParams.get("p") || "";
   const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
@@ -379,8 +385,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
         {/* Font sections — two columns */}
         <div className="two-col-grid" style={{ marginBottom: "24px" }}>
-          <FontSection font={headerFont} role="Header" pairSlug={slug} />
-          <FontSection font={bodyFont} role="Body" pairSlug={slug} />
+          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font?f=${s}&from=${slug}`)} />
+          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font?f=${s}&from=${slug}`)} />
         </div>
 
         {/* Related pairings */}
