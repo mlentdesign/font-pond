@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { designersBySlug } from "@/data/designers";
-import { fontsBySlug } from "@/data/fonts";
+import { fontsBySlug, fontsById } from "@/data/fonts";
 import { getPairOrConstruct } from "@/data/pairs";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
 import { getSourceLabel, formatClassification, chipCase } from "@/lib/text";
@@ -56,8 +56,8 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
   const crumbs: { label: string; href?: string }[] = [];
   if (fromPairData) {
-    const hName = fontsBySlug.get(fromPairData.headerFontId)?.name;
-    const bName = fontsBySlug.get(fromPairData.bodyFontId)?.name;
+    const hName = fontsById.get(fromPairData.headerFontId)?.name;
+    const bName = fontsById.get(fromPairData.bodyFontId)?.name;
     const pairLabel = hName && bName ? `${hName} + ${bName}` : fromPairData.slug;
     crumbs.push({ label: pairLabel, href: `/pair?p=${fromPair}` });
   }
