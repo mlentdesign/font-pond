@@ -9,7 +9,7 @@ import { getPairsWithFont } from "@/lib/engine";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
 import { titleCase, sentenceCase, getSourceLabel, formatClassification, chipCase, fontHasNumbers } from "@/lib/text";
 import { splitDesigners, designerToSlug } from "@/data/designers";
-import { pairsBySlug } from "@/data/pairs";
+import { pairsBySlug, getPairOrConstruct } from "@/data/pairs";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
 import { FishingLine } from "@/components/FishingLine";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -48,7 +48,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
   const router = useRouter();
   const searchParams = useSearchParams();
   const paramSlug = slugOverride || searchParams.get("f") || "";
-  const fromPair = searchParams.get("from");
+  const rawFromPair = searchParams.get("from") || "";
 
   // Single source of truth for the current font slug. Ref holds the last
   // non-empty paramSlug so that after URL cleanup (which removes `?f=`),
@@ -59,6 +59,22 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
     slugRef.current = paramSlug;
   }
   const slug = slugRef.current;
+
+  // Persist fromPair across the replaceState URL cleanup (same pattern as slugRef).
+  // replaceState strips ?from= from the URL; if useSearchParams reacts to that,
+  // rawFromPair would drop to "" and the breadcrumb pair crumb would disappear.
+  const fromPairRef = useRef(rawFromPair);
+  if (rawFromPair && rawFromPair !== fromPairRef.current) {
+    fromPairRef.current = rawFromPair;
+  }
+  // When slug changes (navigating to a new font), clear stale fromPair so a
+  // font opened without a pair context doesn't show a leftover pair crumb.
+  const prevSlugRef = useRef(slug);
+  if (slug !== prevSlugRef.current) {
+    prevSlugRef.current = slug;
+    fromPairRef.current = rawFromPair;
+  }
+  const fromPair = fromPairRef.current;
 
   const font = fontsBySlug.get(slug);
 
@@ -72,7 +88,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
   // Build breadcrumb trail
   const crumbs: { label: string; href?: string }[] = [];
   if (fromPair) {
-    const pair = pairsBySlug.get(fromPair);
+    const pair = pairsBySlug.get(fromPair) || getPairOrConstruct(fromPair);
     if (pair) {
       const hf = fontsById.get(pair.headerFontId);
       const bf = fontsById.get(pair.bodyFontId);
@@ -449,7 +465,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                       className="group border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden cursor-pointer"
                       style={{ position: "relative" }}
                     >
-                      <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center justify-between">
                         <div className="min-w-0 flex-1 mr-3">
                           <span className="text-lg font-semibold text-neutral-900 block break-words">
                             {sf.name}
@@ -472,6 +488,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                           </span>
                         )}
                       </div>
+                      <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
                       <div
                         className="text-4xl leading-tight mb-4 text-neutral-800 break-words"
                         style={{ fontFamily: sfFamily, fontWeight: 600 }}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useAppState } from "@/lib/store";
 import { PairCard } from "./PairCard";
 import { loadFont, ensureFontsRendered } from "@/lib/fonts";
@@ -43,33 +43,23 @@ export function ResultsGrid() {
     }
   }, [cols, hasSearched, results]);
 
-  // Batch-load fonts for all currently visible results
-  const lastLoadedCount = useRef(0);
-  const lastResultsRef = useRef(results);
+  // Load and re-ensure all currently visible fonts on every relevant change.
+  // loadFont() is idempotent (skips already-added <link> tags via a Set), so
+  // calling it again on navigation-back is safe and cheap. ensureFontsRendered
+  // actively re-triggers document.fonts.load() for any font the browser hasn't
+  // fetched yet — necessary when navigating back because the effect skipped the
+  // "already loaded" fonts even though the browser needs to re-fetch them.
   useEffect(() => {
     if (!hasSearched || isLoading || results.length === 0) return;
-
-    // Reset the already-loaded counter when results change (new search),
-    // so the new top batch's fonts get loaded instead of being skipped.
-    if (lastResultsRef.current !== results) {
-      lastResultsRef.current = results;
-      lastLoadedCount.current = 0;
-    }
-
-    // Only load fonts for the new batch (not re-loading already-loaded ones)
-    const start = lastLoadedCount.current;
     const end = Math.min(visibleCount, results.length);
-    if (start >= end) return;
-
     const fontNames: string[] = [];
-    for (let i = start; i < end; i++) {
+    for (let i = 0; i < end; i++) {
       const pair = results[i];
       loadFont(pair.headerFont);
       loadFont(pair.bodyFont);
       fontNames.push(pair.headerFont.name, pair.bodyFont.name);
     }
     ensureFontsRendered(fontNames);
-    lastLoadedCount.current = end;
   }, [visibleCount, results, hasSearched, isLoading]);
 
   if (!hasSearched) return null;
