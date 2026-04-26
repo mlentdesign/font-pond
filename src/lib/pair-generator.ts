@@ -64,7 +64,7 @@ function pickMultipleBodies(
     if (headerTags.has("luxury") && bf.toneDescriptors.some(t => ["refined", "elegant", "clean"].includes(t))) score += 2;
 
     if (bf.bodyLegibilityScore && bf.bodyLegibilityScore >= 8) score += 3;
-    if (bf.source === "fontshare") score += 2;
+    if (bf.source === "fontshare") score += 5;
     if (bf.variableFont) score += 1;
 
     // Anatomy-informed bonuses
@@ -536,7 +536,8 @@ export function generateCuratedPairs(
   existingPairs: FontPair[],
   existingSlugs: Set<string>,
 ): FontPair[] {
-  const TARGET = 10;
+  const BASE_TARGET = 10;
+  const FONTSHARE_TARGET = 22; // Fontshare fonts are featured more heavily
 
   // Count existing non-dynamic pairs per font
   const counts = new Map<string, number>();
@@ -556,10 +557,10 @@ export function generateCuratedPairs(
     return true;
   });
 
-  // Sort body fonts by quality (best first)
+  // Sort body fonts by quality (best first); Fontshare fonts weighted higher
   const sortedBodies = [...bodyFonts].sort((a, b) => {
-    const aScore = (a.bodyLegibilityScore || 5) + (a.source === "fontshare" ? 2 : 0) + (a.variableFont ? 1 : 0);
-    const bScore = (b.bodyLegibilityScore || 5) + (b.source === "fontshare" ? 2 : 0) + (b.variableFont ? 1 : 0);
+    const aScore = (a.bodyLegibilityScore || 5) + (a.source === "fontshare" ? 5 : 0) + (a.variableFont ? 1 : 0);
+    const bScore = (b.bodyLegibilityScore || 5) + (b.source === "fontshare" ? 5 : 0) + (b.variableFont ? 1 : 0);
     return bScore - aScore;
   });
 
@@ -568,12 +569,16 @@ export function generateCuratedPairs(
 
   // Fonts that need more curated pairs, sorted by deficit (most needed first)
   const needMore = allFonts
-    .filter(f => (counts.get(f.id) || 0) < TARGET)
+    .filter(f => {
+      const target = f.source === "fontshare" ? FONTSHARE_TARGET : BASE_TARGET;
+      return (counts.get(f.id) || 0) < target;
+    })
     .sort((a, b) => (counts.get(a.id) || 0) - (counts.get(b.id) || 0));
 
   for (const font of needMore) {
+    const target = font.source === "fontshare" ? FONTSHARE_TARGET : BASE_TARGET;
     const current = counts.get(font.id) || 0;
-    const needed = TARGET - current;
+    const needed = target - current;
     if (needed <= 0) continue;
 
     // Try as header first — pick body fonts from full pool with rotation for diversity
@@ -605,7 +610,7 @@ export function generateCuratedPairs(
       const headerFonts = allFonts.filter(f => f.isHeaderSuitable && f.id !== font.id);
       // Pick headers that also need pairs, prioritizing those with fewest
       const headersNeedingPairs = headerFonts
-        .filter(h => (counts.get(h.id) || 0) < TARGET)
+        .filter(h => (counts.get(h.id) || 0) < (h.source === "fontshare" ? FONTSHARE_TARGET : BASE_TARGET))
         .sort((a, b) => (counts.get(a.id) || 0) - (counts.get(b.id) || 0));
       const headerPool = headersNeedingPairs.length > 0 ? headersNeedingPairs : headerFonts;
 
