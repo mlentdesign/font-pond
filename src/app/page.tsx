@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { PromptInput } from "@/components/PromptInput";
 import { SampleTextInputs } from "@/components/SampleTextInputs";
 import { ResultsGrid } from "@/components/ResultsGrid";
@@ -12,8 +12,12 @@ import { rankPairs, explorePairs } from "@/lib/engine";
 export default function Home() {
   const { hasSearched, results, setQuery, setResults, setHasSearched, setIsExploring, setVisibleCount, setIsLoading } = useAppState();
 
+  const didInitRef = useRef(false);
+
   // Restore last search (?restore=1) or trigger explore (?explore=1)
   useEffect(() => {
+    if (didInitRef.current) return;
+    didInitRef.current = true;
     const params = new URLSearchParams(window.location.search);
     if (params.get("explore") === "1") {
       setHasSearched(true);
