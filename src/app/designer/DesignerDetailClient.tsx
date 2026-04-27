@@ -104,7 +104,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [hasMoreFonts, fontCount]);
+  }, [hasMoreFonts, fontCount, visibleFonts]);
 
   return (
     <div className="flex-1 flex flex-col">
