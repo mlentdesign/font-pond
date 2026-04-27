@@ -87,8 +87,8 @@ function FontSection({
       {/* Divider: between header info and specimen */}
       <div className="border-t border-neutral-100" style={{ margin: "24px -24px 16px", padding: "0" }} />
 
-      {/* Specimen — flex:1 fills available card height; font size binary-searched to fit */}
-      <div ref={sectionRef} style={{ flex: 1, minHeight: 0, overflow: "hidden" }}>
+      {/* Specimen — flex:1 fills available card height; content centered for equal top/bottom breathing room */}
+      <div ref={sectionRef} style={{ flex: 1, minHeight: 0, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <div ref={contentRef}>
           <div
             ref={bigRef}
