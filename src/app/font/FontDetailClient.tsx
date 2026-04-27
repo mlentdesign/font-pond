@@ -536,7 +536,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
 
         {/* Pairs using this font */}
         {pairsUsing.length > 0 && (
-          <PairPreviewGrid pairs={pairsUsing} title={`Pairs using ${font.name}`} />
+          <PairPreviewGrid key={font.slug} pairs={pairsUsing} title={`Pairs using ${font.name}`} />
         )}
       </main>
 
