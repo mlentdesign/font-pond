@@ -80,10 +80,8 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
 
   // Upgrade legacy ?f= URLs to clean path URLs (for old bookmarks/history).
   useEffect(() => {
-    if (font && slug && window.location.search.includes("f=")) {
-      const from = new URLSearchParams(window.location.search).get("from");
-      const cleanUrl = from ? `/font-pond/font/${slug}?from=${from}` : `/font-pond/font/${slug}`;
-      window.history.replaceState(null, "", cleanUrl);
+    if (font && slug && window.location.search) {
+      window.history.replaceState(null, "", `/font-pond/font/${slug}`);
     }
   }, [font, slug]);
 
