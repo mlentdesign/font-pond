@@ -252,8 +252,13 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
           return Math.max(12, best);
         };
 
-        setHeaderSpecSize(findSize(hBig, hSmall, hContent, hSectionRef.current!.offsetHeight));
-        setBodySpecSize(findSize(bBig, bSmall, bContent, bSectionRef.current!.offsetHeight));
+        // Use the smaller of the two so both cards show specimen at the same size
+        const sharedSize = Math.min(
+          findSize(hBig, hSmall, hContent, hSectionRef.current!.offsetHeight),
+          findSize(bBig, bSmall, bContent, bSectionRef.current!.offsetHeight)
+        );
+        setHeaderSpecSize(sharedSize);
+        setBodySpecSize(sharedSize);
       }));
     });
   }, [headerFont?.id, bodyFont?.id]);
