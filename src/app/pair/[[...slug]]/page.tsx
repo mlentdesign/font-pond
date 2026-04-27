@@ -1,8 +1,10 @@
 import PairSlugClient from "./PairSlugClient";
 import { pairsBySlug, ensureDynamicPairs } from "@/data/pairs";
+ensureDynamicPairs();
 
 export function generateStaticParams() {
-  return [{ slug: [] }];
+  const pairSlugs = [...pairsBySlug.keys()].map((s) => ({ slug: [s] }));
+  return [{ slug: [] }, ...pairSlugs];
 }
 
 export default async function PairPage({ params }: { params: Promise<{ slug?: string[] }> }) {
