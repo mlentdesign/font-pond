@@ -106,11 +106,10 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
     return () => observer.disconnect();
   }, [hasMoreFonts, fontCount, visibleFonts]);
 
-  // Per-card specimen scaling
+  // Per-card specimen scaling via canvas visual measurement.
+  // Canvas actualBoundingBox measures real glyph bounds (ignoring font metric whitespace),
+  // so fonts with tall internal metrics (e.g. South Asian scripts) scale the same as Latin.
   const sectionRefs = useRef<Record<string, HTMLDivElement>>({});
-  const contentRefs = useRef<Record<string, HTMLDivElement>>({});
-  const bigRefs = useRef<Record<string, HTMLDivElement>>({});
-  const smallRefs = useRef<Record<string, HTMLDivElement>>({});
   const [specimenSizes, setSpecimenSizes] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -138,33 +137,41 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
       await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
       if (cancelled) return;
 
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d')!;
       const updates: Record<string, number> = {};
 
-      // Scale each card's specimen text to fill its section height.
-      // The section has flex:1 so its height = available space after header/chips/meta.
-      // Binary search finds the largest size where content fits without clipping.
-      for (const [fontSlug, sectionEl] of Object.entries(sectionRefs.current)) {
+      for (const [slug, sectionEl] of Object.entries(sectionRefs.current)) {
+        const fontData = sorted.find(f => f.slug === slug);
+        if (!fontData) continue;
+        const family = getFontFamily(fontData.name, fontData.source);
         const sectionH = sectionEl.offsetHeight;
-        const contentEl = contentRefs.current[fontSlug];
-        const bigEl = bigRefs.current[fontSlug];
-        const smallEl = smallRefs.current[fontSlug];
-        if (!contentEl || !bigEl || !smallEl || sectionH < 32) continue;
+        if (sectionH < 32) continue;
 
-        let lo = 12, hi = 200, best = 12;
-        for (let i = 0; i < 12; i++) {
+        // Target: visual glyphs fill 78% of section height.
+        // Section is overflow:hidden + justify:center, so any DOM metric overflow
+        // is clipped symmetrically and the visual characters remain centered.
+        const targetH = sectionH * 0.78;
+
+        let lo = 12, hi = 250, best = 12;
+        for (let i = 0; i < 14; i++) {
           const mid = Math.round((lo + hi) / 2);
-          bigEl.style.fontSize = `${mid}px`;
-          bigEl.style.lineHeight = "1";
-          smallEl.style.fontSize = `${Math.round(mid * 16 / 36)}px`;
-          smallEl.style.lineHeight = "1.15";
-          if (contentEl.offsetHeight <= sectionH) { best = mid; lo = mid + 1; }
+          const smallSize = Math.round(mid * 16 / 36);
+          const lineGap = Math.round(smallSize * 0.35);
+
+          ctx.font = `600 ${mid}px "${family}"`;
+          const bigM = ctx.measureText("Aa Bb Cc Dd Ee Ff");
+          const bigH = bigM.actualBoundingBoxAscent + bigM.actualBoundingBoxDescent;
+
+          ctx.font = `400 ${smallSize}px "${family}"`;
+          const vH = (t: string) => { const m = ctx.measureText(t); return m.actualBoundingBoxAscent + m.actualBoundingBoxDescent; };
+          const totalH = bigH + 8 + vH("ABCDEFGHIJKLMNOPQRSTUVWXYZ") + lineGap + vH("abcdefghijklmnopqrstuvwxyz") + lineGap + vH("0123456789");
+
+          if (totalH <= targetH) { best = mid; lo = mid + 1; }
           else hi = mid - 1;
         }
-        bigEl.style.fontSize = '';
-        bigEl.style.lineHeight = '';
-        smallEl.style.fontSize = '';
-        smallEl.style.lineHeight = '';
-        updates[fontSlug] = Math.max(12, best);
+
+        updates[slug] = Math.max(12, best);
       }
 
       if (Object.keys(updates).length > 0) {
@@ -249,22 +256,28 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                   ref={(el) => { if (el) sectionRefs.current[font.slug] = el; else delete sectionRefs.current[font.slug]; }}
                   style={{ flex: 1, minHeight: 0, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}
                 >
-                  <div ref={(el) => { if (el) contentRefs.current[font.slug] = el; else delete contentRefs.current[font.slug]; }}>
+                  <div>
                     <div
-                      ref={(el) => { if (el) bigRefs.current[font.slug] = el; else delete bigRefs.current[font.slug]; }}
-                      className="mb-2 text-neutral-800 break-words"
-                      style={{ fontFamily: family, fontWeight: 600, fontSize: `${specimenSizes[font.slug] ?? 36}px`, lineHeight: "1" }}
+                      className="text-neutral-800 break-words"
+                      style={{ fontFamily: family, fontWeight: 600, fontSize: `${specimenSizes[font.slug] ?? 36}px`, lineHeight: "1", marginBottom: "8px" }}
                     >
                       Aa Bb Cc Dd Ee Ff
                     </div>
                     <div
-                      ref={(el) => { if (el) smallRefs.current[font.slug] = el; else delete smallRefs.current[font.slug]; }}
                       className="text-neutral-600"
-                      style={{ fontFamily: family, fontWeight: 400, fontSize: `${Math.round((specimenSizes[font.slug] ?? 36) * 16 / 36)}px`, lineHeight: "1.15" }}
+                      style={{
+                        fontFamily: family,
+                        fontWeight: 400,
+                        fontSize: `${Math.round((specimenSizes[font.slug] ?? 36) * 16 / 36)}px`,
+                        lineHeight: "1",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: `${Math.round(Math.round((specimenSizes[font.slug] ?? 36) * 16 / 36) * 0.35)}px`,
+                      }}
                     >
-                      <span style={{ display: "block" }}>ABCDEFGHIJKLMNOPQRSTUVWXYZ</span>
-                      <span style={{ display: "block" }}>abcdefghijklmnopqrstuvwxyz</span>
-                      <span style={{ display: "block" }}>0123456789</span>
+                      <span>ABCDEFGHIJKLMNOPQRSTUVWXYZ</span>
+                      <span>abcdefghijklmnopqrstuvwxyz</span>
+                      <span>0123456789</span>
                     </div>
                   </div>
                 </div>
