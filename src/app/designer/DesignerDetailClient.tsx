@@ -118,66 +118,83 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
     if (window.innerWidth < 768) return;
     const grid = gridRef.current;
     if (!grid) return;
-    const visibleNames = sorted.slice(0, visibleFonts).map(f => f.name);
-    document.fonts.ready.then(() =>
-      Promise.all(visibleNames.flatMap(name => [
-        document.fonts.load(`700 16px "${name}"`).catch(() => []),
-        document.fonts.load(`400 16px "${name}"`).catch(() => []),
-      ]))
-    ).then(() => {
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        grid.style.alignItems = 'start';
-        void grid.offsetHeight;
 
-        // Group cards by row via offsetTop
-        const rows = new Map<number, string[]>();
-        for (const [slug, sectionEl] of Object.entries(sectionRefs.current)) {
-          const cardEl = sectionEl.parentElement as HTMLDivElement;
-          if (!cardEl) continue;
-          const top = Math.round(cardEl.offsetTop);
-          if (!rows.has(top)) rows.set(top, []);
-          rows.get(top)!.push(slug);
+    let cancelled = false;
+    const fontNames = sorted.slice(0, visibleFonts).map(f => f.name);
+
+    const run = async () => {
+      await document.fonts.ready;
+      // Poll until every visible font has at least one weight in the FontFaceSet
+      const unloaded = new Set(fontNames);
+      const deadline = Date.now() + 4000;
+      while (unloaded.size > 0 && Date.now() < deadline) {
+        for (const name of [...unloaded]) {
+          const [f400, f700] = await Promise.all([
+            document.fonts.load(`400 16px "${name}"`).catch(() => [] as FontFace[]),
+            document.fonts.load(`700 16px "${name}"`).catch(() => [] as FontFace[]),
+          ]);
+          if (f400.length > 0 || f700.length > 0) unloaded.delete(name);
         }
+        if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
+      }
 
-        const updates: Record<string, number> = {};
+      if (cancelled) return;
+      await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+      if (cancelled) return;
 
-        for (const slugsInRow of rows.values()) {
-          if (slugsInRow.length < 2) continue;
-          const heights: Record<string, number> = {};
-          for (const slug of slugsInRow) {
-            const cardEl = sectionRefs.current[slug]?.parentElement as HTMLDivElement;
-            if (cardEl) heights[slug] = cardEl.offsetHeight;
+      grid.style.alignItems = 'start';
+      void grid.offsetHeight;
+
+      const rows = new Map<number, string[]>();
+      for (const [slug, sectionEl] of Object.entries(sectionRefs.current)) {
+        const cardEl = sectionEl.parentElement as HTMLDivElement;
+        if (!cardEl) continue;
+        const top = Math.round(cardEl.offsetTop);
+        if (!rows.has(top)) rows.set(top, []);
+        rows.get(top)!.push(slug);
+      }
+
+      const updates: Record<string, number> = {};
+
+      for (const slugsInRow of rows.values()) {
+        if (slugsInRow.length < 2) continue;
+        const heights: Record<string, number> = {};
+        for (const slug of slugsInRow) {
+          const cardEl = sectionRefs.current[slug]?.parentElement as HTMLDivElement;
+          if (cardEl) heights[slug] = cardEl.offsetHeight;
+        }
+        const maxH = Math.max(...Object.values(heights));
+
+        for (const slug of slugsInRow) {
+          const gap = maxH - (heights[slug] ?? maxH);
+          if (gap < 8) continue;
+          const contentEl = contentRefs.current[slug];
+          const bigEl = bigRefs.current[slug];
+          const smallEl = smallRefs.current[slug];
+          if (!contentEl || !bigEl || !smallEl) continue;
+          const targetH = contentEl.offsetHeight + gap;
+          let lo = 24, hi = 200, best = 36;
+          for (let i = 0; i < 10; i++) {
+            const mid = Math.round((lo + hi) / 2);
+            bigEl.style.fontSize = `${mid}px`;
+            smallEl.style.fontSize = `${Math.round(mid * 16 / 36)}px`;
+            if (contentEl.offsetHeight <= targetH) { best = mid; lo = mid + 1; }
+            else hi = mid - 1;
           }
-          const maxH = Math.max(...Object.values(heights));
-
-          for (const slug of slugsInRow) {
-            const gap = maxH - (heights[slug] ?? maxH);
-            if (gap < 8) continue;
-            const contentEl = contentRefs.current[slug];
-            const bigEl = bigRefs.current[slug];
-            const smallEl = smallRefs.current[slug];
-            if (!contentEl || !bigEl || !smallEl) continue;
-            const targetH = contentEl.offsetHeight + gap;
-            let lo = 24, hi = 200, best = 36;
-            for (let i = 0; i < 10; i++) {
-              const mid = Math.round((lo + hi) / 2);
-              bigEl.style.fontSize = `${mid}px`;
-              smallEl.style.fontSize = `${Math.round(mid * 16 / 36)}px`;
-              if (contentEl.offsetHeight <= targetH) { best = mid; lo = mid + 1; }
-              else hi = mid - 1;
-            }
-            bigEl.style.fontSize = '';
-            smallEl.style.fontSize = '';
-            updates[slug] = Math.max(36, best);
-          }
+          bigEl.style.fontSize = '';
+          smallEl.style.fontSize = '';
+          updates[slug] = Math.max(36, best);
         }
+      }
 
-        grid.style.alignItems = '';
-        if (Object.keys(updates).length > 0) {
-          setSpecimenSizes(prev => ({ ...prev, ...updates }));
-        }
-      }));
-    });
+      grid.style.alignItems = '';
+      if (Object.keys(updates).length > 0) {
+        setSpecimenSizes(prev => ({ ...prev, ...updates }));
+      }
+    };
+
+    run();
+    return () => { cancelled = true; };
   }, [visibleFonts]);
 
   return (
@@ -263,10 +280,12 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                     </div>
                     <div
                       ref={(el) => { if (el) smallRefs.current[font.slug] = el; else delete smallRefs.current[font.slug]; }}
-                      className="leading-relaxed text-neutral-600 break-words"
+                      className="leading-relaxed text-neutral-600"
                       style={{ fontFamily: family, fontWeight: 400, fontSize: `${Math.round((specimenSizes[font.slug] ?? 36) * 16 / 36)}px` }}
                     >
-                      ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789
+                      <span style={{ display: "block" }}>ABCDEFGHIJKLMNOPQRSTUVWXYZ</span>
+                      <span style={{ display: "block" }}>abcdefghijklmnopqrstuvwxyz</span>
+                      <span style={{ display: "block" }}>0123456789</span>
                     </div>
                   </div>
                 </div>
