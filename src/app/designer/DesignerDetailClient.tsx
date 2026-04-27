@@ -156,7 +156,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         // Target: visual glyphs fill 80% of the locked section height.
         // The section gets an explicit height (sectionH) after this runs, so
         // any DOM metric overflow is clipped by overflow:hidden without growing the card.
-        const targetH = sectionH * 0.80;
+        const targetH = sectionH * 0.60;
 
         let lo = 12, hi = 250, best = 12;
         for (let i = 0; i < 14; i++) {
