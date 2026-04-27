@@ -345,6 +345,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
         {/* Pair name heading */}
         <div style={{ marginBottom: "24px" }}>
           <h1 className="text-3xl font-semibold text-neutral-900 mb-1">{headerFont.name} + {bodyFont.name}</h1>
+          <p className="text-sm text-neutral-400">{formatClassification(headerFont.classification)} + {formatClassification(bodyFont.classification)}</p>
         </div>
 
         {/* Pair specimen */}
