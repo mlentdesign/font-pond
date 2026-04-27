@@ -183,16 +183,19 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
     timersRef.current.push(endTimer);
   }, [displayFont, clearAllTimers, ensureLoaded, setDisplayFont]);
 
+  const runTickerRef = useRef(runTicker);
+  runTickerRef.current = runTicker;
+
   useEffect(() => {
     if (!mounted) return;
     displayRef.current = setInterval(() => {
-      if (!headerAnimationPaused) runTicker();
+      if (!headerAnimationPaused) runTickerRef.current();
     }, DISPLAY_INTERVAL);
     return () => {
       if (displayRef.current) clearInterval(displayRef.current);
       clearAllTimers();
     };
-  }, [mounted, runTicker, clearAllTimers]);
+  }, [mounted, clearAllTimers]);
 
   // Swap the header font without the flip animation — used when animation is off
   // but the user still navigates to different content (we want to see variety).

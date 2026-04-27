@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { pairsBySlug, getPairOrConstruct, ensureDynamicPairs } from "@/data/pairs";
@@ -193,7 +193,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   }
   const slug = slugRef.current;
 
-  const pair = pairsBySlug.get(slug) || getPairOrConstruct(slug);
+  const pair = useMemo(() => pairsBySlug.get(slug) || getPairOrConstruct(slug), [slug]);
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
   const bodyFont = pair ? fontsById.get(pair.bodyFontId) : undefined;
 
