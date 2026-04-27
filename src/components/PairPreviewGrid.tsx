@@ -137,7 +137,21 @@ export function PairPreviewGrid({
           );
         })}
       </div>
-      {hasMore && <div ref={sentinelRef} style={{ height: 1 }} />}
+      {hasMore && (
+        <>
+          <div ref={sentinelRef} style={{ height: 1 }} />
+          <div style={{ textAlign: "center", marginTop: "24px" }}>
+            <button
+              type="button"
+              onClick={() => setVisible((v) => Math.min(v + adjustedIncrement, pairs.length))}
+              className="btn-generate font-medium rounded-lg"
+              style={{ fontSize: "16px", padding: "12px 24px" }}
+            >
+              Load more
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 }
