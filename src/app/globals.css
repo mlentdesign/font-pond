@@ -780,34 +780,27 @@ body.animations-paused #water-bg * {
   }
 }
 
-/* Masonry grid: CSS columns, cards take natural height */
+/* Pair card enter animation */
 @keyframes pair-card-enter {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.pair-grid {
-  columns: 1;
-  column-gap: 24px;
-}
-.pair-grid > * {
-  break-inside: avoid;
-  margin-bottom: 24px;
-  display: inline-block;
-  width: 100%;
+/* Skeleton grid only — real cards use explicit masonry columns in JSX */
+.pair-grid-skeleton {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
 }
 @media (min-width: 768px) {
-  .pair-grid {
-    columns: 2;
-    column-gap: 16px;
-  }
-  .pair-grid > * {
-    margin-bottom: 16px;
+  .pair-grid-skeleton {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 }
 @media (min-width: 1024px) {
-  .pair-grid {
-    columns: 3;
+  .pair-grid-skeleton {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
