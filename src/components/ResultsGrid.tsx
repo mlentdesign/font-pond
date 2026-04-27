@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useAppState } from "@/lib/store";
 import { PairCard } from "./PairCard";
-import { loadFont } from "@/lib/fonts";
+import { loadFont, pinFonts } from "@/lib/fonts";
 import { ScoredPair } from "@/data/types";
 
 type VisiblePair = { pair: ScoredPair; delay: number };
@@ -92,6 +92,7 @@ export function ResultsGrid() {
   const queueRef = useRef<ScoredPair[]>([]);
   const loadingRef = useRef(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const unpinRef = useRef<(() => void) | null>(null);
   // Generation counter: incremented on each reset so stale async loads discard their results.
   // This prevents React StrictMode's double-effect invocation from adding duplicate pairs.
   const generationRef = useRef(0);
@@ -113,7 +114,15 @@ export function ResultsGrid() {
     queueRef.current = remaining;
 
     if (loaded.length > 0) {
-      setVisiblePairs((prev) => [...prev, ...loaded]);
+      setVisiblePairs((prev) => {
+        const next = [...prev, ...loaded];
+        // Pin all visible fonts so the CDN eviction can't remove them
+        if (unpinRef.current) unpinRef.current();
+        unpinRef.current = pinFonts(
+          next.flatMap(({ pair }) => [pair.headerFont, pair.bodyFont])
+        );
+        return next;
+      });
       setFirstBatchLoaded(true);
     }
 
@@ -130,6 +139,7 @@ export function ResultsGrid() {
   // Reset and load first batch when results change
   useEffect(() => {
     generationRef.current += 1;
+    if (unpinRef.current) { unpinRef.current(); unpinRef.current = null; }
     setVisiblePairs([]);
     setFirstBatchLoaded(false);
     loadingRef.current = false;
