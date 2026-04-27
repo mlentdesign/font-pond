@@ -210,7 +210,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
         if (!h1 || !h2) return;
         // Content height = fontSize * 1.25 (Aa line, tight) + 16 (mb-4) + fontSize * 0.444 * 1.625 (alphabet, relaxed)
         // = fontSize * 1.972 + 16  →  fontSize = (height - 16) / 1.972
-        const calcSize = (h: number) => Math.max(24, Math.round((h - 16) / 1.972));
+        const calcSize = (h: number) => Math.max(36, Math.round((h - 16) / 1.972));
         setHeaderSpecSize(calcSize(h1));
         setBodySpecSize(calcSize(h2));
       });
