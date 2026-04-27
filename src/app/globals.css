@@ -780,21 +780,34 @@ body.animations-paused #water-bg * {
   }
 }
 
-/* Responsive grid: 1 col mobile, 2 col tablet, 3 col desktop */
+/* Masonry grid: CSS columns, cards take natural height */
+@keyframes pair-card-enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .pair-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
+  columns: 1;
+  column-gap: 24px;
+}
+.pair-grid > * {
+  break-inside: avoid;
+  margin-bottom: 24px;
+  display: inline-block;
+  width: 100%;
 }
 @media (min-width: 768px) {
   .pair-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    columns: 2;
+    column-gap: 16px;
+  }
+  .pair-grid > * {
+    margin-bottom: 16px;
   }
 }
 @media (min-width: 1024px) {
   .pair-grid {
-    grid-template-columns: repeat(3, 1fr);
+    columns: 3;
   }
 }
 

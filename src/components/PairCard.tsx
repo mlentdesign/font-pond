@@ -7,7 +7,7 @@ import { navigateToPair } from "@/lib/navigate";
 import { getFontFamily } from "@/lib/fonts";
 import { sentenceCase, chipCase } from "@/lib/text";
 
-export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isExploring?: boolean }) {
+export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pair: ScoredPair; isExploring?: boolean; animationDelay?: number }) {
   const { sampleHeadline, sampleBody, headerSize, bodySize } = useAppState();
   const router = useRouter();
   const headline = sampleHeadline || DEFAULT_HEADLINE;
@@ -31,7 +31,7 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
       onMouseDown={(e) => e.preventDefault()}
       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navigateToPair(router, pair.slug); } }}
       className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-md cursor-pointer overflow-hidden flex flex-col"
-      style={{ position: "relative" }}
+      style={{ position: "relative", animation: `pair-card-enter 400ms ease-out ${animationDelay}ms both` }}
     >
       {/* Hover arrow */}
       <span
