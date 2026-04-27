@@ -258,7 +258,7 @@ const coreFonts: Font[] = [
     specimenUrl: "https://fonts.google.com/noto/specimen/Noto+Serif",
     licenseType: "OFL 1.1",
     licenseConfidence: "high",
-    designer: "Google",
+    designer: "Monotype Design Team",
     foundry: "Google",
     year: 2014,
     classification: "serif",
