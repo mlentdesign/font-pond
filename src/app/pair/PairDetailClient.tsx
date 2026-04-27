@@ -305,7 +305,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
     return () => clearTimeout(t);
   }, [headerFont, bodyFont]);
 
-  const related = pair ? getRelatedPairs(pair.id, 6) : [];
+  const related = pair ? getRelatedPairs(pair.id, 12) : [];
 
   if (!pair || !headerFont || !bodyFont) {
     return (
@@ -475,8 +475,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
           <PairPreviewGrid
             pairs={related}
             title="Other interesting pairings for you"
-            initialVisible={4}
-            loadMoreIncrement={4}
+            initialVisible={6}
+            loadMoreIncrement={6}
             headlineText={sampleHeadline || "The quick brown fox"}
             bodyText={sampleBody || "Typography is the art and technique of arranging type."}
           />

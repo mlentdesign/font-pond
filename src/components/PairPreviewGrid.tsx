@@ -128,7 +128,7 @@ export function PairPreviewGrid({
             className="outline-btn font-medium rounded-lg"
             style={{ fontSize: "16px", padding: "12px 24px" }}
           >
-            Load more
+            Load more pairs
           </button>
         </div>
       )}
