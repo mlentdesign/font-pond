@@ -25,6 +25,7 @@ function FontSection({
   pairSlug,
   onNavigate,
   specimenFontSize = 36,
+  cardRef,
   specimenRef,
 }: {
   font: import("@/data/types").Font;
@@ -32,6 +33,7 @@ function FontSection({
   pairSlug: string;
   onNavigate: (slug: string) => void;
   specimenFontSize?: number;
+  cardRef?: React.RefObject<HTMLDivElement | null>;
   specimenRef?: React.RefObject<HTMLDivElement | null>;
 }) {
   const family = getFontFamily(font.name, font.source);
@@ -43,6 +45,7 @@ function FontSection({
 
   return (
     <div
+      ref={cardRef}
       role="link"
       tabIndex={0}
       onClick={() => onNavigate(font.slug)}
@@ -81,8 +84,8 @@ function FontSection({
       {/* Divider: between header info and specimen */}
       <div className="border-t border-neutral-100" style={{ margin: "24px -24px 16px", padding: "0" }} />
 
-      {/* Specimen — flex:1 so it fills available card height (grid stretches both cards equally) */}
-      <div ref={specimenRef} style={{ flex: 1, overflow: "hidden", minHeight: 0 }}>
+      {/* Specimen */}
+      <div ref={specimenRef}>
         <div
           className="leading-tight mb-4 text-neutral-800 break-words"
           style={{ fontFamily: family, fontWeight: role === "Header" ? 600 : 400, fontSize: `${specimenFontSize}px` }}
@@ -187,6 +190,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
   const bodyFont = pair ? fontsById.get(pair.bodyFontId) : undefined;
 
+  const headerCardRef = useRef<HTMLDivElement>(null);
+  const bodyCardRef = useRef<HTMLDivElement>(null);
   const headerSpecRef = useRef<HTMLDivElement>(null);
   const bodySpecRef = useRef<HTMLDivElement>(null);
   const [headerSpecSize, setHeaderSpecSize] = useState(36);
@@ -198,21 +203,28 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
     setBodySpecSize(36);
   }, [slug]);
 
-  // After fonts are loaded, measure each specimen section's available height
-  // (CSS grid stretch makes both cards equal height; flex:1 on specimen section
-  // absorbs the leftover — we calculate the exact font size to fill it)
+  // After fonts are loaded, measure natural card heights and scale up specimen
+  // text on the shorter card so both cards reach the same height.
   useEffect(() => {
     if (!headerFont || !bodyFont) return;
     document.fonts.ready.then(() => {
       requestAnimationFrame(() => {
-        const h1 = headerSpecRef.current?.clientHeight ?? 0;
-        const h2 = bodySpecRef.current?.clientHeight ?? 0;
-        if (!h1 || !h2) return;
-        // Content height = fontSize * 1.25 (Aa line, tight) + 16 (mb-4) + fontSize * 0.444 * 1.625 (alphabet, relaxed)
-        // = fontSize * 1.972 + 16  →  fontSize = (height - 16) / 1.972
-        const calcSize = (h: number) => Math.max(36, Math.round((h - 16) / 1.972));
-        setHeaderSpecSize(calcSize(h1));
-        setBodySpecSize(calcSize(h2));
+        const cardH1 = headerCardRef.current?.clientHeight ?? 0;
+        const cardH2 = bodyCardRef.current?.clientHeight ?? 0;
+        if (!cardH1 || !cardH2) return;
+        const diff = cardH2 - cardH1; // positive = header is shorter
+        if (Math.abs(diff) < 20) return;
+        if (diff > 0) {
+          // Header card is shorter — scale its specimen up by the height difference
+          const specH = headerSpecRef.current?.clientHeight ?? 0;
+          if (!specH) return;
+          setHeaderSpecSize(Math.round(36 * (specH + diff) / specH));
+        } else {
+          // Body card is shorter — scale its specimen up
+          const specH = bodySpecRef.current?.clientHeight ?? 0;
+          if (!specH) return;
+          setBodySpecSize(Math.round(36 * (specH + Math.abs(diff)) / specH));
+        }
       });
     });
   }, [headerFont?.id, bodyFont?.id]);
@@ -413,8 +425,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
         {/* Font sections — two columns */}
         <div className="two-col-grid" style={{ marginBottom: "24px" }}>
-          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={headerSpecSize} specimenRef={headerSpecRef} />
-          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={bodySpecSize} specimenRef={bodySpecRef} />
+          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={headerSpecSize} cardRef={headerCardRef} specimenRef={headerSpecRef} />
+          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={bodySpecSize} cardRef={bodyCardRef} specimenRef={bodySpecRef} />
         </div>
 
         {/* Related pairings */}
