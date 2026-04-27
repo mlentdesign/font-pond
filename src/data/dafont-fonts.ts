@@ -2067,7 +2067,7 @@ export const dafontFonts: Font[] = [
     ["powerful", "aggressive", "bold", "industrial"],
     ["metal band", "sports team", "industrial brand", "action poster", "heavy display"],
     ["blunt angular letterforms", "heavy industrial weight", "aggressive energy"],
-    { serifSansCategory: "sans-serif" },
+    { designer: "Kimmy Kirkwood", serifSansCategory: "sans-serif" },
   ),
 
   dafont("Ozone", "display",
@@ -2075,7 +2075,7 @@ export const dafontFonts: Font[] = [
     ["technical", "futuristic", "precise", "modern"],
     ["tech logo", "sci-fi display", "digital brand", "product label", "modern headline"],
     ["geometric precision", "clean technical letterforms", "systematic construction"],
-    { serifSansCategory: "sans-serif" },
+    { designer: "dustBUST", serifSansCategory: "sans-serif" },
   ),
 
   dafont("Highway Gothic", "sans-serif",
@@ -2115,7 +2115,7 @@ export const dafontFonts: Font[] = [
     ["elegant", "graceful", "flowing", "romantic"],
     ["wedding invitation", "feminine brand", "formal stationery", "luxury packaging", "calligraphic accent"],
     ["flowing italic calligraphic forms", "graceful letterforms", "classical penmanship"],
-    { serifSansCategory: "script" },
+    { designer: "Manfred Klein", serifSansCategory: "script" },
   ),
 
   dafont("Espresso Dolce", "script",
@@ -2123,7 +2123,7 @@ export const dafontFonts: Font[] = [
     ["ornate", "elegant", "luxurious", "decorative"],
     ["luxury brand", "formal invitation", "ornate headline", "vintage label", "premium packaging"],
     ["ornate swash capitals", "flourished letterforms", "decorative calligraphic details"],
-    { serifSansCategory: "script" },
+    { designer: "Peter Wiegel", serifSansCategory: "script" },
   ),
 
   dafont("Carrington", "script",
@@ -2131,7 +2131,7 @@ export const dafontFonts: Font[] = [
     ["elegant", "refined", "classic", "sophisticated"],
     ["formal brand", "premium label", "traditional stationery", "elegant headline", "refined accent"],
     ["classic script proportions", "refined elegant strokes", "formal calligraphic character"],
-    { serifSansCategory: "script" },
+    { designer: "Bright Ideas", serifSansCategory: "script" },
   ),
 
   dafont("Adine Kirnberg", "script",
@@ -2147,7 +2147,7 @@ export const dafontFonts: Font[] = [
     ["romantic", "feminine", "flowing", "elegant"],
     ["romantic brand", "feminine product", "greeting card", "floral design", "soft accent"],
     ["flowing romantic cursive", "soft feminine energy", "decorative swash details"],
-    { serifSansCategory: "script" },
+    { designer: "Wojciech Kalinowski", serifSansCategory: "script" },
   ),
 
   dafont("Amadeus", "display",
@@ -2155,7 +2155,7 @@ export const dafontFonts: Font[] = [
     ["dramatic", "historical", "ornate", "classical"],
     ["gothic headline", "medieval brand", "metal band", "historical display", "decorative heading"],
     ["blackletter-inspired construction", "bold ornate letterforms", "historical gothic energy"],
-    { serifSansCategory: "display" },
+    { designer: "Chloe5972", serifSansCategory: "display" },
   ),
 
   dafont("Oldtimer", "display",
@@ -2163,7 +2163,7 @@ export const dafontFonts: Font[] = [
     ["nostalgic", "vintage", "classic", "elegant"],
     ["vintage brand", "retro poster", "art deco heading", "nostalgic packaging", "period-inspired display"],
     ["vintage display proportions", "art deco influenced styling", "classical period elegance"],
-    { serifSansCategory: "display" },
+    { designer: "GGBotNet", serifSansCategory: "display" },
   ),
 
   dafont("Stencilia", "display",
@@ -2171,7 +2171,7 @@ export const dafontFonts: Font[] = [
     ["bold", "industrial", "tactical", "structural"],
     ["military branding", "industrial label", "stencil graphic", "tactical display", "urban poster"],
     ["stencil-cut letterforms", "military-grade construction", "industrial graphic character"],
-    { serifSansCategory: "display" },
+    { designer: "Manfred Klein", serifSansCategory: "display" },
   ),
 
   dafont("SF Wonder Comic", "display",
