@@ -486,6 +486,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
         {/* Related pairings */}
         {related.length > 0 && (
           <PairPreviewGrid
+            key={pair.slug}
             pairs={related}
             title="Other interesting pairings for you"
             initialVisible={6}

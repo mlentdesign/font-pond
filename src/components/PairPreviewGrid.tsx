@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ScoredPair } from "@/data/types";
 import { loadFont, getFontFamily, waitForFonts } from "@/lib/fonts";
@@ -21,6 +21,8 @@ function useColumns(): number {
   }, []);
   return cols;
 }
+
+type VisiblePair = { pair: ScoredPair; delay: number; animate: boolean };
 
 interface PairPreviewGridProps {
   pairs: ScoredPair[];
@@ -43,53 +45,96 @@ export function PairPreviewGrid({
 }: PairPreviewGridProps) {
   const cols = useColumns();
   const router = useRouter();
-  const adjustedInitial = Math.ceil(initialVisible / cols) * cols;
-  const adjustedIncrement = Math.ceil(loadMoreIncrement / cols) * cols;
-  const [visible, setVisible] = useState(adjustedInitial);
-  const [fontsReady, setFontsReady] = useState(false);
+  const [visiblePairs, setVisiblePairs] = useState<VisiblePair[]>([]);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const initDoneRef = useRef(false);
+  const colsRef = useRef(cols);
+  colsRef.current = cols;
 
-  useEffect(() => {
-    setVisible(Math.ceil(initialVisible / cols) * cols);
-  }, [cols, initialVisible]);
+  function computeDelays(newPairs: ScoredPair[], existingCount: number): VisiblePair[] {
+    const c = colsRef.current;
+    const colHeights = Array(c).fill(0) as number[];
+    for (let i = 0; i < existingCount; i++) colHeights[i % c]++;
 
-  const hasMore = visible < pairs.length;
-
-  // Load all visible fonts, then reveal the grid once they're confirmed ready
-  useEffect(() => {
-    setFontsReady(false);
-    const fontNames: string[] = [];
-    for (const p of pairs.slice(0, visible)) {
-      loadFont(p.headerFont);
-      loadFont(p.bodyFont);
-      fontNames.push(p.headerFont.name, p.bodyFont.name);
-    }
-    let cancelled = false;
-    waitForFonts(fontNames).then(() => {
-      if (!cancelled) setFontsReady(true);
+    const entries = newPairs.map((pair, batchIdx) => {
+      const colIdx = (existingCount + batchIdx) % c;
+      return { pair, colIdx, height: colHeights[colIdx] };
     });
-    return () => { cancelled = true; };
-  }, [pairs, visible]);
+    const sorted = [...entries].sort((a, b) => a.height - b.height);
+    const delayByCol = new Map<number, number>();
+    sorted.forEach(({ colIdx }, rank) => delayByCol.set(colIdx, rank * 80));
+
+    return entries.map(({ pair, colIdx }) => ({
+      pair,
+      delay: delayByCol.get(colIdx) ?? 0,
+      animate: true,
+    }));
+  }
+
+  // Initial reveal
+  useEffect(() => {
+    if (pairs.length === 0) return;
+    initDoneRef.current = false;
+    setVisiblePairs([]);
+
+    const count = Math.ceil(initialVisible / cols) * cols;
+    const batch = pairs.slice(0, count);
+    const fontNames = batch.flatMap(p => [p.headerFont.name, p.bodyFont.name]);
+    for (const p of batch) { loadFont(p.headerFont); loadFont(p.bodyFont); }
+
+    waitForFonts(fontNames).then(() => {
+      if (initDoneRef.current) return;
+      initDoneRef.current = true;
+      setVisiblePairs(computeDelays(batch, 0));
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pairs]);
+
+  const hasMore = visiblePairs.length < pairs.length;
+
+  function handleLoadMore() {
+    if (loadingMore) return;
+    setLoadingMore(true);
+    const existingCount = visiblePairs.length;
+    const increment = Math.ceil(loadMoreIncrement / cols) * cols;
+    const batch = pairs.slice(existingCount, existingCount + increment);
+    const fontNames = batch.flatMap(p => [p.headerFont.name, p.bodyFont.name]);
+    for (const p of batch) { loadFont(p.headerFont); loadFont(p.bodyFont); }
+
+    waitForFonts(fontNames).then(() => {
+      const newVPs = computeDelays(batch, existingCount);
+      setVisiblePairs(prev => [
+        ...prev.map(vp => ({ ...vp, animate: false })),
+        ...newVPs,
+      ]);
+      setLoadingMore(false);
+    });
+  }
 
   if (pairs.length === 0) return null;
 
   return (
-    <div className="detail-subheading" style={{ opacity: fontsReady ? 1 : 0, transition: fontsReady ? "opacity 300ms ease-out" : "none" }}>
+    <div className="detail-subheading">
       <h3 className="font-semibold text-neutral-700" style={{ fontSize: "16px", marginBottom: "16px" }}>{title}</h3>
       <div className="pair-grid">
-        {pairs.slice(0, visible).map((p) => {
-          const hFamily = getFontFamily(p.headerFont.name, p.headerFont.source);
-          const bFamily = getFontFamily(p.bodyFont.name, p.bodyFont.source);
+        {visiblePairs.map(({ pair, delay, animate }) => {
+          const hFamily = getFontFamily(pair.headerFont.name, pair.headerFont.source);
+          const bFamily = getFontFamily(pair.bodyFont.name, pair.bodyFont.source);
           return (
             <div
-              key={p.id}
+              key={pair.id}
               role="link"
               tabIndex={0}
-              aria-label={`View font pair: ${p.headerFont.name} and ${p.bodyFont.name}`}
-              onClick={() => { navigateToPair(router, p.slug); }}
-              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navigateToPair(router, p.slug); } }}
+              aria-label={`View font pair: ${pair.headerFont.name} and ${pair.bodyFont.name}`}
+              onClick={() => { navigateToPair(router, pair.slug); }}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navigateToPair(router, pair.slug); } }}
               onMouseDown={(e) => e.preventDefault()}
               className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden cursor-pointer flex flex-col"
-              style={{ padding: "24px", position: "relative" }}
+              style={{
+                padding: "24px",
+                position: "relative",
+                animation: animate ? `pair-card-enter 400ms ease-out ${delay}ms both` : undefined,
+              }}
             >
               <span
                 className="opacity-0 group-hover:opacity-100 transition-opacity"
@@ -114,11 +159,11 @@ export function PairPreviewGrid({
               <div style={{ marginTop: "auto" }}>
                 <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
                 <p className="font-medium text-neutral-700 break-words" style={{ fontSize: "16px", marginBottom: showRationale ? "8px" : undefined }}>
-                  {p.headerFont.name} + {p.bodyFont.name}
+                  {pair.headerFont.name} + {pair.bodyFont.name}
                 </p>
                 {showRationale && (
                   <p className="text-neutral-400 break-words" style={{ fontSize: "16px" }}>
-                    {sentenceCase(p.rationale)}
+                    {sentenceCase(pair.rationale)}
                   </p>
                 )}
               </div>
@@ -130,11 +175,12 @@ export function PairPreviewGrid({
         <div style={{ textAlign: "center", marginTop: "24px" }}>
           <button
             type="button"
-            onClick={() => setVisible((v) => Math.min(v + adjustedIncrement, pairs.length))}
+            onClick={handleLoadMore}
+            disabled={loadingMore}
             className="outline-btn font-medium rounded-lg"
             style={{ fontSize: "16px", padding: "12px 24px" }}
           >
-            Load more pairs
+            {loadingMore ? "Loading…" : "Load more pairs"}
           </button>
         </div>
       )}
