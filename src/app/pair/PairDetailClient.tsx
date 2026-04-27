@@ -102,7 +102,9 @@ function FontSection({
             className="leading-relaxed text-neutral-600"
             style={{ fontFamily: family, fontWeight: 400, fontSize: `${Math.round(specimenFontSize * 16 / 36)}px` }}
           >
-            ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789
+            <span style={{ display: "block" }}>ABCDEFGHIJKLMNOPQRSTUVWXYZ</span>
+            <span style={{ display: "block" }}>abcdefghijklmnopqrstuvwxyz</span>
+            <span style={{ display: "block" }}>0123456789</span>
           </div>
         </div>
       </div>
@@ -252,13 +254,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
           return Math.max(12, best);
         };
 
-        // Use the smaller of the two so both cards show specimen at the same size
-        const sharedSize = Math.min(
-          findSize(hBig, hSmall, hContent, hSectionRef.current!.offsetHeight),
-          findSize(bBig, bSmall, bContent, bSectionRef.current!.offsetHeight)
-        );
-        setHeaderSpecSize(sharedSize);
-        setBodySpecSize(sharedSize);
+        setHeaderSpecSize(findSize(hBig, hSmall, hContent, hSectionRef.current!.offsetHeight));
+        setBodySpecSize(findSize(bBig, bSmall, bContent, bSectionRef.current!.offsetHeight));
       }));
     });
   }, [headerFont?.id, bodyFont?.id]);
