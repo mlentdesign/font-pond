@@ -472,8 +472,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
         {/* Font sections — two columns */}
         <div ref={gridRef} className="two-col-grid" style={{ marginBottom: "24px" }}>
-          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={headerSpecSize} sectionRef={hSectionRef} contentRef={hContentRef} bigRef={hBigRef} smallRef={hSmallRef} />
-          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={bodySpecSize} sectionRef={bSectionRef} contentRef={bContentRef} bigRef={bBigRef} smallRef={bSmallRef} />
+          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font?f=${s}&from=${slug}`)} specimenFontSize={headerSpecSize} sectionRef={hSectionRef} contentRef={hContentRef} bigRef={hBigRef} smallRef={hSmallRef} />
+          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font?f=${s}&from=${slug}`)} specimenFontSize={bodySpecSize} sectionRef={bSectionRef} contentRef={bContentRef} bigRef={bBigRef} smallRef={bSmallRef} />
         </div>
 
         {/* Related pairings */}
