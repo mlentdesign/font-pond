@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ScoredPair } from "@/data/types";
-import { loadFont, getFontFamily, waitForFonts } from "@/lib/fonts";
+import { loadFont, getFontFamily } from "@/lib/fonts";
 import { sentenceCase } from "@/lib/text";
 import { navigateToPair } from "@/lib/navigate";
 
@@ -45,11 +45,38 @@ export function PairPreviewGrid({
 }: PairPreviewGridProps) {
   const cols = useColumns();
   const router = useRouter();
-  const [visiblePairs, setVisiblePairs] = useState<VisiblePair[]>([]);
-  const [loadingMore, setLoadingMore] = useState(false);
-  const initDoneRef = useRef(false);
   const colsRef = useRef(cols);
   colsRef.current = cols;
+
+  // Render initial batch immediately — no wait, no animation, matching page load feel
+  const adjustedInitial = Math.ceil(initialVisible / cols) * cols;
+  const [visiblePairs, setVisiblePairs] = useState<VisiblePair[]>(() =>
+    pairs.slice(0, adjustedInitial).map(pair => ({ pair, delay: 0, animate: false }))
+  );
+  const [loadingMore, setLoadingMore] = useState(false);
+
+  // Re-init when pairs prop changes (page navigation)
+  useEffect(() => {
+    const count = Math.ceil(initialVisible / cols) * cols;
+    setVisiblePairs(pairs.slice(0, count).map(pair => ({ pair, delay: 0, animate: false })));
+    // Pre-load fonts for all initial cards
+    for (const p of pairs.slice(0, count)) {
+      loadFont(p.headerFont);
+      loadFont(p.bodyFont);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pairs]);
+
+  // Pre-load fonts for initial batch on mount
+  useEffect(() => {
+    for (const { pair } of visiblePairs) {
+      loadFont(pair.headerFont);
+      loadFont(pair.bodyFont);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const hasMore = visiblePairs.length < pairs.length;
 
   function computeDelays(newPairs: ScoredPair[], existingCount: number): VisiblePair[] {
     const c = colsRef.current;
@@ -71,44 +98,25 @@ export function PairPreviewGrid({
     }));
   }
 
-  // Initial reveal
-  useEffect(() => {
-    if (pairs.length === 0) return;
-    initDoneRef.current = false;
-    setVisiblePairs([]);
-
-    const count = Math.ceil(initialVisible / cols) * cols;
-    const batch = pairs.slice(0, count);
-    const fontNames = batch.flatMap(p => [p.headerFont.name, p.bodyFont.name]);
-    for (const p of batch) { loadFont(p.headerFont); loadFont(p.bodyFont); }
-
-    waitForFonts(fontNames).then(() => {
-      if (initDoneRef.current) return;
-      initDoneRef.current = true;
-      setVisiblePairs(computeDelays(batch, 0));
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pairs]);
-
-  const hasMore = visiblePairs.length < pairs.length;
-
   function handleLoadMore() {
     if (loadingMore) return;
     setLoadingMore(true);
     const existingCount = visiblePairs.length;
     const increment = Math.ceil(loadMoreIncrement / cols) * cols;
     const batch = pairs.slice(existingCount, existingCount + increment);
-    const fontNames = batch.flatMap(p => [p.headerFont.name, p.bodyFont.name]);
+
+    // Pre-load fonts, then reveal with staggered animation
     for (const p of batch) { loadFont(p.headerFont); loadFont(p.bodyFont); }
 
-    waitForFonts(fontNames).then(() => {
+    // Small delay so fonts have a moment to start loading before cards appear
+    setTimeout(() => {
       const newVPs = computeDelays(batch, existingCount);
       setVisiblePairs(prev => [
         ...prev.map(vp => ({ ...vp, animate: false })),
         ...newVPs,
       ]);
       setLoadingMore(false);
-    });
+    }, 150);
   }
 
   if (pairs.length === 0) return null;
