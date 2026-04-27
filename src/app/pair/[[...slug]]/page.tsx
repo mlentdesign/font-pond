@@ -2,7 +2,7 @@ import PairSlugClient from "./PairSlugClient";
 import { pairsBySlug, ensureDynamicPairs } from "@/data/pairs";
 
 export function generateStaticParams() {
-  return [{ slug: undefined }];
+  return [{ slug: [] }];
 }
 
 export default async function PairPage({ params }: { params: Promise<{ slug?: string[] }> }) {

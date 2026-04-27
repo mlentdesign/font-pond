@@ -2,7 +2,7 @@ import DesignerSlugClient from "./DesignerSlugClient";
 import { designersBySlug } from "@/data/designers";
 
 export function generateStaticParams() {
-  return [{ slug: undefined }];
+  return [{ slug: [] }];
 }
 
 export default async function DesignerPage({ params }: { params: Promise<{ slug?: string[] }> }) {
