@@ -273,7 +273,21 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                   ))}
                 </>
               ) : "By unknown creator"}
-              {font.year && ` · ${font.year}`}
+              {font.year && (
+                <>
+                  {" · "}
+                  <button
+                    type="button"
+                    onClick={() => router.push(`/year/${font.year}`)}
+                    className="hover:underline"
+                    style={{ color: "var(--text-muted)", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-heading)"; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-muted)"; }}
+                  >
+                    {font.year}
+                  </button>
+                </>
+              )}
             </p>
           </div>
           <div className="flex gap-2 shrink-0 mt-1">
