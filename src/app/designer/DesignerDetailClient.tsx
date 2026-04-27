@@ -89,6 +89,22 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
   const sorted = [...designer.fonts].sort((a, b) => a.name.localeCompare(b.name));
   const fontCount = sorted.length;
+  const INITIAL_FONTS = 6;
+  const FONT_INCREMENT = 6;
+  const [visibleFonts, setVisibleFonts] = useState(INITIAL_FONTS);
+  const fontSentinelRef = useRef<HTMLDivElement>(null);
+  const hasMoreFonts = visibleFonts < fontCount;
+
+  useEffect(() => {
+    const el = fontSentinelRef.current;
+    if (!el || !hasMoreFonts) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisibleFonts((v) => Math.min(v + FONT_INCREMENT, fontCount)); },
+      { rootMargin: "0px 0px 200px 0px", threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasMoreFonts, fontCount]);
 
   return (
     <div className="flex-1 flex flex-col">
@@ -109,7 +125,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
         {/* Font grid */}
         <div className="designer-font-grid">
-          {sorted.map((font) => {
+          {sorted.slice(0, visibleFonts).map((font) => {
             const family = getFontFamily(font.name, font.source);
             const sourceLabel = getSourceLabel(font.source);
             const chips = [...new Set([...font.tags, ...font.toneDescriptors].map((t) => t.toLowerCase()))]
@@ -214,6 +230,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
             );
           })}
         </div>
+        {hasMoreFonts && <div ref={fontSentinelRef} style={{ height: 1 }} />}
       </main>
     </div>
   );
