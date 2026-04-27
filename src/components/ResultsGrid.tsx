@@ -26,7 +26,7 @@ function useColumns(): number {
 function batchSizeForCols(cols: number): number {
   if (cols >= 3) return 3;  // desktop: 3×1
   if (cols === 2) return 4; // tablet: 2×2
-  return 3;                  // mobile: 1×3
+  return 1;                  // mobile: reveal cards one by one as fonts load
 }
 
 async function checkPairFonts(pair: ScoredPair): Promise<boolean> {
