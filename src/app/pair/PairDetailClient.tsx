@@ -92,7 +92,7 @@ function FontSection({
         <div ref={contentRef}>
           <div
             ref={bigRef}
-            className="leading-tight mb-4 text-neutral-800"
+            className="leading-tight mb-2 text-neutral-800"
             style={{ fontFamily: family, fontWeight: role === "Header" ? 600 : 400, fontSize: `${specimenFontSize}px` }}
           >
             Aa Bb Cc Dd Ee Ff Gg
