@@ -115,12 +115,30 @@ export function ResultsGrid() {
 
     if (loaded.length > 0) {
       setVisiblePairs((prev) => {
-        const next = [...prev, ...loaded];
-        // Pin all visible fonts so the CDN eviction can't remove them
+        const cols = colsRef.current;
+
+        // Count how many cards each column already has
+        const colHeights = Array(cols).fill(0) as number[];
+        prev.forEach((_, i) => { colHeights[i % cols]++; });
+
+        // Assign each new item its column and an animation delay based on urgency:
+        // shorter column = new card appears higher up = animate first (smallest delay)
+        const entries = loaded.map((item, batchIdx) => {
+          const colIdx = (prev.length + batchIdx) % cols;
+          return { pair: item.pair, colIdx, height: colHeights[colIdx] };
+        });
+        const sortedByHeight = [...entries].sort((a, b) => a.height - b.height);
+        const delayByCol = new Map<number, number>();
+        sortedByHeight.forEach(({ colIdx }, rank) => { delayByCol.set(colIdx, rank * 80); });
+
+        const newPairs: VisiblePair[] = entries.map(({ pair, colIdx }) => ({
+          pair,
+          delay: delayByCol.get(colIdx) ?? 0,
+        }));
+
+        const next = [...prev, ...newPairs];
         if (unpinRef.current) unpinRef.current();
-        unpinRef.current = pinFonts(
-          next.flatMap(({ pair }) => [pair.headerFont, pair.bodyFont])
-        );
+        unpinRef.current = pinFonts(next.flatMap(({ pair }) => [pair.headerFont, pair.bodyFont]));
         return next;
       });
       setFirstBatchLoaded(true);
