@@ -74,7 +74,7 @@ async function fillBatch(
     );
 
     for (const { pair, ok } of results) {
-      if (ok) loaded.push({ pair, delay: loaded.length * 90 });
+      if (ok) loaded.push({ pair, delay: 40 + loaded.length * 80 });
     }
   }
 
