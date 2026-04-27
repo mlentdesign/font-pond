@@ -32,7 +32,7 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
 
   useEffect(() => {
     if (yearGroup && slug && window.location.search) {
-      window.history.replaceState(null, "", `/font-pond/year/${slug}`);
+      window.history.replaceState(window.history.state, "", `/font-pond/year/${slug}`);
     }
   }, [yearGroup, slug]);
 
