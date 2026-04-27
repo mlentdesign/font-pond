@@ -105,19 +105,19 @@ function FontSection({
       {/* Meta */}
       <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-neutral-500" style={{ fontSize: "16px" }}>
         <div>
-          <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>DESIGNER</span>
+          <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}>DESIGNER</span>
           <p>{font.designer || "Unknown"}</p>
         </div>
         <div>
-          <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>CLASSIFICATION</span>
+          <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}>CLASSIFICATION</span>
           <p>{formatClassification(font.classification)}</p>
         </div>
         <div>
-          <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>LICENSE</span>
+          <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}>LICENSE</span>
           <p>{titleCase(font.licenseType)}</p>
         </div>
         <div>
-          <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>VARIABLE</span>
+          <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}>VARIABLE</span>
           <p>{font.variableFont ? "Yes" : "No"}</p>
         </div>
       </div>
@@ -129,25 +129,25 @@ function FontSection({
           <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-neutral-500" style={{ fontSize: "16px" }}>
             {font.xHeightRatio && (
               <div>
-                <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}><LabelWithTooltip label="X-HEIGHT" /></span>
+                <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}><LabelWithTooltip label="X-HEIGHT" /></span>
                 <p>{titleCase(font.xHeightRatio)}</p>
               </div>
             )}
             {font.apertureOpenness && (
               <div>
-                <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}><LabelWithTooltip label="APERTURES" /></span>
+                <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}><LabelWithTooltip label="APERTURES" /></span>
                 <p>{titleCase(font.apertureOpenness)}</p>
               </div>
             )}
             {font.strokeContrast && (
               <div>
-                <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}><LabelWithTooltip label="STROKE CONTRAST" /></span>
+                <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}><LabelWithTooltip label="STROKE CONTRAST" /></span>
                 <p>{titleCase(font.strokeContrast)}</p>
               </div>
             )}
             {font.letterSpacing && (
               <div>
-                <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}><LabelWithTooltip label="SPACING" /></span>
+                <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}><LabelWithTooltip label="SPACING" /></span>
                 <p>{titleCase(font.letterSpacing)}</p>
               </div>
             )}
