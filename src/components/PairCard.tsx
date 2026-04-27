@@ -1,10 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { ScoredPair } from "@/data/types";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 import { navigateToPair } from "@/lib/navigate";
-import { getFontFamily } from "@/lib/fonts";
+import { getFontFamily, loadFont, waitForFonts } from "@/lib/fonts";
 import { sentenceCase, chipCase } from "@/lib/text";
 
 export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pair: ScoredPair; isExploring?: boolean; animationDelay?: number }) {
@@ -12,6 +13,19 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
   const router = useRouter();
   const headline = sampleHeadline || DEFAULT_HEADLINE;
   const body = sampleBody || DEFAULT_BODY;
+
+  const [fontsReady, setFontsReady] = useState(false);
+  useEffect(() => {
+    loadFont(pair.headerFont);
+    loadFont(pair.bodyFont);
+    let cancelled = false;
+    waitForFonts([pair.headerFont.name, pair.bodyFont.name]).then(() => {
+      if (!cancelled) setFontsReady(true);
+    });
+    return () => { cancelled = true; };
+  }, [pair.headerFont.name, pair.bodyFont.name]);
+
+  if (!fontsReady) return null;
 
   const { headerFont, bodyFont } = pair;
 
@@ -44,7 +58,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
       {/* Section 1: Sample header + body text — pinned to top */}
       <div style={{ padding: "24px", paddingBottom: "16px" }}>
         <h3
-          className="text-neutral-900 line-clamp-2"
+          className="text-neutral-900 break-words"
           style={{
             fontFamily: headerFamily,
             fontWeight: 700,
@@ -56,7 +70,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
           {headline}
         </h3>
         <p
-          className="text-neutral-600 line-clamp-3"
+          className="text-neutral-600 break-words"
           style={{
             fontFamily: bodyFamily,
             fontWeight: 400,

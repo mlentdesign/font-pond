@@ -125,6 +125,31 @@ export function ensureFontsRendered(fontNames: string[]): void {
   setTimeout(() => document.fonts.removeEventListener("loadingdone", onLoadingDone), 8000);
 }
 
+/**
+ * Resolves when all named fonts are confirmed loaded, or after a 3s timeout.
+ * Call loadFont() for each font before calling this.
+ */
+export function waitForFonts(fontNames: string[]): Promise<void> {
+  if (typeof window === "undefined" || !document.fonts || fontNames.length === 0) return Promise.resolve();
+  const unique = [...new Set(fontNames)];
+  return new Promise((resolve) => {
+    const deadline = setTimeout(resolve, 3000);
+    const check = async () => {
+      await document.fonts.ready;
+      const deadline2 = Date.now() + 3000;
+      while (Date.now() < deadline2) {
+        const allLoaded = unique.every(
+          (name) => document.fonts.check(`400 16px "${name}"`) || document.fonts.check(`700 16px "${name}"`)
+        );
+        if (allLoaded) { clearTimeout(deadline); resolve(); return; }
+        await new Promise(r => setTimeout(r, 100));
+      }
+      resolve();
+    };
+    check();
+  });
+}
+
 export function loadGoogleFont(family: string): void {
   loadFont({ name: family, slug: family.toLowerCase().replace(/\s+/g, "-"), source: "google-fonts", googleFontsFamily: family });
 }

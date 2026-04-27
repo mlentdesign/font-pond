@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ScoredPair } from "@/data/types";
-import { loadFont, getFontFamily, ensureFontsRendered } from "@/lib/fonts";
+import { loadFont, getFontFamily, waitForFonts } from "@/lib/fonts";
 import { sentenceCase } from "@/lib/text";
 import { navigateToPair } from "@/lib/navigate";
 
@@ -46,6 +46,7 @@ export function PairPreviewGrid({
   const adjustedInitial = Math.ceil(initialVisible / cols) * cols;
   const adjustedIncrement = Math.ceil(loadMoreIncrement / cols) * cols;
   const [visible, setVisible] = useState(adjustedInitial);
+  const [fontsReady, setFontsReady] = useState(false);
 
   useEffect(() => {
     setVisible(Math.ceil(initialVisible / cols) * cols);
@@ -53,21 +54,26 @@ export function PairPreviewGrid({
 
   const hasMore = visible < pairs.length;
 
-  // Load fonts for newly visible pairs
+  // Load all visible fonts, then reveal the grid once they're confirmed ready
   useEffect(() => {
+    setFontsReady(false);
     const fontNames: string[] = [];
     for (const p of pairs.slice(0, visible)) {
       loadFont(p.headerFont);
       loadFont(p.bodyFont);
       fontNames.push(p.headerFont.name, p.bodyFont.name);
     }
-    ensureFontsRendered(fontNames);
+    let cancelled = false;
+    waitForFonts(fontNames).then(() => {
+      if (!cancelled) setFontsReady(true);
+    });
+    return () => { cancelled = true; };
   }, [pairs, visible]);
 
   if (pairs.length === 0) return null;
 
   return (
-    <div className="detail-subheading">
+    <div className="detail-subheading" style={{ opacity: fontsReady ? 1 : 0, transition: fontsReady ? "opacity 300ms ease-out" : "none" }}>
       <h3 className="font-semibold text-neutral-700" style={{ fontSize: "16px", marginBottom: "16px" }}>{title}</h3>
       <div className="pair-grid">
         {pairs.slice(0, visible).map((p) => {
@@ -93,7 +99,7 @@ export function PairPreviewGrid({
               </span>
               <div>
                 <p
-                  className="leading-tight text-neutral-800 line-clamp-2"
+                  className="leading-tight text-neutral-800 break-words"
                   style={{ fontFamily: hFamily, fontWeight: 700, fontSize: "24px", marginBottom: "8px" }}
                 >
                   {headlineText}
