@@ -205,27 +205,28 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
   // After fonts are loaded, measure natural card heights and scale up specimen
   // text on the shorter card so both cards reach the same height.
+  // align-items:start on the container ensures we read natural heights, not
+  // grid-stretched heights (stretch would make both equal before we measure).
   useEffect(() => {
     if (!headerFont || !bodyFont) return;
     document.fonts.ready.then(() => {
-      requestAnimationFrame(() => {
+      // Two rAF frames so font-display:swap finishes painting before we measure
+      requestAnimationFrame(() => requestAnimationFrame(() => {
         const cardH1 = headerCardRef.current?.clientHeight ?? 0;
         const cardH2 = bodyCardRef.current?.clientHeight ?? 0;
         if (!cardH1 || !cardH2) return;
-        const diff = cardH2 - cardH1; // positive = header is shorter
+        const diff = cardH2 - cardH1; // positive means header is shorter
         if (Math.abs(diff) < 20) return;
         if (diff > 0) {
-          // Header card is shorter — scale its specimen up by the height difference
           const specH = headerSpecRef.current?.clientHeight ?? 0;
           if (!specH) return;
           setHeaderSpecSize(Math.round(36 * (specH + diff) / specH));
         } else {
-          // Body card is shorter — scale its specimen up
           const specH = bodySpecRef.current?.clientHeight ?? 0;
           if (!specH) return;
           setBodySpecSize(Math.round(36 * (specH + Math.abs(diff)) / specH));
         }
-      });
+      }));
     });
   }, [headerFont?.id, bodyFont?.id]);
 
@@ -424,7 +425,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
         </div>
 
         {/* Font sections — two columns */}
-        <div className="two-col-grid" style={{ marginBottom: "24px" }}>
+        <div className="two-col-grid" style={{ marginBottom: "24px", alignItems: "start" }}>
           <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={headerSpecSize} cardRef={headerCardRef} specimenRef={headerSpecRef} />
           <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={bodySpecSize} cardRef={bodyCardRef} specimenRef={bodySpecRef} />
         </div>
