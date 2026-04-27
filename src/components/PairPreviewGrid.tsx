@@ -79,7 +79,7 @@ export function PairPreviewGrid({
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [hasMore, adjustedIncrement, pairs.length]);
+  }, [hasMore, adjustedIncrement, pairs.length, visible]);
 
   if (pairs.length === 0) return null;
 
