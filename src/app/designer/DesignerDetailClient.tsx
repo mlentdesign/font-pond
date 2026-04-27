@@ -114,11 +114,51 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
   const [specimenSizes, setSpecimenSizes] = useState<Record<string, number>>({});
 
   useEffect(() => {
-    if (window.innerWidth < 768) return;
-
     let cancelled = false;
-    const fontNames = sorted.slice(0, visibleFonts).map(f => f.name);
 
+    if (window.innerWidth < 768) {
+      // Mobile: normalize all specimens to the same visual cap height so fonts
+      // look proportionally consistent when scrolling through stacked cards.
+      // Cards are NOT height-pinned on mobile — they grow to their natural content height.
+      const fontNames = sorted.slice(0, visibleFonts).map(f => f.name);
+      const runMobile = async () => {
+        await document.fonts.ready;
+        const unloaded = new Set(fontNames);
+        const deadline = Date.now() + 4000;
+        while (unloaded.size > 0 && Date.now() < deadline) {
+          for (const name of [...unloaded]) {
+            const faces = await document.fonts.load(`600 16px "${name}"`).catch(() => [] as FontFace[]);
+            if (faces.length > 0) unloaded.delete(name);
+          }
+          if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
+        }
+        if (cancelled) return;
+        await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+        if (cancelled) return;
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d')!;
+        const TARGET_CAP_H = 40; // all fonts scaled so capital letters appear 40px tall
+        const updates: Record<string, number> = {};
+
+        for (const font of sorted.slice(0, visibleFonts)) {
+          const family = getFontFamily(font.name, font.source);
+          ctx.font = `600 36px "${family}"`;
+          const capH = ctx.measureText("A").actualBoundingBoxAscent;
+          if (capH <= 0) continue;
+          updates[font.slug] = Math.max(28, Math.min(64, Math.round(36 * TARGET_CAP_H / capH)));
+        }
+
+        if (Object.keys(updates).length > 0) {
+          setSpecimenSizes(prev => ({ ...prev, ...updates }));
+        }
+      };
+      runMobile();
+      return () => { cancelled = true; };
+    }
+
+    // Desktop / tablet: binary search fills a fixed-height section.
+    const fontNames = sorted.slice(0, visibleFonts).map(f => f.name);
     const run = async () => {
       await document.fonts.ready;
       const unloaded = new Set(fontNames);
@@ -147,16 +187,12 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         const fontData = sorted.find(f => f.slug === slug);
         if (!fontData) continue;
         const family = getFontFamily(fontData.name, fontData.source);
-        // Capture section height now (before font sizes change) to pin it.
-        // Without this, the grid row grows when large font sizes overflow the section.
         const sectionH = sectionEl.offsetHeight;
-        if (sectionH < 32) continue;
+        const sectionW = sectionEl.offsetWidth;
+        if (sectionH < 32 || sectionW < 32) continue;
         heights[slug] = sectionH;
 
-        // Target: visual glyphs fill 80% of the locked section height.
-        // The section gets an explicit height (sectionH) after this runs, so
-        // any DOM metric overflow is clipped by overflow:hidden without growing the card.
-        const targetH = sectionH * 0.60;
+        const targetH = sectionH * 0.88;
 
         let lo = 12, hi = 250, best = 12;
         for (let i = 0; i < 14; i++) {
@@ -166,11 +202,27 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
           ctx.font = `600 ${mid}px "${family}"`;
           const bigM = ctx.measureText("Aa Bb Cc Dd Ee Ff");
-          const bigH = bigM.actualBoundingBoxAscent + bigM.actualBoundingBoxDescent;
+          const bigActual = bigM.actualBoundingBoxAscent + bigM.actualBoundingBoxDescent;
+          const bigLines = Math.max(1, Math.ceil(bigM.width / sectionW));
+          // (N-1) line spacings + max(line-box, actual visual glyph extent).
+          // Regular fonts: line-box (mid) ≥ actualBoundingBox → no change from line-box math.
+          // Display/decorative fonts (drips, tall ascenders): actualBoundingBox > mid →
+          // binary search finds a smaller size so the visual content doesn't clip.
+          const bigH = (bigLines - 1) * mid + Math.max(mid, bigActual);
 
           ctx.font = `400 ${smallSize}px "${family}"`;
-          const vH = (t: string) => { const m = ctx.measureText(t); return m.actualBoundingBoxAscent + m.actualBoundingBoxDescent; };
-          const totalH = bigH + 8 + vH("ABCDEFGHIJKLMNOPQRSTUVWXYZ") + lineGap + vH("abcdefghijklmnopqrstuvwxyz") + lineGap + vH("0123456789");
+          const vW = (t: string) => ctx.measureText(t).width;
+          const vEff = (t: string) => {
+            const m = ctx.measureText(t);
+            return Math.max(smallSize, m.actualBoundingBoxAscent + m.actualBoundingBoxDescent);
+          };
+          const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
+          const lowerLines = Math.max(1, Math.ceil(vW("abcdefghijklmnopqrstuvwxyz") / sectionW));
+          const numsLines  = Math.max(1, Math.ceil(vW("0123456789") / sectionW));
+          const totalH = bigH + 8
+            + (upperLines - 1) * smallSize + vEff("ABCDEFGHIJKLMNOPQRSTUVWXYZ") + lineGap
+            + (lowerLines - 1) * smallSize + vEff("abcdefghijklmnopqrstuvwxyz") + lineGap
+            + (numsLines  - 1) * smallSize + vEff("0123456789");
 
           if (totalH <= targetH) { best = mid; lo = mid + 1; }
           else hi = mid - 1;
@@ -260,7 +312,8 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                 {/* Specimen */}
                 <div
                   ref={(el) => { if (el) sectionRefs.current[font.slug] = el; else delete sectionRefs.current[font.slug]; }}
-                  style={{ ...(sectionHeights[font.slug] ? { height: `${sectionHeights[font.slug]}px` } : { flex: 1 }), minHeight: 0, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}
+                  className="spec-section"
+                  style={{ ...(sectionHeights[font.slug] ? { height: `${sectionHeights[font.slug]}px` } : { flex: 1 }), overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}
                 >
                   <div>
                     <div
