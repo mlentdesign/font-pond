@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { yearsBySlug } from "@/data/years";
+import { fontsBySlug } from "@/data/fonts";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
 import { getSourceLabel, formatClassification, chipCase } from "@/lib/text";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
@@ -16,12 +17,18 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
   const router = useRouter();
   const searchParams = useSearchParams();
   const paramSlug = slugOverride || searchParams.get("y") || "";
+  const rawFontSlug = searchParams.get("font") || "";
 
   const slugRef = useRef(paramSlug);
   if (paramSlug && paramSlug !== slugRef.current) slugRef.current = paramSlug;
   const slug = slugRef.current;
 
+  const fontSlugRef = useRef(rawFontSlug);
+  if (rawFontSlug && rawFontSlug !== fontSlugRef.current) fontSlugRef.current = rawFontSlug;
+  const fontSlug = fontSlugRef.current;
+
   const yearGroup = yearsBySlug.get(slug);
+  const fromFont = fontSlug ? fontsBySlug.get(fontSlug) : undefined;
 
   useEffect(() => {
     if (yearGroup && slug && window.location.search) {
@@ -40,6 +47,7 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
   }, [yearGroup]);
 
   const crumbs: { label: string; href?: string }[] = [];
+  if (fromFont) crumbs.push({ label: fromFont.name, href: `/font?f=${fontSlug}` });
   if (yearGroup) crumbs.push({ label: String(yearGroup.year) });
 
   if (!yearGroup) {
