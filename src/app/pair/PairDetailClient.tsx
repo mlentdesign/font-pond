@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { pairsBySlug, getPairOrConstruct } from "@/data/pairs";
+import { pairsBySlug, getPairOrConstruct, ensureDynamicPairs } from "@/data/pairs";
+ensureDynamicPairs();
 import { fontsById } from "@/data/fonts";
 import { getRelatedPairs } from "@/lib/engine";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
