@@ -998,7 +998,7 @@ export const allGoogleFonts: Font[] = [
   gf("Momo Trust Sans", "Momo Trust Sans", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Type Associates"),
   gf("Mona Sans", "Mona Sans", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Tobias Bjerrome Ahlin & Github & Degarism Studio & Sebastian Carewe"),
   gf("Monda", "Monda", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Vernon Adams"),
-  gf("Monofett", "Monofett", "monospace", ["monospace","code","technical","developer"], ["technical","precise","structured"], true, true, "Vernon Adams"),
+  gf("Monofett", "Monofett", "display", ["display","headline","bold","distinctive","expressive"], ["technical","precise","structured","bold"], false, true, "Vernon Adams"),
   gf("Monomakh", "Monomakh", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Aleksandr Andreev & Nikita Simmons"),
   gf("Monomaniac One", "Monomaniac One", "sans-serif", ["sans-serif","modern","clean","versatile"], ["modern","clean","professional"], true, true, "Maniackers Design"),
   gf("Monoton", "Monoton", "display", ["display","headline","bold","distinctive","expressive"], ["bold","expressive","distinctive"], false, true, "Vernon Adams"),
