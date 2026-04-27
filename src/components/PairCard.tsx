@@ -74,7 +74,7 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
 
         {/* Section 2: Description */}
         <div style={{ padding: "16px 24px" }}>
-          <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
+          <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
             DESCRIPTION
           </span>
           <p className="text-neutral-500 break-words" style={{ fontSize: "16px", lineHeight: 1.5 }}>
@@ -86,7 +86,7 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
 
         {/* Section 3: Header font + chips */}
         <div style={{ padding: "16px 24px" }}>
-          <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
+          <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
             HEADER
           </span>
           <span
@@ -112,7 +112,7 @@ export function PairCard({ pair, isExploring = false }: { pair: ScoredPair; isEx
 
         {/* Section 4: Body font + chips */}
         <div style={{ padding: "16px 24px 24px" }}>
-          <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
+          <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
             BODY
           </span>
           <span

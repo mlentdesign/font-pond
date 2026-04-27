@@ -189,25 +189,25 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                 {/* Meta row */}
                 <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-neutral-500" style={{ fontSize: "16px" }}>
                   <div>
-                    <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "4px" }}>
+                    <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", marginBottom: "4px" }}>
                       CLASSIFICATION
                     </span>
                     <span>{formatClassification(font.classification)}</span>
                   </div>
                   <div>
-                    <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "4px" }}>
+                    <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", marginBottom: "4px" }}>
                       LICENSE
                     </span>
                     <span>{font.licenseType}</span>
                   </div>
                   <div>
-                    <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "4px" }}>
+                    <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", marginBottom: "4px" }}>
                       YEAR
                     </span>
                     <span>{font.year || "Unknown"}</span>
                   </div>
                   <div>
-                    <span className="uppercase tracking-wider text-neutral-400 block" style={{ fontSize: "12px", marginBottom: "4px" }}>
+                    <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", marginBottom: "4px" }}>
                       VARIABLE
                     </span>
                     <span>{font.variableFont ? "Yes" : "No"}</span>

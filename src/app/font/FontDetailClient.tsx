@@ -508,19 +508,19 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                       <div className="border-t border-neutral-100" style={{ margin: "16px -24px", padding: "0" }} />
                       <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-neutral-500" style={{ fontSize: "16px" }}>
                         <div>
-                          <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>DESIGNER</span>
+                          <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}>DESIGNER</span>
                           <p>{sf.designer || "Unknown"}</p>
                         </div>
                         <div>
-                          <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>CLASSIFICATION</span>
+                          <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}>CLASSIFICATION</span>
                           <p>{formatClassification(sf.classification)}</p>
                         </div>
                         <div>
-                          <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>LICENSE</span>
+                          <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}>LICENSE</span>
                           <p>{titleCase(sf.licenseType)}</p>
                         </div>
                         <div>
-                          <span className="uppercase tracking-wider text-neutral-400 block mb-1" style={{ fontSize: "12px" }}>VARIABLE</span>
+                          <span className="uppercase tracking-wider text-neutral-400 block leading-none mb-1" style={{ fontSize: "12px" }}>VARIABLE</span>
                           <p>{sf.variableFont ? "Yes" : "No"}</p>
                         </div>
                       </div>
