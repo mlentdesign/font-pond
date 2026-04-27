@@ -4062,6 +4062,20 @@ export function explorePairs(): ScoredPair[] {
   return [...front, ...overflow];
 }
 
+export function reconstructExplorePairs(ids: string[]): ScoredPair[] {
+  ensureDynamicPairs();
+  const result: ScoredPair[] = [];
+  for (const id of ids) {
+    const pair = pairsById.get(id);
+    if (!pair) continue;
+    const hf = fontsById.get(pair.headerFontId);
+    const bf = fontsById.get(pair.bodyFontId);
+    if (!hf || !bf) continue;
+    result.push({ ...pair, relevanceScore: 0, promptFitReason: pair.shortExplanation, headerFont: hf, bodyFont: bf });
+  }
+  return result;
+}
+
 export function getPairsWithFont(fontId: string): ScoredPair[] {
   ensureDynamicPairs();
   const results = fontPairs
