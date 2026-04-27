@@ -117,6 +117,13 @@ export function ResultsGrid() {
       setFirstBatchLoaded(true);
     }
 
+    // Pre-warm fonts for the next batch so they're ready before the user scrolls to them
+    const nextBatch = remaining.slice(0, batchSizeForCols(colsRef.current) * 2);
+    for (const p of nextBatch) {
+      loadFont(p.headerFont);
+      loadFont(p.bodyFont);
+    }
+
     loadingRef.current = false;
   }, []);
 
@@ -136,7 +143,7 @@ export function ResultsGrid() {
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) loadNext(); },
-      { rootMargin: "0px 0px 200px 0px", threshold: 0 }
+      { rootMargin: "0px 0px 800px 0px", threshold: 0 }
     );
     observer.observe(el);
     return () => observer.disconnect();
