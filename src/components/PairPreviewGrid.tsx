@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ScoredPair } from "@/data/types";
 import { loadFont, getFontFamily, ensureFontsRendered } from "@/lib/fonts";
@@ -46,7 +46,6 @@ export function PairPreviewGrid({
   const adjustedInitial = Math.ceil(initialVisible / cols) * cols;
   const adjustedIncrement = Math.ceil(loadMoreIncrement / cols) * cols;
   const [visible, setVisible] = useState(adjustedInitial);
-  const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setVisible(Math.ceil(initialVisible / cols) * cols);
@@ -64,22 +63,6 @@ export function PairPreviewGrid({
     }
     ensureFontsRendered(fontNames);
   }, [pairs, visible]);
-
-  // Infinite scroll: load more when sentinel enters the viewport
-  useEffect(() => {
-    const el = sentinelRef.current;
-    if (!el || !hasMore) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible((v) => Math.min(v + adjustedIncrement, pairs.length));
-        }
-      },
-      { rootMargin: "0px 0px 200px 0px", threshold: 0 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [hasMore, adjustedIncrement, pairs.length, visible]);
 
   if (pairs.length === 0) return null;
 
@@ -138,19 +121,16 @@ export function PairPreviewGrid({
         })}
       </div>
       {hasMore && (
-        <>
-          <div ref={sentinelRef} style={{ height: 1 }} />
-          <div style={{ textAlign: "center", marginTop: "24px" }}>
-            <button
-              type="button"
-              onClick={() => setVisible((v) => Math.min(v + adjustedIncrement, pairs.length))}
-              className="btn-generate font-medium rounded-lg"
-              style={{ fontSize: "16px", padding: "12px 24px" }}
-            >
-              Load more
-            </button>
-          </div>
-        </>
+        <div style={{ textAlign: "center", marginTop: "24px" }}>
+          <button
+            type="button"
+            onClick={() => setVisible((v) => Math.min(v + adjustedIncrement, pairs.length))}
+            className="outline-btn font-medium rounded-lg"
+            style={{ fontSize: "16px", padding: "12px 24px" }}
+          >
+            Load more
+          </button>
+        </div>
       )}
     </div>
   );
