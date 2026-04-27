@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { pairsBySlug, getPairOrConstruct, ensureDynamicPairs } from "@/data/pairs";
@@ -196,39 +196,40 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const bodySpecRef = useRef<HTMLDivElement>(null);
   const [headerSpecSize, setHeaderSpecSize] = useState(36);
   const [bodySpecSize, setBodySpecSize] = useState(36);
+  const iterRef = useRef(0);
 
   // Reset on pair change
   useEffect(() => {
     setHeaderSpecSize(36);
     setBodySpecSize(36);
+    iterRef.current = 0;
   }, [slug]);
 
-  // After fonts are loaded, measure natural card heights and scale up specimen
-  // text on the shorter card so both cards reach the same height.
-  // align-items:start on the container ensures we read natural heights, not
-  // grid-stretched heights (stretch would make both equal before we measure).
+  const measureAndAdjust = useCallback(() => {
+    if (iterRef.current >= 5) return;
+    const h1 = headerCardRef.current?.clientHeight ?? 0;
+    const h2 = bodyCardRef.current?.clientHeight ?? 0;
+    if (!h1 || !h2 || Math.abs(h1 - h2) < 12) return;
+    iterRef.current++;
+    // Damped additive step: 65% of gap / 1.1px-per-font-px converges without oscillating
+    const diff = h2 - h1; // positive = header shorter
+    if (diff > 0) setHeaderSpecSize(prev => prev + Math.max(1, Math.round(diff * 0.65 / 1.1)));
+    else setBodySpecSize(prev => prev + Math.max(1, Math.round(Math.abs(diff) * 0.65 / 1.1)));
+  }, []);
+
+  // Initial measurement after fonts load
   useEffect(() => {
     if (!headerFont || !bodyFont) return;
     document.fonts.ready.then(() => {
-      // Two rAF frames so font-display:swap finishes painting before we measure
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        const cardH1 = headerCardRef.current?.clientHeight ?? 0;
-        const cardH2 = bodyCardRef.current?.clientHeight ?? 0;
-        if (!cardH1 || !cardH2) return;
-        const diff = cardH2 - cardH1; // positive means header is shorter
-        if (Math.abs(diff) < 20) return;
-        if (diff > 0) {
-          const specH = headerSpecRef.current?.clientHeight ?? 0;
-          if (!specH) return;
-          setHeaderSpecSize(Math.round(36 * (specH + diff) / specH));
-        } else {
-          const specH = bodySpecRef.current?.clientHeight ?? 0;
-          if (!specH) return;
-          setBodySpecSize(Math.round(36 * (specH + Math.abs(diff)) / specH));
-        }
-      }));
+      requestAnimationFrame(() => requestAnimationFrame(measureAndAdjust));
     });
-  }, [headerFont?.id, bodyFont?.id]);
+  }, [headerFont?.id, bodyFont?.id, measureAndAdjust]);
+
+  // Re-measure after each adjustment until converged or max iterations
+  useEffect(() => {
+    if (iterRef.current === 0) return;
+    requestAnimationFrame(() => requestAnimationFrame(measureAndAdjust));
+  }, [headerSpecSize, bodySpecSize, measureAndAdjust]);
 
   useEffect(() => {
     if (headerFont) loadFont(headerFont);
