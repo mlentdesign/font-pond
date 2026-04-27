@@ -33,33 +33,29 @@ async function checkPairFonts(pair: ScoredPair): Promise<boolean> {
   loadFont(pair.headerFont);
   loadFont(pair.bodyFont);
 
-  return new Promise<boolean>((resolve) => {
-    const check = () =>
-      document.fonts.check(`700 16px "${pair.headerFont.name}"`) &&
-      document.fonts.check(`400 16px "${pair.bodyFont.name}"`);
+  // Poll document.fonts.load() — returns [] until the CDN stylesheet is parsed
+  // and @font-face rules are registered. Once registered, resolves with FontFace[].
+  // Check both weights per font since not all fonts have a 700 face.
+  const loadAny = (name: string) =>
+    Promise.all([
+      document.fonts.load(`700 16px "${name}"`).catch(() => [] as FontFace[]),
+      document.fonts.load(`400 16px "${name}"`).catch(() => [] as FontFace[]),
+    ]).then(([f700, f400]) => f700.length + f400.length);
 
-    const succeed = () => {
-      clearTimeout(tid);
-      document.fonts.removeEventListener("loadingdone", onDone);
+  const deadline = Date.now() + 3000;
+  while (Date.now() < deadline) {
+    const [h, b] = await Promise.all([
+      loadAny(pair.headerFont.name),
+      loadAny(pair.bodyFont.name),
+    ]);
+    if (h > 0 && b > 0) {
       // Two frames so font-display:swap finishes before the card appears.
-      requestAnimationFrame(() => requestAnimationFrame(() => resolve(true)));
-    };
-
-    const tid = setTimeout(() => {
-      document.fonts.removeEventListener("loadingdone", onDone);
-      resolve(false);
-    }, 3000);
-
-    const onDone = () => { if (check()) succeed(); };
-
-    if (check()) { succeed(); return; }
-
-    document.fonts.addEventListener("loadingdone", onDone);
-
-    // Also call .load() to trigger the CDN fetch — don't await, just let it run.
-    document.fonts.load(`700 12px "${pair.headerFont.name}"`).then(() => { if (check()) succeed(); }).catch(() => {});
-    document.fonts.load(`400 12px "${pair.bodyFont.name}"`).then(() => { if (check()) succeed(); }).catch(() => {});
-  });
+      await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+      return true;
+    }
+    await new Promise(r => setTimeout(r, 100));
+  }
+  return false;
 }
 
 async function fillBatch(
@@ -96,13 +92,24 @@ export function ResultsGrid() {
   const queueRef = useRef<ScoredPair[]>([]);
   const loadingRef = useRef(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
+  // Generation counter: incremented on each reset so stale async loads discard their results.
+  // This prevents React StrictMode's double-effect invocation from adding duplicate pairs.
+  const generationRef = useRef(0);
 
   const loadNext = useCallback(async () => {
     if (loadingRef.current || queueRef.current.length === 0) return;
     loadingRef.current = true;
+    const myGen = generationRef.current;
 
     const size = batchSizeForCols(colsRef.current);
     const { loaded, remaining } = await fillBatch(queueRef.current, size);
+
+    if (myGen !== generationRef.current) {
+      // Results changed while fonts were loading — discard stale batch.
+      loadingRef.current = false;
+      return;
+    }
+
     queueRef.current = remaining;
 
     if (loaded.length > 0) {
@@ -115,6 +122,7 @@ export function ResultsGrid() {
 
   // Reset and load first batch when results change
   useEffect(() => {
+    generationRef.current += 1;
     setVisiblePairs([]);
     setFirstBatchLoaded(false);
     loadingRef.current = false;
@@ -165,12 +173,11 @@ export function ResultsGrid() {
   visiblePairs.forEach((item, i) => columns[i % cols].push(item));
 
   const gap = cols >= 2 ? 16 : 24;
-  const topLabel = batchSize === 4 ? "Top 4 recommendations" : "Top 3 recommendations";
 
   return (
     <div className="w-full">
       <p className="font-semibold text-neutral-700" style={{ fontSize: "16px", marginBottom: "16px" }}>
-        {isExploring ? "Here are some ideas, to spark your creativity" : topLabel}
+        {isExploring ? "Here are some ideas, to spark your creativity" : "Here's what we found"}
       </p>
 
       {/* Masonry columns — each column is an independent flex stack, cards take natural height */}
