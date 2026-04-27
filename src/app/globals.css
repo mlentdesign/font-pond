@@ -786,6 +786,24 @@ body.animations-paused #water-bg * {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Equal-height CSS grid for PairPreviewGrid (Other interesting pairings, Pairs using font) */
+.pair-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 768px) {
+  .pair-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+@media (min-width: 1024px) {
+  .pair-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 /* Skeleton grid only — real cards use explicit masonry columns in JSX */
 .pair-grid-skeleton {
   display: grid;
