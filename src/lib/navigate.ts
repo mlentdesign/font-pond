@@ -4,8 +4,9 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
  * Navigate to a font or pair page with clean URL in the address bar.
  * Uses the catch-all base route internally, then updates the URL bar.
  */
-export function navigateToFont(router: AppRouterInstance, slug: string) {
-  router.push(`/font?f=${slug}`);
+export function navigateToFont(router: AppRouterInstance, slug: string, fromPair?: string) {
+  const url = fromPair ? `/font/${slug}?from=${fromPair}` : `/font/${slug}`;
+  router.push(url);
 }
 
 export function navigateToPair(router: AppRouterInstance, slug: string) {

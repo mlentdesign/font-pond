@@ -59,9 +59,9 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
     const hName = fontsById.get(fromPairData.headerFontId)?.name;
     const bName = fontsById.get(fromPairData.bodyFontId)?.name;
     const pairLabel = hName && bName ? `${hName} + ${bName}` : fromPairData.slug;
-    crumbs.push({ label: pairLabel, href: `/pair?p=${fromPair}` });
+    crumbs.push({ label: pairLabel, href: `/pair/${fromPair}` });
   }
-  if (fromFont) crumbs.push({ label: fromFont.name, href: `/font?f=${fontSlug}${fromPair ? `&from=${fromPair}` : ""}` });
+  if (fromFont) crumbs.push({ label: fromFont.name, href: `/font/${fontSlug}${fromPair ? `?from=${fromPair}` : ""}` });
   if (designer) crumbs.push({ label: designer.name });
 
   if (!designer) {
@@ -121,11 +121,11 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                 key={font.slug}
                 role="link"
                 tabIndex={0}
-                onClick={() => router.push(`/font?f=${font.slug}`)}
+                onClick={() => router.push(`/font/${font.slug}`)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    router.push(`/font?f=${font.slug}`);
+                    router.push(`/font/${font.slug}`);
                   }
                 }}
                 onMouseDown={(e) => e.preventDefault()}
