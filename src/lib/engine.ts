@@ -3657,6 +3657,16 @@ function generateFitReason(
     }
     if (tagSet.has(word)) connections.push(word);
   }
+
+  const hasKeywordConns = connections.length > 0;
+
+  // Fallback: if no direct tag matches, pull the pair's own toneDescriptors as context bridges
+  if (!hasKeywordConns) {
+    const tones = [...new Set([...hf.toneDescriptors.slice(0, 2), ...bf.toneDescriptors.slice(0, 1)])]
+      .filter(t => t.length > 3);
+    connections.push(...tones.slice(0, 2));
+  }
+
   const uniqueConns = [...new Set(connections)].slice(0, 3);
 
   const parts: string[] = [];
@@ -3678,7 +3688,10 @@ function generateFitReason(
     const short = promptPhrase.length <= 45 ? promptPhrase : promptPhrase.split(/[,.\-—]/).filter(s => s.trim().length > 3)[0]?.trim() || promptPhrase.slice(0, 40);
     parts.push(`For "${short}" — ${hf.name} brings ${headerTone.toLowerCase()} energy with its ${headerTrait}`);
     if (uniqueConns.length > 0) {
-      parts.push(`captures the ${uniqueConns.join(", ")} feel`);
+      parts.push(hasKeywordConns
+        ? `captures the ${uniqueConns.join(", ")} feel`
+        : `its ${uniqueConns.join(", ")} qualities suit this context`
+      );
     }
   }
 

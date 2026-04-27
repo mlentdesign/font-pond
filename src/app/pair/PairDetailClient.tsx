@@ -181,16 +181,6 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
   const bodyFont = pair ? fontsById.get(pair.bodyFontId) : undefined;
 
-  // Swap to clean CMS URL only for pre-defined pairs (not constructed ones).
-  // Constructed pairs have no pre-rendered page so their URL must stay as ?p=.
-  useEffect(() => {
-    const isConstructed = pair?.id?.startsWith("constructed-");
-    if (pair && slug && !isConstructed && window.location.search.includes("p=")) {
-      const cleanUrl = pair.url ? `/font-pond${pair.url}` : `/font-pond/pair/${slug}`;
-      window.history.replaceState(null, "", cleanUrl);
-    }
-  }, [pair, slug]);
-
   useEffect(() => {
     if (headerFont) loadFont(headerFont);
     if (bodyFont) loadFont(bodyFont);

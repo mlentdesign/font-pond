@@ -9,5 +9,5 @@ export function navigateToFont(router: AppRouterInstance, slug: string) {
 }
 
 export function navigateToPair(router: AppRouterInstance, slug: string) {
-  router.push(`/pair?p=${slug}`);
+  router.push(`/pair/${slug}`);
 }
