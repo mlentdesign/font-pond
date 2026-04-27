@@ -2,7 +2,7 @@ import FontSlugClient from "./FontSlugClient";
 import { fontsBySlug } from "@/data/fonts";
 
 export function generateStaticParams() {
-  return [{ slug: undefined }];
+  return [{ slug: [] }];
 }
 
 export default async function FontPage({ params }: { params: Promise<{ slug?: string[] }> }) {
