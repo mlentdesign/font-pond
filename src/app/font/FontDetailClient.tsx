@@ -260,7 +260,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                     <span key={name}>
                       <button
                         type="button"
-                        onClick={() => router.push(`/designer?d=${designerToSlug(name)}${slug ? `&font=${slug}` : ""}${fromPair ? `&from=${fromPair}` : ""}`)}
+                        onClick={() => router.push(`/designer/${designerToSlug(name)}${slug || fromPair ? `?${slug ? `font=${slug}` : ""}${slug && fromPair ? "&" : ""}${fromPair ? `from=${fromPair}` : ""}` : ""}`)}
                         className="hover:underline"
                         style={{ color: "inherit", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
                       >
