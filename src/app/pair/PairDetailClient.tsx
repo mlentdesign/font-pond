@@ -197,6 +197,13 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
   const bodyFont = pair ? fontsById.get(pair.bodyFontId) : undefined;
 
+  // Clean ?p= query param out of the URL once the pair is loaded
+  useEffect(() => {
+    if (pair && slug && window.location.search) {
+      window.history.replaceState(null, "", `/font-pond/pair/${slug}`);
+    }
+  }, [pair, slug]);
+
   const gridRef = useRef<HTMLDivElement>(null);
   const hSectionRef = useRef<HTMLDivElement>(null);
   const hContentRef = useRef<HTMLDivElement>(null);
