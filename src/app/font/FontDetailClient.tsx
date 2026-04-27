@@ -249,9 +249,9 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
         />
 
         {/* Font name, creator, and download */}
-        <div ref={downloadRef} className="flex flex-col sm:flex-row sm:items-start sm:justify-between" style={{ marginBottom: "24px", gap: "16px" }}>
+        <div ref={downloadRef} className="flex flex-col sm:flex-row sm:items-start sm:justify-between" style={{ marginBottom: "32px", gap: "16px" }}>
           <div>
-            <h1 className="text-3xl font-semibold text-neutral-900 mb-1">{font.name}</h1>
+            <h1 className="font-semibold text-neutral-900" style={{ fontSize: "40px", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: "8px" }}>{font.name}</h1>
             <p className="text-sm text-neutral-400">
               {font.designer ? (
                 <>
