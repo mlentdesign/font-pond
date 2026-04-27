@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { pairsBySlug, getPairOrConstruct, ensureDynamicPairs } from "@/data/pairs";
@@ -24,11 +24,15 @@ function FontSection({
   role,
   pairSlug,
   onNavigate,
+  specimenFontSize = 36,
+  cardRef,
 }: {
   font: import("@/data/types").Font;
   role: "Header" | "Body";
   pairSlug: string;
   onNavigate: (slug: string) => void;
+  specimenFontSize?: number;
+  cardRef?: React.RefObject<HTMLDivElement | null>;
 }) {
   const family = getFontFamily(font.name, font.source);
   const sourceLabel = getSourceLabel(font.source);
@@ -39,6 +43,7 @@ function FontSection({
 
   return (
     <div
+      ref={cardRef}
       role="link"
       tabIndex={0}
       onClick={() => onNavigate(font.slug)}
@@ -77,17 +82,17 @@ function FontSection({
       {/* Divider: between header info and specimen */}
       <div className="border-t border-neutral-100" style={{ margin: "24px -24px 16px", padding: "0" }} />
 
-      {/* Specimen — flex:1 + container-type:size on desktop so cqh fills available space */}
-      <div className="font-card-specimen">
+      {/* Specimen — nowrap keeps height predictable so single-pass JS calc is exact */}
+      <div style={{ overflow: "hidden" }}>
         <div
-          className="font-card-specimen-big leading-tight mb-4 text-neutral-800"
-          style={{ fontFamily: family, fontWeight: role === "Header" ? 600 : 400 }}
+          className="leading-tight mb-4 text-neutral-800"
+          style={{ fontFamily: family, fontWeight: role === "Header" ? 600 : 400, fontSize: `${specimenFontSize}px`, whiteSpace: "nowrap", overflow: "hidden" }}
         >
           Aa Bb Cc Dd Ee Ff Gg
         </div>
         <div
-          className="font-card-specimen-small leading-relaxed text-neutral-600"
-          style={{ fontFamily: family, fontWeight: 400 }}
+          className="leading-relaxed text-neutral-600"
+          style={{ fontFamily: family, fontWeight: 400, fontSize: `${Math.round(specimenFontSize * 16 / 36)}px`, whiteSpace: "nowrap", overflow: "hidden" }}
         >
           ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789
         </div>
@@ -183,6 +188,31 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
   const bodyFont = pair ? fontsById.get(pair.bodyFontId) : undefined;
 
+  const headerCardRef = useRef<HTMLDivElement>(null);
+  const bodyCardRef = useRef<HTMLDivElement>(null);
+  const [headerSpecSize, setHeaderSpecSize] = useState(36);
+  const [bodySpecSize, setBodySpecSize] = useState(36);
+
+  useEffect(() => { setHeaderSpecSize(36); setBodySpecSize(36); }, [slug]);
+
+  useEffect(() => {
+    if (!headerFont || !bodyFont) return;
+    // align-items:start on the grid means cards sit at natural height.
+    // Text is nowrap so height = fontSize * 1.972 + 16 exactly.
+    // One measurement → exact font size. No iteration.
+    document.fonts.ready.then(() => {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        const h1 = headerCardRef.current?.clientHeight ?? 0;
+        const h2 = bodyCardRef.current?.clientHeight ?? 0;
+        if (!h1 || !h2) return;
+        const diff = h2 - h1; // positive = header shorter
+        if (Math.abs(diff) < 12) return;
+        // new_size = 36 + diff / 1.972  (derived from: Δheight = ΔfontSize × 1.972)
+        if (diff > 0) setHeaderSpecSize(Math.max(36, Math.round(36 + diff / 1.972)));
+        else setBodySpecSize(Math.max(36, Math.round(36 + Math.abs(diff) / 1.972)));
+      }));
+    });
+  }, [headerFont?.id, bodyFont?.id]);
 
   useEffect(() => {
     if (headerFont) loadFont(headerFont);
@@ -379,9 +409,9 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
         </div>
 
         {/* Font sections — two columns */}
-        <div className="two-col-grid" style={{ marginBottom: "24px" }}>
-          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} />
-          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} />
+        <div className="two-col-grid" style={{ marginBottom: "24px", alignItems: "start" }}>
+          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={headerSpecSize} cardRef={headerCardRef} />
+          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={bodySpecSize} cardRef={bodyCardRef} />
         </div>
 
         {/* Related pairings */}
