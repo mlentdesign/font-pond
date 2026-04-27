@@ -93,7 +93,6 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
   }, [hasMoreFonts, fontCount, visibleFonts]);
 
   // Per-card specimen scaling — binary-search approach
-  const gridRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<Record<string, HTMLDivElement>>({});
   const contentRefs = useRef<Record<string, HTMLDivElement>>({});
   const bigRefs = useRef<Record<string, HTMLDivElement>>({});
@@ -102,8 +101,6 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
 
   useEffect(() => {
     if (window.innerWidth < 768) return;
-    const grid = gridRef.current;
-    if (!grid) return;
 
     let cancelled = false;
     const fontNames = sorted.slice(0, visibleFonts).map(f => f.name);
@@ -127,52 +124,31 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
       await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
       if (cancelled) return;
 
-      grid.style.alignItems = 'start';
-      void grid.offsetHeight;
-
-      const rows = new Map<number, string[]>();
-      for (const [slug, sectionEl] of Object.entries(sectionRefs.current)) {
-        const cardEl = sectionEl.parentElement as HTMLDivElement;
-        if (!cardEl) continue;
-        const top = Math.round(cardEl.offsetTop);
-        if (!rows.has(top)) rows.set(top, []);
-        rows.get(top)!.push(slug);
-      }
-
       const updates: Record<string, number> = {};
 
-      for (const slugsInRow of rows.values()) {
-        if (slugsInRow.length < 2) continue;
-        const heights: Record<string, number> = {};
-        for (const slug of slugsInRow) {
-          const cardEl = sectionRefs.current[slug]?.parentElement as HTMLDivElement;
-          if (cardEl) heights[slug] = cardEl.offsetHeight;
-        }
-        const maxH = Math.max(...Object.values(heights));
+      // Scale each card's specimen text to fill its section height.
+      // The section has flex:1 so its height = available space after header/chips/meta.
+      // Binary search finds the largest size where content fits without clipping.
+      for (const [fontSlug, sectionEl] of Object.entries(sectionRefs.current)) {
+        const sectionH = sectionEl.offsetHeight;
+        const contentEl = contentRefs.current[fontSlug];
+        const bigEl = bigRefs.current[fontSlug];
+        const smallEl = smallRefs.current[fontSlug];
+        if (!contentEl || !bigEl || !smallEl || sectionH < 32) continue;
 
-        for (const slug of slugsInRow) {
-          const gap = maxH - (heights[slug] ?? maxH);
-          if (gap < 8) continue;
-          const contentEl = contentRefs.current[slug];
-          const bigEl = bigRefs.current[slug];
-          const smallEl = smallRefs.current[slug];
-          if (!contentEl || !bigEl || !smallEl) continue;
-          const targetH = contentEl.offsetHeight + gap;
-          let lo = 24, hi = 200, best = 36;
-          for (let i = 0; i < 10; i++) {
-            const mid = Math.round((lo + hi) / 2);
-            bigEl.style.fontSize = `${mid}px`;
-            smallEl.style.fontSize = `${Math.round(mid * 16 / 36)}px`;
-            if (contentEl.offsetHeight <= targetH) { best = mid; lo = mid + 1; }
-            else hi = mid - 1;
-          }
-          bigEl.style.fontSize = '';
-          smallEl.style.fontSize = '';
-          updates[slug] = Math.max(36, best);
+        let lo = 12, hi = 200, best = 12;
+        for (let i = 0; i < 12; i++) {
+          const mid = Math.round((lo + hi) / 2);
+          bigEl.style.fontSize = `${mid}px`;
+          smallEl.style.fontSize = `${Math.round(mid * 16 / 36)}px`;
+          if (contentEl.offsetHeight <= sectionH) { best = mid; lo = mid + 1; }
+          else hi = mid - 1;
         }
+        bigEl.style.fontSize = '';
+        smallEl.style.fontSize = '';
+        updates[fontSlug] = Math.max(12, best);
       }
 
-      grid.style.alignItems = '';
       if (Object.keys(updates).length > 0) {
         setSpecimenSizes(prev => ({ ...prev, ...updates }));
       }
@@ -200,7 +176,7 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
         </div>
 
         {/* Font grid */}
-        <div ref={gridRef} className="designer-font-grid">
+        <div className="designer-font-grid">
           {sorted.slice(0, visibleFonts).map((font) => {
             const family = getFontFamily(font.name, font.source);
             const sourceLabel = getSourceLabel(font.source);
