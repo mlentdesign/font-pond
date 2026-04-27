@@ -922,9 +922,13 @@ body.animations-paused #water-bg * {
   }
 }
 
-/* Database sticky header — box-shadow only appears when header is stuck */
+/* Database sticky header — box-shadow only appears when header is stuck.
+   Top radius removed when stuck so the box-shadow has no rounded corners
+   and leaves no gap for content to peek through. */
 .db-sticky-clip.is-stuck {
   box-shadow: 0 -500px 0 500px var(--bg);
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
 }
 
 /* Database search — matches main text entry focus behavior */
