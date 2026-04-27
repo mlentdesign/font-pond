@@ -99,9 +99,6 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
         {/* Designer name + count */}
         <div style={{ marginBottom: "32px" }}>
-          <p className="uppercase tracking-wider text-neutral-400" style={{ fontSize: "12px", marginBottom: "8px" }}>
-            TYPE DESIGNER
-          </p>
           <h1 className="font-semibold text-neutral-900" style={{ fontSize: "40px", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: "8px" }}>
             {designer.name}
           </h1>
