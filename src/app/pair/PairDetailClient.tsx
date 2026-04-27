@@ -197,6 +197,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
   const bodyFont = pair ? fontsById.get(pair.bodyFontId) : undefined;
 
+  const gridRef = useRef<HTMLDivElement>(null);
   const hSectionRef = useRef<HTMLDivElement>(null);
   const hContentRef = useRef<HTMLDivElement>(null);
   const hBigRef = useRef<HTMLDivElement>(null);
@@ -214,21 +215,45 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
     if (!headerFont || !bodyFont || window.innerWidth < 1024) return;
     document.fonts.ready.then(() => {
       requestAnimationFrame(() => requestAnimationFrame(() => {
-        // Binary search for the largest font size whose content fits within the section.
-        // Directly mutates DOM styles to measure actual wrapped heights, resets before React renders.
-        const fitSection = (
-          sectionEl: HTMLDivElement, contentEl: HTMLDivElement,
-          bigEl: HTMLDivElement, smallEl: HTMLDivElement
+        const grid = gridRef.current;
+        const hSection = hSectionRef.current;
+        const hContent = hContentRef.current;
+        const hBig = hBigRef.current;
+        const hSmall = hSmallRef.current;
+        const bSection = bSectionRef.current;
+        const bContent = bContentRef.current;
+        const bBig = bBigRef.current;
+        const bSmall = bSmallRef.current;
+        if (!grid || !hSection || !hContent || !hBig || !hSmall ||
+            !bSection || !bContent || !bBig || !bSmall) return;
+
+        // Step 1: measure natural card heights with no grid stretching
+        grid.style.alignItems = 'start';
+        void grid.offsetHeight; // force reflow
+
+        const hCardH = (hSection.parentElement as HTMLDivElement).offsetHeight;
+        const bCardH = (bSection.parentElement as HTMLDivElement).offsetHeight;
+        const hBaseContentH = hContent.offsetHeight;
+        const bBaseContentH = bContent.offsetHeight;
+
+        // Restore stretch so cards stay equal height
+        grid.style.alignItems = '';
+
+        const gap = Math.abs(hCardH - bCardH);
+        if (gap < 8) return; // cards are already close enough
+
+        // Step 2: binary search the shorter card's font size so its
+        // specimen content grows by exactly `gap` — matching natural heights
+        const findSize = (
+          bigEl: HTMLDivElement, smallEl: HTMLDivElement,
+          contentEl: HTMLDivElement, targetH: number
         ): number => {
-          const targetH = sectionEl.clientHeight;
-          if (!targetH) return 36;
           let lo = 24, hi = 200, best = 36;
           for (let i = 0; i < 10; i++) {
             const mid = Math.round((lo + hi) / 2);
             bigEl.style.fontSize = `${mid}px`;
             smallEl.style.fontSize = `${Math.round(mid * 16 / 36)}px`;
-            const contentH = contentEl.offsetHeight;
-            if (contentH <= targetH) { best = mid; lo = mid + 1; }
+            if (contentEl.offsetHeight <= targetH) { best = mid; lo = mid + 1; }
             else hi = mid - 1;
           }
           bigEl.style.fontSize = '';
@@ -236,10 +261,11 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
           return Math.max(36, best);
         };
 
-        if (hSectionRef.current && hContentRef.current && hBigRef.current && hSmallRef.current)
-          setHeaderSpecSize(fitSection(hSectionRef.current, hContentRef.current, hBigRef.current, hSmallRef.current));
-        if (bSectionRef.current && bContentRef.current && bBigRef.current && bSmallRef.current)
-          setBodySpecSize(fitSection(bSectionRef.current, bContentRef.current, bBigRef.current, bSmallRef.current));
+        if (hCardH < bCardH) {
+          setHeaderSpecSize(findSize(hBig, hSmall, hContent, hBaseContentH + gap));
+        } else {
+          setBodySpecSize(findSize(bBig, bSmall, bContent, bBaseContentH + gap));
+        }
       }));
     });
   }, [headerFont?.id, bodyFont?.id]);
@@ -439,7 +465,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
         </div>
 
         {/* Font sections — two columns */}
-        <div className="two-col-grid" style={{ marginBottom: "24px" }}>
+        <div ref={gridRef} className="two-col-grid" style={{ marginBottom: "24px" }}>
           <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={headerSpecSize} sectionRef={hSectionRef} contentRef={hContentRef} bigRef={hBigRef} smallRef={hSmallRef} />
           <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={bodySpecSize} sectionRef={bSectionRef} contentRef={bContentRef} bigRef={bBigRef} smallRef={bSmallRef} />
         </div>
