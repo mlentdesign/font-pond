@@ -14,8 +14,15 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
   const headline = sampleHeadline || DEFAULT_HEADLINE;
   const body = sampleBody || DEFAULT_BODY;
 
-  const [fontsReady, setFontsReady] = useState(false);
+  const fontsAlreadyLoaded = () => {
+    if (typeof window === "undefined" || !document.fonts) return false;
+    const h = pair.headerFont.name, b = pair.bodyFont.name;
+    return (document.fonts.check(`400 16px "${h}"`) || document.fonts.check(`700 16px "${h}"`))
+        && (document.fonts.check(`400 16px "${b}"`) || document.fonts.check(`700 16px "${b}"`));
+  };
+  const [fontsReady, setFontsReady] = useState(fontsAlreadyLoaded);
   useEffect(() => {
+    if (fontsReady) return;
     loadFont(pair.headerFont);
     loadFont(pair.bodyFont);
     let cancelled = false;
