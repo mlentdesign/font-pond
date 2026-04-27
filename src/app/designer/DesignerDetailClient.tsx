@@ -118,7 +118,13 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
     if (window.innerWidth < 768) return;
     const grid = gridRef.current;
     if (!grid) return;
-    document.fonts.ready.then(() => {
+    const visibleNames = sorted.slice(0, visibleFonts).map(f => f.name);
+    document.fonts.ready.then(() =>
+      Promise.all(visibleNames.flatMap(name => [
+        document.fonts.load(`700 16px "${name}"`).catch(() => []),
+        document.fonts.load(`400 16px "${name}"`).catch(() => []),
+      ]))
+    ).then(() => {
       requestAnimationFrame(() => requestAnimationFrame(() => {
         grid.style.alignItems = 'start';
         void grid.offsetHeight;
