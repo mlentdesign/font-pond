@@ -859,6 +859,32 @@ body.animations-paused #water-bg * {
   }
 }
 
+/* Font pair card specimen — scales to fill available height on desktop */
+.font-card-specimen {
+  overflow: hidden;
+}
+.font-card-specimen-big {
+  font-size: 36px;
+}
+.font-card-specimen-small {
+  font-size: 16px;
+}
+@media (min-width: 1024px) {
+  .font-card-specimen {
+    flex: 1;
+    min-height: 0;
+    container-type: size;
+  }
+  /* 46cqh fills ~100% of the section at 1-line wrap; clamped to 36px floor */
+  .font-card-specimen-big {
+    font-size: clamp(36px, 46cqh, 120px);
+  }
+  /* alphabet scales proportionally (16/36 ratio) */
+  .font-card-specimen-small {
+    font-size: clamp(16px, 20cqh, 54px);
+  }
+}
+
 /* Three-column layout that stacks on mobile */
 .three-col-grid {
   display: grid;
