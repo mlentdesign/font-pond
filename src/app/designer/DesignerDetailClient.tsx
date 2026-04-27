@@ -166,10 +166,10 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                   Aa Bb Cc Dd Ee Ff
                 </div>
                 <div
-                  className="leading-relaxed text-neutral-500 break-words"
+                  className="leading-relaxed text-neutral-500 line-clamp-2"
                   style={{ fontFamily: family, fontWeight: 400, fontSize: "15px", marginBottom: "16px" }}
                 >
-                  The quick brown fox jumps over the lazy dog
+                  Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes, line lengths, line-spacing, and letter-spacing.
                 </div>
 
                 <div className="border-t border-neutral-100" style={{ margin: "0 -24px 16px" }} />
