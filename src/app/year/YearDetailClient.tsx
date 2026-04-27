@@ -96,6 +96,7 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
   // Canvas actualBoundingBox measures real glyph bounds (ignoring font metric whitespace),
   // so fonts with tall internal metrics (e.g. South Asian scripts) scale the same as Latin.
   const sectionRefs = useRef<Record<string, HTMLDivElement>>({});
+  const [sectionHeights, setSectionHeights] = useState<Record<string, number>>({});
   const [specimenSizes, setSpecimenSizes] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -126,18 +127,22 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d')!;
       const updates: Record<string, number> = {};
+      const heights: Record<string, number> = {};
 
       for (const [slug, sectionEl] of Object.entries(sectionRefs.current)) {
         const fontData = sorted.find(f => f.slug === slug);
         if (!fontData) continue;
         const family = getFontFamily(fontData.name, fontData.source);
+        // Capture section height now (before font sizes change) to pin it.
+        // Without this, the grid row grows when large font sizes overflow the section.
         const sectionH = sectionEl.offsetHeight;
         if (sectionH < 32) continue;
+        heights[slug] = sectionH;
 
-        // Target: visual glyphs fill 78% of section height.
-        // Section is overflow:hidden + justify:center, so any DOM metric overflow
-        // is clipped symmetrically and the visual characters remain centered.
-        const targetH = sectionH * 0.78;
+        // Target: visual glyphs fill 80% of the locked section height.
+        // The section gets an explicit height (sectionH) after this runs, so
+        // any DOM metric overflow is clipped by overflow:hidden without growing the card.
+        const targetH = sectionH * 0.80;
 
         let lo = 12, hi = 250, best = 12;
         for (let i = 0; i < 14; i++) {
@@ -161,6 +166,7 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
       }
 
       if (Object.keys(updates).length > 0) {
+        setSectionHeights(prev => ({ ...prev, ...heights }));
         setSpecimenSizes(prev => ({ ...prev, ...updates }));
       }
     };
@@ -240,7 +246,7 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
                 {/* Specimen */}
                 <div
                   ref={(el) => { if (el) sectionRefs.current[font.slug] = el; else delete sectionRefs.current[font.slug]; }}
-                  style={{ flex: 1, minHeight: 0, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}
+                  style={{ ...(sectionHeights[font.slug] ? { height: `${sectionHeights[font.slug]}px` } : { flex: 1 }), minHeight: 0, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}
                 >
                   <div>
                     <div
