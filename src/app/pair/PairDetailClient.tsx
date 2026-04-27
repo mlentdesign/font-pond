@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { pairsBySlug, getPairOrConstruct, ensureDynamicPairs } from "@/data/pairs";
@@ -26,9 +26,6 @@ function FontSection({
   onNavigate,
   specimenFontSize = 36,
   sectionRef,
-  contentRef,
-  bigRef,
-  smallRef,
 }: {
   font: import("@/data/types").Font;
   role: "Header" | "Body";
@@ -36,9 +33,6 @@ function FontSection({
   onNavigate: (slug: string) => void;
   specimenFontSize?: number;
   sectionRef?: React.RefObject<HTMLDivElement | null>;
-  contentRef?: React.RefObject<HTMLDivElement | null>;
-  bigRef?: React.RefObject<HTMLDivElement | null>;
-  smallRef?: React.RefObject<HTMLDivElement | null>;
 }) {
   const family = getFontFamily(font.name, font.source);
   const sourceLabel = getSourceLabel(font.source);
@@ -88,17 +82,15 @@ function FontSection({
       <div className="border-t border-neutral-100" style={{ margin: "24px -24px 16px", padding: "0" }} />
 
       {/* Specimen — flex:1 fills available card height; content centered for equal top/bottom breathing room */}
-      <div ref={sectionRef} style={{ flex: 1, minHeight: 0, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-        <div ref={contentRef}>
+      <div ref={sectionRef} className="spec-section" style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <div>
           <div
-            ref={bigRef}
             className="leading-tight mb-2 text-neutral-800"
             style={{ fontFamily: family, fontWeight: role === "Header" ? 600 : 400, fontSize: `${specimenFontSize}px` }}
           >
             Aa Bb Cc Dd Ee Ff Gg
           </div>
           <div
-            ref={smallRef}
             className="leading-relaxed text-neutral-600"
             style={{ fontFamily: family, fontWeight: 400, fontSize: `${Math.round(specimenFontSize * 16 / 36)}px` }}
           >
@@ -207,13 +199,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   }, [pair, slug]);
 
   const hSectionRef = useRef<HTMLDivElement>(null);
-  const hContentRef = useRef<HTMLDivElement>(null);
-  const hBigRef = useRef<HTMLDivElement>(null);
-  const hSmallRef = useRef<HTMLDivElement>(null);
   const bSectionRef = useRef<HTMLDivElement>(null);
-  const bContentRef = useRef<HTMLDivElement>(null);
-  const bBigRef = useRef<HTMLDivElement>(null);
-  const bSmallRef = useRef<HTMLDivElement>(null);
   const [headerSpecSize, setHeaderSpecSize] = useState(36);
   const [bodySpecSize, setBodySpecSize] = useState(36);
 
@@ -221,43 +207,85 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
   useEffect(() => {
     if (!headerFont || !bodyFont || window.innerWidth < 1024) return;
-    document.fonts.ready.then(() => {
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        const hSection = hSectionRef.current;
-        const hContent = hContentRef.current;
-        const hBig = hBigRef.current;
-        const hSmall = hSmallRef.current;
-        const bSection = bSectionRef.current;
-        const bContent = bContentRef.current;
-        const bBig = bBigRef.current;
-        const bSmall = bSmallRef.current;
-        if (!hSection || !hContent || !hBig || !hSmall ||
-            !bSection || !bContent || !bBig || !bSmall) return;
+    let cancelled = false;
 
-        // Scale each card's specimen to fill its section (flex:1 = available height).
-        // Binary search finds the largest size where content fits without clipping.
-        const findSize = (
-          bigEl: HTMLDivElement, smallEl: HTMLDivElement,
-          contentEl: HTMLDivElement, sectionH: number
-        ): number => {
-          if (sectionH < 32) return 36;
-          let lo = 12, hi = 200, best = 12;
-          for (let i = 0; i < 12; i++) {
-            const mid = Math.round((lo + hi) / 2);
-            bigEl.style.fontSize = `${mid}px`;
-            smallEl.style.fontSize = `${Math.round(mid * 16 / 36)}px`;
-            if (contentEl.offsetHeight <= sectionH) { best = mid; lo = mid + 1; }
-            else hi = mid - 1;
-          }
-          bigEl.style.fontSize = '';
-          smallEl.style.fontSize = '';
-          return Math.max(12, best);
-        };
+    const run = async () => {
+      await document.fonts.ready;
+      const hFamily = getFontFamily(headerFont.name, headerFont.source);
+      const bFamily = getFontFamily(bodyFont.name, bodyFont.source);
 
-        setHeaderSpecSize(findSize(hBig, hSmall, hContent, hSectionRef.current!.offsetHeight));
-        setBodySpecSize(findSize(bBig, bSmall, bContent, bSectionRef.current!.offsetHeight));
-      }));
-    });
+      // Wait for the actual font files to arrive before measuring.
+      const unloaded = new Set([
+        `400 16px "${hFamily}"`, `600 16px "${hFamily}"`,
+        `400 16px "${bFamily}"`, `600 16px "${bFamily}"`,
+      ]);
+      const deadline = Date.now() + 4000;
+      while (unloaded.size > 0 && Date.now() < deadline) {
+        for (const spec of [...unloaded]) {
+          const faces = await document.fonts.load(spec).catch(() => [] as FontFace[]);
+          if (faces.length > 0) unloaded.delete(spec);
+        }
+        if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
+      }
+
+      if (cancelled) return;
+      await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+      if (cancelled) return;
+
+      const hSection = hSectionRef.current;
+      const bSection = bSectionRef.current;
+      if (!hSection || !bSection) return;
+
+      const hSectionH = hSection.offsetHeight;
+      const hSectionW = hSection.offsetWidth;
+      const bSectionH = bSection.offsetHeight;
+      const bSectionW = bSection.offsetWidth;
+      if (hSectionH < 32 || hSectionW < 32 || bSectionH < 32 || bSectionW < 32) return;
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d')!;
+
+      const findSize = (family: string, fontWeight: number, sectionH: number, sectionW: number): number => {
+        const targetH = sectionH * 0.88;
+        let lo = 12, hi = 200, best = 12;
+        for (let i = 0; i < 12; i++) {
+          const mid = Math.round((lo + hi) / 2);
+          const smallSize = Math.round(mid * 16 / 36);
+          const bigLineH = mid * 1.25;       // leading-tight
+          const smallLineH = smallSize * 1.625; // leading-relaxed
+
+          ctx.font = `${fontWeight} ${mid}px "${family}"`;
+          const bigM = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg");
+          const bigActual = bigM.actualBoundingBoxAscent + bigM.actualBoundingBoxDescent;
+          const bigLines = Math.max(1, Math.ceil(bigM.width / sectionW));
+          const bigH = (bigLines - 1) * bigLineH + Math.max(bigLineH, bigActual) + 8;
+
+          ctx.font = `400 ${smallSize}px "${family}"`;
+          const vW = (t: string) => ctx.measureText(t).width;
+          const vEff = (t: string) => {
+            const m = ctx.measureText(t);
+            return Math.max(smallLineH, m.actualBoundingBoxAscent + m.actualBoundingBoxDescent);
+          };
+          const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
+          const lowerLines = Math.max(1, Math.ceil(vW("abcdefghijklmnopqrstuvwxyz") / sectionW));
+          const numsLines  = Math.max(1, Math.ceil(vW("0123456789") / sectionW));
+          const totalH = bigH
+            + (upperLines - 1) * smallLineH + vEff("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+            + (lowerLines - 1) * smallLineH + vEff("abcdefghijklmnopqrstuvwxyz")
+            + (numsLines  - 1) * smallLineH + vEff("0123456789");
+
+          if (totalH <= targetH) { best = mid; lo = mid + 1; }
+          else hi = mid - 1;
+        }
+        return Math.max(12, best);
+      };
+
+      setHeaderSpecSize(findSize(hFamily, 600, hSectionH, hSectionW));
+      setBodySpecSize(findSize(bFamily, 400, bSectionH, bSectionW));
+    };
+
+    run();
+    return () => { cancelled = true; };
   }, [headerFont?.id, bodyFont?.id]);
 
   useEffect(() => {
@@ -462,8 +490,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
         {/* Font sections — two columns */}
         <div className="two-col-grid" style={{ marginBottom: "24px" }}>
-          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font?f=${s}&from=${slug}`)} specimenFontSize={headerSpecSize} sectionRef={hSectionRef} contentRef={hContentRef} bigRef={hBigRef} smallRef={hSmallRef} />
-          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font?f=${s}&from=${slug}`)} specimenFontSize={bodySpecSize} sectionRef={bSectionRef} contentRef={bContentRef} bigRef={bBigRef} smallRef={bSmallRef} />
+          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font?f=${s}&from=${slug}`)} specimenFontSize={headerSpecSize} sectionRef={hSectionRef} />
+          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font?f=${s}&from=${slug}`)} specimenFontSize={bodySpecSize} sectionRef={bSectionRef} />
         </div>
 
         {/* Related pairings */}
