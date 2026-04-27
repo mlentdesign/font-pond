@@ -342,6 +342,11 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       <main id="main-content" className="flex-1 mx-auto w-full content-padding results-top-padding results-bottom-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
         <Breadcrumb crumbs={[{ label: `${headerFont.name} + ${bodyFont.name}` }]} sticky />
 
+        {/* Pair name heading */}
+        <div style={{ marginBottom: "24px" }}>
+          <h1 className="text-3xl font-semibold text-neutral-900 mb-1">{headerFont.name} + {bodyFont.name}</h1>
+        </div>
+
         {/* Pair specimen */}
         <SectionCard style={{ marginBottom: "24px" }}>
           <h1
