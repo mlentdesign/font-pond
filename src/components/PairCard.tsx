@@ -44,7 +44,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
       {/* Section 1: Sample header + body text — pinned to top */}
       <div style={{ padding: "24px", paddingBottom: "16px" }}>
         <h3
-          className="text-neutral-900 break-words"
+          className="text-neutral-900 line-clamp-2"
           style={{
             fontFamily: headerFamily,
             fontWeight: 700,
@@ -56,7 +56,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
           {headline}
         </h3>
         <p
-          className="text-neutral-600 break-words"
+          className="text-neutral-600 line-clamp-3"
           style={{
             fontFamily: bodyFamily,
             fontWeight: 400,

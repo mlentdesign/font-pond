@@ -93,7 +93,7 @@ export function PairPreviewGrid({
               </span>
               <div>
                 <p
-                  className="leading-tight text-neutral-800 break-words"
+                  className="leading-tight text-neutral-800 line-clamp-2"
                   style={{ fontFamily: hFamily, fontWeight: 700, fontSize: "24px", marginBottom: "8px" }}
                 >
                   {headlineText}
