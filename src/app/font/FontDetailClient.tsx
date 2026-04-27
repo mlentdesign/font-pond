@@ -78,10 +78,12 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
 
   const font = fontsBySlug.get(slug);
 
-  // Swap to clean CMS URL after font has rendered. Runs only when URL still has ?f=.
+  // Upgrade legacy ?f= URLs to clean path URLs (for old bookmarks/history).
   useEffect(() => {
     if (font && slug && window.location.search.includes("f=")) {
-      window.history.replaceState(null, "", `/font-pond/font/${slug}`);
+      const from = new URLSearchParams(window.location.search).get("from");
+      const cleanUrl = from ? `/font-pond/font/${slug}?from=${from}` : `/font-pond/font/${slug}`;
+      window.history.replaceState(null, "", cleanUrl);
     }
   }, [font, slug]);
 

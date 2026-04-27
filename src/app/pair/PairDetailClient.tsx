@@ -377,8 +377,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
         {/* Font sections — two columns */}
         <div className="two-col-grid" style={{ marginBottom: "24px" }}>
-          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font?f=${s}&from=${slug}`)} />
-          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font?f=${s}&from=${slug}`)} />
+          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} />
+          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} />
         </div>
 
         {/* Related pairings */}
