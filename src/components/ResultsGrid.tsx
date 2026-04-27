@@ -8,19 +8,25 @@ import { ScoredPair } from "@/data/types";
 
 type VisiblePair = { pair: ScoredPair; delay: number };
 
-function useBatchSize(): number {
-  const [size, setSize] = useState(3);
+function useColumns(): number {
+  const [cols, setCols] = useState(3);
   useEffect(() => {
     const check = () => {
-      if (window.innerWidth >= 1024) setSize(3);
-      else if (window.innerWidth >= 768) setSize(4);
-      else setSize(3);
+      if (window.innerWidth >= 1024) setCols(3);
+      else if (window.innerWidth >= 768) setCols(2);
+      else setCols(1);
     };
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
-  return size;
+  return cols;
+}
+
+function batchSizeForCols(cols: number): number {
+  if (cols >= 3) return 3;  // desktop: 3×1
+  if (cols === 2) return 4; // tablet: 2×2
+  return 3;                  // mobile: 1×3
 }
 
 async function checkPairFonts(pair: ScoredPair): Promise<boolean> {
@@ -57,7 +63,6 @@ async function fillBatch(
 
     for (const { pair, ok } of results) {
       if (ok) loaded.push({ pair, delay: loaded.length * 90 });
-      // Failed pairs are dropped for this search — already removed from remaining
     }
   }
 
@@ -66,9 +71,9 @@ async function fillBatch(
 
 export function ResultsGrid() {
   const { results, isLoading, hasSearched, isExploring } = useAppState();
-  const batchSize = useBatchSize();
-  const batchSizeRef = useRef(batchSize);
-  batchSizeRef.current = batchSize;
+  const cols = useColumns();
+  const colsRef = useRef(cols);
+  colsRef.current = cols;
 
   const [visiblePairs, setVisiblePairs] = useState<VisiblePair[]>([]);
   const [firstBatchLoaded, setFirstBatchLoaded] = useState(false);
@@ -80,7 +85,8 @@ export function ResultsGrid() {
     if (loadingRef.current || queueRef.current.length === 0) return;
     loadingRef.current = true;
 
-    const { loaded, remaining } = await fillBatch(queueRef.current, batchSizeRef.current);
+    const size = batchSizeForCols(colsRef.current);
+    const { loaded, remaining } = await fillBatch(queueRef.current, size);
     queueRef.current = remaining;
 
     if (loaded.length > 0) {
@@ -97,12 +103,10 @@ export function ResultsGrid() {
     setFirstBatchLoaded(false);
     loadingRef.current = false;
     queueRef.current = [...results];
-    if (!isLoading && results.length > 0) {
-      loadNext();
-    }
+    if (!isLoading && results.length > 0) loadNext();
   }, [results, isLoading]);
 
-  // Intersection observer on sentinel — triggers next batch as user nears bottom
+  // Intersection observer on sentinel triggers next batch load
   useEffect(() => {
     const el = sentinelRef.current;
     if (!el) return;
@@ -117,11 +121,12 @@ export function ResultsGrid() {
   if (!hasSearched) return null;
 
   const showSkeleton = isLoading || (!firstBatchLoaded && results.length > 0);
+  const batchSize = batchSizeForCols(cols);
 
   if (showSkeleton) {
     return (
       <div className="w-full">
-        <div className="pair-grid">
+        <div className="pair-grid-skeleton">
           {Array.from({ length: batchSize }).map((_, i) => (
             <div key={i} className="rounded-xl bg-neutral-50 animate-pulse border border-neutral-100" style={{ height: "320px" }} />
           ))}
@@ -138,6 +143,12 @@ export function ResultsGrid() {
     );
   }
 
+  // Distribute pairs into explicit columns (round-robin).
+  // Each batch adds exactly one item per column, keeping columns balanced.
+  const columns: VisiblePair[][] = Array.from({ length: cols }, () => []);
+  visiblePairs.forEach((item, i) => columns[i % cols].push(item));
+
+  const gap = cols >= 2 ? 16 : 24;
   const topLabel = batchSize === 4 ? "Top 4 recommendations" : "Top 3 recommendations";
 
   return (
@@ -145,11 +156,18 @@ export function ResultsGrid() {
       <p className="font-semibold text-neutral-700" style={{ fontSize: "16px", marginBottom: "16px" }}>
         {isExploring ? "Here are some ideas, to spark your creativity" : topLabel}
       </p>
-      <div className="pair-grid">
-        {visiblePairs.map(({ pair, delay }) => (
-          <PairCard key={pair.id} pair={pair} isExploring={isExploring} animationDelay={delay} />
+
+      {/* Masonry columns — each column is an independent flex stack, cards take natural height */}
+      <div style={{ display: "flex", alignItems: "flex-start", gap: `${gap}px` }}>
+        {columns.map((col, ci) => (
+          <div key={ci} style={{ flex: 1, display: "flex", flexDirection: "column", gap: `${gap}px` }}>
+            {col.map(({ pair, delay }) => (
+              <PairCard key={pair.id} pair={pair} isExploring={isExploring} animationDelay={delay} />
+            ))}
+          </div>
         ))}
       </div>
+
       {queueRef.current.length > 0 && (
         <div ref={sentinelRef} style={{ height: 1 }} />
       )}
