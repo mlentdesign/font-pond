@@ -194,7 +194,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   // Clean ?p= query param out of the URL once the pair is loaded
   useEffect(() => {
     if (pair && slug && window.location.search) {
-      window.history.replaceState(null, "", `/font-pond/pair/${slug}`);
+      window.history.replaceState(window.history.state, "", `/font-pond/pair/${slug}`);
     }
   }, [pair, slug]);
 
