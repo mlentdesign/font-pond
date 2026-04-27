@@ -106,6 +106,74 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
     return () => observer.disconnect();
   }, [hasMoreFonts, fontCount, visibleFonts]);
 
+  // Per-card specimen scaling — same binary-search approach as PairDetailClient
+  const gridRef = useRef<HTMLDivElement>(null);
+  const sectionRefs = useRef<Record<string, HTMLDivElement>>({});
+  const contentRefs = useRef<Record<string, HTMLDivElement>>({});
+  const bigRefs = useRef<Record<string, HTMLDivElement>>({});
+  const smallRefs = useRef<Record<string, HTMLDivElement>>({});
+  const [specimenSizes, setSpecimenSizes] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    if (window.innerWidth < 768) return;
+    const grid = gridRef.current;
+    if (!grid) return;
+    document.fonts.ready.then(() => {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        grid.style.alignItems = 'start';
+        void grid.offsetHeight;
+
+        // Group cards by row via offsetTop
+        const rows = new Map<number, string[]>();
+        for (const [slug, sectionEl] of Object.entries(sectionRefs.current)) {
+          const cardEl = sectionEl.parentElement as HTMLDivElement;
+          if (!cardEl) continue;
+          const top = Math.round(cardEl.offsetTop);
+          if (!rows.has(top)) rows.set(top, []);
+          rows.get(top)!.push(slug);
+        }
+
+        const updates: Record<string, number> = {};
+
+        for (const slugsInRow of rows.values()) {
+          if (slugsInRow.length < 2) continue;
+          const heights: Record<string, number> = {};
+          for (const slug of slugsInRow) {
+            const cardEl = sectionRefs.current[slug]?.parentElement as HTMLDivElement;
+            if (cardEl) heights[slug] = cardEl.offsetHeight;
+          }
+          const maxH = Math.max(...Object.values(heights));
+
+          for (const slug of slugsInRow) {
+            const gap = maxH - (heights[slug] ?? maxH);
+            if (gap < 8) continue;
+            const contentEl = contentRefs.current[slug];
+            const bigEl = bigRefs.current[slug];
+            const smallEl = smallRefs.current[slug];
+            if (!contentEl || !bigEl || !smallEl) continue;
+            const targetH = contentEl.offsetHeight + gap;
+            let lo = 24, hi = 200, best = 36;
+            for (let i = 0; i < 10; i++) {
+              const mid = Math.round((lo + hi) / 2);
+              bigEl.style.fontSize = `${mid}px`;
+              smallEl.style.fontSize = `${Math.round(mid * 16 / 36)}px`;
+              if (contentEl.offsetHeight <= targetH) { best = mid; lo = mid + 1; }
+              else hi = mid - 1;
+            }
+            bigEl.style.fontSize = '';
+            smallEl.style.fontSize = '';
+            updates[slug] = Math.max(36, best);
+          }
+        }
+
+        grid.style.alignItems = '';
+        if (Object.keys(updates).length > 0) {
+          setSpecimenSizes(prev => ({ ...prev, ...updates }));
+        }
+      }));
+    });
+  }, [visibleFonts]);
+
   return (
     <div className="flex-1 flex flex-col">
       <DetailPageHeader />
@@ -124,7 +192,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         </div>
 
         {/* Font grid */}
-        <div className="designer-font-grid">
+        <div ref={gridRef} className="designer-font-grid">
           {sorted.slice(0, visibleFonts).map((font) => {
             const family = getFontFamily(font.name, font.source);
             const sourceLabel = getSourceLabel(font.source);
@@ -145,7 +213,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                   }
                 }}
                 onMouseDown={(e) => e.preventDefault()}
-                className="group border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-sm cursor-pointer"
+                className="group flex flex-col border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-sm cursor-pointer"
                 style={{ padding: "24px", position: "relative", overflow: "hidden" }}
               >
                 {/* Font name + source */}
@@ -176,19 +244,28 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
                 {/* Specimen */}
                 <div
-                  className="text-4xl leading-tight text-neutral-800 break-words"
-                  style={{ fontFamily: family, fontWeight: 600, marginBottom: "8px" }}
+                  ref={(el) => { if (el) sectionRefs.current[font.slug] = el; else delete sectionRefs.current[font.slug]; }}
+                  style={{ flex: 1, minHeight: 0, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}
                 >
-                  Aa Bb Cc Dd Ee Ff
-                </div>
-                <div
-                  className="leading-relaxed text-neutral-500 line-clamp-2"
-                  style={{ fontFamily: family, fontWeight: 400, fontSize: "15px", marginBottom: "16px" }}
-                >
-                  Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes, line lengths, line-spacing, and letter-spacing.
+                  <div ref={(el) => { if (el) contentRefs.current[font.slug] = el; else delete contentRefs.current[font.slug]; }}>
+                    <div
+                      ref={(el) => { if (el) bigRefs.current[font.slug] = el; else delete bigRefs.current[font.slug]; }}
+                      className="leading-tight mb-2 text-neutral-800 break-words"
+                      style={{ fontFamily: family, fontWeight: 600, fontSize: `${specimenSizes[font.slug] ?? 36}px` }}
+                    >
+                      Aa Bb Cc Dd Ee Ff
+                    </div>
+                    <div
+                      ref={(el) => { if (el) smallRefs.current[font.slug] = el; else delete smallRefs.current[font.slug]; }}
+                      className="leading-relaxed text-neutral-600 break-words"
+                      style={{ fontFamily: family, fontWeight: 400, fontSize: `${Math.round((specimenSizes[font.slug] ?? 36) * 16 / 36)}px` }}
+                    >
+                      ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789
+                    </div>
+                  </div>
                 </div>
 
-                <div className="border-t border-neutral-100" style={{ margin: "0 -24px 16px" }} />
+                <div className="border-t border-neutral-100" style={{ margin: "16px -24px" }} />
 
                 {/* Characteristics */}
                 {chips.length > 0 && (
