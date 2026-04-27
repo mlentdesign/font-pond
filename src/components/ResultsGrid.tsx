@@ -33,27 +33,33 @@ async function checkPairFonts(pair: ScoredPair): Promise<boolean> {
   loadFont(pair.headerFont);
   loadFont(pair.bodyFont);
 
-  // Kick off loading — resolves when font data is downloaded
-  document.fonts.load(`700 12px "${pair.headerFont.name}"`).catch(() => {});
-  document.fonts.load(`400 12px "${pair.bodyFont.name}"`).catch(() => {});
-
-  // Poll document.fonts.check() — only returns true once the font is actually
-  // usable (not just queued). document.fonts.load() can resolve early with an
-  // empty array if the CDN stylesheet hasn't parsed yet, giving a false positive.
-  const deadline = Date.now() + 3000;
-  while (Date.now() < deadline) {
-    if (
+  return new Promise<boolean>((resolve) => {
+    const check = () =>
       document.fonts.check(`700 16px "${pair.headerFont.name}"`) &&
-      document.fonts.check(`400 16px "${pair.bodyFont.name}"`)
-    ) {
-      // Wait two frames so font-display:swap completes before the card appears,
-      // otherwise the card still flashes fallback→real font and shifts height.
-      await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
-      return true;
-    }
-    await new Promise(r => setTimeout(r, 50));
-  }
-  return false;
+      document.fonts.check(`400 16px "${pair.bodyFont.name}"`);
+
+    const succeed = () => {
+      clearTimeout(tid);
+      document.fonts.removeEventListener("loadingdone", onDone);
+      // Two frames so font-display:swap finishes before the card appears.
+      requestAnimationFrame(() => requestAnimationFrame(() => resolve(true)));
+    };
+
+    const tid = setTimeout(() => {
+      document.fonts.removeEventListener("loadingdone", onDone);
+      resolve(false);
+    }, 3000);
+
+    const onDone = () => { if (check()) succeed(); };
+
+    if (check()) { succeed(); return; }
+
+    document.fonts.addEventListener("loadingdone", onDone);
+
+    // Also call .load() to trigger the CDN fetch — don't await, just let it run.
+    document.fonts.load(`700 12px "${pair.headerFont.name}"`).then(() => { if (check()) succeed(); }).catch(() => {});
+    document.fonts.load(`400 12px "${pair.bodyFont.name}"`).then(() => { if (check()) succeed(); }).catch(() => {});
+  });
 }
 
 async function fillBatch(
