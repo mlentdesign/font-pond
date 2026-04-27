@@ -39,7 +39,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
   const fromPairData = fromPair ? getPairOrConstruct(fromPair) : undefined;
 
   useEffect(() => {
-    if (designer && slug && window.location.search.includes("d=")) {
+    if (designer && slug && window.location.search) {
       window.history.replaceState(null, "", `/font-pond/designer/${slug}`);
     }
   }, [designer, slug]);
