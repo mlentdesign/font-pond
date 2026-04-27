@@ -25,14 +25,14 @@ function FontSection({
   pairSlug,
   onNavigate,
   specimenFontSize = 36,
-  cardRef,
+  specimenRef,
 }: {
   font: import("@/data/types").Font;
   role: "Header" | "Body";
   pairSlug: string;
   onNavigate: (slug: string) => void;
   specimenFontSize?: number;
-  cardRef?: React.RefObject<HTMLDivElement | null>;
+  specimenRef?: React.RefObject<HTMLDivElement | null>;
 }) {
   const family = getFontFamily(font.name, font.source);
   const sourceLabel = getSourceLabel(font.source);
@@ -43,7 +43,6 @@ function FontSection({
 
   return (
     <div
-      ref={cardRef}
       role="link"
       tabIndex={0}
       onClick={() => onNavigate(font.slug)}
@@ -82,18 +81,20 @@ function FontSection({
       {/* Divider: between header info and specimen */}
       <div className="border-t border-neutral-100" style={{ margin: "24px -24px 16px", padding: "0" }} />
 
-      {/* Specimen */}
-      <div
-        className="leading-tight mb-4 text-neutral-800 break-words"
-        style={{ fontFamily: family, fontWeight: role === "Header" ? 600 : 400, fontSize: `${specimenFontSize}px` }}
-      >
-        Aa Bb Cc Dd Ee Ff Gg
-      </div>
-      <div
-        className="leading-relaxed text-neutral-600 break-words"
-        style={{ fontFamily: family, fontWeight: 400, fontSize: `${Math.round(specimenFontSize * 16 / 36)}px` }}
-      >
-        ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789
+      {/* Specimen — flex:1 so it fills available card height (grid stretches both cards equally) */}
+      <div ref={specimenRef} style={{ flex: 1, overflow: "hidden", minHeight: 0 }}>
+        <div
+          className="leading-tight mb-4 text-neutral-800 break-words"
+          style={{ fontFamily: family, fontWeight: role === "Header" ? 600 : 400, fontSize: `${specimenFontSize}px` }}
+        >
+          Aa Bb Cc Dd Ee Ff Gg
+        </div>
+        <div
+          className="leading-relaxed text-neutral-600 break-words"
+          style={{ fontFamily: family, fontWeight: 400, fontSize: `${Math.round(specimenFontSize * 16 / 36)}px` }}
+        >
+          ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789
+        </div>
       </div>
 
       {/* Divider: before characteristics */}
@@ -186,29 +187,34 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
   const bodyFont = pair ? fontsById.get(pair.bodyFontId) : undefined;
 
-  const headerCardRef = useRef<HTMLDivElement>(null);
-  const bodyCardRef = useRef<HTMLDivElement>(null);
+  const headerSpecRef = useRef<HTMLDivElement>(null);
+  const bodySpecRef = useRef<HTMLDivElement>(null);
   const [headerSpecSize, setHeaderSpecSize] = useState(36);
   const [bodySpecSize, setBodySpecSize] = useState(36);
 
-  // After fonts load, measure both cards and scale up specimen in the shorter one
+  // Reset on pair change
+  useEffect(() => {
+    setHeaderSpecSize(36);
+    setBodySpecSize(36);
+  }, [slug]);
+
+  // After fonts are loaded, measure each specimen section's available height
+  // (CSS grid stretch makes both cards equal height; flex:1 on specimen section
+  // absorbs the leftover — we calculate the exact font size to fill it)
   useEffect(() => {
     if (!headerFont || !bodyFont) return;
-    const measure = () => {
-      const h1 = headerCardRef.current?.offsetHeight ?? 0;
-      const h2 = bodyCardRef.current?.offsetHeight ?? 0;
-      if (!h1 || !h2) return;
-      const diff = Math.abs(h1 - h2);
-      if (diff < 20) return;
-      // Each extra px of font size adds ~1.1px of height (tight line-height)
-      const extra = Math.round(diff / 1.1);
-      const capped = Math.min(extra, 36); // max +36px above base
-      if (h1 < h2) setHeaderSpecSize(36 + capped);
-      else setBodySpecSize(36 + capped);
-    };
-    // Run after fonts have had a chance to render
-    const id = setTimeout(measure, 400);
-    return () => clearTimeout(id);
+    document.fonts.ready.then(() => {
+      requestAnimationFrame(() => {
+        const h1 = headerSpecRef.current?.clientHeight ?? 0;
+        const h2 = bodySpecRef.current?.clientHeight ?? 0;
+        if (!h1 || !h2) return;
+        // Content height = fontSize * 1.25 (Aa line, tight) + 16 (mb-4) + fontSize * 0.444 * 1.625 (alphabet, relaxed)
+        // = fontSize * 1.972 + 16  →  fontSize = (height - 16) / 1.972
+        const calcSize = (h: number) => Math.max(24, Math.round((h - 16) / 1.972));
+        setHeaderSpecSize(calcSize(h1));
+        setBodySpecSize(calcSize(h2));
+      });
+    });
   }, [headerFont?.id, bodyFont?.id]);
 
   useEffect(() => {
@@ -407,8 +413,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
         {/* Font sections — two columns */}
         <div className="two-col-grid" style={{ marginBottom: "24px" }}>
-          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={headerSpecSize} cardRef={headerCardRef} />
-          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={bodySpecSize} cardRef={bodyCardRef} />
+          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={headerSpecSize} specimenRef={headerSpecRef} />
+          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => router.push(`/font/${s}?from=${slug}`)} specimenFontSize={bodySpecSize} specimenRef={bodySpecRef} />
         </div>
 
         {/* Related pairings */}
