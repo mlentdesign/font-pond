@@ -140,12 +140,16 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
         for (let i = 0; i < 12; i++) {
           const mid = Math.round((lo + hi) / 2);
           bigEl.style.fontSize = `${mid}px`;
+          bigEl.style.lineHeight = "1";
           smallEl.style.fontSize = `${Math.round(mid * 16 / 36)}px`;
+          smallEl.style.lineHeight = "1.15";
           if (contentEl.offsetHeight <= sectionH) { best = mid; lo = mid + 1; }
           else hi = mid - 1;
         }
         bigEl.style.fontSize = '';
+        bigEl.style.lineHeight = '';
         smallEl.style.fontSize = '';
+        smallEl.style.lineHeight = '';
         updates[fontSlug] = Math.max(12, best);
       }
 
@@ -234,15 +238,15 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
                   <div ref={(el) => { if (el) contentRefs.current[font.slug] = el; else delete contentRefs.current[font.slug]; }}>
                     <div
                       ref={(el) => { if (el) bigRefs.current[font.slug] = el; else delete bigRefs.current[font.slug]; }}
-                      className="leading-tight mb-2 text-neutral-800 break-words"
-                      style={{ fontFamily: family, fontWeight: 600, fontSize: `${specimenSizes[font.slug] ?? 36}px` }}
+                      className="mb-2 text-neutral-800 break-words"
+                      style={{ fontFamily: family, fontWeight: 600, fontSize: `${specimenSizes[font.slug] ?? 36}px`, lineHeight: "1" }}
                     >
                       Aa Bb Cc Dd Ee Ff
                     </div>
                     <div
                       ref={(el) => { if (el) smallRefs.current[font.slug] = el; else delete smallRefs.current[font.slug]; }}
-                      className="leading-relaxed text-neutral-600"
-                      style={{ fontFamily: family, fontWeight: 400, fontSize: `${Math.round((specimenSizes[font.slug] ?? 36) * 16 / 36)}px` }}
+                      className="text-neutral-600"
+                      style={{ fontFamily: family, fontWeight: 400, fontSize: `${Math.round((specimenSizes[font.slug] ?? 36) * 16 / 36)}px`, lineHeight: "1.15" }}
                     >
                       <span style={{ display: "block" }}>ABCDEFGHIJKLMNOPQRSTUVWXYZ</span>
                       <span style={{ display: "block" }}>abcdefghijklmnopqrstuvwxyz</span>
