@@ -2,6 +2,7 @@
 // Run: node scripts/download-fonts.mjs --google-all
 import { Font, FontClassification } from "./types";
 import { GF_ANATOMY } from "./gf-anatomy-map";
+import { GF_YEAR_MAP } from "./gf-year-map";
 
 // Compute body legibility from measured anatomy (research-backed formula)
 function calcLegibility(cls: string, xH?: string, ap?: string, sc?: string, sp?: string): number {
@@ -30,7 +31,7 @@ function gf(name: string, googleFamily: string, classification: string, tags: st
     sourceUrl: `https://fonts.google.com/specimen/${googleFamily.replace(/\s+/g, "+")}`,
     downloadUrl: null, specimenUrl: null,
     licenseType: "OFL 1.1", licenseConfidence: "high",
-    designer: designerName || null, foundry: foundryName || null, year: null,
+    designer: designerName || null, foundry: foundryName || null, year: GF_YEAR_MAP[slug] ?? null,
     classification: classification as FontClassification,
     subcategory: null,
     serifSansCategory: classification === "handwritten" ? "display" as const : classification as Font["serifSansCategory"],

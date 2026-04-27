@@ -1,4 +1,5 @@
 import { Font, FontClassification } from "./types";
+import { GF_YEAR_MAP } from "./gf-year-map";
 
 // Compute body legibility from measured anatomy (research-backed formula)
 function calcLegibility(cls: string, xH?: string, ap?: string, sc?: string, sp?: string): number {
@@ -152,7 +153,7 @@ function gfDisplay(
     licenseConfidence: "high",
     designer: null,
     foundry: null,
-    year: null,
+    year: GF_YEAR_MAP[slug] ?? null,
     classification,
     subcategory: null,
     serifSansCategory: classification === "handwritten" ? "display" : classification === "script" ? "script" : "display",
@@ -191,31 +192,31 @@ export const googleFontsExtended: Font[] = [
     "feminine", "decorative", "bold", "romantic", "elegant", "editorial", "girly", "vintage", "display",
   ], ["bold", "feminine", "decorative", "confident"], ["fashion", "beauty", "editorial", "branding", "headlines"], [
     "decorative curves", "high stroke contrast", "feminine energy",
-  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "high", letterSpacing: "normal", moodCategory: "elegant" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "high", letterSpacing: "normal", moodCategory: "elegant" , designer: "Jovanny Lemonad"}),
 
   gfDisplay("Rubik Glitch", "Rubik Glitch", "display", [
     "glitch", "chaotic", "edgy", "punk", "grunge", "rebellious", "pop", "distorted", "cyber", "y2k",
   ], ["chaotic", "rebellious", "distorted", "pop"], ["music", "gaming", "counter-culture", "posters", "streetwear"], [
     "glitch distortion effect", "broken letterforms", "digital chaos",
-  ], { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "normal", moodCategory: "experimental" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "normal", moodCategory: "experimental" , designer: "NaN & Luke Prowse"}),
 
   gfDisplay("Ultra", "Ultra", "serif", [
     "bold", "heavy", "personality", "creative", "music", "display", "strong", "chunky", "poster", "vintage",
   ], ["strong", "personality-heavy", "bold", "expressive"], ["music", "posters", "album art", "creative branding", "headlines"], [
     "extremely heavy weight", "ultra-bold serifs", "high visual impact",
-  ], { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "moderate", letterSpacing: "tight", moodCategory: "bold" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "moderate", letterSpacing: "tight", moodCategory: "bold" , designer: "Astigmatic"}),
 
   gfDisplay("Bubblegum Sans", "Bubblegum Sans", "display", [
     "bubbly", "fun", "pop", "cute", "playful", "friendly", "girly", "kids", "cartoon", "rounded",
   ], ["bubbly", "fun", "pop", "cheerful"], ["kids brands", "candy", "casual apps", "party invites", "toy packaging"], [
     "rounded bubbly forms", "playful bounce", "cartoon-like personality",
-  ], { xHeightRatio: "high", apertureOpenness: "open", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" }),
+  ], { xHeightRatio: "high", apertureOpenness: "open", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" , designer: "Sudtipos"}),
 
   gfDisplay("Yellowtail", "Yellowtail", "script", [
     "script", "casual", "retro", "vintage", "brush", "1950s", "americana", "diner", "handlettered", "warm",
   ], ["casual", "retro", "friendly", "nostalgic"], ["restaurants", "vintage branding", "casual logos", "signage", "menus"], [
     "casual brush script", "retro sign-painter feel", "connected letterforms",
-  ], { serifSansCategory: "script", xHeightRatio: "low", apertureOpenness: "moderate", strokeContrast: "low", letterSpacing: "normal", moodCategory: "warm" }),
+  ], { serifSansCategory: "script", xHeightRatio: "low", apertureOpenness: "moderate", strokeContrast: "low", letterSpacing: "normal", moodCategory: "warm" , designer: "Astigmatic"}),
 
   // ════════════════════════════════════════════════
   // PERPLEXITY RECOMMENDATIONS — Body Fonts (full entries)
@@ -309,37 +310,37 @@ export const googleFontsExtended: Font[] = [
     "retro", "vinyl", "music", "groovy", "70s", "psychedelic", "funky", "bold", "display", "pop",
   ], ["groovy", "retro", "playful", "bold"], ["music", "album art", "posters", "festival branding", "merch"], [
     "vinyl-inspired texture", "retro groovy shapes", "funky letterforms",
-  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" , designer: "NaN & Luke Prowse"}),
 
   gfDisplay("Rubik Wet Paint", "Rubik Wet Paint", "display", [
     "horror", "dripping", "spooky", "dark", "grunge", "painted", "messy", "edgy", "halloween", "gothic",
   ], ["eerie", "dark", "visceral", "rebellious"], ["horror", "halloween", "punk posters", "dark branding", "gaming"], [
     "dripping paint effect", "horror aesthetic", "wet organic forms",
-  ], { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "normal", moodCategory: "experimental" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "normal", moodCategory: "experimental" , designer: "NaN & Luke Prowse"}),
 
   gfDisplay("Rubik Burned", "Rubik Burned", "display", [
     "burned", "distressed", "dark", "grunge", "edgy", "horror", "apocalyptic", "rough", "texture", "punk",
   ], ["dark", "distressed", "intense", "gritty"], ["horror", "dark themes", "grunge design", "music posters", "gaming"], [
     "burned charred texture", "distressed letterforms", "apocalyptic feel",
-  ], { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "normal", moodCategory: "experimental" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "normal", moodCategory: "experimental" , designer: "NaN & Luke Prowse"}),
 
   gfDisplay("Rubik Moonrocks", "Rubik Moonrocks", "display", [
     "space", "sci-fi", "futuristic", "cosmic", "retro-futurism", "quirky", "display", "neon", "cyber", "bold",
   ], ["cosmic", "quirky", "futuristic", "playful"], ["sci-fi", "space themes", "gaming", "retro-futurism", "posters"], [
     "cratered moon texture", "space-inspired forms", "cosmic personality",
-  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "normal", moodCategory: "experimental" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "normal", moodCategory: "experimental" , designer: "NaN & Luke Prowse"}),
 
   gfDisplay("Rubik Puddles", "Rubik Puddles", "display", [
     "liquid", "bubbly", "organic", "playful", "cute", "fun", "water", "rounded", "quirky", "pop",
   ], ["playful", "fluid", "bubbly", "whimsical"], ["kids", "water brands", "playful branding", "casual apps", "posters"], [
     "liquid puddle forms", "bubbly organic shapes", "aquatic personality",
-  ], { xHeightRatio: "moderate", apertureOpenness: "open", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "open", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" , designer: "NaN & Luke Prowse"}),
 
   gfDisplay("Rubik Storm", "Rubik Storm", "display", [
     "storm", "electric", "energy", "edgy", "bold", "dynamic", "cyber", "power", "futuristic", "dark",
   ], ["electric", "intense", "dynamic", "powerful"], ["gaming", "energy brands", "sports", "dark tech", "esports"], [
     "storm-inspired electric forms", "dynamic energy", "jagged edges",
-  ], { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "normal", moodCategory: "bold" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "normal", moodCategory: "bold" , designer: "NaN & Luke Prowse"}),
 
   // ════════════════════════════════════════════════
   // BUNGEE FAMILY — Bold Display
@@ -349,13 +350,13 @@ export const googleFontsExtended: Font[] = [
     "3d", "shadow", "retro", "sign-painting", "bold", "pop", "neon", "vintage", "display", "poster",
   ], ["bold", "retro", "eye-catching", "dimensional"], ["signage", "posters", "headlines", "retro branding", "neon signs"], [
     "3D shadow effect", "sign-painting heritage", "multi-layered depth",
-  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "generous", moodCategory: "bold" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "generous", moodCategory: "bold" , designer: "David Jonathan Ross"}),
 
   gfDisplay("Bungee Inline", "Bungee Inline", "display", [
     "inline", "retro", "sign-painting", "bold", "art-deco", "vintage", "display", "poster", "decorative", "sport",
   ], ["bold", "decorative", "retro", "sporty"], ["sports", "signage", "posters", "vintage branding", "headlines"], [
     "inline decorative stroke", "sign-painting influence", "bold display presence",
-  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "low", letterSpacing: "generous", moodCategory: "bold" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "low", letterSpacing: "generous", moodCategory: "bold" , designer: "David Jonathan Ross"}),
 
   // ════════════════════════════════════════════════
   // BOLD / CHUNKY DISPLAY
@@ -365,85 +366,85 @@ export const googleFontsExtended: Font[] = [
     "bold", "chunky", "friendly", "rounded", "fun", "cartoon", "display", "kids", "playful", "poster",
   ], ["bold", "friendly", "fun", "approachable"], ["kids brands", "games", "casual branding", "posters", "headlines"], [
     "ultra-bold rounded forms", "friendly chunky presence", "cartoon-like weight",
-  ], { xHeightRatio: "high", apertureOpenness: "open", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" }),
+  ], { xHeightRatio: "high", apertureOpenness: "open", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" , designer: "Rodrigo Fuenzalida"}),
 
   gfDisplay("Black Ops One", "Black Ops One", "display", [
     "military", "stencil", "bold", "tactical", "gaming", "aggressive", "dark", "industrial", "masculine", "tough",
   ], ["military", "aggressive", "tactical", "bold"], ["gaming", "military themes", "action branding", "esports", "posters"], [
     "military stencil design", "tactical angular forms", "aggressive presence",
-  ], { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "tight", moodCategory: "bold" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "tight", moodCategory: "bold" , designer: "James Grieshaber & Eben Sorkin"}),
 
   gfDisplay("Bangers", "Bangers", "display", [
     "comic", "bold", "fun", "pop", "cartoon", "loud", "playful", "poster", "impact", "action",
   ], ["loud", "fun", "comic", "energetic"], ["comics", "posters", "gaming", "kids content", "social media"], [
     "comic book lettering style", "bold punchy forms", "action energy",
-  ], { xHeightRatio: "high", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" }),
+  ], { xHeightRatio: "high", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" , designer: "Vernon Adams"}),
 
   gfDisplay("Fugaz One", "Fugaz One", "display", [
     "italic", "dynamic", "sporty", "bold", "energetic", "speed", "action", "display", "racing", "motion",
   ], ["dynamic", "energetic", "sporty", "fast"], ["sports", "racing", "action branding", "posters", "headlines"], [
     "forward-leaning italic", "speed and motion feel", "dynamic energy",
-  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "tight", moodCategory: "bold" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "tight", moodCategory: "bold" , designer: "LatinoType"}),
 
   gfDisplay("Fascinate", "Fascinate", "display", [
     "art-deco", "decorative", "elegant", "geometric", "vintage", "glamour", "gatsby", "retro", "luxury", "display",
   ], ["glamorous", "decorative", "art-deco", "elegant"], ["art deco themes", "luxury", "vintage events", "gatsby parties", "fashion"], [
     "art deco geometric forms", "glamorous decorative details", "roaring twenties feel",
-  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "high", letterSpacing: "generous", moodCategory: "elegant" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "high", letterSpacing: "generous", moodCategory: "elegant" , designer: "Astigmatic"}),
 
   gfDisplay("Fascinate Inline", "Fascinate Inline", "display", [
     "art-deco", "inline", "decorative", "geometric", "vintage", "glamour", "gatsby", "retro", "luxury", "display",
   ], ["glamorous", "decorative", "ornate", "elegant"], ["art deco themes", "luxury branding", "invitations", "vintage events", "fashion"], [
     "inline art deco letterforms", "geometric glamour", "decorative vintage feel",
-  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "high", letterSpacing: "generous", moodCategory: "elegant" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "high", letterSpacing: "generous", moodCategory: "elegant" , designer: "Astigmatic"}),
 
   gfDisplay("Rammetto One", "Rammetto One", "display", [
     "bold", "chunky", "fun", "rounded", "heavy", "playful", "cartoon", "display", "friendly", "poster",
   ], ["bold", "fun", "chunky", "playful"], ["gaming", "kids brands", "casual branding", "posters", "merch"], [
     "ultra-heavy rounded forms", "friendly chunky weight", "cartoon bold",
-  ], { xHeightRatio: "high", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" }),
+  ], { xHeightRatio: "high", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" , designer: "Vernon Adams"}),
 
   gfDisplay("Shrikhand", "Shrikhand", "display", [
     "bold", "indian", "heavy", "warm", "display", "cultural", "personality", "decorative", "poster", "heritage",
   ], ["bold", "warm", "cultural", "expressive"], ["Indian cuisine", "cultural branding", "food", "posters", "festival design"], [
     "Gujarati-inspired Latin design", "heavy warm strokes", "cultural personality",
-  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "low", letterSpacing: "normal", moodCategory: "warm" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "low", letterSpacing: "normal", moodCategory: "warm" , designer: "Jonny Pinhorn"}),
 
   gfDisplay("Luckiest Guy", "Luckiest Guy", "display", [
     "comic", "bold", "fun", "cartoon", "bubbly", "playful", "kids", "poster", "friendly", "loud",
   ], ["fun", "loud", "cartoonish", "cheerful"], ["kids content", "games", "comics", "party invites", "casual branding"], [
     "cartoon lettering style", "bubbly bold forms", "comic book energy",
-  ], { xHeightRatio: "high", apertureOpenness: "open", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" }),
+  ], { xHeightRatio: "high", apertureOpenness: "open", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" , designer: "Astigmatic"}),
 
   gfDisplay("Modak", "Modak", "display", [
     "bold", "bubbly", "indian", "rounded", "fun", "chunky", "cute", "cultural", "friendly", "display",
   ], ["bubbly", "fun", "cultural", "friendly"], ["Indian food", "kids brands", "casual branding", "festival design", "packaging"], [
     "Devanagari-inspired Latin", "bubbly inflated forms", "playful cultural fusion",
-  ], { xHeightRatio: "high", apertureOpenness: "open", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" }),
+  ], { xHeightRatio: "high", apertureOpenness: "open", strokeContrast: "none", letterSpacing: "normal", moodCategory: "playful" , designer: "Ek Type"}),
 
   gfDisplay("Patua One", "Patua One", "display", [
     "slab", "bold", "friendly", "warm", "display", "poster", "editorial", "vintage", "rounded", "approachable",
   ], ["bold", "friendly", "warm", "approachable"], ["headlines", "posters", "branding", "editorial", "packaging"], [
     "friendly slab serif forms", "warm approachable weight", "rounded terminals",
-  ], { xHeightRatio: "high", apertureOpenness: "open", strokeContrast: "low", letterSpacing: "normal", moodCategory: "warm" }),
+  ], { xHeightRatio: "high", apertureOpenness: "open", strokeContrast: "low", letterSpacing: "normal", moodCategory: "warm" , designer: "LatinoType"}),
 
   gfDisplay("Monoton", "Monoton", "display", [
     "neon", "retro", "outline", "80s", "synthwave", "display", "futuristic", "disco", "poster", "light",
   ], ["neon", "retro", "futuristic", "flashy"], ["neon signage", "synthwave", "80s themes", "nightlife", "music"], [
     "neon tube outline style", "retro-futuristic glow", "single-line letterforms",
-  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "generous", moodCategory: "experimental" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "generous", moodCategory: "experimental" , designer: "Vernon Adams"}),
 
   gfDisplay("Codystar", "Codystar", "display", [
     "stars", "decorative", "sparkle", "whimsical", "constellation", "space", "magic", "fantasy", "light", "celestial",
   ], ["whimsical", "magical", "celestial", "delicate"], ["astronomy", "fantasy themes", "invitations", "celestial branding", "holiday"], [
     "star-dotted letterforms", "constellation-like design", "celestial whimsy",
-  ], { xHeightRatio: "moderate", apertureOpenness: "open", strokeContrast: "none", letterSpacing: "generous", moodCategory: "playful" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "open", strokeContrast: "none", letterSpacing: "generous", moodCategory: "playful" , designer: "Neapolitan"}),
 
   gfDisplay("Faster One", "Faster One", "display", [
     "speed", "racing", "dynamic", "motion", "bold", "italic", "sport", "fast", "action", "aggressive",
   ], ["fast", "dynamic", "aggressive", "energetic"], ["racing", "sports", "esports", "action branding", "automotive"], [
     "extreme speed lines", "racing motion blur", "aggressive italic",
-  ], { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "tight", moodCategory: "bold" }),
+  ], { xHeightRatio: "moderate", apertureOpenness: "closed", strokeContrast: "none", letterSpacing: "tight", moodCategory: "bold" , designer: "Eduardo Tunni"}),
 
   // ════════════════════════════════════════════════
   // SCRIPT & HANDWRITING
@@ -453,43 +454,43 @@ export const googleFontsExtended: Font[] = [
     "script", "romantic", "elegant", "flourish", "wedding", "feminine", "calligraphy", "luxury", "decorative", "formal",
   ], ["romantic", "elegant", "passionate", "luxurious"], ["weddings", "invitations", "luxury branding", "romance", "fashion"], [
     "dramatic calligraphic flourishes", "passionate flowing strokes", "romantic elegance",
-  ], { serifSansCategory: "script", xHeightRatio: "low", apertureOpenness: "moderate", strokeContrast: "high", letterSpacing: "normal", moodCategory: "elegant" }),
+  ], { serifSansCategory: "script", xHeightRatio: "low", apertureOpenness: "moderate", strokeContrast: "high", letterSpacing: "normal", moodCategory: "elegant" , designer: "Robert Leuschke"}),
 
   gfDisplay("Sacramento", "Sacramento", "script", [
     "script", "casual", "handwritten", "friendly", "feminine", "romantic", "brush", "warm", "invitations", "flowing",
   ], ["casual", "friendly", "warm", "romantic"], ["invitations", "casual branding", "greeting cards", "blogs", "menus"], [
     "casual monoline script", "friendly flowing forms", "even rhythm",
-  ], { serifSansCategory: "script", xHeightRatio: "low", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "normal", moodCategory: "warm" }),
+  ], { serifSansCategory: "script", xHeightRatio: "low", apertureOpenness: "moderate", strokeContrast: "none", letterSpacing: "normal", moodCategory: "warm" , designer: "Astigmatic"}),
 
   gfDisplay("Great Vibes", "Great Vibes", "script", [
     "script", "calligraphy", "elegant", "wedding", "romantic", "formal", "feminine", "luxury", "decorative", "flowing",
   ], ["elegant", "romantic", "formal", "graceful"], ["weddings", "invitations", "luxury branding", "certificates", "fashion"], [
     "formal calligraphic style", "elegant connected script", "graceful curves",
-  ], { serifSansCategory: "script", xHeightRatio: "low", apertureOpenness: "moderate", strokeContrast: "moderate", letterSpacing: "normal", moodCategory: "elegant" }),
+  ], { serifSansCategory: "script", xHeightRatio: "low", apertureOpenness: "moderate", strokeContrast: "moderate", letterSpacing: "normal", moodCategory: "elegant" , designer: "Robert Leuschke"}),
 
   gfDisplay("Alex Brush", "Alex Brush", "script", [
     "script", "brush", "elegant", "feminine", "romantic", "calligraphy", "wedding", "soft", "flowing", "graceful",
   ], ["elegant", "soft", "romantic", "graceful"], ["weddings", "beauty", "invitations", "feminine branding", "luxury"], [
     "brush-inspired calligraphy", "soft elegant strokes", "romantic flow",
-  ], { serifSansCategory: "script", xHeightRatio: "low", apertureOpenness: "moderate", strokeContrast: "moderate", letterSpacing: "normal", moodCategory: "elegant" }),
+  ], { serifSansCategory: "script", xHeightRatio: "low", apertureOpenness: "moderate", strokeContrast: "moderate", letterSpacing: "normal", moodCategory: "elegant" , designer: "Robert Leuschke"}),
 
   gfDisplay("Kaushan Script", "Kaushan Script", "script", [
     "script", "brush", "casual", "bold", "energetic", "handlettered", "vintage", "warm", "friendly", "artisan",
   ], ["energetic", "bold", "casual", "warm"], ["restaurants", "craft branding", "casual logos", "artisan", "packaging"], [
     "bold brush script", "energetic casual lettering", "artisan character",
-  ], { serifSansCategory: "script" }),
+  ], { serifSansCategory: "script" , designer: "Impallari Type"}),
 
   gfDisplay("Satisfy", "Satisfy", "script", [
     "script", "retro", "casual", "1950s", "americana", "diner", "vintage", "handlettered", "warm", "friendly",
   ], ["retro", "casual", "nostalgic", "warm"], ["diners", "retro branding", "casual logos", "vintage design", "menus"], [
     "retro casual script", "1950s sign-painting feel", "smooth connected forms",
-  ], { serifSansCategory: "script" }),
+  ], { serifSansCategory: "script" , designer: "Sideshow"}),
 
   gfDisplay("Leckerli One", "Leckerli One", "script", [
     "script", "bold", "brush", "fun", "playful", "rounded", "friendly", "warm", "casual", "bubbly",
   ], ["fun", "bold", "friendly", "playful"], ["food brands", "casual branding", "kids", "packaging", "menus"], [
     "bold rounded brush script", "friendly bubbly weight", "food-friendly feel",
-  ], { serifSansCategory: "script" }),
+  ], { serifSansCategory: "script" , designer: "Gesine Todt"}),
 
   // ════════════════════════════════════════════════
   // HANDWRITTEN / HANDWRITING FEEL
@@ -499,55 +500,55 @@ export const googleFontsExtended: Font[] = [
     "handwritten", "casual", "personal", "sketchy", "indie", "journal", "notebook", "organic", "friendly", "intimate",
   ], ["personal", "casual", "intimate", "friendly"], ["personal blogs", "journals", "indie branding", "greeting cards", "casual apps"], [
     "casual handwriting feel", "slightly sketchy pen style", "personal intimate voice",
-  ]),
+  ], { designer: "Kimberly Geswein" }),
 
   gfDisplay("Indie Flower", "Indie Flower", "handwritten", [
     "handwritten", "indie", "cute", "casual", "girly", "notebook", "friendly", "bubbly", "organic", "fun",
   ], ["cute", "indie", "casual", "friendly"], ["personal blogs", "kids content", "casual branding", "notes", "greeting cards"], [
     "casual rounded handwriting", "indie notebook feel", "friendly organic forms",
-  ]),
+  ], { designer: "Kimberly Geswein" }),
 
   gfDisplay("Amatic SC", "Amatic SC", "handwritten", [
     "handwritten", "thin", "tall", "condensed", "artisan", "craft", "cottagecore", "organic", "rustic", "quirky",
   ], ["artisan", "rustic", "organic", "whimsical"], ["craft branding", "farmers markets", "organic food", "cottagecore", "artisan packaging"], [
     "narrow hand-drawn letterforms", "craft artisan feel", "rustic personality",
-  ]),
+  ], { designer: "Vernon Adams & Ben Nathan & Thomas Jockin" }),
 
   gfDisplay("Gloria Hallelujah", "Gloria Hallelujah", "handwritten", [
     "handwritten", "comic", "casual", "fun", "cartoon", "notebook", "bold", "friendly", "playful", "marker",
   ], ["fun", "casual", "comic", "energetic"], ["comics", "kids content", "casual branding", "social media", "stickers"], [
     "marker-style comic lettering", "bold casual handwriting", "cartoon notebook feel",
-  ]),
+  ], { designer: "Kimberly Geswein" }),
 
   gfDisplay("Rock Salt", "Rock Salt", "handwritten", [
     "handwritten", "rough", "gritty", "masculine", "grunge", "edgy", "raw", "bold", "punk", "distressed",
   ], ["raw", "gritty", "edgy", "rebellious"], ["punk branding", "grunge design", "music", "street art", "counter-culture"], [
     "rough scratchy handwriting", "gritty masculine feel", "raw punk energy",
-  ]),
+  ], { designer: "Sideshow" }),
 
   gfDisplay("Reenie Beanie", "Reenie Beanie", "handwritten", [
     "handwritten", "casual", "sketchy", "thin", "personal", "journal", "notebook", "indie", "delicate", "organic",
   ], ["casual", "personal", "sketchy", "light"], ["journals", "personal blogs", "indie design", "notes", "casual invitations"], [
     "light casual handwriting", "sketchy pen feel", "personal journal style",
-  ]),
+  ], { designer: "James Grieshaber" }),
 
   gfDisplay("Homemade Apple", "Homemade Apple", "handwritten", [
     "handwritten", "personal", "pen", "organic", "intimate", "journal", "cottagecore", "rustic", "warm", "authentic",
   ], ["personal", "authentic", "intimate", "organic"], ["personal blogs", "cottagecore", "handmade branding", "journals", "letters"], [
     "realistic ballpoint pen feel", "personal authentic handwriting", "intimate organic style",
-  ]),
+  ], { designer: "Font Diner" }),
 
   gfDisplay("Covered By Your Grace", "Covered By Your Grace", "handwritten", [
     "handwritten", "casual", "bold", "fun", "notebook", "marker", "playful", "personal", "organic", "friendly",
   ], ["casual", "bold", "fun", "personal"], ["casual branding", "social media", "greeting cards", "kids", "notes"], [
     "bold marker-style handwriting", "casual energetic feel", "notebook personality",
-  ]),
+  ], { designer: "Kimberly Geswein" }),
 
   gfDisplay("Kranky", "Kranky", "handwritten", [
     "handwritten", "quirky", "spooky", "weird", "halloween", "creepy", "fun", "offbeat", "dark-humor", "character",
   ], ["quirky", "offbeat", "slightly creepy", "eccentric"], ["halloween", "quirky branding", "humor", "indie games", "alternative"], [
     "irregular quirky letterforms", "slightly unsettling character", "offbeat personality",
-  ]),
+  ], { designer: "Sideshow" }),
 
   // ════════════════════════════════════════════════
   // HORROR / DARK / GOTHIC
@@ -557,85 +558,85 @@ export const googleFontsExtended: Font[] = [
     "horror", "spooky", "halloween", "dark", "creepy", "dripping", "gothic", "scary", "monster", "blood",
   ], ["spooky", "creepy", "dark", "unsettling"], ["halloween", "horror movies", "haunted events", "dark themes", "gaming"], [
     "dripping horror letterforms", "spooky jagged edges", "horror movie aesthetic",
-  ]),
+  ], { designer: "Sideshow" }),
 
   gfDisplay("Nosifer", "Nosifer", "display", [
     "horror", "vampire", "dark", "gothic", "blood", "dripping", "halloween", "scary", "sinister", "macabre",
   ], ["sinister", "dark", "vampiric", "macabre"], ["horror", "vampire themes", "halloween", "dark gaming", "gothic events"], [
     "dripping blood-like letterforms", "vampire gothic style", "sinister presence",
-  ]),
+  ], { designer: "Typomondo" }),
 
   gfDisplay("Butcherman", "Butcherman", "display", [
     "horror", "gore", "dark", "splatter", "halloween", "scary", "grunge", "metal", "slasher", "extreme",
   ], ["gruesome", "dark", "extreme", "visceral"], ["horror", "metal music", "halloween", "slasher themes", "extreme branding"], [
     "gore-splatter letterforms", "slasher horror aesthetic", "extreme dark style",
-  ]),
+  ], { designer: "Typomondo" }),
 
   gfDisplay("Eater", "Eater", "display", [
     "horror", "dark", "gothic", "metal", "aggressive", "thorny", "sinister", "blackletter", "medieval", "occult",
   ], ["dark", "aggressive", "gothic", "menacing"], ["metal music", "horror", "gothic branding", "dark gaming", "occult themes"], [
     "thorny aggressive letterforms", "gothic metal aesthetic", "dark medieval influence",
-  ]),
+  ], { designer: "Typomondo" }),
 
   gfDisplay("Jolly Lodger", "Jolly Lodger", "display", [
     "pirate", "adventure", "nautical", "fun", "vintage", "spooky", "carnival", "quirky", "whimsical", "display",
   ], ["adventurous", "quirky", "fun", "theatrical"], ["pirate themes", "adventure", "carnival", "quirky branding", "games"], [
     "pirate-inspired thin letterforms", "adventurous carnival feel", "theatrical personality",
-  ]),
+  ], { designer: "Font Diner" }),
 
   gfDisplay("Pirata One", "Pirata One", "display", [
     "pirate", "blackletter", "gothic", "medieval", "dark", "adventure", "nautical", "tattoo", "old-english", "heritage",
   ], ["dark", "medieval", "adventurous", "gothic"], ["pirate themes", "tattoo", "dark academia", "medieval events", "gothic branding"], [
     "blackletter pirate style", "gothic medieval forms", "nautical adventure heritage",
-  ]),
+  ], { designer: "Rodrigo Fuenzalida & Nicolas Massi" }),
 
   gfDisplay("Emilys Candy", "Emilys Candy", "display", [
     "cute", "candy", "sweet", "girly", "decorative", "fun", "bubbly", "feminine", "playful", "whimsical",
   ], ["sweet", "cute", "whimsical", "playful"], ["candy brands", "kids content", "sweet shops", "party invitations", "feminine branding"], [
     "candy-inspired decorative forms", "sweet whimsical details", "playful feminine energy",
-  ]),
+  ], { designer: "Neapolitan" }),
 
   gfDisplay("Mystery Quest", "Mystery Quest", "display", [
     "mystery", "vintage", "detective", "noir", "spooky", "gothic", "dark-academia", "literary", "quirky", "old-fashioned",
   ], ["mysterious", "vintage", "noir", "literary"], ["mystery novels", "dark academia", "vintage branding", "detective themes", "literary events"], [
     "mysterious vintage letterforms", "detective noir personality", "dark academia aesthetic",
-  ]),
+  ], { designer: "Sideshow" }),
 
   gfDisplay("Rye", "Rye", "display", [
     "western", "saloon", "vintage", "americana", "cowboy", "rustic", "frontier", "bold", "serif", "heritage",
   ], ["western", "rugged", "vintage", "frontier"], ["western themes", "saloons", "country", "americana branding", "rustic design"], [
     "western saloon-style serifs", "frontier heritage letterforms", "cowboy Americana",
-  ]),
+  ], { designer: "Nicole Fally" }),
 
   gfDisplay("Almendra Display", "Almendra Display", "display", [
     "medieval", "fantasy", "calligraphic", "decorative", "gothic", "dark-academia", "heritage", "elegant", "literary", "ornate",
   ], ["medieval", "elegant", "fantasy", "ornate"], ["fantasy themes", "medieval events", "dark academia", "literary branding", "RPG games"], [
     "medieval calligraphic influence", "fantasy heritage forms", "ornate decorative details",
-  ]),
+  ], { designer: "Ana Sanfelippo" }),
 
   gfDisplay("Flavors", "Flavors", "display", [
     "fun", "quirky", "bubbly", "cartoon", "playful", "colorful", "kids", "pop", "bold", "whimsical",
   ], ["fun", "quirky", "bubbly", "colorful"], ["kids brands", "candy", "playful branding", "cartoon", "party themes"], [
     "bubbly quirky letterforms", "cartoon-like personality", "colorful playful design",
-  ]),
+  ], { designer: "Sideshow" }),
 
   gfDisplay("Freckle Face", "Freckle Face", "display", [
     "fun", "casual", "handdrawn", "kids", "cartoon", "playful", "friendly", "cute", "rough", "organic",
   ], ["fun", "casual", "friendly", "hand-drawn"], ["kids content", "casual branding", "comics", "playground", "games"], [
     "hand-drawn casual letterforms", "friendly kid-like personality", "organic rough edges",
-  ]),
+  ], { designer: "Astigmatic" }),
 
   gfDisplay("Irish Grover", "Irish Grover", "display", [
     "fun", "quirky", "casual", "rough", "handdrawn", "playful", "whimsical", "indie", "storybook", "organic",
   ], ["quirky", "fun", "whimsical", "casual"], ["indie branding", "storybooks", "quirky design", "games", "casual apps"], [
     "rough hand-drawn forms", "whimsical quirky personality", "indie storybook feel",
-  ]),
+  ], { designer: "Sideshow" }),
 
   gfDisplay("Henny Penny", "Henny Penny", "display", [
     "whimsical", "storybook", "fairy-tale", "fun", "decorative", "fantasy", "kids", "quirky", "cottagecore", "cute",
   ], ["whimsical", "fairy-tale", "fun", "storybook"], ["kids books", "fairy tale themes", "fantasy", "cottagecore", "whimsical branding"], [
     "fairy-tale inspired letterforms", "storybook decorative details", "whimsical fantasy personality",
-  ]),
+  ], { designer: "Brownfox" }),
 
   // ════════════════════════════════════════════════
   // EXPERIMENTAL / CHROMATIC
@@ -649,197 +650,197 @@ export const googleFontsExtended: Font[] = [
     "marker", "bold", "casual", "handlettered", "grunge", "street", "urban", "edgy", "raw", "punk",
   ], ["bold", "casual", "raw", "urban"], ["street art", "casual branding", "music", "urban design", "social media"], [
     "thick marker stroke", "casual hand-lettered feel", "urban street energy",
-  ]),
+  ], { designer: "Font Diner" }),
 
   gfDisplay("Press Start 2P", "Press Start 2P", "display", [
     "pixel", "retro", "gaming", "8-bit", "arcade", "y2k", "nostalgia", "digital", "tech", "geek",
   ], ["retro", "digital", "nostalgic", "geeky"], ["gaming", "retro tech", "arcade themes", "pixel art", "indie games"], [
     "pixel bitmap letterforms", "8-bit arcade aesthetic", "retro gaming nostalgia",
-  ]),
+  ], { designer: "CodeMan38" }),
 
   gfDisplay("Silkscreen", "Silkscreen", "display", [
     "pixel", "small", "bitmap", "retro", "gaming", "digital", "y2k", "tech", "minimal", "lo-fi",
   ], ["retro", "digital", "lo-fi", "minimal"], ["pixel art", "retro UI", "indie games", "tech nostalgia", "lo-fi design"], [
     "small pixel bitmap design", "lo-fi digital aesthetic", "minimal retro forms",
-  ]),
+  ], { designer: "Jason Kottke" }),
 
   gfDisplay("VT323", "VT323", "display", [
     "terminal", "retro", "hacker", "monospace", "pixel", "tech", "cyberpunk", "80s", "digital", "matrix",
   ], ["retro-tech", "hacker", "digital", "cyberpunk"], ["cyberpunk", "hacker themes", "retro computing", "terminal UIs", "sci-fi"], [
     "VT320 terminal-inspired forms", "retro computing aesthetic", "hacker monospace feel",
-  ]),
+  ], { designer: "Peter Hull" }),
 
   gfDisplay("Special Elite", "Special Elite", "display", [
     "typewriter", "vintage", "literary", "dark-academia", "noir", "editorial", "retro", "worn", "distressed", "classic",
   ], ["vintage", "literary", "noir", "worn"], ["dark academia", "literary branding", "detective themes", "vintage editorial", "noir"], [
     "typewriter-inspired forms", "worn vintage character", "literary noir personality",
-  ]),
+  ], { designer: "Astigmatic" }),
 
   gfDisplay("Orbitron", "Orbitron", "display", [
     "futuristic", "sci-fi", "geometric", "space", "tech", "cyber", "modern", "clean", "digital", "minimal",
   ], ["futuristic", "geometric", "clean", "technical"], ["sci-fi", "tech branding", "space themes", "cyberpunk", "modern UI"], [
     "geometric futuristic letterforms", "space-age proportions", "clean sci-fi aesthetic",
-  ]),
+  ], { designer: "Matt McInerney" }),
 
   gfDisplay("Audiowide", "Audiowide", "display", [
     "futuristic", "tech", "automotive", "racing", "sci-fi", "digital", "bold", "modern", "cyber", "industrial",
   ], ["futuristic", "tech", "bold", "automotive"], ["automotive", "tech branding", "racing", "sci-fi", "industrial design"], [
     "wide futuristic letterforms", "automotive dashboard feel", "tech-forward bold style",
-  ]),
+  ], { designer: "Astigmatic" }),
 
   gfDisplay("Bungee", "Bungee", "display", [
     "bold", "sign-painting", "urban", "retro", "poster", "display", "street", "pop", "chunky", "vintage",
   ], ["bold", "urban", "retro", "eye-catching"], ["signage", "posters", "urban branding", "headlines", "street design"], [
     "vertical and horizontal orientation support", "sign-painting heritage", "urban bold weight",
-  ]),
+  ], { designer: "David Jonathan Ross" }),
 
   gfDisplay("Righteous", "Righteous", "display", [
     "retro", "70s", "groovy", "rounded", "vintage", "funky", "warm", "display", "bold", "disco",
   ], ["retro", "groovy", "warm", "funky"], ["70s themes", "retro branding", "music", "vintage events", "disco"], [
     "rounded retro 70s forms", "groovy warm personality", "funky vintage curves",
-  ]),
+  ], { designer: "Astigmatic" }),
 
   gfDisplay("Fredoka", "Fredoka", "display", [
     "rounded", "friendly", "cute", "bubbly", "kids", "playful", "soft", "modern", "fun", "approachable",
   ], ["friendly", "cute", "approachable", "soft"], ["kids brands", "apps", "casual branding", "educational", "health"], [
     "fully rounded friendly forms", "soft approachable weight", "modern cute design",
-  ], { variableFont: true, weights: [300, 400, 500, 600, 700] }),
+  ], { variableFont: true, weights: [300, 400, 500, 600, 700] , designer: "Milena Brandão & Hafontia"}),
 
   gfDisplay("Abril Fatface", "Abril Fatface", "display", [
     "editorial", "elegant", "bold", "display", "poster", "fashion", "vintage", "serif", "magazine", "luxury",
   ], ["bold", "elegant", "editorial", "dramatic"], ["fashion", "magazines", "editorial", "luxury branding", "posters"], [
     "ultra-bold display serif", "high stroke contrast", "editorial poster presence",
-  ], { serifSansCategory: "serif" }),
+  ], { serifSansCategory: "serif" , designer: "TypeTogether"}),
 
   gfDisplay("Lobster", "Lobster", "script", [
     "script", "bold", "retro", "fun", "casual", "friendly", "vintage", "warm", "connected", "display",
   ], ["bold", "fun", "retro", "friendly"], ["casual branding", "food brands", "restaurants", "retro design", "social media"], [
     "bold connected script", "retro-inspired ligatures", "friendly warm personality",
-  ], { serifSansCategory: "script" }),
+  ], { serifSansCategory: "script" , designer: "Impallari Type"}),
 
   gfDisplay("Pacifico", "Pacifico", "script", [
     "script", "surf", "casual", "retro", "beach", "fun", "1950s", "americana", "vintage", "laid-back",
   ], ["casual", "retro", "laid-back", "fun"], ["surf brands", "beach themes", "casual dining", "retro branding", "vacation"], [
     "casual surf-inspired brush script", "retro 1950s California feel", "laid-back connected forms",
-  ], { serifSansCategory: "script" }),
+  ], { serifSansCategory: "script" , designer: "Vernon Adams & Jacques Le Bailly & Botjo Nikoltchev & Ani Petrova"}),
 
   gfDisplay("Dancing Script", "Dancing Script", "script", [
     "script", "elegant", "casual", "feminine", "romantic", "flowing", "wedding", "handlettered", "friendly", "warm",
   ], ["elegant", "casual", "romantic", "flowing"], ["invitations", "blogs", "feminine branding", "casual elegance", "menus"], [
     "casual elegant connected script", "bouncing baseline", "warm flowing rhythm",
-  ], { serifSansCategory: "script", variableFont: true, weights: [400, 500, 600, 700] }),
+  ], { serifSansCategory: "script", variableFont: true, weights: [400, 500, 600, 700] , designer: "Impallari Type"}),
 
   gfDisplay("Caveat", "Caveat", "handwritten", [
     "handwritten", "casual", "natural", "friendly", "organic", "personal", "notebook", "annotation", "warm", "approachable",
   ], ["casual", "natural", "personal", "approachable"], ["annotations", "personal blogs", "casual apps", "notes", "educational"], [
     "natural handwriting flow", "casual annotation feel", "warm personal voice",
-  ], { variableFont: true, weights: [400, 500, 600, 700] }),
+  ], { variableFont: true, weights: [400, 500, 600, 700] , designer: "Impallari Type"}),
 
   gfDisplay("Comfortaa", "Comfortaa", "display", [
     "rounded", "geometric", "modern", "futuristic", "clean", "friendly", "tech", "minimal", "soft", "sleek",
   ], ["modern", "rounded", "clean", "friendly"], ["tech branding", "modern apps", "clean UI", "soft tech", "startup branding"], [
     "perfectly rounded geometric forms", "modern sleek design", "friendly futuristic feel",
-  ], { variableFont: true, weights: [300, 400, 500, 600, 700] }),
+  ], { variableFont: true, weights: [300, 400, 500, 600, 700] , designer: "Johan Aakerlund"}),
 
   gfDisplay("Cinzel Decorative", "Cinzel Decorative", "display", [
     "decorative", "roman", "classical", "elegant", "luxury", "serif", "heritage", "dark-academia", "literary", "ornate",
   ], ["classical", "elegant", "ornate", "luxurious"], ["luxury branding", "dark academia", "classical themes", "literary", "heritage events"], [
     "decorative Roman capital letterforms", "classical ornate details", "luxury heritage presence",
-  ], { serifSansCategory: "serif" }),
+  ], { serifSansCategory: "serif" , designer: "Natanael Gama"}),
 
   gfDisplay("Alfa Slab One", "Alfa Slab One", "display", [
     "slab", "bold", "strong", "poster", "headline", "vintage", "display", "heavy", "impact", "retro",
   ], ["bold", "strong", "impactful", "heavy"], ["posters", "headlines", "sports", "editorial", "vintage advertising"], [
     "ultra-bold slab serif", "high visual impact", "vintage poster weight",
-  ], { serifSansCategory: "serif" }),
+  ], { serifSansCategory: "serif" , designer: "JM Solé"}),
 
   gfDisplay("Staatliches", "Staatliches", "display", [
     "condensed", "bold", "industrial", "modern", "display", "editorial", "news", "headline", "tall", "impactful",
   ], ["bold", "industrial", "modern", "commanding"], ["news headlines", "editorial", "sports", "industrial branding", "posters"], [
     "ultra-condensed display forms", "industrial news headline feel", "commanding vertical rhythm",
-  ]),
+  ], { designer: "Brian LaRossa & Erica Carras" }),
 
   gfDisplay("Baskervville", "Baskervville", "serif", [
     "classic", "elegant", "traditional", "literary", "dark-academia", "editorial", "timeless", "refined", "readable", "heritage",
   ], ["classic", "refined", "literary", "elegant"], ["dark academia", "literary branding", "editorial", "books", "heritage"], [
     "transitional serif based on Baskerville", "classic refined proportions", "literary heritage",
-  ], { serifSansCategory: "serif", isBodySuitable: true, bodyLegibilityScore: 7 }),
+  ], { serifSansCategory: "serif", isBodySuitable: true, bodyLegibilityScore: 7 , designer: "ANRT"}),
 
   gfDisplay("Poiret One", "Poiret One", "display", [
     "art-deco", "thin", "geometric", "elegant", "gatsby", "vintage", "fashion", "luxury", "1920s", "refined",
   ], ["elegant", "art-deco", "refined", "delicate"], ["fashion", "art deco themes", "luxury branding", "gatsby events", "high-end editorial"], [
     "art deco geometric thin forms", "roaring twenties elegance", "delicate refined proportions",
-  ]),
+  ], { designer: "Denis Masharov" }),
 
   gfDisplay("Berkshire Swash", "Berkshire Swash", "display", [
     "swash", "decorative", "calligraphic", "elegant", "vintage", "romantic", "feminine", "ornate", "serif", "heritage",
   ], ["elegant", "decorative", "romantic", "ornate"], ["invitations", "vintage branding", "romantic themes", "feminine luxury", "heritage events"], [
     "calligraphic swash capitals", "decorative vintage elegance", "romantic serif personality",
-  ], { serifSansCategory: "serif" }),
+  ], { serifSansCategory: "serif" , designer: "Astigmatic"}),
 
   gfDisplay("Megrim", "Megrim", "display", [
     "futuristic", "thin", "geometric", "sci-fi", "angular", "cyber", "minimal", "tech", "experimental", "avant-garde",
   ], ["futuristic", "angular", "experimental", "minimal"], ["sci-fi themes", "tech branding", "experimental design", "cyber aesthetics", "avant-garde"], [
     "angular thin geometric forms", "futuristic experimental design", "cyberpunk minimal aesthetic",
-  ]),
+  ], { designer: "Daniel Johnson" }),
 
   gfDisplay("Nixie One", "Nixie One", "display", [
     "retro-tech", "nixie-tube", "vintage", "steampunk", "display", "quirky", "tech", "decorative", "serif", "nerdy",
   ], ["retro-tech", "quirky", "vintage", "charming"], ["steampunk", "vintage tech", "retro electronics", "nerdy branding", "quirky editorial"], [
     "nixie tube display inspired slab forms", "retro electronics aesthetic", "vintage tech personality",
-  ]),
+  ], { designer: "Jovanny Lemonad" }),
 
   gfDisplay("Vast Shadow", "Vast Shadow", "display", [
     "western", "shadow", "bold", "display", "vintage", "poster", "americana", "3d", "retro", "dramatic",
   ], ["bold", "dramatic", "western", "eye-catching"], ["western themes", "vintage posters", "americana", "bold headlines", "retro advertising"], [
     "heavy inline shadow effect", "western display presence", "vintage poster drama",
-  ]),
+  ], { designer: "Nicole Fally" }),
 
   gfDisplay("UnifrakturMaguntia", "UnifrakturMaguntia", "display", [
     "blackletter", "gothic", "medieval", "german", "dark", "tattoo", "heritage", "fraktur", "old-english", "dark-academia",
   ], ["gothic", "dark", "medieval", "heritage"], ["dark academia", "gothic branding", "medieval themes", "tattoo", "beer labels"], [
     "traditional Fraktur blackletter", "gothic medieval heritage", "German typographic tradition",
-  ]),
+  ], { designer: "j. 'mach' wust" }),
 
   gfDisplay("Metal Mania", "Metal Mania", "display", [
     "metal", "gothic", "dark", "aggressive", "horror", "band", "heavy-metal", "edgy", "punk", "extreme",
   ], ["aggressive", "dark", "heavy", "intense"], ["metal music", "band logos", "dark gaming", "horror", "extreme branding"], [
     "heavy metal band lettering style", "aggressive gothic forms", "extreme dark personality",
-  ]),
+  ], { designer: "Open Window" }),
 
   gfDisplay("Dokdo", "Dokdo", "display", [
     "brush", "asian-inspired", "bold", "painted", "ink", "artistic", "calligraphic", "organic", "expressive", "raw",
   ], ["expressive", "raw", "artistic", "bold"], ["art exhibitions", "asian-inspired design", "creative branding", "gallery", "editorial"], [
     "bold brush ink strokes", "Asian calligraphy influence", "raw artistic expression",
-  ]),
+  ], { designer: "FONTRIX" }),
 
   gfDisplay("Zen Dots", "Zen Dots", "display", [
     "futuristic", "rounded", "tech", "cyber", "digital", "gaming", "neon", "sci-fi", "modern", "bold",
   ], ["futuristic", "tech", "bold", "digital"], ["gaming", "tech branding", "sci-fi", "cyberpunk", "digital products"], [
     "rounded futuristic dot-connected forms", "digital tech aesthetic", "cyber gaming personality",
-  ]),
+  ], { designer: "Yoshimichi Ohira" }),
 
   gfDisplay("Yuji Mai", "Yuji Mai", "display", [
     "japanese", "calligraphic", "elegant", "asian-inspired", "brush", "cultural", "zen", "organic", "refined", "artistic",
   ], ["elegant", "cultural", "zen", "refined"], ["japanese themes", "zen branding", "cultural events", "tea ceremony", "art gallery"], [
     "Japanese calligraphy-inspired forms", "zen elegance", "cultural brush refinement",
-  ]),
+  ], { designer: "Kinuta Font Factory" }),
 
   gfDisplay("Climate Crisis", "Climate Crisis", "display", [
     "environmental", "melting", "activism", "bold", "experimental", "variable", "dynamic", "awareness", "modern", "urgency",
   ], ["urgent", "dynamic", "bold", "activist"], ["environmental campaigns", "activism", "awareness design", "editorial", "non-profit"], [
     "variable-weight melting effect", "climate change visual metaphor", "activist design statement",
-  ], { variableFont: true }),
+  ], { variableFont: true , designer: "Daniel Coull & Eino Korkala"}),
 
   gfDisplay("Tourney", "Tourney", "display", [
     "sport", "condensed", "athletic", "bold", "competition", "varsity", "collegiate", "racing", "energetic", "display",
   ], ["athletic", "competitive", "bold", "energetic"], ["sports branding", "tournaments", "athletic wear", "esports", "college"], [
     "condensed athletic display", "varsity collegiate style", "competition-ready forms",
-  ], { variableFont: true, weights: [100, 200, 300, 400, 500, 600, 700, 800, 900] }),
+  ], { variableFont: true, weights: [100, 200, 300, 400, 500, 600, 700, 800, 900] , designer: "Tyler Finck & ETC"}),
 
   gfDisplay("Syne", "Syne", "display", [
     "modern", "editorial", "bold", "geometric", "contemporary", "art", "gallery", "avant-garde", "clean", "display",
   ], ["modern", "bold", "editorial", "avant-garde"], ["contemporary art", "gallery", "modern editorial", "creative tech", "branding"], [
     "contemporary geometric sans with personality", "art-world editorial feel", "modern bold presence",
-  ], { variableFont: true, weights: [400, 500, 600, 700, 800], isBodySuitable: true, bodyLegibilityScore: 6 }),
+  ], { variableFont: true, weights: [400, 500, 600, 700, 800], isBodySuitable: true, bodyLegibilityScore: 6 , designer: "Bonjour Monde & Lucas Descroix & George Triantafyllakos"}),
 ];
