@@ -154,7 +154,12 @@ export function PromptInput() {
     setIsExploring(true);
     setVisibleCount(3);
     try { localStorage.setItem("font-pond-last-query", "__explore__"); } catch {}
-    setTimeout(() => { setResults(explorePairs()); setIsLoading(false); }, 300);
+    setTimeout(() => {
+      const pairs = explorePairs();
+      try { sessionStorage.setItem("font-pond-explore-ids", JSON.stringify(pairs.map(p => p.id))); } catch {}
+      setResults(pairs);
+      setIsLoading(false);
+    }, 300);
   }, [setResults, setIsLoading, setHasSearched, setIsExploring, setVisibleCount]);
 
   const handleKeyDown = useCallback(

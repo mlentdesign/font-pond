@@ -7,7 +7,7 @@ import { ResultsGrid } from "@/components/ResultsGrid";
 import { HeaderWithFontInfo } from "@/components/HeaderWithFontInfo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useAppState } from "@/lib/store";
-import { rankPairs, explorePairs } from "@/lib/engine";
+import { rankPairs, explorePairs, reconstructExplorePairs } from "@/lib/engine";
 
 export default function Home() {
   const { hasSearched, results, setQuery, setResults, setHasSearched, setIsExploring, setVisibleCount, setIsLoading } = useAppState();
@@ -34,7 +34,16 @@ export default function Home() {
         setHasSearched(true);
         setIsExploring(true);
         setVisibleCount(3);
-        setResults(explorePairs());
+        let pairs = null;
+        try {
+          const cachedIds = sessionStorage.getItem("font-pond-explore-ids");
+          if (cachedIds) {
+            const ids = JSON.parse(cachedIds) as string[];
+            const restored = reconstructExplorePairs(ids);
+            if (restored.length > 0) pairs = restored;
+          }
+        } catch {}
+        setResults(pairs ?? explorePairs());
       } else {
         setQuery(saved);
         setHasSearched(true);
