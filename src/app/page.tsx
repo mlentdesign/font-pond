@@ -49,6 +49,7 @@ export default function Home() {
     setIsExploring(false);
     setVisibleCount(3);
     try { localStorage.removeItem("font-pond-last-query"); } catch {}
+    if (window.location.search) window.history.replaceState(null, "", "/font-pond/");
   };
 
   return (
