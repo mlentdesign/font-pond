@@ -136,7 +136,7 @@ export function ResultsGrid() {
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) loadNext(); },
-      { rootMargin: "0px 0px 400px 0px", threshold: 0 }
+      { rootMargin: "0px 0px 800px 0px", threshold: 0 }
     );
     observer.observe(el);
     return () => observer.disconnect();

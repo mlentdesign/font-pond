@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ScoredPair } from "@/data/types";
 import { loadFont, getFontFamily, ensureFontsRendered } from "@/lib/fonts";
@@ -43,16 +43,18 @@ export function PairPreviewGrid({
 }: PairPreviewGridProps) {
   const cols = useColumns();
   const router = useRouter();
-  // Fill complete rows: round up initialVisible to nearest multiple of cols
   const adjustedInitial = Math.ceil(initialVisible / cols) * cols;
   const adjustedIncrement = Math.ceil(loadMoreIncrement / cols) * cols;
   const [visible, setVisible] = useState(adjustedInitial);
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setVisible(Math.ceil(initialVisible / cols) * cols);
   }, [cols, initialVisible]);
+
   const hasMore = visible < pairs.length;
 
+  // Load fonts for newly visible pairs
   useEffect(() => {
     const fontNames: string[] = [];
     for (const p of pairs.slice(0, visible)) {
@@ -62,6 +64,22 @@ export function PairPreviewGrid({
     }
     ensureFontsRendered(fontNames);
   }, [pairs, visible]);
+
+  // Infinite scroll: load more when sentinel enters the viewport
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el || !hasMore) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible((v) => Math.min(v + adjustedIncrement, pairs.length));
+        }
+      },
+      { rootMargin: "0px 0px 600px 0px", threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasMore, adjustedIncrement, pairs.length]);
 
   if (pairs.length === 0) return null;
 
@@ -119,17 +137,7 @@ export function PairPreviewGrid({
           );
         })}
       </div>
-      {hasMore && (
-        <div className="text-center" style={{ marginTop: "32px" }}>
-          <button
-            onClick={() => setVisible(Math.min(visible + adjustedIncrement, pairs.length))}
-            className="outline-btn font-medium rounded-lg"
-            style={{ fontSize: "16px", padding: "8px 24px" }}
-          >
-            Load more pairs
-          </button>
-        </div>
-      )}
+      {hasMore && <div ref={sentinelRef} style={{ height: 1 }} />}
     </div>
   );
 }
