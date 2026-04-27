@@ -1,5 +1,5 @@
 import { fonts, fontsById } from "@/data/fonts";
-import { fontPairs, ensureDynamicPairs } from "@/data/pairs";
+import { fontPairs, ensureDynamicPairs, pairsById } from "@/data/pairs";
 import { Font, FontPair, ScoredPair, StyleSignals } from "@/data/types";
 import { SYNONYM_MAP } from "@/data/adjective-expansion";
 import { SYNONYM_BATCH3 } from "@/data/adjective-batch3";
