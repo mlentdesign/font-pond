@@ -49,7 +49,7 @@ export function Footer() {
       <div className="footer-left" style={{ display: "flex", alignItems: "center", minWidth: 0 }}>
         <Link
           href="/database"
-          className="footer-tagline hover:opacity-70 transition-opacity"
+          className="footer-tagline hover:opacity-70 hover:underline transition-opacity"
           style={{ fontSize: "16px", color: "var(--text-ransom)" }}
         >
           Free font combinations for design work

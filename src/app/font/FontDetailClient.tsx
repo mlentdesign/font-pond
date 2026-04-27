@@ -262,7 +262,9 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                         type="button"
                         onClick={() => router.push(`/designer?d=${designerToSlug(name)}${slug ? `&font=${slug}` : ""}${fromPair ? `&from=${fromPair}` : ""}`)}
                         className="hover:underline"
-                        style={{ color: "inherit", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
+                        style={{ color: "var(--text-muted)", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-heading)"; }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-muted)"; }}
                       >
                         {name}
                       </button>
