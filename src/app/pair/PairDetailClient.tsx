@@ -261,10 +261,12 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
           return Math.max(36, best);
         };
 
+        // Leave 16px breathing room on each side of the centered content
+        const PADDING = 32;
         if (hCardH < bCardH) {
-          setHeaderSpecSize(findSize(hBig, hSmall, hContent, hBaseContentH + gap));
+          setHeaderSpecSize(findSize(hBig, hSmall, hContent, hBaseContentH + gap - PADDING));
         } else {
-          setBodySpecSize(findSize(bBig, bSmall, bContent, bBaseContentH + gap));
+          setBodySpecSize(findSize(bBig, bSmall, bContent, bBaseContentH + gap - PADDING));
         }
       }));
     });
