@@ -1,7 +1,9 @@
 import YearSlugClient from "./YearSlugClient";
+import { yearsBySlug } from "@/data/years";
 
 export function generateStaticParams() {
-  return [{ slug: [] }];
+  const yearSlugs = [...yearsBySlug.keys()].map((y) => ({ slug: [y] }));
+  return [{ slug: [] }, ...yearSlugs];
 }
 
 export default async function YearPage({ params }: { params: Promise<{ slug?: string[] }> }) {
