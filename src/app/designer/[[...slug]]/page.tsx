@@ -2,7 +2,8 @@ import DesignerSlugClient from "./DesignerSlugClient";
 import { designersBySlug } from "@/data/designers";
 
 export function generateStaticParams() {
-  return [{ slug: [] }];
+  const designerSlugs = [...designersBySlug.keys()].map((s) => ({ slug: [s] }));
+  return [{ slug: [] }, ...designerSlugs];
 }
 
 export default async function DesignerPage({ params }: { params: Promise<{ slug?: string[] }> }) {
