@@ -179,7 +179,7 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
         let lo = 12, hi = 250, best = 12;
         for (let i = 0; i < 14; i++) {
           const mid = Math.round((lo + hi) / 2);
-          const smallSize = Math.round(mid * 16 / 36);
+          const smallSize = Math.max(16, Math.round(mid * 16 / 36));
           const lineGap = Math.round(smallSize * 0.35);
 
           ctx.font = `600 ${mid}px ${family}`;
@@ -305,11 +305,11 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
                       style={{
                         fontFamily: family,
                         fontWeight: 400,
-                        fontSize: `${Math.round((specimenSizes[font.slug] ?? 36) * 16 / 36)}px`,
+                        fontSize: `${Math.max(16, Math.round((specimenSizes[font.slug] ?? 36) * 16 / 36))}px`,
                         lineHeight: "1",
                         display: "flex",
                         flexDirection: "column",
-                        gap: `${Math.round(Math.round((specimenSizes[font.slug] ?? 36) * 16 / 36) * 0.35)}px`,
+                        gap: `${Math.round(Math.max(16, Math.round((specimenSizes[font.slug] ?? 36) * 16 / 36)) * 0.35)}px`,
                       }}
                     >
                       <span>ABCDEFGHIJKLMNOPQRSTUVWXYZ</span>
