@@ -305,7 +305,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                 <div
                   ref={(el) => { if (el) sectionRefs.current[font.slug] = el; else delete sectionRefs.current[font.slug]; }}
                   className="spec-section"
-                  style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column" }}
+                  style={{ overflow: "hidden", display: "flex", flexDirection: "column" }}
                 >
                   <div style={{ marginTop: "16px" }}>
                     <div
