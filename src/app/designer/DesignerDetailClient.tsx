@@ -18,7 +18,8 @@ import Link from "next/link";
 export default function DesignerDetailClient({ slugOverride }: { slugOverride?: string } = {}) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const paramSlug = slugOverride || searchParams.get("d") || "";
+  const paramSlug = slugOverride || searchParams.get("d") ||
+    (typeof window !== "undefined" ? (window.location.pathname.match(/\/designer\/([^/?#]+)/)?.[1] || "") : "") || "";
   const rawFontSlug = searchParams.get("font") || "";
   const rawFromPair = searchParams.get("from") || "";
 
@@ -40,7 +41,8 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
   useEffect(() => {
     if (designer && slug && window.location.search) {
-      startTransition(() => router.replace(`/designer/${slug}`));
+      const base = window.location.pathname.replace(/\/designer.*$/, "");
+      window.history.replaceState(window.history.state, "", `${base}/designer/${slug}`);
     }
   }, [designer, slug]);
 
@@ -59,9 +61,9 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
     const hName = fontsById.get(fromPairData.headerFontId)?.name;
     const bName = fontsById.get(fromPairData.bodyFontId)?.name;
     const pairLabel = hName && bName ? `${hName} + ${bName}` : fromPairData.slug;
-    crumbs.push({ label: pairLabel, href: `/pair/${fromPair}` });
+    crumbs.push({ label: pairLabel, href: `/pair?p=${fromPair}` });
   }
-  if (fromFont) crumbs.push({ label: fromFont.name, href: `/font/${fontSlug}` });
+  if (fromFont) crumbs.push({ label: fromFont.name, href: `/font?f=${fontSlug}${fromPair ? `&from=${fromPair}` : ""}` });
   if (designer) crumbs.push({ label: designer.name });
 
   if (!designer) {
@@ -271,11 +273,11 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                 key={font.slug}
                 role="link"
                 tabIndex={0}
-                onClick={() => startTransition(() => router.push(`/font/${font.slug}`))}
+                onClick={() => startTransition(() => router.push(`/font?f=${font.slug}`))}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    startTransition(() => router.push(`/font/${font.slug}`));
+                    startTransition(() => router.push(`/font?f=${font.slug}`));
                   }
                 }}
                 onMouseDown={(e) => e.preventDefault()}

@@ -47,7 +47,8 @@ function InfoRow({ label, value, useTitle, useClassification }: { label: string;
 export default function FontDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const paramSlug = slugOverride || searchParams.get("f") || "";
+  const paramSlug = slugOverride || searchParams.get("f") ||
+    (typeof window !== "undefined" ? (window.location.pathname.match(/\/font\/([^/?#]+)/)?.[1] || "") : "") || "";
   const rawFromPair = searchParams.get("from") || "";
 
   // Single source of truth for the current font slug. Ref holds the last
@@ -78,10 +79,10 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
 
   const font = fontsBySlug.get(slug);
 
-  // Upgrade legacy ?f= URLs to clean path URLs (for old bookmarks/history).
   useEffect(() => {
     if (font && slug && window.location.search) {
-      startTransition(() => router.replace(`/font/${slug}`));
+      const base = window.location.pathname.replace(/\/font.*$/, "");
+      window.history.replaceState(window.history.state, "", `${base}/font/${slug}`);
     }
   }, [font, slug]);
 
@@ -92,7 +93,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
     if (pair) {
       const hf = fontsById.get(pair.headerFontId);
       const bf = fontsById.get(pair.bodyFontId);
-      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair/${fromPair}` });
+      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair?p=${fromPair}` });
     }
   }
   if (font) crumbs.push({ label: font.name });
@@ -260,7 +261,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                     <span key={name}>
                       <button
                         type="button"
-                        onClick={() => startTransition(() => router.push(`/designer/${designerToSlug(name)}`))}
+                        onClick={() => startTransition(() => router.push(`/designer?d=${designerToSlug(name)}${slug ? `&font=${slug}` : ""}${fromPair ? `&from=${fromPair}` : ""}`))}
                         className="hover:underline"
                         style={{ color: "var(--text-muted)", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
                         onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-heading)"; }}
@@ -278,7 +279,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                   {" · "}
                   <button
                     type="button"
-                    onClick={() => startTransition(() => router.push(`/year/${font.year}`))}
+                    onClick={() => startTransition(() => router.push(`/year?y=${font.year}${slug ? `&font=${slug}` : ""}`))}
                     className="hover:underline"
                     style={{ color: "var(--text-muted)", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
                     onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-heading)"; }}
@@ -475,8 +476,8 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                       key={sf.slug}
                       role="link"
                       tabIndex={0}
-                      onClick={() => startTransition(() => router.push(`/font/${sf.slug}`))}
-                      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); startTransition(() => router.push(`/font/${sf.slug}`)); } }}
+                      onClick={() => startTransition(() => router.push(`/font?f=${sf.slug}`))}
+                      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); startTransition(() => router.push(`/font?f=${sf.slug}`)); } }}
                       onMouseDown={(e) => e.preventDefault()}
                       className="group border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden cursor-pointer"
                       style={{ position: "relative" }}
