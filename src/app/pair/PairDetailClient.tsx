@@ -322,12 +322,24 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
         return Math.max(12, best);
       };
 
-      // Pin section heights before applying new font sizes so the CSS grid
-      // can't inflate them when one card grows taller than the other.
-      setHPinnedH(hSectionH);
-      setBPinnedH(bSectionH);
-      setHeaderSpecSize(findSize(hFamily, 600, hSectionH, hSectionW));
-      setBodySpecSize(findSize(bFamily, 400, bSectionH, bSectionW));
+      const computeContentH = (family: string, fontWeight: number, size: number): number => {
+        const smallSize = Math.max(16, Math.round(size * 16 / 36));
+        const smallLineH = smallSize * 1.625;
+        ctx.font = `${fontWeight} ${size}px ${family}`;
+        const bigAscent = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg").actualBoundingBoxAscent;
+        ctx.font = `400 ${smallSize}px ${family}`;
+        const abcA = Math.max(smallLineH, ctx.measureText("ABCDEFGHIJKLMNOPQRSTUVWXYZ").actualBoundingBoxAscent);
+        const lcA  = Math.max(smallLineH, ctx.measureText("abcdefghijklmnopqrstuvwxyz").actualBoundingBoxAscent);
+        const numA = Math.max(smallLineH, ctx.measureText("0123456789").actualBoundingBoxAscent);
+        return bigAscent + 8 + abcA + lcA + numA;
+      };
+      const hBest = findSize(hFamily, 600, hSectionH, hSectionW);
+      const bBest = findSize(bFamily, 400, bSectionH, bSectionW);
+      const sharedH = Math.max(computeContentH(hFamily, 600, hBest), computeContentH(bFamily, 400, bBest)) + 32;
+      setHPinnedH(sharedH);
+      setBPinnedH(sharedH);
+      setHeaderSpecSize(hBest);
+      setBodySpecSize(bBest);
     };
 
     run();
