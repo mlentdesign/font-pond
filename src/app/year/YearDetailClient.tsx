@@ -47,7 +47,7 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
   }, [yearGroup]);
 
   const crumbs: { label: string; href?: string }[] = [];
-  if (fromFont) crumbs.push({ label: fromFont.name, href: `/font?f=${fontSlug}` });
+  if (fromFont) crumbs.push({ label: fromFont.name, href: `/font/${fontSlug}` });
   if (yearGroup) crumbs.push({ label: String(yearGroup.year) });
 
   if (!yearGroup) {
@@ -179,7 +179,7 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
 
         const targetH = sectionH * 0.88;
 
-        let lo = 12, hi = 250, best = 12;
+        let lo = 12, hi = 72, best = 12;
         for (let i = 0; i < 14; i++) {
           const mid = Math.round((lo + hi) / 2);
           const smallSize = Math.round(mid * 16 / 36);
@@ -253,11 +253,11 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
                 key={font.slug}
                 role="link"
                 tabIndex={0}
-                onClick={() => startTransition(() => router.push(`/font?f=${font.slug}`))}
+                onClick={() => startTransition(() => router.push(`/font/${font.slug}`))}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    startTransition(() => router.push(`/font?f=${font.slug}`));
+                    startTransition(() => router.push(`/font/${font.slug}`));
                   }
                 }}
                 onMouseDown={(e) => e.preventDefault()}
