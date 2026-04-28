@@ -92,7 +92,7 @@ function FontSection({
           </div>
           <div
             className="leading-relaxed text-neutral-600"
-            style={{ fontFamily: family, fontWeight: 400, fontSize: `${Math.round(specimenFontSize * 16 / 36)}px` }}
+            style={{ fontFamily: family, fontWeight: 400, fontSize: `${Math.max(16, Math.round(specimenFontSize * 16 / 36))}px` }}
           >
             <span style={{ display: "block" }}>ABCDEFGHIJKLMNOPQRSTUVWXYZ</span>
             <span style={{ display: "block" }}>abcdefghijklmnopqrstuvwxyz</span>
@@ -250,7 +250,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
         let lo = 12, hi = 200, best = 12;
         for (let i = 0; i < 12; i++) {
           const mid = Math.round((lo + hi) / 2);
-          const smallSize = Math.round(mid * 16 / 36);
+          const smallSize = Math.max(16, Math.round(mid * 16 / 36));
           const bigLineH = mid * 1.25;       // leading-tight
           const smallLineH = smallSize * 1.625; // leading-relaxed
 
