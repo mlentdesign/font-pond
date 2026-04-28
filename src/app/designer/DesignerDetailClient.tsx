@@ -143,7 +143,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
         for (const font of sorted.slice(0, visibleFonts)) {
           const family = getFontFamily(font.name, font.source);
-          ctx.font = `600 36px "${family}"`;
+          ctx.font = `600 36px ${family}`;
           const capH = ctx.measureText("A").actualBoundingBoxAscent;
           if (capH <= 0) continue;
           updates[font.slug] = Math.max(28, Math.min(64, Math.round(36 * TARGET_CAP_H / capH)));
@@ -200,7 +200,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
           const smallSize = Math.round(mid * 16 / 36);
           const lineGap = Math.round(smallSize * 0.35);
 
-          ctx.font = `600 ${mid}px "${family}"`;
+          ctx.font = `600 ${mid}px ${family}`;
           const bigM = ctx.measureText("Aa Bb Cc Dd Ee Ff");
           const bigLines = Math.max(1, Math.ceil(bigM.width / sectionW));
           // Ascent-only: actualBoundingBoxAscent accounts for ink above the line box
@@ -209,7 +209,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
           // clips anyway, and including them forces needlessly tiny font sizes.
           const bigH = (bigLines - 1) * mid + Math.max(mid, bigM.actualBoundingBoxAscent);
 
-          ctx.font = `400 ${smallSize}px "${family}"`;
+          ctx.font = `400 ${smallSize}px ${family}`;
           const vW = (t: string) => ctx.measureText(t).width;
           const vEff = (t: string) => Math.max(smallSize, ctx.measureText(t).actualBoundingBoxAscent);
           const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
