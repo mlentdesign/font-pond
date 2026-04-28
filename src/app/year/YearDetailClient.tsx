@@ -181,7 +181,10 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
 
         const targetH = sectionH * 0.88;
 
-        let lo = 12, hi = 72, best = 12;
+        ctx.font = `600 36px ${family}`;
+        const bigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
+        const widthFitSize = bigW36 > 0 ? Math.floor(36 * sectionW * 0.97 / bigW36) : 72;
+        let lo = 12, hi = Math.max(12, widthFitSize), best = 12;
         for (let i = 0; i < 14; i++) {
           const mid = Math.round((lo + hi) / 2);
           const smallSize = Math.round(mid * 16 / 36);
@@ -300,7 +303,7 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
                 >
                   <div>
                     <div
-                      className="text-neutral-800 break-words"
+                      className="text-neutral-800 whitespace-nowrap"
                       style={{ fontFamily: family, fontWeight: 600, fontSize: `${specimenSizes[font.slug] ?? 36}px`, lineHeight: "1", marginBottom: "8px" }}
                     >
                       Aa Bb Cc Dd Ee Ff
