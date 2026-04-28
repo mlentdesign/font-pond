@@ -256,23 +256,20 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
           ctx.font = `${fontWeight} ${mid}px "${family}"`;
           const bigM = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg");
-          const bigActual = bigM.actualBoundingBoxAscent + bigM.actualBoundingBoxDescent;
           const bigLines = Math.max(1, Math.ceil(bigM.width / sectionW));
-          const bigH = (bigLines - 1) * bigLineH + Math.max(bigLineH, bigActual) + 8;
+          // Pure line-box heights: each line occupies its lineHeight in layout.
+          // actualBoundingBoxDescent overcounts for script/handwritten fonts — DOM clips anyway.
+          const bigH = bigLines * bigLineH + 8;
 
           ctx.font = `400 ${smallSize}px "${family}"`;
           const vW = (t: string) => ctx.measureText(t).width;
-          const vEff = (t: string) => {
-            const m = ctx.measureText(t);
-            return Math.max(smallLineH, m.actualBoundingBoxAscent + m.actualBoundingBoxDescent);
-          };
           const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
           const lowerLines = Math.max(1, Math.ceil(vW("abcdefghijklmnopqrstuvwxyz") / sectionW));
           const numsLines  = Math.max(1, Math.ceil(vW("0123456789") / sectionW));
           const totalH = bigH
-            + (upperLines - 1) * smallLineH + vEff("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-            + (lowerLines - 1) * smallLineH + vEff("abcdefghijklmnopqrstuvwxyz")
-            + (numsLines  - 1) * smallLineH + vEff("0123456789");
+            + upperLines * smallLineH
+            + lowerLines * smallLineH
+            + numsLines  * smallLineH;
 
           if (totalH <= targetH) { best = mid; lo = mid + 1; }
           else hi = mid - 1;

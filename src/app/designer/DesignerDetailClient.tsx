@@ -202,27 +202,21 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
           ctx.font = `600 ${mid}px "${family}"`;
           const bigM = ctx.measureText("Aa Bb Cc Dd Ee Ff");
-          const bigActual = bigM.actualBoundingBoxAscent + bigM.actualBoundingBoxDescent;
           const bigLines = Math.max(1, Math.ceil(bigM.width / sectionW));
-          // (N-1) line spacings + max(line-box, actual visual glyph extent).
-          // Regular fonts: line-box (mid) ≥ actualBoundingBox → no change from line-box math.
-          // Display/decorative fonts (drips, tall ascenders): actualBoundingBox > mid →
-          // binary search finds a smaller size so the visual content doesn't clip.
-          const bigH = (bigLines - 1) * mid + Math.max(mid, bigActual);
+          // Pure line-box heights: lineHeight:1 in DOM means each line occupies exactly
+          // fontSize px in layout. actualBoundingBoxDescent overcounts for script/handwritten
+          // fonts (decorative swashes extend far below baseline) — DOM clips those anyway.
+          const bigH = bigLines * mid;
 
           ctx.font = `400 ${smallSize}px "${family}"`;
           const vW = (t: string) => ctx.measureText(t).width;
-          const vEff = (t: string) => {
-            const m = ctx.measureText(t);
-            return Math.max(smallSize, m.actualBoundingBoxAscent + m.actualBoundingBoxDescent);
-          };
           const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
           const lowerLines = Math.max(1, Math.ceil(vW("abcdefghijklmnopqrstuvwxyz") / sectionW));
           const numsLines  = Math.max(1, Math.ceil(vW("0123456789") / sectionW));
           const totalH = bigH + 8
-            + (upperLines - 1) * smallSize + vEff("ABCDEFGHIJKLMNOPQRSTUVWXYZ") + lineGap
-            + (lowerLines - 1) * smallSize + vEff("abcdefghijklmnopqrstuvwxyz") + lineGap
-            + (numsLines  - 1) * smallSize + vEff("0123456789");
+            + upperLines * smallSize + lineGap
+            + lowerLines * smallSize + lineGap
+            + numsLines  * smallSize;
 
           if (totalH <= targetH) { best = mid; lo = mid + 1; }
           else hi = mid - 1;
