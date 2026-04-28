@@ -40,7 +40,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
   useEffect(() => {
     if (designer && slug && window.location.search) {
-      window.history.replaceState(window.history.state, "", `/font-pond/designer/${slug}`);
+      router.replace(`/designer/${slug}`);
     }
   }, [designer, slug]);
 
