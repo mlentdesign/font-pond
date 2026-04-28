@@ -250,11 +250,11 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
                 key={font.slug}
                 role="link"
                 tabIndex={0}
-                onClick={() => router.push(`/font?f=${font.slug}`)}
+                onClick={() => startTransition(() => router.push(`/font?f=${font.slug}`))}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    router.push(`/font?f=${font.slug}`);
+                    startTransition(() => router.push(`/font?f=${font.slug}`));
                   }
                 }}
                 onMouseDown={(e) => e.preventDefault()}
