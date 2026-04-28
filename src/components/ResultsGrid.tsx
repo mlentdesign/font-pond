@@ -8,15 +8,17 @@ import { ScoredPair } from "@/data/types";
 
 type VisiblePair = { pair: ScoredPair; delay: number };
 
+function getColCount(): number {
+  if (typeof window === "undefined") return 1;
+  if (window.innerWidth >= 1024) return 3;
+  if (window.innerWidth >= 768) return 2;
+  return 1;
+}
+
 function useColumns(): number {
-  const [cols, setCols] = useState(3);
+  const [cols, setCols] = useState(getColCount);
   useEffect(() => {
-    const check = () => {
-      if (window.innerWidth >= 1024) setCols(3);
-      else if (window.innerWidth >= 768) setCols(2);
-      else setCols(1);
-    };
-    check();
+    const check = () => setCols(getColCount());
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
@@ -26,7 +28,7 @@ function useColumns(): number {
 function batchSizeForCols(cols: number): number {
   if (cols >= 3) return 3;  // desktop: 3×1
   if (cols === 2) return 4; // tablet: 2×2
-  return 3;                  // mobile: 3×1 same as desktop
+  return 1;                  // mobile: 1 at a time — show first card fast, sentinel loads the rest
 }
 
 async function checkPairFonts(pair: ScoredPair): Promise<boolean> {
