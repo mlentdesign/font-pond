@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, startTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { designersBySlug } from "@/data/designers";
@@ -40,7 +40,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
   useEffect(() => {
     if (designer && slug && window.location.search) {
-      router.replace(`/designer/${slug}`);
+      startTransition(() => router.replace(`/designer/${slug}`));
     }
   }, [designer, slug]);
 
