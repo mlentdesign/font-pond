@@ -203,20 +203,22 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
           ctx.font = `600 ${mid}px "${family}"`;
           const bigM = ctx.measureText("Aa Bb Cc Dd Ee Ff");
           const bigLines = Math.max(1, Math.ceil(bigM.width / sectionW));
-          // Pure line-box heights: lineHeight:1 in DOM means each line occupies exactly
-          // fontSize px in layout. actualBoundingBoxDescent overcounts for script/handwritten
-          // fonts (decorative swashes extend far below baseline) — DOM clips those anyway.
-          const bigH = bigLines * mid;
+          // Ascent-only: actualBoundingBoxAscent accounts for ink above the line box
+          // (tall calligraphic caps, display fonts). Descent is deliberately excluded —
+          // script/handwritten fonts have huge decorative descenders that overflow:hidden
+          // clips anyway, and including them forces needlessly tiny font sizes.
+          const bigH = (bigLines - 1) * mid + Math.max(mid, bigM.actualBoundingBoxAscent);
 
           ctx.font = `400 ${smallSize}px "${family}"`;
           const vW = (t: string) => ctx.measureText(t).width;
+          const vEff = (t: string) => Math.max(smallSize, ctx.measureText(t).actualBoundingBoxAscent);
           const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
           const lowerLines = Math.max(1, Math.ceil(vW("abcdefghijklmnopqrstuvwxyz") / sectionW));
           const numsLines  = Math.max(1, Math.ceil(vW("0123456789") / sectionW));
           const totalH = bigH + 8
-            + upperLines * smallSize + lineGap
-            + lowerLines * smallSize + lineGap
-            + numsLines  * smallSize;
+            + (upperLines - 1) * smallSize + vEff("ABCDEFGHIJKLMNOPQRSTUVWXYZ") + lineGap
+            + (lowerLines - 1) * smallSize + vEff("abcdefghijklmnopqrstuvwxyz") + lineGap
+            + (numsLines  - 1) * smallSize + vEff("0123456789");
 
           if (totalH <= targetH) { best = mid; lo = mid + 1; }
           else hi = mid - 1;
