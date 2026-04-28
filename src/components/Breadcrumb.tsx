@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, ReactNode } from "react";
+import { useEffect, useState, startTransition, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 
 interface Crumb {
@@ -46,7 +46,7 @@ export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: C
             <li>
               <button
                 type="button"
-                onClick={() => router.push("/?restore=1")}
+                onClick={() => startTransition(() => router.push("/?restore=1"))}
                 className="hover:underline"
                 style={{ color: "var(--text-muted)", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-heading)"; }}
@@ -61,7 +61,7 @@ export function Breadcrumb({ crumbs, sticky = false, stickyAction }: { crumbs: C
                 {crumb.href ? (
                   <button
                     type="button"
-                    onClick={() => router.push(crumb.href!)}
+                    onClick={() => startTransition(() => router.push(crumb.href!))}
                     className="hover:underline"
                     style={{ color: "var(--text-muted)", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
                     onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-heading)"; }}
