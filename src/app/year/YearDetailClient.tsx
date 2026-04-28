@@ -177,8 +177,6 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
         const sectionH = sectionEl.offsetHeight;
         const sectionW = sectionEl.offsetWidth;
         if (sectionH < 32 || sectionW < 32) continue;
-        heights[slug] = sectionH;
-
         const targetH = sectionH * 0.88;
 
         ctx.font = `600 36px ${family}`;
@@ -214,10 +212,22 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
           else hi = mid - 1;
         }
 
-        updates[slug] = Math.max(12, best);
+        const size = Math.max(12, best);
+        updates[slug] = size;
+        ctx.font = `600 ${size}px ${family}`;
+        const bigAscent = ctx.measureText("Aa Bb Cc Dd Ee Ff").actualBoundingBoxAscent;
+        const cSmall = Math.max(16, Math.round(size * 16 / 36));
+        const cGap = Math.round(cSmall * 0.35);
+        ctx.font = `400 ${cSmall}px ${family}`;
+        const abcA = Math.max(cSmall, ctx.measureText("ABCDEFGHIJKLMNOPQRSTUVWXYZ").actualBoundingBoxAscent);
+        const lcA  = Math.max(cSmall, ctx.measureText("abcdefghijklmnopqrstuvwxyz").actualBoundingBoxAscent);
+        const numA = Math.max(cSmall, ctx.measureText("0123456789").actualBoundingBoxAscent);
+        heights[slug] = bigAscent + 8 + abcA + cGap + lcA + cGap + numA + 32;
       }
 
       if (Object.keys(updates).length > 0) {
+        const maxH = Math.max(...Object.values(heights));
+        for (const s of Object.keys(heights)) heights[s] = maxH;
         setSectionHeights(prev => ({ ...prev, ...heights }));
         setSpecimenSizes(prev => ({ ...prev, ...updates }));
       }
