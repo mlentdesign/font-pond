@@ -174,7 +174,8 @@ function FontSection({
 export default function PairDetailPage({ slugOverride }: { slugOverride?: string } = {}) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const paramSlug = slugOverride || searchParams.get("p") || "";
+  const paramSlug = slugOverride || searchParams.get("p") ||
+    (typeof window !== "undefined" ? (window.location.pathname.match(/\/pair\/([^/?#]+)/)?.[1] || "") : "") || "";
   const { sampleHeadline, sampleBody, headerSize, bodySize, addToHistory } = useAppState();
 
   // Single source of truth for the current slug. Held in a ref that only
@@ -193,10 +194,13 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
   const bodyFont = pair ? fontsById.get(pair.bodyFontId) : undefined;
 
-  // Clean ?p= query param out of the URL once the pair is loaded
+  // Clean ?p= query param out of the URL once the pair is loaded.
+  // replaceState updates the address bar without touching Next.js router state,
+  // so there's no route-param change, no Suspense re-trigger, and no flash.
   useEffect(() => {
     if (pair && slug && window.location.search) {
-      startTransition(() => router.replace(`/pair/${slug}`));
+      const base = window.location.pathname.replace(/\/pair.*$/, "");
+      window.history.replaceState(window.history.state, "", `${base}/pair/${slug}`);
     }
   }, [pair, slug]);
 
@@ -529,8 +533,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
         {/* Font sections — two columns */}
         <div className="two-col-grid" style={{ marginBottom: "24px" }}>
-          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => startTransition(() => router.push(`/font/${s}`))} specimenFontSize={headerSpecSize} sectionRef={hSectionRef} sectionPinnedH={hPinnedH} />
-          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => startTransition(() => router.push(`/font/${s}`))} specimenFontSize={bodySpecSize} sectionRef={bSectionRef} sectionPinnedH={bPinnedH} />
+          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => startTransition(() => router.push(`/font?f=${s}&from=${slug}`))} specimenFontSize={headerSpecSize} sectionRef={hSectionRef} sectionPinnedH={hPinnedH} />
+          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => startTransition(() => router.push(`/font?f=${s}&from=${slug}`))} specimenFontSize={bodySpecSize} sectionRef={bSectionRef} sectionPinnedH={bPinnedH} />
         </div>
 
         {/* Related pairings */}

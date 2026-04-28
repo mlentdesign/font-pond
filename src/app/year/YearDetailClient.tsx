@@ -16,7 +16,8 @@ import Link from "next/link";
 export default function YearDetailClient({ slugOverride }: { slugOverride?: string } = {}) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const paramSlug = slugOverride || searchParams.get("y") || "";
+  const paramSlug = slugOverride || searchParams.get("y") ||
+    (typeof window !== "undefined" ? (window.location.pathname.match(/\/year\/([^/?#]+)/)?.[1] || "") : "") || "";
   const rawFontSlug = searchParams.get("font") || "";
 
   const slugRef = useRef(paramSlug);
@@ -32,7 +33,8 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
 
   useEffect(() => {
     if (yearGroup && slug && window.location.search) {
-      startTransition(() => router.replace(`/year/${slug}`));
+      const base = window.location.pathname.replace(/\/year.*$/, "");
+      window.history.replaceState(window.history.state, "", `${base}/year/${slug}`);
     }
   }, [yearGroup, slug]);
 
@@ -47,7 +49,7 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
   }, [yearGroup]);
 
   const crumbs: { label: string; href?: string }[] = [];
-  if (fromFont) crumbs.push({ label: fromFont.name, href: `/font/${fontSlug}` });
+  if (fromFont) crumbs.push({ label: fromFont.name, href: `/font?f=${fontSlug}` });
   if (yearGroup) crumbs.push({ label: String(yearGroup.year) });
 
   if (!yearGroup) {
@@ -253,11 +255,11 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
                 key={font.slug}
                 role="link"
                 tabIndex={0}
-                onClick={() => startTransition(() => router.push(`/font/${font.slug}`))}
+                onClick={() => startTransition(() => router.push(`/font?f=${font.slug}`))}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    startTransition(() => router.push(`/font/${font.slug}`));
+                    startTransition(() => router.push(`/font?f=${font.slug}`));
                   }
                 }}
                 onMouseDown={(e) => e.preventDefault()}
