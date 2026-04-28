@@ -257,19 +257,22 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
           ctx.font = `${fontWeight} ${mid}px "${family}"`;
           const bigM = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg");
           const bigLines = Math.max(1, Math.ceil(bigM.width / sectionW));
-          // Pure line-box heights: each line occupies its lineHeight in layout.
-          // actualBoundingBoxDescent overcounts for script/handwritten fonts — DOM clips anyway.
-          const bigH = bigLines * bigLineH + 8;
+          // Ascent-only: actualBoundingBoxAscent accounts for ink above the line box
+          // (tall calligraphic caps, display fonts). Descent is deliberately excluded —
+          // script/handwritten fonts have huge decorative descenders that overflow:hidden
+          // clips anyway, and including them forces needlessly tiny font sizes.
+          const bigH = (bigLines - 1) * bigLineH + Math.max(bigLineH, bigM.actualBoundingBoxAscent) + 8;
 
           ctx.font = `400 ${smallSize}px "${family}"`;
           const vW = (t: string) => ctx.measureText(t).width;
+          const vEff = (t: string) => Math.max(smallLineH, ctx.measureText(t).actualBoundingBoxAscent);
           const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
           const lowerLines = Math.max(1, Math.ceil(vW("abcdefghijklmnopqrstuvwxyz") / sectionW));
           const numsLines  = Math.max(1, Math.ceil(vW("0123456789") / sectionW));
           const totalH = bigH
-            + upperLines * smallLineH
-            + lowerLines * smallLineH
-            + numsLines  * smallLineH;
+            + (upperLines - 1) * smallLineH + vEff("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+            + (lowerLines - 1) * smallLineH + vEff("abcdefghijklmnopqrstuvwxyz")
+            + (numsLines  - 1) * smallLineH + vEff("0123456789");
 
           if (totalH <= targetH) { best = mid; lo = mid + 1; }
           else hi = mid - 1;
