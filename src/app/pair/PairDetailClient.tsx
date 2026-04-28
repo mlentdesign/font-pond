@@ -286,7 +286,10 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
       const findSize = (family: string, fontWeight: number, sectionH: number, sectionW: number): number => {
         const targetH = sectionH * 0.88;
-        let lo = 12, hi = 56, best = 12;
+        ctx.font = `${fontWeight} 36px ${family}`;
+        const bigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg").width;
+        const widthFitSize = bigW36 > 0 ? Math.floor(36 * sectionW * 0.97 / bigW36) : 56;
+        let lo = 12, hi = Math.max(12, widthFitSize), best = 12;
         for (let i = 0; i < 12; i++) {
           const mid = Math.round((lo + hi) / 2);
           const smallSize = Math.round(mid * 16 / 36);
