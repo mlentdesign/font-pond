@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo, startTransition } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { pairsBySlug, getPairOrConstruct, ensureDynamicPairs } from "@/data/pairs";
@@ -194,7 +194,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   // Clean ?p= query param out of the URL once the pair is loaded
   useEffect(() => {
     if (pair && slug && window.location.search) {
-      router.replace(`/pair/${slug}`);
+      startTransition(() => router.replace(`/pair/${slug}`));
     }
   }, [pair, slug]);
 
