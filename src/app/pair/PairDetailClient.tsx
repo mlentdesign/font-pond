@@ -206,8 +206,39 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   useEffect(() => { setHeaderSpecSize(36); setBodySpecSize(36); }, [slug]);
 
   useEffect(() => {
-    if (!headerFont || !bodyFont || window.innerWidth < 1024) return;
+    if (!headerFont || !bodyFont) return;
     let cancelled = false;
+
+    // Mobile: normalize to a fixed cap height rather than fitting the section
+    if (window.innerWidth < 768) {
+      const runMobile = async () => {
+        await document.fonts.ready;
+        const hFamily = getFontFamily(headerFont.name, headerFont.source);
+        const bFamily = getFontFamily(bodyFont.name, bodyFont.source);
+        const TARGET_CAP_H = 40;
+        for (const [family, setSize] of [[hFamily, setHeaderSpecSize], [bFamily, setBodySpecSize]] as const) {
+          const unloaded = new Set([`600 16px "${headerFont.name}"`, `400 16px "${bodyFont.name}"`]);
+          const deadline = Date.now() + 4000;
+          while (unloaded.size > 0 && Date.now() < deadline) {
+            for (const spec of [...unloaded]) {
+              const faces = await document.fonts.load(spec).catch(() => [] as FontFace[]);
+              if (faces.length > 0) unloaded.delete(spec);
+            }
+            if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
+          }
+          if (cancelled) return;
+          await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+          if (cancelled) return;
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d')!;
+          ctx.font = `600 36px ${family}`;
+          const capH = ctx.measureText("A").actualBoundingBoxAscent;
+          if (capH > 0) setSize(Math.max(28, Math.min(64, Math.round(36 * TARGET_CAP_H / capH))));
+        }
+      };
+      runMobile();
+      return () => { cancelled = true; };
+    }
 
     const run = async () => {
       await document.fonts.ready;
@@ -216,8 +247,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
       // Wait for the actual font files to arrive before measuring.
       const unloaded = new Set([
-        `400 16px "${hFamily}"`, `600 16px "${hFamily}"`,
-        `400 16px "${bFamily}"`, `600 16px "${bFamily}"`,
+        `400 16px "${headerFont.name}"`, `600 16px "${headerFont.name}"`,
+        `400 16px "${bodyFont.name}"`, `600 16px "${bodyFont.name}"`,
       ]);
       const deadline = Date.now() + 4000;
       while (unloaded.size > 0 && Date.now() < deadline) {
