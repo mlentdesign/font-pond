@@ -101,8 +101,8 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
   // Canvas actualBoundingBox measures real glyph bounds (ignoring font metric whitespace),
   // so fonts with tall internal metrics (e.g. South Asian scripts) scale the same as Latin.
   const sectionRefs = useRef<Record<string, HTMLDivElement>>({});
-  const [sectionHeights, setSectionHeights] = useState<Record<string, number>>({});
   const [specimenSizes, setSpecimenSizes] = useState<Record<string, number>>({});
+  const [smallSpecimenSizes, setSmallSpecimenSizes] = useState<Record<string, number>>({});
 
   useEffect(() => {
     let cancelled = false;
@@ -167,69 +167,50 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
 
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d')!;
-      const updates: Record<string, number> = {};
-      const heights: Record<string, number> = {};
+      const bigUpdates: Record<string, number> = {};
+      const smallUpdates: Record<string, number> = {};
 
       for (const [slug, sectionEl] of Object.entries(sectionRefs.current)) {
         const fontData = sorted.find(f => f.slug === slug);
         if (!fontData) continue;
         const family = getFontFamily(fontData.name, fontData.source);
+        // Use the CSS-grid-equalized rendered height directly — no formula-based estimation.
+        // Section has no padding (inner wrapper has marginTop:16px).
+        // lineHeight:1 means each text row's CSS height = its fontSize in px.
         const sectionH = sectionEl.offsetHeight;
         const sectionW = sectionEl.offsetWidth;
         if (sectionH < 32 || sectionW < 32) continue;
-        const targetH = sectionH * 0.88;
 
+        // Big text: one line filling card width
         ctx.font = `600 36px ${family}`;
         const bigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
-        const widthFitSize = bigW36 > 0 ? Math.floor(36 * sectionW * 0.97 / bigW36) : 72;
-        let lo = 12, hi = Math.max(12, widthFitSize), best = 12;
-        for (let i = 0; i < 14; i++) {
+        const bigSize = bigW36 > 0 ? Math.max(12, Math.floor(36 * sectionW * 0.97 / bigW36)) : 36;
+        bigUpdates[slug] = bigSize;
+
+        // Small text: fills remaining height after 16px top margin + bigSize + 8px gap
+        const availableForSmall = sectionH - 16 - bigSize - 8;
+        if (availableForSmall < 16) { smallUpdates[slug] = 12; continue; }
+
+        // Each row CSS height = fontSize (lineHeight:1); gap between rows = fontSize * 0.35
+        let lo = 12, hi = 300, best = 12;
+        for (let i = 0; i < 12; i++) {
           const mid = Math.round((lo + hi) / 2);
-          const smallSize = Math.round(mid * 16 / 36);
-          const lineGap = Math.round(smallSize * 0.35);
-
-          ctx.font = `600 ${mid}px ${family}`;
-          const bigM = ctx.measureText("Aa Bb Cc Dd Ee Ff");
-          const bigLines = Math.max(1, Math.ceil(bigM.width / sectionW));
-          // Ascent-only: actualBoundingBoxAscent accounts for ink above the line box
-          // (tall calligraphic caps, display fonts). Descent is deliberately excluded —
-          // script/handwritten fonts have huge decorative descenders that overflow:hidden
-          // clips anyway, and including them forces needlessly tiny font sizes.
-          const bigH = (bigLines - 1) * mid + Math.max(mid, bigM.actualBoundingBoxAscent);
-
-          ctx.font = `400 ${smallSize}px ${family}`;
+          const gap = Math.round(mid * 0.35);
+          ctx.font = `400 ${mid}px ${family}`;
           const vW = (t: string) => ctx.measureText(t).width;
-          const vEff = (t: string) => Math.max(smallSize, ctx.measureText(t).actualBoundingBoxAscent);
           const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
           const lowerLines = Math.max(1, Math.ceil(vW("abcdefghijklmnopqrstuvwxyz") / sectionW));
           const numsLines  = Math.max(1, Math.ceil(vW("0123456789") / sectionW));
-          const totalH = bigH + 8
-            + (upperLines - 1) * smallSize + vEff("ABCDEFGHIJKLMNOPQRSTUVWXYZ") + lineGap
-            + (lowerLines - 1) * smallSize + vEff("abcdefghijklmnopqrstuvwxyz") + lineGap
-            + (numsLines  - 1) * smallSize + vEff("0123456789");
-
-          if (totalH <= targetH) { best = mid; lo = mid + 1; }
+          const totalH = upperLines * mid + gap + lowerLines * mid + gap + numsLines * mid;
+          if (totalH <= availableForSmall) { best = mid; lo = mid + 1; }
           else hi = mid - 1;
         }
-
-        const size = Math.max(12, best);
-        updates[slug] = size;
-        ctx.font = `600 ${size}px ${family}`;
-        const bigAscent = ctx.measureText("Aa Bb Cc Dd Ee Ff").actualBoundingBoxAscent;
-        const cSmall = Math.max(16, Math.round(size * 16 / 36));
-        const cGap = Math.round(cSmall * 0.35);
-        ctx.font = `400 ${cSmall}px ${family}`;
-        const abcA = Math.max(cSmall, ctx.measureText("ABCDEFGHIJKLMNOPQRSTUVWXYZ").actualBoundingBoxAscent);
-        const lcA  = Math.max(cSmall, ctx.measureText("abcdefghijklmnopqrstuvwxyz").actualBoundingBoxAscent);
-        const numA = Math.max(cSmall, ctx.measureText("0123456789").actualBoundingBoxAscent);
-        heights[slug] = bigAscent + 8 + abcA + cGap + lcA + cGap + numA + 32;
+        smallUpdates[slug] = Math.max(12, best);
       }
 
-      if (Object.keys(updates).length > 0) {
-        const maxH = Math.max(...Object.values(heights));
-        for (const s of Object.keys(heights)) heights[s] = maxH;
-        setSectionHeights(prev => ({ ...prev, ...heights }));
-        setSpecimenSizes(prev => ({ ...prev, ...updates }));
+      if (Object.keys(bigUpdates).length > 0) {
+        setSpecimenSizes(prev => ({ ...prev, ...bigUpdates }));
+        setSmallSpecimenSizes(prev => ({ ...prev, ...smallUpdates }));
       }
     };
 
@@ -309,12 +290,17 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
                 <div
                   ref={(el) => { if (el) sectionRefs.current[font.slug] = el; else delete sectionRefs.current[font.slug]; }}
                   className="spec-section"
-                  style={{ ...(sectionHeights[font.slug] ? { height: `${sectionHeights[font.slug]}px` } : { flex: 1 }), overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}
+                  style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column" }}
                 >
-                  <div>
+                  {(() => {
+                    const bigS = specimenSizes[font.slug] ?? 36;
+                    const smallS = smallSpecimenSizes[font.slug] ?? Math.max(16, Math.round(bigS * 16 / 36));
+                    const smallGap = Math.round(smallS * 0.35);
+                    return (
+                  <div style={{ marginTop: "16px" }}>
                     <div
                       className="text-neutral-800 whitespace-nowrap"
-                      style={{ fontFamily: family, fontWeight: 600, fontSize: `${specimenSizes[font.slug] ?? 36}px`, lineHeight: "1", marginBottom: "8px" }}
+                      style={{ fontFamily: family, fontWeight: 600, fontSize: `${bigS}px`, lineHeight: "1", marginBottom: "8px" }}
                     >
                       Aa Bb Cc Dd Ee Ff
                     </div>
@@ -323,11 +309,11 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
                       style={{
                         fontFamily: family,
                         fontWeight: 400,
-                        fontSize: `${Math.max(16, Math.round((specimenSizes[font.slug] ?? 36) * 16 / 36))}px`,
+                        fontSize: `${smallS}px`,
                         lineHeight: "1",
                         display: "flex",
                         flexDirection: "column",
-                        gap: `${Math.round(Math.max(16, Math.round((specimenSizes[font.slug] ?? 36) * 16 / 36)) * 0.35)}px`,
+                        gap: `${smallGap}px`,
                       }}
                     >
                       <span>ABCDEFGHIJKLMNOPQRSTUVWXYZ</span>
@@ -335,6 +321,8 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
                       <span>0123456789</span>
                     </div>
                   </div>
+                    );
+                  })()}
                 </div>
 
                 <div className="border-t border-neutral-100" style={{ margin: "16px -24px" }} />
