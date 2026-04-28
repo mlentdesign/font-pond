@@ -26,6 +26,7 @@ function FontSection({
   onNavigate,
   specimenFontSize = 36,
   sectionRef,
+  sectionPinnedH,
 }: {
   font: import("@/data/types").Font;
   role: "Header" | "Body";
@@ -33,6 +34,7 @@ function FontSection({
   onNavigate: (slug: string) => void;
   specimenFontSize?: number;
   sectionRef?: React.RefObject<HTMLDivElement | null>;
+  sectionPinnedH?: number | null;
 }) {
   const family = getFontFamily(font.name, font.source);
   const sourceLabel = getSourceLabel(font.source);
@@ -82,7 +84,7 @@ function FontSection({
       <div className="border-t border-neutral-100" style={{ margin: "24px -24px 16px", padding: "0" }} />
 
       {/* Specimen — flex:1 fills available card height; content centered for equal top/bottom breathing room */}
-      <div ref={sectionRef} className="spec-section" style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+      <div ref={sectionRef} className="spec-section" style={{ ...(sectionPinnedH ? { height: `${sectionPinnedH}px` } : { flex: 1 }), overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <div>
           <div
             className="leading-tight mb-2 text-neutral-800"
@@ -202,8 +204,10 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const bSectionRef = useRef<HTMLDivElement>(null);
   const [headerSpecSize, setHeaderSpecSize] = useState(36);
   const [bodySpecSize, setBodySpecSize] = useState(36);
+  const [hPinnedH, setHPinnedH] = useState<number | null>(null);
+  const [bPinnedH, setBPinnedH] = useState<number | null>(null);
 
-  useEffect(() => { setHeaderSpecSize(36); setBodySpecSize(36); }, [slug]);
+  useEffect(() => { setHeaderSpecSize(36); setBodySpecSize(36); setHPinnedH(null); setBPinnedH(null); }, [slug]);
 
   useEffect(() => {
     if (!headerFont || !bodyFont) return;
@@ -311,6 +315,10 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
         return Math.max(12, best);
       };
 
+      // Pin section heights before applying new font sizes so the CSS grid
+      // can't inflate them when one card grows taller than the other.
+      setHPinnedH(hSectionH);
+      setBPinnedH(bSectionH);
       setHeaderSpecSize(findSize(hFamily, 600, hSectionH, hSectionW));
       setBodySpecSize(findSize(bFamily, 400, bSectionH, bSectionW));
     };
@@ -521,8 +529,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
         {/* Font sections — two columns */}
         <div className="two-col-grid" style={{ marginBottom: "24px" }}>
-          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => startTransition(() => router.push(`/font/${s}`))} specimenFontSize={headerSpecSize} sectionRef={hSectionRef} />
-          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => startTransition(() => router.push(`/font/${s}`))} specimenFontSize={bodySpecSize} sectionRef={bSectionRef} />
+          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => startTransition(() => router.push(`/font/${s}`))} specimenFontSize={headerSpecSize} sectionRef={hSectionRef} sectionPinnedH={hPinnedH} />
+          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => startTransition(() => router.push(`/font/${s}`))} specimenFontSize={bodySpecSize} sectionRef={bSectionRef} sectionPinnedH={bPinnedH} />
         </div>
 
         {/* Related pairings */}
