@@ -254,7 +254,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
           const bigLineH = mid * 1.25;       // leading-tight
           const smallLineH = smallSize * 1.625; // leading-relaxed
 
-          ctx.font = `${fontWeight} ${mid}px "${family}"`;
+          ctx.font = `${fontWeight} ${mid}px ${family}`;
           const bigM = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg");
           const bigLines = Math.max(1, Math.ceil(bigM.width / sectionW));
           // Ascent-only: actualBoundingBoxAscent accounts for ink above the line box
@@ -263,7 +263,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
           // clips anyway, and including them forces needlessly tiny font sizes.
           const bigH = (bigLines - 1) * bigLineH + Math.max(bigLineH, bigM.actualBoundingBoxAscent) + 8;
 
-          ctx.font = `400 ${smallSize}px "${family}"`;
+          ctx.font = `400 ${smallSize}px ${family}`;
           const vW = (t: string) => ctx.measureText(t).width;
           const vEff = (t: string) => Math.max(smallLineH, ctx.measureText(t).actualBoundingBoxAscent);
           const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
