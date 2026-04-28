@@ -31,8 +31,8 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
   const fromFont = fontSlug ? fontsBySlug.get(fontSlug) : undefined;
 
   useEffect(() => {
-    if (yearGroup && slug && window.location.search) {
-      router.replace(`/year/${slug}`);
+    if (yearGroup && slug && searchParams.get("y")) {
+      window.history.replaceState(window.history.state, "", `/font-pond/year/${slug}`);
     }
   }, [yearGroup, slug]);
 
