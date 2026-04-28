@@ -92,7 +92,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
     if (pair) {
       const hf = fontsById.get(pair.headerFontId);
       const bf = fontsById.get(pair.bodyFontId);
-      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair?p=${fromPair}` });
+      if (hf && bf) crumbs.push({ label: `${hf.name} + ${bf.name}`, href: `/pair/${fromPair}` });
     }
   }
   if (font) crumbs.push({ label: font.name });
@@ -260,7 +260,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                     <span key={name}>
                       <button
                         type="button"
-                        onClick={() => startTransition(() => router.push(`/designer?d=${designerToSlug(name)}${slug ? `&font=${slug}` : ""}${fromPair ? `&from=${fromPair}` : ""}`))}
+                        onClick={() => startTransition(() => router.push(`/designer/${designerToSlug(name)}`))}
                         className="hover:underline"
                         style={{ color: "var(--text-muted)", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
                         onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-heading)"; }}
@@ -278,7 +278,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                   {" · "}
                   <button
                     type="button"
-                    onClick={() => startTransition(() => router.push(`/year?y=${font.year}${slug ? `&font=${slug}` : ""}`))}
+                    onClick={() => startTransition(() => router.push(`/year/${font.year}`))}
                     className="hover:underline"
                     style={{ color: "var(--text-muted)", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
                     onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-heading)"; }}
@@ -475,8 +475,8 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                       key={sf.slug}
                       role="link"
                       tabIndex={0}
-                      onClick={() => startTransition(() => router.push(`/font?f=${sf.slug}`))}
-                      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); startTransition(() => router.push(`/font?f=${sf.slug}`)); } }}
+                      onClick={() => startTransition(() => router.push(`/font/${sf.slug}`))}
+                      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); startTransition(() => router.push(`/font/${sf.slug}`)); } }}
                       onMouseDown={(e) => e.preventDefault()}
                       className="group border border-neutral-200 rounded-xl bg-white p-6 card-hover hover:border-neutral-300 hover:shadow-sm overflow-hidden cursor-pointer"
                       style={{ position: "relative" }}
