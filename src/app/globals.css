@@ -1092,14 +1092,8 @@ body.animations-paused #water-bg * {
   font-size: inherit !important;
 }
 
-/* Specimen section minimum height — ensures fonts have room to breathe on desktop */
 .spec-section {
   min-height: 0;
-}
-@media (min-width: 768px) {
-  .spec-section {
-    min-height: 280px;
-  }
 }
 
 /* Footer layout — controlled entirely via inline styles in Footer.tsx */
