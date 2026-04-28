@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { yearsBySlug } from "@/data/years";
 import { fontsBySlug } from "@/data/fonts";
@@ -13,6 +14,7 @@ import { FishingLine } from "@/components/FishingLine";
 import Link from "next/link";
 
 export default function YearDetailClient({ slugOverride }: { slugOverride?: string } = {}) {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const paramSlug = slugOverride || searchParams.get("y") || "";
   const rawFontSlug = searchParams.get("font") || "";
@@ -27,6 +29,12 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
 
   const yearGroup = yearsBySlug.get(slug);
   const fromFont = fontSlug ? fontsBySlug.get(fontSlug) : undefined;
+
+  useEffect(() => {
+    if (yearGroup && slug && window.location.search) {
+      router.replace(`/year/${slug}`);
+    }
+  }, [yearGroup, slug]);
 
   useEffect(() => {
     if (!yearGroup) return;
