@@ -25,16 +25,16 @@ function FontSection({
   pairSlug,
   onNavigate,
   specimenFontSize = 36,
+  specimenSmallSize,
   sectionRef,
-  sectionPinnedH,
 }: {
   font: import("@/data/types").Font;
   role: "Header" | "Body";
   pairSlug: string;
   onNavigate: (slug: string) => void;
   specimenFontSize?: number;
+  specimenSmallSize?: number;
   sectionRef?: React.RefObject<HTMLDivElement | null>;
-  sectionPinnedH?: number | null;
 }) {
   const family = getFontFamily(font.name, font.source);
   const sourceLabel = getSourceLabel(font.source);
@@ -83,24 +83,30 @@ function FontSection({
       {/* Divider: between header info and specimen */}
       <div className="border-t border-neutral-100" style={{ margin: "24px -24px 16px", padding: "0" }} />
 
-      {/* Specimen — flex:1 fills available card height; content centered for equal top/bottom breathing room */}
-      <div ref={sectionRef} className="spec-section" style={{ ...(sectionPinnedH ? { height: `${sectionPinnedH}px` } : { flex: 1 }), overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-        <div>
-          <div
-            className="leading-tight mb-2 text-neutral-800"
-            style={{ fontFamily: family, fontWeight: role === "Header" ? 600 : 400, fontSize: `${specimenFontSize}px` }}
-          >
-            Aa Bb Cc Dd Ee Ff Gg
-          </div>
-          <div
-            className="leading-relaxed text-neutral-600"
-            style={{ fontFamily: family, fontWeight: 400, fontSize: `${Math.max(16, Math.round(specimenFontSize * 16 / 36))}px` }}
-          >
-            <span style={{ display: "block" }}>ABCDEFGHIJKLMNOPQRSTUVWXYZ</span>
-            <span style={{ display: "block" }}>abcdefghijklmnopqrstuvwxyz</span>
-            <span style={{ display: "block" }}>0123456789</span>
-          </div>
-        </div>
+      {/* Specimen — flex:1 fills available card height */}
+      <div ref={sectionRef} className="spec-section" style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column" }}>
+        {(() => {
+          const smallSize = specimenSmallSize ?? Math.max(16, Math.round(specimenFontSize * 16 / 36));
+          const smallGap = Math.round(smallSize * 0.35);
+          return (
+            <div style={{ marginTop: "16px" }}>
+              <div
+                className="whitespace-nowrap text-neutral-800"
+                style={{ fontFamily: family, fontWeight: role === "Header" ? 600 : 400, fontSize: `${specimenFontSize}px`, lineHeight: "1", marginBottom: "8px" }}
+              >
+                Aa Bb Cc Dd Ee Ff Gg
+              </div>
+              <div
+                className="text-neutral-600"
+                style={{ fontFamily: family, fontWeight: 400, fontSize: `${smallSize}px`, lineHeight: "1", display: "flex", flexDirection: "column", gap: `${smallGap}px` }}
+              >
+                <span>ABCDEFGHIJKLMNOPQRSTUVWXYZ</span>
+                <span>abcdefghijklmnopqrstuvwxyz</span>
+                <span>0123456789</span>
+              </div>
+            </div>
+          );
+        })()}
       </div>
 
       {/* Divider: before characteristics */}
@@ -208,10 +214,10 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const bSectionRef = useRef<HTMLDivElement>(null);
   const [headerSpecSize, setHeaderSpecSize] = useState(36);
   const [bodySpecSize, setBodySpecSize] = useState(36);
-  const [hPinnedH, setHPinnedH] = useState<number | null>(null);
-  const [bPinnedH, setBPinnedH] = useState<number | null>(null);
+  const [headerSmallSize, setHeaderSmallSize] = useState<number | null>(null);
+  const [bodySmallSize, setBodySmallSize] = useState<number | null>(null);
 
-  useEffect(() => { setHeaderSpecSize(36); setBodySpecSize(36); setHPinnedH(null); setBPinnedH(null); }, [slug]);
+  useEffect(() => { setHeaderSpecSize(36); setBodySpecSize(36); setHeaderSmallSize(null); setBodySmallSize(null); }, [slug]);
 
   useEffect(() => {
     if (!headerFont || !bodyFont) return;
@@ -284,62 +290,39 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d')!;
 
-      const findSize = (family: string, fontWeight: number, sectionH: number, sectionW: number): number => {
-        const targetH = sectionH * 0.88;
-        ctx.font = `${fontWeight} 36px ${family}`;
-        const bigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg").width;
-        const widthFitSize = bigW36 > 0 ? Math.floor(36 * sectionW * 0.97 / bigW36) : 56;
-        let lo = 12, hi = Math.max(12, widthFitSize), best = 12;
+      // Big text: width-fit (one line fills card width)
+      ctx.font = `600 36px ${hFamily}`;
+      const hBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg").width;
+      const hBigSize = hBigW36 > 0 ? Math.max(12, Math.floor(36 * hSectionW * 0.97 / hBigW36)) : 36;
+
+      ctx.font = `400 36px ${bFamily}`;
+      const bBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg").width;
+      const bBigSize = bBigW36 > 0 ? Math.max(12, Math.floor(36 * bSectionW * 0.97 / bBigW36)) : 36;
+
+      // Small text: fills remaining height after 16px top margin + bigSize + 8px gap
+      const computeSmallSize = (family: string, bigSize: number, sectionH: number, sectionW: number): number => {
+        const available = sectionH - 16 - bigSize - 8;
+        if (available < 16) return 12;
+        let lo = 12, hi = 300, best = 12;
         for (let i = 0; i < 12; i++) {
           const mid = Math.round((lo + hi) / 2);
-          const smallSize = Math.round(mid * 16 / 36);
-          const bigLineH = mid * 1.25;       // leading-tight
-          const smallLineH = smallSize * 1.625; // leading-relaxed
-
-          ctx.font = `${fontWeight} ${mid}px ${family}`;
-          const bigM = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg");
-          const bigLines = Math.max(1, Math.ceil(bigM.width / sectionW));
-          // Ascent-only: actualBoundingBoxAscent accounts for ink above the line box
-          // (tall calligraphic caps, display fonts). Descent is deliberately excluded —
-          // script/handwritten fonts have huge decorative descenders that overflow:hidden
-          // clips anyway, and including them forces needlessly tiny font sizes.
-          const bigH = (bigLines - 1) * bigLineH + Math.max(bigLineH, bigM.actualBoundingBoxAscent) + 8;
-
-          ctx.font = `400 ${smallSize}px ${family}`;
+          const gap = Math.round(mid * 0.35);
+          ctx.font = `400 ${mid}px ${family}`;
           const vW = (t: string) => ctx.measureText(t).width;
-          const vEff = (t: string) => Math.max(smallLineH, ctx.measureText(t).actualBoundingBoxAscent);
           const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
           const lowerLines = Math.max(1, Math.ceil(vW("abcdefghijklmnopqrstuvwxyz") / sectionW));
           const numsLines  = Math.max(1, Math.ceil(vW("0123456789") / sectionW));
-          const totalH = bigH
-            + (upperLines - 1) * smallLineH + vEff("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-            + (lowerLines - 1) * smallLineH + vEff("abcdefghijklmnopqrstuvwxyz")
-            + (numsLines  - 1) * smallLineH + vEff("0123456789");
-
-          if (totalH <= targetH) { best = mid; lo = mid + 1; }
+          const totalH = upperLines * mid + gap + lowerLines * mid + gap + numsLines * mid;
+          if (totalH <= available) { best = mid; lo = mid + 1; }
           else hi = mid - 1;
         }
         return Math.max(12, best);
       };
 
-      const computeContentH = (family: string, fontWeight: number, size: number): number => {
-        const smallSize = Math.max(16, Math.round(size * 16 / 36));
-        const smallLineH = smallSize * 1.625;
-        ctx.font = `${fontWeight} ${size}px ${family}`;
-        const bigAscent = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg").actualBoundingBoxAscent;
-        ctx.font = `400 ${smallSize}px ${family}`;
-        const abcA = Math.max(smallLineH, ctx.measureText("ABCDEFGHIJKLMNOPQRSTUVWXYZ").actualBoundingBoxAscent);
-        const lcA  = Math.max(smallLineH, ctx.measureText("abcdefghijklmnopqrstuvwxyz").actualBoundingBoxAscent);
-        const numA = Math.max(smallLineH, ctx.measureText("0123456789").actualBoundingBoxAscent);
-        return bigAscent + 8 + abcA + lcA + numA;
-      };
-      const hBest = findSize(hFamily, 600, hSectionH, hSectionW);
-      const bBest = findSize(bFamily, 400, bSectionH, bSectionW);
-      const sharedH = Math.max(computeContentH(hFamily, 600, hBest), computeContentH(bFamily, 400, bBest)) + 32;
-      setHPinnedH(sharedH);
-      setBPinnedH(sharedH);
-      setHeaderSpecSize(hBest);
-      setBodySpecSize(bBest);
+      setHeaderSpecSize(hBigSize);
+      setBodySpecSize(bBigSize);
+      setHeaderSmallSize(computeSmallSize(hFamily, hBigSize, hSectionH, hSectionW));
+      setBodySmallSize(computeSmallSize(bFamily, bBigSize, bSectionH, bSectionW));
     };
 
     run();
@@ -548,8 +531,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
         {/* Font sections — two columns */}
         <div className="two-col-grid" style={{ marginBottom: "24px" }}>
-          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => startTransition(() => router.push(`/font?f=${s}&from=${slug}`))} specimenFontSize={headerSpecSize} sectionRef={hSectionRef} sectionPinnedH={hPinnedH} />
-          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => startTransition(() => router.push(`/font?f=${s}&from=${slug}`))} specimenFontSize={bodySpecSize} sectionRef={bSectionRef} sectionPinnedH={bPinnedH} />
+          <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => startTransition(() => router.push(`/font?f=${s}&from=${slug}`))} specimenFontSize={headerSpecSize} specimenSmallSize={headerSmallSize ?? undefined} sectionRef={hSectionRef} />
+          <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => startTransition(() => router.push(`/font?f=${s}&from=${slug}`))} specimenFontSize={bodySpecSize} specimenSmallSize={bodySmallSize ?? undefined} sectionRef={bSectionRef} />
         </div>
 
         {/* Related pairings */}

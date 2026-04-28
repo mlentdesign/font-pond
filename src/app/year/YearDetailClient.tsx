@@ -243,6 +243,9 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
             const chips = [...new Set([...font.tags, ...font.toneDescriptors].map((t) => t.toLowerCase()))]
               .filter((t) => t.split("-").length < 3 && t.length <= 25)
               .map(chipCase);
+            const bigS = specimenSizes[font.slug] ?? 36;
+            const smallS = smallSpecimenSizes[font.slug] ?? Math.max(16, Math.round(bigS * 16 / 36));
+            const smallGap = Math.round(smallS * 0.35);
 
             return (
               <div
@@ -292,11 +295,6 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
                   className="spec-section"
                   style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column" }}
                 >
-                  {(() => {
-                    const bigS = specimenSizes[font.slug] ?? 36;
-                    const smallS = smallSpecimenSizes[font.slug] ?? Math.max(16, Math.round(bigS * 16 / 36));
-                    const smallGap = Math.round(smallS * 0.35);
-                    return (
                   <div style={{ marginTop: "16px" }}>
                     <div
                       className="text-neutral-800 whitespace-nowrap"
@@ -321,8 +319,6 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
                       <span>0123456789</span>
                     </div>
                   </div>
-                    );
-                  })()}
                 </div>
 
                 <div className="border-t border-neutral-100" style={{ margin: "16px -24px" }} />
