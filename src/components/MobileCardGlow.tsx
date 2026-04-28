@@ -32,10 +32,12 @@ export function MobileCardGlow() {
     }
 
     function applyGlow(card: HTMLElement) {
+      card.style.setProperty("transition", "background-color 300ms ease, box-shadow 300ms ease");
       card.style.setProperty("background", "var(--bg-card-hover)", "important");
       card.style.setProperty("box-shadow", "var(--shadow-card-hover)", "important");
       const arrow = card.querySelector('[class*="opacity-0"]') as HTMLElement | null;
       if (arrow) {
+        arrow.style.setProperty("transition", "opacity 300ms ease");
         arrow.style.setProperty("opacity", "1", "important");
         activeArrow = arrow;
       }
@@ -44,9 +46,12 @@ export function MobileCardGlow() {
     function removeGlow(card: HTMLElement) {
       card.style.removeProperty("background");
       card.style.removeProperty("box-shadow");
+      setTimeout(() => card.style.removeProperty("transition"), 300);
       if (activeArrow) {
-        activeArrow.style.removeProperty("opacity");
+        const arrow = activeArrow;
         activeArrow = null;
+        arrow.style.removeProperty("opacity");
+        setTimeout(() => arrow.style.removeProperty("transition"), 300);
       }
     }
 

@@ -8,7 +8,10 @@ import { GF_YEAR_MAP } from "./gf-year-map";
 function calcLegibility(cls: string, xH?: string, ap?: string, sc?: string, sp?: string): number {
   const c = cls.toLowerCase();
   let s = c === "script" || c === "handwritten" ? 2 : c === "display" ? 3 : c === "monospace" ? 5 : 6;
-  if (xH === "high") s += 1.5; else if (xH === "moderate") s += 0.5; else if (xH === "low") s -= 1;
+  const isBodyType = c !== "display" && c !== "handwritten" && c !== "script";
+  if (isBodyType) {
+    if (xH === "high") s += 1.5; else if (xH === "moderate") s += 0.5; else if (xH === "low") s -= 1;
+  }
   if (ap === "open") s += 1; else if (ap === "closed") s -= 1;
   if (sc === "high") s -= 1; else if (sc === "none") s += 0.5;
   if (sp === "generous") s += 0.5; else if (sp === "tight") s -= 1;
