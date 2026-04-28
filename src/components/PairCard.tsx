@@ -1,11 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ScoredPair } from "@/data/types";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 import { navigateToPair } from "@/lib/navigate";
-import { getFontFamily, loadFont, waitForFonts } from "@/lib/fonts";
+import { getFontFamily, loadFont } from "@/lib/fonts";
 import { sentenceCase, chipCase } from "@/lib/text";
 
 export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pair: ScoredPair; isExploring?: boolean; animationDelay?: number }) {
@@ -14,25 +14,12 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
   const headline = sampleHeadline || DEFAULT_HEADLINE;
   const body = sampleBody || DEFAULT_BODY;
 
-  const fontsAlreadyLoaded = () => {
-    if (typeof window === "undefined" || !document.fonts) return false;
-    const h = pair.headerFont.name, b = pair.bodyFont.name;
-    return (document.fonts.check(`400 16px "${h}"`) || document.fonts.check(`700 16px "${h}"`))
-        && (document.fonts.check(`400 16px "${b}"`) || document.fonts.check(`700 16px "${b}"`));
-  };
-  const [fontsReady, setFontsReady] = useState(fontsAlreadyLoaded);
+  // ResultsGrid already confirmed fonts are loaded before adding this pair to visiblePairs.
+  // Just keep them pinned while the card is mounted.
   useEffect(() => {
-    if (fontsReady) return;
     loadFont(pair.headerFont);
     loadFont(pair.bodyFont);
-    let cancelled = false;
-    waitForFonts([pair.headerFont.name, pair.bodyFont.name]).then(() => {
-      if (!cancelled) setFontsReady(true);
-    });
-    return () => { cancelled = true; };
   }, [pair.headerFont.name, pair.bodyFont.name]);
-
-  if (!fontsReady) return null;
 
   const { headerFont, bodyFont } = pair;
 
