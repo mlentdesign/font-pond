@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, startTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
@@ -81,7 +81,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
   // Upgrade legacy ?f= URLs to clean path URLs (for old bookmarks/history).
   useEffect(() => {
     if (font && slug && window.location.search) {
-      router.replace(`/font/${slug}`);
+      startTransition(() => router.replace(`/font/${slug}`));
     }
   }, [font, slug]);
 
