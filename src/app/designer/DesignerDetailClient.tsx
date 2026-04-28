@@ -201,7 +201,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         const bigSize = bigW36 > 0 ? Math.max(12, Math.floor(36 * sectionW * 0.97 / bigW36)) : 36;
         bigUpdates[slug] = bigSize;
 
-        const availableForSmall = sectionH - 16 - bigSize - 8;
+        const availableForSmall = Math.min(sectionH - 16 - bigSize - 8, Math.round(bigSize * 1.1));
         if (availableForSmall < 16) { smallUpdates[slug] = 12; continue; }
 
         let lo = 12, hi = 300, best = 12;

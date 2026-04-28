@@ -301,7 +301,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
       // Small text: fills remaining height after 16px top margin + bigSize + 8px gap
       const computeSmallSize = (family: string, bigSize: number, sectionH: number, sectionW: number): number => {
-        const available = sectionH - 16 - bigSize - 8;
+        const available = Math.min(sectionH - 16 - bigSize - 8, Math.round(bigSize * 1.1));
         if (available < 16) return 12;
         let lo = 12, hi = 300, best = 12;
         for (let i = 0; i < 12; i++) {
