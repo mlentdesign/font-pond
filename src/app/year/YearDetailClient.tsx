@@ -187,8 +187,8 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
         const bigSize = bigW36 > 0 ? Math.max(12, Math.floor(36 * sectionW * 0.97 / bigW36)) : 36;
         bigUpdates[slug] = bigSize;
 
-        // Small text: fills remaining height after 16px top margin + bigSize + 8px gap
-        const availableForSmall = sectionH - 16 - bigSize - 8;
+        // Small text: proportional to big text, capped so adjacent tall cards don't inflate small text
+        const availableForSmall = Math.min(sectionH - 16 - bigSize - 8, Math.round(bigSize * 1.1));
         if (availableForSmall < 16) { smallUpdates[slug] = 12; continue; }
 
         // Each row CSS height = fontSize (lineHeight:1); gap between rows = fontSize * 0.35
