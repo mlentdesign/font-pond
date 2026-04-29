@@ -32,12 +32,14 @@ for (const [slug, value] of Object.entries(browser)) {
   } else if (value && typeof value === "object") {
     if (value.ascent != null) main[slug].browserAscentRatio = value.ascent;
     if (value.specExtent != null) {
-      // Validate: browser spec extent should be within 25% of file-measured advance.
-      // Values outside this range indicate the browser measured a fallback/system font
-      // instead of the actual font (typically happens with condensed/display fonts that
-      // didn't load in time). Discard those — file-based m[0]+m[12] is more accurate.
+      // Validate: the new measure-fonts page detects and discards system-ui fallback
+      // measurements before saving, so the ratio filter here is a last-resort sanity check.
+      // Upper bound raised to 1.50 — script/calligraphic fonts can have ink extending
+      // 40–50% beyond their advance due to swashes (previously, these were falsely
+      // flagged as fallback because they happened to be condensed fonts whose advance
+      // matched the ratio range for system-ui). Lower bound 0.60 accepts wide-spaced fonts.
       const ratio = value.specExtent / main[slug].specAdvance;
-      if (ratio >= 0.80 && ratio <= 1.25) {
+      if (ratio >= 0.60 && ratio <= 1.50) {
         main[slug].browserSpecExtent = value.specExtent;
       } else {
         specFiltered++;
