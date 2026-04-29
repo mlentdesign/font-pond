@@ -18,8 +18,11 @@ const keys = Object.keys(data).sort();
 const lines = keys.map(slug => {
   const m = data[slug];
   const base = `${m.specAdvance}, ${m.upperAdvance}, ${m.lowerAdvance}, ${m.numsAdvance}, ${m.ascentRatio}, ${m.descentRatio}, ${m.inkOverTop ?? 0}, ${m.inkOverBottom ?? 0}, ${m.leftOverflow ?? 0}, ${m.os2AscentRatio ?? m.ascentRatio}, ${m.os2DescentRatio ?? m.descentRatio}`;
-  const browser = m.browserAscentRatio != null ? `, ${m.browserAscentRatio}` : "";
-  return `  "${slug}": [${base}${browser}],`;
+  // [11] browserAscentRatio — fall back to file ascentRatio for the ~2 fonts without browser data
+  // [12] rightOverflow — always present so index 12 is stable regardless of [11]
+  const browserVal = m.browserAscentRatio ?? m.ascentRatio;
+  const rightVal   = m.rightOverflow ?? 0;
+  return `  "${slug}": [${base}, ${browserVal}, ${rightVal}],`;
 });
 
 const ts = `// AUTO-GENERATED — do not edit manually
@@ -38,11 +41,12 @@ const ts = `// AUTO-GENERATED — do not edit manually
 //   [9] os2AscentRatio  = OS/2 usWinAscent / UPM  (what browser uses for line-box layout)
 //   [10] os2DescentRatio = OS/2 usWinDescent / UPM (what browser uses for line-box layout)
 //   [11] browserAscentRatio = Canvas actualBoundingBoxAscent / fontSize  (browser-measured, optional)
+//   [12] rightOverflow      = max ink past advance width / UPM for spec string glyphs
 //
-// Usage: bigSize = Math.floor(sectionWidth / specAdv)
+// Usage: bigSize = Math.floor(sectionWidth / (specAdv + rightOverflow))
 // Extra padding: padTop += m[6]*px, padBottom += m[7]*px, padLeft += m[8]*px
 // lineHeight: use Math.max(1.15, m[9] + m[10]) — matches exact browser line-box allocation
-export type RenderMetricsTuple = [number, number, number, number, number, number, number, number, number, number, number, number?];
+export type RenderMetricsTuple = [number, number, number, number, number, number, number, number, number, number, number, number, number];
 export const RENDER_METRICS: Record<string, RenderMetricsTuple> = {
 ${lines.join("\n")}
 };
