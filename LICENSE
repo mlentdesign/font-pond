@@ -2,30 +2,44 @@ Copyright (c) 2026 Mel Lent. All rights reserved.
 
 FONT POND — Proprietary License
 
-This repository and its contents are the intellectual property of Mel Lent.
+This repository and its contents — including all source code, data, design,
+and algorithms — are the sole intellectual property of Mel Lent.
+
+This repository is made publicly visible for portfolio purposes only.
 
 WHAT YOU MAY NOT DO:
 
   - Copy, reproduce, or redistribute the source code, in whole or in part
   - Reuse the curated font database, font pairings, font metadata,
     classifications, tone descriptors, or any other data compilations
-  - Replicate the visual design, layout, styling, color schemes, or
-    user interface of this site
-  - Claim credit for or misrepresent authorship of any part of this work
-  - Deploy, host, or publish any derivative version of this site
-  - Use the codebase as a template, boilerplate, or starting point
-    for another project
+  - Replicate, recreate, or closely imitate the visual design, layout,
+    styling, color schemes, or user interface of this site
+  - Claim credit for or misrepresent authorship of any part of this work,
+    including the pairing algorithm, data curation, and site design
+  - Deploy, host, or publish any version of this site — whether an exact
+    copy, a minimally modified fork, or a project substantially derived
+    from this codebase
+  - Use the codebase as a template, boilerplate, or starting point for
+    another project, even with modifications applied
+  - Use the source code, data, or design as training material for any
+    AI, machine learning, or automated system
+  - Download, run, or experiment with this codebase locally without
+    explicit written permission
 
 WHAT IS PERMITTED:
 
-  - Viewing the site at its published URL for personal, non-commercial use
+  - Viewing the published site for personal or commercial design work
   - Linking to the published site
   - Referencing the site's font pairing recommendations for your own
     design work (that is the site's purpose)
+  - Reviewing this repository as evidence of the author's skills and work
 
-The individual fonts referenced by this site remain under their respective
-licenses (OFL, public domain, etc.) and are not claimed as original work.
-This license applies to the curation, data, design, and code — not to the
-fonts themselves.
+AUTHORSHIP NOTICE:
 
-For licensing inquiries, contact Mel Lent.
+  The site design, pairing algorithm, data curation, tone classification
+  system, and all associated code were created by Mel Lent. The individual
+  fonts referenced are not claimed as original work and remain under their
+  respective licenses (OFL, public domain, etc.). This license applies
+  solely to the curation, data, design, and code.
+
+For licensing inquiries: https://www.linkedin.com/in/melanielent
