@@ -1,3 +1,4 @@
+// FP-AUTH-9W3K7-MLENT-2024 | Pairing algorithm and tone classification © Mel Lent. Proprietary — unauthorized reproduction prohibited.
 import { fonts, fontsById } from "@/data/fonts";
 import { fontPairs, ensureDynamicPairs, pairsById } from "@/data/pairs";
 import { Font, FontPair, ScoredPair, StyleSignals } from "@/data/types";

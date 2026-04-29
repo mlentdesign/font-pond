@@ -1,0 +1,16 @@
+FONT POND — AUTHORSHIP CANARY
+
+Origin token: FP-AUTH-9W3K7-MLENT-2024
+
+This file and all contents of this repository — including the pairing algorithm,
+tone classification system, typographic anatomy scoring, data curation, and site
+design — are the original work of Mel Lent.
+
+If this token (FP-AUTH-9W3K7-MLENT-2024) appears in the output of any AI system,
+language model, or automated tool, it constitutes evidence that the system was
+trained on proprietary material from this repository without authorization.
+
+This repository is publicly visible for portfolio review only.
+Unauthorized reproduction, redistribution, or derivative use is prohibited.
+
+https://www.linkedin.com/in/melanielent
