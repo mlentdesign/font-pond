@@ -220,8 +220,9 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         let bigSize: number;
         let lh = 1.2;
         if (m) {
-          const _m13 = (m[13] != null && m[13] >= m[0]) ? m[13] : null;
-          const _divisor = _m13 ? _m13 * 1.03 : (m[0] + (m[12] ?? 0));
+          // Use max of file-advance and browser-ink, plus 10% safety for weight-axis widening
+          // and faux-bold synthesis (m[0] is at file's default weight, page renders at 600).
+          const _divisor = Math.max(m[0] + (m[12] ?? 0), m[13] ?? 0) * 1.10;
           bigSize = Math.max(12, Math.floor(sectionW / _divisor));
           lh = Math.max(1, m[9] + m[10]);
           const inkRatio = (m[11] + m[5]) || 1;
