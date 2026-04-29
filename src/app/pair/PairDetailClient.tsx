@@ -84,17 +84,17 @@ function FontSection({
       <div className="border-t border-neutral-100" style={{ margin: "24px -24px 16px", padding: "0" }} />
 
       {/* Specimen */}
-      <div ref={sectionRef} className="spec-section" style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column" }}>
+      <div ref={sectionRef} className="spec-section" style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         {(() => {
-          const smallSize = specimenSmallSize ?? Math.max(16, Math.round(specimenFontSize * 16 / 36));
+          const smallSize = specimenSmallSize ?? Math.max(14, Math.round(specimenFontSize * 14 / 36));
           const smallGap = Math.round(smallSize * 0.35);
           return (
-            <div style={{ marginTop: "16px" }}>
+            <div>
               <div
                 className="whitespace-nowrap text-neutral-800"
                 style={{ fontFamily: family, fontWeight: role === "Header" ? 600 : 400, fontSize: `${specimenFontSize}px`, lineHeight: "1", marginBottom: "8px" }}
               >
-                Aa Bb Cc Dd Ee Ff Gg
+                Aa Bb Cc Dd Ee Ff
               </div>
               <div
                 className="text-neutral-600"
@@ -216,8 +216,12 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const [bodySpecSize, setBodySpecSize] = useState(36);
   const [headerSmallSize, setHeaderSmallSize] = useState<number | null>(null);
   const [bodySmallSize, setBodySmallSize] = useState<number | null>(null);
+  const lastSizesRef = useRef({ hBig: 0, bBig: 0, hSmall: 0, bSmall: 0 });
 
-  useEffect(() => { setHeaderSpecSize(36); setBodySpecSize(36); setHeaderSmallSize(null); setBodySmallSize(null); }, [slug]);
+  useEffect(() => {
+    setHeaderSpecSize(36); setBodySpecSize(36); setHeaderSmallSize(null); setBodySmallSize(null);
+    lastSizesRef.current = { hBig: 0, bBig: 0, hSmall: 0, bSmall: 0 };
+  }, [slug]);
 
   useEffect(() => {
     if (!headerFont || !bodyFont) return;
@@ -271,17 +275,17 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       const ctx = canvas.getContext('2d')!;
 
       ctx.font = `600 36px ${hFamily}`;
-      const hBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg").width;
-      const hBigSize = hBigW36 > 0 ? Math.max(12, Math.floor(36 * hSectionW * 0.97 / hBigW36)) : 36;
+      const hBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
+      const hBigSize = hBigW36 > 0 ? Math.max(12, Math.floor(36 * hSectionW * 0.95 / hBigW36)) : 36;
 
       ctx.font = `400 36px ${bFamily}`;
-      const bBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg").width;
-      const bBigSize = bBigW36 > 0 ? Math.max(12, Math.floor(36 * bSectionW * 0.97 / bBigW36)) : 36;
+      const bBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
+      const bBigSize = bBigW36 > 0 ? Math.max(12, Math.floor(36 * bSectionW * 0.95 / bBigW36)) : 36;
 
       const computeSmallSize = (family: string, bigSize: number, sectionH: number, sectionW: number): number => {
-        const available = sectionH - 16 - bigSize - 8;
-        if (available < 12) return 12;
-        let lo = 12, hi = 300, best = 12;
+        const available = sectionH - bigSize - 8;
+        if (available < 14) return 14;
+        let lo = 14, hi = 300, best = 14;
         for (let i = 0; i < 12; i++) {
           const mid = Math.round((lo + hi) / 2);
           const gap = Math.round(mid * 0.35);
@@ -294,13 +298,18 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
           if (totalH <= available) { best = mid; lo = mid + 1; }
           else hi = mid - 1;
         }
-        return Math.max(12, best);
+        return Math.min(Math.max(14, best), Math.floor(bigSize * 0.45));
       };
 
+      const hSmall = computeSmallSize(hFamily, hBigSize, hSectionH, hSectionW);
+      const bSmall = computeSmallSize(bFamily, bBigSize, bSectionH, bSectionW);
+      const last = lastSizesRef.current;
+      if (last.hBig === hBigSize && last.bBig === bBigSize && last.hSmall === hSmall && last.bSmall === bSmall) return;
+      last.hBig = hBigSize; last.bBig = bBigSize; last.hSmall = hSmall; last.bSmall = bSmall;
       setHeaderSpecSize(hBigSize);
       setBodySpecSize(bBigSize);
-      setHeaderSmallSize(computeSmallSize(hFamily, hBigSize, hSectionH, hSectionW));
-      setBodySmallSize(computeSmallSize(bFamily, bBigSize, bSectionH, bSectionW));
+      setHeaderSmallSize(hSmall);
+      setBodySmallSize(bSmall);
     };
 
     let observer: ResizeObserver | null = null;
