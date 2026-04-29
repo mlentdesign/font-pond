@@ -39,7 +39,7 @@ for (const [slug, value] of Object.entries(browser)) {
       // flagged as fallback because they happened to be condensed fonts whose advance
       // matched the ratio range for system-ui). Lower bound 0.60 accepts wide-spaced fonts.
       const ratio = value.specExtent / main[slug].specAdvance;
-      if (ratio >= 0.60 && ratio <= 1.50) {
+      if (ratio >= 0.40 && ratio <= 1.50) {
         main[slug].browserSpecExtent = value.specExtent;
       } else {
         specFiltered++;
