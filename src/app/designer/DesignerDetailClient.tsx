@@ -220,12 +220,17 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         let bigSize: number;
         if (m) {
           bigSize = Math.max(12, Math.floor(sectionW / m[0]));
+          // Cap so ink height (ascent+descent × fontSize) doesn't exceed 80px — prevents barcode/
+          // dingbat fonts with extreme specAdv from producing enormous specimen cards.
+          const inkRatio = (m[4] + m[5]) || 1;
+          bigSize = Math.min(bigSize, Math.floor(80 / inkRatio));
         } else {
           const family = getFontFamily(fontData.name, fontData.source);
           ctx.font = `600 36px ${family}`;
           const bigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
           bigSize = bigW36 > 0 ? Math.max(12, Math.floor(36 * sectionW / bigW36)) : 36;
         }
+        bigSize = Math.max(12, bigSize);
         bigUpdates[slug] = bigSize;
 
         const availableForSmall = sectionH - bigSize - 8;

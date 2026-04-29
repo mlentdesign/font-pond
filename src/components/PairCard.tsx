@@ -48,27 +48,39 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
   const headerFamily = getFontFamily(headerFont.name, headerFont.source);
   const bodyFamily = getFontFamily(bodyFont.name, bodyFont.source);
 
-  // Section 1: keep user's font sizes, expand padding for ink that overflows OS/2 bounds
-  const sec1PadTop    = 24 + extraTop(headerFont.slug, headerSize);
-  const sec1PadBottom = 16 + extraBottom(bodyFont.slug, bodySize);
-  const headlineMarginBottom = 16 + extraBottom(headerFont.slug, headerSize);
-
-  // lineHeight: must be >= ascent+descent ratio so descenders don't clip into the margin below
+  // lineHeight: use OS/2 bounds (m[9]+m[10]) — exact values browser uses for line-box layout.
+  // Using ink bounds (m[4]+m[5]) was insufficient; OS/2 can be much larger for calligraphic fonts.
   const hm = RENDER_METRICS[headerFont.slug];
-  const headerLineHeight = hm ? Math.max(1.15, +(hm[4] + hm[5]).toFixed(3)) : 1.15;
   const bm = RENDER_METRICS[bodyFont.slug];
-  const bodyLabelLineHeight = bm ? Math.max(1.3, +(bm[4] + bm[5]).toFixed(3)) : 1.3;
+  const headerLineHeight      = hm ? Math.max(1.15, +(hm[9] + hm[10]).toFixed(3)) : 1.15;
+  const headerLabelLineHeight = hm ? Math.max(1.3,  +(hm[9] + hm[10]).toFixed(3)) : 1.3;
+  const bodyLabelLineHeight   = bm ? Math.max(1.3,  +(bm[9] + bm[10]).toFixed(3)) : 1.3;
+
+  // Dead space inside line box: gap between OS/2 declared bound and actual ink.
+  // We subtract dead space from section padding (so visual ink lands at the intended distance)
+  // and add it to margins (so visual gap between elements stays correct).
+  const headerDeadTop         = hm ? Math.max(0, Math.round((hm[9] - hm[4]) * headerSize)) : 0;
+  const headerDeadBottom      = hm ? Math.max(0, Math.round((hm[10] - hm[5]) * headerSize)) : 0;
+  const headerLabelDeadTop    = hm ? Math.max(0, Math.round((hm[9] - hm[4]) * 22)) : 0;
+  const headerLabelDeadBottom = hm ? Math.max(0, Math.round((hm[10] - hm[5]) * 22)) : 0;
+  const bodyLabelDeadTop      = bm ? Math.max(0, Math.round((bm[9] - bm[4]) * 22)) : 0;
+  const bodyLabelDeadBottom   = bm ? Math.max(0, Math.round((bm[10] - bm[5]) * 22)) : 0;
+
+  // Section 1: reduce top padding by dead space above ink; increase margin by dead space below ink
+  const sec1PadTop           = Math.max(8, 24 - headerDeadTop)   + extraTop(headerFont.slug, headerSize);
+  const sec1PadBottom        = 16 + extraBottom(bodyFont.slug, bodySize);
+  const headlineMarginBottom = 16 + headerDeadBottom             + extraBottom(headerFont.slug, headerSize);
 
   // Left overflow: apply only to the element rendered in that font, not the whole section
-  const headerLeftPx     = extraLeft(headerFont.slug, headerSize);
-  const headerLabelLeft  = extraLeft(headerFont.slug, 22);
-  const bodyLabelLeft    = extraLeft(bodyFont.slug, 22);
+  const headerLeftPx    = extraLeft(headerFont.slug, headerSize);
+  const headerLabelLeft = extraLeft(headerFont.slug, 22);
+  const bodyLabelLeft   = extraLeft(bodyFont.slug, 22);
 
-  // Sections 3/4: expand section padding for ascenders/descenders only (no left — that's per-element)
-  const headerSecPadTop    = 16 + extraTop(headerFont.slug, 22);
-  const headerSecPadBottom = 16 + extraBottom(headerFont.slug, 22);
-  const bodySecPadTop      = 16 + extraTop(bodyFont.slug, 22);
-  const bodySecPadBottom   = 16 + extraBottom(bodyFont.slug, 22);
+  // Sections 3/4: same dead-space compensation for ascenders/descenders
+  const headerSecPadTop    = Math.max(8, 16 - headerLabelDeadTop)    + extraTop(headerFont.slug, 22);
+  const headerSecPadBottom = 16 + headerLabelDeadBottom               + extraBottom(headerFont.slug, 22);
+  const bodySecPadTop      = Math.max(8, 16 - bodyLabelDeadTop)      + extraTop(bodyFont.slug, 22);
+  const bodySecPadBottom   = 16 + bodyLabelDeadBottom                 + extraBottom(bodyFont.slug, 22);
 
   const description = isExploring
     ? sentenceCase(pair.shortExplanation)
@@ -144,7 +156,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
           </span>
           <span
             className="text-neutral-800 block"
-            style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "22px", lineHeight: bodyLabelLineHeight, marginBottom: "8px", paddingLeft: headerLabelLeft > 0 ? `${headerLabelLeft}px` : undefined }}
+            style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "22px", lineHeight: headerLabelLineHeight, marginBottom: "8px", paddingLeft: headerLabelLeft > 0 ? `${headerLabelLeft}px` : undefined }}
           >
             {headerFont.name}
           </span>
