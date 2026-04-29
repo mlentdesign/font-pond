@@ -83,21 +83,25 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
   const bInkExtBot22 = Math.max(0, Math.round((bDesc - (bodyLabelLH - bOs2A + bOs2D) / 2) * 22));
 
   // Section 1
-  const sec1PadTop           = Math.max(8, 24 - hInkTopH) + extraTop(headerFont.slug, headerSize);
+  // Target 16px visual top (24px was too large). Section already has 24px left padding as
+  // a buffer for negative LSBs — only compensate the overflow beyond that buffer.
+  const sec1PadTop           = Math.max(8, 16 - hInkTopH) + extraTop(headerFont.slug, headerSize);
   const sec1PadBottom        = 16 + extraBottom(bodyFont.slug, bodySize);
   const headlineMarginBottom = 16 + hInkExtBotH           + extraBottom(headerFont.slug, headerSize);
 
-  // Left overflow: per-element only, never the whole section
-  const headerLeftPx    = extraLeft(headerFont.slug, headerSize);
-  const headerLabelLeft = extraLeft(headerFont.slug, 22);
-  const bodyLabelLeft   = extraLeft(bodyFont.slug, 22);
+  // Left overflow: section padding (24px) already absorbs most negative LSB ink.
+  // Only add the excess beyond that buffer so the headline stays flush with other elements.
+  const SECTION_PAD_LEFT = 24;
+  const headerLeftPx    = Math.max(0, extraLeft(headerFont.slug, headerSize) - SECTION_PAD_LEFT);
+  const headerLabelLeft = Math.max(0, extraLeft(headerFont.slug, 22)         - SECTION_PAD_LEFT);
+  const bodyLabelLeft   = Math.max(0, extraLeft(bodyFont.slug, 22)           - SECTION_PAD_LEFT);
 
-  // Sections 3/4: top padding reduced for dead space above ink;
-  // font name marginBottom increased so descenders don't overlap chips.
-  const headerSecPadTop      = Math.max(8, 16 - hInkTop22) + extraTop(headerFont.slug, 22);
+  // Sections 3/4: target 8px visual top (HEADER/BODY label sits above the font name,
+  // so less section top padding is needed). marginBottom compensates for descender extension.
+  const headerSecPadTop      = Math.max(8, 8 - hInkTop22) + extraTop(headerFont.slug, 22);
   const headerNameMarginBot  = 8 + hInkExtBot22;
   const headerSecPadBottom   = 16;
-  const bodySecPadTop        = Math.max(8, 16 - bInkTop22) + extraTop(bodyFont.slug, 22);
+  const bodySecPadTop        = Math.max(8, 8 - bInkTop22) + extraTop(bodyFont.slug, 22);
   const bodyNameMarginBot    = 8 + bInkExtBot22;
   const bodySecPadBottom     = 16;
 
