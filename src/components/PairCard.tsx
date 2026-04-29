@@ -57,12 +57,11 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
   const headerLabelLH       = 1.3;
   const bodyLabelLH         = 1.3;
 
-  // CSS line-box geometry: with a given lineHeight, the baseline sits at
-  //   (lineHeight + os2Asc - os2Desc) / 2  from the line-box top.
-  // inkTopFromLbTop: dead space above ink (os2 declares more room than ink needs).
-  //   Subtract this from top padding so visual ink lands at the intended distance.
-  // inkExtBelowLb: how far descenders poke below the line-box bottom.
-  //   Add this to the margin below so descenders don't bleed into the next element.
+  // CSS line-box geometry. With line-height LH, the baseline sits at
+  //   (LH + os2Asc - os2Desc) / 2 * fontSize  below the line-box top.
+  // inkTopOffset = distance from line-box top to first visible ink (can be NEGATIVE — that means
+  //   ink overflows above the line-box top, so padding must be increased, not decreased).
+  // Clamping to 0 was wrong: negative values need to ADD to padding, not cancel out.
   const hOs2A = hm ? hm[9] : 0.8;
   const hOs2D = hm ? hm[10] : 0.2;
   const hAsc  = hm ? hm[4] : 0.72;
@@ -72,37 +71,35 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
   const bAsc  = bm ? bm[4] : 0.72;
   const bDesc = bm ? bm[5] : 0.22;
 
-  // Headline (LH 1.15)
-  const hInkTopH    = Math.max(0, Math.round(((headerLineHeight + hOs2A - hOs2D) / 2 - hAsc) * headerSize));
-  const hInkExtBotH = Math.max(0, Math.round((hDesc - (headerLineHeight - hOs2A + hOs2D) / 2) * headerSize));
+  // Ink-top offset (signed): positive = dead space above ink; negative = ink overflows above lb-top.
+  // Ink-ext-bottom: how far descenders poke below the line-box bottom (always ≥ 0).
+  const hInkTopOffset    = Math.round(((headerLineHeight + hOs2A - hOs2D) / 2 - hAsc) * headerSize);
+  const hInkExtBot       = Math.max(0, Math.round((hDesc - (headerLineHeight - hOs2A + hOs2D) / 2) * headerSize));
+  const hInkTopOffset22  = Math.round(((headerLabelLH + hOs2A - hOs2D) / 2 - hAsc) * 22);
+  const hInkExtBot22     = Math.max(0, Math.round((hDesc - (headerLabelLH - hOs2A + hOs2D) / 2) * 22));
+  const bInkTopOffset22  = Math.round(((bodyLabelLH + bOs2A - bOs2D) / 2 - bAsc) * 22);
+  const bInkExtBot22     = Math.max(0, Math.round((bDesc - (bodyLabelLH - bOs2A + bOs2D) / 2) * 22));
 
-  // Font name labels (LH 1.3)
-  const hInkTop22    = Math.max(0, Math.round(((headerLabelLH + hOs2A - hOs2D) / 2 - hAsc) * 22));
-  const hInkExtBot22 = Math.max(0, Math.round((hDesc - (headerLabelLH - hOs2A + hOs2D) / 2) * 22));
-  const bInkTop22    = Math.max(0, Math.round(((bodyLabelLH + bOs2A - bOs2D) / 2 - bAsc) * 22));
-  const bInkExtBot22 = Math.max(0, Math.round((bDesc - (bodyLabelLH - bOs2A + bOs2D) / 2) * 22));
+  // Section 1: target 16px from card top to first visible ink.
+  // extraTop/extraBottom removed — the geometry formula already uses ascentRatio/descentRatio
+  // which incorporates any ink that overflows OS/2 bounds (no double-counting).
+  const sec1PadTop           = Math.max(8, 16 - hInkTopOffset);
+  const sec1PadBottom        = 16;
+  const headlineMarginBottom = 16 + hInkExtBot;
 
-  // Section 1
-  // Target 16px visual top (24px was too large). Section already has 24px left padding as
-  // a buffer for negative LSBs — only compensate the overflow beyond that buffer.
-  const sec1PadTop           = Math.max(8, 16 - hInkTopH) + extraTop(headerFont.slug, headerSize);
-  const sec1PadBottom        = 16 + extraBottom(bodyFont.slug, bodySize);
-  const headlineMarginBottom = 16 + hInkExtBotH           + extraBottom(headerFont.slug, headerSize);
-
-  // Left overflow: section padding (24px) already absorbs most negative LSB ink for the headline.
-  // Only compensate the excess beyond that buffer so the headline stays flush with body text.
-  // For font name labels (22px), keep the full value — they were already correct.
+  // Left overflow: 24px section padding already buffers most negative LSBs for the headline.
+  // Font-name labels keep the full value — they were correct.
   const headerLeftPx    = Math.max(0, extraLeft(headerFont.slug, headerSize) - 24);
   const headerLabelLeft = extraLeft(headerFont.slug, 22);
   const bodyLabelLeft   = extraLeft(bodyFont.slug, 22);
 
-  // Sections 3/4: 16px target for top padding (space between divider and HEADER/BODY label).
-  const headerSecPadTop      = Math.max(8, 16 - hInkTop22) + extraTop(headerFont.slug, 22);
-  const headerNameMarginBot  = 8 + hInkExtBot22;
-  const headerSecPadBottom   = 16;
-  const bodySecPadTop        = Math.max(8, 16 - bInkTop22) + extraTop(bodyFont.slug, 22);
-  const bodyNameMarginBot    = 8 + bInkExtBot22;
-  const bodySecPadBottom     = 16;
+  // Sections 3/4: same 16px visual target from divider to first visible ink.
+  const headerSecPadTop    = Math.max(8, 16 - hInkTopOffset22);
+  const headerNameMarginBot = 8 + hInkExtBot22;
+  const headerSecPadBottom = 16;
+  const bodySecPadTop      = Math.max(8, 16 - bInkTopOffset22);
+  const bodyNameMarginBot  = 8 + bInkExtBot22;
+  const bodySecPadBottom   = 16;
 
   const description = isExploring
     ? sentenceCase(pair.shortExplanation)
