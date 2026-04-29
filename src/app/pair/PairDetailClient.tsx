@@ -87,7 +87,7 @@ function FontSection({
       <div className="border-t border-neutral-100" style={{ margin: "24px -24px 16px", padding: "0" }} />
 
       {/* Specimen */}
-      <div ref={sectionRef} className="spec-section" style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+      <div ref={sectionRef} className="spec-section" style={{ flex: 1, overflow: "visible", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         {(() => {
           const smallSize = specimenSmallSize ?? Math.max(14, Math.round(specimenFontSize * 14 / 36));
           const smallGap = 6;

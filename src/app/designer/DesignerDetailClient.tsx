@@ -397,7 +397,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                 <div
                   ref={(el) => { if (el) sectionRefs.current[font.slug] = el; else delete sectionRefs.current[font.slug]; }}
                   className="spec-section"
-                  style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}
+                  style={{ flex: 1, overflow: "visible", display: "flex", flexDirection: "column", justifyContent: "center" }}
                 >
                   <div>
                     <div
