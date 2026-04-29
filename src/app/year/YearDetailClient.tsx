@@ -206,7 +206,8 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
         let bigSize: number;
         let lh = 1.2;
         if (m) {
-          bigSize = Math.max(12, Math.floor(sectionW / (m[13] != null ? m[13] : (m[0] + (m[12] ?? 0)))));
+          const _m13 = (m[13] != null && m[13] <= m[0] * 1.25) ? m[13] : null;
+          bigSize = Math.max(12, Math.floor(sectionW / ((_m13 ?? (m[0] + (m[12] ?? 0))) * 1.03)));
           lh = Math.max(1, m[9] + m[10]);
           // Cap so ink height doesn't overflow the section or exceed 80px.
           const inkRatio = (m[11] + m[5]) || 1;
