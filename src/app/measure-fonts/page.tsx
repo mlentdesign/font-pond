@@ -5,8 +5,9 @@ import { RENDER_METRICS } from "@/data/gf-render-metrics";
 import { fontsBySlug } from "@/data/fonts";
 import { loadFont, waitForFonts } from "@/lib/fonts";
 
-const HEADLINE = "The quick brown fox jumps over the lazy dog";
-const FONT_SIZE = 100;
+const HEADLINE   = "The quick brown fox jumps over the lazy dog";
+const SPEC_STRING = "Aa Bb Cc Dd Ee Ff";
+const FONT_SIZE  = 100;
 
 type Status = "idle" | "loading-css" | "running" | "done" | "saving" | "saved" | "error";
 
@@ -30,18 +31,23 @@ async function buildSlugToFamily(basePath: string): Promise<Record<string, strin
   return map;
 }
 
+type Metrics = { ascent: number; specExtent: number };
+
 async function measureFont(
   slug: string,
   ctx: CanvasRenderingContext2D,
   basePath: string,
   slugToFamily: Record<string, string>
-): Promise<number | null> {
-  const measure = (family: string): number | null => {
+): Promise<Metrics | null> {
+  const measure = (family: string): Metrics | null => {
     ctx.font = `${FONT_SIZE}px "${family}"`;
-    const m = ctx.measureText(HEADLINE);
-    return m.actualBoundingBoxAscent > 0
-      ? Math.round((m.actualBoundingBoxAscent / FONT_SIZE) * 1000) / 1000
-      : null;
+    const mAscent = ctx.measureText(HEADLINE);
+    const mSpec   = ctx.measureText(SPEC_STRING);
+    if (mAscent.actualBoundingBoxAscent <= 0 || mSpec.actualBoundingBoxRight <= 0) return null;
+    return {
+      ascent:     Math.round((mAscent.actualBoundingBoxAscent / FONT_SIZE) * 1000) / 1000,
+      specExtent: Math.round((mSpec.actualBoundingBoxRight    / FONT_SIZE) * 1000) / 1000,
+    };
   };
 
   // Strategy 1: load .woff2 directly via FontFace API
@@ -86,7 +92,7 @@ export default function MeasureFontsPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [status, setStatus] = useState<Status>("idle");
   const [done, setDone] = useState(0);
-  const [results, setResults] = useState<Record<string, number>>({});
+  const [results, setResults] = useState<Record<string, Metrics>>({});
   const [errorMsg, setErrorMsg] = useState("");
 
   const slugs = Object.keys(RENDER_METRICS);
@@ -97,7 +103,7 @@ export default function MeasureFontsPage() {
     const slugToFamily = await buildSlugToFamily(basePath);
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext("2d")!;
-    const out: Record<string, number> = {};
+    const out: Record<string, Metrics> = {};
     let i = 0;
 
     setStatus("running");
