@@ -84,7 +84,7 @@ function FontSection({
       <div className="border-t border-neutral-100" style={{ margin: "24px -24px 16px", padding: "0" }} />
 
       {/* Specimen */}
-      <div ref={sectionRef} className="spec-section" style={{ overflow: "hidden", display: "flex", flexDirection: "column" }}>
+      <div ref={sectionRef} className="spec-section" style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column" }}>
         {(() => {
           const smallSize = specimenSmallSize ?? Math.max(16, Math.round(specimenFontSize * 16 / 36));
           const smallGap = Math.round(smallSize * 0.35);
@@ -254,33 +254,13 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       return () => { cancelled = true; };
     }
 
-    const run = async () => {
-      await document.fonts.ready;
-      const hFamily = getFontFamily(headerFont.name, headerFont.source);
-      const bFamily = getFontFamily(bodyFont.name, bodyFont.source);
+    const hFamily = getFontFamily(headerFont.name, headerFont.source);
+    const bFamily = getFontFamily(bodyFont.name, bodyFont.source);
 
-      // Wait for the actual font files to arrive before measuring.
-      const unloaded = new Set([
-        `400 16px "${headerFont.name}"`, `600 16px "${headerFont.name}"`,
-        `400 16px "${bodyFont.name}"`, `600 16px "${bodyFont.name}"`,
-      ]);
-      const deadline = Date.now() + 4000;
-      while (unloaded.size > 0 && Date.now() < deadline) {
-        for (const spec of [...unloaded]) {
-          const faces = await document.fonts.load(spec).catch(() => [] as FontFace[]);
-          if (faces.length > 0) unloaded.delete(spec);
-        }
-        if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
-      }
-
-      if (cancelled) return;
-      await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
-      if (cancelled) return;
-
+    const doSizing = () => {
       const hSection = hSectionRef.current;
       const bSection = bSectionRef.current;
       if (!hSection || !bSection) return;
-
       const hSectionH = hSection.offsetHeight;
       const hSectionW = hSection.offsetWidth;
       const bSectionH = bSection.offsetHeight;
@@ -290,7 +270,6 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d')!;
 
-      // Big text: width-fit (one line fills card width)
       ctx.font = `600 36px ${hFamily}`;
       const hBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg").width;
       const hBigSize = hBigW36 > 0 ? Math.max(12, Math.floor(36 * hSectionW * 0.97 / hBigW36)) : 36;
@@ -299,10 +278,9 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       const bBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff Gg").width;
       const bBigSize = bBigW36 > 0 ? Math.max(12, Math.floor(36 * bSectionW * 0.97 / bBigW36)) : 36;
 
-      // Small text: fills remaining height after 16px top margin + bigSize + 8px gap
       const computeSmallSize = (family: string, bigSize: number, sectionH: number, sectionW: number): number => {
-        const available = Math.min(sectionH - 16 - bigSize - 8, Math.round(bigSize * 1.1));
-        if (available < 16) return 12;
+        const available = sectionH - 16 - bigSize - 8;
+        if (available < 12) return 12;
         let lo = 12, hi = 300, best = 12;
         for (let i = 0; i < 12; i++) {
           const mid = Math.round((lo + hi) / 2);
@@ -325,8 +303,37 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       setBodySmallSize(computeSmallSize(bFamily, bBigSize, bSectionH, bSectionW));
     };
 
+    let observer: ResizeObserver | null = null;
+
+    const run = async () => {
+      await document.fonts.ready;
+
+      const unloaded = new Set([
+        `400 16px "${headerFont.name}"`, `600 16px "${headerFont.name}"`,
+        `400 16px "${bodyFont.name}"`, `600 16px "${bodyFont.name}"`,
+      ]);
+      const deadline = Date.now() + 4000;
+      while (unloaded.size > 0 && Date.now() < deadline) {
+        for (const spec of [...unloaded]) {
+          const faces = await document.fonts.load(spec).catch(() => [] as FontFace[]);
+          if (faces.length > 0) unloaded.delete(spec);
+        }
+        if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
+      }
+
+      if (cancelled) return;
+      await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+      if (cancelled) return;
+
+      doSizing();
+
+      observer = new ResizeObserver(() => { if (!cancelled) doSizing(); });
+      if (hSectionRef.current) observer.observe(hSectionRef.current);
+      if (bSectionRef.current) observer.observe(bSectionRef.current);
+    };
+
     run();
-    return () => { cancelled = true; };
+    return () => { cancelled = true; observer?.disconnect(); };
   }, [headerFont?.id, bodyFont?.id]);
 
   useEffect(() => {

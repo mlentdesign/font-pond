@@ -103,6 +103,17 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
   const sectionRefs = useRef<Record<string, HTMLDivElement>>({});
   const [specimenSizes, setSpecimenSizes] = useState<Record<string, number>>({});
   const [smallSpecimenSizes, setSmallSpecimenSizes] = useState<Record<string, number>>({});
+  const sizingFnRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => {
+    let debounce: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(debounce);
+      debounce = setTimeout(() => sizingFnRef.current?.(), 150);
+    };
+    window.addEventListener('resize', onResize);
+    return () => { window.removeEventListener('resize', onResize); clearTimeout(debounce); };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -145,26 +156,7 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
       return () => { cancelled = true; };
     }
 
-    const fontNames = sorted.slice(0, visibleFonts).map(f => f.name);
-    const run = async () => {
-      await document.fonts.ready;
-      const unloaded = new Set(fontNames);
-      const deadline = Date.now() + 4000;
-      while (unloaded.size > 0 && Date.now() < deadline) {
-        for (const name of [...unloaded]) {
-          const [f400, f700] = await Promise.all([
-            document.fonts.load(`400 16px "${name}"`).catch(() => [] as FontFace[]),
-            document.fonts.load(`700 16px "${name}"`).catch(() => [] as FontFace[]),
-          ]);
-          if (f400.length > 0 || f700.length > 0) unloaded.delete(name);
-        }
-        if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
-      }
-
-      if (cancelled) return;
-      await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
-      if (cancelled) return;
-
+    const doSizing = () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d')!;
       const bigUpdates: Record<string, number> = {};
@@ -174,24 +166,18 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
         const fontData = sorted.find(f => f.slug === slug);
         if (!fontData) continue;
         const family = getFontFamily(fontData.name, fontData.source);
-        // Use the CSS-grid-equalized rendered height directly — no formula-based estimation.
-        // Section has no padding (inner wrapper has marginTop:16px).
-        // lineHeight:1 means each text row's CSS height = its fontSize in px.
         const sectionH = sectionEl.offsetHeight;
         const sectionW = sectionEl.offsetWidth;
         if (sectionH < 32 || sectionW < 32) continue;
 
-        // Big text: one line filling card width
         ctx.font = `600 36px ${family}`;
         const bigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
         const bigSize = bigW36 > 0 ? Math.max(12, Math.floor(36 * sectionW * 0.97 / bigW36)) : 36;
         bigUpdates[slug] = bigSize;
 
-        // Small text: proportional to big text, capped so adjacent tall cards don't inflate small text
-        const availableForSmall = Math.min(sectionH - 16 - bigSize - 8, Math.round(bigSize * 1.1));
-        if (availableForSmall < 16) { smallUpdates[slug] = 12; continue; }
+        const availableForSmall = sectionH - 16 - bigSize - 8;
+        if (availableForSmall < 12) { smallUpdates[slug] = 12; continue; }
 
-        // Each row CSS height = fontSize (lineHeight:1); gap between rows = fontSize * 0.35
         let lo = 12, hi = 300, best = 12;
         for (let i = 0; i < 12; i++) {
           const mid = Math.round((lo + hi) / 2);
@@ -212,6 +198,31 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
         setSpecimenSizes(prev => ({ ...prev, ...bigUpdates }));
         setSmallSpecimenSizes(prev => ({ ...prev, ...smallUpdates }));
       }
+    };
+
+    sizingFnRef.current = doSizing;
+
+    const fontNames = sorted.slice(0, visibleFonts).map(f => f.name);
+    const run = async () => {
+      await document.fonts.ready;
+      const unloaded = new Set(fontNames);
+      const deadline = Date.now() + 4000;
+      while (unloaded.size > 0 && Date.now() < deadline) {
+        for (const name of [...unloaded]) {
+          const [f400, f700] = await Promise.all([
+            document.fonts.load(`400 16px "${name}"`).catch(() => [] as FontFace[]),
+            document.fonts.load(`700 16px "${name}"`).catch(() => [] as FontFace[]),
+          ]);
+          if (f400.length > 0 || f700.length > 0) unloaded.delete(name);
+        }
+        if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
+      }
+
+      if (cancelled) return;
+      await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+      if (cancelled) return;
+
+      doSizing();
     };
 
     run();
@@ -293,7 +304,7 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
                 <div
                   ref={(el) => { if (el) sectionRefs.current[font.slug] = el; else delete sectionRefs.current[font.slug]; }}
                   className="spec-section"
-                  style={{ overflow: "hidden", display: "flex", flexDirection: "column" }}
+                  style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column" }}
                 >
                   <div style={{ marginTop: "16px" }}>
                     <div

@@ -117,6 +117,17 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
   const sectionRefs = useRef<Record<string, HTMLDivElement>>({});
   const [specimenSizes, setSpecimenSizes] = useState<Record<string, number>>({});
   const [smallSpecimenSizes, setSmallSpecimenSizes] = useState<Record<string, number>>({});
+  const sizingFnRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => {
+    let debounce: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(debounce);
+      debounce = setTimeout(() => sizingFnRef.current?.(), 150);
+    };
+    window.addEventListener('resize', onResize);
+    return () => { window.removeEventListener('resize', onResize); clearTimeout(debounce); };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -143,7 +154,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d')!;
-        const TARGET_CAP_H = 40; // all fonts scaled so capital letters appear 40px tall
+        const TARGET_CAP_H = 40;
         const updates: Record<string, number> = {};
 
         for (const font of sorted.slice(0, visibleFonts)) {
@@ -162,27 +173,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
       return () => { cancelled = true; };
     }
 
-    // Desktop / tablet: binary search fills a fixed-height section.
-    const fontNames = sorted.slice(0, visibleFonts).map(f => f.name);
-    const run = async () => {
-      await document.fonts.ready;
-      const unloaded = new Set(fontNames);
-      const deadline = Date.now() + 4000;
-      while (unloaded.size > 0 && Date.now() < deadline) {
-        for (const name of [...unloaded]) {
-          const [f400, f700] = await Promise.all([
-            document.fonts.load(`400 16px "${name}"`).catch(() => [] as FontFace[]),
-            document.fonts.load(`700 16px "${name}"`).catch(() => [] as FontFace[]),
-          ]);
-          if (f400.length > 0 || f700.length > 0) unloaded.delete(name);
-        }
-        if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
-      }
-
-      if (cancelled) return;
-      await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
-      if (cancelled) return;
-
+    const doSizing = () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d')!;
       const bigUpdates: Record<string, number> = {};
@@ -201,8 +192,8 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         const bigSize = bigW36 > 0 ? Math.max(12, Math.floor(36 * sectionW * 0.97 / bigW36)) : 36;
         bigUpdates[slug] = bigSize;
 
-        const availableForSmall = Math.min(sectionH - 16 - bigSize - 8, Math.round(bigSize * 1.1));
-        if (availableForSmall < 16) { smallUpdates[slug] = 12; continue; }
+        const availableForSmall = sectionH - 16 - bigSize - 8;
+        if (availableForSmall < 12) { smallUpdates[slug] = 12; continue; }
 
         let lo = 12, hi = 300, best = 12;
         for (let i = 0; i < 12; i++) {
@@ -224,6 +215,31 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         setSpecimenSizes(prev => ({ ...prev, ...bigUpdates }));
         setSmallSpecimenSizes(prev => ({ ...prev, ...smallUpdates }));
       }
+    };
+
+    sizingFnRef.current = doSizing;
+
+    const fontNames = sorted.slice(0, visibleFonts).map(f => f.name);
+    const run = async () => {
+      await document.fonts.ready;
+      const unloaded = new Set(fontNames);
+      const deadline = Date.now() + 4000;
+      while (unloaded.size > 0 && Date.now() < deadline) {
+        for (const name of [...unloaded]) {
+          const [f400, f700] = await Promise.all([
+            document.fonts.load(`400 16px "${name}"`).catch(() => [] as FontFace[]),
+            document.fonts.load(`700 16px "${name}"`).catch(() => [] as FontFace[]),
+          ]);
+          if (f400.length > 0 || f700.length > 0) unloaded.delete(name);
+        }
+        if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
+      }
+
+      if (cancelled) return;
+      await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+      if (cancelled) return;
+
+      doSizing();
     };
 
     run();
@@ -305,7 +321,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                 <div
                   ref={(el) => { if (el) sectionRefs.current[font.slug] = el; else delete sectionRefs.current[font.slug]; }}
                   className="spec-section"
-                  style={{ overflow: "hidden", display: "flex", flexDirection: "column" }}
+                  style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column" }}
                 >
                   <div style={{ marginTop: "16px" }}>
                     <div
