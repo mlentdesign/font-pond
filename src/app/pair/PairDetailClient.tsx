@@ -281,9 +281,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       const hLh = hm ? Math.max(1, hm[9] + hm[10]) : 1.2;
       let hBigSize: number;
       if (hm) {
-        const _hm13 = (hm[13] != null && hm[13] <= hm[0] * 1.30) ? hm[13] : null;
-        const _hbase = _hm13 ?? (hm[0] + (hm[12] ?? 0));
-        const _hdivisor = (_hm13 != null && _hm13 < hm[0]) ? _hbase : _hbase * 1.03;
+        const _hm13 = (hm[13] != null && hm[13] >= hm[0]) ? hm[13] : null;
+        const _hdivisor = _hm13 ? _hm13 * 1.03 : (hm[0] + (hm[12] ?? 0));
         hBigSize = Math.max(12, Math.floor(hSectionW / _hdivisor));
       } else {
         ctx.font = `600 36px ${hFamily}`;
@@ -296,9 +295,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       const bLh = bm ? Math.max(1, bm[9] + bm[10]) : 1.2;
       let bBigSize: number;
       if (bm) {
-        const _bm13 = (bm[13] != null && bm[13] <= bm[0] * 1.30) ? bm[13] : null;
-        const _bbase = _bm13 ?? (bm[0] + (bm[12] ?? 0));
-        const _bdivisor = (_bm13 != null && _bm13 < bm[0]) ? _bbase : _bbase * 1.03;
+        const _bm13 = (bm[13] != null && bm[13] >= bm[0]) ? bm[13] : null;
+        const _bdivisor = _bm13 ? _bm13 * 1.03 : (bm[0] + (bm[12] ?? 0));
         bBigSize = Math.max(12, Math.floor(bSectionW / _bdivisor));
       } else {
         ctx.font = `400 36px ${bFamily}`;
