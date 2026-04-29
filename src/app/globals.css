@@ -850,14 +850,12 @@ body.animations-paused #water-bg * {
   .two-col-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
-    align-items: start;
   }
 }
 @media (min-width: 1024px) {
   .two-col-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
-    align-items: start;
   }
 }
 
@@ -1094,6 +1092,16 @@ body.animations-paused #water-bg * {
 
 .spec-section {
   min-height: 0;
+}
+@media (min-width: 768px) {
+  .spec-section {
+    min-height: 120px;
+  }
+}
+@media (min-width: 1024px) {
+  .spec-section {
+    min-height: 160px;
+  }
 }
 
 /* Footer layout — controlled entirely via inline styles in Footer.tsx */
