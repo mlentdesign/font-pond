@@ -9,22 +9,25 @@ import { getFontFamily, loadFont } from "@/lib/fonts";
 import { sentenceCase, chipCase } from "@/lib/text";
 import { RENDER_METRICS } from "@/data/gf-render-metrics";
 
-// Reference ascent/descent for a typical Latin font (fraction of UPM)
-const REF_ASCENT  = 0.73;
-const REF_DESCENT = 0.22;
-
-// Extra padding needed above a font at a given size due to tall ascenders.
+// Extra padding needed above a font: ink that exceeds OS/2 usWinAscent (browser already handles the rest).
 function extraTop(slug: string, px: number): number {
   const m = RENDER_METRICS[slug];
   if (!m) return 0;
-  return Math.max(0, Math.round((m[4] - REF_ASCENT) * px));
+  return Math.max(0, Math.round(m[6] * px));
 }
 
-// Extra padding needed below a font at a given size due to deep descenders.
+// Extra padding needed below a font: ink that exceeds OS/2 usWinDescent.
 function extraBottom(slug: string, px: number): number {
   const m = RENDER_METRICS[slug];
   if (!m) return 0;
-  return Math.max(0, Math.round((m[5] - REF_DESCENT) * px));
+  return Math.max(0, Math.round(m[7] * px));
+}
+
+// Extra left padding needed: ink extending left of the glyph origin (negative LSB).
+function extraLeft(slug: string, px: number): number {
+  const m = RENDER_METRICS[slug];
+  if (!m) return 0;
+  return Math.max(0, Math.round(m[8] * px));
 }
 
 export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pair: ScoredPair; isExploring?: boolean; animationDelay?: number }) {
@@ -45,16 +48,19 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
   const headerFamily = getFontFamily(headerFont.name, headerFont.source);
   const bodyFamily = getFontFamily(bodyFont.name, bodyFont.source);
 
-  // Section 1: keep user's font sizes, expand padding to fit ascenders/descenders
+  // Section 1: keep user's font sizes, expand padding for ink that overflows OS/2 bounds
   const sec1PadTop    = 24 + extraTop(headerFont.slug, headerSize);
   const sec1PadBottom = 16 + extraBottom(bodyFont.slug, bodySize);
+  const sec1PadLeft   = 24 + Math.max(extraLeft(headerFont.slug, headerSize), extraLeft(bodyFont.slug, bodySize));
   const headlineMarginBottom = 16 + extraBottom(headerFont.slug, headerSize);
 
-  // Sections 3/4: keep 22px labels, expand section padding for ascenders/descenders
+  // Sections 3/4: keep 22px labels, expand padding for ascenders/descenders/left overflow
   const headerSecPadTop    = 16 + extraTop(headerFont.slug, 22);
   const headerSecPadBottom = 16 + extraBottom(headerFont.slug, 22);
+  const headerSecPadLeft   = 24 + extraLeft(headerFont.slug, 22);
   const bodySecPadTop      = 16 + extraTop(bodyFont.slug, 22);
   const bodySecPadBottom   = 16 + extraBottom(bodyFont.slug, 22);
+  const bodySecPadLeft     = 24 + extraLeft(bodyFont.slug, 22);
 
   const description = isExploring
     ? sentenceCase(pair.shortExplanation)
@@ -80,7 +86,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
       </span>
 
       {/* Section 1: Sample header + body text — pinned to top */}
-      <div style={{ paddingTop: `${sec1PadTop}px`, paddingBottom: `${sec1PadBottom}px`, paddingLeft: "24px", paddingRight: "24px" }}>
+      <div style={{ paddingTop: `${sec1PadTop}px`, paddingBottom: `${sec1PadBottom}px`, paddingLeft: `${sec1PadLeft}px`, paddingRight: "24px" }}>
         <h3
           className="text-neutral-900 break-words"
           style={{
@@ -123,7 +129,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
         <div className="border-t border-neutral-100" />
 
         {/* Section 3: Header font + chips */}
-        <div style={{ paddingTop: `${headerSecPadTop}px`, paddingBottom: `${headerSecPadBottom}px`, paddingLeft: "24px", paddingRight: "24px" }}>
+        <div style={{ paddingTop: `${headerSecPadTop}px`, paddingBottom: `${headerSecPadBottom}px`, paddingLeft: `${headerSecPadLeft}px`, paddingRight: "24px" }}>
           <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
             HEADER
           </span>
@@ -149,7 +155,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
         <div className="border-t border-neutral-100" />
 
         {/* Section 4: Body font + chips */}
-        <div style={{ paddingTop: `${bodySecPadTop}px`, paddingBottom: `${bodySecPadBottom + 8}px`, paddingLeft: "24px", paddingRight: "24px" }}>
+        <div style={{ paddingTop: `${bodySecPadTop}px`, paddingBottom: `${bodySecPadBottom + 8}px`, paddingLeft: `${bodySecPadLeft}px`, paddingRight: "24px" }}>
           <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
             BODY
           </span>

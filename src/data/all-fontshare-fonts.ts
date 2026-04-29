@@ -339,6 +339,16 @@ export const allFontshareFonts: Font[] = [
     ["modern", "neutral", "professional", "clean"],
     { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["clean geometric construction", "balanced proportions", "excellent legibility range"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "modern", designer: "Joana Correia" }),
 
+  fs("Anton", "anton", "display",
+    ["bold", "condensed", "impactful", "strong", "heavy", "powerful", "headline", "graphic", "commanding", "solid"],
+    ["bold", "powerful", "impactful", "commanding"],
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["heavy condensed grotesque", "high-impact headline presence", "strong vertical stress"], designer: "Vernon Adams" }),
+
+  fs("Archivo", "archivo", "sans-serif",
+    ["versatile", "functional", "readable", "neutral", "professional", "grotesque", "clean", "screen-optimized", "modern", "reliable"],
+    ["versatile", "professional", "readable", "reliable"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["grotesque heritage", "high legibility", "excellent screen performance"], designer: "Omnibus-Type", foundry: "Omnibus-Type" }),
+
   fs("Array", "array", "display",
     ["technical", "geometric", "grid", "modular", "digital", "systematic", "precise", "structured", "futuristic", "architectural"],
     ["technical", "precise", "systematic", "structured"],
@@ -348,6 +358,11 @@ export const allFontshareFonts: Font[] = [
     ["versatile", "neutral", "readable", "professional", "clean", "modern", "balanced", "functional", "approachable", "screen-optimized"],
     ["professional", "neutral", "balanced", "readable"],
     { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["subtle humanist details", "optimized for screens", "wide spacing"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral", designer: "Omnibus-Type", foundry: "Omnibus-Type" }),
+
+  fs("Author", "author", "serif",
+    ["literary", "calligraphic", "warm", "refined", "sophisticated", "elegant", "bookish", "personal", "editorial", "cultured"],
+    ["literary", "warm", "personal", "refined"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["calligraphic serif influence", "literary warmth", "personal character"] }),
 
   fs("Azeret Mono", "azeret-mono", "monospace",
     ["technical", "coding", "developer", "functional", "systematic", "clean", "precise", "digital", "structured", "modern"],
@@ -395,7 +410,17 @@ export const allFontshareFonts: Font[] = [
     ["playful", "energetic", "fun", "expressive"],
     { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["bouncy baseline", "casual script energy", "expressive lettering"], moodCategory: "playful", designer: "Diana Ovezea, Sabina Chipară" }),
 
+  fs("Bebas Neue", "bebas-neue", "display",
+    ["bold", "condensed", "strong", "all-caps", "geometric", "impactful", "powerful", "graphic", "modern", "minimal"],
+    ["bold", "powerful", "impactful", "minimal"],
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["all-caps geometric", "condensed bold forms", "ultra-clean display character"], designer: "Ryoichi Tsunekawa" }),
+
   // ── C ──
+  fs("Cabinet Grotesk", "cabinet-grotesk", "sans-serif",
+    ["editorial", "modern", "confident", "versatile", "professional", "clean", "geometric", "contemporary", "bold", "refined"],
+    ["modern", "editorial", "confident", "professional"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["wide weight range", "confident grotesque", "editorial character"], designer: "Frode Helland" }),
+
   fs("Chillax", "chillax", "sans-serif",
     ["relaxed", "friendly", "casual", "modern", "approachable", "soft", "rounded", "clean", "easy", "contemporary"],
     ["relaxed", "friendly", "approachable", "modern"],
@@ -405,6 +430,27 @@ export const allFontshareFonts: Font[] = [
     ["bold", "rounded", "playful", "fun", "chubby", "friendly", "casual", "expressive", "youthful", "bubbly"],
     ["bold", "playful", "fun", "friendly"],
     { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["exaggerated round forms", "heavy weight presence", "fun proportions"], moodCategory: "playful", designer: "Rafał Buchner" }),
+
+  fs("Clash Display", "clash-display", "display",
+    ["editorial", "fashion", "bold", "graphic", "contemporary", "striking", "angular", "modern", "strong", "distinctive"],
+    ["bold", "striking", "editorial", "contemporary"],
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["dramatic angular cuts", "fashion-forward energy", "bold display character"] }),
+
+  fs("Clash Grotesk", "clash-grotesk", "sans-serif",
+    ["editorial", "fashion", "bold", "graphic", "contemporary", "striking", "modern", "angular", "strong", "confident"],
+    ["bold", "editorial", "striking", "contemporary"],
+    { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["sharp geometric cuts", "fashion-forward energy", "strong display character"] }),
+
+  fs("Crimson Pro", "crimson-pro", "serif",
+    ["literary", "classical", "elegant", "bookish", "refined", "sophisticated", "editorial", "scholarly", "warm", "traditional"],
+    ["literary", "classical", "elegant", "scholarly"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["Garamond-inspired proportions", "old-style figures", "excellent long-form reading quality"], designer: "Jacques Le Bailly" }),
+
+  // ── D ──
+  fs("Dancing Script", "dancing-script", "script",
+    ["playful", "casual", "handwritten", "friendly", "fun", "informal", "expressive", "warm", "bouncy", "approachable"],
+    ["playful", "friendly", "casual", "warm"],
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["bouncy baseline variation", "casual handwriting feel", "friendly informal energy"], designer: "Impallari Type" }),
 
   // ── E ──
   fs("Epilogue", "epilogue", "sans-serif",
@@ -438,6 +484,12 @@ export const allFontshareFonts: Font[] = [
     ["clean", "humanist", "readable", "functional", "neutral", "professional", "screen-optimized", "versatile", "modern", "balanced"],
     ["clean", "readable", "neutral", "functional"],
     { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["Devanagari-influenced spacing", "clean humanist forms", "excellent small sizes"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "neutral", designer: "Manushi Parikh" }),
+
+  // ── J ──
+  fs("JetBrains Mono", "jetbrains-mono", "monospace",
+    ["technical", "coding", "developer", "functional", "modern", "precise", "digital", "structured", "clean", "systematic"],
+    ["technical", "precise", "functional", "developer"],
+    { isBodySuitable: false, bodyLegibilityScore: 6, distinctiveTraits: ["increased letter height", "coding ligatures", "optimized for long coding sessions"], designer: "Philipp Nurullin, Konstantin Bulenkov" }),
 
   fs("Hoover", "hoover", "serif",
     ["slab", "sturdy", "editorial", "confident", "bold", "grounded", "industrial", "robust", "reliable", "american"],
@@ -476,11 +528,26 @@ export const allFontshareFonts: Font[] = [
     ["literary", "elegant", "refined", "sophisticated"],
     { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["optimized for long-form reading", "elegant proportions", "refined serif details"], xHeightRatio: "moderate", strokeContrast: "moderate", moodCategory: "elegant", designer: "TypeTogether", foundry: "TypeTogether" }),
 
+  fs("Lora", "lora", "serif",
+    ["warm", "literary", "refined", "calligraphic", "elegant", "readable", "sophisticated", "traditional", "inviting", "cultured"],
+    ["warm", "literary", "refined", "elegant"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["calligraphic roots", "moderate stroke contrast", "excellent for body text"], designer: "Cyreal" }),
+
   // ── M ──
   fs("Merriweather Sans", "merriweather-sans", "sans-serif",
     ["readable", "screen-optimized", "warm", "humanist", "professional", "functional", "clean", "comfortable", "versatile", "reliable"],
     ["readable", "warm", "professional", "comfortable"],
     { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["screen-first design", "comfortable spacing", "warm humanist character"], xHeightRatio: "high", apertureOpenness: "open", moodCategory: "warm", designer: "Eben Sorkin", foundry: "Sorkin Type" }),
+
+  fs("Manrope", "manrope", "sans-serif",
+    ["modern", "clean", "geometric", "versatile", "professional", "tech", "minimal", "crisp", "contemporary", "refined"],
+    ["modern", "tech-forward", "clean", "refined"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["semi-geometric construction", "open letterforms", "excellent UI performance"], designer: "Mikhail Sharanda" }),
+
+  fs("Montserrat", "montserrat", "sans-serif",
+    ["geometric", "modern", "urban", "bold", "professional", "versatile", "clean", "contemporary", "strong", "popular"],
+    ["urban", "modern", "bold", "professional"],
+    { isBodySuitable: true, bodyLegibilityScore: 7, distinctiveTraits: ["Buenos Aires signage inspiration", "strong geometric character", "excellent headline presence"], designer: "Julieta Ulanovsky" }),
 
   // ── N ──
   fs("Neco", "neco", "serif",
@@ -509,6 +576,11 @@ export const allFontshareFonts: Font[] = [
     ["bold", "strong", "confident", "editorial"],
     { isBodySuitable: false, bodyLegibilityScore: 5, distinctiveTraits: ["condensed proportions", "strong backbone", "impactful at large sizes"], letterSpacing: "tight", moodCategory: "bold", designer: "Vernon Adams" }),
 
+  fs("Outfit", "outfit", "sans-serif",
+    ["modern", "geometric", "friendly", "clean", "versatile", "approachable", "soft", "professional", "fresh", "contemporary"],
+    ["modern", "friendly", "clean", "fresh"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["soft geometric corners", "friendly proportions", "wide weight variety"], designer: "Rodrigo Fuenzalida" }),
+
   // ── P ──
   fs("Pally", "pally", "sans-serif",
     ["playful", "rounded", "friendly", "casual", "fun", "youthful", "approachable", "soft", "warm", "cheerful"],
@@ -534,6 +606,16 @@ export const allFontshareFonts: Font[] = [
     ["neutral", "functional", "clean", "modern", "professional", "versatile", "balanced", "reliable", "understated", "crisp"],
     ["neutral", "functional", "professional", "reliable"],
     { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["clean neutral forms", "excellent legibility", "no-nonsense personality"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "neutral", designer: "Inga Plönnigs" }),
+
+  fs("Plus Jakarta Sans", "plus-jakarta-sans", "sans-serif",
+    ["modern", "geometric", "humanist", "versatile", "startup", "professional", "clean", "fresh", "contemporary", "balanced"],
+    ["modern", "professional", "fresh", "balanced"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["geometric base with humanist warmth", "startup-friendly personality", "excellent screen legibility"], designer: "Tokotype" }),
+
+  fs("Poppins", "poppins", "sans-serif",
+    ["geometric", "modern", "clean", "versatile", "approachable", "professional", "contemporary", "friendly", "balanced", "popular"],
+    ["modern", "clean", "approachable", "professional"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["perfectly circular rounds", "geometric purity", "universally beloved UI font"], designer: "Nikhil Ranganathan, Jonny Pinhorn" }),
 
   fs("Pramukh Rounded", "pramukh-rounded", "sans-serif",
     ["rounded", "friendly", "modern", "approachable", "clean", "warm", "accessible", "soft", "contemporary", "functional"],
@@ -593,6 +675,11 @@ export const allFontshareFonts: Font[] = [
     { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["rounded geometric forms", "clean modern construction", "soft minimal personality"], xHeightRatio: "moderate", apertureOpenness: "open", moodCategory: "warm" }),
 
   // ── S ──
+  fs("Satoshi", "satoshi", "sans-serif",
+    ["modern", "clean", "versatile", "geometric", "contemporary", "professional", "balanced", "startup", "fresh", "popular"],
+    ["modern", "clean", "professional", "balanced"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["contemporary grotesk", "open apertures", "excellent weight range"], designer: "Deni Anggara" }),
+
   fs("Segment", "segment", "display",
     ["digital", "technical", "futuristic", "lcd", "pixel", "systematic", "precise", "electronic", "sci-fi", "screen"],
     ["technical", "futuristic", "systematic", "precise"],
@@ -602,6 +689,16 @@ export const allFontshareFonts: Font[] = [
     ["bold", "expressive", "loud", "impactful", "strong", "commanding", "graphic", "attention", "distinctive", "forceful"],
     ["bold", "commanding", "expressive", "forceful"],
     { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["bold thick strokes", "commanding presence", "graphic boldness"], moodCategory: "bold", designer: "Théo Guillard" }),
+
+  fs("Sora", "sora", "sans-serif",
+    ["modern", "geometric", "clean", "minimalist", "precise", "contemporary", "tech", "refined", "balanced", "fresh"],
+    ["modern", "precise", "clean", "refined"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["Japanese typographic influence", "geometric precision", "clean minimalist forms"] }),
+
+  fs("Space Grotesk", "space-grotesk", "sans-serif",
+    ["quirky", "modern", "geometric", "tech", "distinctive", "clean", "contemporary", "editorial", "precise", "fresh"],
+    ["modern", "quirky", "tech-forward", "distinctive"],
+    { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["Space Mono sibling", "geometric with quirky details", "tech-forward personality"], designer: "Florian Karsten" }),
 
   fs("Spline Sans", "spline-sans", "sans-serif",
     ["modern", "clean", "versatile", "professional", "geometric", "neutral", "balanced", "contemporary", "functional", "crisp"],
@@ -639,10 +736,21 @@ export const allFontshareFonts: Font[] = [
     ["strong", "grounded", "confident", "bold"],
     { isBodySuitable: true, bodyLegibilityScore: 8, distinctiveTraits: ["slab construction", "strong editorial presence", "bold but readable"], xHeightRatio: "high", strokeContrast: "low", moodCategory: "bold", designer: "Shiva Nallaperumal" }),
 
+  // ── W ──
+  fs("Work Sans", "work-sans", "sans-serif",
+    ["professional", "readable", "versatile", "clean", "neutral", "screen-optimized", "balanced", "functional", "modern", "reliable"],
+    ["professional", "readable", "balanced", "reliable"],
+    { isBodySuitable: true, bodyLegibilityScore: 9, distinctiveTraits: ["screen body text optimized", "grotesque-inspired proportions", "excellent legibility range"], designer: "Wei Huang" }),
+
   // ── Z ──
   fs("Zina", "zina", "display",
     ["editorial", "sophisticated", "contemporary", "refined", "fashion", "luxury", "elegant", "striking", "distinctive", "premium"],
     ["sophisticated", "elegant", "refined", "editorial"],
     { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["contemporary display elegance", "refined proportions", "fashion-forward energy"], moodCategory: "elegant", designer: "Théo Guillard" }),
+
+  fs("Zodiak", "zodiak", "serif",
+    ["dramatic", "editorial", "elegant", "high-contrast", "sophisticated", "refined", "fashion", "luxurious", "bold", "striking"],
+    ["dramatic", "elegant", "sophisticated", "editorial"],
+    { isBodySuitable: false, bodyLegibilityScore: 4, distinctiveTraits: ["extreme Didone contrast", "fashion-forward energy", "dramatic thick-thin transitions"] }),
 
 ];
