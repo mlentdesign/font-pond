@@ -161,7 +161,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
       for (const { font } of fontEntriesRef.current) {
         const m = RENDER_METRICS[font.slug];
         if (m) {
-          immediate[font.slug] = Math.max(28, Math.min(64, Math.round(TARGET_CAP_H / m[4])));
+          immediate[font.slug] = Math.max(28, Math.min(64, Math.round(TARGET_CAP_H / (m[11] ?? m[4]))));
         } else {
           needCanvas.push(font);
         }
@@ -218,12 +218,13 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
         const m = RENDER_METRICS[slug];
         let bigSize: number;
+        let lh = 1.2;
         if (m) {
           bigSize = Math.max(12, Math.floor(sectionW / m[0]));
-          // Cap so ink height (ascent+descent × fontSize) doesn't exceed 80px — prevents barcode/
-          // dingbat fonts with extreme specAdv from producing enormous specimen cards.
-          const inkRatio = (m[4] + m[5]) || 1;
+          lh = Math.max(1, m[9] + m[10]);
+          const inkRatio = ((m[11] ?? m[4]) + m[5]) || 1;
           bigSize = Math.min(bigSize, Math.floor(80 / inkRatio));
+          bigSize = Math.min(bigSize, Math.floor(sectionH / lh));
         } else {
           const family = getFontFamily(fontData.name, fontData.source);
           ctx.font = `600 36px ${family}`;
@@ -233,7 +234,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         bigSize = Math.max(12, bigSize);
         bigUpdates[slug] = bigSize;
 
-        const availableForSmall = sectionH - bigSize - 8;
+        const availableForSmall = sectionH - Math.ceil(bigSize * lh) - 8;
         if (availableForSmall < 14) { smallUpdates[slug] = 14; continue; }
 
         let lo = 14, hi = 300, best = 14;
@@ -347,6 +348,8 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
             const bigS = specimenSizes[font.slug] ?? 36;
             const smallS = smallSpecimenSizes[font.slug] ?? Math.max(14, Math.round(bigS * 14 / 36));
             const smallGap = 6;
+            const mData = RENDER_METRICS[font.slug];
+            const specLh = mData ? Math.max(1, mData[9] + mData[10]) : 1.2;
 
             return (
               <div
@@ -399,7 +402,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                   <div>
                     <div
                       className="text-neutral-800 whitespace-nowrap"
-                      style={{ fontFamily: family, fontWeight: 600, fontSize: `${bigS}px`, lineHeight: "1", marginBottom: "8px" }}
+                      style={{ fontFamily: family, fontWeight: 600, fontSize: `${bigS}px`, lineHeight: specLh, marginBottom: "8px" }}
                     >
                       Aa Bb Cc Dd Ee Ff
                     </div>

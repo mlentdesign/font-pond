@@ -8,6 +8,7 @@ ensureDynamicPairs();
 import { fontsById } from "@/data/fonts";
 import { getRelatedPairs } from "@/lib/engine";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
+import { RENDER_METRICS } from "@/data/gf-render-metrics";
 import { titleCase, sentenceCase, getSourceLabel, formatClassification, formatContrastType, chipCase, fontHasNumbers } from "@/lib/text";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
@@ -38,6 +39,8 @@ function FontSection({
 }) {
   const family = getFontFamily(font.name, font.source);
   const sourceLabel = getSourceLabel(font.source);
+  const mData = RENDER_METRICS[font.slug];
+  const specLh = mData ? Math.max(1, mData[9] + mData[10]) : 1.2;
 
   const allChips = [...new Set([...font.tags, ...font.toneDescriptors].map(t => t.toLowerCase()))]
     .filter(t => t.split("-").length < 3 && t.length <= 25)
@@ -92,7 +95,7 @@ function FontSection({
             <div>
               <div
                 className="whitespace-nowrap text-neutral-800"
-                style={{ fontFamily: family, fontWeight: role === "Header" ? 600 : 400, fontSize: `${specimenFontSize}px`, lineHeight: "1", marginBottom: "8px" }}
+                style={{ fontFamily: family, fontWeight: role === "Header" ? 600 : 400, fontSize: `${specimenFontSize}px`, lineHeight: specLh, marginBottom: "8px" }}
               >
                 Aa Bb Cc Dd Ee Ff
               </div>
@@ -276,14 +279,20 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
       ctx.font = `600 36px ${hFamily}`;
       const hBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
-      const hBigSize = hBigW36 > 0 ? Math.max(12, Math.floor(36 * hSectionW * 1.0 / hBigW36)) : 36;
+      const hm = RENDER_METRICS[headerFont.slug];
+      const hLh = hm ? Math.max(1, hm[9] + hm[10]) : 1.2;
+      let hBigSize = hBigW36 > 0 ? Math.max(12, Math.floor(36 * hSectionW * 1.0 / hBigW36)) : 36;
+      hBigSize = Math.min(hBigSize, Math.floor(hSectionH / hLh));
 
       ctx.font = `400 36px ${bFamily}`;
       const bBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
-      const bBigSize = bBigW36 > 0 ? Math.max(12, Math.floor(36 * bSectionW * 1.0 / bBigW36)) : 36;
+      const bm = RENDER_METRICS[bodyFont.slug];
+      const bLh = bm ? Math.max(1, bm[9] + bm[10]) : 1.2;
+      let bBigSize = bBigW36 > 0 ? Math.max(12, Math.floor(36 * bSectionW * 1.0 / bBigW36)) : 36;
+      bBigSize = Math.min(bBigSize, Math.floor(bSectionH / bLh));
 
-      const computeSmallSize = (family: string, bigSize: number, sectionH: number, sectionW: number): number => {
-        const available = sectionH - bigSize - 8;
+      const computeSmallSize = (family: string, bigSize: number, sectionH: number, sectionW: number, lh: number): number => {
+        const available = sectionH - Math.ceil(bigSize * lh) - 8;
         if (available < 14) return 14;
         let lo = 14, hi = 300, best = 14;
         for (let i = 0; i < 12; i++) {
@@ -301,8 +310,8 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
         return Math.min(Math.max(14, best), Math.floor(bigSize * 0.45));
       };
 
-      const hSmall = computeSmallSize(hFamily, hBigSize, hSectionH, hSectionW);
-      const bSmall = computeSmallSize(bFamily, bBigSize, bSectionH, bSectionW);
+      const hSmall = computeSmallSize(hFamily, hBigSize, hSectionH, hSectionW, hLh);
+      const bSmall = computeSmallSize(bFamily, bBigSize, bSectionH, bSectionW, bLh);
       const last = lastSizesRef.current;
       if (last.hBig === hBigSize && last.bBig === bBigSize && last.hSmall === hSmall && last.bSmall === bSmall) return;
       last.hBig = hBigSize; last.bBig = bBigSize; last.hSmall = hSmall; last.bSmall = bSmall;
