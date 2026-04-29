@@ -206,9 +206,11 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
         let bigSize: number;
         let lh = 1.2;
         if (m) {
-          // Use max of file-advance and browser-ink, plus 10% safety for weight-axis widening
-          // and faux-bold synthesis (m[0] is at file's default weight, page renders at 600).
-          const _divisor = Math.max(m[0] + (m[12] ?? 0), m[13] ?? 0) * 1.10;
+          // Use max of file-advance and browser-ink, plus 20% safety. m[0] is at file's
+          // default weight (400), but page renders at 600 — variable fonts can widen 5-7%,
+          // faux-bold up to 15-20%. m[13] is browser-measured but can be off if font wasn't
+          // fully loaded at measurement time. 20% absorbs both cases.
+          const _divisor = Math.max(m[0] + (m[12] ?? 0), m[13] ?? 0) * 1.20;
           bigSize = Math.max(12, Math.floor(sectionW / _divisor));
           lh = Math.max(1, m[9] + m[10]);
           // Cap so ink height doesn't overflow the section or exceed 80px.

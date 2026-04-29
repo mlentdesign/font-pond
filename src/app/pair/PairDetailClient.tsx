@@ -281,9 +281,9 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       const hLh = hm ? Math.max(1, hm[9] + hm[10]) : 1.2;
       let hBigSize: number;
       if (hm) {
-        // Use max of file-advance and browser-ink, plus 10% safety for weight-axis widening
-        // and faux-bold synthesis (hm[0] is at file's default weight, page renders at 600).
-        const _hdivisor = Math.max(hm[0] + (hm[12] ?? 0), hm[13] ?? 0) * 1.10;
+        // Use max of file-advance and browser-ink, plus 20% safety. hm[0] is at file's
+        // default weight (400), but page renders at 600 — faux-bold can be aggressive.
+        const _hdivisor = Math.max(hm[0] + (hm[12] ?? 0), hm[13] ?? 0) * 1.20;
         hBigSize = Math.max(12, Math.floor(hSectionW / _hdivisor));
       } else {
         ctx.font = `600 36px ${hFamily}`;
@@ -297,7 +297,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       let bBigSize: number;
       if (bm) {
         // Body font renders at 400 weight (no synthesis), but apply same safety for consistency.
-        const _bdivisor = Math.max(bm[0] + (bm[12] ?? 0), bm[13] ?? 0) * 1.10;
+        const _bdivisor = Math.max(bm[0] + (bm[12] ?? 0), bm[13] ?? 0) * 1.20;
         bBigSize = Math.max(12, Math.floor(bSectionW / _bdivisor));
       } else {
         ctx.font = `400 36px ${bFamily}`;
