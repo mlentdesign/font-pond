@@ -14,12 +14,13 @@
 //   [9] os2AscentRatio  = OS/2 usWinAscent / UPM  (what browser uses for line-box layout)
 //   [10] os2DescentRatio = OS/2 usWinDescent / UPM (what browser uses for line-box layout)
 //   [11] browserAscentRatio = Canvas actualBoundingBoxAscent / fontSize  (browser-measured, optional)
-//   [12] rightOverflow      = max ink past advance width / UPM for spec string glyphs
+//   [12] rightOverflow      = max ink past advance width / UPM for spec string glyphs (file-based)
+//   [13] browserSpecExtent  = Canvas actualBoundingBoxRight / fontSize for "Aa Bb Cc Dd Ee Ff" (browser-measured, optional)
 //
-// Usage: bigSize = Math.floor(sectionWidth / (specAdv + rightOverflow))
+// Usage: bigSize = Math.floor(sectionWidth / (m[13] ?? (m[0] + m[12])))
 // Extra padding: padTop += m[6]*px, padBottom += m[7]*px, padLeft += m[8]*px
 // lineHeight: use Math.max(1.15, m[9] + m[10]) — matches exact browser line-box allocation
-export type RenderMetricsTuple = [number, number, number, number, number, number, number, number, number, number, number, number, number];
+export type RenderMetricsTuple = [number, number, number, number, number, number, number, number, number, number, number, number, number, number?];
 export const RENDER_METRICS: Record<string, RenderMetricsTuple> = {
   "28-days-later": [6.968, 13.907, 12.757, 4.656, 0.881, 0.052, 0, 0, 0, 0.934, 15.917, 0.823, 0],
   "a-damn-mess": [9.57, 17.459, 17.475, 5, 0.975, 0.001, 0, 0, 0, 0.98, 0.114, 0.98, 0.206],
