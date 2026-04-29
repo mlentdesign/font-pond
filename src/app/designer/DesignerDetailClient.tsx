@@ -7,6 +7,7 @@ import { designersBySlug } from "@/data/designers";
 import { fontsBySlug, fontsById } from "@/data/fonts";
 import { getPairOrConstruct } from "@/data/pairs";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
+import { RENDER_METRICS } from "@/data/gf-render-metrics";
 import { getSourceLabel, formatClassification, chipCase } from "@/lib/text";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -153,80 +154,108 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
     let cancelled = false;
 
     if (window.innerWidth < 768) {
-      // Mobile: normalize all specimens to the same visual cap height so fonts
-      // look proportionally consistent when scrolling through stacked cards.
-      // Cards are NOT height-pinned on mobile — they grow to their natural content height.
-      const fontNames = fontEntriesRef.current.map(e => e.font.name);
-      const runMobile = async () => {
-        await document.fonts.ready;
-        const unloaded = new Set(fontNames);
-        const deadline = Date.now() + 4000;
-        while (unloaded.size > 0 && Date.now() < deadline) {
-          for (const name of [...unloaded]) {
-            const faces = await document.fonts.load(`600 16px "${name}"`).catch(() => [] as FontFace[]);
-            if (faces.length > 0) unloaded.delete(name);
+      const TARGET_CAP_H = 40;
+      const immediate: Record<string, number> = {};
+      const needCanvas: (typeof sorted)[number][] = [];
+
+      for (const { font } of fontEntriesRef.current) {
+        const m = RENDER_METRICS[font.slug];
+        if (m) {
+          immediate[font.slug] = Math.max(28, Math.min(64, Math.round(TARGET_CAP_H / m[4])));
+        } else {
+          needCanvas.push(font);
+        }
+      }
+
+      if (Object.keys(immediate).length > 0) setSpecimenSizes(prev => ({ ...prev, ...immediate }));
+
+      if (needCanvas.length > 0) {
+        const runMobileCanvas = async () => {
+          await document.fonts.ready;
+          const unloaded = new Set(needCanvas.map(f => f.name));
+          const deadline = Date.now() + 4000;
+          while (unloaded.size > 0 && Date.now() < deadline) {
+            for (const name of [...unloaded]) {
+              const faces = await document.fonts.load(`600 16px "${name}"`).catch(() => [] as FontFace[]);
+              if (faces.length > 0) unloaded.delete(name);
+            }
+            if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
           }
-          if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
-        }
-        if (cancelled) return;
-        await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
-        if (cancelled) return;
+          if (cancelled) return;
+          await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+          if (cancelled) return;
 
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d')!;
-        const TARGET_CAP_H = 40;
-        const updates: Record<string, number> = {};
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d')!;
+          const updates: Record<string, number> = {};
+          for (const font of needCanvas) {
+            const family = getFontFamily(font.name, font.source);
+            ctx.font = `600 36px ${family}`;
+            const capH = ctx.measureText("A").actualBoundingBoxAscent;
+            if (capH <= 0) continue;
+            updates[font.slug] = Math.max(28, Math.min(64, Math.round(36 * TARGET_CAP_H / capH)));
+          }
+          if (Object.keys(updates).length > 0) setSpecimenSizes(prev => ({ ...prev, ...updates }));
+        };
+        runMobileCanvas();
+      }
 
-        for (const font of fontEntriesRef.current.map(e => e.font)) {
-          const family = getFontFamily(font.name, font.source);
-          ctx.font = `600 36px ${family}`;
-          const capH = ctx.measureText("A").actualBoundingBoxAscent;
-          if (capH <= 0) continue;
-          updates[font.slug] = Math.max(28, Math.min(64, Math.round(36 * TARGET_CAP_H / capH)));
-        }
-
-        if (Object.keys(updates).length > 0) {
-          setSpecimenSizes(prev => ({ ...prev, ...updates }));
-        }
-      };
-      runMobile();
       return () => { cancelled = true; };
     }
 
     const doSizing = () => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d')!;
+      const canvasEl = document.createElement('canvas');
+      const ctx = canvasEl.getContext('2d')!;
       const bigUpdates: Record<string, number> = {};
       const smallUpdates: Record<string, number> = {};
 
       for (const [slug, sectionEl] of Object.entries(sectionRefs.current)) {
         const fontData = sorted.find(f => f.slug === slug);
         if (!fontData) continue;
-        const family = getFontFamily(fontData.name, fontData.source);
         const sectionH = sectionEl.offsetHeight;
         const sectionW = sectionEl.offsetWidth;
         if (sectionH < 32 || sectionW < 32) continue;
 
-        ctx.font = `600 36px ${family}`;
-        const bigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
-        const bigSize = bigW36 > 0 ? Math.max(12, Math.floor(36 * sectionW * 0.95 / bigW36)) : 36;
+        const m = RENDER_METRICS[slug];
+        let bigSize: number;
+        if (m) {
+          bigSize = Math.max(12, Math.floor(sectionW / m[0]));
+        } else {
+          const family = getFontFamily(fontData.name, fontData.source);
+          ctx.font = `600 36px ${family}`;
+          const bigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
+          bigSize = bigW36 > 0 ? Math.max(12, Math.floor(36 * sectionW / bigW36)) : 36;
+        }
         bigUpdates[slug] = bigSize;
 
         const availableForSmall = sectionH - bigSize - 8;
         if (availableForSmall < 14) { smallUpdates[slug] = 14; continue; }
 
         let lo = 14, hi = 300, best = 14;
-        for (let i = 0; i < 12; i++) {
-          const mid = Math.round((lo + hi) / 2);
-          const gap = Math.round(mid * 0.35);
-          ctx.font = `400 ${mid}px ${family}`;
-          const vW = (t: string) => ctx.measureText(t).width;
-          const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
-          const lowerLines = Math.max(1, Math.ceil(vW("abcdefghijklmnopqrstuvwxyz") / sectionW));
-          const numsLines  = Math.max(1, Math.ceil(vW("0123456789") / sectionW));
-          const totalH = upperLines * mid + gap + lowerLines * mid + gap + numsLines * mid;
-          if (totalH <= availableForSmall) { best = mid; lo = mid + 1; }
-          else hi = mid - 1;
+        if (m) {
+          const [, upperAdv, lowerAdv, numsAdv] = m;
+          for (let i = 0; i < 12; i++) {
+            const mid = Math.round((lo + hi) / 2);
+            const upperLines = Math.max(1, Math.ceil(upperAdv * mid / sectionW));
+            const lowerLines = Math.max(1, Math.ceil(lowerAdv * mid / sectionW));
+            const numsLines  = Math.max(1, Math.ceil(numsAdv * mid / sectionW));
+            const totalH = (upperLines + lowerLines + numsLines) * mid + 2 * 6;
+            if (totalH <= availableForSmall) { best = mid; lo = mid + 1; }
+            else hi = mid - 1;
+          }
+        } else {
+          const family = getFontFamily(fontData.name, fontData.source);
+          for (let i = 0; i < 12; i++) {
+            const mid = Math.round((lo + hi) / 2);
+            ctx.font = `400 ${mid}px ${family}`;
+            const vW = (t: string) => ctx.measureText(t).width;
+            const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
+            const lowerLines = Math.max(1, Math.ceil(vW("abcdefghijklmnopqrstuvwxyz") / sectionW));
+            const numsLines  = Math.max(1, Math.ceil(vW("0123456789") / sectionW));
+            const totalH = (upperLines + lowerLines + numsLines) * mid + 2 * 6;
+            if (totalH <= availableForSmall) { best = mid; lo = mid + 1; }
+            else hi = mid - 1;
+          }
         }
         smallUpdates[slug] = Math.min(Math.max(14, best), Math.floor(bigSize * 0.45));
       }
@@ -249,10 +278,24 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
     let resizeObserver: ResizeObserver | null = null;
 
-    const fontNames = fontEntriesRef.current.map(e => e.font.name);
     const run = async () => {
+      await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+      if (cancelled) return;
+
+      doSizing();
+
+      resizeObserver = new ResizeObserver(() => { if (!cancelled) doSizing(); });
+      for (const el of Object.values(sectionRefs.current)) {
+        resizeObserver.observe(el);
+      }
+
+      const needCanvas = fontEntriesRef.current
+        .filter(e => !RENDER_METRICS[e.font.slug])
+        .map(e => e.font.name);
+      if (needCanvas.length === 0) return;
+
       await document.fonts.ready;
-      const unloaded = new Set(fontNames);
+      const unloaded = new Set(needCanvas);
       const deadline = Date.now() + 4000;
       while (unloaded.size > 0 && Date.now() < deadline) {
         for (const name of [...unloaded]) {
@@ -264,17 +307,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         }
         if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
       }
-
-      if (cancelled) return;
-      await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
-      if (cancelled) return;
-
-      doSizing();
-
-      resizeObserver = new ResizeObserver(() => { if (!cancelled) doSizing(); });
-      for (const el of Object.values(sectionRefs.current)) {
-        resizeObserver.observe(el);
-      }
+      if (!cancelled) doSizing();
     };
 
     run();
@@ -308,7 +341,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
               .map(chipCase);
             const bigS = specimenSizes[font.slug] ?? 36;
             const smallS = smallSpecimenSizes[font.slug] ?? Math.max(14, Math.round(bigS * 14 / 36));
-            const smallGap = Math.round(smallS * 0.35);
+            const smallGap = 6;
 
             return (
               <div
