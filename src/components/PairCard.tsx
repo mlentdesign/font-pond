@@ -93,11 +93,13 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
   const headerLabelLeft = extraLeft(headerFont.slug, 22);
   const bodyLabelLeft   = extraLeft(bodyFont.slug, 22);
 
-  // Sections 3/4: same 16px visual target from divider to first visible ink.
-  const headerSecPadTop    = Math.max(8, 16 - hInkTopOffset22);
+  // Sections 3/4: section container padding is fixed at 16px on all sides so every divider
+  // has equal spacing above and below. Only the font-name element's own marginBottom is
+  // dynamic — it pushes chips clear of descenders without touching the divider rhythm.
+  const headerSecPadTop    = 16;
   const headerNameMarginBot = 8 + hInkExtBot22;
   const headerSecPadBottom = 16;
-  const bodySecPadTop      = Math.max(8, 16 - bInkTopOffset22);
+  const bodySecPadTop      = 16;
   const bodyNameMarginBot  = 8 + bInkExtBot22;
   const bodySecPadBottom   = 16;
 
