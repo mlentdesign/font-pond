@@ -87,7 +87,7 @@ function FontSection({
       <div className="border-t border-neutral-100" style={{ margin: "24px -24px 16px", padding: "0" }} />
 
       {/* Specimen */}
-      <div ref={sectionRef} className="spec-section" style={{ flex: 1, clipPath: "inset(0 -24px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+      <div ref={sectionRef} className="spec-section" style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         {(() => {
           const smallSize = specimenSmallSize ?? Math.max(14, Math.round(specimenFontSize * 14 / 36));
           const smallGap = 6;
@@ -277,18 +277,28 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d')!;
 
-      ctx.font = `600 36px ${hFamily}`;
-      const hBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
       const hm = RENDER_METRICS[headerFont.slug];
       const hLh = hm ? Math.max(1, hm[9] + hm[10]) : 1.2;
-      let hBigSize = hBigW36 > 0 ? Math.max(12, Math.floor(36 * hSectionW * 1.0 / hBigW36)) : 36;
+      let hBigSize: number;
+      if (hm) {
+        hBigSize = Math.max(12, Math.floor(hSectionW / (hm[0] + hm[12])));
+      } else {
+        ctx.font = `600 36px ${hFamily}`;
+        const hBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
+        hBigSize = hBigW36 > 0 ? Math.max(12, Math.floor(36 * hSectionW / hBigW36)) : 36;
+      }
       hBigSize = Math.min(hBigSize, Math.floor(hSectionH / hLh));
 
-      ctx.font = `400 36px ${bFamily}`;
-      const bBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
       const bm = RENDER_METRICS[bodyFont.slug];
       const bLh = bm ? Math.max(1, bm[9] + bm[10]) : 1.2;
-      let bBigSize = bBigW36 > 0 ? Math.max(12, Math.floor(36 * bSectionW * 1.0 / bBigW36)) : 36;
+      let bBigSize: number;
+      if (bm) {
+        bBigSize = Math.max(12, Math.floor(bSectionW / (bm[0] + bm[12])));
+      } else {
+        ctx.font = `400 36px ${bFamily}`;
+        const bBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
+        bBigSize = bBigW36 > 0 ? Math.max(12, Math.floor(36 * bSectionW / bBigW36)) : 36;
+      }
       bBigSize = Math.min(bBigSize, Math.floor(bSectionH / bLh));
 
       const computeSmallSize = (family: string, bigSize: number, sectionH: number, sectionW: number, lh: number): number => {

@@ -220,9 +220,9 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         let bigSize: number;
         let lh = 1.2;
         if (m) {
-          bigSize = Math.max(12, Math.floor(sectionW / m[0]));
+          bigSize = Math.max(12, Math.floor(sectionW / (m[0] + m[12])));
           lh = Math.max(1, m[9] + m[10]);
-          const inkRatio = ((m[11] ?? m[4]) + m[5]) || 1;
+          const inkRatio = (m[11] + m[5]) || 1;
           bigSize = Math.min(bigSize, Math.floor(80 / inkRatio));
           bigSize = Math.min(bigSize, Math.floor(sectionH / lh));
         } else {
@@ -397,7 +397,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                 <div
                   ref={(el) => { if (el) sectionRefs.current[font.slug] = el; else delete sectionRefs.current[font.slug]; }}
                   className="spec-section"
-                  style={{ flex: 1, clipPath: "inset(0 -24px)", display: "flex", flexDirection: "column", justifyContent: "center" }}
+                  style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}
                 >
                   <div>
                     <div
