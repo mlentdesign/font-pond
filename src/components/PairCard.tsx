@@ -51,16 +51,24 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
   // Section 1: keep user's font sizes, expand padding for ink that overflows OS/2 bounds
   const sec1PadTop    = 24 + extraTop(headerFont.slug, headerSize);
   const sec1PadBottom = 16 + extraBottom(bodyFont.slug, bodySize);
-  const sec1PadLeft   = 24 + Math.max(extraLeft(headerFont.slug, headerSize), extraLeft(bodyFont.slug, bodySize));
   const headlineMarginBottom = 16 + extraBottom(headerFont.slug, headerSize);
 
-  // Sections 3/4: keep 22px labels, expand padding for ascenders/descenders/left overflow
+  // lineHeight: must be >= ascent+descent ratio so descenders don't clip into the margin below
+  const hm = RENDER_METRICS[headerFont.slug];
+  const headerLineHeight = hm ? Math.max(1.15, +(hm[4] + hm[5]).toFixed(3)) : 1.15;
+  const bm = RENDER_METRICS[bodyFont.slug];
+  const bodyLabelLineHeight = bm ? Math.max(1.3, +(bm[4] + bm[5]).toFixed(3)) : 1.3;
+
+  // Left overflow: apply only to the element rendered in that font, not the whole section
+  const headerLeftPx     = extraLeft(headerFont.slug, headerSize);
+  const headerLabelLeft  = extraLeft(headerFont.slug, 22);
+  const bodyLabelLeft    = extraLeft(bodyFont.slug, 22);
+
+  // Sections 3/4: expand section padding for ascenders/descenders only (no left — that's per-element)
   const headerSecPadTop    = 16 + extraTop(headerFont.slug, 22);
   const headerSecPadBottom = 16 + extraBottom(headerFont.slug, 22);
-  const headerSecPadLeft   = 24 + extraLeft(headerFont.slug, 22);
   const bodySecPadTop      = 16 + extraTop(bodyFont.slug, 22);
   const bodySecPadBottom   = 16 + extraBottom(bodyFont.slug, 22);
-  const bodySecPadLeft     = 24 + extraLeft(bodyFont.slug, 22);
 
   const description = isExploring
     ? sentenceCase(pair.shortExplanation)
@@ -86,15 +94,16 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
       </span>
 
       {/* Section 1: Sample header + body text — pinned to top */}
-      <div style={{ paddingTop: `${sec1PadTop}px`, paddingBottom: `${sec1PadBottom}px`, paddingLeft: `${sec1PadLeft}px`, paddingRight: "24px" }}>
+      <div style={{ paddingTop: `${sec1PadTop}px`, paddingBottom: `${sec1PadBottom}px`, paddingLeft: "24px", paddingRight: "24px" }}>
         <h3
           className="text-neutral-900 break-words"
           style={{
             fontFamily: headerFamily,
             fontWeight: 700,
             fontSize: `${headerSize}px`,
-            lineHeight: 1.15,
+            lineHeight: headerLineHeight,
             marginBottom: `${headlineMarginBottom}px`,
+            paddingLeft: headerLeftPx > 0 ? `${headerLeftPx}px` : undefined,
           }}
         >
           {headline}
@@ -129,13 +138,13 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
         <div className="border-t border-neutral-100" />
 
         {/* Section 3: Header font + chips */}
-        <div style={{ paddingTop: `${headerSecPadTop}px`, paddingBottom: `${headerSecPadBottom}px`, paddingLeft: `${headerSecPadLeft}px`, paddingRight: "24px" }}>
+        <div style={{ paddingTop: `${headerSecPadTop}px`, paddingBottom: `${headerSecPadBottom}px`, paddingLeft: "24px", paddingRight: "24px" }}>
           <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
             HEADER
           </span>
           <span
             className="text-neutral-800 block"
-            style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "22px", lineHeight: 1.3, marginBottom: "8px" }}
+            style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "22px", lineHeight: bodyLabelLineHeight, marginBottom: "8px", paddingLeft: headerLabelLeft > 0 ? `${headerLabelLeft}px` : undefined }}
           >
             {headerFont.name}
           </span>
@@ -155,13 +164,13 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
         <div className="border-t border-neutral-100" />
 
         {/* Section 4: Body font + chips */}
-        <div style={{ paddingTop: `${bodySecPadTop}px`, paddingBottom: `${bodySecPadBottom + 8}px`, paddingLeft: `${bodySecPadLeft}px`, paddingRight: "24px" }}>
+        <div style={{ paddingTop: `${bodySecPadTop}px`, paddingBottom: `${bodySecPadBottom + 8}px`, paddingLeft: "24px", paddingRight: "24px" }}>
           <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
             BODY
           </span>
           <span
             className="text-neutral-800 block"
-            style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "22px", lineHeight: 1.3, marginBottom: "8px" }}
+            style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "22px", lineHeight: bodyLabelLineHeight, marginBottom: "8px", paddingLeft: bodyLabelLeft > 0 ? `${bodyLabelLeft}px` : undefined }}
           >
             {bodyFont.name}
           </span>
