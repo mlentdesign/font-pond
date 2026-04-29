@@ -238,7 +238,7 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
             const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
             const lowerLines = Math.max(1, Math.ceil(vW("abcdefghijklmnopqrstuvwxyz") / sectionW));
             const numsLines  = Math.max(1, Math.ceil(vW("0123456789") / sectionW));
-            const totalH = (upperLines + lowerLines + numsLines) * mid + 6 + lowerLines * mid + 6 + numsLines * mid;
+            const totalH = (upperLines + lowerLines + numsLines) * mid + 2 * 6;
             if (totalH <= availableForSmall) { best = mid; lo = mid + 1; }
             else hi = mid - 1;
           }
