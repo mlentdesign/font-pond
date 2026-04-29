@@ -40,7 +40,7 @@ async function measureFont(
   slugToFamily: Record<string, string>
 ): Promise<Metrics | null> {
   const measure = (family: string): Metrics | null => {
-    ctx.font = `${FONT_SIZE}px "${family}"`;
+    ctx.font = `600 ${FONT_SIZE}px "${family}"`;
     const mAscent = ctx.measureText(HEADLINE);
     const mSpec   = ctx.measureText(SPEC_STRING);
     if (mAscent.actualBoundingBoxAscent <= 0 || mSpec.actualBoundingBoxRight <= 0) return null;
@@ -67,7 +67,7 @@ async function measureFont(
   const cssFamily = slugToFamily[slug];
   if (cssFamily) {
     try {
-      await document.fonts.load(`${FONT_SIZE}px "${cssFamily}"`);
+      await document.fonts.load(`600 ${FONT_SIZE}px "${cssFamily}"`);
       const result = measure(cssFamily);
       if (result !== null) return result;
     } catch {}
