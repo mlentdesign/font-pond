@@ -281,7 +281,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       const hLh = hm ? Math.max(1, hm[9] + hm[10]) : 1.2;
       let hBigSize: number;
       if (hm) {
-        hBigSize = Math.max(12, Math.floor(hSectionW / (hm[13] ?? (hm[0] + hm[12]))));
+        hBigSize = Math.max(12, Math.floor(hSectionW / (hm[13] != null ? Math.max(hm[0], hm[13]) : (hm[0] + hm[12]))));
       } else {
         ctx.font = `600 36px ${hFamily}`;
         const hBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
@@ -293,7 +293,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       const bLh = bm ? Math.max(1, bm[9] + bm[10]) : 1.2;
       let bBigSize: number;
       if (bm) {
-        bBigSize = Math.max(12, Math.floor(bSectionW / (bm[13] ?? (bm[0] + bm[12]))));
+        bBigSize = Math.max(12, Math.floor(bSectionW / (bm[13] != null ? Math.max(bm[0], bm[13]) : (bm[0] + bm[12]))));
       } else {
         ctx.font = `400 36px ${bFamily}`;
         const bBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
