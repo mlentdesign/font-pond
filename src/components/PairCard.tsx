@@ -83,7 +83,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
   // Section 1: target 16px from card top to first visible ink.
   // extraTop/extraBottom removed — the geometry formula already uses ascentRatio/descentRatio
   // which incorporates any ink that overflows OS/2 bounds (no double-counting).
-  const sec1PadTop           = Math.max(16, 24 - hInkTopOffset);
+  const sec1PadTop           = Math.max(8, 24 - hInkTopOffset);
   const sec1PadBottom        = 16;
   const headlineMarginBottom = 16 + hInkExtBot;
 
