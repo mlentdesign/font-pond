@@ -64,11 +64,11 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
   // Clamping to 0 was wrong: negative values need to ADD to padding, not cancel out.
   const hOs2A = hm ? hm[9] : 0.8;
   const hOs2D = hm ? hm[10] : 0.2;
-  const hAsc  = hm ? hm[4] : 0.72;
+  const hAsc  = hm?.[11] ?? (hm ? hm[4] : 0.72);
   const hDesc = hm ? hm[5] : 0.22;
   const bOs2A = bm ? bm[9] : 0.8;
   const bOs2D = bm ? bm[10] : 0.2;
-  const bAsc  = bm ? bm[4] : 0.72;
+  const bAsc  = bm?.[11] ?? (bm ? bm[4] : 0.72);
   const bDesc = bm ? bm[5] : 0.22;
 
   // Ink-top offset (signed): positive = dead space above ink; negative = ink overflows above lb-top.
