@@ -45,6 +45,7 @@ export default function RootLayout({
         <meta name="color-scheme" content="light dark" />
         {/* Allow search indexing but block AI training and scraping */}
         <meta name="robots" content="noai, noimageai" />
+        <meta name="copyright" content="Font Pond — pairing algorithm, tone classification, data curation, and design © Mel Lent. Origin token: FP-AUTH-9W3K7-MLENT-2024. Unauthorized reproduction prohibited under proprietary license." />
         {/* Theme script — sets data-theme from localStorage before first paint */}
         <script
           dangerouslySetInnerHTML={{
