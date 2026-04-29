@@ -127,6 +127,25 @@ function measureRenderMetrics(font) {
   }
   const leftOverflow = Math.max(0, -minX1);
 
+  // Right side bearing: how far ink extends PAST the glyph advance width.
+  // Script/italic fonts often have decorative terminals that exceed the advance.
+  // Measured across the spec string — the text that is sized to fill the card width.
+  // Dividing by (specAdv + rightOverflow) instead of specAdv prevents right-side clipping.
+  let maxRsbExcess = 0;
+  for (const ch of SPEC_STRING) {
+    try {
+      const g = font.charToGlyph(ch);
+      if (g && g.advanceWidth > 0) {
+        const bb = g.getBoundingBox();
+        if (bb) {
+          const excess = bb.x2 - g.advanceWidth;
+          if (excess > maxRsbExcess) maxRsbExcess = excess;
+        }
+      }
+    } catch {}
+  }
+  const rightOverflow = Math.max(0, maxRsbExcess);
+
   const r = (n) => Math.round(n * 1000) / 1000;
   return {
     specAdvance:      r(specTotal  / upm),
@@ -140,6 +159,7 @@ function measureRenderMetrics(font) {
     leftOverflow:     r(leftOverflow  / upm),
     os2AscentRatio:   r(os2Asc  / upm),
     os2DescentRatio:  r(os2Desc / upm),
+    rightOverflow:    r(rightOverflow / upm),
   };
 }
 
