@@ -3,21 +3,23 @@
 import { useRef, useState } from "react";
 import { RENDER_METRICS } from "@/data/gf-render-metrics";
 import { fontsBySlug } from "@/data/fonts";
-import { loadFont, waitForFonts } from "@/lib/fonts";
+import { loadFont } from "@/lib/fonts";
 
-const HEADLINE   = "The quick brown fox jumps over the lazy dog";
+const HEADLINE    = "The quick brown fox jumps over the lazy dog";
 const SPEC_STRING = "Aa Bb Cc Dd Ee Ff";
-const FONT_SIZE  = 100;
+const FONT_SIZE   = 100;
+
+// If the measured extent is within this many canvas-px of system-ui, the font
+// didn't load in time and the canvas fell back to the system font. Discard it.
+const FALLBACK_TOLERANCE_PX = 5;
 
 type Status = "idle" | "loading-css" | "running" | "done" | "saving" | "saved" | "error";
 
-// Derive basePath from current URL — works in both dev and production.
 function getBasePath(): string {
   if (typeof window === "undefined") return "";
   return window.location.pathname.replace(/\/measure-fonts(\/.*)?$/, "");
 }
 
-// Parse fonts.css to build slug → CSS family name map for self-hosted fonts.
 async function buildSlugToFamily(basePath: string): Promise<Record<string, string>> {
   const link = document.querySelector('link[href*="fonts.css"]') as HTMLLinkElement | null;
   const url = link?.href ?? `${window.location.origin}${basePath}/fonts/fonts.css`;
@@ -37,50 +39,66 @@ async function measureFont(
   slug: string,
   ctx: CanvasRenderingContext2D,
   basePath: string,
-  slugToFamily: Record<string, string>
+  slugToFamily: Record<string, string>,
+  sysExtent: number,
 ): Promise<Metrics | null> {
-  const measure = (family: string): Metrics | null => {
-    ctx.font = `600 ${FONT_SIZE}px "${family}"`;
-    const mAscent = ctx.measureText(HEADLINE);
-    const mSpec   = ctx.measureText(SPEC_STRING);
-    if (mAscent.actualBoundingBoxAscent <= 0 || mSpec.actualBoundingBoxRight <= 0) return null;
+  // Measure using the given CSS family string. Returns null if:
+  // - extent is zero (font not active in canvas yet)
+  // - extent is within FALLBACK_TOLERANCE_PX of system-ui (canvas used the fallback font)
+  const tryMeasure = (cssFont: string): Metrics | null => {
+    ctx.font = cssFont;
+    const ext = ctx.measureText(SPEC_STRING).actualBoundingBoxRight;
+    if (ext <= 0) return null;
+    if (Math.abs(ext - sysExtent) < FALLBACK_TOLERANCE_PX) return null;
+    const ascent = ctx.measureText(HEADLINE).actualBoundingBoxAscent;
+    if (ascent <= 0) return null;
     return {
-      ascent:     Math.round((mAscent.actualBoundingBoxAscent / FONT_SIZE) * 1000) / 1000,
-      specExtent: Math.round((mSpec.actualBoundingBoxRight    / FONT_SIZE) * 1000) / 1000,
+      ascent:     Math.round((ascent / FONT_SIZE) * 1000) / 1000,
+      specExtent: Math.round((ext    / FONT_SIZE) * 1000) / 1000,
     };
   };
 
-  // Strategy 1: load .woff2 directly via FontFace API
+  // Poll at 50ms intervals until the canvas renders the font (not the fallback), or timeout.
+  const pollUntilLoaded = async (cssFont: string, timeoutMs: number): Promise<Metrics | null> => {
+    const deadline = Date.now() + timeoutMs;
+    while (Date.now() < deadline) {
+      const result = tryMeasure(cssFont);
+      if (result !== null) return result;
+      await new Promise(r => setTimeout(r, 50));
+    }
+    return null;
+  };
+
+  // Strategy 1: load .woff2 directly via FontFace API (self-hosted fonts)
   try {
     const alias = `__measure__${slug}`;
     const face = new FontFace(alias, `url(${basePath}/fonts/${slug}.woff2)`);
     await face.load();
     document.fonts.add(face);
-    await new Promise(r => setTimeout(r, 10));
-    const result = measure(alias);
+    await document.fonts.ready;
+    const result = await pollUntilLoaded(`600 ${FONT_SIZE}px "${alias}"`, 2000);
     document.fonts.delete(face);
     if (result !== null) return result;
   } catch {}
 
-  // Strategy 2: the font's @font-face is already declared in fonts.css (in the page head).
-  // Use document.fonts.load() with the real family name — bypasses FontFace constructor.
+  // Strategy 2: the font's @font-face is already declared in fonts.css
   const cssFamily = slugToFamily[slug];
   if (cssFamily) {
     try {
       await document.fonts.load(`600 ${FONT_SIZE}px "${cssFamily}"`);
-      const result = measure(cssFamily);
+      const result = await pollUntilLoaded(`600 ${FONT_SIZE}px "${cssFamily}"`, 2000);
       if (result !== null) return result;
     } catch {}
   }
 
-  // Strategy 3: font has no local file — load via CDN using the existing loadFont() logic,
-  // which dynamically constructs the CDN URL from the font name at runtime.
+  // Strategy 3: CDN font (Google Fonts / Fontshare) — needs time to download.
+  // loadFont() injects the CDN <link>; we then poll the canvas until the font renders.
+  // CDN fonts get up to 10s — enough for slow connections without hanging indefinitely.
   const font = fontsBySlug.get(slug);
   if (font && !cssFamily) {
     try {
       loadFont(font);
-      await waitForFonts([font.name]);
-      const result = measure(font.name);
+      const result = await pollUntilLoaded(`600 ${FONT_SIZE}px "${font.name}"`, 10000);
       if (result !== null) return result;
     } catch {}
   }
@@ -90,33 +108,42 @@ async function measureFont(
 
 export default function MeasureFontsPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [status, setStatus] = useState<Status>("idle");
-  const [done, setDone] = useState(0);
-  const [results, setResults] = useState<Record<string, Metrics>>({});
-  const [errorMsg, setErrorMsg] = useState("");
+  const [status, setStatus]       = useState<Status>("idle");
+  const [done, setDone]           = useState(0);
+  const [captured, setCaptured]   = useState(0);
+  const [results, setResults]     = useState<Record<string, Metrics>>({});
+  const [errorMsg, setErrorMsg]   = useState("");
 
   const slugs = Object.keys(RENDER_METRICS);
 
   async function start() {
     setStatus("loading-css");
-    const basePath = getBasePath();
+    const basePath    = getBasePath();
     const slugToFamily = await buildSlugToFamily(basePath);
     const canvas = canvasRef.current!;
-    const ctx = canvas.getContext("2d")!;
+    const ctx    = canvas.getContext("2d")!;
+
+    // Measure system-ui once as fallback baseline. Any font measurement within
+    // FALLBACK_TOLERANCE_PX of this value used the system fallback, not the real font.
+    ctx.font = `600 ${FONT_SIZE}px system-ui`;
+    const sysExtent = ctx.measureText(SPEC_STRING).actualBoundingBoxRight;
+
     const out: Record<string, Metrics> = {};
     let i = 0;
 
     setStatus("running");
 
     for (const slug of slugs) {
-      const result = await measureFont(slug, ctx, basePath, slugToFamily);
+      const result = await measureFont(slug, ctx, basePath, slugToFamily, sysExtent);
       if (result !== null) out[slug] = result;
       i++;
-      if (i % 5 === 0) setDone(i);
-      if (i % 50 === 0) await new Promise(r => setTimeout(r, 0));
+      if (i % 5 === 0) { setDone(i); setCaptured(Object.keys(out).length); }
+      // Yield to browser every 20 fonts to keep the UI responsive
+      if (i % 20 === 0) await new Promise(r => setTimeout(r, 0));
     }
 
     setDone(slugs.length);
+    setCaptured(Object.keys(out).length);
     setResults(out);
     setStatus("done");
   }
@@ -142,15 +169,19 @@ export default function MeasureFontsPage() {
     }
   }
 
+  const missed = slugs.length - captured;
+
   return (
     <div style={{ padding: "40px", fontFamily: "system-ui, sans-serif", maxWidth: "640px", margin: "0 auto", lineHeight: 1.6 }}>
       <h1 style={{ fontSize: "24px", marginBottom: "8px" }}>Font Browser Metrics</h1>
       <p style={{ color: "#666", marginBottom: "8px" }}>
-        Loads each font and measures actual browser-rendered ink position via Canvas.
-        Tries local file first, then CSS font-face fallback, then CDN.
+        Loads each font and measures actual browser-rendered ink via Canvas at weight 600.
+        Polls at 50ms intervals until the canvas result diverges from system-ui — guaranteeing
+        the real font is rendering before we record anything.
       </p>
       <p style={{ color: "#999", fontSize: "14px", marginBottom: "24px" }}>
-        Run at <strong>localhost:3737</strong> only. Takes ~5–10 minutes.
+        Run at <strong>localhost:3737</strong> only. CDN fonts get up to 10s each —
+        expect <strong>20–40 minutes</strong> total.
       </p>
 
       <canvas ref={canvasRef} width={2000} height={200}
@@ -165,18 +196,36 @@ export default function MeasureFontsPage() {
 
       {(status === "loading-css" || status === "running") && (
         <div>
-          <p style={{ marginBottom: "8px" }}>
-            {status === "loading-css" ? "Loading font index…" : `Measuring… ${done} / ${slugs.length}`}
+          <p style={{ marginBottom: "4px" }}>
+            {status === "loading-css"
+              ? "Loading font index…"
+              : `Measuring… ${done} / ${slugs.length}`}
           </p>
+          {status === "running" && (
+            <p style={{ marginBottom: "8px", color: "#090", fontSize: "14px" }}>
+              Captured: {captured} &nbsp;·&nbsp; Missed so far: {done - captured}
+            </p>
+          )}
           <progress value={done} max={slugs.length} style={{ width: "100%", height: "8px" }} />
         </div>
       )}
 
       {status === "done" && (
         <div>
-          <p style={{ color: "#090", marginBottom: "16px" }}>
-            ✓ Measured {Object.keys(results).length} of {slugs.length} fonts
+          <p style={{ color: "#090", marginBottom: "4px" }}>
+            ✓ Captured {Object.keys(results).length} of {slugs.length} fonts
           </p>
+          {missed > 0 && (
+            <p style={{ color: "#c60", fontSize: "14px", marginBottom: "16px" }}>
+              {missed} fonts returned null — either they have no local or CDN file,
+              or they couldn't diverge from system-ui within the timeout.
+            </p>
+          )}
+          {missed === 0 && (
+            <p style={{ color: "#666", fontSize: "14px", marginBottom: "16px" }}>
+              All fonts captured successfully.
+            </p>
+          )}
           <button onClick={save}
             style={{ padding: "12px 24px", background: "#111", color: "#fff", border: "none", borderRadius: "8px", cursor: "pointer", fontSize: "16px" }}>
             Save results
