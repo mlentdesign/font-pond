@@ -94,22 +94,40 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
   const sorted = [...designer.fonts].sort((a, b) => a.name.localeCompare(b.name));
   const fontCount = sorted.length;
-  const INITIAL_FONTS = 6;
-  const FONT_INCREMENT = 6;
-  const [visibleFonts, setVisibleFonts] = useState(INITIAL_FONTS);
+  type FontEntry = { font: (typeof sorted)[number]; animate: boolean; delay: number };
+  const INITIAL_FONTS = 4;
+  const FONT_INCREMENT = 2;
+  const [fontEntries, setFontEntries] = useState<FontEntry[]>(() =>
+    sorted.slice(0, Math.min(INITIAL_FONTS, sorted.length)).map(font => ({ font, animate: false, delay: 0 }))
+  );
+  const fontEntriesRef = useRef(fontEntries);
+  fontEntriesRef.current = fontEntries;
   const fontSentinelRef = useRef<HTMLDivElement>(null);
-  const hasMoreFonts = visibleFonts < fontCount;
+  const hasMoreFonts = fontEntries.length < fontCount;
 
   useEffect(() => {
     const el = fontSentinelRef.current;
     if (!el || !hasMoreFonts) return;
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisibleFonts((v) => Math.min(v + FONT_INCREMENT, fontCount)); },
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        const current = fontEntriesRef.current;
+        if (current.length >= sorted.length) return;
+        const batch = sorted.slice(current.length, current.length + FONT_INCREMENT);
+        for (const font of batch) { loadFont(font); }
+        ensureFontsRendered(batch.map(f => f.name));
+        setTimeout(() => {
+          setFontEntries(prev => [
+            ...prev.map(e => ({ ...e, animate: false })),
+            ...batch.map((font, i) => ({ font, animate: true, delay: i * 60 })),
+          ]);
+        }, 80);
+      },
       { rootMargin: "0px 0px 200px 0px", threshold: 0 }
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [hasMoreFonts, fontCount, visibleFonts]);
+  }, [hasMoreFonts, fontEntries.length]);
 
   // Per-card specimen scaling via canvas visual measurement.
   // Canvas actualBoundingBox measures real glyph bounds (ignoring font metric whitespace),
@@ -118,6 +136,8 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
   const [specimenSizes, setSpecimenSizes] = useState<Record<string, number>>({});
   const [smallSpecimenSizes, setSmallSpecimenSizes] = useState<Record<string, number>>({});
   const sizingFnRef = useRef<(() => void) | null>(null);
+  const lastBigRef = useRef<Record<string, number>>({});
+  const lastSmallRef = useRef<Record<string, number>>({});
 
   useEffect(() => {
     let debounce: ReturnType<typeof setTimeout>;
@@ -136,7 +156,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
       // Mobile: normalize all specimens to the same visual cap height so fonts
       // look proportionally consistent when scrolling through stacked cards.
       // Cards are NOT height-pinned on mobile — they grow to their natural content height.
-      const fontNames = sorted.slice(0, visibleFonts).map(f => f.name);
+      const fontNames = fontEntriesRef.current.map(e => e.font.name);
       const runMobile = async () => {
         await document.fonts.ready;
         const unloaded = new Set(fontNames);
@@ -157,7 +177,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         const TARGET_CAP_H = 40;
         const updates: Record<string, number> = {};
 
-        for (const font of sorted.slice(0, visibleFonts)) {
+        for (const font of fontEntriesRef.current.map(e => e.font)) {
           const family = getFontFamily(font.name, font.source);
           ctx.font = `600 36px ${family}`;
           const capH = ctx.measureText("A").actualBoundingBoxAscent;
@@ -189,13 +209,13 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
         ctx.font = `600 36px ${family}`;
         const bigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
-        const bigSize = bigW36 > 0 ? Math.max(12, Math.floor(36 * sectionW * 0.97 / bigW36)) : 36;
+        const bigSize = bigW36 > 0 ? Math.max(12, Math.floor(36 * sectionW * 0.95 / bigW36)) : 36;
         bigUpdates[slug] = bigSize;
 
-        const availableForSmall = sectionH - 16 - bigSize - 8;
-        if (availableForSmall < 12) { smallUpdates[slug] = 12; continue; }
+        const availableForSmall = sectionH - bigSize - 8;
+        if (availableForSmall < 14) { smallUpdates[slug] = 14; continue; }
 
-        let lo = 12, hi = 300, best = 12;
+        let lo = 14, hi = 300, best = 14;
         for (let i = 0; i < 12; i++) {
           const mid = Math.round((lo + hi) / 2);
           const gap = Math.round(mid * 0.35);
@@ -208,18 +228,28 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
           if (totalH <= availableForSmall) { best = mid; lo = mid + 1; }
           else hi = mid - 1;
         }
-        smallUpdates[slug] = Math.max(12, best);
+        smallUpdates[slug] = Math.min(Math.max(14, best), Math.floor(bigSize * 0.45));
       }
 
-      if (Object.keys(bigUpdates).length > 0) {
-        setSpecimenSizes(prev => ({ ...prev, ...bigUpdates }));
-        setSmallSpecimenSizes(prev => ({ ...prev, ...smallUpdates }));
+      const changedBig: Record<string, number> = {};
+      const changedSmall: Record<string, number> = {};
+      for (const [k, v] of Object.entries(bigUpdates)) {
+        if (lastBigRef.current[k] !== v) { changedBig[k] = v; lastBigRef.current[k] = v; }
+      }
+      for (const [k, v] of Object.entries(smallUpdates)) {
+        if (lastSmallRef.current[k] !== v) { changedSmall[k] = v; lastSmallRef.current[k] = v; }
+      }
+      if (Object.keys(changedBig).length > 0) {
+        setSpecimenSizes(prev => ({ ...prev, ...changedBig }));
+        setSmallSpecimenSizes(prev => ({ ...prev, ...changedSmall }));
       }
     };
 
     sizingFnRef.current = doSizing;
 
-    const fontNames = sorted.slice(0, visibleFonts).map(f => f.name);
+    let resizeObserver: ResizeObserver | null = null;
+
+    const fontNames = fontEntriesRef.current.map(e => e.font.name);
     const run = async () => {
       await document.fonts.ready;
       const unloaded = new Set(fontNames);
@@ -240,11 +270,16 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
       if (cancelled) return;
 
       doSizing();
+
+      resizeObserver = new ResizeObserver(() => { if (!cancelled) doSizing(); });
+      for (const el of Object.values(sectionRefs.current)) {
+        resizeObserver.observe(el);
+      }
     };
 
     run();
-    return () => { cancelled = true; };
-  }, [visibleFonts]);
+    return () => { cancelled = true; resizeObserver?.disconnect(); };
+  }, [fontEntries.length]);
 
   return (
     <div className="flex-1 flex flex-col">
@@ -265,14 +300,14 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
         {/* Font grid */}
         <div className="designer-font-grid">
-          {sorted.slice(0, visibleFonts).map((font) => {
+          {fontEntries.map(({ font, animate, delay }) => {
             const family = getFontFamily(font.name, font.source);
             const sourceLabel = getSourceLabel(font.source);
             const chips = [...new Set([...font.tags, ...font.toneDescriptors].map((t) => t.toLowerCase()))]
               .filter((t) => t.split("-").length < 3 && t.length <= 25)
               .map(chipCase);
             const bigS = specimenSizes[font.slug] ?? 36;
-            const smallS = smallSpecimenSizes[font.slug] ?? Math.max(16, Math.round(bigS * 16 / 36));
+            const smallS = smallSpecimenSizes[font.slug] ?? Math.max(14, Math.round(bigS * 14 / 36));
             const smallGap = Math.round(smallS * 0.35);
 
             return (
@@ -289,7 +324,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                 }}
                 onMouseDown={(e) => e.preventDefault()}
                 className="group flex flex-col border border-neutral-200 rounded-xl bg-white card-hover hover:border-neutral-300 hover:shadow-sm cursor-pointer"
-                style={{ padding: "24px", position: "relative", overflow: "hidden" }}
+                style={{ padding: "24px", position: "relative", overflow: "hidden", animation: animate ? `pair-card-enter 400ms ease-out ${delay}ms both` : undefined }}
               >
                 {/* Font name + source */}
                 <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
@@ -321,9 +356,9 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
                 <div
                   ref={(el) => { if (el) sectionRefs.current[font.slug] = el; else delete sectionRefs.current[font.slug]; }}
                   className="spec-section"
-                  style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column" }}
+                  style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}
                 >
-                  <div style={{ marginTop: "16px" }}>
+                  <div>
                     <div
                       className="text-neutral-800 whitespace-nowrap"
                       style={{ fontFamily: family, fontWeight: 600, fontSize: `${bigS}px`, lineHeight: "1", marginBottom: "8px" }}
