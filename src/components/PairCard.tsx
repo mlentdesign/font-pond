@@ -9,11 +9,25 @@ import { getFontFamily, loadFont } from "@/lib/fonts";
 import { sentenceCase, chipCase } from "@/lib/text";
 import { RENDER_METRICS } from "@/data/gf-render-metrics";
 
-// Reference cap height as fraction of UPM for a typical Latin font
+// Reference ink span (ascent + descent) for a typical Latin font
+const REF_INK  = 0.95;
 const REF_ASCENT = 0.73;
 const REF_DESCENT = 0.22;
 const FONT_LABEL_SIZE = 22;
 
+// Scale a target px size so the font's actual ink span doesn't exceed
+// what a normal font at that size would produce — prevents overflow for
+// script/display fonts with extreme ascenders or descenders.
+function safeSize(slug: string, targetPx: number): number {
+  const m = RENDER_METRICS[slug];
+  if (!m) return targetPx;
+  const inkSpan = m[4] + m[5];
+  if (inkSpan <= REF_INK * 1.05) return targetPx; // within 5% of normal — no change
+  return Math.max(12, Math.floor(targetPx * REF_INK / inkSpan));
+}
+
+// Scale the font name label so cap height is visually consistent,
+// and add bottom margin compensation for deep descenders.
 function scaledLabelSize(slug: string): { fontSize: number; paddingBottom: number } {
   const m = RENDER_METRICS[slug];
   if (!m) return { fontSize: FONT_LABEL_SIZE, paddingBottom: 0 };
@@ -42,6 +56,8 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
 
   const headerLabel = scaledLabelSize(headerFont.slug);
   const bodyLabel = scaledLabelSize(bodyFont.slug);
+  const safeHeaderSize = safeSize(headerFont.slug, headerSize);
+  const safeBodySize = safeSize(bodyFont.slug, bodySize);
 
   const description = isExploring
     ? sentenceCase(pair.shortExplanation)
@@ -73,7 +89,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
           style={{
             fontFamily: headerFamily,
             fontWeight: 700,
-            fontSize: `${headerSize}px`,
+            fontSize: `${safeHeaderSize}px`,
             lineHeight: 1.15,
             marginBottom: "16px",
           }}
@@ -85,7 +101,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
           style={{
             fontFamily: bodyFamily,
             fontWeight: 400,
-            fontSize: `${bodySize}px`,
+            fontSize: `${safeBodySize}px`,
             lineHeight: 1.6,
           }}
         >

@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 /**
- * Font Render Metrics Measurement Script
+ * Font Render Metrics Measurement Script — covers Google Fonts, DaFont, and FontShare
  *
  * Reads cached font files and measures rendering-relevant properties:
- * - specAdvance:  total advance of "Aa Bb Cc Dd Ee Ff" / UPM  (specimen string)
- * - upperAdvance: total advance of A–Z / UPM
- * - lowerAdvance: total advance of a–z / UPM
- * - numsAdvance:  total advance of 0–9 / UPM
- * - ascentRatio:  max ink y2 across "AaBbCcDdEeFf" / UPM
+ * - specAdvance:   total advance of "Aa Bb Cc Dd Ee Ff" / UPM  (specimen string)
+ * - upperAdvance:  total advance of A–Z / UPM
+ * - lowerAdvance:  total advance of a–z / UPM
+ * - numsAdvance:   total advance of 0–9 / UPM
+ * - ascentRatio:   max ink y2 across "AaBbCcDdEeFf" / UPM  (tallest ascenders)
+ * - descentRatio:  max ink depth below baseline across "gpqyjQ" / UPM
  *
  * bigSize = Math.floor(sectionWidth / specAdvance)  — no canvas or font-load wait needed
  *
@@ -19,8 +20,44 @@ import opentype from "opentype.js";
 import fs from "fs";
 import path from "path";
 
-const CACHE_DIR = path.join(process.cwd(), ".font-cache");
+const GF_CACHE    = path.join(process.cwd(), ".font-cache");
+const DF_CACHE    = path.join(process.cwd(), ".font-cache", "dafont");
+const FS_CACHE    = path.join(process.cwd(), ".font-cache", "fontshare");
 const SPEC_STRING = "Aa Bb Cc Dd Ee Ff";
+
+// ── Font file finders ──
+
+function findGoogleFontFile(slug) {
+  const p = path.join(GF_CACHE, `${slug}.ttf`);
+  return fs.existsSync(p) ? p : null;
+}
+
+function findDaFontFile(slug) {
+  if (!fs.existsSync(DF_CACHE)) return null;
+  // Try exact slug with hyphens and underscores
+  for (const ext of [".ttf", ".otf"]) {
+    const direct = path.join(DF_CACHE, slug + ext);
+    if (fs.existsSync(direct)) return direct;
+    const underscored = path.join(DF_CACHE, slug.replace(/-/g, "_") + ext);
+    if (fs.existsSync(underscored)) return underscored;
+  }
+  // Normalize and scan directory
+  const slugNorm = slug.replace(/[-_]/g, "").toLowerCase();
+  const files = fs.readdirSync(DF_CACHE);
+  const match = files.find(f => {
+    if (!f.match(/\.(ttf|otf)$/i)) return false;
+    const base = f.replace(/\.(ttf|otf)$/i, "").replace(/[-_ ]/g, "").toLowerCase();
+    return base === slugNorm;
+  });
+  return match ? path.join(DF_CACHE, match) : null;
+}
+
+function findFontShareFile(slug) {
+  const p = path.join(FS_CACHE, `${slug}.ttf`);
+  return fs.existsSync(p) ? p : null;
+}
+
+// ── Measurement ──
 
 function measureRenderMetrics(font) {
   const upm = font.unitsPerEm;
@@ -39,99 +76,123 @@ function measureRenderMetrics(font) {
     return total;
   }
 
-  const specTotal = totalAdvance(SPEC_STRING, 0.5);
+  const specTotal  = totalAdvance(SPEC_STRING, 0.5);
   const upperTotal = totalAdvance("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 0.6);
   const lowerTotal = totalAdvance("abcdefghijklmnopqrstuvwxyz", 0.5);
-  const numsTotal = totalAdvance("0123456789", 0.55);
+  const numsTotal  = totalAdvance("0123456789", 0.55);
 
   let maxY2 = 0;
   for (const ch of "AaBbCcDdEeFf") {
     try {
       const g = font.charToGlyph(ch);
-      if (g) {
-        const bb = g.getBoundingBox();
-        if (bb && bb.y2 > maxY2) maxY2 = bb.y2;
-      }
+      if (g) { const bb = g.getBoundingBox(); if (bb && bb.y2 > maxY2) maxY2 = bb.y2; }
     } catch {}
   }
 
-  // Descent: depth below baseline for chars with descenders
   let minY1 = 0;
   for (const ch of "gpqyjQ") {
     try {
       const g = font.charToGlyph(ch);
-      if (g) {
-        const bb = g.getBoundingBox();
-        if (bb && bb.y1 < minY1) minY1 = bb.y1;
-      }
+      if (g) { const bb = g.getBoundingBox(); if (bb && bb.y1 < minY1) minY1 = bb.y1; }
     } catch {}
   }
 
   const r = (n) => Math.round(n * 1000) / 1000;
   return {
-    specAdvance: r(specTotal / upm),
-    upperAdvance: r(upperTotal / upm),
-    lowerAdvance: r(lowerTotal / upm),
-    numsAdvance: r(numsTotal / upm),
-    ascentRatio: r(maxY2 > 0 ? maxY2 / upm : 0.72),
-    descentRatio: r(minY1 < 0 ? Math.abs(minY1) / upm : 0.22),
+    specAdvance:   r(specTotal  / upm),
+    upperAdvance:  r(upperTotal / upm),
+    lowerAdvance:  r(lowerTotal / upm),
+    numsAdvance:   r(numsTotal  / upm),
+    ascentRatio:   r(maxY2 > 0  ? maxY2  / upm : 0.72),
+    descentRatio:  r(minY1 < 0  ? Math.abs(minY1) / upm : 0.22),
   };
 }
 
-function extractFontList() {
-  const filePath = path.join(process.cwd(), "src/data/all-google-fonts.ts");
-  const content = fs.readFileSync(filePath, "utf-8");
+function measureFile(filePath) {
+  try {
+    const data = fs.readFileSync(filePath);
+    const font = opentype.parse(data.buffer);
+    return measureRenderMetrics(font);
+  } catch {
+    return null;
+  }
+}
+
+// ── Font list extractors ──
+
+function extractGoogleFonts() {
+  const content = fs.readFileSync(path.join(process.cwd(), "src/data/all-google-fonts.ts"), "utf-8");
   const regex = /gf\("([^"]+)",\s*"([^"]+)",\s*"([^"]+)"/g;
   const fonts = [];
   let match;
   while ((match = regex.exec(content)) !== null) {
-    fonts.push({
-      name: match[1],
-      googleFamily: match[2],
-      classification: match[3],
-      slug: match[1].toLowerCase().replace(/\s+/g, "-"),
-    });
+    fonts.push({ slug: match[1].toLowerCase().replace(/\s+/g, "-"), source: "google" });
   }
   return fonts;
 }
 
+function extractDaFontSlugs() {
+  const content = fs.readFileSync(path.join(process.cwd(), "src/data/dafont-fonts.ts"), "utf-8");
+  const regex = /"([a-z0-9][a-z0-9-]+)":\s*\[/g;
+  const slugs = [];
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    slugs.push(match[1]);
+  }
+  return slugs.map(slug => ({ slug, source: "dafont" }));
+}
+
+function extractFontShareSlugs() {
+  const content = fs.readFileSync(path.join(process.cwd(), "src/data/all-fontshare-fonts.ts"), "utf-8");
+  // fs("Name", "slug", ...)
+  const regex = /fs\(\s*"[^"]+",\s*"([^"]+)"/g;
+  const slugs = [];
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    slugs.push(match[1]);
+  }
+  return slugs.map(slug => ({ slug, source: "fontshare" }));
+}
+
+// ── Run ──
+
 async function main() {
-  const fonts = extractFontList();
-  console.log(`Found ${fonts.length} fonts — measuring from cache...`);
+  const gf = extractGoogleFonts();
+  const df = extractDaFontSlugs();
+  const fsh = extractFontShareSlugs();
+  const all = [...gf, ...df, ...fsh];
 
-  const results = {};
-  let measured = 0;
-  let failed = 0;
+  console.log(`Fonts to measure: ${gf.length} Google, ${df.length} DaFont, ${fsh.length} FontShare = ${all.length} total`);
 
-  for (const font of fonts) {
-    const cached = path.join(CACHE_DIR, `${font.slug}.ttf`);
-    if (!fs.existsSync(cached)) {
-      failed++;
-      continue;
-    }
+  // Load existing results to preserve any previously measured entries
+  const outputPath = path.join(process.cwd(), "scripts/measured-render-metrics.json");
+  const results = fs.existsSync(outputPath) ? JSON.parse(fs.readFileSync(outputPath, "utf-8")) : {};
 
-    try {
-      const data = fs.readFileSync(cached);
-      const parsed = opentype.parse(data.buffer);
-      const metrics = measureRenderMetrics(parsed);
-      if (metrics) {
-        results[font.slug] = metrics;
-        measured++;
-      } else {
-        failed++;
-      }
-    } catch {
+  let measured = 0, skipped = 0, failed = 0;
+
+  for (const { slug, source } of all) {
+    let filePath = null;
+    if (source === "google")    filePath = findGoogleFontFile(slug);
+    else if (source === "dafont")    filePath = findDaFontFile(slug);
+    else if (source === "fontshare") filePath = findFontShareFile(slug);
+
+    if (!filePath) { failed++; continue; }
+
+    const metrics = measureFile(filePath);
+    if (metrics) {
+      results[slug] = metrics;
+      measured++;
+    } else {
       failed++;
     }
 
     if ((measured + failed) % 200 === 0) {
-      console.log(`  ${measured + failed}/${fonts.length}...`);
+      console.log(`  ${measured + failed}/${all.length}...`);
     }
   }
 
-  const outputPath = path.join(process.cwd(), "scripts/measured-render-metrics.json");
   fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));
-  console.log(`\nDone: ${measured} measured, ${failed} failed`);
+  console.log(`\nDone: ${measured} measured, ${failed} no file/parse error, ${skipped} skipped`);
   console.log(`Written to ${outputPath}`);
   console.log(`\nNext: node scripts/build-render-metrics.mjs`);
 }
