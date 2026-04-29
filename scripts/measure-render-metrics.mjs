@@ -120,15 +120,17 @@ function measureRenderMetrics(font) {
 
   const r = (n) => Math.round(n * 1000) / 1000;
   return {
-    specAdvance:    r(specTotal  / upm),
-    upperAdvance:   r(upperTotal / upm),
-    lowerAdvance:   r(lowerTotal / upm),
-    numsAdvance:    r(numsTotal  / upm),
-    ascentRatio:    r(maxY2 > 0  ? maxY2  / upm : 0.72),
-    descentRatio:   r(minY1 < 0  ? Math.abs(minY1) / upm : 0.22),
-    inkOverTop:     r(inkOverTop    / upm),
-    inkOverBottom:  r(inkOverBottom / upm),
-    leftOverflow:   r(leftOverflow  / upm),
+    specAdvance:      r(specTotal  / upm),
+    upperAdvance:     r(upperTotal / upm),
+    lowerAdvance:     r(lowerTotal / upm),
+    numsAdvance:      r(numsTotal  / upm),
+    ascentRatio:      r(maxY2 > 0  ? maxY2  / upm : 0.72),
+    descentRatio:     r(minY1 < 0  ? Math.abs(minY1) / upm : 0.22),
+    inkOverTop:       r(inkOverTop    / upm),
+    inkOverBottom:    r(inkOverBottom / upm),
+    leftOverflow:     r(leftOverflow  / upm),
+    os2AscentRatio:   r(os2Asc  / upm),
+    os2DescentRatio:  r(os2Desc / upm),
   };
 }
 
