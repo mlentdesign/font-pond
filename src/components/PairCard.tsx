@@ -7,6 +7,20 @@ import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 import { navigateToPair } from "@/lib/navigate";
 import { getFontFamily, loadFont } from "@/lib/fonts";
 import { sentenceCase, chipCase } from "@/lib/text";
+import { RENDER_METRICS } from "@/data/gf-render-metrics";
+
+// Reference cap height as fraction of UPM for a typical Latin font
+const REF_ASCENT = 0.73;
+const REF_DESCENT = 0.22;
+const FONT_LABEL_SIZE = 22;
+
+function scaledLabelSize(slug: string): { fontSize: number; paddingBottom: number } {
+  const m = RENDER_METRICS[slug];
+  if (!m) return { fontSize: FONT_LABEL_SIZE, paddingBottom: 0 };
+  const fontSize = Math.max(14, Math.floor(FONT_LABEL_SIZE * REF_ASCENT / m[4]));
+  const paddingBottom = Math.max(0, Math.round((m[5] - REF_DESCENT) * fontSize));
+  return { fontSize, paddingBottom };
+}
 
 export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pair: ScoredPair; isExploring?: boolean; animationDelay?: number }) {
   const { sampleHeadline, sampleBody, headerSize, bodySize } = useAppState();
@@ -25,6 +39,9 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
 
   const headerFamily = getFontFamily(headerFont.name, headerFont.source);
   const bodyFamily = getFontFamily(bodyFont.name, bodyFont.source);
+
+  const headerLabel = scaledLabelSize(headerFont.slug);
+  const bodyLabel = scaledLabelSize(bodyFont.slug);
 
   const description = isExploring
     ? sentenceCase(pair.shortExplanation)
@@ -99,7 +116,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
           </span>
           <span
             className="text-neutral-800 block"
-            style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "22px", lineHeight: 1.3, marginBottom: "8px" }}
+            style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: `${headerLabel.fontSize}px`, lineHeight: 1.3, marginBottom: `${8 + headerLabel.paddingBottom}px` }}
           >
             {headerFont.name}
           </span>
@@ -125,7 +142,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
           </span>
           <span
             className="text-neutral-800 block"
-            style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "22px", lineHeight: 1.3, marginBottom: "8px" }}
+            style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: `${bodyLabel.fontSize}px`, lineHeight: 1.3, marginBottom: `${8 + bodyLabel.paddingBottom}px` }}
           >
             {bodyFont.name}
           </span>
