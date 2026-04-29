@@ -17,23 +17,26 @@ const keys = Object.keys(data).sort();
 
 const lines = keys.map(slug => {
   const m = data[slug];
-  return `  "${slug}": [${m.specAdvance}, ${m.upperAdvance}, ${m.lowerAdvance}, ${m.numsAdvance}, ${m.ascentRatio}, ${m.descentRatio}],`;
+  return `  "${slug}": [${m.specAdvance}, ${m.upperAdvance}, ${m.lowerAdvance}, ${m.numsAdvance}, ${m.ascentRatio}, ${m.descentRatio}, ${m.inkOverTop ?? 0}, ${m.inkOverBottom ?? 0}, ${m.leftOverflow ?? 0}],`;
 });
 
 const ts = `// AUTO-GENERATED — do not edit manually
 // Run: node scripts/measure-render-metrics.mjs && node scripts/build-render-metrics.mjs
 //
-// Tuple: [specAdv, upperAdv, lowerAdv, numsAdv, ascentRatio, descentRatio]
-//   specAdv     = total advance of "Aa Bb Cc Dd Ee Ff" / UPM
-//   upperAdv    = total advance of A–Z / UPM
-//   lowerAdv    = total advance of a–z / UPM
-//   numsAdv     = total advance of 0–9 / UPM
-//   ascentRatio = max ink y2 across "AaBbCcDdEeFf" / UPM  (ascent height)
-//   descentRatio = max ink depth below baseline across "gpqyjQ" / UPM
+// Tuple indices:
+//   [0] specAdv      = total advance of "Aa Bb Cc Dd Ee Ff" / UPM
+//   [1] upperAdv     = total advance of A–Z / UPM
+//   [2] lowerAdv     = total advance of a–z / UPM
+//   [3] numsAdv      = total advance of 0–9 / UPM
+//   [4] ascentRatio  = max ink y2 / UPM  (used for mobile cap-height sizing)
+//   [5] descentRatio = max ink depth below baseline / UPM
+//   [6] inkOverTop   = ink above OS/2 usWinAscent / UPM  (true extra padding needed at top)
+//   [7] inkOverBottom = ink below OS/2 usWinDescent / UPM (true extra padding needed at bottom)
+//   [8] leftOverflow  = max negative left side bearing / UPM (ink extending left of glyph origin)
 //
 // Usage: bigSize = Math.floor(sectionWidth / specAdv)
-// Scale for even visual padding: scaledPx = Math.floor(targetPx * 0.95 / (ascentRatio + descentRatio))
-export type RenderMetricsTuple = [number, number, number, number, number, number];
+// Extra padding: padTop += m[6]*px, padBottom += m[7]*px, padLeft += m[8]*px
+export type RenderMetricsTuple = [number, number, number, number, number, number, number, number, number];
 export const RENDER_METRICS: Record<string, RenderMetricsTuple> = {
 ${lines.join("\n")}
 };
