@@ -87,7 +87,7 @@ function FontSection({
       <div ref={sectionRef} className="spec-section" style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         {(() => {
           const smallSize = specimenSmallSize ?? Math.max(14, Math.round(specimenFontSize * 14 / 36));
-          const smallGap = Math.round(smallSize * 0.35);
+          const smallGap = 6;
           return (
             <div>
               <div
@@ -276,11 +276,11 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
       ctx.font = `600 36px ${hFamily}`;
       const hBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
-      const hBigSize = hBigW36 > 0 ? Math.max(12, Math.floor(36 * hSectionW * 0.95 / hBigW36)) : 36;
+      const hBigSize = hBigW36 > 0 ? Math.max(12, Math.floor(36 * hSectionW * 1.0 / hBigW36)) : 36;
 
       ctx.font = `400 36px ${bFamily}`;
       const bBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
-      const bBigSize = bBigW36 > 0 ? Math.max(12, Math.floor(36 * bSectionW * 0.95 / bBigW36)) : 36;
+      const bBigSize = bBigW36 > 0 ? Math.max(12, Math.floor(36 * bSectionW * 1.0 / bBigW36)) : 36;
 
       const computeSmallSize = (family: string, bigSize: number, sectionH: number, sectionW: number): number => {
         const available = sectionH - bigSize - 8;
