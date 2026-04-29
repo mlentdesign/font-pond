@@ -97,24 +97,30 @@ async function measureFont(
     return null;
   };
 
-  // Strategy 1: load .woff2 directly via FontFace API (self-hosted fonts)
-  try {
-    const alias = `__measure__${slug}`;
-    const face = new FontFace(alias, `url(${basePath}/fonts/${slug}.woff2)`);
-    await face.load();
-    document.fonts.add(face);
-    await document.fonts.ready;
-    const result = await pollUntilLoaded(`"${alias}"`, 2000);
-    document.fonts.delete(face);
-    if (result !== null) return result;
-  } catch {}
-
-  // Strategy 2: the font's @font-face is already declared in fonts.css
+  // Strategy 1: CSS @font-face (preferred for fonts already in fonts.css).
+  // Uses the SAME @font-face the page renders with, so canvas and CSS see identical
+  // weight synthesis — faux-bold at 600 is applied consistently or not at all.
   const cssFamily = slugToFamily[slug];
   if (cssFamily) {
     try {
       await document.fonts.load(`600 ${FONT_SIZE}px "${cssFamily}"`);
       const result = await pollUntilLoaded(`"${cssFamily}"`, 2000);
+      if (result !== null) return result;
+    } catch {}
+  }
+
+  // Strategy 2: FontFace API (self-hosted fonts not in fonts.css).
+  // Specifying weight:"400" ensures the browser knows the file is a 400-weight face,
+  // so requests at 600 trigger the same faux-bold synthesis as CSS @font-face would.
+  if (!cssFamily) {
+    try {
+      const alias = `__measure__${slug}`;
+      const face = new FontFace(alias, `url(${basePath}/fonts/${slug}.woff2)`, { weight: "400" });
+      await face.load();
+      document.fonts.add(face);
+      await document.fonts.ready;
+      const result = await pollUntilLoaded(`"${alias}"`, 2000);
+      document.fonts.delete(face);
       if (result !== null) return result;
     } catch {}
   }
