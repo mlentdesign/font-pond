@@ -150,6 +150,36 @@ export function waitForFonts(fontNames: string[]): Promise<void> {
   });
 }
 
+/**
+ * Resolves true when the named font is confirmed loaded in document.fonts, or false
+ * after the timeout. Polls every 100ms and also calls document.fonts.load() on each
+ * poll so the browser actually downloads the file (not just injects the @font-face).
+ */
+export function waitForFontReady(fontName: string, timeoutMs = 2000): Promise<boolean> {
+  if (typeof window === "undefined" || !document.fonts) return Promise.resolve(true);
+  const check = () =>
+    document.fonts.check(`700 16px "${fontName}"`) || document.fonts.check(`400 16px "${fontName}"`);
+  if (check()) return Promise.resolve(true);
+  return new Promise((resolve) => {
+    let done = false;
+    const finish = (v: boolean) => {
+      if (done) return;
+      done = true;
+      clearInterval(pollId);
+      clearTimeout(timeoutId);
+      resolve(v);
+    };
+    const pollId = setInterval(() => {
+      if (check()) { finish(true); return; }
+      // Retry load — resolves when font is downloaded once @font-face is registered
+      document.fonts.load(`700 16px "${fontName}"`).then((faces) => {
+        if (faces.length > 0) finish(true);
+      }).catch(() => {});
+    }, 100);
+    const timeoutId = setTimeout(() => finish(false), timeoutMs);
+  });
+}
+
 export function loadGoogleFont(family: string): void {
   loadFont({ name: family, slug: family.toLowerCase().replace(/\s+/g, "-"), source: "google-fonts", googleFontsFamily: family });
 }

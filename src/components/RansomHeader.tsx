@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef, useCallback } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { loadFont, getFontFamily } from "@/lib/fonts";
+import { loadFont, getFontFamily, waitForFontReady } from "@/lib/fonts";
 import { fonts as allFonts } from "@/data/fonts";
 import { useAppState } from "@/lib/store";
 
@@ -95,6 +95,8 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
   const [isAnimating, setIsAnimating] = useState(false);
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const displayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const animIdRef = useRef(0);
+  const swapIdRef = useRef(0);
 
   // Preload queue — always keep the next 5 fonts ready
   const preloadQueueRef = useRef<PoolFont[]>([]);
@@ -108,11 +110,12 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
   useEffect(() => {
     setMounted(true);
     const initial = pickRandom();
-    setDisplayFont(initial);
     ensureLoaded(initial);
-
-    // Preload the next 5 fonts immediately so they're ready for navigation
     preloadNext(10);
+    let alive = true;
+    waitForFontReady(initial.name, 500).then(() => {
+      if (alive) setDisplayFont(initial);
+    });
 
     // Also preload a broader set in the background for animation variety
     setTimeout(() => {
@@ -121,6 +124,8 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
         ensureLoaded(f);
       }
     }, 100);
+
+    return () => { alive = false; };
   }, [setDisplayFont, ensureLoaded, preloadNext]);
 
   const clearAllTimers = useCallback(() => {
@@ -132,6 +137,7 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
     if (headerAnimationPaused) return;
     setIsAnimating(true);
     clearAllTimers();
+    const myAnimId = ++animIdRef.current;
 
     const newStates: LetterState[] = LETTERS.map(() => ({
       fontName: displayFont.name,
@@ -176,9 +182,12 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
     }
 
     const endTimer = setTimeout(() => {
-      setDisplayFont(finalFont);
-      setLetterStates([]);
-      setIsAnimating(false);
+      waitForFontReady(finalFont.name, 1500).then(() => {
+        if (animIdRef.current !== myAnimId) return;
+        setDisplayFont(finalFont);
+        setLetterStates([]);
+        setIsAnimating(false);
+      });
     }, ANIMATION_DURATION + 100);
     timersRef.current.push(endTimer);
   }, [displayFont, clearAllTimers, ensureLoaded, setDisplayFont]);
@@ -202,8 +211,11 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
   const swapInstantly = useCallback(() => {
     const next = pickRandom(displayFont.name);
     ensureLoaded(next);
-    setDisplayFont(next);
     preloadNext(10);
+    const mySwapId = ++swapIdRef.current;
+    waitForFontReady(next.name, 800).then(() => {
+      if (swapIdRef.current === mySwapId) setDisplayFont(next);
+    });
   }, [displayFont.name, ensureLoaded, setDisplayFont, preloadNext]);
 
   // Trigger a new font on:
