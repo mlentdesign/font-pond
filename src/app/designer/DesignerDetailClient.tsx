@@ -220,8 +220,8 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         let bigSize: number;
         let lh = 1.2;
         if (m) {
-          const _m13 = (m[13] != null && m[13] >= m[0]) ? m[13] : null;
-          const _divisor = _m13 ? _m13 * 1.03 : (m[0] + (m[12] ?? 0));
+          const _m13 = (m[13] != null && m[13] >= m[0] * 1.15) ? m[13] : null;
+          const _divisor = _m13 ? _m13 * 1.03 : m[0];
           bigSize = Math.max(12, Math.floor(sectionW / _divisor));
           lh = Math.max(1, m[9] + m[10]);
           const inkRatio = (m[11] + m[5]) || 1;
