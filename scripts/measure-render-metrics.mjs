@@ -81,13 +81,22 @@ function measureRenderMetrics(font) {
   const lowerTotal = totalAdvance("abcdefghijklmnopqrstuvwxyz", 0.5);
   const numsTotal  = totalAdvance("0123456789", 0.55);
 
-  // OS/2 declared clip bounds — what the browser uses for line-box layout
+  // OS/2 declared clip bounds — what the browser uses for line-box layout.
+  // Respect USE_TYPO_METRICS flag (fsSelection bit 7): when set, browsers use sTypo values
+  // instead of usWin values. Getting this wrong means the formula predicts the wrong baseline.
   const os2 = font.tables?.os2;
-  const os2Asc  = (os2?.usWinAscent  || os2?.sTypoAscender  || upm * 0.8);
-  const os2Desc = (os2?.usWinDescent || Math.abs(os2?.sTypoDescender || upm * 0.2));
+  const useTypoMetrics = ((os2?.fsSelection ?? 0) & 0x80) !== 0;
+  const os2Asc = useTypoMetrics
+    ? (os2?.sTypoAscender  ?? upm * 0.8)
+    : (os2?.usWinAscent    ?? os2?.sTypoAscender ?? upm * 0.8);
+  const os2Desc = useTypoMetrics
+    ? Math.abs(os2?.sTypoDescender ?? -(upm * 0.2))
+    : (os2?.usWinDescent   ?? Math.abs(os2?.sTypoDescender ?? -(upm * 0.2)));
 
+  // Measure ascent from the actual default sample headline characters, not "AaBbCcDdEeFf".
+  // Cards show "The quick brown fox jumps over the lazy dog" — measure those glyphs.
   let maxY2 = 0;
-  for (const ch of "AaBbCcDdEeFfTt") {
+  for (const ch of "TheQuickBrownFoxJumpsOverTheLazyDogthequickbrownfoxjumpsoverthelazydog") {
     try {
       const g = font.charToGlyph(ch);
       if (g) { const bb = g.getBoundingBox(); if (bb && bb.y2 > maxY2) maxY2 = bb.y2; }
@@ -95,7 +104,7 @@ function measureRenderMetrics(font) {
   }
 
   let minY1 = 0;
-  for (const ch of "gpqyjQy") {
+  for (const ch of "gpqyjQypqjyg") {
     try {
       const g = font.charToGlyph(ch);
       if (g) { const bb = g.getBoundingBox(); if (bb && bb.y1 < minY1) minY1 = bb.y1; }
