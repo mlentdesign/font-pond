@@ -565,7 +565,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
         </div>
 
         {/* Font sections — two columns */}
-        <div className="two-col-grid" style={{ marginBottom: "24px" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-4" style={{ marginBottom: "24px" }}>
           <FontSection font={headerFont} role="Header" pairSlug={slug} onNavigate={(s) => startTransition(() => router.push(`/font?f=${s}&from=${slug}`))} specimenFontSize={headerSpecSize} specimenSmallSize={headerSmallSize ?? undefined} sectionRef={hSectionRef} />
           <FontSection font={bodyFont} role="Body" pairSlug={slug} onNavigate={(s) => startTransition(() => router.push(`/font?f=${s}&from=${slug}`))} specimenFontSize={bodySpecSize} specimenSmallSize={bodySmallSize ?? undefined} sectionRef={bSectionRef} />
         </div>
