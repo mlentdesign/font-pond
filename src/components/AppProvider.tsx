@@ -6,6 +6,7 @@ import { RecentPairView, RecentHistoryItem, ScoredPair } from "@/data/types";
 
 const HISTORY_KEY = "font-pairing-recent-history";
 const ITEMS_KEY = "font-pond-recent-items";
+const FONT_NAME_MATCH_KEY = "font-pond-include-font-name-matches";
 const MAX_HISTORY = 10;
 
 export function AppProvider({ children }: { children: ReactNode }) {
@@ -15,6 +16,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [sampleBody, setSampleBody] = useState("");
   const [headerSize, setHeaderSize] = useState(DEFAULT_HEADER_SIZE);
   const [bodySize, setBodySize] = useState(DEFAULT_BODY_SIZE);
+  const [includeFontNameMatches, setIncludeFontNameMatchesState] = useState(true);
+  const setIncludeFontNameMatches = useCallback((b: boolean) => {
+    setIncludeFontNameMatchesState(b);
+    try { localStorage.setItem(FONT_NAME_MATCH_KEY, b ? "1" : "0"); } catch {}
+  }, []);
   const [results, setResults] = useState<ScoredPair[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
@@ -29,6 +35,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       if (saved) setRecentHistory(JSON.parse(saved));
       const savedItems = localStorage.getItem(ITEMS_KEY);
       if (savedItems) setRecentItems(JSON.parse(savedItems));
+      const savedFlag = localStorage.getItem(FONT_NAME_MATCH_KEY);
+      if (savedFlag === "0") setIncludeFontNameMatchesState(false);
     } catch {}
   }, []);
 
@@ -67,6 +75,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     sampleBody, setSampleBody,
     headerSize, setHeaderSize,
     bodySize, setBodySize,
+    includeFontNameMatches, setIncludeFontNameMatches,
     results, setResults,
     isLoading, setIsLoading,
     hasSearched, setHasSearched,

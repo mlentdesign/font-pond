@@ -12,6 +12,7 @@ export function SampleTextInputs({ alwaysShow = false }: { alwaysShow?: boolean 
     sampleBody, setSampleBody,
     headerSize, setHeaderSize,
     bodySize, setBodySize,
+    includeFontNameMatches, setIncludeFontNameMatches,
     hasSearched,
   } = useAppState();
 
@@ -39,6 +40,21 @@ export function SampleTextInputs({ alwaysShow = false }: { alwaysShow?: boolean 
 
         {/* Content — indented equally on left and right */}
         <div style={{ marginTop: "16px", paddingLeft: "24px", paddingRight: "24px" }}>
+          {/* Search behavior toggle — sits above the headline/body preview controls */}
+          <label
+            htmlFor="include-font-name-matches"
+            className="flex items-center cursor-pointer select-none text-neutral-700"
+            style={{ gap: "8px", marginBottom: "24px", fontSize: "14px" }}
+          >
+            <input
+              id="include-font-name-matches"
+              type="checkbox"
+              checked={includeFontNameMatches}
+              onChange={(e) => setIncludeFontNameMatches(e.target.checked)}
+              style={{ width: "16px", height: "16px", cursor: "pointer" }}
+            />
+            Include font matches in search terms
+          </label>
           <div className="settings-quad-grid">
             {/* Headline text — pos 1 on mobile, col 1 on desktop */}
             <div className="settings-item-headline-text">
