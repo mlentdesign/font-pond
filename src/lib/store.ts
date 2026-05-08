@@ -17,6 +17,8 @@ export interface AppState {
   setHeaderSize: (n: number) => void;
   bodySize: number;
   setBodySize: (n: number) => void;
+  includeFontNameMatches: boolean;
+  setIncludeFontNameMatches: (b: boolean) => void;
   results: ScoredPair[];
   setResults: (r: ScoredPair[]) => void;
   isLoading: boolean;
