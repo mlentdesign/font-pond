@@ -81,8 +81,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
 
   useEffect(() => {
     if (font && slug && window.location.search) {
-      const base = window.location.pathname.replace(/\/font.*$/, "");
-      window.history.replaceState(window.history.state, "", `${base}/font/${slug}`);
+      window.history.replaceState(window.history.state, "", `/font-pond/font/${slug}`);
     }
   }, [font, slug]);
 
