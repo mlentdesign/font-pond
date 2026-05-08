@@ -49,11 +49,11 @@ export function SampleTextInputs({ alwaysShow = false }: { alwaysShow?: boolean 
             <input
               id="include-font-name-matches"
               type="checkbox"
+              className="db-checkbox"
               checked={includeFontNameMatches}
               onChange={(e) => setIncludeFontNameMatches(e.target.checked)}
-              style={{ width: "16px", height: "16px", cursor: "pointer" }}
             />
-            Include font matches in search terms
+            Include font name matches in search terms
           </label>
           <div className="settings-quad-grid">
             {/* Headline text — pos 1 on mobile, col 1 on desktop */}
