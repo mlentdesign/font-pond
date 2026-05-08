@@ -3761,15 +3761,18 @@ function findFontNamesInQuery(query: string): Map<string, "full" | "partial"> {
 
 export function rankPairs(
   query: string,
-  options?: { limit?: number; offset?: number }
+  options?: { limit?: number; offset?: number; includeFontNameMatches?: boolean }
 ): ScoredPair[] {
   ensureDynamicPairs();
   const promptWords = extractPromptWords(query);
   const hasQuery = query.trim().length > 0;
   const stylized = hasQuery && isStylizedPrompt(promptWords);
+  const includeFontNameMatches = options?.includeFontNameMatches ?? true;
 
   // Detect font names in the query for direct matching
-  const matchedFontIds = hasQuery ? findFontNamesInQuery(query) : new Map<string, "full" | "partial">();
+  const matchedFontIds = hasQuery && includeFontNameMatches
+    ? findFontNamesInQuery(query)
+    : new Map<string, "full" | "partial">();
   const hasFontNameMatch = matchedFontIds.size > 0;
 
   const scored: ScoredPair[] = [];

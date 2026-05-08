@@ -24,6 +24,7 @@ export function PromptInput() {
     images, addImage, removeImage,
     setResults, setIsLoading, setHasSearched, setVisibleCount,
     isExploring, setIsExploring,
+    includeFontNameMatches,
   } = useAppState();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -145,8 +146,8 @@ export function PromptInput() {
       }
     }
 
-    setTimeout(() => { setResults(rankPairs(searchQuery)); setIsLoading(false); }, 200);
-  }, [query, images, setResults, setIsLoading, setHasSearched, setIsExploring, setVisibleCount]);
+    setTimeout(() => { setResults(rankPairs(searchQuery, { includeFontNameMatches })); setIsLoading(false); }, 200);
+  }, [query, images, setResults, setIsLoading, setHasSearched, setIsExploring, setVisibleCount, includeFontNameMatches]);
 
   const handleExplore = useCallback(() => {
     setIsLoading(true);

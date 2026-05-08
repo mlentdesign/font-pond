@@ -10,7 +10,7 @@ import { useAppState } from "@/lib/store";
 import { rankPairs, explorePairs, reconstructExplorePairs } from "@/lib/engine";
 
 export default function Home() {
-  const { hasSearched, results, setQuery, setResults, setHasSearched, setIsExploring, setVisibleCount, setIsLoading } = useAppState();
+  const { hasSearched, results, setQuery, setResults, setHasSearched, setIsExploring, setVisibleCount, setIsLoading, includeFontNameMatches } = useAppState();
 
   const didInitRef = useRef(false);
 
@@ -49,7 +49,7 @@ export default function Home() {
         setHasSearched(true);
         setIsExploring(false);
         setVisibleCount(3);
-        setResults(rankPairs(saved));
+        setResults(rankPairs(saved, { includeFontNameMatches }));
       }
     } catch {}
   }, []);
