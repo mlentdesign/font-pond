@@ -42,8 +42,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
 
   useEffect(() => {
     if (designer && slug && window.location.search) {
-      const base = window.location.pathname.replace(/\/designer.*$/, "");
-      window.history.replaceState(window.history.state, "", `${base}/designer/${slug}`);
+      window.history.replaceState(window.history.state, "", `/font-pond/designer/${slug}`);
     }
   }, [designer, slug]);
 

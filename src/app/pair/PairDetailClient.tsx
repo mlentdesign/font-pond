@@ -208,8 +208,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   // so there's no route-param change, no Suspense re-trigger, and no flash.
   useEffect(() => {
     if (pair && slug && window.location.search) {
-      const base = window.location.pathname.replace(/\/pair.*$/, "");
-      window.history.replaceState(window.history.state, "", `${base}/pair/${slug}`);
+      window.history.replaceState(window.history.state, "", `/font-pond/pair/${slug}`);
     }
   }, [pair, slug]);
 
