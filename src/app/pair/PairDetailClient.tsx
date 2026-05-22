@@ -8,7 +8,7 @@ ensureDynamicPairs();
 import { fontsById } from "@/data/fonts";
 import { getRelatedPairs } from "@/lib/engine";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
-import { RENDER_METRICS } from "@/data/gf-render-metrics";
+import { computeSpecimenSizing, specimenLineHeight } from "@/lib/specimen-sizing";
 import { titleCase, sentenceCase, getSourceLabel, formatClassification, formatContrastType, chipCase, fontHasNumbers } from "@/lib/text";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
@@ -39,8 +39,7 @@ function FontSection({
 }) {
   const family = getFontFamily(font.name, font.source);
   const sourceLabel = getSourceLabel(font.source);
-  const mData = RENDER_METRICS[font.slug];
-  const specLh = mData ? Math.max(1, mData[9] + mData[10]) : 1.2;
+  const specLh = specimenLineHeight(font.slug);
 
   const allChips = [...new Set([...font.tags, ...font.toneDescriptors].map(t => t.toLowerCase()))]
     .filter(t => t.split("-").length < 3 && t.length <= 25)
@@ -90,7 +89,7 @@ function FontSection({
       <div ref={sectionRef} className="spec-section" style={{ flex: 1, overflow: "visible", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         {(() => {
           const smallSize = specimenSmallSize ?? Math.max(14, Math.round(specimenFontSize * 14 / 36));
-          const smallGap = 6;
+          const smallGap = 4;
           return (
             <div>
               <div
@@ -276,63 +275,22 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d')!;
 
-      const hm = RENDER_METRICS[headerFont.slug];
-      const hLh = hm ? Math.max(1, hm[9] + hm[10]) : 1.2;
-      let hBigSize: number;
-      if (hm) {
-        // Use max of file-advance and browser-ink, plus 20% safety. hm[0] is at file's
-        // default weight (400), but page renders at 600 — faux-bold can be aggressive.
-        const _hdivisor = Math.max(hm[0] + (hm[12] ?? 0), hm[13] ?? 0) * 1.20;
-        hBigSize = Math.max(12, Math.floor(hSectionW / _hdivisor));
-      } else {
-        ctx.font = `600 36px ${hFamily}`;
-        const hBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
-        hBigSize = hBigW36 > 0 ? Math.max(12, Math.floor(36 * hSectionW / hBigW36)) : 36;
-      }
-      hBigSize = Math.min(hBigSize, Math.floor(hSectionH / hLh));
+      const hSizing = computeSpecimenSizing(headerFont.slug, hSectionW, hSectionH, {
+        ctx, family: hFamily, bigWeight: 600,
+      });
+      const bSizing = computeSpecimenSizing(bodyFont.slug, bSectionW, bSectionH, {
+        ctx, family: bFamily, bigWeight: 400,
+      });
 
-      const bm = RENDER_METRICS[bodyFont.slug];
-      const bLh = bm ? Math.max(1, bm[9] + bm[10]) : 1.2;
-      let bBigSize: number;
-      if (bm) {
-        // Body font renders at 400 weight (no synthesis), but apply same safety for consistency.
-        const _bdivisor = Math.max(bm[0] + (bm[12] ?? 0), bm[13] ?? 0) * 1.20;
-        bBigSize = Math.max(12, Math.floor(bSectionW / _bdivisor));
-      } else {
-        ctx.font = `400 36px ${bFamily}`;
-        const bBigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
-        bBigSize = bBigW36 > 0 ? Math.max(12, Math.floor(36 * bSectionW / bBigW36)) : 36;
-      }
-      bBigSize = Math.min(bBigSize, Math.floor(bSectionH / bLh));
-
-      const computeSmallSize = (family: string, bigSize: number, sectionH: number, sectionW: number, lh: number): number => {
-        const available = sectionH - Math.ceil(bigSize * lh) - 8;
-        if (available < 14) return 14;
-        let lo = 14, hi = 300, best = 14;
-        for (let i = 0; i < 12; i++) {
-          const mid = Math.round((lo + hi) / 2);
-          const gap = Math.round(mid * 0.35);
-          ctx.font = `400 ${mid}px ${family}`;
-          const vW = (t: string) => ctx.measureText(t).width;
-          const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
-          const lowerLines = Math.max(1, Math.ceil(vW("abcdefghijklmnopqrstuvwxyz") / sectionW));
-          const numsLines  = Math.max(1, Math.ceil(vW("0123456789") / sectionW));
-          const totalH = upperLines * mid + gap + lowerLines * mid + gap + numsLines * mid;
-          if (totalH <= available) { best = mid; lo = mid + 1; }
-          else hi = mid - 1;
-        }
-        return Math.min(Math.max(14, best), Math.floor(bigSize * 0.45));
-      };
-
-      const hSmall = computeSmallSize(hFamily, hBigSize, hSectionH, hSectionW, hLh);
-      const bSmall = computeSmallSize(bFamily, bBigSize, bSectionH, bSectionW, bLh);
       const last = lastSizesRef.current;
-      if (last.hBig === hBigSize && last.bBig === bBigSize && last.hSmall === hSmall && last.bSmall === bSmall) return;
-      last.hBig = hBigSize; last.bBig = bBigSize; last.hSmall = hSmall; last.bSmall = bSmall;
-      setHeaderSpecSize(hBigSize);
-      setBodySpecSize(bBigSize);
-      setHeaderSmallSize(hSmall);
-      setBodySmallSize(bSmall);
+      if (last.hBig === hSizing.bigSize && last.bBig === bSizing.bigSize &&
+          last.hSmall === hSizing.smallSize && last.bSmall === bSizing.smallSize) return;
+      last.hBig = hSizing.bigSize; last.bBig = bSizing.bigSize;
+      last.hSmall = hSizing.smallSize; last.bSmall = bSizing.smallSize;
+      setHeaderSpecSize(hSizing.bigSize);
+      setBodySpecSize(bSizing.bigSize);
+      setHeaderSmallSize(hSizing.smallSize);
+      setBodySmallSize(bSizing.smallSize);
     };
 
     let observer: ResizeObserver | null = null;
