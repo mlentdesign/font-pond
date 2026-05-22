@@ -9,16 +9,18 @@ import { QR_MATRIX, QR_SIZE } from "@/data/qr-matrix";
 const QUIET = 4;
 
 // Each fish nearly fills its 1×1 module cell so the "fish" reads at module
-// scale: chunky body, sharp triangular forked tail that reaches the top and
-// bottom edges of the cell, and a tall pointy dorsal fin whose apex touches
-// the top edge. No eye — invisible at this scale and adds noise.
+// scale: chunky body, broad triangular forked tail (deliberately stocky —
+// not the needle-thin spikes the first pass had), and a triangular dorsal
+// fin. No eye — invisible at this scale and adds noise.
 //
 //   • Body:   ellipse, centre (52,52), rx 34 ry 24.
-//   • Tail:   M(22,52) L(2,2) L(14,52) L(2,98) Z — two pointed triangles.
-//   • Dorsal: M(36,28) L(50,0) L(64,28) Z — tall pointed triangle.
+//   • Tail:   M(22,52) L(4,24) L(14,52) L(4,80) Z — two stocky triangles
+//             with wider apex angles so each fluke reads as a clear shape
+//             rather than a wispy spike.
+//   • Dorsal: M(36,28) L(50,0) L(64,28) Z — broad pointed triangle.
 const SMALL_FISH =
   "M18 52 a34 24 0 1 0 68 0 a34 24 0 1 0 -68 0 " +     // body
-  "M22 52 L2 2 L14 52 L2 98 Z " +                       // forked triangle tail
+  "M22 52 L4 24 L14 52 L4 80 Z " +                      // stocky forked tail
   "M36 28 L50 0 L64 28 Z";                              // dorsal triangle
 
 function FinderPattern({ x, y }: { x: number; y: number }) {
