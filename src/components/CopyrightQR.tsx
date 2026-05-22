@@ -99,7 +99,10 @@ export function CopyrightQR() {
             gap: "16px",
           }}
         >
-          <div style={{ width: "min(520px, calc(100vw - 112px))" }}>
+          {/* Back to the prior 320px display — the big centre fish and
+              clearer triangle tails give the school the "fish-ness" at
+              this size, no need to inflate the QR. */}
+          <div style={{ width: "min(320px, calc(100vw - 112px))" }}>
             <FishQR />
           </div>
           <p style={{ fontSize: "16px", color: "var(--text-ransom)", margin: 0, textAlign: "center" }}>
