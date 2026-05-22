@@ -31,6 +31,20 @@ export function HeaderWithFontInfo() {
     }
   };
 
+  // Desktop: clicking the eye itself navigates straight to the font page.
+  // Mobile: there's no hover, so a tap still has to reveal the tooltip first
+  // (then the user taps the font name to navigate, as before).
+  const handleEyeActivate = () => {
+    const desktop =
+      typeof window !== "undefined" &&
+      window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (desktop && currentSlug) {
+      handleFontClick();
+    } else {
+      setShowTooltip((v) => !v);
+    }
+  };
+
   return (
     <span className="inline-flex items-center" style={{ gap: "8px" }}>
       <span className="ransom-title">
@@ -46,8 +60,8 @@ export function HeaderWithFontInfo() {
           className="relative shrink-0"
           onMouseEnter={() => { cancelHide(); setShowTooltip(true); }}
           onMouseLeave={scheduleHide}
-          onClick={(e) => { e.stopPropagation(); setShowTooltip(!showTooltip); }}
-          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); setShowTooltip(!showTooltip); } }}
+          onClick={(e) => { e.stopPropagation(); handleEyeActivate(); }}
+          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); handleEyeActivate(); } }}
           role="button"
           tabIndex={0}
           aria-label="View current font name"
