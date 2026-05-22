@@ -220,6 +220,9 @@ const KEYWORD_WANT: Record<string, string[]> = {
   throwback: ["retro", "vintage", "nostalgia", "groovy", "fun"],
   oldschool: ["retro", "vintage", "classic", "traditional"],
   "old school": ["retro", "vintage", "classic", "traditional"],
+  // "mid century" (space form) — reachable as a bigram; the hyphen form below
+  // never matches since prompts are split on hyphens before phrase joining.
+  "mid century": ["retro", "geometric", "modern", "clean", "vintage", "minimal"],
 
   // Tech / futuristic / gaming
   gaming: ["gaming", "pixel", "8-bit", "fun", "retro", "bold", "tech", "playful"],
@@ -3262,6 +3265,34 @@ function isStylizedPrompt(words: string[]): boolean {
 // Pre-compute keyword keys once (avoids Object.keys() on every call)
 const KEYWORD_KEYS: string[] = Object.keys(KEYWORD_WANT);
 
+// ── Compact word stemmer ──
+// Reduces plurals and verb/adverb inflections to a shared root so "rounded",
+// "rounding" and "rounds" all collapse to "round". Ordered Porter-style suffix
+// rules, trimmed to the endings that actually occur in style vocabulary.
+// Designed to be idempotent: stem(stem(w)) === stem(w).
+function stem(word: string): string {
+  let s = word.toLowerCase();
+  if (s.length <= 3) return s;
+  // adverb / quality endings first, so any 's' they expose is handled below
+  if (s.endsWith("ly") && s.length > 4) s = s.slice(0, -2);
+  if (s.endsWith("ness") && s.length > 5) s = s.slice(0, -4);
+  // plurals
+  if (s.endsWith("ies") && s.length > 4) s = s.slice(0, -3) + "y";
+  else if (s.endsWith("s") && !s.endsWith("ss") && s.length > 3) s = s.slice(0, -1);
+  // past / progressive
+  if (s.endsWith("ied") && s.length > 4) s = s.slice(0, -3) + "y";
+  else if (s.endsWith("ed") && s.length > 4) s = s.slice(0, -2);
+  else if (s.endsWith("ing") && s.length > 5) s = s.slice(0, -3);
+  return s;
+}
+
+// Stem every keyword key once → map from stemmed form back to the real key.
+const STEMMED_KEYS = new Map<string, string>();
+for (const k of KEYWORD_KEYS) {
+  const sk = stem(k);
+  if (!STEMMED_KEYS.has(sk)) STEMMED_KEYS.set(sk, k);
+}
+
 // Caches for expensive lookups (persist across searches)
 const keywordMatchCache = new Map<string, string[] | null>();
 const pairTagCache = new Map<string, Set<string>>();
@@ -3291,6 +3322,34 @@ function extractPromptWords(query: string): string[] {
     .filter((w) => w.length > 1 && !stop.has(w));
 }
 
+// Phrase matching — joins adjacent words and, if the pair is a known keyword
+// (e.g. "art deco", "mid century", "girly pop"), appends it so the phrase
+// scores as one unit. Word-by-word scoring alone loses two-word vibes.
+function expandPhrases(words: string[]): string[] {
+  const out = [...words];
+  for (let i = 0; i < words.length - 1; i++) {
+    const bigram = `${words[i]} ${words[i + 1]}`;
+    if (KEYWORD_WANT[bigram]) out.push(bigram);
+  }
+  return out;
+}
+
+// Negation — words right after a negation cue ("not playful", "no script",
+// "without serif") are pulled out so they can penalize matches instead of
+// silently being scored as positive wants.
+const NEGATION_CUES = new Set(["not", "no", "without", "avoid", "anti", "non", "never", "except", "excluding"]);
+function extractNegatedWords(query: string): string[] {
+  const tokens = query.toLowerCase().split(/[\s,.\-—–/]+/).filter(Boolean);
+  const negated: string[] = [];
+  for (let i = 0; i < tokens.length - 1; i++) {
+    if (NEGATION_CUES.has(tokens[i])) {
+      const next = tokens[i + 1];
+      if (next && next.length > 1 && !NEGATION_CUES.has(next)) negated.push(next);
+    }
+  }
+  return negated;
+}
+
 // ── Stem / fuzzy normalization ──
 // Strips common suffixes to find the root, so "grungy" → "grung", "playful" → "play", etc.
 // Then checks if KEYWORD_WANT has a key that starts with that root.
@@ -3303,6 +3362,12 @@ function findKeywordMatch(word: string): string[] | null {
 
   // 1. Exact match
   if (KEYWORD_WANT[word]) { result = KEYWORD_WANT[word]; }
+
+  // 1b. Stemmed match — normalize plurals/tenses, then look up the stemmed key
+  if (!result) {
+    const stemmed = STEMMED_KEYS.get(stem(word));
+    if (stemmed) result = KEYWORD_WANT[stemmed];
+  }
 
   // 2. Try common suffix stripping
   if (!result) {
@@ -3440,7 +3505,7 @@ function scoreUtility(pair: FontPair, bf: Font): number {
 
 // Specificity score (how well this pair matches THIS prompt)
 function scoreSpecificity(
-  pair: FontPair, hf: Font, bf: Font, promptWords: string[]
+  pair: FontPair, hf: Font, bf: Font, promptWords: string[], negatedTags?: Set<string>
 ): number {
   const tagSet = getAllPairTags(pair, hf, bf);
   let score = 0;
@@ -3470,6 +3535,13 @@ function scoreSpecificity(
   let genericCount = 0;
   for (const t of genericTags) if (tagSet.has(t)) genericCount++;
   if (genericCount >= 3) score -= 8;
+
+  // Negation penalty — pairs carrying tags the prompt asked to avoid
+  if (negatedTags && negatedTags.size > 0) {
+    let negHits = 0;
+    for (const t of negatedTags) if (tagSet.has(t)) negHits++;
+    score -= negHits * 12;
+  }
 
   return Math.max(0, score);
 }
@@ -3764,7 +3836,21 @@ export function rankPairs(
   options?: { limit?: number; offset?: number; includeFontNameMatches?: boolean }
 ): ScoredPair[] {
   ensureDynamicPairs();
-  const promptWords = extractPromptWords(query);
+  // Pull out negated words first, expand known phrases, then drop the negated
+  // words from the positive list so they only ever count against a pair.
+  const negatedWordList = extractNegatedWords(query);
+  let promptWords = expandPhrases(extractPromptWords(query));
+  if (negatedWordList.length > 0) {
+    const negSet = new Set(negatedWordList);
+    promptWords = promptWords.filter((w) => !negSet.has(w));
+  }
+  // Expand negated words into the full set of anti-tags they imply
+  const negatedTags = new Set<string>();
+  for (const w of negatedWordList) {
+    negatedTags.add(w);
+    const wants = findKeywordMatch(w);
+    if (wants) for (const x of wants) negatedTags.add(x);
+  }
   const hasQuery = query.trim().length > 0;
   const stylized = hasQuery && isStylizedPrompt(promptWords);
   const includeFontNameMatches = options?.includeFontNameMatches ?? true;
@@ -3860,7 +3946,7 @@ export function rankPairs(
       }
 
       const utility = scoreUtility(pair, bf);
-      const specificity = scoreSpecificity(pair, hf, bf, promptWords);
+      const specificity = scoreSpecificity(pair, hf, bf, promptWords, negatedTags);
       let totalScore: number;
       if (fontNameBonus > 0) {
         totalScore = fontNameBonus + (0.3 * utility) + (0.3 * specificity);
