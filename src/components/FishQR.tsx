@@ -1,35 +1,26 @@
-// Footer easter-egg QR.
+// Footer easter-egg QR — a school of fish, plus rounded concentric finders.
 //
-// The QR is a school of small "data" fish; the three finder corners and the
-// version-5 alignment pattern are rendered as concentric rounded squares; and
-// one big fish — silhouette of the easter-egg fish that swim across the
-// bottom of the site — sits in the centre on its own light tile.
-//
-// With QR error-correction level H (30% recovery), modern phone cameras read
-// the centre-fish overlay as a logo and recover the data behind it.
+// Each data module is one fish, drawn once as a <symbol> and instanced via
+// <use>. Finder corners and the version-5 alignment pattern are rendered as
+// concentric rounded rectangles (7/5/3 and 5/3/1 nesting) in the same
+// rounded language as the rest of the site.
 import { QR_MATRIX, QR_SIZE } from "@/data/qr-matrix";
 
 const QUIET = 4;
 
-// Small data fish: chunky body, sharp triangular forked tail (two clear
-// triangles meeting at a deep notch), pointy dorsal-fin triangle. No eye —
-// at module scale an eye is invisible and just adds visual noise.
+// Each fish nearly fills its 1×1 module cell so the "fish" reads at module
+// scale: chunky body, sharp triangular forked tail that reaches the top and
+// bottom edges of the cell, and a tall pointy dorsal fin whose apex touches
+// the top edge. No eye — invisible at this scale and adds noise.
+//
+//   • Body:   ellipse, centre (52,52), rx 34 ry 24.
+//   • Tail:   M(22,52) L(2,2) L(14,52) L(2,98) Z — two pointed triangles.
+//   • Dorsal: M(36,28) L(50,0) L(64,28) Z — tall pointed triangle.
 const SMALL_FISH =
-  "M24 52 a30 18 0 1 0 60 0 a30 18 0 1 0 -60 0 " +    // body
-  "M24 52 L2 16 L16 52 L2 88 Z " +                     // forked triangle tail
-  "M40 34 L54 8 L66 34 Z";                             // dorsal triangle
+  "M18 52 a34 24 0 1 0 68 0 a34 24 0 1 0 -68 0 " +     // body
+  "M22 52 L2 2 L14 52 L2 98 Z " +                       // forked triangle tail
+  "M36 28 L50 0 L64 28 Z";                              // dorsal triangle
 
-// Big centre fish — mirrors the easter-egg fish silhouette: longer thinner
-// body, curvy forked tail with quadratic flukes, multi-peaked dorsal fin.
-// All one colour, one path.
-const BIG_FISH =
-  "M20 50 a30 14 0 1 0 60 0 a30 14 0 1 0 -60 0 " +                  // body
-  "M29 50 Q17 47 10 41 Q14 50 10 59 Q17 53 29 50 Z " +              // curvy tail
-  "M38 38 Q42 28 47 31 Q51 22 54 31 Q58 29 62 40 Z";                // wavy dorsal
-
-// Concentric rounded rectangles — the QR-standard 7×7 / 5×5 / 3×3 finder
-// nesting, drawn as three rects instead of 49 modules. Rounded corners make
-// them feel of-a-piece with the site's rounded cards.
 function FinderPattern({ x, y }: { x: number; y: number }) {
   return (
     <g shapeRendering="geometricPrecision">
@@ -40,7 +31,6 @@ function FinderPattern({ x, y }: { x: number; y: number }) {
   );
 }
 
-// Alignment pattern — 5×5 / 3×3 / 1×1 nesting. Same rounding language.
 function AlignmentPattern({ x, y }: { x: number; y: number }) {
   return (
     <g shapeRendering="geometricPrecision">
@@ -61,32 +51,17 @@ function isStructural(r: number, c: number): boolean {
   return inFinder || inAlignment;
 }
 
-// A module is hidden by the centre fish tile and should be skipped — the QR
-// error-correction recovers it.
-function inCenterTile(r: number, c: number, centreR: number, centreC: number, halfW: number, halfH: number) {
-  return r >= centreR - halfH && r <= centreR + halfH &&
-         c >= centreC - halfW && c <= centreC + halfW;
-}
-
 export function FishQR({ ariaLabel = "QR code linking to Font Pond" }: {
   ariaLabel?: string;
 }) {
   const n = QR_SIZE;
   const total = n + QUIET * 2;
 
-  // Centre fish tile, in module-grid coordinates. Sized to hide ~5×3 modules
-  // either side of centre (well under EC-H's 30% recovery budget).
-  const centreR = Math.floor(n / 2);
-  const centreC = Math.floor(n / 2);
-  const halfW = 6;
-  const halfH = 4;
-
   const fish: React.ReactNode[] = [];
   for (let r = 0; r < n; r++) {
     for (let c = 0; c < n; c++) {
       if (QR_MATRIX[r][c] !== "1") continue;
-      if (isStructural(r, c)) continue;                                  // drawn as concentric rounded rects
-      if (inCenterTile(r, c, centreR, centreC, halfW, halfH)) continue;  // hidden by the big-fish tile
+      if (isStructural(r, c)) continue; // drawn as concentric rounded rects
       const x = c + QUIET;
       const y = r + QUIET;
       // Alternate fish direction by row for a school-of-fish feel.
@@ -94,21 +69,9 @@ export function FishQR({ ariaLabel = "QR code linking to Font Pond" }: {
       const transform = flip
         ? `translate(${x + 1} ${y}) scale(-1 1)`
         : `translate(${x} ${y})`;
-      fish.push(<use key={`f${r}-${c}`} href="#qrFishSmall" transform={transform} />);
+      fish.push(<use key={`f${r}-${c}`} href="#qrFish" transform={transform} />);
     }
   }
-
-  // Centre-fish tile geometry, in SVG (module) units.
-  const tileW = (halfW * 2 + 1);   // a bit wider than the fish so it breathes
-  const tileH = (halfH * 2 + 1);
-  const tileX = centreC + QUIET - halfW;
-  const tileY = centreR + QUIET - halfH;
-  // Big fish drawn inside the tile, slightly inset.
-  const bigInsetX = 1.2, bigInsetY = 1.2;
-  const bigX = tileX + bigInsetX;
-  const bigY = tileY + bigInsetY;
-  const bigW = tileW - bigInsetX * 2;
-  const bigH = tileH - bigInsetY * 2;
 
   return (
     <svg
@@ -121,11 +84,8 @@ export function FishQR({ ariaLabel = "QR code linking to Font Pond" }: {
       style={{ display: "block", borderRadius: "12px" }}
     >
       <defs>
-        <symbol id="qrFishSmall" viewBox="0 0 100 100" width="1" height="1">
+        <symbol id="qrFish" viewBox="0 0 100 100" width="1" height="1">
           <path d={SMALL_FISH} />
-        </symbol>
-        <symbol id="qrFishBig" viewBox="0 0 100 100">
-          <path d={BIG_FISH} />
         </symbol>
       </defs>
 
@@ -140,12 +100,6 @@ export function FishQR({ ariaLabel = "QR code linking to Font Pond" }: {
       <FinderPattern x={QUIET + n - 7}     y={QUIET} />
       <FinderPattern x={QUIET}             y={QUIET + n - 7} />
       <AlignmentPattern x={QUIET + 28}     y={QUIET + 28} />
-
-      {/* Centre fish tile — a light "card" over the data modules, then the
-          big easter-egg-silhouette fish on top. EC-H recovers the hidden
-          data modules. */}
-      <rect x={tileX} y={tileY} width={tileW} height={tileH} rx={1.4} fill="var(--qr-light)" />
-      <use href="#qrFishBig" x={bigX} y={bigY} width={bigW} height={bigH} fill="var(--qr-dark)" />
     </svg>
   );
 }
