@@ -8,20 +8,20 @@ import { QR_MATRIX, QR_SIZE } from "@/data/qr-matrix";
 
 const QUIET = 4;
 
-// Each fish nearly fills its 1×1 module cell. The tail attaches to the body
-// across a tall stem (y 42 → y 62) instead of meeting at a single point, so
-// each fluke is a broad triangle rather than a needle. The dorsal fin is a
-// short, subtle bump — not the tall spike the previous pass had.
+// Each fish nearly fills its 1×1 module cell — body bumped to rx 40 / ry 28
+// so it pushes close to the cell edges, the tail's stem widened and its
+// tips pushed out toward the corners, and the dorsal fin broadened in
+// proportion. The fish stays in roughly the same silhouette as before,
+// just ~15% bigger in every direction.
 //
-//   • Body:   ellipse, centre (52,52), rx 34 ry 24.
-//   • Tail:   M(22,42) L(4,22) L(16,52) L(4,82) L(22,62) Z — wide-base
-//             forked tail with two stocky triangular flukes meeting at a
-//             notch at (16,52).
-//   • Dorsal: M(40,28) L(50,14) L(60,28) Z — short dorsal-fin bump.
+//   • Body:   ellipse, centre (50,50), rx 40 ry 28.
+//   • Tail:   M(22,38) L(2,14) L(14,50) L(2,86) L(22,62) Z — wide-base
+//             forked tail with two stocky triangular flukes.
+//   • Dorsal: M(38,22) L(50,10) L(62,22) Z — short dorsal-fin bump.
 const SMALL_FISH =
-  "M18 52 a34 24 0 1 0 68 0 a34 24 0 1 0 -68 0 " +     // body
-  "M22 42 L4 22 L16 52 L4 82 L22 62 Z " +               // chunky forked tail
-  "M40 28 L50 14 L60 28 Z";                             // short dorsal bump
+  "M10 50 a40 28 0 1 0 80 0 a40 28 0 1 0 -80 0 " +     // body
+  "M22 38 L2 14 L14 50 L2 86 L22 62 Z " +               // chunky forked tail
+  "M38 22 L50 10 L62 22 Z";                             // short dorsal bump
 
 function FinderPattern({ x, y }: { x: number; y: number }) {
   return (
