@@ -127,9 +127,11 @@
     --shadow-edge-top: 0 -2px 12px rgba(0, 30, 28, 0.25);
     --border-edge: 1px solid rgba(130, 200, 190, 0.06);
 
-    /* QR easter-egg — kept dark-on-light in dark mode too (most scanners need it) */
-    --qr-dark: #0a2f32;
-    --qr-light: #cdeae6;
+    /* QR easter-egg — proper inverted variant for dark mode.
+       --qr-dark = the module color, --qr-light = the background color.
+       Modern phone cameras (iOS 11+, Android 8+) scan inverted QR codes. */
+    --qr-dark: #e0f2f0;
+    --qr-light: #0a2f32;
   }
 }
 
@@ -191,9 +193,9 @@
   --shadow-edge-top: 0 -2px 12px rgba(0, 30, 28, 0.25);
   --border-edge: 1px solid rgba(130, 200, 190, 0.06);
 
-  /* QR easter-egg — kept dark-on-light in dark mode too (most scanners need it) */
-  --qr-dark: #0a2f32;
-  --qr-light: #cdeae6;
+  /* QR easter-egg — proper inverted variant for dark mode. */
+  --qr-dark: #e0f2f0;
+  --qr-light: #0a2f32;
 }
 
 /* ══════════════════════════════════════════

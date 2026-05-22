@@ -1,22 +1,28 @@
-// Renders the footer easter-egg QR code as a school of little fish.
-// Finder and alignment patterns stay as solid rectangles so detection still
-// locks on; the rest of the dark modules are fish silhouettes. Combined with
-// the matrix's H-level (30%) error correction, modern phone cameras read it
-// fine. Colors come from CSS variables so it themes automatically.
+// Footer easter-egg QR — modules rendered as little fish, in the same family
+// as the easter-egg fish that swim across the bottom of the site (oval body,
+// forked tail, dorsal-fin bump, a small eye).
+//
+// Finder corners and the version-5 alignment pattern stay as solid squares so
+// the scanner still locks on; only the data modules become fish. With QR
+// error-correction H (30% recovery), modern phone cameras read it fine.
 import { QR_MATRIX, QR_SIZE } from "@/data/qr-matrix";
 
-// 4-module quiet zone is the QR spec minimum.
 const QUIET = 4;
 
-// One unit-cell fish silhouette pointing right: ellipse body + forked tail.
-// Covers the cell center solidly (where scanners sample) so swapping squares
-// for fish doesn't break detection.
-const FISH_PATH =
-  "M0.26,0.5 a0.30,0.26 0 1,0 0.60,0 a0.30,0.26 0 1,0 -0.60,0 " +
-  "M0.32,0.50 L0.04,0.30 L0.13,0.50 L0.04,0.70 Z";
+// One fish, drawn once as an SVG <symbol> in a 100×100 box; every cell uses
+// <use> to instance it. Cheap, and one path to tweak if the shape ever changes.
+//
+//   • Body:    ellipse, center (54,54), rx 32 ry 22 — fills most of the cell.
+//   • Tail:    forked, tips at x=4 (top y=28, bottom y=80), notch at (14,54).
+//   • Dorsal:  curved triangle bump from (44,32) up to (56,12) and back.
+//   • Eye:     small light disc near the front of the body so a fish reads as
+//              a fish, not a generic blob.
+const FISH_BODY =
+  "M22 54 a32 22 0 1 0 64 0 a32 22 0 1 0 -64 0 " +    // body
+  "M22 54 L4 28 L14 54 L4 80 Z " +                     // forked tail
+  "M44 32 Q56 12 68 32 Z";                             // dorsal fin
 
-// Version-5 (37×37) QR codes have one alignment pattern centered at (30, 30).
-// Keep its 5×5 region solid alongside the three corner finders.
+// Alignment pattern center for version-5 QR codes lives at (30, 30).
 function isStructural(r: number, c: number): boolean {
   const n = QR_SIZE;
   const inFinder =
@@ -27,7 +33,7 @@ function isStructural(r: number, c: number): boolean {
   return inFinder || inAlignment;
 }
 
-export function FishQR({ px = 260, ariaLabel = "QR code linking to Font Pond" }: {
+export function FishQR({ px = 320, ariaLabel = "QR code linking to Font Pond" }: {
   px?: number;
   ariaLabel?: string;
 }) {
@@ -45,13 +51,13 @@ export function FishQR({ px = 260, ariaLabel = "QR code linking to Font Pond" }:
       if (isStructural(r, c)) {
         structural.push(<rect key={`s${r}-${c}`} x={x} y={y} width={1} height={1} />);
       } else {
-        // Alternate fish direction by row for a school-of-fish feel; mirroring
-        // doesn't change cell-center coverage so it stays scannable.
+        // Alternate fish direction by row — a school-of-fish feel. Mirroring
+        // doesn't change the central dark coverage that the scanner samples.
         const flip = r % 2 === 1;
         const transform = flip
-          ? `translate(${x + 1},${y}) scale(-1,1)`
-          : `translate(${x},${y})`;
-        fish.push(<path key={`f${r}-${c}`} d={FISH_PATH} transform={transform} />);
+          ? `translate(${x + 1} ${y}) scale(-1 1)`
+          : `translate(${x} ${y})`;
+        fish.push(<use key={`f${r}-${c}`} href="#qrFish" transform={transform} />);
       }
     }
   }
@@ -66,11 +72,26 @@ export function FishQR({ px = 260, ariaLabel = "QR code linking to Font Pond" }:
       shapeRendering="geometricPrecision"
       style={{ display: "block", borderRadius: "12px" }}
     >
+      <defs>
+        {/* One fish, sized to a unit cell via width/height on <use>. */}
+        <symbol id="qrFish" viewBox="0 0 100 100" width="1" height="1">
+          <path d={FISH_BODY} fill="var(--qr-dark)" />
+          {/* Eye: a small disc in the QR background color so it reads as a
+              cut-out highlight against the dark body. */}
+          <circle cx="76" cy="46" r="5" fill="var(--qr-light)" />
+        </symbol>
+      </defs>
+
+      {/* Background tile */}
       <rect width={total} height={total} fill="var(--qr-light)" />
-      <g fill="var(--qr-dark)">
+
+      {/* Structural modules — pixel-aligned squares for crisp finders */}
+      <g fill="var(--qr-dark)" shapeRendering="crispEdges">
         {structural}
-        {fish}
       </g>
+
+      {/* Data modules — the school of fish */}
+      <g>{fish}</g>
     </svg>
   );
 }
