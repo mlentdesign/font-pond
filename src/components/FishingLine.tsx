@@ -13,9 +13,14 @@ export function FishingLine() {
     if (!ctx) return;
 
     const W = 160, H = 240;
-    canvas.width = W * 2; // retina
-    canvas.height = H * 2;
-    ctx.scale(2, 2);
+    // Match the device pixel ratio (capped at 3×) so the rod and line stay
+    // sharp on retina+ displays — fixed 2× was soft on 3× phones.
+    const dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    ctx.scale(dpr, dpr);
 
     // Rod pivot (handle) — pushed down to give room for upswing
     const pivotX = 50, pivotY = 65;

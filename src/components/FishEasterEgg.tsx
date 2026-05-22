@@ -241,9 +241,20 @@ export function FishEasterEgg() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // High-DPI rendering: physical canvas is innerWidth × devicePixelRatio
+    // (capped at 3× to keep GPU work bounded on 4× displays), CSS size stays
+    // in logical px, ctx is scaled by dpr. The animation keeps thinking in
+    // logical px via cw / ch — same coordinate space as before, just sharp.
+    let cw = window.innerWidth, ch = window.innerHeight;
+    const dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      cw = window.innerWidth;
+      ch = window.innerHeight;
+      canvas["width"] = cw * dpr;
+      canvas["height"] = ch * dpr;
+      canvas.style.width = cw + "px";
+      canvas.style.height = ch + "px";
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     resize();
     window.addEventListener("resize", resize);
@@ -356,10 +367,10 @@ export function FishEasterEgg() {
 
     function loop() {
       if (!canvas) return;
-      ctx!.clearRect(0, 0, canvas.width, canvas.height);
+      ctx!.clearRect(0, 0, cw, ch);
 
       if (!pausedRef.current) {
-        const vh = canvas.height;
+        const vh = ch;
         const mouse = mouseRef.current;
 
         for (const fish of fishRef.current) {
@@ -385,7 +396,7 @@ export function FishEasterEgg() {
           }
 
           // Check if mouse is nearby (within 120px) — fish gets curious (desktop/tablet only)
-          if (!attracted && mouse.x >= 0 && mouse.y >= vh * 0.5 && canvas.width >= 768) {
+          if (!attracted && mouse.x >= 0 && mouse.y >= vh * 0.5 && cw >= 768) {
             const dmx = mouse.x - fish.x;
             const dmy = mouse.y - fish.y;
             const mouseDist = Math.sqrt(dmx * dmx + dmy * dmy);
@@ -403,7 +414,7 @@ export function FishEasterEgg() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < 30 && !attracted) {
-            fish.targetX = Math.random() * canvas.width;
+            fish.targetX = Math.random() * cw;
             fish.targetY = vh * 0.67 + Math.random() * (vh * 0.28);
           }
 
@@ -420,8 +431,8 @@ export function FishEasterEgg() {
           fish.y += fish.vy;
 
           fish.y = Math.max(vh * 0.67, Math.min(vh - 20, fish.y));
-          if (fish.x < -60) fish.x = canvas.width + 40;
-          if (fish.x > canvas.width + 60) fish.x = -40;
+          if (fish.x < -60) fish.x = cw + 40;
+          if (fish.x > cw + 60) fish.x = -40;
 
           fish.flipX = fish.vx < 0;
           fish.tailPhase += 0.08 + Math.abs(fish.vx) * 0.1;
@@ -429,7 +440,7 @@ export function FishEasterEgg() {
             fish.eatingTimer--;
             // When done eating, swim to a new random spot
             if (fish.eatingTimer === 0) {
-              fish.targetX = Math.random() * canvas.width;
+              fish.targetX = Math.random() * cw;
               fish.targetY = vh * 0.67 + Math.random() * (vh * 0.28);
             }
           }
@@ -469,7 +480,7 @@ export function FishEasterEgg() {
             foodGoneTimerRef.current = 0;
             // Scatter all fish to different random positions
             for (const fish of fishRef.current) {
-              fish.targetX = Math.random() * canvas.width;
+              fish.targetX = Math.random() * cw;
               fish.targetY = vh * 0.67 + Math.random() * (vh * 0.28);
             }
           }
