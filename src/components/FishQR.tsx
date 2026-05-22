@@ -8,19 +8,19 @@ import { QR_MATRIX, QR_SIZE } from "@/data/qr-matrix";
 
 const QUIET = 4;
 
-// Each fish nearly fills its 1×1 module cell — body bumped to rx 40 / ry 28
-// so it pushes close to the cell edges, the tail's stem widened and its
-// tips pushed out toward the corners, and the dorsal fin broadened in
-// proportion. The fish stays in roughly the same silhouette as before,
-// just ~15% bigger in every direction.
+// Each fish nearly fills its 1×1 module cell. The tail is now much fatter:
+// the notch is pushed deep toward the body (x=18) so each fluke is a chunky
+// triangle ~2× the area of the previous pass, and the stem attaches across a
+// wide y 28 → y 72 span. Tips stay sharp (pointed flukes are what reads as
+// "fish"), but the body of each fluke is solid, not a needle.
 //
 //   • Body:   ellipse, centre (50,50), rx 40 ry 28.
-//   • Tail:   M(22,38) L(2,14) L(14,50) L(2,86) L(22,62) Z — wide-base
-//             forked tail with two stocky triangular flukes.
+//   • Tail:   M(22,28) L(2,4) L(18,50) L(2,96) L(22,72) Z — fat forked
+//             tail, sharp tips, deep notch.
 //   • Dorsal: M(38,22) L(50,10) L(62,22) Z — short dorsal-fin bump.
 const SMALL_FISH =
   "M10 50 a40 28 0 1 0 80 0 a40 28 0 1 0 -80 0 " +     // body
-  "M22 38 L2 14 L14 50 L2 86 L22 62 Z " +               // chunky forked tail
+  "M22 28 L2 4 L18 50 L2 96 L22 72 Z " +                // fat forked tail
   "M38 22 L50 10 L62 22 Z";                             // short dorsal bump
 
 function FinderPattern({ x, y }: { x: number; y: number }) {

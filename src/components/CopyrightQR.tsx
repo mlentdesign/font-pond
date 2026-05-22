@@ -131,7 +131,7 @@ export function CopyrightQR() {
             <FishQR />
           </div>
           <p style={{ fontSize: "16px", color: "var(--text-ransom)", margin: 0, textAlign: "center" }}>
-            Scan to visit Font Pond
+            Go fish for fonts
           </p>
         </div>
       </div>
