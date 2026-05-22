@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { setHeaderAnimationPaused } from "./RansomHeader";
+import { CopyrightQR } from "./CopyrightQR";
 import { useAppState } from "@/lib/store";
 
 export function Footer() {
@@ -55,7 +56,7 @@ export function Footer() {
           Free font combinations for design work
         </Link>
         <p style={{ fontSize: "16px", color: "var(--text-ransom)", margin: 0 }}>
-          &copy; 2026{" "}
+          <CopyrightQR />{" "}
           <a
             href="https://www.linkedin.com/in/melanielent/"
             target="_blank"

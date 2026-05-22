@@ -63,6 +63,10 @@
   --shadow-edge: 0 2px 12px rgba(0, 77, 64, 0.10);
   --shadow-edge-top: 0 -2px 12px rgba(0, 77, 64, 0.10);
   --border-edge: 1px solid rgba(0, 77, 64, 0.06);
+
+  /* QR easter-egg colors — dark-on-light in both modes for scannability */
+  --qr-dark: #0d4a44;
+  --qr-light: #e0f2f0;
 }
 
 /* ── System dark preference — provides correct colors before JS runs ── */
@@ -122,6 +126,10 @@
     --shadow-edge: 0 2px 12px rgba(0, 30, 28, 0.25);
     --shadow-edge-top: 0 -2px 12px rgba(0, 30, 28, 0.25);
     --border-edge: 1px solid rgba(130, 200, 190, 0.06);
+
+    /* QR easter-egg — kept dark-on-light in dark mode too (most scanners need it) */
+    --qr-dark: #0a2f32;
+    --qr-light: #cdeae6;
   }
 }
 
@@ -182,6 +190,10 @@
   --shadow-edge: 0 2px 12px rgba(0, 30, 28, 0.25);
   --shadow-edge-top: 0 -2px 12px rgba(0, 30, 28, 0.25);
   --border-edge: 1px solid rgba(130, 200, 190, 0.06);
+
+  /* QR easter-egg — kept dark-on-light in dark mode too (most scanners need it) */
+  --qr-dark: #0a2f32;
+  --qr-light: #cdeae6;
 }
 
 /* ══════════════════════════════════════════
