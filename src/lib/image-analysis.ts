@@ -78,6 +78,72 @@ function analyzeColorDistribution(colors: { h: number; s: number; l: number }[])
   return keywords;
 }
 
+// Texture / edge-density — how visually busy the image is.
+// A brutalist concrete photo is dense with edges; a soft studio portrait is smooth.
+// Color alone can't tell these apart, so we measure luminance change between
+// neighbouring pixels across the downsampled grid.
+function analyzeTexture(data: Uint8ClampedArray, size: number): string[] {
+  const lum = (idx: number) => 0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2];
+  let totalGradient = 0;
+  let count = 0;
+  for (let y = 0; y < size - 1; y++) {
+    for (let x = 0; x < size - 1; x++) {
+      const i = (y * size + x) * 4;
+      const right = (y * size + x + 1) * 4;
+      const down = ((y + 1) * size + x) * 4;
+      totalGradient += Math.abs(lum(i) - lum(right)) + Math.abs(lum(i) - lum(down));
+      count++;
+    }
+  }
+  const avg = count > 0 ? totalGradient / count : 0; // ~0 (flat) to ~255 (very busy)
+
+  const keywords: string[] = [];
+  if (avg > 30) keywords.push("energetic", "bold", "rugged", "raw", "dynamic", "expressive");
+  else if (avg > 14) keywords.push("textured", "expressive", "lively");
+  else if (avg < 6) keywords.push("minimal", "clean", "calm", "soft", "refined", "elegant");
+  else keywords.push("gentle", "calm");
+  return keywords;
+}
+
+// Color-harmony — how the dominant hues relate to each other.
+// Hues clustered close together read as cohesive/elegant; hues spread far
+// apart read as vibrant and high-energy. This is the relationship between
+// colors, which raw per-color hue mapping misses.
+function analyzeColorHarmony(colors: { h: number; s: number; l: number }[]): string[] {
+  const hues = colors.filter((c) => c.s > 12).map((c) => c.h);
+  if (hues.length < 2) return ["monochrome", "cohesive", "minimal"];
+
+  // Largest circular gap between any two dominant hues (0–180°).
+  let maxSpread = 0;
+  for (let i = 0; i < hues.length; i++) {
+    for (let j = i + 1; j < hues.length; j++) {
+      const raw = Math.abs(hues[i] - hues[j]);
+      const circular = Math.min(raw, 360 - raw);
+      if (circular > maxSpread) maxSpread = circular;
+    }
+  }
+
+  if (maxSpread < 40) return ["cohesive", "harmonious", "elegant", "sophisticated", "refined", "minimal"];
+  if (maxSpread > 140) return ["vibrant", "bold", "playful", "energetic", "dynamic"];
+  return ["balanced", "versatile"];
+}
+
+// Brightness histogram shape — where the image's tones sit.
+// High-key (mass in the lights) reads airy; low-key (mass in the darks) reads
+// moody; tones split at both ends read as dramatic high-contrast.
+function analyzeBrightnessHistogram(colors: { h: number; s: number; l: number }[]): string[] {
+  if (colors.length === 0) return [];
+  const bins = [0, 0, 0, 0, 0]; // lightness 0–20, 20–40, 40–60, 60–80, 80–100
+  for (const c of colors) bins[Math.min(4, Math.floor(c.l / 20))]++;
+  const lowMass = (bins[0] + bins[1]) / colors.length;
+  const highMass = (bins[3] + bins[4]) / colors.length;
+
+  if (highMass > 0.6) return ["light", "airy", "bright", "clean", "minimal"];
+  if (lowMass > 0.6) return ["dark", "moody", "dramatic", "bold"];
+  if (lowMass > 0.3 && highMass > 0.3) return ["high-contrast", "dramatic", "bold", "editorial"];
+  return ["even", "balanced"];
+}
+
 function rgbToHsl(r: number, g: number, b: number): { h: number; s: number; l: number } {
   r /= 255; g /= 255; b /= 255;
   const max = Math.max(r, g, b), min = Math.min(r, g, b);
@@ -144,13 +210,18 @@ export async function analyzeImage(file: File): Promise<string[]> {
         allKeywords.push(...hslToKeywords(c.h, c.s, c.l));
       }
       allKeywords.push(...analyzeColorDistribution(dominantColors));
+      // Non-color signals: texture/busyness, hue harmony, tonal range
+      allKeywords.push(...analyzeTexture(data, size));
+      allKeywords.push(...analyzeColorHarmony(dominantColors));
+      allKeywords.push(...analyzeBrightnessHistogram(sampledColors));
 
       // Deduplicate and return top keywords (most frequently occurring = strongest signal)
       const counts = new Map<string, number>();
       for (const k of allKeywords) counts.set(k, (counts.get(k) || 0) + 1);
       const unique = [...counts.entries()].sort((a, b) => b[1] - a[1]).map(([k]) => k);
 
-      resolve(unique.slice(0, 8));
+      // 10 (not 8) so texture/harmony/tone signals aren't crowded out by color
+      resolve(unique.slice(0, 10));
       URL.revokeObjectURL(img.src);
     };
     img.onerror = () => resolve([]);
