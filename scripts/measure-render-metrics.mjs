@@ -146,6 +146,28 @@ function measureRenderMetrics(font) {
   }
   const rightOverflow = Math.max(0, maxRsbExcess);
 
+  // Small-line ink overflow: how far ink extends PAST the advance width across
+  // the A–Z / a–z / 0–9 string the small specimen line renders, as an absolute
+  // em fraction (same form as rightOverflow [12], not a ratio — a ratio would
+  // be biased by narrow glyphs like j/i/f). The small line is sized by pure
+  // advance, so italic / swash / brush terminals clip on the right edge.
+  // effectiveAdv = rowAdvance + smallInkOverflow absorbs it. ~0 for vanilla
+  // fonts, 0.03–0.15 for italics/scripts.
+  let maxSmallExcess = 0;
+  for (const ch of "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789") {
+    try {
+      const g = font.charToGlyph(ch);
+      if (g && g.advanceWidth > 0) {
+        const bb = g.getBoundingBox();
+        if (bb) {
+          const excess = bb.x2 - g.advanceWidth;
+          if (excess > maxSmallExcess) maxSmallExcess = excess;
+        }
+      }
+    } catch {}
+  }
+  const smallInkOverflow = Math.max(0, maxSmallExcess) / upm;
+
   const r = (n) => Math.round(n * 1000) / 1000;
   return {
     specAdvance:      r(specTotal  / upm),
@@ -160,6 +182,7 @@ function measureRenderMetrics(font) {
     os2AscentRatio:   r(os2Asc  / upm),
     os2DescentRatio:  r(os2Desc / upm),
     rightOverflow:    r(rightOverflow / upm),
+    smallInkOverflow: r(smallInkOverflow),
   };
 }
 

@@ -20,11 +20,14 @@ const lines = keys.map(slug => {
   const base = `${m.specAdvance}, ${m.upperAdvance}, ${m.lowerAdvance}, ${m.numsAdvance}, ${m.ascentRatio}, ${m.descentRatio}, ${m.inkOverTop ?? 0}, ${m.inkOverBottom ?? 0}, ${m.leftOverflow ?? 0}, ${m.os2AscentRatio ?? m.ascentRatio}, ${m.os2DescentRatio ?? m.descentRatio}`;
   // [11] browserAscentRatio — fall back to file ascentRatio for fonts without browser data
   // [12] rightOverflow — file-measured; always present for index stability
-  // [13] browserSpecExtent — browser-measured actualBoundingBoxRight/fontSize for spec string (optional)
+  // [13] browserSpecExtent — browser-measured spec extent; 0 when no browser data
+  //      (consumers read it as `m[13] ?? 0`/`Math.max(..., m[13])`, so 0 is inert)
+  // [14] smallInkOverflow — file-measured em fraction; 0 = small-line ink within advance
   const browserVal = m.browserAscentRatio ?? m.ascentRatio;
   const rightVal   = m.rightOverflow ?? 0;
-  const specExtent = m.browserSpecExtent != null ? `, ${m.browserSpecExtent}` : "";
-  return `  "${slug}": [${base}, ${browserVal}, ${rightVal}${specExtent}],`;
+  const specExtent = m.browserSpecExtent ?? 0;
+  const smallInk   = m.smallInkOverflow ?? 0;
+  return `  "${slug}": [${base}, ${browserVal}, ${rightVal}, ${specExtent}, ${smallInk}],`;
 });
 
 const ts = `// AUTO-GENERATED — do not edit manually
@@ -44,12 +47,14 @@ const ts = `// AUTO-GENERATED — do not edit manually
 //   [10] os2DescentRatio = OS/2 usWinDescent / UPM (what browser uses for line-box layout)
 //   [11] browserAscentRatio = Canvas actualBoundingBoxAscent / fontSize  (browser-measured, optional)
 //   [12] rightOverflow      = max ink past advance width / UPM for spec string glyphs (file-based)
-//   [13] browserSpecExtent  = Canvas actualBoundingBoxRight / fontSize for "Aa Bb Cc Dd Ee Ff" (browser-measured, optional)
+//   [13] browserSpecExtent  = Canvas actualBoundingBoxRight / fontSize for "Aa Bb Cc Dd Ee Ff" / 0 if none
+//   [14] smallInkOverflow   = max ink past advance / UPM across A–Z a–z 0–9 (file-based; 0 = ink within advance)
 //
-// Usage: bigSize = Math.floor(sectionWidth / (m[13] ?? (m[0] + m[12])))
+// Usage (big line):   bigSize = Math.floor(sectionW / (Math.max(m[0] + m[12], m[13]) * 1.20))
+// Usage (small line): effAdv  = rowAdvance + m[14]   (prevents right-edge clipping)
 // Extra padding: padTop += m[6]*px, padBottom += m[7]*px, padLeft += m[8]*px
 // lineHeight: use Math.max(1.15, m[9] + m[10]) — matches exact browser line-box allocation
-export type RenderMetricsTuple = [number, number, number, number, number, number, number, number, number, number, number, number, number, number?];
+export type RenderMetricsTuple = [number, number, number, number, number, number, number, number, number, number, number, number, number, number, number];
 export const RENDER_METRICS: Record<string, RenderMetricsTuple> = {
 ${lines.join("\n")}
 };

@@ -7,6 +7,7 @@ import { yearsBySlug } from "@/data/years";
 import { fontsBySlug } from "@/data/fonts";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
 import { RENDER_METRICS } from "@/data/gf-render-metrics";
+import { computeSpecimenSizing, specimenLineHeight } from "@/lib/specimen-sizing";
 import { getSourceLabel, formatClassification, chipCase } from "@/lib/text";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -201,60 +202,14 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
         const sectionW = sectionEl.offsetWidth;
         if (sectionH < 32 || sectionW < 32) continue;
 
-        const m = RENDER_METRICS[slug];
-        let bigSize: number;
-        let lh = 1.2;
-        if (m) {
-          // Use max of file-advance and browser-ink, plus 20% safety. m[0] is at file's
-          // default weight (400), but page renders at 600 — variable fonts can widen 5-7%,
-          // faux-bold up to 15-20%. m[13] is browser-measured but can be off if font wasn't
-          // fully loaded at measurement time. 20% absorbs both cases.
-          const _divisor = Math.max(m[0] + (m[12] ?? 0), m[13] ?? 0) * 1.20;
-          bigSize = Math.max(12, Math.floor(sectionW / _divisor));
-          lh = Math.max(1, m[9] + m[10]);
-          // Cap so ink height doesn't overflow the section or exceed 80px.
-          const inkRatio = (m[11] + m[5]) || 1;
-          bigSize = Math.min(bigSize, Math.floor(80 / inkRatio));
-          bigSize = Math.min(bigSize, Math.floor(sectionH / lh));
-        } else {
-          const family = getFontFamily(fontData.name, fontData.source);
-          ctx.font = `600 36px ${family}`;
-          const bigW36 = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
-          bigSize = bigW36 > 0 ? Math.max(12, Math.floor(36 * sectionW / bigW36)) : 36;
-        }
-        bigSize = Math.max(12, bigSize);
+        const { bigSize, smallSize } = computeSpecimenSizing(slug, sectionW, sectionH, {
+          ctx,
+          family: getFontFamily(fontData.name, fontData.source),
+          bigWeight: 600,
+          maxBigPx: 80,
+        });
         bigUpdates[slug] = bigSize;
-
-        const availableForSmall = sectionH - Math.ceil(bigSize * lh) - 8;
-        if (availableForSmall < 14) { smallUpdates[slug] = 14; continue; }
-
-        let lo = 14, hi = 300, best = 14;
-        if (m) {
-          const [, upperAdv, lowerAdv, numsAdv] = m;
-          for (let i = 0; i < 12; i++) {
-            const mid = Math.round((lo + hi) / 2);
-            const upperLines = Math.max(1, Math.ceil(upperAdv * mid / sectionW));
-            const lowerLines = Math.max(1, Math.ceil(lowerAdv * mid / sectionW));
-            const numsLines  = Math.max(1, Math.ceil(numsAdv * mid / sectionW));
-            const totalH = (upperLines + lowerLines + numsLines) * mid + 2 * 6;
-            if (totalH <= availableForSmall) { best = mid; lo = mid + 1; }
-            else hi = mid - 1;
-          }
-        } else {
-          const family = getFontFamily(fontData.name, fontData.source);
-          for (let i = 0; i < 12; i++) {
-            const mid = Math.round((lo + hi) / 2);
-            ctx.font = `400 ${mid}px ${family}`;
-            const vW = (t: string) => ctx.measureText(t).width;
-            const upperLines = Math.max(1, Math.ceil(vW("ABCDEFGHIJKLMNOPQRSTUVWXYZ") / sectionW));
-            const lowerLines = Math.max(1, Math.ceil(vW("abcdefghijklmnopqrstuvwxyz") / sectionW));
-            const numsLines  = Math.max(1, Math.ceil(vW("0123456789") / sectionW));
-            const totalH = (upperLines + lowerLines + numsLines) * mid + 2 * 6;
-            if (totalH <= availableForSmall) { best = mid; lo = mid + 1; }
-            else hi = mid - 1;
-          }
-        }
-        smallUpdates[slug] = Math.min(Math.max(14, best), Math.floor(bigSize * 0.45));
+        smallUpdates[slug] = smallSize;
       }
 
       const changedBig: Record<string, number> = {};
@@ -340,9 +295,8 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
               .map(chipCase);
             const bigS = specimenSizes[font.slug] ?? 36;
             const smallS = smallSpecimenSizes[font.slug] ?? Math.max(14, Math.round(bigS * 14 / 36));
-            const smallGap = 6;
-            const mData = RENDER_METRICS[font.slug];
-            const specLh = mData ? Math.max(1, mData[9] + mData[10]) : 1.2;
+            const smallGap = 4;
+            const specLh = specimenLineHeight(font.slug);
 
             return (
               <div
