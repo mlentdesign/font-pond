@@ -41,6 +41,37 @@ export function specimenLineHeight(slug: string): number {
   return Math.min(MAX_LINE_HEIGHT, Math.max(1, m[9] + m[10]));
 }
 
+/**
+ * Vertical offset (in em) to apply to a single header letter so its cap-height
+ * middle lands at its box's vertical centre. Returns a CSS-ready em string
+ * usable directly in `transform: translateY(...)`.
+ *
+ * Mixed-font headers like the "FONT POND" ransom-note ticker look uneven
+ * because every font's baseline sits at a different position inside the
+ * line-box — items-center aligns the BOXES, not the GLYPHS. This shifts each
+ * letter so the visible cap middles line up across the row.
+ *
+ * Math (with line-height: 1, so 1em = box height):
+ *   • baseline from box top = m[9]              (os2 ascent ratio)
+ *   • cap top from box top  = m[9] − m[4]       (m[4] is the measured ink
+ *                                                ascent, ≈ cap-height for
+ *                                                FONT POND's all-caps text)
+ *   • cap middle from top   = m[9] − m[4] / 2
+ *   • target (box centre)   = 0.5
+ *   → offset = 0.5 − (m[9] − m[4] / 2)
+ *
+ * Clamped to ±0.4em so corrupt OS/2 metrics (the same minecraftia / 28-days-
+ * later class of fonts the specimen-card clamp guards against) can't fling a
+ * letter out of the header.
+ */
+export function headerLetterOffset(slug: string): string {
+  const m = RENDER_METRICS[slug];
+  if (!m) return "0em";
+  const raw = 0.5 - m[9] + m[4] / 2;
+  const clamped = Math.max(-0.4, Math.min(0.4, raw));
+  return `${clamped.toFixed(3)}em`;
+}
+
 export interface SpecimenSizing {
   /** Big specimen line font size, px. */
   bigSize: number;

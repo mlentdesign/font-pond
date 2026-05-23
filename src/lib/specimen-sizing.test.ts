@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { computeSpecimenSizing } from "./specimen-sizing";
+import { computeSpecimenSizing, headerLetterOffset } from "./specimen-sizing";
 import { RENDER_METRICS } from "@/data/gf-render-metrics";
 
 // The audit (project_font_pond_approaches_log) requires a full-corpus
@@ -71,6 +71,36 @@ describe("computeSpecimenSizing — corpus sweep", () => {
     // A handful of extreme display faces may bottom out; the bulk must not.
     expect(bigAtFloor / slugs.length).toBeLessThan(0.05);
     expect(smallAtFloor / slugs.length).toBeLessThan(0.05);
+  });
+});
+
+describe("headerLetterOffset — corpus sweep", () => {
+  it("returns an em string bounded to ±0.4em for every font", () => {
+    let outOfRange: string[] = [];
+    for (const slug of slugs) {
+      const v = headerLetterOffset(slug);
+      const n = parseFloat(v);
+      if (!Number.isFinite(n) || n < -0.4 || n > 0.4 || !v.endsWith("em")) {
+        outOfRange.push(`${slug}: ${v}`);
+      }
+    }
+    expect(outOfRange.slice(0, 5)).toEqual([]);
+  });
+
+  it("falls back to 0em for an unknown slug", () => {
+    expect(headerLetterOffset("__no-such-font__")).toBe("0em");
+  });
+
+  it("only a small minority of fonts need an extreme shift", () => {
+    // Most fonts need some offset because OS/2 ascent is generously sized
+    // relative to cap-height (~55% > 0.1em). The check is that the long-tail
+    // of fonts needing a big shift (>0.3em) stays bounded — that's the
+    // decorative / unusual-metric group.
+    let extreme = 0;
+    for (const slug of slugs) {
+      if (Math.abs(parseFloat(headerLetterOffset(slug))) > 0.3) extreme++;
+    }
+    expect(extreme / slugs.length).toBeLessThan(0.15);
   });
 });
 
