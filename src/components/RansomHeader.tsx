@@ -5,6 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { loadFont, getFontFamily, waitForFontReady } from "@/lib/fonts";
 import { fonts as allFonts } from "@/data/fonts";
 import { useAppState } from "@/lib/store";
+import { headerLetterOffset } from "@/lib/specimen-sizing";
 
 // Build pool from all header-suitable fonts in the database
 const FONT_POOL = allFonts
@@ -67,6 +68,7 @@ export function setHeaderAnimationPaused(v: boolean) {
 interface LetterState {
   fontName: string;
   fontSource: string;
+  fontSlug: string;
   flipKey: number;
   flipSpeed: number;
 }
@@ -142,6 +144,7 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
     const newStates: LetterState[] = LETTERS.map(() => ({
       fontName: displayFont.name,
       fontSource: displayFont.source,
+      fontSlug: displayFont.slug,
       flipKey: 0,
       flipSpeed: 0.2,
     }));
@@ -171,6 +174,7 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
             next[idx] = {
               fontName: nextFont.name,
               fontSource: nextFont.source,
+              fontSlug: nextFont.slug,
               flipKey: (next[idx]?.flipKey || 0) + 1,
               flipSpeed: speed,
             };
@@ -254,20 +258,34 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
           const state = letterStates[i];
           const family = state ? getFontFamily(state.fontName, state.fontSource) : displayFamily;
           const flipSpeed = state?.flipSpeed || 0.2;
+          // Cap-middle alignment: per-font translateY so glyph centres align
+          // across the row even though box centres already do.
+          const offsetSlug = state?.fontSlug || displayFont.slug;
+          const yOffset = headerLetterOffset(offsetSlug);
           return (
             <span
               key={`${i}-${state?.flipKey || 0}`}
               className="ticker-flip"
               style={{
-                fontFamily: family,
-                fontWeight: 700,
                 display: "inline-block",
                 lineHeight: 1,
-                color: "var(--text-ransom)",
                 ["--flip-speed" as string]: `${flipSpeed}s`,
               }}
             >
-              {char}
+              {/* Inner span carries the cap-middle centring transform so it
+                  doesn't fight the outer flip animation's transform. */}
+              <span
+                style={{
+                  fontFamily: family,
+                  fontWeight: 700,
+                  display: "inline-block",
+                  lineHeight: 1,
+                  color: "var(--text-ransom)",
+                  transform: `translateY(${yOffset})`,
+                }}
+              >
+                {char}
+              </span>
             </span>
           );
         })}
@@ -282,6 +300,8 @@ export function RansomHeader({ onFontChange }: { onFontChange?: (fontName: strin
         fontWeight: 700,
         lineHeight: 1,
         color: "var(--text-ransom)",
+        display: "inline-block",
+        transform: `translateY(${headerLetterOffset(displayFont.slug)})`,
       }}
       aria-label={TITLE}
     >
