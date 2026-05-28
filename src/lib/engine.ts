@@ -3924,9 +3924,28 @@ export function rankPairs(
       }
     }
 
-    // Fallback: if no word in the query matched any tag or font name,
-    // include all pairs so utility + per-word specificity still ranks them.
-    // Avoids the "empty results when only some words match" failure mode.
+    // Fallback A: if no word mapped to a known keyword/tag directly, try a
+    // substring scan of the tag index — find tags whose names contain any
+    // query word (≥3 chars). Stays query-relevant: only pairs whose tags
+    // share text with what the user typed are included.
+    if (candidateScores.size === 0 && promptWords.length > 0) {
+      for (const word of promptWords) {
+        if (word.length < 3) continue;
+        for (const [tag, indices] of tagIndex) {
+          if (tag.includes(word) || word.includes(tag)) {
+            for (const idx of indices) {
+              candidateScores.set(idx, (candidateScores.get(idx) || 0) + 1);
+            }
+          }
+        }
+      }
+    }
+
+    // Fallback B: if even substring scan found nothing (truly unfamiliar
+    // vocabulary), include all pairs so per-word specificity + utility can
+    // still produce a ranked list rather than an empty page. Specificity's
+    // fuzzy rule will still surface any pair whose tags share text with
+    // the query.
     if (candidateScores.size === 0) {
       for (let i = 0; i < fontPairs.length; i++) candidateScores.set(i, 0);
     }
