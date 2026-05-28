@@ -66,6 +66,9 @@ async function fillBatch(
 ): Promise<{ loaded: VisiblePair[]; remaining: ScoredPair[] }> {
   const remaining = [...queue];
   const loaded: VisiblePair[] = [];
+  // Pairs whose fonts didn't load within the deadline — held as a fallback
+  // so we never return an empty batch when there were candidates to try.
+  const fontTimeouts: ScoredPair[] = [];
 
   while (loaded.length < size && remaining.length > 0) {
     const needed = size - loaded.length;
@@ -77,7 +80,16 @@ async function fillBatch(
 
     for (const { pair, ok } of results) {
       if (ok) loaded.push({ pair, delay: 0 });
+      else fontTimeouts.push(pair);
     }
+  }
+
+  // Best-effort fallback: if we couldn't fill the batch with fonts that loaded
+  // in time, use the pairs that timed out. font-display:swap will show the
+  // fallback font and hot-swap the real one when it eventually arrives.
+  // Without this, an entirely failed batch leaves the page in an endless skeleton.
+  while (loaded.length < size && fontTimeouts.length > 0) {
+    loaded.push({ pair: fontTimeouts.shift()!, delay: 0 });
   }
 
   return { loaded, remaining };
@@ -115,6 +127,10 @@ export function ResultsGrid() {
 
     queueRef.current = remaining;
 
+    // Always mark the first batch as attempted, even if zero pairs rendered —
+    // otherwise the skeleton state hangs forever when the whole batch fails.
+    setFirstBatchLoaded(true);
+
     if (loaded.length > 0) {
       setVisiblePairs((prev) => {
         const cols = colsRef.current;
@@ -143,7 +159,6 @@ export function ResultsGrid() {
         unpinRef.current = pinFonts(next.flatMap(({ pair }) => [pair.headerFont, pair.bodyFont]));
         return next;
       });
-      setFirstBatchLoaded(true);
     }
 
     // Pre-warm fonts for the next batch so they're ready before the user scrolls to them
