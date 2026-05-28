@@ -3924,6 +3924,13 @@ export function rankPairs(
       }
     }
 
+    // Fallback: if no word in the query matched any tag or font name,
+    // include all pairs so utility + per-word specificity still ranks them.
+    // Avoids the "empty results when only some words match" failure mode.
+    if (candidateScores.size === 0) {
+      for (let i = 0; i < fontPairs.length; i++) candidateScores.set(i, 0);
+    }
+
     // Sort candidates by hit count, take top SCORE_LIMIT
     let candidates = [...candidateScores.entries()]
       .sort((a, b) => b[1] - a[1])
