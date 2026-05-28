@@ -146,7 +146,16 @@ export function PromptInput() {
       }
     }
 
-    setTimeout(() => { setResults(rankPairs(searchQuery, { includeFontNameMatches })); setIsLoading(false); }, 200);
+    setTimeout(() => {
+      try {
+        setResults(rankPairs(searchQuery, { includeFontNameMatches }));
+      } catch (err) {
+        console.error("rankPairs failed:", err);
+        setResults([]);
+      } finally {
+        setIsLoading(false);
+      }
+    }, 200);
   }, [query, images, setResults, setIsLoading, setHasSearched, setIsExploring, setVisibleCount, includeFontNameMatches]);
 
   const handleExplore = useCallback(() => {
