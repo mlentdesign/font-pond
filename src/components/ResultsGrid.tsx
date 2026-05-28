@@ -66,9 +66,6 @@ async function fillBatch(
 ): Promise<{ loaded: VisiblePair[]; remaining: ScoredPair[] }> {
   const remaining = [...queue];
   const loaded: VisiblePair[] = [];
-  // Pairs whose fonts didn't load within the deadline — held as a fallback
-  // so we never return an empty batch when there were candidates to try.
-  const fontTimeouts: ScoredPair[] = [];
 
   while (loaded.length < size && remaining.length > 0) {
     const needed = size - loaded.length;
@@ -80,19 +77,21 @@ async function fillBatch(
 
     for (const { pair, ok } of results) {
       if (ok) loaded.push({ pair, delay: 0 });
-      else fontTimeouts.push(pair);
     }
   }
 
-  // Best-effort fallback: if we couldn't fill the batch with fonts that loaded
-  // in time, use the pairs that timed out. font-display:swap will show the
-  // fallback font and hot-swap the real one when it eventually arrives.
-  // Without this, an entirely failed batch leaves the page in an endless skeleton.
-  while (loaded.length < size && fontTimeouts.length > 0) {
-    loaded.push({ pair: fontTimeouts.shift()!, delay: 0 });
-  }
-
   return { loaded, remaining };
+}
+
+// Pre-warm font CDN stylesheets and start downloads for a slice of pairs.
+// Fire-and-forget — this is purely an optimization so subsequent font checks
+// have a head start. Called whenever new results arrive so the first batch
+// isn't paying the cold-start penalty alone.
+function prewarmFonts(pairs: ScoredPair[]): void {
+  for (const p of pairs) {
+    loadFont(p.headerFont);
+    loadFont(p.bodyFont);
+  }
 }
 
 export function ResultsGrid() {
@@ -161,12 +160,10 @@ export function ResultsGrid() {
       });
     }
 
-    // Pre-warm fonts for the next batch so they're ready before the user scrolls to them
-    const nextBatch = remaining.slice(0, batchSizeForCols(colsRef.current) * 2);
-    for (const p of nextBatch) {
-      loadFont(p.headerFont);
-      loadFont(p.bodyFont);
-    }
+    // Pre-warm fonts well ahead of where the user is scrolling so they're
+    // ready by the time fillBatch checks them — same head-start logic as
+    // the initial pre-warm, just sliding forward through the queue.
+    prewarmFonts(remaining.slice(0, batchSizeForCols(colsRef.current) * 4));
 
     loadingRef.current = false;
   }, []);
@@ -179,6 +176,12 @@ export function ResultsGrid() {
     setFirstBatchLoaded(false);
     loadingRef.current = false;
     queueRef.current = [...results];
+    // Aggressively pre-warm the top candidates in parallel BEFORE fillBatch
+    // starts polling. Long queries surface fonts that haven't been loaded in
+    // this session yet — kicking off all the downloads at once means the
+    // CDN stylesheets and .woff2 files are already in flight when fillBatch
+    // begins its readiness check, instead of starting cold inside the 3s budget.
+    if (results.length > 0) prewarmFonts(results.slice(0, 12));
     if (!isLoading && results.length > 0) loadNext();
   }, [results, isLoading]);
 
