@@ -203,6 +203,12 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
       return () => { cancelled = true; };
     }
 
+    // Fonts without precomputed metrics are measured live via canvas — that
+    // measurement is garbage until the webfont has actually loaded (canvas
+    // silently measures the fallback font). Skip them until the load pass
+    // below confirms readiness; they render at the 36px default meanwhile.
+    let liveFontsLoaded = false;
+
     const doSizing = () => {
       const canvasEl = document.createElement('canvas');
       const ctx = canvasEl.getContext('2d')!;
@@ -212,6 +218,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
       for (const [slug, sectionEl] of Object.entries(sectionRefs.current)) {
         const fontData = sorted.find(f => f.slug === slug);
         if (!fontData) continue;
+        if (!RENDER_METRICS[slug] && !liveFontsLoaded) continue;
         const sectionH = sectionEl.offsetHeight;
         const sectionW = sectionEl.offsetWidth;
         if (sectionH < 32 || sectionW < 32) continue;
@@ -234,10 +241,11 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
       for (const [k, v] of Object.entries(smallUpdates)) {
         if (lastSmallRef.current[k] !== v) { changedSmall[k] = v; lastSmallRef.current[k] = v; }
       }
-      if (Object.keys(changedBig).length > 0) {
-        setSpecimenSizes(prev => ({ ...prev, ...changedBig }));
-        setSmallSpecimenSizes(prev => ({ ...prev, ...changedSmall }));
-      }
+      // Apply independently — bigSize is often pinned by maxBigPx while
+      // smallSize still tracks section height; gating small on big drops
+      // real small-line corrections (intermittent under-fill/clip).
+      if (Object.keys(changedBig).length > 0) setSpecimenSizes(prev => ({ ...prev, ...changedBig }));
+      if (Object.keys(changedSmall).length > 0) setSmallSpecimenSizes(prev => ({ ...prev, ...changedSmall }));
     };
 
     sizingFnRef.current = doSizing;
@@ -273,6 +281,7 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         }
         if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
       }
+      liveFontsLoaded = true;
       if (!cancelled) doSizing();
     };
 
