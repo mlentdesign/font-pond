@@ -954,9 +954,13 @@ body.animations-paused #water-bg * {
 }
 
 
-/* Responsive ransom header font size */
+/* Responsive ransom header font size.
+   line-height 1 keeps every child box exactly 1em tall — the cap-centring
+   translateY in specimen-sizing.ts assumes it, and the fallback/loading
+   spans must match so the header doesn't jump when the real font lands. */
 .ransom-title {
   font-size: 20px;
+  line-height: 1;
 }
 @media (min-width: 768px) {
   .ransom-title {
