@@ -47,7 +47,11 @@ export function HeaderWithFontInfo() {
 
   return (
     <span className="inline-flex items-center" style={{ gap: "8px" }}>
-      <span className="ransom-title">
+      {/* inline-flex so the display-font glyph box itself is the centred box.
+          As a plain inline span, the system-ui strut (body line-height 1.5)
+          set the box height and the custom font hung off ITS baseline —
+          per-font drift the translateY offset couldn't correct. */}
+      <span className="ransom-title inline-flex items-center">
         {/* Suspense boundary required because RansomHeader uses useSearchParams,
             which needs Suspense during static prerender (output: export). */}
         <Suspense fallback={<span style={{ color: "var(--text-ransom)", fontWeight: 700 }}>FONT POND</span>}>
@@ -77,7 +81,7 @@ export function HeaderWithFontInfo() {
             strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
-            style={{ color: "var(--text-ransom)" }}
+            style={{ color: "var(--text-ransom)", display: "block" }}
           >
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" />
             <circle cx="12" cy="12" r="3" />

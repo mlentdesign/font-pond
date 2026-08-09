@@ -52,13 +52,20 @@ export function specimenLineHeight(slug: string): number {
  * letter so the visible cap middles line up across the row.
  *
  * Math (with line-height: 1, so 1em = box height):
- *   • baseline from box top = m[9]              (os2 ascent ratio)
- *   • cap top from box top  = m[9] − m[4]       (m[4] is the measured ink
+ *   • half-leading          = (1 − (m[9] + m[10])) / 2
+ *                             (line-height 1 centres the font's ascent+descent
+ *                             block inside the 1em box; fonts with big metrics
+ *                             get NEGATIVE half-leading, i.e. the baseline
+ *                             rides higher than m[9] alone predicts — this is
+ *                             why long-tailed / deep-descent fonts drifted up)
+ *   • baseline from box top = half-leading + m[9]
+ *   • cap top from box top  = baseline − m[4]   (m[4] is the measured ink
  *                                                ascent, ≈ cap-height for
  *                                                FONT POND's all-caps text)
- *   • cap middle from top   = m[9] − m[4] / 2
+ *   • cap middle from top   = baseline − m[4] / 2
  *   • target (box centre)   = 0.5
- *   → offset = 0.5 − (m[9] − m[4] / 2)
+ *   → offset = 0.5 − (half-leading + m[9] − m[4] / 2)
+ *            = (m[4] + m[10] − m[9]) / 2
  *
  * Clamped to ±0.4em so corrupt OS/2 metrics (the same minecraftia / 28-days-
  * later class of fonts the specimen-card clamp guards against) can't fling a
@@ -67,7 +74,7 @@ export function specimenLineHeight(slug: string): number {
 export function headerLetterOffset(slug: string): string {
   const m = RENDER_METRICS[slug];
   if (!m) return "0em";
-  const raw = 0.5 - m[9] + m[4] / 2;
+  const raw = (m[4] + m[10] - m[9]) / 2;
   const clamped = Math.max(-0.4, Math.min(0.4, raw));
   return `${clamped.toFixed(3)}em`;
 }
