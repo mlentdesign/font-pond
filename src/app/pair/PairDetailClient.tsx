@@ -323,7 +323,16 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
     };
 
     run();
-    return () => { cancelled = true; observer?.disconnect(); };
+    // Fonts can finish loading after the wait loop's deadline (slow CDN,
+    // variable-font slices). Each loadingdone re-measures with whatever is
+    // now really rendered; the lastSizesRef guard makes repeats free.
+    const onLoadingDone = () => { if (!cancelled) doSizing(); };
+    document.fonts?.addEventListener("loadingdone", onLoadingDone);
+    return () => {
+      cancelled = true;
+      observer?.disconnect();
+      document.fonts?.removeEventListener("loadingdone", onLoadingDone);
+    };
   }, [headerFont?.id, bodyFont?.id]);
 
   useEffect(() => {

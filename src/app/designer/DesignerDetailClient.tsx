@@ -289,7 +289,16 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
     };
 
     run();
-    return () => { cancelled = true; resizeObserver?.disconnect(); };
+    // Fonts can finish loading after the wait loop's deadline (slow CDN,
+    // variable-font slices). Each loadingdone re-measures with whatever is
+    // now really rendered; the last-size refs make repeats free.
+    const onLoadingDone = () => { if (!cancelled) doSizing(); };
+    document.fonts?.addEventListener("loadingdone", onLoadingDone);
+    return () => {
+      cancelled = true;
+      resizeObserver?.disconnect();
+      document.fonts?.removeEventListener("loadingdone", onLoadingDone);
+    };
   }, [fontEntries.length]);
 
   return (
