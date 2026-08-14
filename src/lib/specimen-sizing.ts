@@ -15,6 +15,10 @@ import { RENDER_METRICS } from "@/data/gf-render-metrics";
 // extend past the advance. m[14] (smallInkOverflow) covers the measured part;
 // this safety margin covers faux-rendering variance the file can't predict.
 const SMALL_SAFETY = 1.10;
+// Margin applied to the LIVE canvas measurement (subpixel rounding, hinting).
+// Smaller than the metric safeties because the live number already includes
+// faux-bold widening and real ink extent.
+const LIVE_SAFETY = 1.05;
 // Cap the small line relative to the big line so the hierarchy always reads.
 // Relaxed from the old 0.45 — that cap was so tight the small line couldn't
 // fill a tall card and looked stranded ("too short").
@@ -114,24 +118,39 @@ export function computeSpecimenSizing(
   const { ctx, family, bigWeight, maxBigPx } = opts;
   const m = RENDER_METRICS[slug];
 
+  // Live per-em extent of a string as the browser will actually render it —
+  // advance width plus any ink overhanging the last glyph. Canvas resolves the
+  // same family list the DOM uses, so this measures whatever font is really on
+  // screen (webfont once loaded, fallback before). Returns 0 when the ctx
+  // can't measure (test stubs), which disables the guard.
+  const liveExtent = (text: string, weight: number): number => {
+    ctx.font = `${weight} 100px ${family}`;
+    const t = ctx.measureText(text);
+    return Math.max(t.width, t.actualBoundingBoxRight ?? 0) / 100;
+  };
+
   // ── Big line — fills card width, never wraps ──
   let bigSize: number;
   let lh = 1.2;
+  const liveBig = liveExtent("Aa Bb Cc Dd Ee Ff", bigWeight);
   if (m) {
     // Big-line divisor: max(file-advance + ink overflow, browser-measured
     // extent) × 1.20. Tuned across the whole font set — do not alter.
     const divisor = Math.max(m[0] + (m[12] ?? 0), m[13] ?? 0) * 1.20;
-    bigSize = Math.floor(sectionW / divisor);
+    // Shrink-only live guard: some fonts (scripts, faux-bolded families)
+    // render wider than their file metrics predict and clipped on the right.
+    // The live measurement of the rendered font wins when it's wider; it can
+    // never grow the size past what the tuned metric divisor allows.
+    const effDivisor = Math.max(divisor, liveBig * LIVE_SAFETY);
+    bigSize = Math.floor(sectionW / effDivisor);
     lh = specimenLineHeight(slug);
     if (maxBigPx != null) {
       const inkRatio = (m[11] + m[5]) || 1;
       bigSize = Math.min(bigSize, Math.floor(maxBigPx / inkRatio));
     }
   } else {
-    // No precomputed metrics — measure live (≈57 uncached fonts).
-    ctx.font = `${bigWeight} 36px ${family}`;
-    const w = ctx.measureText("Aa Bb Cc Dd Ee Ff").width;
-    bigSize = w > 0 ? Math.floor((36 * sectionW) / w) : 36;
+    // No precomputed metrics — live measurement only (≈57 uncached fonts).
+    bigSize = liveBig > 0 ? Math.floor(sectionW / (liveBig * LIVE_SAFETY)) : 36;
   }
   bigSize = Math.max(12, Math.min(bigSize, Math.floor(sectionH / lh)));
 
@@ -140,21 +159,21 @@ export function computeSpecimenSizing(
   let smallSize = 14;
   if (availableH >= 14) {
     const overflow = m ? Math.min(MAX_SMALL_OVERFLOW, m[14] ?? 0) : 0;
+    // Per-em row widths: metric prediction guarded by the live measurement of
+    // the rendered font (same shrink-only rule as the big line). Without
+    // metrics the live number is all we have.
+    const liveUpper = liveExtent("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 400) * LIVE_SAFETY;
+    const liveLower = liveExtent("abcdefghijklmnopqrstuvwxyz", 400) * LIVE_SAFETY;
+    const liveNums  = liveExtent("0123456789", 400) * LIVE_SAFETY;
+    const upperEm = m ? Math.max((m[1] + overflow) * SMALL_SAFETY, liveUpper) : liveUpper;
+    const lowerEm = m ? Math.max((m[2] + overflow) * SMALL_SAFETY, liveLower) : liveLower;
+    const numsEm  = m ? Math.max((m[3] + overflow) * SMALL_SAFETY, liveNums)  : liveNums;
     let lo = 14, hi = 300, best = 14;
     for (let i = 0; i < 14; i++) {
       const mid = Math.round((lo + hi) / 2);
-      let upperW: number, lowerW: number, numsW: number;
-      if (m) {
-        // m[1..3] are per-em advances; add measured ink overflow + safety.
-        upperW = (m[1] + overflow) * mid * SMALL_SAFETY;
-        lowerW = (m[2] + overflow) * mid * SMALL_SAFETY;
-        numsW  = (m[3] + overflow) * mid * SMALL_SAFETY;
-      } else {
-        ctx.font = `400 ${mid}px ${family}`;
-        upperW = ctx.measureText("ABCDEFGHIJKLMNOPQRSTUVWXYZ").width * SMALL_SAFETY;
-        lowerW = ctx.measureText("abcdefghijklmnopqrstuvwxyz").width * SMALL_SAFETY;
-        numsW  = ctx.measureText("0123456789").width * SMALL_SAFETY;
-      }
+      const upperW = upperEm * mid;
+      const lowerW = lowerEm * mid;
+      const numsW  = numsEm * mid;
       const lines =
         Math.max(1, Math.ceil(upperW / sectionW)) +
         Math.max(1, Math.ceil(lowerW / sectionW)) +

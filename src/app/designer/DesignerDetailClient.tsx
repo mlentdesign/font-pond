@@ -263,21 +263,24 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
         resizeObserver.observe(el);
       }
 
-      const needCanvas = fontEntriesRef.current
-        .filter(e => !RENDER_METRICS[e.font.slug])
-        .map(e => e.font.name);
-      if (needCanvas.length === 0) return;
+      // Second pass once the webfonts are really loaded. This corrects BOTH
+      // the metrics-less fonts (first pass measured the fallback font) AND
+      // metric fonts whose live rendered width is wider than the file metrics
+      // predict — the shrink-only guard in computeSpecimenSizing only bites
+      // when the real font is measurable.
+      const allNames = fontEntriesRef.current.map(e => e.font.name);
+      if (allNames.length === 0) return;
 
       await document.fonts.ready;
-      const unloaded = new Set(needCanvas);
+      const unloaded = new Set(allNames);
       const deadline = Date.now() + 4000;
       while (unloaded.size > 0 && Date.now() < deadline) {
         for (const name of [...unloaded]) {
-          const [f400, f700] = await Promise.all([
+          const [f400, f600] = await Promise.all([
             document.fonts.load(`400 16px "${name}"`).catch(() => [] as FontFace[]),
-            document.fonts.load(`700 16px "${name}"`).catch(() => [] as FontFace[]),
+            document.fonts.load(`600 16px "${name}"`).catch(() => [] as FontFace[]),
           ]);
-          if (f400.length > 0 || f700.length > 0) unloaded.delete(name);
+          if (f400.length > 0 || f600.length > 0) unloaded.delete(name);
         }
         if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
       }
