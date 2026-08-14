@@ -7,7 +7,7 @@ import { yearsBySlug } from "@/data/years";
 import { fontsBySlug } from "@/data/fonts";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
 import { RENDER_METRICS } from "@/data/gf-render-metrics";
-import { computeSpecimenSizing, specimenLineHeight } from "@/lib/specimen-sizing";
+import { computeSpecimenSizing, specimenLineHeight, specimenBigDivisor } from "@/lib/specimen-sizing";
 import { getSourceLabel, formatClassification, chipCase } from "@/lib/text";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -140,53 +140,67 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
     let cancelled = false;
 
     if (window.innerWidth < 768) {
+      // Mobile: normalize to a fixed cap height — but capped so the nowrap
+      // big line can never exceed the card width (wide fonts clipped on the
+      // right without this). Re-runs as fonts arrive so the width cap uses
+      // the really-rendered font, not the fallback.
       const TARGET_CAP_H = 40;
-      const immediate: Record<string, number> = {};
-      const needCanvas: (typeof sorted)[number][] = [];
-
-      for (const { font } of fontEntriesRef.current) {
-        const m = RENDER_METRICS[font.slug];
-        if (m) {
-          immediate[font.slug] = Math.max(28, Math.min(64, Math.round(TARGET_CAP_H / (m[11] ?? m[4]))));
-        } else {
-          needCanvas.push(font);
-        }
-      }
-
-      if (Object.keys(immediate).length > 0) setSpecimenSizes(prev => ({ ...prev, ...immediate }));
-
-      if (needCanvas.length > 0) {
-        const runMobileCanvas = async () => {
-          await document.fonts.ready;
-          const unloaded = new Set(needCanvas.map(f => f.name));
-          const deadline = Date.now() + 4000;
-          while (unloaded.size > 0 && Date.now() < deadline) {
-            for (const name of [...unloaded]) {
-              const faces = await document.fonts.load(`600 16px "${name}"`).catch(() => [] as FontFace[]);
-              if (faces.length > 0) unloaded.delete(name);
-            }
-            if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
-          }
-          if (cancelled) return;
-          await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
-          if (cancelled) return;
-
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d')!;
-          const updates: Record<string, number> = {};
-          for (const font of needCanvas) {
-            const family = getFontFamily(font.name, font.source);
+      const sizeMobile = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d')!;
+        const updates: Record<string, number> = {};
+        for (const { font } of fontEntriesRef.current) {
+          const family = getFontFamily(font.name, font.source);
+          const m = RENDER_METRICS[font.slug];
+          let capSize: number | null = null;
+          if (m) {
+            capSize = Math.max(28, Math.min(64, Math.round(TARGET_CAP_H / (m[11] ?? m[4]))));
+          } else {
             ctx.font = `600 36px ${family}`;
             const capH = ctx.measureText("A").actualBoundingBoxAscent;
-            if (capH <= 0) continue;
-            updates[font.slug] = Math.max(28, Math.min(64, Math.round(36 * TARGET_CAP_H / capH)));
+            if (capH > 0) capSize = Math.max(28, Math.min(64, Math.round(36 * TARGET_CAP_H / capH)));
           }
-          if (Object.keys(updates).length > 0) setSpecimenSizes(prev => ({ ...prev, ...updates }));
-        };
-        runMobileCanvas();
-      }
+          if (capSize == null) continue;
+          const secW = sectionRefs.current[font.slug]?.offsetWidth ?? 0;
+          const divisor = specimenBigDivisor(font.slug, ctx, family, 600);
+          const widthFit = secW > 32 && divisor > 0 ? Math.floor(secW / divisor) : capSize;
+          const size = Math.max(12, Math.min(capSize, widthFit));
+          if (lastBigRef.current[font.slug] !== size) {
+            updates[font.slug] = size;
+            lastBigRef.current[font.slug] = size;
+          }
+        }
+        if (Object.keys(updates).length > 0) setSpecimenSizes(prev => ({ ...prev, ...updates }));
+      };
 
-      return () => { cancelled = true; };
+      sizeMobile();
+
+      const refineAfterLoad = async () => {
+        await document.fonts.ready;
+        const unloaded = new Set(fontEntriesRef.current.map(e => e.font.name));
+        const deadline = Date.now() + 4000;
+        while (unloaded.size > 0 && Date.now() < deadline) {
+          for (const name of [...unloaded]) {
+            const [f400, f600] = await Promise.all([
+              document.fonts.load(`400 16px "${name}"`).catch(() => [] as FontFace[]),
+              document.fonts.load(`600 16px "${name}"`).catch(() => [] as FontFace[]),
+            ]);
+            if (f400.length > 0 || f600.length > 0) unloaded.delete(name);
+          }
+          if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
+        }
+        if (cancelled) return;
+        await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+        if (!cancelled) sizeMobile();
+      };
+      refineAfterLoad();
+
+      const onLoadingDone = () => { if (!cancelled) sizeMobile(); };
+      document.fonts?.addEventListener("loadingdone", onLoadingDone);
+      return () => {
+        cancelled = true;
+        document.fonts?.removeEventListener("loadingdone", onLoadingDone);
+      };
     }
 
     // Fonts without precomputed metrics are measured live via canvas — that

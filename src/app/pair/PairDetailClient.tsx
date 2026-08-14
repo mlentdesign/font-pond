@@ -8,7 +8,7 @@ ensureDynamicPairs();
 import { fontsById } from "@/data/fonts";
 import { getRelatedPairs } from "@/lib/engine";
 import { loadFont, getFontFamily, pinFonts, ensureFontsRendered } from "@/lib/fonts";
-import { computeSpecimenSizing, specimenLineHeight } from "@/lib/specimen-sizing";
+import { computeSpecimenSizing, specimenLineHeight, specimenBigDivisor } from "@/lib/specimen-sizing";
 import { titleCase, sentenceCase, getSourceLabel, formatClassification, formatContrastType, chipCase, fontHasNumbers } from "@/lib/text";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 import { DetailPageHeader } from "@/components/DetailPageHeader";
@@ -229,34 +229,53 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
     let cancelled = false;
 
     // Mobile: normalize to a fixed cap height rather than fitting the section
+    // — but capped so the nowrap big line can never exceed the card width
+    // (wide fonts clipped on the right without this).
     if (window.innerWidth < 768) {
-      const runMobile = async () => {
-        await document.fonts.ready;
-        const hFamily = getFontFamily(headerFont.name, headerFont.source);
-        const bFamily = getFontFamily(bodyFont.name, bodyFont.source);
+      const sizeMobile = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d')!;
         const TARGET_CAP_H = 40;
-        for (const [family, setSize] of [[hFamily, setHeaderSpecSize], [bFamily, setBodySpecSize]] as const) {
-          const unloaded = new Set([`600 16px "${headerFont.name}"`, `400 16px "${bodyFont.name}"`]);
-          const deadline = Date.now() + 4000;
-          while (unloaded.size > 0 && Date.now() < deadline) {
-            for (const spec of [...unloaded]) {
-              const faces = await document.fonts.load(spec).catch(() => [] as FontFace[]);
-              if (faces.length > 0) unloaded.delete(spec);
-            }
-            if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
-          }
-          if (cancelled) return;
-          await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
-          if (cancelled) return;
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d')!;
+        const jobs = [
+          { font: headerFont, weight: 600, setSize: setHeaderSpecSize, ref: hSectionRef },
+          { font: bodyFont, weight: 400, setSize: setBodySpecSize, ref: bSectionRef },
+        ] as const;
+        for (const { font, weight, setSize, ref } of jobs) {
+          const family = getFontFamily(font.name, font.source);
           ctx.font = `600 36px ${family}`;
           const capH = ctx.measureText("A").actualBoundingBoxAscent;
-          if (capH > 0) setSize(Math.max(28, Math.min(64, Math.round(36 * TARGET_CAP_H / capH))));
+          if (capH <= 0) continue;
+          const capSize = Math.max(28, Math.min(64, Math.round(36 * TARGET_CAP_H / capH)));
+          const secW = ref.current?.offsetWidth ?? 0;
+          const divisor = specimenBigDivisor(font.slug, ctx, family, weight);
+          const widthFit = secW > 32 && divisor > 0 ? Math.floor(secW / divisor) : capSize;
+          setSize(Math.max(12, Math.min(capSize, widthFit)));
         }
       };
+      const runMobile = async () => {
+        await document.fonts.ready;
+        const unloaded = new Set([`600 16px "${headerFont.name}"`, `400 16px "${bodyFont.name}"`]);
+        const deadline = Date.now() + 4000;
+        while (unloaded.size > 0 && Date.now() < deadline) {
+          for (const spec of [...unloaded]) {
+            const faces = await document.fonts.load(spec).catch(() => [] as FontFace[]);
+            if (faces.length > 0) unloaded.delete(spec);
+          }
+          if (unloaded.size > 0) await new Promise(r => setTimeout(r, 150));
+        }
+        if (cancelled) return;
+        await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+        if (cancelled) return;
+        sizeMobile();
+      };
       runMobile();
-      return () => { cancelled = true; };
+      // Late font arrivals (slow CDN, variable-font slices) re-measure here.
+      const onLoadingDone = () => { if (!cancelled) sizeMobile(); };
+      document.fonts?.addEventListener("loadingdone", onLoadingDone);
+      return () => {
+        cancelled = true;
+        document.fonts?.removeEventListener("loadingdone", onLoadingDone);
+      };
     }
 
     const hFamily = getFontFamily(headerFont.name, headerFont.source);

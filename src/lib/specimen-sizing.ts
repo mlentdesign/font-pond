@@ -83,6 +83,33 @@ export function headerLetterOffset(slug: string): string {
   return `${clamped.toFixed(3)}em`;
 }
 
+/**
+ * Effective big-line divisor (spec-string width per em of font size) for a
+ * font: the tuned metric divisor (×1.20 — do not alter) guarded by the LIVE
+ * rendered extent (advance + ink overhang, ×1.05). Shrink-only: the live
+ * number only wins when the real render is wider than the metrics predict
+ * (scripts, faux-bolded/variable-weight families). Canvas resolves the same
+ * family-fallback list the DOM uses, so this matches whatever is really on
+ * screen. Returns 0 only if nothing is measurable (test stubs, no metrics).
+ *
+ * `sectionW / divisor` = the largest font size whose big line fits sectionW.
+ * Used by the desktop card sizing AND as the width cap on the mobile
+ * cap-height-normalized path (which otherwise clips wide fonts).
+ */
+export function specimenBigDivisor(
+  slug: string,
+  ctx: CanvasRenderingContext2D,
+  family: string,
+  bigWeight: number,
+): number {
+  const m = RENDER_METRICS[slug];
+  ctx.font = `${bigWeight} 100px ${family}`;
+  const t = ctx.measureText("Aa Bb Cc Dd Ee Ff");
+  const live = Math.max(t.width, t.actualBoundingBoxRight ?? 0) / 100;
+  const metric = m ? Math.max(m[0] + (m[12] ?? 0), m[13] ?? 0) * 1.20 : 0;
+  return Math.max(metric, live * LIVE_SAFETY);
+}
+
 export interface SpecimenSizing {
   /** Big specimen line font size, px. */
   bigSize: number;
@@ -132,25 +159,14 @@ export function computeSpecimenSizing(
   // ── Big line — fills card width, never wraps ──
   let bigSize: number;
   let lh = 1.2;
-  const liveBig = liveExtent("Aa Bb Cc Dd Ee Ff", bigWeight);
+  const effDivisor = specimenBigDivisor(slug, ctx, family, bigWeight);
+  bigSize = effDivisor > 0 ? Math.floor(sectionW / effDivisor) : 36;
   if (m) {
-    // Big-line divisor: max(file-advance + ink overflow, browser-measured
-    // extent) × 1.20. Tuned across the whole font set — do not alter.
-    const divisor = Math.max(m[0] + (m[12] ?? 0), m[13] ?? 0) * 1.20;
-    // Shrink-only live guard: some fonts (scripts, faux-bolded families)
-    // render wider than their file metrics predict and clipped on the right.
-    // The live measurement of the rendered font wins when it's wider; it can
-    // never grow the size past what the tuned metric divisor allows.
-    const effDivisor = Math.max(divisor, liveBig * LIVE_SAFETY);
-    bigSize = Math.floor(sectionW / effDivisor);
     lh = specimenLineHeight(slug);
     if (maxBigPx != null) {
       const inkRatio = (m[11] + m[5]) || 1;
       bigSize = Math.min(bigSize, Math.floor(maxBigPx / inkRatio));
     }
-  } else {
-    // No precomputed metrics — live measurement only (≈57 uncached fonts).
-    bigSize = liveBig > 0 ? Math.floor(sectionW / (liveBig * LIVE_SAFETY)) : 36;
   }
   bigSize = Math.max(12, Math.min(bigSize, Math.floor(sectionH / lh)));
 
