@@ -13,7 +13,7 @@ export default function NotFoundPage() {
   const [route, setRoute] = useState<{ type: "pair" | "font" | "designer" | "year" | "404"; slug: string } | null>(null);
 
   useEffect(() => {
-    const path = window.location.pathname.replace("/font-pond", "").replace(/\/$/, "");
+    const path = window.location.pathname.replace(/\/$/, "");
     const pairMatch = path.match(/^\/pair\/(.+)/);
     const fontMatch = path.match(/^\/font\/(.+)/);
     const designerMatch = path.match(/^\/designer\/(.+)/);

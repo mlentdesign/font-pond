@@ -12,7 +12,7 @@
 import QR from "qrcode";
 import fs from "fs";
 
-const SITE_URL = "https://mlentdesign.github.io/font-pond/";
+const SITE_URL = "https://fontpond.melware.art/";
 
 const qr = QR.create(SITE_URL, { errorCorrectionLevel: "H" });
 const size = qr.modules.size;
