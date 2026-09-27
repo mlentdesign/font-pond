@@ -10,7 +10,7 @@ export default function NotFound() {
   const [route, setRoute] = useState<{ type: "pair" | "font" | "designer" | "year" | "redirect"; slug: string } | null>(null);
 
   useEffect(() => {
-    const path = window.location.pathname.replace("/font-pond", "").replace(/\/$/, "");
+    const path = window.location.pathname.replace(/\/$/, "");
     const pairMatch = path.match(/^\/pair\/(.+)/);
     const fontMatch = path.match(/^\/font\/(.+)/);
     const designerMatch = path.match(/^\/designer\/(.+)/);
@@ -21,7 +21,7 @@ export default function NotFound() {
     else if (designerMatch) setRoute({ type: "designer", slug: designerMatch[1] });
     else if (yearMatch) setRoute({ type: "year", slug: yearMatch[1] });
     else if (path !== "/404") {
-      window.location.replace("/font-pond/404");
+      window.location.replace("/404");
     }
   }, []);
 

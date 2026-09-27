@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Font Pond",
     description: "Discover free font pairings for your next project. Describe your mood, brand, or vibe — get ranked typography recommendations.",
-    url: "https://mlentdesign.github.io/font-pond",
+    url: "https://fontpond.melware.art",
     siteName: "Font Pond",
     type: "website",
   },
@@ -54,7 +54,7 @@ export default function RootLayout({
         />
         <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="stylesheet" href="/font-pond/fonts/fonts.css" />
+        <link rel="stylesheet" href="/fonts/fonts.css" />
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-N6BYH6MQKP" />
         <script

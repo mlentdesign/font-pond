@@ -4,7 +4,7 @@ import { fontPairs } from "@/data/pairs";
 
 export const dynamic = "force-static";
 
-const BASE = "https://mlentdesign.github.io/font-pond";
+const BASE = "https://fontpond.melware.art";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

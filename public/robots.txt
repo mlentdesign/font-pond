@@ -1,5 +1,5 @@
 # Sitemap
-Sitemap: https://mlentdesign.github.io/font-pond/sitemap.xml
+Sitemap: https://fontpond.melware.art/sitemap.xml
 
 # Allow search engines
 User-agent: Googlebot
