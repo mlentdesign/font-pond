@@ -20,14 +20,16 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Font Pond",
     description: "Discover free font pairings for your next project. Describe your mood, brand, or vibe — get ranked typography recommendations.",
-    url: "https://fontpond.melware.art",
+    url: "https://fontpond.melware.art/",
     siteName: "Font Pond",
     type: "website",
+    images: [{ url: "https://fontpond.melware.art/og-landing.png", width: 1200, height: 630, alt: "Font Pond landing page" }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Font Pond",
     description: "Discover free font pairings for your next project. Describe your mood, brand, or vibe — get ranked typography recommendations.",
+    images: ["https://fontpond.melware.art/og-landing.png"],
   },
 };
 
