@@ -2,7 +2,7 @@
 
 A font discovery and pairing tool for designers. Upload an image or enter keywords to surface typeface combinations that match the mood, tone, and visual character of your work.
 
-**Visit the site:** https://mlentdesign.github.io/font-pond/
+**Visit the site:** https://mlentdesign.github.io/font-pond/?utm_source=github-io&utm_medium=readme
 
 ---
 
