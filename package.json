@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3737",
-    "build": "next build",
+    "build": "node scripts/build-feel-embeddings.mjs && next build",
+    "build:feel": "node scripts/build-feel-embeddings.mjs --force",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run"
@@ -15,6 +16,7 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@huggingface/transformers": "^4.3.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

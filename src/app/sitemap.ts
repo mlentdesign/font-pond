@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE, lastModified: now, changeFrequency: "weekly", priority: 1 },
     { url: `${BASE}/database`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE}/feel`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
   ];
 
   const fontPages: MetadataRoute.Sitemap = fonts.map((f) => ({
