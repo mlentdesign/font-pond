@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { PromptInput } from "@/components/PromptInput";
 import { SampleTextInputs } from "@/components/SampleTextInputs";
 import { ResultsGrid } from "@/components/ResultsGrid";
@@ -101,6 +102,13 @@ export default function Home() {
           </div>
 
           <PromptInput />
+          {!hasSearched && (
+            <p className="text-center" style={{ fontSize: "16px", marginTop: "24px" }}>
+              <Link href="/feel" className="hover:underline hover:opacity-70 transition-opacity" style={{ color: "var(--text-ransom)", fontWeight: 600 }}>
+                Or search by feel →
+              </Link>
+            </p>
+          )}
           <SampleTextInputs />
         </div>
 

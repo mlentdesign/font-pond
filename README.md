@@ -16,6 +16,7 @@ Font Pond analyzes visual and descriptive input to suggest font pairings matched
 - Curated pairing engine with proprietary tone and personality classification
 - Typographic anatomy scoring derived from real font file measurements
 - Searchable by mood, style, archetype, and personality type
+- Search by feel: describe a mood or brand in plain words and get fonts and pairs ranked by meaning, computed entirely in the browser with a small open model (no server, no API)
 - Individual font detail pages with specimen previews and pairing suggestions
 
 ## Tech Stack
