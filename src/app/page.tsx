@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { FEEL_ENABLED } from "@/lib/feel/enabled";
 import { PromptInput } from "@/components/PromptInput";
 import { SampleTextInputs } from "@/components/SampleTextInputs";
 import { ResultsGrid } from "@/components/ResultsGrid";
@@ -102,7 +103,7 @@ export default function Home() {
           </div>
 
           <PromptInput />
-          {!hasSearched && (
+          {FEEL_ENABLED && !hasSearched && (
             <p className="text-center" style={{ fontSize: "16px", marginTop: "24px" }}>
               <Link href="/feel" className="hover:underline hover:opacity-70 transition-opacity" style={{ color: "var(--text-ransom)", fontWeight: 600 }}>
                 Or search by feel →
