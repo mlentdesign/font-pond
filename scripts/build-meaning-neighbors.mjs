@@ -9,7 +9,7 @@
 // table shipped as a lazily-loaded chunk: visitors download no model.
 //
 //   node scripts/build-meaning-neighbors.mjs            (needs `ollama serve` + all-minilm)
-//   --threshold=0.55   minimum raw cosine similarity to keep a neighbor
+//   --threshold=0.52   minimum raw cosine similarity to keep a neighbor
 //   --k=4              neighbors kept per source word
 //   --report           also write scripts/data/meaning-report.txt (spot checks)
 //
@@ -26,7 +26,11 @@ const cacheDir = resolve(root, "scripts/.meaning-cache");
 const MODEL = "all-minilm";
 const DIM = 384;
 const arg = (n, d) => { const a = process.argv.find((x) => x.startsWith(`--${n}=`)); return a ? Number(a.split("=")[1]) : d; };
-const THRESHOLD = arg("threshold", 0.55);
+const THRESHOLD = arg("threshold", 0.52);
+// The ~500 most common English words (your, when, years, make ...) are function
+// words and generic verbs: no neighbors at all. Ranks 500-1500 are mostly generic
+// nouns and keep a neighbor only on a close match.
+const SKIP_RANK = 500, COMMON_RANK = 1500, COMMON_THRESHOLD = arg("common-threshold", 0.66);
 const K = arg("k", 4);
 const OLLAMA = process.env.OLLAMA_URL || "http://localhost:11434";
 
@@ -55,7 +59,8 @@ const GENERIC = new Set(("website websites site sites web company companies busi
 
 const raw = readFileSync(resolve(root, "scripts/data/meaning-source-words.txt"), "utf8").split("\n").map((s) => s.trim()).filter(Boolean);
 const targetSet = new Set(targets);
-const sources = raw.filter((w) => !GENERIC.has(w) && !targetSet.has(w) && engine.isUnmatchedWord(w));
+const rankOf = new Map(raw.map((w, i) => [w, i]));
+const sources = raw.filter((w) => !GENERIC.has(w) && rankOf.get(w) >= SKIP_RANK && !targetSet.has(w) && engine.isUnmatchedWord(w));
 await vite.close();
 console.log(`[meaning] targets ${targets.length} (${keywordSet.size} keywords), source list ${raw.length}, sources kept ${sources.length}`);
 
@@ -122,7 +127,7 @@ for (let s = 0; s < nS; s++) {
   for (let t = 0; t < nT; t++) sims[t] = dot(S, s, T, t);
   const rS = topMean(sims, RK);
   const cand = [];
-  for (let t = 0; t < nT; t++) if (sims[t] >= THRESHOLD) cand.push([t, sims[t], 2 * sims[t] - rS - rT[t] + (keywordSet.has(targets[t]) ? 0.03 : 0)]);
+  for (let t = 0; t < nT; t++) if (sims[t] >= (rankOf.get(sources[s]) < COMMON_RANK ? Math.max(THRESHOLD, COMMON_THRESHOLD) : THRESHOLD)) cand.push([t, sims[t], 2 * sims[t] - rS - rT[t] + (keywordSet.has(targets[t]) ? 0.03 : 0)]);
   if (!cand.length) continue;
   cand.sort((a, b) => b[2] - a[2]);
   // keep only candidates whose CSLS score is positive-ish and near the best
