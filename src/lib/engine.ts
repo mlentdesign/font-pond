@@ -4,6 +4,8 @@ import { fontPairs, ensureDynamicPairs, pairsById } from "@/data/pairs";
 import { Font, FontPair, ScoredPair, StyleSignals } from "@/data/types";
 import { SYNONYM_MAP } from "@/data/adjective-expansion";
 import { SYNONYM_BATCH3 } from "@/data/adjective-batch3";
+import { MEANING_MATCH_ENABLED } from "./meaning-enabled";
+import { meaningNeighbors, warmMeaningTable } from "./meaning-match";
 
 // Merge synonym maps
 const ALL_SYNONYMS: Record<string, string[]> = { ...SYNONYM_MAP, ...SYNONYM_BATCH3 };
@@ -3425,6 +3427,73 @@ function findKeywordMatch(word: string): string[] | null {
   return result;
 }
 
+// Builds the tag → pair-indices lookup once; shared by ranking and by the
+// meaning-match tier's "does this word match anything already?" check.
+function ensureTagIndex(): void {
+  if (tagIndex.size > 0) return;
+  ensureDynamicPairs();
+  for (let i = 0; i < fontPairs.length; i++) {
+    const pair = fontPairs[i];
+    const hf = fontsById.get(pair.headerFontId);
+    const bf = fontsById.get(pair.bodyFontId);
+    if (!hf || !bf) continue;
+    const tags = getAllPairTags(pair, hf, bf);
+    for (const tag of tags) {
+      let list = tagIndex.get(tag);
+      if (!list) { list = []; tagIndex.set(tag, list); }
+      list.push(i);
+    }
+  }
+}
+
+// ══════════════════════════════════════════
+// MEANING-MATCH TIER (after direct, synonym and typo matching)
+// ══════════════════════════════════════════
+// A word is "unmatched" when the engine does not actually know it: it is not a
+// keyword, a stemmed keyword, a synonym key or a tag. Words that only get a
+// match from the accidental fallbacks (a 3-letter keyword that happens to be a
+// prefix, a tag that happens to be a substring, a one-letter typo) count as
+// unmatched too, because those hits say nothing about meaning. Such words are
+// replaced by their meaning-neighbors from the precomputed table; words the engine
+// knows are never touched, so every existing match scores exactly as before.
+export function isUnmatchedWord(word: string): boolean {
+  if (word.length < 3 || !/^[a-z]+$/.test(word)) return false;
+  if (KEYWORD_WANT[word] || STEMMED_KEYS.has(stem(word)) || ALL_SYNONYMS[word]) return false;
+  ensureTagIndex();
+  return !tagIndex.has(word);
+}
+
+// Swaps each unmatched word for the engine words that mean the same, so they
+// flow through the normal pipeline. Words the engine knows are never touched,
+// and an unmatched word with no neighbors stays exactly as it was.
+function addMeaningWords(words: string[]): string[] {
+  const out: string[] = [];
+  const have = new Set(words);
+  for (const w of words) {
+    if (!isUnmatchedWord(w)) { out.push(w); continue; }
+    const ns = meaningNeighbors(w);
+    if (ns.length === 0) { out.push(w); continue; }
+    for (const n of ns) if (!have.has(n)) { have.add(n); out.push(n); }
+  }
+  return out;
+}
+
+// Called by the search box before ranking: if the query has an unmatched word,
+// make sure the neighbor table has been fetched (no-op otherwise).
+// Resolves true only when the table was actually needed.
+export async function prepareMeaningMatch(query: string): Promise<boolean> {
+  if (!MEANING_MATCH_ENABLED) return false;
+  if (!extractPromptWords(query).some(isUnmatchedWord)) return false;
+  await warmMeaningTable();
+  return true;
+}
+
+// Engine vocabulary for the build-time neighbor table script.
+export function getEngineVocabulary(): { keywords: string[]; tags: string[]; synonymKeys: string[] } {
+  ensureTagIndex();
+  return { keywords: [...KEYWORD_KEYS], tags: [...tagIndex.keys()], synonymKeys: Object.keys(ALL_SYNONYMS) };
+}
+
 // Score how well a pair matches a single prompt word
 function scoreWordMatch(word: string, tagSet: Set<string>): number {
   // 1. Direct or fuzzy keyword lookup
@@ -3844,6 +3913,8 @@ export function rankPairs(
     const negSet = new Set(negatedWordList);
     promptWords = promptWords.filter((w) => !negSet.has(w));
   }
+  // Meaning tier: words nothing else matched gain their nearest engine words.
+  if (MEANING_MATCH_ENABLED && promptWords.length > 0) promptWords = addMeaningWords(promptWords);
   // Expand negated words into the full set of anti-tags they imply
   const negatedTags = new Set<string>();
   for (const w of negatedWordList) {
@@ -3864,20 +3935,7 @@ export function rankPairs(
   const scored: ScoredPair[] = [];
 
   // ── Build inverted tag index on first use (persists across searches) ──
-  if (tagIndex.size === 0) {
-    for (let i = 0; i < fontPairs.length; i++) {
-      const pair = fontPairs[i];
-      const hf = fontsById.get(pair.headerFontId);
-      const bf = fontsById.get(pair.bodyFontId);
-      if (!hf || !bf) continue;
-      const tags = getAllPairTags(pair, hf, bf);
-      for (const tag of tags) {
-        let list = tagIndex.get(tag);
-        if (!list) { list = []; tagIndex.set(tag, list); }
-        list.push(i);
-      }
-    }
-  }
+  ensureTagIndex();
 
   // Pre-expand prompt words to target tags
   const targetTags = new Set<string>();

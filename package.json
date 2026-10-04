@@ -6,6 +6,7 @@
     "dev": "next dev --port 3737",
     "build": "node scripts/build-feel-embeddings.mjs && next build",
     "build:feel": "node scripts/build-feel-embeddings.mjs --force",
+    "build:meaning": "node scripts/build-meaning-neighbors.mjs --threshold=0.52 --k=4",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run"
