@@ -46,9 +46,16 @@ const okTarget = (t) => t.length >= 3 && t.length <= 28 && /^[a-z0-9][a-z0-9 '\-
 const keywordSet = new Set(vocab.keywords.map((t) => t.toLowerCase()));
 const targets = [...new Set([...vocab.keywords, ...vocab.synonymKeys, ...vocab.tags].map((t) => t.toLowerCase().trim()))].filter(okTarget).sort();
 
+// Filler words every brief contains ("website", "company", "page"). They carry
+// no style meaning, and their nearest engine words are mostly noise, so they get no neighbors.
+const GENERIC = new Set(("website websites site sites web company companies business businesses service services center centre " +
+  "department page pages card cards firm firms group groups team teams project projects home work works people world system " +
+  "systems product products online news information general public private national international local global new old " +
+  "type kind sort thing things stuff way ways part parts place places").split(" "));
+
 const raw = readFileSync(resolve(root, "scripts/data/meaning-source-words.txt"), "utf8").split("\n").map((s) => s.trim()).filter(Boolean);
 const targetSet = new Set(targets);
-const sources = raw.filter((w) => !targetSet.has(w) && engine.isUnmatchedWord(w));
+const sources = raw.filter((w) => !GENERIC.has(w) && !targetSet.has(w) && engine.isUnmatchedWord(w));
 await vite.close();
 console.log(`[meaning] targets ${targets.length} (${keywordSet.size} keywords), source list ${raw.length}, sources kept ${sources.length}`);
 
