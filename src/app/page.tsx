@@ -9,7 +9,7 @@ import { ResultsGrid } from "@/components/ResultsGrid";
 import { HeaderWithFontInfo } from "@/components/HeaderWithFontInfo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useAppState } from "@/lib/store";
-import { rankPairs, explorePairs, reconstructExplorePairs } from "@/lib/engine";
+import { rankPairs, explorePairs, reconstructExplorePairs, prepareMeaningMatch } from "@/lib/engine";
 
 export default function Home() {
   const { hasSearched, results, setQuery, setResults, setHasSearched, setIsExploring, setVisibleCount, setIsLoading, includeFontNameMatches } = useAppState();
@@ -52,6 +52,8 @@ export default function Home() {
         setIsExploring(false);
         setVisibleCount(3);
         setResults(rankPairs(saved, { includeFontNameMatches }));
+        // If the restored query has words only the meaning table knows, re-rank once it loads
+        prepareMeaningMatch(saved).then((needed) => { if (needed) setResults(rankPairs(saved, { includeFontNameMatches })); }).catch(() => {});
       }
     } catch {}
   }, []);

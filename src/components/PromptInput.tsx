@@ -2,7 +2,7 @@
 
 import { useCallback, useRef, useState, useEffect } from "react";
 import { useAppState } from "@/lib/store";
-import { rankPairs, explorePairs } from "@/lib/engine";
+import { rankPairs, explorePairs, prepareMeaningMatch } from "@/lib/engine";
 import { analyzeImages } from "@/lib/image-analysis";
 
 const SUGGESTION_SETS = [
@@ -145,6 +145,9 @@ export function PromptInput() {
         searchQuery = combined;
       }
     }
+
+    // Only fetches the meaning table when a word is one the engine cannot place
+    try { await prepareMeaningMatch(searchQuery); } catch {}
 
     setTimeout(() => {
       try {
