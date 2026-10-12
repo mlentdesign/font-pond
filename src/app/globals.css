@@ -1011,10 +1011,21 @@ body.animations-paused #water-bg * {
 /* Focus: outline wraps only the textarea area, not the action bar.
    Rounded corners on top to match the container, square on bottom
    where it meets the action bar divider. */
+/* The resting border is an overlay (not a real border) so the focus ring
+   below sits on the same outer edge instead of 2px inside it. */
 .prompt-container {
-  border: 2px solid var(--border);
+  position: relative;
   overflow: hidden !important;
   border-radius: 12px !important;
+}
+.prompt-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 9;
 }
 .prompt-textarea-wrap {
   position: relative;
@@ -1027,7 +1038,7 @@ body.animations-paused #water-bg * {
   right: 0;
   bottom: 0;
   border: 2px solid var(--accent);
-  border-radius: 11px 11px 0 0;
+  border-radius: 12px 12px 0 0;
   pointer-events: none;
   z-index: 10;
 }
@@ -1471,7 +1482,8 @@ th:nth-child(4), td:nth-child(4) {
 .feel-input { background: transparent !important; border: none !important; box-shadow: none !important; }
 .feel-input::placeholder { color: var(--text-placeholder); opacity: 1; }
 .feel-input:focus, .feel-input:focus-visible { outline: none; }
-.prompt-container:has(.feel-input):focus-within { border-color: var(--accent); box-shadow: var(--shadow-input-focus); }
+.prompt-container:has(.feel-input):focus-within { box-shadow: var(--shadow-input-focus); }
+.prompt-container:has(.feel-input):focus-within::after { border-color: var(--accent); }
 .feel-chip {
   background: var(--bg-chip);
   color: var(--text-chip);
