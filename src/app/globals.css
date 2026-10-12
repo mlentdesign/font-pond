@@ -1042,6 +1042,11 @@ body.animations-paused #water-bg * {
   pointer-events: none;
   z-index: 10;
 }
+/* Block, not inline-block — an inline textarea leaves a ~6px descender
+   strip under it, which pushed the focus ring's bottom edge below the field. */
+.prompt-textarea-wrap textarea {
+  display: block;
+}
 /* Suppress the global focus-visible outline on the prompt textarea */
 .prompt-textarea-wrap textarea:focus,
 .prompt-textarea-wrap textarea:focus-visible {
@@ -1334,7 +1339,7 @@ th:nth-child(4), td:nth-child(4) {
     top: 0;
     left: 0;
     right: 0;
-    bottom: 5px;
+    bottom: 0;
     border: 2px solid var(--accent);
     border-radius: 11px 11px 0 0;
     pointer-events: none;
