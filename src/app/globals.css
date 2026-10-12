@@ -1471,7 +1471,7 @@ th:nth-child(4), td:nth-child(4) {
 .feel-input { background: transparent !important; border: none !important; box-shadow: none !important; }
 .feel-input::placeholder { color: var(--text-placeholder); opacity: 1; }
 .feel-input:focus, .feel-input:focus-visible { outline: none; }
-.prompt-container:focus-within { border-color: var(--accent); box-shadow: var(--shadow-input-focus); }
+.prompt-container:has(.feel-input):focus-within { border-color: var(--accent); box-shadow: var(--shadow-input-focus); }
 .feel-chip {
   background: var(--bg-chip);
   color: var(--text-chip);
