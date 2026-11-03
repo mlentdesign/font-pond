@@ -1,7 +1,8 @@
 import opentype from "opentype.js";
 import fs from "fs";
 import path from "path";
-const CACHE_DIR = "/Users/eddy/developer/projects/Font Pond/.font-cache/dafont";
+import { fileURLToPath } from "url";
+const CACHE_DIR = fileURLToPath(new URL("../.font-cache/dafont", import.meta.url));
 
 const filePath = fs.readdirSync(CACHE_DIR).map(f => path.join(CACHE_DIR, f)).find(f => f.includes("brusher"));
 if (!filePath) { console.log("not cached - run measure-new-dafont.mjs first for brusher"); process.exit(1); }

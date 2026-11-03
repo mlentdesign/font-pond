@@ -2,7 +2,8 @@ import opentype from "opentype.js";
 import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
-const CACHE_DIR = "/Users/eddy/developer/projects/Font Pond/.font-cache/dafont";
+import { fileURLToPath } from "url";
+const CACHE_DIR = fileURLToPath(new URL("../.font-cache/dafont", import.meta.url));
 
 async function download(slug) {
   const res = await fetch(`https://dl.dafont.com/dl/?f=${slug}`, { redirect: "follow" });
