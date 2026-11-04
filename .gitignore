@@ -42,3 +42,6 @@ next-env.d.ts
 .font-cache/
 scripts/measured-*.json
 scripts/.meaning-cache/
+
+# local Figma capture state (file key)
+.figma-capture.json

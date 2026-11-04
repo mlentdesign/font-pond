@@ -1,0 +1,6 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "pair slug data files look like keys but are font pair names"
+paths = ['''src/data/(all-)?pair-slugs\.json''']
