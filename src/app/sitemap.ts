@@ -14,6 +14,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: BASE, lastModified: now, changeFrequency: "weekly", priority: 1 },
     { url: `${BASE}/database`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     ...(FEEL_ENABLED ? [{ url: `${BASE}/feel`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 }] : []),
+    { url: `${BASE}/privacy.html`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${BASE}/terms.html`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 
   const fontPages: MetadataRoute.Sitemap = fonts.map((f) => ({
