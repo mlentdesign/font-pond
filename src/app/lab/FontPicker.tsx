@@ -21,14 +21,23 @@ function rank(fonts: Font[], query: string): Font[] {
   return [...starts, ...wordStarts, ...contains].slice(0, MAX_ROWS);
 }
 
+export function ShuffleIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M3 6h2.5c3 0 4 8 7 8H17m0 0-2.5-2.5M17 14l-2.5 2.5M3 14h2.5c1 0 1.8-.7 2.4-1.6M12.5 6H17m0 0-2.5-2.5M17 6l-2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 interface Props {
   label: string;
   fonts: Font[];
   value: Font | null;
   onChange: (font: Font) => void;
+  onShuffle?: () => void;
 }
 
-export function FontPicker({ label, fonts, value, onChange }: Props) {
+export function FontPicker({ label, fonts, value, onChange, onShuffle }: Props) {
   const id = useId();
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
@@ -70,9 +79,23 @@ export function FontPicker({ label, fonts, value, onChange }: Props) {
 
   return (
     <div ref={wrapRef} style={{ position: "relative" }}>
-      <label htmlFor={id} className="block uppercase text-neutral-400" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "8px" }}>
-        {label}
-      </label>
+      <div className="flex items-center justify-between" style={{ marginBottom: "8px" }}>
+        <label htmlFor={id} className="block uppercase text-neutral-400" style={{ fontSize: "12px", letterSpacing: "0.08em" }}>
+          {label}
+        </label>
+        {onShuffle && (
+          <button
+            type="button"
+            onClick={onShuffle}
+            aria-label={`Shuffle ${label.toLowerCase()}`}
+            className="flex items-center hover:opacity-70"
+            style={{ gap: "4px", cursor: "pointer", background: "none", border: "none", color: "var(--accent)", fontSize: "14px", padding: 0 }}
+          >
+            <ShuffleIcon />
+            Shuffle
+          </button>
+        )}
+      </div>
       <input
         id={id}
         type="text"

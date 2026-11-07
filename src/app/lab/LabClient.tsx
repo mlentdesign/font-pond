@@ -7,7 +7,7 @@ import { fonts, getFont } from "@/data/fonts";
 import type { Font } from "@/data/types";
 import { loadFont, pinFonts, ensureFontsRendered, getFontFamily } from "@/lib/fonts";
 import { DEFAULT_HEADLINE, DEFAULT_BODY, DEFAULT_HEADER_SIZE, DEFAULT_BODY_SIZE } from "@/lib/store";
-import { FontPicker } from "./FontPicker";
+import { FontPicker, ShuffleIcon } from "./FontPicker";
 
 type CaseMode = "as-typed" | "upper" | "sentence" | "lower" | "title";
 
@@ -134,6 +134,20 @@ export default function LabClient() {
     return pinFonts(chosen);
   }, [header, bodyFont]);
 
+  // Shuffle picks only fonts that suit the role, so results stay usable.
+  const headerPool = useMemo(() => sorted.filter((f) => f.isHeaderSuitable), [sorted]);
+  const bodyPool = useMemo(() => sorted.filter((f) => f.isBodySuitable), [sorted]);
+  const pick = (pool: Font[], not: Font | null): Font => {
+    for (let i = 0; i < 5; i++) {
+      const f = pool[Math.floor(Math.random() * pool.length)];
+      if (f.id !== not?.id) return f;
+    }
+    return pool[0];
+  };
+  const shuffleHeader = () => setHeader((h) => pick(headerPool, h));
+  const shuffleBody = () => setBodyFont((b) => pick(bodyPool, b));
+  const shuffleBoth = () => { shuffleHeader(); shuffleBody(); };
+
   const swap = () => {
     setHeader(bodyFont);
     setBodyFont(header);
@@ -161,12 +175,13 @@ export default function LabClient() {
           {/* Controls: left column on desktop, below the sample on tablet and phone */}
           <SectionCard className="flex flex-col" style={{ gap: "24px" }}>
             <div className="flex flex-col" style={{ gap: "8px" }}>
-              <FontPicker label="Header font" fonts={sorted} value={header} onChange={setHeader} />
+              <FontPicker label="Header font" fonts={sorted} value={header} onChange={setHeader} onShuffle={shuffleHeader} />
+              <div className="flex" style={{ gap: "8px" }}>
               <button
                 type="button"
                 onClick={swap}
                 aria-label="Swap header and body fonts"
-                className="flex items-center justify-center rounded-lg hover:opacity-70"
+                className="flex flex-1 items-center justify-center rounded-lg hover:opacity-70"
                 style={{ height: "40px", gap: "4px", cursor: "pointer", background: "var(--bg-input)", border: "2px solid var(--border)", color: "var(--accent)", fontSize: "14px" }}
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -174,7 +189,18 @@ export default function LabClient() {
                 </svg>
                 Swap fonts
               </button>
-              <FontPicker label="Body font" fonts={sorted} value={bodyFont} onChange={setBodyFont} />
+              <button
+                type="button"
+                onClick={shuffleBoth}
+                aria-label="Shuffle both fonts"
+                className="flex flex-1 items-center justify-center rounded-lg hover:opacity-70"
+                style={{ height: "40px", gap: "4px", cursor: "pointer", background: "var(--bg-input)", border: "2px solid var(--border)", color: "var(--accent)", fontSize: "14px" }}
+              >
+                <ShuffleIcon />
+                Shuffle both
+              </button>
+              </div>
+              <FontPicker label="Body font" fonts={sorted} value={bodyFont} onChange={setBodyFont} onShuffle={shuffleBody} />
             </div>
 
             <div style={{ borderTop: "1px solid var(--border)", paddingTop: "24px" }}>
