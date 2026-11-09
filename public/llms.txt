@@ -1,0 +1,11 @@
+# Font Pond
+
+> Font Pond offers free font pairings for your project, mood or brand. Agents acting for a visitor may read and quote pages with credit; training AI models on this content is not permitted.
+
+## Pages
+- [Home](https://fontpond.melware.art/)
+
+## Policies
+- [Privacy](https://fontpond.melware.art/privacy)
+- [Terms](https://fontpond.melware.art/terms)
+- [Sitemap](https://fontpond.melware.art/sitemap.xml)
