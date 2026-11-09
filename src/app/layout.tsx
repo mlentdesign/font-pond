@@ -15,7 +15,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Font Pond",
+  title: "Font Pond: free font pairings by mood",
+  alternates: { canonical: "https://fontpond.melware.art/" },
   description: "Discover free font pairings for your next project. Describe your mood, brand, or vibe — get ranked typography recommendations.",
   openGraph: {
     title: "Font Pond",
@@ -46,7 +47,9 @@ export default function RootLayout({
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d3b3f" />
         <meta name="color-scheme" content="light dark" />
         {/* Allow search indexing but block AI training and scraping */}
-        <meta name="robots" content="noai, noimageai" />
+        <meta name="robots" content="index, follow, noai, noimageai" />
+        <meta name="tdm-reservation" content="1" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebApplication", name: "Font Pond", url: "https://fontpond.melware.art/", applicationCategory: "DesignApplication", description: "Free font pairings ranked by mood, brand or vibe.", author: { "@type": "Person", name: "Mel Lent" } }) }} />
         <meta name="copyright" content="Font Pond — pairing algorithm, tone classification, data curation, and design © Mel Lent. Origin token: FP-AUTH-9W3K7-MLENT-2024. Unauthorized reproduction prohibited under proprietary license." />
         {/* Theme script — sets data-theme from localStorage before first paint */}
         <script
