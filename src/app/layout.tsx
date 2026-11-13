@@ -60,13 +60,9 @@ export default function RootLayout({
         <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="stylesheet" href="/fonts/fonts.css" />
-        {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-N6BYH6MQKP" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-N6BYH6MQKP');gtag('config','G-DVXTH1CEY6');`,
-          }}
-        />
+        {/* Google Analytics, through BakedGood: a choice only where the law requires one (Europe) */}
+        <script src="/bakedgood.js" />
+        <script src="/bakedgood-init.js" />
       </head>
       <body className="min-h-full flex flex-col">
         {/* Skip to content link for keyboard/screen reader users */}
