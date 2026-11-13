@@ -2,7 +2,7 @@
 
 A font discovery and pairing tool for designers. Upload an image or enter keywords to surface typeface combinations that match the mood, tone, and visual character of your work.
 
-**Visit the site:** https://mlentdesign.github.io/font-pond/?utm_source=github-io&utm_medium=readme
+**Visit the site:** https://fontpond.melware.art/?utm_source=github&utm_medium=readme
 
 ---
 
@@ -23,7 +23,7 @@ Font Pond analyzes visual and descriptive input to suggest font pairings matched
 
 - Next.js (static export) + TypeScript
 - Tailwind CSS v4
-- Deployed via GitHub Pages
+- Deployed via GitHub Pages at the custom domain fontpond.melware.art
 
 ## License
 

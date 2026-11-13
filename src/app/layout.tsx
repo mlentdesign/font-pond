@@ -57,7 +57,10 @@ export default function RootLayout({
             __html: `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme:dark)").matches);var h=document.documentElement;h.setAttribute("data-theme",d?"dark":"light");h.style.colorScheme=d?"dark":"light";h.style.background=d?"#0d3b3f":"#c8e6e3";h.style.color=d?"#dcdcdc":"#444444";var m=document.querySelector('meta[name=theme-color][media*=light]');if(m)m.content=d?"#0d3b3f":"#c8e6e3"}catch(e){}})()`,
           }}
         />
-        <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
+        {/* Figma's page-capture helper is for local design work only, so it never ships to the live site */}
+        {process.env.NODE_ENV !== "production" && (
+          <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
+        )}
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="stylesheet" href="/fonts/fonts.css" />
         {/* Google Analytics, through BakedGood: a choice only where the law requires one (Europe) */}
