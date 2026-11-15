@@ -14,7 +14,7 @@ import path from "node:path";
 
 const OUT = path.resolve("out");
 const BASE = "https://fontpond.melware.art";
-const DEFAULT_TITLE = "Font Pond: free font pairings by mood"; // must match layout.tsx metadata.title
+const DEFAULT_TITLE = "Font Pond · free font pairings by mood"; // must match layout.tsx metadata.title
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const trim = (s, n) => (s.length > n ? s.slice(0, n - 1).replace(/\s+\S*$/, "") + "…" : s);
@@ -60,7 +60,7 @@ for (const f of index.fonts) {
   const kind = f.classification ? `${f.classification} font` : "font";
   const bits = [f.designer && `by ${f.designer}`, f.year && `(${f.year})`].filter(Boolean).join(" ");
   const tones = f.tones?.length ? ` Feels ${f.tones.join(", ")}.` : "";
-  const description = trim(`${f.name} is a free ${kind}${bits ? " " + bits : ""}.${tones} See its anatomy, license and the best font pairings for ${f.name} on Font Pond.`, 160);
+  const description = trim(`${f.name} is a free ${kind}${bits ? " " + bits : ""}.${tones} See its anatomy, license and the best font pairings for ${f.name}, fished from Font Pond.`, 160);
   const html = setHead(shell, {
     title: `Font Pond · ${f.name} font pairings`,
     description,
@@ -79,7 +79,7 @@ for (const p of index.pairs) {
   const url = `${BASE}/pair/${p.slug}`;
   const name = `${p.heading} and ${p.body}`;
   const why = p.summary ? ` ${p.summary.trim().replace(/\.?$/, ".")}` : "";
-  const description = trim(`${p.heading} for headings with ${p.body} for body text.${why} A free font pairing, scored on Font Pond.`, 160);
+  const description = trim(`${p.heading} for headings with ${p.body} for body text.${why} A free font pairing, caught in Font Pond.`, 160);
   const html = setHead(shell, {
     title: `Font Pond · ${name} font pairing`,
     description,

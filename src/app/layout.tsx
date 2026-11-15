@@ -15,12 +15,12 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Font Pond: free font pairings by mood",
+  title: "Font Pond · free font pairings by mood",
   alternates: { canonical: "https://fontpond.melware.art/" },
-  description: "Discover free font pairings for your next project. Describe your mood, brand, or vibe — get ranked typography recommendations.",
+  description: "Fish for free font pairings in Font Pond. Describe your project, mood or brand and catch ranked heading and body pairings from thousands of free fonts.",
   openGraph: {
     title: "Font Pond",
-    description: "Discover free font pairings for your next project. Describe your mood, brand, or vibe — get ranked typography recommendations.",
+    description: "Fish for free font pairings in Font Pond. Describe your project, mood or brand and catch ranked heading and body pairings from thousands of free fonts.",
     url: "https://fontpond.melware.art/",
     siteName: "Font Pond",
     type: "website",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Font Pond",
-    description: "Discover free font pairings for your next project. Describe your mood, brand, or vibe — get ranked typography recommendations.",
+    description: "Fish for free font pairings in Font Pond. Describe your project, mood or brand and catch ranked heading and body pairings from thousands of free fonts.",
     images: ["https://fontpond.melware.art/og-landing.png"],
   },
 };
