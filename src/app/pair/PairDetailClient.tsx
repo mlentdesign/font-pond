@@ -202,6 +202,12 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
   const bodyFont = pair ? fontsById.get(pair.bodyFontId) : undefined;
 
+  // Per-page tab title (matches the static head written by scripts/prerender-seo-pages.mjs).
+  // Title only — does not touch the slug or URL-cleaning logic.
+  useEffect(() => {
+    if (headerFont && bodyFont) document.title = `Font Pond · ${headerFont.name} and ${bodyFont.name} font pairing`;
+  }, [headerFont, bodyFont]);
+
   // Clean ?p= query param out of the URL once the pair is loaded.
   // replaceState updates the address bar without touching Next.js router state,
   // so there's no route-param change, no Suspense re-trigger, and no flash.

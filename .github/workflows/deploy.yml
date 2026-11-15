@@ -27,6 +27,7 @@ jobs:
 
       - run: npm ci
       - run: npx next build
+      - run: node scripts/prerender-seo-pages.mjs
 
       # upload-pages-artifact skips dot-folders, which drops /.well-known/tdmrep.json.
       # Build the same tar the action would, but keep hidden files.

@@ -79,6 +79,12 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
 
   const font = fontsBySlug.get(slug);
 
+  // Per-page tab title (matches the static head written by scripts/prerender-seo-pages.mjs).
+  // Title only — does not touch the slug or URL-cleaning logic.
+  useEffect(() => {
+    if (font) document.title = `Font Pond · ${font.name} font pairings`;
+  }, [font]);
+
   useEffect(() => {
     if (font && slug && window.location.search) {
       window.history.replaceState(window.history.state, "", `/font/${slug}`);

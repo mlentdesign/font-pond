@@ -49,7 +49,7 @@ export default function RootLayout({
         {/* Allow search indexing but block AI training and scraping */}
         <meta name="robots" content="index, follow, noai, noimageai" />
         <meta name="tdm-reservation" content="1" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebApplication", name: "Font Pond", url: "https://fontpond.melware.art/", applicationCategory: "DesignApplication", description: "Free font pairings ranked by mood, brand or vibe.", author: { "@type": "Person", name: "Mel Lent" } }) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@graph": [{ "@type": "WebSite", name: "Font Pond", alternateName: ["Fontpond", "Font Pond font pairings"], url: "https://fontpond.melware.art/" }, { "@type": "WebApplication", name: "Font Pond", alternateName: "Fontpond", url: "https://fontpond.melware.art/", applicationCategory: "DesignApplication", operatingSystem: "Any", dateCreated: "2026-04-04", isAccessibleForFree: true, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }, description: "Free font pairing generator. Describe your project, mood or brand and get ranked heading and body font pairings from thousands of free fonts.", author: { "@type": "Person", name: "Mel Lent" } }] }) }} />
         <meta name="copyright" content="Font Pond — pairing algorithm, tone classification, data curation, and design © Mel Lent. Origin token: FP-AUTH-9W3K7-MLENT-2024. Unauthorized reproduction prohibited under proprietary license." />
         {/* Theme script — sets data-theme from localStorage before first paint */}
         <script
