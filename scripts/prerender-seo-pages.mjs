@@ -93,6 +93,33 @@ for (const p of index.pairs) {
   pairsWritten++;
 }
 
+// Designer and year pages — same approach.
+let designersWritten = 0, yearsWritten = 0;
+const plural = (n, w) => `${n} ${w}${n === 1 ? "" : "s"}`;
+for (const [kind, list] of [["designer", index.designers || []], ["year", index.years || []]]) {
+  fs.mkdirSync(path.join(OUT, kind), { recursive: true });
+  for (const g of list) {
+    if (!g.slug || !/^[a-z0-9-]+$/.test(g.slug)) continue;
+    const url = `${BASE}/${kind}/${g.slug}`;
+    const ex = g.examples?.length ? ` including ${g.examples.join(", ")}` : "";
+    const label = kind === "designer" ? `Fonts by ${g.name}` : `Fonts released in ${g.year}`;
+    const description = trim(kind === "designer"
+      ? `${plural(g.count, "free font")} designed by ${g.name}${ex}, with the best font pairings for each on Font Pond.`
+      : `${plural(g.count, "free font")} released in ${g.year}${ex}, with the best font pairings for each on Font Pond.`, 160);
+    const html = setHead(shell, {
+      title: `Font Pond · ${label}`,
+      description,
+      url,
+      jsonLd: { "@context": "https://schema.org", "@graph": [
+        { "@type": "CollectionPage", name: label, url, description, isPartOf: { "@type": "WebSite", name: "Font Pond", url: `${BASE}/` } },
+        crumbs([["Font Pond", `${BASE}/`], [label, url]]),
+      ] },
+    });
+    fs.writeFileSync(path.join(OUT, kind, `${g.slug}.html`), html);
+    kind === "designer" ? designersWritten++ : yearsWritten++;
+  }
+}
+
 // Top-level pages: canonical (and og:url) should point at themselves, not the homepage.
 const selfCanon = { "database.html": "/database", "feel.html": "/feel" };
 for (const [file, p] of Object.entries(selfCanon)) {
@@ -106,5 +133,5 @@ for (const [file, p] of Object.entries(selfCanon)) {
 }
 
 fs.rmSync(path.join(OUT, "seo-index.json"));
-console.log(`prerender-seo-pages: ${fontsWritten} font + ${pairsWritten} pair pages written`);
-if (fontsWritten < 100 || pairsWritten < 1000) throw new Error("Far fewer pages than expected — check seo-index.json");
+console.log(`prerender-seo-pages: ${fontsWritten} font + ${pairsWritten} pair + ${designersWritten} designer + ${yearsWritten} year pages written`);
+if (fontsWritten < 100 || pairsWritten < 1000 || designersWritten < 50 || yearsWritten < 10) throw new Error("Far fewer pages than expected — check seo-index.json");

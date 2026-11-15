@@ -38,6 +38,11 @@ export default function DesignerDetailClient({ slugOverride }: { slugOverride?: 
   const fromPair = fromPairRef.current;
 
   const designer = designersBySlug.get(slug);
+
+  // Per-page tab title (matches scripts/prerender-seo-pages.mjs). Title only.
+  useEffect(() => {
+    if (designer) document.title = `Font Pond · Fonts by ${designer.name}`;
+  }, [designer]);
   const fromFont = fontSlug ? fontsBySlug.get(fontSlug) : undefined;
   const fromPairData = fromPair ? getPairOrConstruct(fromPair) : undefined;
 

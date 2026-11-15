@@ -2,6 +2,8 @@
 // to give each clean URL its own static file (so search engines get a 200 and a real title).
 import { fonts } from "@/data/fonts";
 import { fontPairs } from "@/data/pairs";
+import { designersBySlug } from "@/data/designers";
+import { yearsBySlug } from "@/data/years";
 
 export const dynamic = "force-static";
 
@@ -22,6 +24,8 @@ export function GET() {
       body: byId.get(p.bodyFontId)?.name || null,
       summary: p.shortExplanation || p.toneSummary || "",
     })),
+    designers: [...designersBySlug.values()].map((d) => ({ slug: d.slug, name: d.name, count: d.fonts.length, examples: d.fonts.slice(0, 3).map((f) => f.name) })),
+    years: [...yearsBySlug.values()].map((y) => ({ slug: y.slug, year: y.year, count: y.fonts.length, examples: y.fonts.slice(0, 3).map((f) => f.name) })),
   };
   return Response.json(body);
 }

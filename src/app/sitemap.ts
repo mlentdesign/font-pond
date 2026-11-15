@@ -2,6 +2,8 @@ import { FEEL_ENABLED } from "@/lib/feel/enabled";
 import type { MetadataRoute } from "next";
 import { fonts } from "@/data/fonts";
 import { fontPairs } from "@/data/pairs";
+import { designersBySlug } from "@/data/designers";
+import { yearsBySlug } from "@/data/years";
 
 export const dynamic = "force-static";
 
@@ -32,5 +34,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...fontPages, ...pairPages];
+  const designerPages: MetadataRoute.Sitemap = [...designersBySlug.values()].map((d) => ({
+    url: `${BASE}/designer/${d.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.5,
+  }));
+  const yearPages: MetadataRoute.Sitemap = [...yearsBySlug.values()].map((y) => ({
+    url: `${BASE}/year/${y.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.4,
+  }));
+
+  return [...staticPages, ...fontPages, ...pairPages, ...designerPages, ...yearPages];
 }

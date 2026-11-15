@@ -31,6 +31,11 @@ export default function YearDetailClient({ slugOverride }: { slugOverride?: stri
   const fontSlug = fontSlugRef.current;
 
   const yearGroup = yearsBySlug.get(slug);
+
+  // Per-page tab title (matches scripts/prerender-seo-pages.mjs). Title only.
+  useEffect(() => {
+    if (yearGroup) document.title = `Font Pond · Fonts released in ${yearGroup.year}`;
+  }, [yearGroup]);
   const fromFont = fontSlug ? fontsBySlug.get(fontSlug) : undefined;
 
   useEffect(() => {
