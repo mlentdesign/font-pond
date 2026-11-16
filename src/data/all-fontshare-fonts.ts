@@ -31,6 +31,8 @@ function fs(
     moodCategory?: "traditional" | "modern" | "elegant" | "playful" | "bold" | "neutral" | "technical" | "warm" | "experimental";
     designer?: string;
     foundry?: string;
+    fontshareId?: string;      // Fontshare's id when it isn't the slug (checked against api.fontshare.com)
+    fontshareWeights?: string; // only when the font lacks the usual 100–900 weights
   }
 ): Font {
   const isBody = opts?.isBodySuitable ?? false;
@@ -187,13 +189,14 @@ function fs(
 
   // Site URLs must be lowercase (prerender skips anything else), but Fontshare's own id can
   // be camelCase (e.g. "beVietnam-pro"), so keep that separately for loading the font.
-  const fontshareId = slug;
+  const fontshareId = opts?.fontshareId ?? slug;
   const siteSlug = slug.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
   return {
     id: `fs-${siteSlug}`,
     name,
     slug: siteSlug,
     ...(siteSlug !== fontshareId ? { fontshareId } : {}),
+    ...(opts?.fontshareWeights ? { fontshareWeights: opts.fontshareWeights } : {}),
     source: "fontshare",
     sourceUrl: `https://www.fontshare.com/fonts/${fontshareId}`,
     downloadUrl: null,
@@ -494,7 +497,7 @@ export const allFontshareFonts: Font[] = [
   fs("JetBrains Mono", "jetbrains-mono", "monospace",
     ["technical", "coding", "developer", "functional", "modern", "precise", "digital", "structured", "clean", "systematic"],
     ["technical", "precise", "functional", "developer"],
-    { isBodySuitable: false, bodyLegibilityScore: 6, distinctiveTraits: ["increased letter height", "coding ligatures", "optimized for long coding sessions"], designer: "Philipp Nurullin, Konstantin Bulenkov" }),
+    { isBodySuitable: false, bodyLegibilityScore: 6, distinctiveTraits: ["increased letter height", "coding ligatures", "optimized for long coding sessions"], fontshareId: "jet-brains-mono", designer: "Philipp Nurullin, Konstantin Bulenkov" }),
 
   fs("Hoover", "hoover", "serif",
     ["slab", "sturdy", "editorial", "confident", "bold", "grounded", "industrial", "robust", "reliable", "american"],
@@ -605,7 +608,7 @@ export const allFontshareFonts: Font[] = [
   fs("Pencerio", "pencerio", "script",
     ["elegant", "calligraphic", "refined", "sophisticated", "formal", "classic", "luxurious", "fluid", "graceful", "premium"],
     ["elegant", "refined", "sophisticated", "graceful"],
-    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["calligraphic rhythm", "elegant script flourishes", "refined letterforms"], moodCategory: "elegant", designer: "Manushi Parikh" }),
+    { isBodySuitable: false, bodyLegibilityScore: 3, distinctiveTraits: ["calligraphic rhythm", "elegant script flourishes", "refined letterforms"], moodCategory: "elegant", designer: "Manushi Parikh", fontshareWeights: "50" }),
 
   fs("Plein", "plein", "sans-serif",
     ["neutral", "functional", "clean", "modern", "professional", "versatile", "balanced", "reliable", "understated", "crisp"],

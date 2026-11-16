@@ -2010,7 +2010,10 @@ function enrichPairAnatomy(pair: FontPair): FontPair {
   return { ...pair, xHeightHarmony, roleFitness, personalityContrast };
 }
 
-const enrichedHandCrafted = handCraftedPairs.map(enrichPairAnatomy);
+// The hand-crafted list has a few pairs written up twice under one slug; keep the LAST
+// write-up (the one pairsBySlug — and so the pair page — has always shown) so each URL is listed once.
+const _lastBySlug = new Map(handCraftedPairs.map((p, i) => [p.slug, i]));
+const enrichedHandCrafted = handCraftedPairs.filter((p, i) => _lastBySlug.get(p.slug) === i).map(enrichPairAnatomy);
 
 // ── Merge hand-crafted + curated + dynamic pairs ──
 

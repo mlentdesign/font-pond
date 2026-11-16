@@ -35,7 +35,7 @@ function addCdnLink(key: string, fontKey: string, href: string): void {
   }
 }
 
-export function loadFont(font: { name: string; slug: string; source: string; googleFontsFamily?: string; id?: string; fontshareId?: string }): void {
+export function loadFont(font: { name: string; slug: string; source: string; googleFontsFamily?: string; id?: string; fontshareId?: string; fontshareWeights?: string }): void {
   if (typeof window === "undefined") return;
 
   const key = font.id || font.slug;
@@ -65,7 +65,7 @@ export function loadFont(font: { name: string; slug: string; source: string; goo
     const cdnKey = `fs-cdn-${font.slug}`;
     if (!loaded.has(cdnKey)) {
       loaded.add(cdnKey);
-      addCdnLink(cdnKey, key, `https://api.fontshare.com/v2/css?f[]=${font.fontshareId ?? font.slug}@100,200,300,400,500,600,700,800,900&display=swap`);
+      addCdnLink(cdnKey, key, `https://api.fontshare.com/v2/css?f[]=${font.fontshareId ?? font.slug}@${font.fontshareWeights ?? "100,200,300,400,500,600,700,800,900"}&display=swap`);
     }
   }
 }
