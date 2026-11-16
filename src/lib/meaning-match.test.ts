@@ -13,19 +13,19 @@ describe("meaning-match tier", () => {
   });
 
   it("treats words only fuzzy fallbacks catch as unmatched", () => {
-    expect(isUnmatchedWord("dental")).toBe(true);
-    expect(isUnmatchedWord("mortgage")).toBe(true);
+    expect(isUnmatchedWord("dermatology")).toBe(true);
+    expect(isUnmatchedWord("accountancy")).toBe(true);
   });
 
   it("only loads the table when a query has an unmatched word", async () => {
     expect(await prepareMeaningMatch("elegant wedding")).toBe(false);
-    expect(await prepareMeaningMatch("dental clinic")).toBe(true);
+    expect(await prepareMeaningMatch("dermatology clinic")).toBe(true);
   });
 
   it("maps unmatched words to nearby engine words", async () => {
-    await prepareMeaningMatch("dental");
-    expect(meaningNeighbors("dental")).toContain("dentist");
-    expect(meaningNeighbors("cybersecurity").length).toBeGreaterThan(0);
+    await prepareMeaningMatch("dermatology");
+    expect(meaningNeighbors("dermatology")).toContain("skincare");
+    expect(meaningNeighbors("pediatrics").length).toBeGreaterThan(0);
     expect(meaningNeighbors("elegant")).toEqual([]);
   });
 

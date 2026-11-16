@@ -3,6 +3,7 @@ import { fonts, fontsById } from "@/data/fonts";
 import { fontPairs, ensureDynamicPairs, pairsById } from "@/data/pairs";
 import { Font, FontPair, ScoredPair, StyleSignals } from "@/data/types";
 import { SYNONYM_MAP } from "@/data/adjective-expansion";
+import { KEYWORD_EXPANSION } from "@/data/keyword-expansion";
 import { SYNONYM_BATCH3 } from "@/data/adjective-batch3";
 import { MEANING_MATCH_ENABLED } from "./meaning-enabled";
 import { meaningNeighbors, warmMeaningTable } from "./meaning-match";
@@ -3265,6 +3266,11 @@ function isStylizedPrompt(words: string[]): boolean {
 }
 
 // Pre-compute keyword keys once (avoids Object.keys() on every call)
+// Expansion words fill gaps only; they never override an existing entry.
+// Phrases keep their spaces: expandPhrases joins adjacent query words with a space.
+for (const [k, v] of Object.entries(KEYWORD_EXPANSION)) {
+  if (!KEYWORD_WANT[k]) KEYWORD_WANT[k] = v;
+}
 const KEYWORD_KEYS: string[] = Object.keys(KEYWORD_WANT);
 
 // ── Compact word stemmer ──
@@ -3332,6 +3338,10 @@ function expandPhrases(words: string[]): string[] {
   for (let i = 0; i < words.length - 1; i++) {
     const bigram = `${words[i]} ${words[i + 1]}`;
     if (KEYWORD_WANT[bigram]) out.push(bigram);
+    if (i < words.length - 2) {
+      const trigram = `${bigram} ${words[i + 2]}`;
+      if (KEYWORD_WANT[trigram]) out.push(trigram);
+    }
   }
   return out;
 }
@@ -3857,16 +3867,22 @@ function findFontNamesInQuery(query: string): Map<string, "full" | "partial"> {
   const lower = query.toLowerCase().trim();
   const matched = new Map<string, "full" | "partial">();
   const queryWords = lower.split(/[\s,.\-—–/]+/).filter(w => w.length > 0);
+  // Whole-word matching: "playful" must not hit the font "Play", "whiskey" must not hit "Whisper"
+  const padded = " " + queryWords.join(" ") + " ";
+  // A query word the engine already knows as a keyword is a description, not a mistyped font name
+  const isKnownKeyword = (w: string) => !!KEYWORD_WANT[w] || STEMMED_KEYS.has(stem(w)) || !!ALL_SYNONYMS[w];
 
   for (const [, font] of fontsById) {
     const fontNameLower = font.name.toLowerCase();
-    // Check if the query contains the full font name
-    if (lower.includes(fontNameLower)) {
+    const nameTokens = fontNameLower.split(/[\s,.\-—–/]+/).filter(Boolean).join(" ");
+    // Check if the query contains the full font name as whole words
+    if (nameTokens && padded.includes(" " + nameTokens + " ")) {
       matched.set(font.id, "full");
       continue;
     }
     // Also check slug form (e.g. "playfair-display")
-    if (lower.includes(font.slug)) {
+    const slugTokens = font.slug.split("-").filter(Boolean).join(" ");
+    if (slugTokens && padded.includes(" " + slugTokens + " ")) {
       matched.set(font.id, "full");
       continue;
     }
@@ -3876,7 +3892,7 @@ function findFontNamesInQuery(query: string): Map<string, "full" | "partial"> {
     if (fontWords.length === 1 && fontWords[0].length >= 4) {
       // Single-word font name: check each query word — this is a full match
       for (const qw of queryWords) {
-        if (qw.length >= 4 && editDistance(qw, fontWords[0]) <= maxTypoDistance(fontWords[0])) {
+        if (qw.length >= 4 && (qw === fontWords[0] || !isKnownKeyword(qw)) && editDistance(qw, fontWords[0]) <= maxTypoDistance(fontWords[0])) {
           matched.set(font.id, "full");
           break;
         }
@@ -3887,7 +3903,7 @@ function findFontNamesInQuery(query: string): Map<string, "full" | "partial"> {
       for (const fw of fontWords) {
         if (fw.length < 4) continue; // skip short words like "of", "the", "pro"
         for (const qw of queryWords) {
-          if (qw.length >= 4 && editDistance(qw, fw) <= maxTypoDistance(fw)) {
+          if (qw.length >= 4 && !isKnownKeyword(qw) && editDistance(qw, fw) <= maxTypoDistance(fw)) {
             matched.set(font.id, "partial");
             break;
           }
