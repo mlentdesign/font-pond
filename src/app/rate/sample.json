@@ -1,0 +1,328 @@
+{
+ "range": [
+  0.45,
+  9.3
+ ],
+ "pairs": [
+  {
+   "slug": "bowlby-one-ubuntu-sans-mono",
+   "h": "gf-bowlby-one",
+   "b": "gf-ubuntu-sans-mono",
+   "q": 7.9,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "gilda-display-mate",
+   "h": "gf-gilda-display",
+   "b": "gf-mate",
+   "q": 7.55,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "chillax-homenaje",
+   "h": "fs-chillax",
+   "b": "gf-homenaje",
+   "q": 7.1,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "kite-one-ancizar-sans",
+   "h": "gf-kite-one",
+   "b": "gf-ancizar-sans",
+   "q": 6.25,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "28-days-later-yuji-boku",
+   "h": "dafont-28-days-later",
+   "b": "gf-yuji-boku",
+   "q": 8.1,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "wavefont-habibi",
+   "h": "gf-wavefont",
+   "b": "gf-habibi",
+   "q": 2.05,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "hind-siliguri-noto-sans-masaram-gondi",
+   "h": "gf-hind-siliguri",
+   "b": "gf-noto-sans-masaram-gondi",
+   "q": 6.15,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "bruno-ace-archivo",
+   "h": "gf-bruno-ace",
+   "b": "archivo",
+   "q": 8.7,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "pattaya-noto-sans-display",
+   "h": "gf-pattaya",
+   "b": "gf-noto-sans-display",
+   "q": 6.95,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "oxygen-belleza",
+   "h": "gf-oxygen",
+   "b": "gf-belleza",
+   "q": 6.65,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "minecraftia-general-sans",
+   "h": "dafont-minecraftia",
+   "b": "general-sans",
+   "q": 9,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "new-title-satoshi",
+   "h": "fs-new-title",
+   "b": "satoshi",
+   "q": 9.15,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "jelly-crazies-noto-sans-tc",
+   "h": "dafont-jelly-crazies",
+   "b": "gf-noto-sans-tc",
+   "q": 8.55,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "nata-sans-aoboshi-one",
+   "h": "gf-nata-sans",
+   "b": "gf-aoboshi-one",
+   "q": 6.45,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "revalia-mitr",
+   "h": "gf-revalia",
+   "b": "gf-mitr",
+   "q": 8.5,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "early-gameboy-public-sans",
+   "h": "dafont-early-gameboy",
+   "b": "fs-public-sans",
+   "q": 9,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "stack-sans-headline-stick-no-bills",
+   "h": "gf-stack-sans-headline",
+   "b": "gf-stick-no-bills",
+   "q": 6.65,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "noto-sans-tamil-noto-sans-sora-sompeng",
+   "h": "gf-noto-sans-tamil",
+   "b": "gf-noto-sans-sora-sompeng",
+   "q": 6.15,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "redacted-noto-serif-thai",
+   "h": "gf-redacted",
+   "b": "gf-noto-serif-thai",
+   "q": 1.85,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "barrio-zen-antique-soft",
+   "h": "gf-barrio",
+   "b": "gf-zen-antique-soft",
+   "q": 7.05,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "marko-one-cutive-mono",
+   "h": "gf-marko-one",
+   "b": "gf-cutive-mono",
+   "q": 7.15,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "excon-nanum-gothic",
+   "h": "fs-excon",
+   "b": "gf-nanum-gothic",
+   "q": 7.8,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "antic-slab-work-sans",
+   "h": "gf-antic-slab",
+   "b": "work-sans",
+   "q": 8.05,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "macondo-noto-serif-oriya",
+   "h": "gf-macondo",
+   "b": "gf-noto-serif-oriya",
+   "q": 7.45,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "flavors-karla",
+   "h": "flavors",
+   "b": "gf-karla",
+   "q": 8.7,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "bushcraft-archivo",
+   "h": "dafont-bushcraft",
+   "b": "archivo",
+   "q": 9,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "impact-label-mochiy-pop-p-one",
+   "h": "dafont-impact-label",
+   "b": "gf-mochiy-pop-p-one",
+   "q": 8.55,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "chathura-noto-sans-deseret",
+   "h": "gf-chathura",
+   "b": "gf-noto-sans-deseret",
+   "q": 7.35,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "space-mono-bpmf-huninn",
+   "h": "space-mono",
+   "b": "gf-bpmf-huninn",
+   "q": 8.25,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "riesling-truculenta",
+   "h": "dafont-riesling",
+   "b": "gf-truculenta",
+   "q": 7.65,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "ruslan-display-noto-sans-tai-tham",
+   "h": "gf-ruslan-display",
+   "b": "gf-noto-sans-tai-tham",
+   "q": 8.1,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "ruwudu-im-fell-double-pica-sc",
+   "h": "gf-ruwudu",
+   "b": "gf-im-fell-double-pica-sc",
+   "q": 6.85,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "baloo-paaji-2-ibm-plex-sans-hebrew",
+   "h": "gf-baloo-paaji-2",
+   "b": "gf-ibm-plex-sans-hebrew",
+   "q": 7.8,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "noto-serif-tamil-tienne",
+   "h": "gf-noto-serif-tamil",
+   "b": "gf-tienne",
+   "q": 6.35,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "eater-noto-sans-thai-looped",
+   "h": "eater",
+   "b": "gf-noto-sans-thai-looped",
+   "q": 8.7,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "noto-sans-miao-hubballi",
+   "h": "gf-noto-sans-miao",
+   "b": "gf-hubballi",
+   "q": 6.65,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "mochiy-pop-one-madimi-one",
+   "h": "gf-mochiy-pop-one",
+   "b": "gf-madimi-one",
+   "q": 6.35,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "overlock-charis-sil",
+   "h": "gf-overlock",
+   "b": "gf-charis-sil",
+   "q": 7.45,
+   "inSet": false,
+   "hand": false
+  },
+  {
+   "slug": "metamorphous-radio-canada",
+   "h": "gf-metamorphous",
+   "b": "gf-radio-canada",
+   "q": 8.7,
+   "inSet": true,
+   "hand": false
+  },
+  {
+   "slug": "magnolia-sky-mochiy-pop-p-one",
+   "h": "dafont-magnolia-sky",
+   "b": "gf-mochiy-pop-p-one",
+   "q": 7.8,
+   "inSet": false,
+   "hand": false
+  }
+ ]
+}
