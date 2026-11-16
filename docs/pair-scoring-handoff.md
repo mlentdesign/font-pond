@@ -44,3 +44,12 @@ Facts: static pages are separate HTML (~20 KB each), not loaded by the browser's
 - Rating page: she grades ~40 pairs to calibrate the score; plus expert pairings (Google Fonts/Fontshare suggestions) as a second answer key. Her hand-crafted pairs are NOT a reliable answer key (made with Claude's help).
 - Better scoring from real measurements (scripts/measured-*.json, feel embeddings).
 - Per-pair text fields generated from actual scores.
+
+## Two separate counts — do not mix them (clarified 2026-11-15)
+1. **CMS pair entries** — the pair list every visitor's browser loads (search, explore). Limited by speed/memory.
+   Today 38,332. Measured: 60,000 comfortable, 100,000 works but memory ~720 MB. Old pages are NOT part of this count.
+2. **Static pair pages** — separate HTML files (~20 KB each) for SEO/sitemap. Limited by site size (GitHub Pages 1 GB).
+   Only hand-crafted + minimum-phase pairs get static pages: 16,256 in the new set. Fill pairs never get static pages,
+   so raising the CMS count (e.g. to 60k) adds ZERO static pages.
+   Old live set had 13,501 static pair pages; 13,199 of them are not in the new set. Keeping them = 16,256 + 13,199
+   ≈ 29,455 static pair pages, site ≈ 780 MB. Kept old pages are NOT CMS entries (not in search/explore lists).
