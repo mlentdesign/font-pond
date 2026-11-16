@@ -7,6 +7,7 @@ import { KEYWORD_EXPANSION } from "@/data/keyword-expansion";
 import { SYNONYM_BATCH3 } from "@/data/adjective-batch3";
 import { MEANING_MATCH_ENABLED } from "./meaning-enabled";
 import { meaningNeighbors, warmMeaningTable } from "./meaning-match";
+import { understoodProjects, eligiblePairs, projectReason, engineeringMood, engineeringPairs } from "./project-intent";
 
 // Merge synonym maps
 const ALL_SYNONYMS: Record<string, string[]> = { ...SYNONYM_MAP, ...SYNONYM_BATCH3 };
@@ -3918,7 +3919,7 @@ function findFontNamesInQuery(query: string): Map<string, "full" | "partial"> {
 
 export function rankPairs(
   query: string,
-  options?: { limit?: number; offset?: number; includeFontNameMatches?: boolean }
+  options?: { limit?: number; offset?: number; includeFontNameMatches?: boolean; includeDisplay?: boolean }
 ): ScoredPair[] {
   ensureDynamicPairs();
   // Pull out negated words first, expand known phrases, then drop the negated
@@ -3939,6 +3940,8 @@ export function rankPairs(
     if (wants) for (const x of wants) negatedTags.add(x);
   }
   const hasQuery = query.trim().length > 0;
+  const intent = hasQuery ? understoodProjects(query) : [];
+  const techLook = hasQuery && intent.length === 0 && engineeringMood(query);
   const stylized = hasQuery && isStylizedPrompt(promptWords);
   const includeFontNameMatches = options?.includeFontNameMatches ?? true;
 
@@ -4024,10 +4027,18 @@ export function rankPairs(
       for (let i = 0; i < fontPairs.length; i++) candidateScores.set(i, 0);
     }
 
+    // A named project is a rule, not a hint: only pairs that pass its fit rules are candidates (when enough do).
+    const fitByIndex = new Map<number, number>();
+    if (techLook) for (const [idx, f] of engineeringPairs()) fitByIndex.set(idx, f);
+    if (intent.length > 0 || techLook) {
+      for (const proj of intent) for (const [idx, f] of eligiblePairs(proj.id, !!options?.includeDisplay)) fitByIndex.set(idx, Math.max(fitByIndex.get(idx) ?? 0, f));
+      if (fitByIndex.size >= 30) { for (const idx of [...candidateScores.keys()]) if (!fitByIndex.has(idx)) candidateScores.delete(idx); for (const idx of fitByIndex.keys()) if (!candidateScores.has(idx)) candidateScores.set(idx, 0); }
+    }
     // Sort candidates by hit count, take top SCORE_LIMIT
     let candidates = [...candidateScores.entries()]
       .sort((a, b) => b[1] - a[1])
-      .slice(0, SCORE_LIMIT);
+      .slice(0, intent.length > 0 || techLook ? 4000 : SCORE_LIMIT);
+    let maxFit = 1e-9; for (const v of fitByIndex.values()) if (v > maxFit) maxFit = v;
 
     for (const [idx] of candidates) {
       const pair = fontPairs[idx];
@@ -4055,6 +4066,9 @@ export function rankPairs(
       } else {
         totalScore = (0.45 * utility) + (0.55 * specificity);
       }
+
+      // Better project fit lifts a pair, so the top results are the strongest fits, not just the first ones found.
+      if (fitByIndex.size > 0) totalScore += 25 * ((fitByIndex.get(idx) ?? 0) / maxFit);
 
       // Defer fit reason generation — just score for now
       scored.push({
@@ -4096,6 +4110,8 @@ export function rankPairs(
         continue;
       }
     } else {
+      // Variety: in the first 20, one heading font appears once in the first 12 and at most twice by 20 (not when the search names a font).
+      if (!hasFontNameMatch && deduped.length < 20 && hCount >= (deduped.length < 12 ? 1 : 2)) { skipped.push(pair); continue; }
       // After top 3: same header can't appear more than once per 4 results
       const recentHeaders = deduped.slice(-3).map(p => p.headerFontId);
       if (recentHeaders.includes(pair.headerFontId)) {
@@ -4159,8 +4175,11 @@ export function rankPairs(
       const closerHash = (hf.id + bf.id).split("").reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0);
       parts.push(bodyCloser(bf, closerHash));
       sp.promptFitReason = parts.join(". ") + ".";
+    } else if (intent.length > 0 || techLook) {
+      sp.promptFitReason = projectReason(intent.length > 0 ? intent[0].label : "a technical look", sp.headerFont.name, sp.bodyFont.name);
     } else if (hasQuery) {
-      sp.promptFitReason = generateFitReason(sp, sp.headerFont, sp.bodyFont, promptWords, query);
+      // Only claims what the search said: its own words, never traits the pair happens to have.
+      sp.promptFitReason = `Chosen for “${query.trim().replace(/\s+/g, " ")}”: ${sp.headerFont.name} headings, with ${sp.bodyFont.name} body text that stays easy to read.`;
     } else {
       sp.promptFitReason = sp.shortExplanation;
     }

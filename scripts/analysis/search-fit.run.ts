@@ -2,6 +2,7 @@
 // does the search find every valid pair. For adjective-only queries: what do the results and reason lines claim.
 import { test } from "vitest";
 import fs from "fs";
+import { fitsProject } from "@/lib/project-intent";
 import { rankPairs } from "@/lib/engine";
 import { PROJECT_TYPES, fitScore, buildWordWeight } from "@/data/project-types";
 const PROJECT_QUERIES: [string, string][] = [
@@ -19,13 +20,13 @@ test("search fit", () => {
   const TOP = 20, DEEP = 100, report: any = { project: [], adjective: [] };
   for (const [q, tid] of PROJECT_QUERIES) {
     const t = type(tid); const res = rankPairs(q, { limit: DEEP }); const top = res.slice(0, TOP);
-    const elig = (r: any) => { const p = byId.get(r.id); return !!p && fitScore(t, p, w) !== null; };
+    const elig = (r: any) => { const p = byId.get(r.id); return p ? fitScore(t, p, w) !== null : fitsProject(tid, r.id); };
     const named = (r: any) => (assign[r.id] ?? []).some((x) => x.id === tid);
     const allEligible = pairs.filter((p) => fitScore(t, p, w) !== null).length;
     report.project.push({ q, type: tid, topFit: top.filter(elig).length, topNamed: top.filter(named).length,
       fitButNotNamed: top.filter((r) => elig(r) && !named(r)).length, namedButNotFit: top.filter((r) => named(r) && !elig(r)).length,
       distinctHeadings: new Set(top.map((r) => r.headerFont.id)).size, deepFit: res.filter(elig).length, allEligible,
-      reasons: top.slice(0, 3).map((r) => r.promptFitReason) });
+      unfit: top.filter((r) => !elig(r)).slice(0, 3).map((r) => r.id), topIds: top.slice(0, 3).map((r) => r.id), reasons: top.slice(0, 3).map((r) => r.promptFitReason) });
   }
   const tail = JSON.parse(fs.readFileSync("src/data/project-long-tail.json", "utf8")).projects as { label: string }[];
   // Only real project phrases: long-tail labels and multi-word type words (mood words like "playful" are not projects).
