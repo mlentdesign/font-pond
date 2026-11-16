@@ -6,7 +6,7 @@ import { fonts } from "@/data/fonts";
 import { fontPairs } from "@/data/pairs";
 import { selectPairs, fontKeyOrder, fontKeyHash, encodePairs, SELECTION_SETTINGS } from "@/lib/pair-selection";
 
-const BUDGET = 38332; // today's total; raise only after the speed test
+const BUDGET = Number(process.env.PAIR_BUDGET || 38332); // today's total; raise only after the speed test
 
 test("build pair selection", () => {
   const hand = fontPairs.filter((p) => !p.id.startsWith("curated-") && !p.id.startsWith("gen-") && !p.id.startsWith("sel-"))
