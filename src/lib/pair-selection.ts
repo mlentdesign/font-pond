@@ -39,15 +39,19 @@ export function selectPairs(fonts: Font[], handPairs: [string, string][], budget
   // ties broken by ids so the result is identical on every run
   cands.sort((a, b) => b.q - a.q || (a.h < b.h ? -1 : a.h > b.h ? 1 : a.b < b.b ? -1 : a.b > b.b ? 1 : 0));
 
-  const key = (h: string, b: string) => h + "|" + b;
-  const taken = new Set<string>();
+  // taken = one flag per candidate (by position in cands); hand pairs outside cands live in handTaken
+  const pos = new Map<string, number>(); cands.forEach((c, i) => pos.set(c.h + "|" + c.b, i));
+  const takenIdx = new Uint8Array(cands.length);
+  const handTaken = new Set<string>();
+  const isTaken = (h: string, b: string) => { const i = pos.get(h + "|" + b); return i !== undefined ? takenIdx[i] === 1 : handTaken.has(h + "|" + b); };
   const count = new Map<string, number>();
   const bodyUse = new Map<string, number>();
   const fontContrast = new Map<string, Map<string, number>>();
   const minimum: [string, string][] = [];
   const fill: [string, string][] = [];
   const add = (h: string, b: string, c: string, into: [string, string][] | null) => {
-    taken.add(key(h, b)); if (into) into.push([h, b]);
+    const ix = pos.get(h + "|" + b); if (ix !== undefined) takenIdx[ix] = 1; else handTaken.add(h + "|" + b);
+    if (into) into.push([h, b]);
     count.set(h, (count.get(h) || 0) + 1); count.set(b, (count.get(b) || 0) + 1);
     bodyUse.set(b, (bodyUse.get(b) || 0) + 1);
     for (const id of [h, b]) { if (!fontContrast.has(id)) fontContrast.set(id, new Map()); const m = fontContrast.get(id)!; m.set(c, (m.get(c) || 0) + 1); }
@@ -55,10 +59,10 @@ export function selectPairs(fonts: Font[], handPairs: [string, string][], budget
   const adj = (p: Cand, forFont: string) =>
     p.q - S.BODY_REUSE_PENALTY * (bodyUse.get(p.b) || 0) - S.CONTRAST_REPEAT_PENALTY * (fontContrast.get(forFont)?.get(p.c) || 0);
 
-  for (const [h, b] of handPairs) { const H = byId.get(h), B = byId.get(b); if (H && B && !taken.has(key(h, b))) add(h, b, ck(H, B), null); }
+  for (const [h, b] of handPairs) { const H = byId.get(h), B = byId.get(b); if (H && B && !isTaken(h, b)) add(h, b, ck(H, B), null); }
 
-  const perFont = new Map<string, Cand[]>();
-  for (const c of cands) for (const id of [c.h, c.b]) { let l = perFont.get(id); if (!l) perFont.set(id, (l = [])); l.push(c); }
+  const perFont = new Map<string, number[]>();
+  cands.forEach((c, ci) => { for (const id of [c.h, c.b]) { let l = perFont.get(id); if (!l) perFont.set(id, (l = [])); l.push(ci); } });
   const deficit = (f: Font) => pairTarget(f) - (count.get(f.id) || 0);
   for (let progress = true; progress; ) {
     progress = false;
@@ -66,8 +70,8 @@ export function selectPairs(fonts: Font[], handPairs: [string, string][], budget
     for (const f of needy) {
       if (deficit(f) <= 0) continue;
       let best: Cand | null = null, bestS = -Infinity;
-      for (const c of perFont.get(f.id)!) {
-        if (taken.has(key(c.h, c.b))) continue;
+      for (const ci of perFont.get(f.id)!) {
+        if (takenIdx[ci]) continue; const c = cands[ci];
         const other = byId.get(c.h === f.id ? c.b : c.h)!;
         const s = adj(c, f.id) + (deficit(other) > 0 ? S.PARTNER_NEED_NUDGE : 0);
         if (s > bestS) { bestS = s; best = c; }
@@ -81,12 +85,12 @@ export function selectPairs(fonts: Font[], handPairs: [string, string][], budget
   while (total() < budget && i < cands.length) {
     let best: Cand | null = null, bestS = -Infinity;
     for (let j = i, seen = 0; j < cands.length && seen < S.WINDOW; j++) {
-      const c = cands[j]; if (taken.has(key(c.h, c.b))) continue; seen++;
+      if (takenIdx[j]) continue; const c = cands[j]; seen++;
       const s = adj(c, c.h); if (s > bestS) { bestS = s; best = c; }
     }
     if (!best) break;
     add(best.h, best.b, best.c, fill);
-    while (i < cands.length && taken.has(key(cands[i].h, cands[i].b))) i++;
+    while (i < cands.length && takenIdx[i]) i++;
   }
 
   const short = fonts.filter((f) => perFont.has(f.id) && deficit(f) > 0).map((f) => f.id);
