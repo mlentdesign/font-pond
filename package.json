@@ -9,7 +9,8 @@
     "build:meaning": "node scripts/build-meaning-neighbors.mjs --threshold=0.52 --k=4",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "build:pairs": "vitest run -c scripts/analysis/vitest.config.ts scripts/analysis/build-pair-selection.run.ts"
   },
   "dependencies": {
     "next": "16.2.2",

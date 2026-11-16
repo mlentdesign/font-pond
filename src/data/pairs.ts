@@ -1,6 +1,8 @@
 import { Font, FontPair } from "./types";
 import { fonts, fontsById, fontsBySlug as allFontsBySlug } from "./fonts";
-import { generateDynamicPairs, generateCuratedPairs } from "@/lib/pair-generator";
+import { generateDynamicPairs, generateCuratedPairs, buildCuratedPair, buildDynamicPair } from "@/lib/pair-generator";
+import { fontKeyOrder, fontKeyHash, decodePairs } from "@/lib/pair-selection";
+import selectedPairs from "./selected-pairs.json";
 
 const handCraftedPairs: FontPair[] = [
   // ── Serif header + Sans body (classic editorial contrast) ──
@@ -2014,7 +2016,24 @@ const enrichedHandCrafted = handCraftedPairs.map(enrichPairAnatomy);
 
 // 1. Generate curated pairs first (only avoiding hand-crafted slugs)
 const hcSlugs = new Set(enrichedHandCrafted.map((p) => p.slug));
-const curatedPairs = generateCuratedPairs(fonts, enrichedHandCrafted, new Set(hcSlugs));
+// Best-first selection (src/data/selected-pairs.json, built by `npm run build:pairs`).
+// Falls back to the original generators if the font list changed since it was built.
+const _fontIds = fontKeyOrder(fonts);
+const _fontById = new Map(fonts.map((f) => [f.id, f]));
+const useSelection = selectedPairs.fontKey === fontKeyHash(_fontIds) && selectedPairs.minimum.length > 0;
+if (!useSelection && typeof window === "undefined") console.warn("[pairs] selected-pairs.json is stale; using the original pair generators. Run npm run build:pairs.");
+function buildFromSelection(encoded: string, make: typeof buildCuratedPair, slugs: Set<string>): FontPair[] {
+  const out: FontPair[] = [];
+  for (const [h, b] of decodePairs(encoded, _fontIds)) {
+    const H = _fontById.get(h), B = _fontById.get(b);
+    const p = H && B ? make(H, B, slugs) : null;
+    if (p) out.push(p);
+  }
+  return out;
+}
+const curatedPairs = useSelection
+  ? buildFromSelection(selectedPairs.minimum, buildCuratedPair, new Set(hcSlugs))
+  : generateCuratedPairs(fonts, enrichedHandCrafted, new Set(hcSlugs));
 
 // 2. Start with hand-crafted + curated (small, instant)
 const _basePairs: FontPair[] = [];
@@ -2033,7 +2052,9 @@ function ensureDynamicPairs(): void {
   if (_dynamicGenerated) return;
   _dynamicGenerated = true;
   const prioritySlugs = new Set(_basePairs.map((p) => p.slug));
-  const dynamicPairs = generateDynamicPairs(fonts);
+  const dynamicPairs = useSelection
+    ? buildFromSelection(selectedPairs.fill, buildDynamicPair, new Set(prioritySlugs))
+    : generateDynamicPairs(fonts);
   for (const p of dynamicPairs) {
     if (!prioritySlugs.has(p.slug)) {
       (p as any).url = `/pair/${p.slug}`;

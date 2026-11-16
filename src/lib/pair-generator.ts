@@ -536,8 +536,8 @@ export function generateCuratedPairs(
   existingPairs: FontPair[],
   existingSlugs: Set<string>,
 ): FontPair[] {
-  const BASE_TARGET = 10;
-  const FONTSHARE_TARGET = 22; // Fontshare fonts are featured more heavily
+  const BASE_TARGET = PAIR_TARGET_DEFAULT;
+  const FONTSHARE_TARGET = PAIR_TARGET_FONTSHARE; // Fontshare fonts are featured more heavily
 
   // Count existing non-dynamic pairs per font
   const counts = new Map<string, number>();
@@ -661,3 +661,18 @@ export function pairQuality(header: Font, body: Font) {
   if (illegible) base -= 6;
   return { base, hierarchy, legibility, practicality, originality, xHeightHarmony, roleFitness, personalityContrast, illegible };
 }
+
+// ── Build-time selection support ──
+export const PAIR_TARGET_FONTSHARE = 22;
+export const PAIR_TARGET_DEFAULT = 10;
+export function pairTarget(f: Font): number { return f.source === "fontshare" ? PAIR_TARGET_FONTSHARE : PAIR_TARGET_DEFAULT; }
+export function isPairBodyFont(f: Font): boolean {
+  if (!f.isBodySuitable) return false;
+  if (f.bodyLegibilityScore !== null && f.bodyLegibilityScore < 6) return false;
+  if (ALL_CAPS_BLOCKLIST.has(f.name.toLowerCase())) return false;
+  if (f.classification === "display" || f.classification === "handwritten" || f.classification === "script") return false;
+  if (f.tags.some(t => ALL_CAPS_TAGS.has(t.toLowerCase()))) return false;
+  return true;
+}
+export function buildCuratedPair(h: Font, b: Font, slugs: Set<string>) { return makeCuratedPair(h, b, slugs); }
+export function buildDynamicPair(h: Font, b: Font, slugs: Set<string>) { return makePair(h, b, slugs); }
