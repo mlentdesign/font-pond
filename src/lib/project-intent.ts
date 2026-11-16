@@ -61,19 +61,15 @@ function getLite() {
 }
 
 /** Pair index (in fontPairs) -> fit score for every pair that passes the project's rules. */
-export function eligiblePairs(typeId: string, includeDisplay = false): Map<number, number> {
-  const L = getLite(), key = typeId + (includeDisplay ? "+d" : ""), hit = eligibleCache.get(key); if (hit) return hit;
+export function eligiblePairs(typeId: string): Map<number, number> {
+  const L = getLite(), key = typeId, hit = eligibleCache.get(key); if (hit) return hit;
   const t: ProjectType | undefined = PROJECT_TYPES.find((x) => x.id === typeId), out = new Map<number, number>();
-  // Display headings stay out of everyday work (software, reports, shops) unless the person asks for them.
-  const calm = !!t && !includeDisplay && !DISPLAY_OK_FAMILIES.has(t.family);
   if (t) for (let i = 0; i < L.length; i++) {
-    if (calm && kindOf(L[i].h) === "display") continue;
     const s = fitScore(t, L[i], weight!); if (s !== null) out.set(i, s);
   }
   eligibleCache.set(key, out); return out;
 }
 
-const DISPLAY_OK_FAMILIES = new Set(["showcase", "loud", "occasions", "themed"]);
 const TECH_WORDS = new Set(["technical", "techy", "tech", "engineering", "engineered"]);
 const SCIFI_WORDS = new Set(["futuristic", "scifi", "sci-fi", "cyberpunk", "space", "retro-futuristic", "alien", "cyber", "robot"]);
 /** "Technical" as a look (not a project): the engineering side, unless the search asks for sci-fi. */

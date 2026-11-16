@@ -13,7 +13,6 @@ export function SampleTextInputs({ alwaysShow = false }: { alwaysShow?: boolean 
     headerSize, setHeaderSize,
     bodySize, setBodySize,
     includeFontNameMatches, setIncludeFontNameMatches,
-    includeDisplay, setIncludeDisplay,
     hasSearched,
   } = useAppState();
 
@@ -55,20 +54,6 @@ export function SampleTextInputs({ alwaysShow = false }: { alwaysShow?: boolean 
               onChange={(e) => setIncludeFontNameMatches(e.target.checked)}
             />
             Include font name matches in search terms
-          </label>
-          <label
-            htmlFor="include-display-fonts"
-            className="flex items-center cursor-pointer select-none text-neutral-700"
-            style={{ gap: "8px", marginBottom: "24px", fontSize: "14px" }}
-          >
-            <input
-              id="include-display-fonts"
-              type="checkbox"
-              className="db-checkbox"
-              checked={includeDisplay}
-              onChange={(e) => setIncludeDisplay(e.target.checked)}
-            />
-            Include display fonts in project searches
           </label>
           <div className="settings-quad-grid">
             {/* Headline text — pos 1 on mobile, col 1 on desktop */}

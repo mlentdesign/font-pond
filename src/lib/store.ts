@@ -19,8 +19,6 @@ export interface AppState {
   setBodySize: (n: number) => void;
   includeFontNameMatches: boolean;
   setIncludeFontNameMatches: (b: boolean) => void;
-  includeDisplay: boolean;
-  setIncludeDisplay: (b: boolean) => void;
   results: ScoredPair[];
   setResults: (r: ScoredPair[]) => void;
   isLoading: boolean;

@@ -21,12 +21,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setIncludeFontNameMatchesState(b);
     try { localStorage.setItem(FONT_NAME_MATCH_KEY, b ? "1" : "0"); } catch {}
   }, []);
-  const [includeDisplay, setIncludeDisplayState] = useState(false);
-  const setIncludeDisplay = useCallback((b: boolean) => {
-    setIncludeDisplayState(b);
-    try { localStorage.setItem("font-pond-include-display", b ? "1" : "0"); } catch {}
-  }, []);
-  useEffect(() => { try { if (localStorage.getItem("font-pond-include-display") === "1") setIncludeDisplayState(true); } catch {} }, []);
   const [results, setResults] = useState<ScoredPair[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
@@ -82,7 +76,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
     headerSize, setHeaderSize,
     bodySize, setBodySize,
     includeFontNameMatches, setIncludeFontNameMatches,
-    includeDisplay, setIncludeDisplay,
     results, setResults,
     isLoading, setIsLoading,
     hasSearched, setHasSearched,

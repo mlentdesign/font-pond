@@ -3919,7 +3919,7 @@ function findFontNamesInQuery(query: string): Map<string, "full" | "partial"> {
 
 export function rankPairs(
   query: string,
-  options?: { limit?: number; offset?: number; includeFontNameMatches?: boolean; includeDisplay?: boolean }
+  options?: { limit?: number; offset?: number; includeFontNameMatches?: boolean }
 ): ScoredPair[] {
   ensureDynamicPairs();
   // Pull out negated words first, expand known phrases, then drop the negated
@@ -4031,7 +4031,7 @@ export function rankPairs(
     const fitByIndex = new Map<number, number>();
     if (techLook) for (const [idx, f] of engineeringPairs()) fitByIndex.set(idx, f);
     if (intent.length > 0 || techLook) {
-      for (const proj of intent) for (const [idx, f] of eligiblePairs(proj.id, !!options?.includeDisplay)) fitByIndex.set(idx, Math.max(fitByIndex.get(idx) ?? 0, f));
+      for (const proj of intent) for (const [idx, f] of eligiblePairs(proj.id)) fitByIndex.set(idx, Math.max(fitByIndex.get(idx) ?? 0, f));
       if (fitByIndex.size >= 30) { for (const idx of [...candidateScores.keys()]) if (!fitByIndex.has(idx)) candidateScores.delete(idx); for (const idx of fitByIndex.keys()) if (!candidateScores.has(idx)) candidateScores.set(idx, 0); }
     }
     // Sort candidates by hit count, take top SCORE_LIMIT
