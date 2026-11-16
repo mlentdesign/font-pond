@@ -979,8 +979,9 @@ const coreFonts: Font[] = [
     id: "jetbrains-mono",
     name: "JetBrains Mono",
     slug: "jetbrains-mono",
+    fontshareId: "jet-brains-mono", // Fontshare's id (checked against api.fontshare.com)
     source: "fontshare",
-    sourceUrl: "https://www.fontshare.com/fonts/jetbrains-mono",
+    sourceUrl: "https://www.fontshare.com/fonts/jet-brains-mono",
     downloadUrl: null,
     specimenUrl: null,
     licenseType: "OFL 1.1",
