@@ -629,3 +629,35 @@ export function generateCuratedPairs(
 
   return pairs;
 }
+
+// ── Pair quality (analysis) — same signals as makePair, without the 78–92 clamp
+// or the hash jitter, so candidates can be ranked against each other honestly.
+export const PAIR_ALL_CAPS_BLOCKLIST = ALL_CAPS_BLOCKLIST;
+export const PAIR_ALL_CAPS_TAGS = ALL_CAPS_TAGS;
+
+export function pairQuality(header: Font, body: Font) {
+  const hierarchy = header.classification === "display" || header.classification === "script" || header.classification === "handwritten"
+    ? 10 : header.isBodySuitable ? 7 : 9;
+  const bodyLeg = body.bodyLegibilityScore || 7;
+  const headerLegScore = header.bodyLegibilityScore ?? 5;
+  const legibility = headerLegScore <= 4 ? Math.round((bodyLeg + headerLegScore) / 2) : bodyLeg;
+  let practicality = 7;
+  if (header.source === "fontshare" && body.source === "fontshare") practicality = 9;
+  else if (header.source === "fontshare" || body.source === "fontshare") practicality = 8;
+  else if (header.source === "other") practicality = 6;
+  if (body.variableFont) practicality = Math.min(10, practicality + 1);
+  let originality = 7;
+  if (header.serifSansCategory !== body.serifSansCategory) originality = 8;
+  if (header.classification === "script" || header.classification === "handwritten") originality = 9;
+  if (header.classification === "display" && body.serifSansCategory === "serif") originality = 9;
+  if (header.serifSansCategory === body.serifSansCategory) originality = 6;
+  const xHeightHarmony = computeXHeightHarmony(header, body);
+  const roleFitness = computeRoleFitness(header, body);
+  const personalityContrast = computePersonalityContrast(header, body);
+  let base =
+    hierarchy * 0.15 + legibility * 0.20 + practicality * 0.15 + originality * 0.15 +
+    xHeightHarmony * 0.15 + roleFitness * 0.10 + personalityContrast * 0.10;
+  const illegible = SEVERELY_ILLEGIBLE_FONT_IDS.has(header.id) || SEVERELY_ILLEGIBLE_FONT_IDS.has(body.id);
+  if (illegible) base -= 6;
+  return { base, hierarchy, legibility, practicality, originality, xHeightHarmony, roleFitness, personalityContrast, illegible };
+}

@@ -1,0 +1,159 @@
+{
+ "generatedAt": "2026-11-16T06:31:22.344Z",
+ "minimums": {
+  "fontshare": 22,
+  "everyOtherSource": 10
+ },
+ "fonts": 2098,
+ "headerFonts": 2098,
+ "bodyFonts": 1032,
+ "candidatesScored": 2164104,
+ "unpairable": [],
+ "timingsMs": {
+  "currentGeneration": 454,
+  "scoringAllCandidates": 738
+ },
+ "current": {
+  "label": "Current",
+  "pairs": 38332,
+  "mean": 7.985,
+  "p10": 7.45,
+  "median": 8.05,
+  "p90": 8.55,
+  "worst": 0.55,
+  "fontsBelowMinimum": 0,
+  "fontsBelowMinimumBySource": {},
+  "distinctBodyFonts": 1032,
+  "topBodyFonts": [
+   {
+    "font": "Switzer",
+    "pairs": 837,
+    "share": 2.2
+   },
+   {
+    "font": "Fira Sans",
+    "pairs": 821,
+    "share": 2.1
+   },
+   {
+    "font": "Hind",
+    "pairs": 809,
+    "share": 2.1
+   },
+   {
+    "font": "Epilogue",
+    "pairs": 808,
+    "share": 2.1
+   },
+   {
+    "font": "Public Sans",
+    "pairs": 805,
+    "share": 2.1
+   }
+  ],
+  "avgContrastTypesPerFont": 3.3
+ },
+ "proposed": {
+  "label": "Proposed",
+  "pairs": 38332,
+  "mean": 8.446,
+  "p10": 7.9,
+  "median": 8.55,
+  "p90": 8.75,
+  "worst": 0.45,
+  "fontsBelowMinimum": 0,
+  "fontsBelowMinimumBySource": {},
+  "distinctBodyFonts": 1032,
+  "topBodyFonts": [
+   {
+    "font": "Erode",
+    "pairs": 549,
+    "share": 1.4
+   },
+   {
+    "font": "Karma",
+    "pairs": 549,
+    "share": 1.4
+   },
+   {
+    "font": "Work Sans",
+    "pairs": 325,
+    "share": 0.8
+   },
+   {
+    "font": "Satoshi",
+    "pairs": 325,
+    "share": 0.8
+   },
+   {
+    "font": "Manrope",
+    "pairs": 322,
+    "share": 0.8
+   }
+  ],
+  "avgContrastTypesPerFont": 4.12
+ },
+ "proposedPairsUsedForMinimums": 16256,
+ "fontsWithFewerPairsThanToday": 1248,
+ "histogram": {
+  "9.25": 1,
+  "9.00": 1196,
+  "8.75": 3367,
+  "8.50": 36343,
+  "8.25": 119661,
+  "8.00": 217586,
+  "7.75": 464013,
+  "7.50": 506591,
+  "7.25": 332617,
+  "7.00": 201353,
+  "6.75": 182580,
+  "6.50": 60648,
+  "6.25": 10760,
+  "6.00": 12914,
+  "5.75": 26,
+  "2.25": 28,
+  "2.00": 911,
+  "1.75": 3538,
+  "1.50": 6291,
+  "1.25": 1831,
+  "1.00": 1268,
+  "0.75": 411,
+  "0.50": 127,
+  "0.25": 43
+ },
+ "passCounts": [
+  {
+   "cutoff": 7,
+   "candidates": 1882728
+  },
+  {
+   "cutoff": 7.5,
+   "candidates": 1348758
+  },
+  {
+   "cutoff": 8,
+   "candidates": 378154
+  },
+  {
+   "cutoff": 8.25,
+   "candidates": 160568
+  },
+  {
+   "cutoff": 8.5,
+   "candidates": 40907
+  },
+  {
+   "cutoff": 8.75,
+   "candidates": 4564
+  },
+  {
+   "cutoff": 9,
+   "candidates": 1197
+  }
+ ],
+ "settings": {
+  "BUDGET": 38332,
+  "PENALTY": 0.015,
+  "CONTRAST_PENALTY": 0.25
+ }
+}
