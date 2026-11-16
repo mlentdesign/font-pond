@@ -2,6 +2,7 @@ import { FEEL_ENABLED } from "@/lib/feel/enabled";
 import type { MetadataRoute } from "next";
 import { fonts } from "@/data/fonts";
 import { fontPairs } from "@/data/pairs";
+import { legacyPairs } from "@/data/legacy-pairs";
 import { designersBySlug } from "@/data/designers";
 import { yearsBySlug } from "@/data/years";
 
@@ -27,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const pairPages: MetadataRoute.Sitemap = fontPairs.map((p) => ({
+  const pairPages: MetadataRoute.Sitemap = [...fontPairs, ...legacyPairs()].map((p) => ({
     url: `${BASE}/pair/${p.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,

@@ -2,6 +2,7 @@
 // to give each clean URL its own static file (so search engines get a 200 and a real title).
 import { fonts } from "@/data/fonts";
 import { fontPairs } from "@/data/pairs";
+import { legacyPairs } from "@/data/legacy-pairs";
 import { designersBySlug } from "@/data/designers";
 import { yearsBySlug } from "@/data/years";
 
@@ -18,7 +19,7 @@ export function GET() {
       year: f.year,
       tones: (f.toneDescriptors || []).slice(0, 3),
     })),
-    pairs: fontPairs.map((p) => ({
+    pairs: [...fontPairs, ...legacyPairs()].map((p) => ({
       slug: p.slug,
       heading: byId.get(p.headerFontId)?.name || null,
       body: byId.get(p.bodyFontId)?.name || null,
