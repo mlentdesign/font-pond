@@ -97,3 +97,17 @@ const lowerFirst = (s: string) => (s[1] && s[1] === s[1].toLowerCase() ? s[0].to
 export function projectReason(label: string, headingName: string, bodyName: string): string {
   return `Fits ${lowerFirst(label)}: ${headingName} headings, with ${bodyName} body text that stays easy to read.`;
 }
+
+const STOP = new Set(["the", "and", "for", "with", "that", "this", "a", "an", "of", "to", "in", "on", "my", "our", "i", "want", "need", "looking", "something", "font", "fonts", "pair", "pairs", "not", "no", "very", "really", "like"]);
+/** What the search was understood as, for the "Understood as" chips. Projects first; otherwise the looks it asked for. */
+export function understandQuery(query: string): { projects: string[]; looks: string[] } {
+  const projects = understoodProjects(query).map((p) => p.label);
+  if (projects.length > 0) return { projects, looks: [] };
+  const looks = engineeringMood(query) ? ["Technical look"] : [];
+  const seen = new Set<string>();
+  for (const w of tokens(query)) {
+    if (w.length < 3 || STOP.has(w) || TECH_WORDS.has(w) || seen.has(w) || looks.length >= 4) continue;
+    seen.add(w); looks.push(w[0].toUpperCase() + w.slice(1));
+  }
+  return { projects, looks };
+}

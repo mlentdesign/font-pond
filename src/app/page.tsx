@@ -9,10 +9,11 @@ import { ResultsGrid } from "@/components/ResultsGrid";
 import { HeaderWithFontInfo } from "@/components/HeaderWithFontInfo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useAppState } from "@/lib/store";
+import { UnderstoodChips } from "@/components/UnderstoodChips";
 import { rankPairs, explorePairs, reconstructExplorePairs, prepareMeaningMatch } from "@/lib/engine";
 
 export default function Home() {
-  const { hasSearched, results, setQuery, setResults, setHasSearched, setIsExploring, setVisibleCount, setIsLoading, includeFontNameMatches } = useAppState();
+  const { hasSearched, results, setQuery, setResults, setHasSearched, setIsExploring, setVisibleCount, setIsLoading, includeFontNameMatches, includeDisplay } = useAppState();
 
   const didInitRef = useRef(false);
 
@@ -51,9 +52,9 @@ export default function Home() {
         setHasSearched(true);
         setIsExploring(false);
         setVisibleCount(3);
-        setResults(rankPairs(saved, { includeFontNameMatches }));
+        setResults(rankPairs(saved, { includeFontNameMatches, includeDisplay }));
         // If the restored query has words only the meaning table knows, re-rank once it loads
-        prepareMeaningMatch(saved).then((needed) => { if (needed) setResults(rankPairs(saved, { includeFontNameMatches })); }).catch(() => {});
+        prepareMeaningMatch(saved).then((needed) => { if (needed) setResults(rankPairs(saved, { includeFontNameMatches, includeDisplay })); }).catch(() => {});
       }
     } catch {}
   }, []);
@@ -118,6 +119,7 @@ export default function Home() {
         {/* Results area — wider container so tiles extend beyond the input field */}
         {hasSearched && (
           <div className="w-full mx-auto content-padding" style={{ maxWidth: "1280px" }}>
+            <UnderstoodChips />
             <ResultsGrid />
           </div>
         )}

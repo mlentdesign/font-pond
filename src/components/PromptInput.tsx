@@ -25,6 +25,7 @@ export function PromptInput() {
     setResults, setIsLoading, setHasSearched, setVisibleCount,
     isExploring, setIsExploring,
     includeFontNameMatches,
+    includeDisplay,
   } = useAppState();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -151,7 +152,7 @@ export function PromptInput() {
 
     setTimeout(() => {
       try {
-        setResults(rankPairs(searchQuery, { includeFontNameMatches }));
+        setResults(rankPairs(searchQuery, { includeFontNameMatches, includeDisplay }));
       } catch (err) {
         console.error("rankPairs failed:", err);
         setResults([]);
@@ -159,7 +160,7 @@ export function PromptInput() {
         setIsLoading(false);
       }
     }, 200);
-  }, [query, images, setResults, setIsLoading, setHasSearched, setIsExploring, setVisibleCount, includeFontNameMatches]);
+  }, [query, images, setResults, setIsLoading, setHasSearched, setIsExploring, setVisibleCount, includeFontNameMatches, includeDisplay]);
 
   const handleExplore = useCallback(() => {
     setIsLoading(true);
