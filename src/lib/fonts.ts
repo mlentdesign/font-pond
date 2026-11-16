@@ -35,6 +35,10 @@ function addCdnLink(key: string, fontKey: string, href: string): void {
   }
 }
 
+// Google Fonts families that don't offer the usual 400–700 weights; asking for them returns nothing
+// (checked against fonts.googleapis.com on 2026-11-16).
+const GOOGLE_AXES: Record<string, string> = { Buda: ":wght@300", Molle: ":ital@1" };
+
 export function loadFont(font: { name: string; slug: string; source: string; googleFontsFamily?: string; id?: string; fontshareId?: string; fontshareWeights?: string }): void {
   if (typeof window === "undefined") return;
 
@@ -57,7 +61,7 @@ export function loadFont(font: { name: string; slug: string; source: string; goo
   const gfKey = `gf-cdn-${gfFamily}`;
   if (!loaded.has(gfKey) && (font.source === "google-fonts" || font.source === "other")) {
     loaded.add(gfKey);
-    addCdnLink(gfKey, key, `https://fonts.googleapis.com/css2?family=${gfFamily.replace(/ /g, "+")}:wght@400;500;600;700&display=swap`);
+    addCdnLink(gfKey, key, `https://fonts.googleapis.com/css2?family=${gfFamily.replace(/ /g, "+")}${GOOGLE_AXES[gfFamily] ?? ":wght@400;500;600;700"}&display=swap`);
   }
 
   // Fontshare CDN
