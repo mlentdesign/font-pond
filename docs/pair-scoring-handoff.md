@@ -26,7 +26,7 @@ Everything must stay restorable through git.
 | 60,000 | ~0.18 s | ~0.4 s | ~0.02 s | 351 KB |
 | 100,000 | ~0.28 s | 0.66–0.79 s | ~0.03–0.07 s | 586 KB (heap ~720 MB vs ~320 MB at 38k) |
 
-100k selection finished after ~30 min (so it was slow, not stuck); 150k was still selecting at wrap time. Original note: the fill loop in selectPairs rescans taken candidates (`while ... taken.has` + 400-window rescans), so it stalls at large budgets. A run started 2026-11-15 ~22:40 may still be going (vitest build-pair-selection); it is our own job. When it ends, the loop restores src/data/selected-pairs.json from /tmp/selected-pairs.backup.json. Check `git status` shows no change to that file.
+100k selection finished after ~30 min (so it was slow, not stuck); 150k run died (killed with the background job) and was not measured; src/data/selected-pairs.json was restored to the 38,332 version. Original note: the fill loop in selectPairs rescans taken candidates (`while ... taken.has` + 400-window rescans), so it stalls at large budgets. A run started 2026-11-15 ~22:40 may still be going (vitest build-pair-selection); it is our own job. When it ends, the loop restores src/data/selected-pairs.json from /tmp/selected-pairs.backup.json. Check `git status` shows no change to that file.
 
 ## Open decision she made
 Old pair URLs: 13,199 of the 13,501 currently prerendered/sitemapped pair URLs are not in the new set.
