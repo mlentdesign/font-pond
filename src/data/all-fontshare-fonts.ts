@@ -185,12 +185,17 @@ function fs(
     ["moderate", "moderate", "none", "normal", "neutral"] as AnatomyTuple
   );
 
+  // Site URLs must be lowercase (prerender skips anything else), but Fontshare's own id can
+  // be camelCase (e.g. "beVietnam-pro"), so keep that separately for loading the font.
+  const fontshareId = slug;
+  const siteSlug = slug.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
   return {
-    id: `fs-${slug}`,
+    id: `fs-${siteSlug}`,
     name,
-    slug,
+    slug: siteSlug,
+    ...(siteSlug !== fontshareId ? { fontshareId } : {}),
     source: "fontshare",
-    sourceUrl: `https://www.fontshare.com/fonts/${slug}`,
+    sourceUrl: `https://www.fontshare.com/fonts/${fontshareId}`,
     downloadUrl: null,
     specimenUrl: null,
     licenseType: "ITF Free Font License",

@@ -4,6 +4,7 @@ export interface Font {
   id: string;
   name: string;
   slug: string;
+  fontshareId?: string; // Fontshare's own id when it differs from slug (camelCase ids like "beVietnam-pro")
   url?: string; // Clean CMS URL: /font/{slug}
   queryUrl?: string; // Query param URL: /font?f={slug}
   source: "google-fonts" | "fontshare" | "other";
