@@ -38,7 +38,7 @@ export default {
     const m = url.pathname.match(/^\/pair\/([a-z0-9-]+)\/?$/);
     if (!m) return res;
     const slug = m[1];
-    const shardRes = await fetch(`${url.origin}/pair-meta/${slug.slice(0, 2)}.json`, { cf: { cacheEverything: true, cacheTtl: 3600 } });
+    const shardRes = await fetch(`${url.origin}/pair-meta/${slug.slice(0, 2)}.json`, { cf: { cacheEverything: true, cacheTtlByStatus: { "200-299": 3600, "400-599": 0 } } });
     if (!shardRes.ok) return res;
     const pair = (await shardRes.json())[slug];
     if (!pair) return res; // genuinely unknown slug: keep the 404
