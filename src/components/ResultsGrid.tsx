@@ -5,6 +5,8 @@ import { useAppState } from "@/lib/store";
 import { PairCard } from "./PairCard";
 import { loadFont, pinFonts } from "@/lib/fonts";
 import { ScoredPair } from "@/data/types";
+import { InfoTooltip } from "./InfoTooltip";
+import { understandQuery } from "@/lib/project-intent";
 
 type VisiblePair = { pair: ScoredPair; delay: number };
 
@@ -95,8 +97,10 @@ function prewarmFonts(pairs: ScoredPair[]): void {
 }
 
 export function ResultsGrid() {
-  const { results, isLoading, hasSearched, isExploring } = useAppState();
+  const { results, isLoading, hasSearched, isExploring, query } = useAppState();
   const cols = useColumns();
+  const u = hasSearched ? understandQuery(query) : { projects: [], looks: [] };
+  const understood = [...u.projects, ...u.looks];
   const colsRef = useRef(cols);
   colsRef.current = cols;
 
@@ -233,6 +237,9 @@ export function ResultsGrid() {
     <div className="w-full">
       <p className="font-semibold text-neutral-700" style={{ fontSize: "16px", marginBottom: "16px" }}>
         {isExploring ? "Here are some ideas, to spark your creativity" : "Here's what we found"}
+        {!isExploring && understood.length > 0 && (
+          <InfoTooltip label="Understood as" text={`We read your search as: ${understood.join(", ")}.`} />
+        )}
       </p>
 
       {/* Masonry columns — each column is an independent flex stack, cards take natural height */}

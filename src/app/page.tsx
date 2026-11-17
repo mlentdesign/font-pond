@@ -9,7 +9,6 @@ import { ResultsGrid } from "@/components/ResultsGrid";
 import { HeaderWithFontInfo } from "@/components/HeaderWithFontInfo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useAppState } from "@/lib/store";
-import { UnderstoodChips } from "@/components/UnderstoodChips";
 import { rankPairs, explorePairs, reconstructExplorePairs, prepareMeaningMatch } from "@/lib/engine";
 
 export default function Home() {
@@ -119,7 +118,6 @@ export default function Home() {
         {/* Results area — wider container so tiles extend beyond the input field */}
         {hasSearched && (
           <div className="w-full mx-auto content-padding" style={{ maxWidth: "1280px" }}>
-            <UnderstoodChips />
             <ResultsGrid />
           </div>
         )}

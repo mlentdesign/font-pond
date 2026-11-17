@@ -40,9 +40,9 @@ function useIsMobile() {
   return mobile;
 }
 
-export function InfoTooltip({ label }: { label: string }) {
+export function InfoTooltip({ label, text }: { label: string; text?: string }) {
   const key = label.toLowerCase();
-  const description = TOOLTIP_DESCRIPTIONS[key];
+  const description = text ?? TOOLTIP_DESCRIPTIONS[key];
   if (!description) return null;
 
   const [show, setShow] = useState(false);

@@ -3,6 +3,7 @@ import { fonts, fontsById, fontsBySlug as allFontsBySlug } from "./fonts";
 import { generateDynamicPairs, generateCuratedPairs, buildCuratedPair, buildDynamicPair } from "@/lib/pair-generator";
 import { fontKeyOrder, fontKeyHash, decodePairs } from "@/lib/pair-selection";
 import selectedPairs from "./selected-pairs.json";
+import pairDescriptions from "./pair-descriptions.json";
 
 const handCraftedPairs: FontPair[] = [
   // ── Serif header + Sans body (classic editorial contrast) ──
@@ -2042,7 +2043,14 @@ const curatedPairs = useSelection
 const _basePairs: FontPair[] = [];
 for (const p of enrichedHandCrafted) _basePairs.push(p);
 for (const p of curatedPairs) _basePairs.push(p);
+// Two-sentence write-ups for every pair (data-out/pair-descriptions-sonnet.json), keyed by pair id.
+const _descriptions = pairDescriptions as Record<string, string>;
+function applyDescription(p: FontPair): void {
+  const d = _descriptions[p.id];
+  if (d) p.shortExplanation = d;
+}
 for (const p of _basePairs) {
+  applyDescription(p);
   (p as any).url = `/pair/${p.slug}`;
   (p as any).queryUrl = `/pair?p=${p.slug}`;
 }
@@ -2060,6 +2068,7 @@ function ensureDynamicPairs(): void {
     : generateDynamicPairs(fonts);
   for (const p of dynamicPairs) {
     if (!prioritySlugs.has(p.slug)) {
+      applyDescription(p);
       (p as any).url = `/pair/${p.slug}`;
       (p as any).queryUrl = `/pair?p=${p.slug}`;
       _allPairs.push(p);
