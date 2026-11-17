@@ -45,3 +45,5 @@ scripts/.meaning-cache/
 
 # local Figma capture state (file key)
 .figma-capture.json
+/out-staging/
+/out-old/

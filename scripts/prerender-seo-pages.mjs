@@ -12,7 +12,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const OUT = path.resolve("out");
+const OUT = path.resolve(process.env.BUILD_OUT_DIR || "out");
 const BASE = "https://fontpond.melware.art";
 const DEFAULT_TITLE = "Font Pond · free font pairings by mood"; // must match layout.tsx metadata.title
 
