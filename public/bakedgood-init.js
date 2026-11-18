@@ -15,7 +15,7 @@
     var a = arguments[0];
     if (a && a[0] === "config" && a[1] === MEASUREMENT_ID) {
       dl.push = basePush; // once is enough
-      window.gtag("config", UMBRELLA_ID);
+      window.gtag("config", UMBRELLA_ID, { allow_google_signals: false, allow_ad_personalization_signals: false });
     }
     return r;
   };

@@ -68,7 +68,7 @@
   function defaultsFor(tier) {
     if (tier === "opt-in") return { analytics: false, ads: false };
     if (tier === "notify") return { analytics: true, ads: false };
-    return { analytics: true, ads: true };
+    return { analytics: true, ads: false }; // her rule 2026-11-17: ad signals are never on by default
   }
 
   // ── Stored choice ───────────────────────────────────────────────────────
