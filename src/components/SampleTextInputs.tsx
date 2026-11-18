@@ -1,5 +1,6 @@
 "use client";
 
+import { useLayoutEffect, useRef } from "react";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 
 function sliderFill(value: number, min: number, max: number): string {
@@ -15,6 +16,21 @@ export function SampleTextInputs({ alwaysShow = false }: { alwaysShow?: boolean 
     includeFontNameMatches, setIncludeFontNameMatches,
     hasSearched,
   } = useAppState();
+
+  // Keep a size slider fixed on screen while the previews above it change height:
+  // remember the slider's top edge before the change, then scroll by however far it moved.
+  const anchorRef = useRef<{ el: HTMLElement; top: number } | null>(null);
+  const holdSlider = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) anchorRef.current = { el, top: el.getBoundingClientRect().top };
+  };
+  useLayoutEffect(() => {
+    const a = anchorRef.current;
+    if (!a) return;
+    anchorRef.current = null;
+    const drift = a.el.getBoundingClientRect().top - a.top;
+    if (Math.abs(drift) >= 1) window.scrollBy(0, drift);
+  }, [headerSize, bodySize]);
 
   if (!alwaysShow && !hasSearched) return null;
 
@@ -83,7 +99,7 @@ export function SampleTextInputs({ alwaysShow = false }: { alwaysShow?: boolean 
                 min={20}
                 max={64}
                 value={headerSize}
-                onChange={(e) => setHeaderSize(Number(e.target.value))}
+                onChange={(e) => { holdSlider("header-size"); setHeaderSize(Number(e.target.value)); }}
                 className="w-full cursor-pointer"
                 style={{ ["--slider-fill" as string]: sliderFill(headerSize, 20, 64) }}
               />
@@ -115,7 +131,7 @@ export function SampleTextInputs({ alwaysShow = false }: { alwaysShow?: boolean 
                 min={12}
                 max={24}
                 value={bodySize}
-                onChange={(e) => setBodySize(Number(e.target.value))}
+                onChange={(e) => { holdSlider("body-size"); setBodySize(Number(e.target.value)); }}
                 className="w-full cursor-pointer"
                 style={{ ["--slider-fill" as string]: sliderFill(bodySize, 12, 24) }}
               />
