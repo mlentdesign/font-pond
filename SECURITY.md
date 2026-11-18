@@ -8,4 +8,4 @@ Contact the author directly via [LinkedIn](https://www.linkedin.com/in/melaniele
 
 ## Scope
 
-This policy applies to the Font Pond site at https://mlentdesign.github.io/font-pond/. As a static site with no user accounts or backend, the attack surface is limited — but responsible reports are still welcome.
+This policy applies to the Font Pond site at https://fontpond.melware.art/. As a static site with no user accounts or backend, the attack surface is limited — but responsible reports are still welcome.

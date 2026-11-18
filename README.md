@@ -23,7 +23,7 @@ Font Pond analyzes visual and descriptive input to suggest font pairings matched
 
 - Next.js (static export) + TypeScript
 - Tailwind CSS v4
-- Deployed via GitHub Pages
+- Deployed via GitHub Pages at the custom domain fontpond.melware.art
 
 ## License
 
