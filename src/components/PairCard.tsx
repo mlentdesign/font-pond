@@ -214,7 +214,7 @@ function ChipRows({ font, peers }: { font: Font; peers: Font[] }) {
       more.style.display = "";
       let shown = tags.length;
       const rows = () => new Set([...tags.slice(0, shown), more].map((k) => k.offsetTop)).size;
-      const label = () => { const n = total - shown; more.textContent = `+${n} more`; more.style.display = n > 0 ? "" : "none"; };
+      const label = () => { const n = total - shown; more.textContent = shown === 0 ? `See all ${n} tags` : `+${n} more`; more.style.display = n > 0 ? "" : "none"; };
       label();
       while (shown > 0 && rows() > MAX_ROWS) { tags[--shown].style.display = "none"; label(); }
     };
@@ -232,7 +232,7 @@ function ChipRows({ font, peers }: { font: Font; peers: Font[] }) {
           {chipCase(tag)}
         </span>
       ))}
-      <span className="text-neutral-400 rounded-md" style={{ ...CHIP_STYLE, border: "1px solid transparent" }}>+{total} more</span>
+      <span className="text-neutral-400 rounded-md" style={{ ...CHIP_STYLE, border: "1px solid transparent" }}>{chips.length === 0 ? `See all ${total} tags` : `+${total} more`}</span>
     </div>
   );
 }
