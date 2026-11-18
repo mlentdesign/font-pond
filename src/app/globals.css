@@ -306,9 +306,10 @@ nav { position: relative; z-index: 10; }
 .hover\:opacity-80:hover { opacity: 1 !important; }
 .hover\:opacity-90:hover { opacity: 1 !important; }
 
-.bg-white { background: var(--bg-card) !important; }
-.hover\:bg-neutral-50:hover { background: var(--bg-card-hover) !important; }
-.card-hover:hover { background: var(--bg-card-hover) !important; }
+/* Cards are 90% opaque so the water canvas shows faintly through (dropdowns and table bodies stay solid). */
+.bg-white { background: color-mix(in srgb, var(--bg-card) 90%, transparent) !important; -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
+.hover\:bg-neutral-50:hover { background: color-mix(in srgb, var(--bg-card-hover) 90%, transparent) !important; }
+.card-hover:hover { background: color-mix(in srgb, var(--bg-card-hover) 90%, transparent) !important; }
 .btn-generate { background: var(--generate-bg); color: var(--generate-text); border: 2px solid transparent; }
 .btn-generate:hover { background: var(--generate-bg-hover) !important; }
 .bg-neutral-50 { background: var(--bg-chip) !important; }
