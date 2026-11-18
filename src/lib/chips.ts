@@ -1,12 +1,13 @@
 import { fonts } from "@/data/fonts";
 import type { Font } from "@/data/types";
 
+// Serif / sans-serif are the broad families, already visible in the type itself, so they never make a chip.
 // Chips should tell fonts apart. So: drop role words that every header/body font shares,
 // drop tags most fonts carry, collapse synonym clusters (tags that mark the same fonts),
 // and rank what's left by how rare it is, preferring tags that are rare among the current results too.
 const ROLE_WORDS = new Set([
   "display", "headline", "headline-ready", "heading", "headings", "body", "body-friendly", "body-text", "text",
-  "ui", "title", "titles", "headings-only", "readable", "screen-friendly", "comfortable",
+  "serif", "sans-serif", "sans", "sans serif", "slab-serif", "ui", "title", "titles", "headings-only", "readable", "screen-friendly", "comfortable",
 ]);
 const COMMON_SHARE = 0.12; // a tag on more than 12% of all fonts says little
 
