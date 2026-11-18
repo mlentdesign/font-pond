@@ -9,6 +9,13 @@ export function RecentHistory() {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  // Keep the menu mounted for a moment after closing so it can play its exit animation
+  const [menuMounted, setMenuMounted] = useState(false);
+  useEffect(() => {
+    if (isOpen) { setMenuMounted(true); return; }
+    const id = setTimeout(() => setMenuMounted(false), 160);
+    return () => clearTimeout(id);
+  }, [isOpen]);
 
   // Close on click outside
   useEffect(() => {
@@ -54,7 +61,7 @@ export function RecentHistory() {
       <div className="relative" ref={containerRef}>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center rounded-lg shadow-sm card-hover"
+          className="flex items-center rounded-lg shadow-sm card-hover history-chip-btn"
           style={{
             fontSize: "16px",
             color: "var(--text-ransom)",
@@ -67,17 +74,17 @@ export function RecentHistory() {
           aria-expanded={isOpen}
           aria-label="Recently viewed"
         >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <svg className={`history-clock${isOpen ? " is-open" : ""}`} width="20" height="20" viewBox="0 0 20 20" fill="none">
             <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.5" />
             <path d="M10 6.5V10L12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
           <span className="hidden sm:inline">History</span>
         </button>
 
-        {isOpen && (
+        {menuMounted && (
           <div
             ref={menuRef}
-            className="absolute bottom-full right-0 rounded-xl shadow-lg overflow-hidden"
+            className={`absolute bottom-full right-0 rounded-xl shadow-lg overflow-hidden ${isOpen ? "history-menu-in" : "history-menu-out"}`}
             style={{ background: "var(--bg-card)", border: "2px solid var(--border)", marginBottom: "8px", width: "260px" }}
           >
             <div style={{ padding: "12px 16px", borderBottom: "1px solid var(--divider)" }}>

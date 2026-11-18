@@ -128,6 +128,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
     }
   }, [font]);
   const downloadRef = useRef<HTMLDivElement>(null);
+  const inlineBtnRef = useRef<HTMLAnchorElement>(null);
   const [showStickyDownload, setShowStickyDownload] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
@@ -140,15 +141,25 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  // Little pop when the download button settles into (or leaves) the sticky bar; skipped on first paint
+  const [stickyAnim, setStickyAnim] = useState<"in" | "out" | null>(null);
+  const stickySeen = useRef(false);
+  useEffect(() => {
+    if (!stickySeen.current) { stickySeen.current = true; return; }
+    setStickyAnim(showStickyDownload ? "in" : "out");
+  }, [showStickyDownload]);
+
   useEffect(() => {
     if (!downloadRef.current) return;
     const check = () => {
       if (!downloadRef.current) return;
-      const rect = downloadRef.current.getBoundingClientRect();
+      // Judge by the in-page button itself, so the sticky copy only appears once it is tucked under the header
+      // (and leaves the moment it comes back), instead of both showing at once
+      const rect = (inlineBtnRef.current ?? downloadRef.current).getBoundingClientRect();
       const header = document.querySelector("header");
       const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
       // Show sticky download as soon as the download section scrolls behind the breadcrumb area
-      setShowStickyDownload(rect.bottom < headerBottom + 40);
+      setShowStickyDownload(rect.bottom < headerBottom + 8);
     };
     window.addEventListener("scroll", check, { passive: true });
     check();
@@ -237,15 +248,13 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
               href={font.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-generate font-medium rounded-lg"
+              className={`btn-generate font-medium rounded-lg${stickyAnim ? ` sticky-pop-${stickyAnim}` : ""}`}
               style={{
                 fontSize: "16px",
                 padding: "8px 24px",
                 whiteSpace: "nowrap",
                 opacity: showStickyDownload ? 1 : 0,
-                transform: showStickyDownload ? "scale(1)" : "scale(1.15)",
                 transformOrigin: "right center",
-                transition: "opacity 0.12s ease-out, transform 0.12s ease-out",
                 pointerEvents: showStickyDownload ? "auto" : "none",
               }}
             >
@@ -299,10 +308,18 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
           <div className="flex gap-2 shrink-0 mt-1">
             {font.sourceUrl && (
               <a
+                ref={inlineBtnRef}
                 href={font.sourceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-generate font-medium rounded-lg" style={{ fontSize: "16px", padding: "8px 24px" }}
+                className="btn-generate font-medium rounded-lg"
+                style={{
+                  fontSize: "16px",
+                  padding: "8px 24px",
+                  // Hands over to the sticky copy: fades out while it is showing, fades back in just after it leaves
+                  opacity: showStickyDownload && !isMobile ? 0 : 1,
+                  transition: showStickyDownload && !isMobile ? "opacity 0.1s ease-out" : "opacity 0.12s ease-out 0.14s",
+                }}
               >
                 {sourceLabel} ↗
               </a>
