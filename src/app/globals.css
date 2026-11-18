@@ -336,21 +336,23 @@ nav { position: relative; z-index: 10; }
 /* Breadcrumb and link text */
 .hover\:text-neutral-600:hover { color: var(--text-link) !important; }
 
-/* Outline button — filled with background color to block water shader */
+/* Outline button — 90% filled with the background color plus a 2px blur, matching the cards, so the water shows faintly through */
 .outline-btn {
   color: var(--btn-outline-text);
   border: 2px solid var(--btn-outline-border);
-  background: var(--bg);
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
 }
 /* When on a card, use card background */
 .bg-white .outline-btn,
 [style*="bg-card"] .outline-btn {
-  background: var(--bg-card);
+  background: color-mix(in srgb, var(--bg-card) 90%, transparent);
 }
 .outline-btn:hover {
   color: var(--btn-outline-hover) !important;
   border-color: var(--btn-outline-hover) !important;
-  background: var(--btn-outline-hover-bg) !important;
+  background: color-mix(in srgb, var(--btn-outline-hover-bg) 90%, transparent) !important;
 }
 
 /* Chips — very subtle border */
