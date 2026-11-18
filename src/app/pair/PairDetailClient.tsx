@@ -481,6 +481,14 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
           </div>
         </SectionCard>
 
+        {/* About this pair: the written description, only for pairs that have one */}
+        {(pair as any).aboutPair && (
+          <SectionCard className="overflow-hidden" style={{ marginBottom: "24px" }}>
+            <h3 className="uppercase tracking-wider text-neutral-400 font-medium" style={{ fontSize: "12px", marginBottom: "8px" }}>ABOUT THIS PAIR</h3>
+            <p className="text-neutral-700 leading-relaxed" style={{ fontSize: "16px" }}>{sentenceCase((pair as any).aboutPair)}</p>
+          </SectionCard>
+        )}
+
         {/* Why this works */}
         <SectionCard className="overflow-hidden" style={{ marginBottom: "24px" }}>
           <h3 className="uppercase tracking-wider text-neutral-400 font-medium" style={{ fontSize: "12px", marginBottom: "8px" }}>WHY THIS WORKS</h3>

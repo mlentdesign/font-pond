@@ -2047,7 +2047,7 @@ for (const p of curatedPairs) _basePairs.push(p);
 const _descriptions = pairDescriptions as Record<string, string>;
 function applyDescription(p: FontPair): void {
   const d = _descriptions[p.id];
-  if (d) p.shortExplanation = d;
+  if (d) { p.shortExplanation = d; (p as any).aboutPair = d; } // aboutPair: only the written descriptions, shown on the pair page
 }
 for (const p of _basePairs) {
   applyDescription(p);

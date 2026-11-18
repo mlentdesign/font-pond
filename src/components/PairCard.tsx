@@ -6,7 +6,7 @@ import { ScoredPair } from "@/data/types";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 import { navigateToPair } from "@/lib/navigate";
 import { getFontFamily, loadFont } from "@/lib/fonts";
-import { sentenceCase, chipCase } from "@/lib/text";
+import { chipCase } from "@/lib/text";
 import { RENDER_METRICS } from "@/data/gf-render-metrics";
 
 // Extra padding needed above a font: ink that exceeds OS/2 usWinAscent (browser already handles the rest).
@@ -106,10 +106,6 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
   const bodyNameMarginBot    = 8 + bInkExtBot22;
   const bodySecPadBottom    = 16;
 
-  const description = isExploring
-    ? sentenceCase(pair.shortExplanation)
-    : sentenceCase(pair.promptFitReason);
-
   return (
     <div
       role="link"
@@ -161,19 +157,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
       <div style={{ marginTop: "auto" }}>
         <div className="border-t border-neutral-100" />
 
-        {/* Section 2: Description */}
-        <div style={{ padding: "16px 24px" }}>
-          <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: "4px" }}>
-            DESCRIPTION
-          </span>
-          <p className="text-neutral-500 break-words" style={{ fontSize: "16px", lineHeight: 1.5 }}>
-            {description}
-          </p>
-        </div>
-
-        <div className="border-t border-neutral-100" />
-
-        {/* Section 3: Header font + chips */}
+        {/* Section 3: Header font + chips (the description is not shown on tiles; it lives on the pair page) */}
         <div style={{ paddingTop: `${headerSecPadTop}px`, paddingBottom: `${headerSecPadBottom}px`, paddingLeft: "24px", paddingRight: "24px" }}>
           <span className="uppercase tracking-wider text-neutral-400 block leading-none" style={{ fontSize: "12px", letterSpacing: "0.08em", marginBottom: `${headerLabelMarginBot}px` }}>
             HEADER
