@@ -1,12 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { ScoredPair } from "@/data/types";
 import { useAppState, DEFAULT_HEADLINE, DEFAULT_BODY } from "@/lib/store";
 import { navigateToPair } from "@/lib/navigate";
 import { getFontFamily, loadFont } from "@/lib/fonts";
 import { chipCase } from "@/lib/text";
+import { distinctiveTags } from "@/lib/chips";
+import type { Font } from "@/data/types";
 import { RENDER_METRICS } from "@/data/gf-render-metrics";
 
 // Extra padding needed above a font: ink that exceeds OS/2 usWinAscent (browser already handles the rest).
@@ -31,7 +33,9 @@ function extraLeft(slug: string, px: number): number {
 }
 
 export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pair: ScoredPair; isExploring?: boolean; animationDelay?: number }) {
-  const { sampleHeadline, sampleBody, headerSize, bodySize } = useAppState();
+  const { sampleHeadline, sampleBody, headerSize, bodySize, results } = useAppState();
+  const headerPeers = useMemo(() => results.map((r) => r.headerFont), [results]);
+  const bodyPeers = useMemo(() => results.map((r) => r.bodyFont), [results]);
   const router = useRouter();
   const headline = sampleHeadline || DEFAULT_HEADLINE;
   const body = sampleBody || DEFAULT_BODY;
@@ -168,17 +172,7 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
           >
             {headerFont.name}
           </span>
-          <div className="flex flex-wrap" style={{ gap: "8px" }}>
-            {[...new Set(headerFont.tags)].slice(0, 6).map((tag, i) => (
-              <span
-                key={`h-${i}-${tag}`}
-                className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100"
-                style={{ fontSize: "14px", padding: "4px 12px" }}
-              >
-                {chipCase(tag)}
-              </span>
-            ))}
-          </div>
+          <ChipRows font={headerFont} peers={headerPeers} />
         </div>
 
         <div className="border-t border-neutral-100" />
@@ -194,19 +188,51 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
           >
             {bodyFont.name}
           </span>
-          <div className="flex flex-wrap" style={{ gap: "8px" }}>
-            {[...new Set(bodyFont.tags)].slice(0, 6).map((tag, i) => (
-              <span
-                key={`b-${i}-${tag}`}
-                className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100"
-                style={{ fontSize: "14px", padding: "4px 12px" }}
-              >
-                {chipCase(tag)}
-              </span>
-            ))}
-          </div>
+          <ChipRows font={bodyFont} peers={bodyPeers} />
         </div>
       </div>
+    </div>
+  );
+}
+
+const MAX_ROWS = 2;
+const CHIP_STYLE = { fontSize: "14px", padding: "4px 12px", lineHeight: "20px" } as const;
+
+// Up to two rows of the font's most distinctive chips; whatever doesn't fit collapses into "+N more"
+// (the card itself opens the pair page, where the full comparison lives). Fitting is measured in the DOM,
+// so it follows the card's width and late font loads without any extra renders.
+function ChipRows({ font, peers }: { font: Font; peers: Font[] }) {
+  const { chips, total } = useMemo(() => distinctiveTags(font, peers), [font, peers]);
+  const ref = useRef<HTMLDivElement>(null);
+  const key = `${font.id}:${peers.length}`;
+  useLayoutEffect(() => {
+    const el = ref.current; if (!el) return;
+    const fit = () => {
+      const kids = Array.from(el.children) as HTMLElement[];
+      const more = kids[kids.length - 1], tags = kids.slice(0, -1);
+      tags.forEach((k) => (k.style.display = ""));
+      more.style.display = "";
+      let shown = tags.length;
+      const rows = () => new Set([...tags.slice(0, shown), more].map((k) => k.offsetTop)).size;
+      const label = () => { const n = total - shown; more.textContent = `+${n} more`; more.style.display = n > 0 ? "" : "none"; };
+      label();
+      while (shown > 0 && rows() > MAX_ROWS) { tags[--shown].style.display = "none"; label(); }
+    };
+    fit();
+    let w = el.clientWidth;
+    const ro = new ResizeObserver(() => { if (Math.abs(el.clientWidth - w) > 1) { w = el.clientWidth; fit(); } });
+    ro.observe(el);
+    document.fonts?.ready.then(fit);
+    return () => ro.disconnect();
+  }, [key, total]);
+  return (
+    <div ref={ref} className="flex flex-wrap" style={{ gap: "8px" }}>
+      {chips.map((tag) => (
+        <span key={tag} className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100" style={CHIP_STYLE}>
+          {chipCase(tag)}
+        </span>
+      ))}
+      <span className="text-neutral-400 rounded-md" style={{ ...CHIP_STYLE, border: "1px solid transparent" }}>+{total} more</span>
     </div>
   );
 }
