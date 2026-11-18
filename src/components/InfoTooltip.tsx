@@ -61,9 +61,18 @@ export function InfoTooltip({ label }: { label: string }) {
   const updatePos = useCallback(() => {
     if (iconRef.current) {
       const rect = iconRef.current.getBoundingClientRect();
+      // The 240px tooltip centres on the icon. Near either side of a phone screen that
+      // ran it past the edge and cut its text off, so keep it 16px inside the screen.
+      const half = 120;
+      const gutter = 16;
+      const screenWidth = document.documentElement.clientWidth;
+      const center = Math.min(
+        Math.max(rect.left + rect.width / 2, half + gutter),
+        screenWidth - half - gutter,
+      );
       setPos({
         top: rect.bottom + window.scrollY + 4,
-        left: rect.left + rect.width / 2 + window.scrollX,
+        left: center + window.scrollX,
       });
     }
   }, []);
