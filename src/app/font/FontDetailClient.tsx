@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, startTransition } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, startTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
@@ -141,13 +141,42 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  // Little pop when the download button settles into (or leaves) the sticky bar; skipped on first paint
-  const [stickyAnim, setStickyAnim] = useState<"in" | "out" | null>(null);
-  const stickySeen = useRef(false);
-  useEffect(() => {
-    if (!stickySeen.current) { stickySeen.current = true; return; }
-    setStickyAnim(showStickyDownload ? "in" : "out");
-  }, [showStickyDownload]);
+  // One download button that is always on screen: when the in-page one scrolls under the header, a copy glides up
+  // into the breadcrumb bar (and back down when you scroll up), with a little overshoot and swell on arrival.
+  const stickyBtnRef = useRef<HTMLAnchorElement>(null);
+  const ghostRef = useRef<HTMLAnchorElement>(null);
+  const [flying, setFlying] = useState(false);
+  const lastShow = useRef<boolean | null>(null);
+  const lastPos = useRef<{ x: number; y: number } | null>(null);
+  useLayoutEffect(() => {
+    if (!flying) return;
+    const ghost = ghostRef.current;
+    const inline = inlineBtnRef.current;
+    const sticky = stickyBtnRef.current;
+    if (!ghost || !inline || !sticky) { setFlying(false); return; }
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const up = showStickyDownload; // up = inline -> bar
+    const src = up ? inline : sticky, dst = up ? sticky : inline;
+    const start = lastPos.current ?? (() => { const r = src.getBoundingClientRect(); return { x: r.left, y: r.top }; })();
+    const dur = reduce ? 1 : 420;
+    const t0 = performance.now();
+    let raf = 0;
+    const back = (t: number) => { const c = 1.9; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); }; // ease-out with overshoot
+    const frame = (now: number) => {
+      const t = Math.min(1, (now - t0) / dur);
+      const e = back(t);
+      const d = dst.getBoundingClientRect();
+      const x = start.x + (d.left - start.x) * e;
+      const y = start.y + (d.top - start.y) * e;
+      lastPos.current = { x, y };
+      ghost.style.width = d.width + "px"; ghost.style.height = d.height + "px";
+      ghost.style.transform = `translate(${x}px, ${y}px) scale(${1 + 0.08 * Math.sin(Math.PI * t)})`;
+      if (t < 1) raf = requestAnimationFrame(frame);
+      else { lastPos.current = null; setFlying(false); }
+    };
+    frame(t0);
+    return () => cancelAnimationFrame(raf);
+  }, [flying, showStickyDownload]);
 
   useEffect(() => {
     if (!downloadRef.current) return;
@@ -159,7 +188,10 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
       const header = document.querySelector("header");
       const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
       // Show sticky download as soon as the download section scrolls behind the breadcrumb area
-      setShowStickyDownload(rect.bottom < headerBottom + 8);
+      const next = rect.bottom < headerBottom + 8;
+      if (lastShow.current !== null && lastShow.current !== next && !window.matchMedia("(max-width: 767px)").matches) setFlying(true);
+      lastShow.current = next;
+      setShowStickyDownload(next);
     };
     window.addEventListener("scroll", check, { passive: true });
     check();
@@ -248,13 +280,13 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
               href={font.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`btn-generate font-medium rounded-lg${stickyAnim ? ` sticky-pop-${stickyAnim}` : ""}`}
+              ref={stickyBtnRef}
+              className="btn-generate font-medium rounded-lg"
               style={{
                 fontSize: "16px",
                 padding: "8px 24px",
                 whiteSpace: "nowrap",
-                opacity: showStickyDownload ? 1 : 0,
-                transformOrigin: "right center",
+                opacity: showStickyDownload && !flying ? 1 : 0,
                 pointerEvents: showStickyDownload ? "auto" : "none",
               }}
             >
@@ -262,6 +294,21 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
             </a>
           ) : undefined}
         />
+
+        {flying && font.sourceUrl && (
+          <a
+            ref={ghostRef}
+            href={font.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-hidden="true"
+            tabIndex={-1}
+            className="btn-generate font-medium rounded-lg"
+            style={{ position: "fixed", left: 0, top: 0, zIndex: 70, fontSize: "16px", padding: "8px 24px", whiteSpace: "nowrap", pointerEvents: "none", transformOrigin: "center", display: "flex", alignItems: "center", justifyContent: "center", willChange: "transform" }}
+          >
+            {sourceLabel} ↗
+          </a>
+        )}
 
         {/* Font name, creator, and download */}
         <div ref={downloadRef} className="flex flex-col sm:flex-row sm:items-start sm:justify-between" style={{ marginBottom: "24px", gap: "16px" }}>
@@ -316,9 +363,8 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                 style={{
                   fontSize: "16px",
                   padding: "8px 24px",
-                  // Hands over to the sticky copy: fades out while it is showing, fades back in just after it leaves
-                  opacity: showStickyDownload && !isMobile ? 0 : 1,
-                  transition: showStickyDownload && !isMobile ? "opacity 0.1s ease-out" : "opacity 0.12s ease-out 0.14s",
+                  // Hidden while the sticky copy is showing or while the gliding copy is in flight
+                  opacity: (showStickyDownload && !isMobile) || flying ? 0 : 1,
                 }}
               >
                 {sourceLabel} ↗

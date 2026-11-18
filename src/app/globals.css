@@ -1502,22 +1502,7 @@ th:nth-child(4), td:nth-child(4) {
 }
 .feel-chip:hover { background: var(--bg-card-hover); border-color: var(--border); }
 
-/* Download button pop: swells slightly, then settles with a small bounce (in), or swells and shrinks away (out) */
-@keyframes sticky-pop-in {
-  0% { opacity: 0; transform: scale(0.9); }
-  50% { opacity: 1; transform: scale(1.1); }
-  75% { transform: scale(0.97); }
-  100% { opacity: 1; transform: scale(1); }
-}
-@keyframes sticky-pop-out {
-  0% { opacity: 1; transform: scale(1); }
-  35% { opacity: 1; transform: scale(1.06); }
-  100% { opacity: 0; transform: scale(0.92); }
-}
-.sticky-pop-in { animation: sticky-pop-in 0.45s ease-out both; }
-.sticky-pop-out { animation: sticky-pop-out 0.14s ease-in both; }
 @media (prefers-reduced-motion: reduce) {
-  .sticky-pop-in, .sticky-pop-out { animation-duration: 0.01s; }
   .mobile-sticky-download { transition-duration: 0.01s; }
 }
 
