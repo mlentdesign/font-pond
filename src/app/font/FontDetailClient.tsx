@@ -141,42 +141,31 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  // One download button that is always on screen: when the in-page one scrolls under the header, a copy glides up
-  // into the breadcrumb bar (and back down when you scroll up), with a little overshoot and swell on arrival.
-  const stickyBtnRef = useRef<HTMLAnchorElement>(null);
-  const ghostRef = useRef<HTMLAnchorElement>(null);
-  const [flying, setFlying] = useState(false);
-  const lastShow = useRef<boolean | null>(null);
-  const lastPos = useRef<{ x: number; y: number } | null>(null);
-  useLayoutEffect(() => {
-    if (!flying) return;
-    const ghost = ghostRef.current;
-    const inline = inlineBtnRef.current;
-    const sticky = stickyBtnRef.current;
-    if (!ghost || !inline || !sticky) { setFlying(false); return; }
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const up = showStickyDownload; // up = inline -> bar
-    const src = up ? inline : sticky, dst = up ? sticky : inline;
-    const start = lastPos.current ?? (() => { const r = src.getBoundingClientRect(); return { x: r.left, y: r.top }; })();
-    const dur = reduce ? 1 : 420;
-    const t0 = performance.now();
-    let raf = 0;
-    const back = (t: number) => { const c = 1.9; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); }; // ease-out with overshoot
-    const frame = (now: number) => {
-      const t = Math.min(1, (now - t0) / dur);
-      const e = back(t);
-      const d = dst.getBoundingClientRect();
-      const x = start.x + (d.left - start.x) * e;
-      const y = start.y + (d.top - start.y) * e;
-      lastPos.current = { x, y };
-      ghost.style.width = d.width + "px"; ghost.style.height = d.height + "px";
-      ghost.style.transform = `translate(${x}px, ${y}px) scale(${1 + 0.08 * Math.sin(Math.PI * t)})`;
-      if (t < 1) raf = requestAnimationFrame(frame);
-      else { lastPos.current = null; setFlying(false); }
+  // Desktop: ONE download button that is always on screen and clickable. It sits in a zero-height sticky wrapper, so the
+  // browser itself scrolls it with the page and then pins it in the breadcrumb bar (no swapping, no flicker).
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const barSlotRef = useRef<HTMLDivElement>(null);
+  const [stuckTop, setStuckTop] = useState(0);
+  const [stuck, setStuck] = useState(false);
+  useEffect(() => {
+    if (isMobile) return;
+    const measure = () => {
+      const slot = barSlotRef.current, bar = slot?.closest(".breadcrumb-sticky") as HTMLElement | null;
+      if (!slot || !bar) return;
+      // where the bar pins (its CSS top) plus where the slot sits inside the bar, minus the in-page button's 4px drop
+      setStuckTop(parseFloat(getComputedStyle(bar).top) + (slot.getBoundingClientRect().top - bar.getBoundingClientRect().top) - 4);
     };
-    frame(t0);
-    return () => cancelAnimationFrame(raf);
-  }, [flying, showStickyDownload]);
+    const onScroll = () => {
+      const w = wrapRef.current;
+      if (w) setStuck(w.getBoundingClientRect().top <= stuckTopRef.current + 0.5);
+    };
+    measure(); onScroll();
+    const t = setTimeout(() => { measure(); onScroll(); }, 300); // after the breadcrumb has measured its own offset
+    window.addEventListener("resize", measure); window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { clearTimeout(t); window.removeEventListener("resize", measure); window.removeEventListener("scroll", onScroll); };
+  }, [isMobile, font]);
+  const stuckTopRef = useRef(0);
+  stuckTopRef.current = stuckTop;
 
   useEffect(() => {
     if (!downloadRef.current) return;
@@ -188,10 +177,7 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
       const header = document.querySelector("header");
       const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
       // Show sticky download as soon as the download section scrolls behind the breadcrumb area
-      const next = rect.bottom < headerBottom + 8;
-      if (lastShow.current !== null && lastShow.current !== next && !window.matchMedia("(max-width: 767px)").matches) setFlying(true);
-      lastShow.current = next;
-      setShowStickyDownload(next);
+      setShowStickyDownload(rect.bottom < headerBottom + 8);
     };
     window.addEventListener("scroll", check, { passive: true });
     check();
@@ -276,38 +262,25 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
           crumbs={crumbs}
           sticky
           stickyAction={font.sourceUrl && !isMobile ? (
+            // Reserves the button's space in the bar; the real button is the one in the sticky wrapper below
+            <div ref={barSlotRef} aria-hidden="true" style={{ visibility: "hidden", fontSize: "16px", padding: "8px 24px", whiteSpace: "nowrap", border: "1px solid transparent" }} className="font-medium rounded-lg">
+              {sourceLabel} ↗
+            </div>
+          ) : undefined}
+        />
+
+        {font.sourceUrl && !isMobile && (
+          <div ref={wrapRef} style={{ position: "sticky", top: stuckTop, height: 0, zIndex: 30, pointerEvents: "none" }}>
             <a
               href={font.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              ref={stickyBtnRef}
-              className="btn-generate font-medium rounded-lg"
-              style={{
-                fontSize: "16px",
-                padding: "8px 24px",
-                whiteSpace: "nowrap",
-                opacity: showStickyDownload && !flying ? 1 : 0,
-                pointerEvents: showStickyDownload ? "auto" : "none",
-              }}
+              className={`btn-generate font-medium rounded-lg dl-float${stuck ? " is-stuck" : ""}`}
+              style={{ position: "absolute", right: 0, top: 4, fontSize: "16px", padding: "8px 24px", whiteSpace: "nowrap", pointerEvents: "auto" }}
             >
               {sourceLabel} ↗
             </a>
-          ) : undefined}
-        />
-
-        {flying && font.sourceUrl && (
-          <a
-            ref={ghostRef}
-            href={font.sourceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-hidden="true"
-            tabIndex={-1}
-            className="btn-generate font-medium rounded-lg"
-            style={{ position: "fixed", left: 0, top: 0, zIndex: 70, fontSize: "16px", padding: "8px 24px", whiteSpace: "nowrap", pointerEvents: "none", transformOrigin: "center", display: "flex", alignItems: "center", justifyContent: "center", willChange: "transform" }}
-          >
-            {sourceLabel} ↗
-          </a>
+          </div>
         )}
 
         {/* Font name, creator, and download */}
@@ -363,8 +336,8 @@ export default function FontDetailPage({ slugOverride }: { slugOverride?: string
                 style={{
                   fontSize: "16px",
                   padding: "8px 24px",
-                  // Hidden while the sticky copy is showing or while the gliding copy is in flight
-                  opacity: (showStickyDownload && !isMobile) || flying ? 0 : 1,
+                  // Desktop: just holds the space; the floating button above is the real one
+                  visibility: isMobile ? "visible" : "hidden",
                 }}
               >
                 {sourceLabel} ↗

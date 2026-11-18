@@ -1502,7 +1502,11 @@ th:nth-child(4), td:nth-child(4) {
 }
 .feel-chip:hover { background: var(--bg-card-hover); border-color: var(--border); }
 
+/* Floating download button: a soft lift when it pins into the bar, settling back when it returns to the page */
+.dl-float { transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease; }
+.dl-float.is-stuck { transform: scale(1.04); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
 @media (prefers-reduced-motion: reduce) {
+  .dl-float { transition-duration: 0.01s; }
   .mobile-sticky-download { transition-duration: 0.01s; }
 }
 
