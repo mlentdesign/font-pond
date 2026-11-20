@@ -37,12 +37,13 @@ export function FavoriteButton({ slug }: { slug: string }) {
       aria-pressed={saved}
       onClick={onClick}
     >
-      <svg className="heart-icon" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <svg className="heart-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path
-          d="M12.1 20.3s-6.6-4.1-8.9-8.1C1.2 8.5 3 4.9 6.4 4.9c1.9 0 3.2 1.1 3.7 2.1.5-1 1.8-2.1 3.7-2.1 3.4 0 5.2 3.6 3.2 7.3-2.3 4-8.9 8.1-8.9 8.1z"
+          d="M10 5.85C10.25 4.75 11.35 4.1 12.6 4.1C14.6 4.1 16.25 5.65 16.25 7.75C16.25 11.75 10 16.25 10 16.25C10 16.25 3.75 11.75 3.75 7.75C3.75 5.65 5.4 4.1 7.4 4.1C8.65 4.1 9.75 4.75 10 5.85Z"
           fill={saved ? "currentColor" : "none"}
           stroke="currentColor"
-          strokeWidth="1.7"
+          strokeWidth="1.5"
+          strokeLinecap="round"
           strokeLinejoin="round"
         />
       </svg>

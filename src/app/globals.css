@@ -1535,8 +1535,8 @@ th:nth-child(4), td:nth-child(4) {
 .favorite-heart {
   position: relative;
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1545,13 +1545,10 @@ th:nth-child(4), td:nth-child(4) {
   border: none;
   background: none;
   cursor: pointer;
-  color: var(--text-heading);
+  color: var(--text-ransom);
 }
 .favorite-heart.is-saved {
-  color: #e36b6b;
-}
-[data-theme="dark"] .favorite-heart.is-saved {
-  color: #ff8a80;
+  color: var(--generate-bg);
 }
 .favorite-heart .heart-icon {
   display: block;
