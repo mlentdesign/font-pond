@@ -1,0 +1,22 @@
+{
+ "model": "sonnet",
+ "asked": 13,
+ "first_pass_returned": 13,
+ "first_pass_fail_pct": 38.5,
+ "after_repair_1_fail_pct": 38.5,
+ "after_repair_2_fail_pct": 30.8,
+ "set_offender_pct_before": 23.1,
+ "set_offender_pct_after": 15.4,
+ "final_item_fail_pct": 23.1,
+ "failing": {
+  "gen-gf-cherry-swash-gf-bai-jamjuree": [
+   "sentence-length-5"
+  ],
+  "gen-gf-cherry-swash-gf-tenor-sans": [
+   "sentence-length-7"
+  ],
+  "gen-gf-happy-monkey-gf-albert-sans": [
+   "sentence-length-7"
+  ]
+ }
+}

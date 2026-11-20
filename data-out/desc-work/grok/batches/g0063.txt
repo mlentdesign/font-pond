@@ -1,0 +1,149 @@
+[gen-dafont-alien-encounters-gf-golos-text]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Golos Text (sans-serif). Feel: contemporary, approachable. Build: an x-height that fills the line; letters built from one width of stroke; a widely parted s
+Difference between them: a display heading with a sans-serif body; heading has low vs body the line weight of a technical drawing pen
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of, tall
+
+[gen-dafont-alien-encounters-gf-hedvig-letters-sans]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Hedvig Letters Sans (sans-serif). Feel: approachable, contemporary. Build: a clear wide gap where the c ends; small letters that stand almost as tall as capitals
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: as a plain sans
+
+[gen-dafont-alien-encounters-gf-hind-guntur]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Hind Guntur (sans-serif). Feel: modern, neutral. Build: wide gaps between curve ends and stems; no thick-thin shift, like a steel cable outline; tall lowercase forms like stamped metal type
+Difference between them: a display heading with a sans-serif body; heading has low vs body the constant weight of a stencil-cut channel
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller
+
+[gen-dafont-alien-encounters-gf-hind-madurai]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Hind Madurai (sans-serif). Feel: neutral, approachable. Build: s curves that open wide at both ends; lowercase forms that fill the line like capitals; stroke ends that look cut from the same ribbon
+Difference between them: heading has low vs body no thin strokes vanishing in glare; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the heading font's name. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of, tall
+
+[gen-dafont-alien-encounters-gf-hind-mysuru]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Hind Mysuru (sans-serif). Feel: contemporary, professional. Build: lowercase whose tops press close to the ascender height; no calligraphic thinning; each lowercase a with its mouth left ajar
+Difference between them: a display heading with a sans-serif body; heading has low vs body a single-width stroke in every glyph
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the body font's name. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a plain sans
+
+[gen-dafont-alien-encounters-gf-hind-siliguri]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Hind Siliguri (sans-serif). Feel: professional, approachable. Build: rounds that gap like a cracked bangle; a flat gray hum of constant line weight; a gentle bump up from small letters to capitals
+Difference between them: a display heading with a sans-serif body; heading has low vs body a wire-like line quality
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the body font's name. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: as a plain sans
+
+[gen-dafont-alien-encounters-gf-hind-vadodara]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Hind Vadodara (sans-serif). Feel: professional, clean. Build: a thickness that does not change with direction; spacious terminal gaps in rounded glyphs; big open-looking e and a with tall bowls
+Difference between them: a display heading with a sans-serif body; heading has low vs body no stress in the curves
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-dafont-alien-encounters-gf-huninn]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Huninn (sans-serif). Feel: modern, professional. Build: s terminals that stay clear of the body; lowercase bodies that rise close to cap height; crossbars fat as the stems they connect
+Difference between them: heading has low vs body a single line weight; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the heading font's name. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-dafont-alien-encounters-gf-inter-tight]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Inter Tight (sans-serif). Feel: modern, professional. Build: lines like bent rope or tubing; short ascenders barely poking above the lowercase; tails of curves held well back from the body
+Difference between them: a display heading with a sans-serif body; heading has low vs body strokes as thick as a drawn wire throughout
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-dafont-alien-encounters-gf-kedebideri]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Kedebideri (sans-serif). Feel: neutral, approachable. Build: a skyward x-height line; rounded letters that stay open and inviting
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the heading font's name. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-dafont-alien-encounters-gf-kufam]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Kufam (sans-serif). Feel: contemporary, clean. Build: a single track width like a neon sign tube; generously open curves in e; bodies that dominate the line while ascenders hardly show
+Difference between them: a display heading with a sans-serif body; heading has low vs body a steady line with no pressure variation
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: reads as a sans
+
+[gen-dafont-alien-encounters-gf-lexend-deca]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Lexend Deca (sans-serif). Feel: clean, approachable. Build: a plain, unshaded line that never swells; terminals that stop short of curling back in; small-looking capitals beside big lowercase
+Difference between them: heading has low vs body a thickness like neon glass tubing; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with how the body font reads. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a sans serif, a sans serif of, reads as a sans
+
+[gen-dafont-alien-encounters-gf-liter]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Liter (sans-serif). Feel: modern, professional. Build: stroke contrast of exactly none; lowercase with great vertical presence; wide mouths on round forms
+Difference between them: heading has low vs body a single-weight line like a plotter pen draws; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-dafont-alien-encounters-gf-martel-sans]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Martel Sans (sans-serif). Feel: neutral, modern. Build: generous openings in every curve; a high mean line across every word
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of, a high mean line
+
+[gen-dafont-alien-encounters-gf-matangi]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Matangi (sans-serif). Feel: contemporary, modern. Build: strokes like twine pressed into a flat surface; rounded letters left open; a hefty lowercase body
+Difference between them: heading has low vs body a steady pen pressure from first letter to last; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: Skip any sizing advice; spend the sentence on how a longer stretch of the body reads.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of

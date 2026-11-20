@@ -1,0 +1,11 @@
+{
+ "model": "sonnet",
+ "asked": 9,
+ "first_pass_returned": 9,
+ "first_pass_fail_pct": 66.7,
+ "after_repair_1_fail_pct": 0.0,
+ "set_offender_pct_before": 11.1,
+ "set_offender_pct_after": 11.1,
+ "final_item_fail_pct": 0.0,
+ "failing": {}
+}

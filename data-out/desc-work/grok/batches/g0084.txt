@@ -1,0 +1,149 @@
+[gen-gf-comic-relief-gf-aref-ruqaa-ink]
+Heading: Comic Relief (display). Feel: bold, commanding. Build: no visible difference between up and side strokes; bowls that are left unfinished on one side
+Body: Aref Ruqaa Ink (serif). Feel: classic, literary. Build: lightly modulated strokes with no harsh thin spots; open apertures throughout
+Difference between them: heading has thickness that stays put around curves vs body arches that thin slightly where they leave the stem; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: Only if it fits: frame the sizing hint as what happens if the heading is made small, or the body large.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little
+
+[gen-gf-comic-relief-gf-besley]
+Heading: Comic Relief (display). Feel: bold, commanding. Build: no visible difference between up and side strokes; bowls that are left unfinished on one side
+Body: Besley (serif). Feel: dignified, editorial. Build: a c whose curve stays far from closing; crossbars a touch thinner than stems
+Difference between them: a display heading with a serif body; heading has zero stroke contrast throughout vs body stems that outweigh hairlines just a little
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a classic serif, then carries a longer
+
+[gen-gf-comic-relief-gf-brygada-1918]
+Heading: Comic Relief (display). Feel: bold, commanding. Build: no visible difference between up and side strokes; bowls that are left unfinished on one side
+Body: Brygada 1918 (serif). Feel: traditional, dignified. Build: the mild swelling of a worn felt marker; a c that looks like a wide-open ring
+Difference between them: a display heading with a serif body; heading has a rope-like consistency in every stem, bowl, and tail vs body curved strokes that lighten mildly toward the ends
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the body font's name. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: as a classic serif
+
+[gen-gf-comic-relief-gf-caudex]
+Heading: Comic Relief (display). Feel: bold, commanding. Build: no visible difference between up and side strokes; bowls that are left unfinished on one side
+Body: Caudex (serif). Feel: authoritative, dignified. Build: gaping mouths on the e; thin strokes only slightly lighter than the thick ones
+Difference between them: a display heading with a serif body; heading has a monoweight skeleton vs body thick and thin strokes close enough to feel related
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with how the body font reads. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: then sits as a
+
+[gen-gf-comic-relief-gf-cinzel]
+Heading: Comic Relief (display). Feel: bold, commanding. Build: no visible difference between up and side strokes; bowls that are left unfinished on one side
+Body: Cinzel (serif). Feel: classic, editorial. Build: a modest gap in weight between stems and hairlines; a loosely tracked setting with space to spare; open c shapes with plenty of entry space
+Difference between them: a display heading with a serif body; heading has a constant-width line, like a marker vs body tempered stroke modulation
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: then carries a longer
+
+[gen-gf-comic-relief-gf-libre-caslon-text]
+Heading: Comic Relief (display). Feel: bold, commanding. Build: no visible difference between up and side strokes; bowls that are left unfinished on one side
+Body: Libre Caslon Text (serif). Feel: editorial, refined. Build: pen-lifted curves that leave the loop unfinished; low-key thick-thin variation
+Difference between them: a display heading with a serif body; heading has stroke width that stays constant vs body a light touch of stroke modulation
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the body font's name. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: is the punch of
+
+[gen-gf-comic-relief-gf-marcellus]
+Heading: Comic Relief (display). Feel: bold, commanding. Build: no visible difference between up and side strokes; bowls that are left unfinished on one side
+Body: Marcellus (serif). Feel: refined, literary. Build: a subtle weight change like etched lines in glass; rounded letters with a clearly open side
+Difference between them: heading has horizontal bars exactly as heavy as the upright stems vs body subtle but visible stroke modulation; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the heading font's name. Second sentence: Only if it fits: frame the sizing hint as what happens if the heading is made small, or the body large.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little
+
+[gen-gf-comic-relief-gf-petrona]
+Heading: Comic Relief (display). Feel: bold, commanding. Build: no visible difference between up and side strokes; bowls that are left unfinished on one side
+Body: Petrona (serif). Feel: dignified, editorial. Build: shallow terminal curl, wide gap; a tempered contrast that neither jolts nor flattens
+Difference between them: a display heading with a serif body; heading has letters traced with one marker vs body lines drawn with a barely tilted calligraphy nib
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: then carries a longer
+
+[gen-gf-comic-relief-gf-poly]
+Heading: Comic Relief (display). Feel: bold, commanding. Build: no visible difference between up and side strokes; bowls that are left unfinished on one side
+Body: Poly (serif). Feel: bookish, literary. Build: bowls with slight thinning at the sides; terminals pulled back from the curve's closing point
+Difference between them: a display heading with a serif body; heading has a pipe-cleaner look to the strokes vs body slight swell on the bowls
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif with, as a classic serif
+
+[gen-gf-comic-relief-gf-sahitya]
+Heading: Comic Relief (display). Feel: bold, commanding. Build: no visible difference between up and side strokes; bowls that are left unfinished on one side
+Body: Sahitya (serif). Feel: bookish, traditional. Build: thin strokes only slightly lighter than the thick ones; open, uncrowded mouths on the s and c
+Difference between them: heading has a pipe-cleaner feel in every letterform vs body a gentle ebb and flow of stroke weight; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with, then carries a longer
+
+[gen-gf-comic-relief-gf-sawarabi-mincho]
+Heading: Comic Relief (display). Feel: bold, commanding. Build: no visible difference between up and side strokes; bowls that are left unfinished on one side
+Body: Sawarabi Mincho (serif). Feel: classic, refined. Build: terminals cut well short of the bowl; terminals and joins that ease only slightly in weight
+Difference between them: a display heading with a serif body; heading has no shading from thick to thin in the strokes vs body thin parts only slightly slimmer than the stems
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with, then carries a longer
+
+[gen-gf-comic-relief-gf-trirong]
+Heading: Comic Relief (display). Feel: bold, commanding. Build: no visible difference between up and side strokes; bowls that are left unfinished on one side
+Body: Trirong (serif). Feel: bookish, dignified. Build: softly varied stroke thickness; gently flared curve ends that stay apart
+Difference between them: heading has unshaded, constant strokes vs body a calm modulation that never snags the eye; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: then carries a longer
+
+[gen-gf-comic-relief-gf-trocchi]
+Heading: Comic Relief (display). Feel: bold, commanding. Build: no visible difference between up and side strokes; bowls that are left unfinished on one side
+Body: Trocchi (serif). Feel: dignified, classic. Build: a c that looks like a wide-open ring; bowls that thin gracefully but not sharply
+Difference between them: a display heading with a serif body; heading has letters made of rods, not carved blades vs body slightly thinner curves at the tops of rounded letters
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a classic serif, then carries a longer
+
+[gen-gf-comic-relief-gf-uchen]
+Heading: Comic Relief (display). Feel: bold, commanding. Build: no visible difference between up and side strokes; bowls that are left unfinished on one side
+Body: Uchen (serif). Feel: dignified, refined. Build: lowercase curves that welcome the eye inside; a comfortable midpoint between flat strokes and dramatic ones
+Difference between them: a display heading with a serif body; heading has a steady pen pressure from first letter to last vs body curves a little heavier than joins
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with how the body font reads. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: then carries a longer
+
+[gen-gf-coming-soon-fs-be-vietnam-pro]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Be Vietnam Pro (sans-serif). Feel: neutral, clean. Build: curve endings that never get near each other; strokes like a bent steel rod; a mean line set high
+Difference between them: a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: then carries a longer

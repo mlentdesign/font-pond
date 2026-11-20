@@ -1,0 +1,378 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 440,
+ "first_pass_fail_pct": 67.1,
+ "after_repair_1_fail_pct": 67.1,
+ "after_repair_2_fail_pct": 67.1,
+ "set_offender_pct_before": 61.6,
+ "set_offender_pct_after": 61.6,
+ "final_item_fail_pct": 67.1,
+ "failing": {
+  "gen-zen-dots-gf-copse": [
+   "words-42",
+   "sentence-length-26"
+  ],
+  "gen-zen-dots-gf-cutive": [
+   "words-41"
+  ],
+  "gen-zen-dots-gf-enriqueta": [
+   "sentence-length-5"
+  ],
+  "gen-zen-dots-gf-laila": [
+   "missing-heading-name"
+  ],
+  "gen-zen-dots-gf-solway": [
+   "sentence-length-25"
+  ],
+  "gen-almendra-display-gf-faustina": [
+   "sentence-length-6"
+  ],
+  "gen-almendra-display-gf-lisu-bosa": [
+   "sentence-length-5"
+  ],
+  "gen-almendra-display-gf-marcellus-sc": [
+   "sentence-length-5"
+  ],
+  "gen-archivo-black-gf-scope-one": [
+   "sentence-length-7"
+  ],
+  "gen-audiowide-fs-erode": [
+   "words-41",
+   "sentence-length-6"
+  ],
+  "gen-audiowide-gf-domine": [
+   "words-42",
+   "sentence-length-32",
+   "phrase:the page a"
+  ],
+  "gen-audiowide-gf-esteban": [
+   "sentence-length-6",
+   "phrase:a longer passage"
+  ],
+  "gen-audiowide-gf-faustina": [
+   "sentence-length-26"
+  ],
+  "gen-dafont-azonix-fs-bespoke-slab": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-azonix-fs-trench-slab": [
+   "words-42"
+  ],
+  "gen-dafont-bloody-fs-erode": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-capture-smallz-fs-erode": [
+   "missing-heading-name",
+   "sentence-length-6"
+  ],
+  "gen-dafont-college-fs-trench-slab": [
+   "missing-heading-name"
+  ],
+  "gen-dafont-early-gameboy-fs-bespoke-slab": [
+   "person:studio"
+  ],
+  "gen-dafont-electroharmonix-fs-trench-slab": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-groovy-fs-erode": [
+   "words-43",
+   "sentence-length-26"
+  ],
+  "gen-dafont-groovy-fs-trench-slab": [
+   "words-43",
+   "sentence-length-27"
+  ],
+  "gen-dafont-hammerhead-fs-literata": [
+   "words-45",
+   "sentence-length-28"
+  ],
+  "gen-dafont-jelly-crazies-fs-erode": [
+   "words-47"
+  ],
+  "gen-dafont-jelly-crazies-fs-hoover": [
+   "words-44",
+   "sentence-length-28"
+  ],
+  "gen-dafont-nasalization-fs-bespoke-slab": [
+   "sentence-length-4"
+  ],
+  "gen-dafont-nasalization-fs-erode": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-neuropol-fs-sentient": [
+   "words-42"
+  ],
+  "gen-dafont-neuropolitical-fs-erode": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-nordic-fs-hoover": [
+   "words-41"
+  ],
+  "gen-dafont-nulshock-fs-trench-slab": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-oldtimer-fs-sentient": [
+   "missing-heading-name"
+  ],
+  "gen-dafont-outrun-future-fs-erode": [
+   "missing-heading-name"
+  ],
+  "gen-dafont-outrun-future-fs-hoover": [
+   "words-42",
+   "sentence-length-26"
+  ],
+  "gen-dafont-outrun-future-fs-trench-slab": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-over-there-fs-literata": [
+   "words-46",
+   "sentence-length-29"
+  ],
+  "gen-dafont-over-there-fs-sentient": [
+   "sentence-length-26"
+  ],
+  "gen-dafont-starborn-fs-erode": [
+   "words-41",
+   "sentence-length-32"
+  ],
+  "gen-dafont-stentiga-fs-bespoke-slab": [
+   "words-23",
+   "sentence-length-6"
+  ],
+  "gen-dafont-true-north-fs-trench-slab": [
+   "words-45"
+  ],
+  "gen-eater-fs-erode": [
+   "sentence-length-27"
+  ],
+  "gen-eater-fs-trench-slab": [
+   "missing-heading-name"
+  ],
+  "gen-eater-gf-esteban": [
+   "phrase:a longer passage"
+  ],
+  "gen-eater-gf-faustina": [
+   "missing-heading-name",
+   "phrase:a longer passage"
+  ],
+  "gen-eater-gf-lisu-bosa": [
+   "sentence-length-5"
+  ],
+  "gen-eater-gf-marcellus-sc": [
+   "sentence-length-25"
+  ],
+  "gen-flavors-fs-bespoke-slab": [
+   "words-24",
+   "sentence-length-7"
+  ],
+  "gen-flavors-gf-hedvig-letters-serif": [
+   "phrase:classic serif body"
+  ],
+  "gen-flavors-gf-montagu-slab": [
+   "sentence-length-7"
+  ],
+  "gen-gf-autour-one-fs-erode": [
+   "sentence-length-29"
+  ],
+  "gen-gf-bellota-text-fs-sentient": [
+   "sentence-length-7"
+  ],
+  "gen-gf-funnel-display-fs-erode": [
+   "sentence-length-4"
+  ],
+  "gen-gf-funnel-display-fs-hoover": [
+   "sentence-length-25"
+  ],
+  "gen-gf-funnel-display-gf-esteban": [
+   "missing-heading-name",
+   "words-24",
+   "sentence-length-4"
+  ],
+  "gen-gf-funnel-display-gf-faustina": [
+   "sentence-length-7"
+  ],
+  "gen-gf-funnel-display-gf-hedvig-letters-serif": [
+   "sentence-length-7"
+  ],
+  "gen-gf-goldman-fs-erode": [
+   "words-42",
+   "sentence-length-31"
+  ],
+  "gen-gf-goldman-fs-hoover": [
+   "sentence-length-6"
+  ],
+  "gen-gf-goldman-fs-trench-slab": [
+   "sentence-length-7"
+  ],
+  "gen-gf-goldman-gf-domine": [
+   "sentence-length-5"
+  ],
+  "gen-gf-goldman-gf-halant": [
+   "sentence-length-7"
+  ],
+  "gen-gf-goldman-gf-noto-serif-hentaigana": [
+   "words-22",
+   "sentence-length-7"
+  ],
+  "gen-gf-grandstander-gf-domine": [
+   "phrase:classic serif body"
+  ],
+  "gen-gf-grandstander-gf-esteban": [
+   "missing-heading-name",
+   "sentence-length-5"
+  ],
+  "gen-gf-grandstander-gf-ovo": [
+   "phrase:the page a",
+   "phrase:gives the page"
+  ],
+  "gen-gf-gugi-gf-headland-one": [
+   "words-42"
+  ],
+  "gen-gf-gugi-gf-montagu-slab": [
+   "missing-heading-name"
+  ],
+  "gen-gf-happy-monkey-fs-literata": [
+   "sentence-length-7"
+  ],
+  "gen-gf-love-ya-like-a-sister-fs-erode": [
+   "sentence-length-4"
+  ],
+  "gen-gf-love-ya-like-a-sister-fs-hoover": [
+   "phrase:a longer passage"
+  ],
+  "gen-gf-love-ya-like-a-sister-fs-trench-slab": [
+   "words-43"
+  ],
+  "gen-gf-offside-gf-domine": [
+   "words-25",
+   "sentence-length-3"
+  ],
+  "gen-gf-offside-gf-esteban": [
+   "words-44"
+  ],
+  "gen-gf-offside-gf-halant": [
+   "words-45",
+   "sentence-length-28"
+  ],
+  "gen-gf-offside-gf-ovo": [
+   "words-41",
+   "sentence-length-25"
+  ],
+  "gen-gf-oxanium-fs-bespoke-slab": [
+   "sentence-length-5"
+  ],
+  "gen-gf-oxanium-gf-headland-one": [
+   "sentence-length-7"
+  ],
+  "gen-gf-oxanium-gf-hedvig-letters-serif": [
+   "sentence-length-5"
+  ],
+  "gen-gf-oxanium-gf-ovo": [
+   "words-25"
+  ],
+  "gen-gf-paprika-fs-bespoke-slab": [
+   "sentence-length-6"
+  ],
+  "gen-gf-paprika-fs-erode": [
+   "sentence-length-26"
+  ],
+  "gen-gf-paprika-fs-trench-slab": [
+   "sentence-length-6"
+  ],
+  "gen-gf-revalia-gf-noto-serif-hentaigana": [
+   "phrase:the page a"
+  ],
+  "gen-gf-revalia-gf-ovo": [
+   "phrase:a longer passage"
+  ],
+  "gen-gf-sniglet-fs-literata": [
+   "phrase:a longer passage"
+  ],
+  "gen-gf-snowburst-one-fs-hoover": [
+   "words-23",
+   "sentence-length-3"
+  ],
+  "gen-gf-snowburst-one-gf-faustina": [
+   "words-25",
+   "sentence-length-5"
+  ],
+  "gen-gf-snowburst-one-gf-hedvig-letters-serif": [
+   "sentence-length-7"
+  ],
+  "gen-gf-snowburst-one-gf-lisu-bosa": [
+   "words-41"
+  ],
+  "gen-gf-snowburst-one-gf-marcellus-sc": [
+   "sentence-length-7"
+  ],
+  "gen-gf-snowburst-one-gf-noto-serif-hentaigana": [
+   "missing-body-name"
+  ],
+  "gen-gf-tektur-gf-esteban": [
+   "sentence-length-5"
+  ],
+  "gen-gf-tektur-gf-marcellus-sc": [
+   "missing-heading-name",
+   "sentence-length-6"
+  ],
+  "gen-gf-tektur-gf-noto-serif-hentaigana": [
+   "words-43",
+   "sentence-length-30"
+  ],
+  "gen-gf-tilt-neon-fs-erode": [
+   "sentence-length-26"
+  ],
+  "gen-gf-tilt-neon-gf-domine": [
+   "sentence-length-28"
+  ],
+  "gen-gf-tilt-neon-gf-esteban": [
+   "words-42"
+  ],
+  "gen-gf-tilt-neon-gf-hedvig-letters-serif": [
+   "words-42",
+   "phrase:the page a"
+  ],
+  "gen-gf-tilt-neon-gf-lisu-bosa": [
+   "words-42"
+  ],
+  "gen-gf-tilt-neon-gf-marcellus-sc": [
+   "sentence-length-7"
+  ],
+  "gen-gf-tilt-neon-gf-ovo": [
+   "sentence-length-25"
+  ],
+  "gen-gf-turret-road-fs-karma": [
+   "missing-heading-name"
+  ],
+  "gen-gf-turret-road-fs-sentient": [
+   "missing-heading-name"
+  ],
+  "gen-gf-underdog-fs-literata": [
+   "sentence-length-29"
+  ],
+  "gen-gf-underdog-fs-sentient": [
+   "words-25"
+  ],
+  "gen-gf-unica-one-gf-headland-one": [
+   "words-25",
+   "sentence-length-5"
+  ],
+  "gen-gf-unica-one-gf-hedvig-letters-serif": [
+   "words-24",
+   "sentence-length-5"
+  ],
+  "gen-gf-unica-one-gf-ovo": [
+   "sentence-length-7"
+  ],
+  "gen-gf-wallpoet-fs-erode": [
+   "words-43"
+  ],
+  "gen-gf-wallpoet-gf-domine": [
+   "sentence-length-6"
+  ],
+  "gen-gf-wallpoet-gf-lisu-bosa": [
+   "sentence-length-25"
+  ]
+ }
+}

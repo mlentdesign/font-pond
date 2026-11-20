@@ -1,0 +1,622 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 608,
+ "first_pass_fail_pct": 58.0,
+ "after_repair_1_fail_pct": 58.0,
+ "after_repair_2_fail_pct": 58.0,
+ "set_offender_pct_before": 31.9,
+ "set_offender_pct_after": 31.9,
+ "final_item_fail_pct": 58.0,
+ "failing": {
+  "gen-gf-autour-one-gf-noto-sans-thai-looped": [
+   "sentence-length-6"
+  ],
+  "gen-gf-funnel-display-gf-noto-sans-yi": [
+   "sentence-length-5"
+  ],
+  "gen-gf-revalia-gf-sofia-sans-semi-condensed": [
+   "sentence-length-4"
+  ],
+  "gen-gf-unica-one-gf-stack-sans-headline": [
+   "words-42",
+   "sentence-length-27"
+  ],
+  "gen-irish-grover-gf-vend-sans": [
+   "words-46",
+   "sentence-length-32"
+  ],
+  "gen-luckiest-guy-gf-yaldevi": [
+   "sentence-length-25"
+  ],
+  "gen-megrim-gf-ubuntu-sans": [
+   "sentence-length-25"
+  ],
+  "gen-mystery-quest-gf-sofia-sans": [
+   "words-42"
+  ],
+  "gen-press-start-2p-gf-sulphur-point": [
+   "person:reader"
+  ],
+  "gen-eater-gf-noto-sans-takri": [
+   "words-25",
+   "sentence-length-5"
+  ],
+  "gen-flavors-gf-noto-sans-tai-viet": [
+   "sentence-length-6"
+  ],
+  "gen-gf-grandstander-gf-oxygen": [
+   "sentence-length-27"
+  ],
+  "gen-gf-offside-gf-sofia-sans-semi-condensed": [
+   "sentence-length-6"
+  ],
+  "gen-gf-revalia-gf-stack-sans-headline": [
+   "words-41"
+  ],
+  "gen-gf-tektur-gf-sen": [
+   "phrase:a longer passage"
+  ],
+  "gen-gf-wallpoet-gf-ubuntu-sans": [
+   "words-23"
+  ],
+  "gen-irish-grover-gf-yaldevi": [
+   "sentence-length-6"
+  ],
+  "gen-gf-paprika-gf-schibsted-grotesk": [
+   "sentence-length-7"
+  ],
+  "gen-luckiest-guy-gf-sen": [
+   "phrase:balance"
+  ],
+  "gen-mystery-quest-gf-sofia-sans-semi-condensed": [
+   "phrase:a clean sans"
+  ],
+  "gen-fs-red-hat-display-fs-asap": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-fs-nunito": [
+   "words-46"
+  ],
+  "gen-fs-red-hat-display-general-sans": [
+   "words-41"
+  ],
+  "gen-fs-red-hat-display-gf-albert-sans": [
+   "sentence-length-27"
+  ],
+  "gen-fs-red-hat-display-gf-alef": [
+   "words-43"
+  ],
+  "gen-fs-red-hat-display-gf-biz-udgothic": [
+   "missing-heading-name"
+  ],
+  "gen-fs-red-hat-display-gf-biz-udpgothic": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-bpmf-huninn": [
+   "missing-heading-name",
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-bpmf-zihi-kai-std": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-red-hat-display-gf-didact-gothic": [
+   "sentence-length-5"
+  ],
+  "gen-fs-red-hat-display-gf-dotgothic16": [
+   "sentence-length-6"
+  ],
+  "gen-fs-red-hat-display-gf-encode-sans-sc": [
+   "words-43"
+  ],
+  "gen-fs-red-hat-display-gf-encode-sans-semi-condensed": [
+   "missing-heading-name"
+  ],
+  "gen-fs-red-hat-display-gf-encode-sans-semi-expanded": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-exo-2": [
+   "phrase:a clean sans"
+  ],
+  "gen-fs-red-hat-display-gf-gantari": [
+   "phrase:plain sans body"
+  ],
+  "gen-fs-red-hat-display-gf-gayathri": [
+   "words-41"
+  ],
+  "gen-fs-red-hat-display-gf-google-sans-flex": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-gruppo": [
+   "sentence-length-6"
+  ],
+  "gen-fs-red-hat-display-gf-ibm-plex-sans-jp": [
+   "sentence-length-7",
+   "phrase:a longer passage"
+  ],
+  "gen-fs-red-hat-display-gf-ibm-plex-sans-kr": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-jura": [
+   "sentence-length-25"
+  ],
+  "gen-fs-red-hat-display-gf-kanchenjunga": [
+   "sentence-length-25"
+  ],
+  "gen-fs-red-hat-display-gf-kodchasan": [
+   "words-22",
+   "sentence-length-3"
+  ],
+  "gen-fs-red-hat-display-gf-kumbh-sans": [
+   "sentence-length-25"
+  ],
+  "gen-fs-red-hat-display-gf-m-plus-rounded-1c": [
+   "words-41"
+  ],
+  "gen-fs-red-hat-display-gf-meera-inimai": [
+   "sentence-length-6"
+  ],
+  "gen-fs-red-hat-display-gf-mingzat": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-moderustic": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-momo-trust-sans": [
+   "missing-heading-name",
+   "sentence-length-5"
+  ],
+  "gen-fs-red-hat-display-gf-mooli": [
+   "missing-heading-name"
+  ],
+  "gen-fs-red-hat-display-gf-national-park": [
+   "missing-heading-name",
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-noto-sans-cypro-minoan": [
+   "words-41"
+  ],
+  "gen-fs-red-hat-display-gf-noto-sans-hanifi-rohingya": [
+   "missing-heading-name"
+  ],
+  "gen-fs-red-hat-display-gf-noto-sans-javanese": [
+   "words-41"
+  ],
+  "gen-fs-red-hat-display-gf-sawarabi-gothic": [
+   "sentence-length-5"
+  ],
+  "gen-fs-red-hat-display-gf-shanti": [
+   "sentence-length-5"
+  ],
+  "gen-fs-red-hat-display-gf-shippori-antique": [
+   "words-23",
+   "sentence-length-4"
+  ],
+  "gen-fs-red-hat-display-gf-sn-pro": [
+   "sentence-length-4"
+  ],
+  "gen-fs-red-hat-display-gf-tajawal": [
+   "missing-heading-name",
+   "sentence-length-25"
+  ],
+  "gen-fs-red-hat-display-gf-telex": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-tenor-sans": [
+   "phrase:the page a",
+   "phrase:gives the page"
+  ],
+  "gen-fs-red-hat-display-gf-tirra": [
+   "sentence-length-4"
+  ],
+  "gen-fs-red-hat-display-gf-trispace": [
+   "sentence-length-25"
+  ],
+  "gen-fs-red-hat-display-gf-tuffy": [
+   "sentence-length-5"
+  ],
+  "gen-fs-red-hat-display-gf-vazirmatn": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-red-hat-display-gf-wix-madefor-text": [
+   "sentence-length-5"
+  ],
+  "gen-fs-oswald-gf-ysabeau-infant": [
+   "words-22",
+   "sentence-length-6"
+  ],
+  "gen-gf-metamorphous-gf-saira": [
+   "sentence-length-5"
+  ],
+  "gen-eater-gf-noto-sans-telugu": [
+   "phrase:plain sans body"
+  ],
+  "gen-gf-goldman-gf-prompt": [
+   "sentence-length-7"
+  ],
+  "gen-gf-autour-one-fs-rowan": [
+   "sentence-length-5",
+   "phrase:the page a"
+  ],
+  "gen-gf-balsamiq-sans-gf-antic-slab": [
+   "sentence-length-7"
+  ],
+  "gen-gf-balsamiq-sans-gf-belgrano": [
+   "sentence-length-5"
+  ],
+  "gen-gf-balsamiq-sans-gf-biorhyme-expanded": [
+   "sentence-length-3"
+  ],
+  "gen-gf-balsamiq-sans-gf-copse": [
+   "words-25"
+  ],
+  "gen-gf-balsamiq-sans-gf-enriqueta": [
+   "sentence-length-25"
+  ],
+  "gen-gf-balsamiq-sans-gf-fenix": [
+   "sentence-length-4"
+  ],
+  "gen-gf-balsamiq-sans-gf-gowun-batang": [
+   "sentence-length-26",
+   "phrase:a longer passage"
+  ],
+  "gen-gf-balsamiq-sans-gf-habibi": [
+   "sentence-length-29"
+  ],
+  "gen-gf-balsamiq-sans-gf-montaga": [
+   "sentence-length-25",
+   "phrase:a longer passage"
+  ],
+  "gen-gf-balsamiq-sans-gf-rhodium-libre": [
+   "words-41"
+  ],
+  "gen-gf-balsamiq-sans-gf-rokkitt": [
+   "sentence-length-7"
+  ],
+  "gen-gf-balsamiq-sans-gf-sanchez": [
+   "words-22",
+   "sentence-length-3"
+  ],
+  "gen-gf-balsamiq-sans-gf-yuji-boku": [
+   "sentence-length-6"
+  ],
+  "gen-gf-baumans-dm-sans": [
+   "sentence-length-7"
+  ],
+  "gen-gf-baumans-gf-biz-udmincho": [
+   "words-46"
+  ],
+  "gen-gf-baumans-gf-cutive": [
+   "sentence-length-25"
+  ],
+  "gen-gf-baumans-gf-fenix": [
+   "sentence-length-25",
+   "phrase:the page a"
+  ],
+  "gen-gf-baumans-gf-gentium-plus": [
+   "sentence-length-7"
+  ],
+  "gen-gf-baumans-gf-gowun-batang": [
+   "missing-heading-name",
+   "sentence-length-6"
+  ],
+  "gen-gf-baumans-gf-habibi": [
+   "words-25"
+  ],
+  "gen-gf-baumans-gf-new-tegomin": [
+   "sentence-length-7"
+  ],
+  "gen-gf-baumans-gf-yuji-boku": [
+   "sentence-length-4"
+  ],
+  "gen-gf-bellota-dm-sans": [
+   "words-42",
+   "sentence-length-25"
+  ],
+  "gen-gf-bellota-fs-paquito": [
+   "sentence-length-7"
+  ],
+  "gen-gf-bellota-gf-aleo": [
+   "sentence-length-26"
+  ],
+  "gen-gf-bellota-gf-almendra-sc": [
+   "words-42",
+   "sentence-length-25"
+  ],
+  "gen-gf-bellota-gf-antic-slab": [
+   "sentence-length-6"
+  ],
+  "gen-gf-bellota-gf-biorhyme-expanded": [
+   "words-42"
+  ],
+  "gen-gf-bellota-gf-biz-udmincho": [
+   "words-41"
+  ],
+  "gen-gf-bellota-gf-gentium-plus": [
+   "missing-heading-name",
+   "sentence-length-29"
+  ],
+  "gen-gf-bellota-gf-gowun-batang": [
+   "sentence-length-26"
+  ],
+  "gen-gf-bellota-gf-habibi": [
+   "missing-heading-name",
+   "sentence-length-26"
+  ],
+  "gen-gf-bellota-gf-inika": [
+   "sentence-length-26"
+  ],
+  "gen-gf-bellota-gf-kay-pho-du": [
+   "words-42",
+   "sentence-length-25"
+  ],
+  "gen-gf-bellota-gf-labrada": [
+   "person:studio"
+  ],
+  "gen-gf-bellota-gf-rhodium-libre": [
+   "words-41"
+  ],
+  "gen-gf-bellota-text-gf-almendra-sc": [
+   "sentence-length-6"
+  ],
+  "gen-gf-bellota-text-gf-biz-udmincho": [
+   "words-41"
+  ],
+  "gen-gf-bellota-text-gf-copse": [
+   "words-41",
+   "sentence-length-28"
+  ],
+  "gen-gf-bellota-text-gf-rokkitt": [
+   "sentence-length-27"
+  ],
+  "gen-gf-bruno-ace-gf-aleo": [
+   "words-41"
+  ],
+  "gen-gf-bruno-ace-gf-biorhyme": [
+   "sentence-length-6"
+  ],
+  "gen-gf-bruno-ace-gf-biorhyme-expanded": [
+   "sentence-length-6"
+  ],
+  "gen-gf-bruno-ace-gf-biz-udmincho": [
+   "sentence-length-25"
+  ],
+  "gen-gf-bruno-ace-gf-cutive": [
+   "sentence-length-6"
+  ],
+  "gen-gf-bruno-ace-gf-fenix": [
+   "sentence-length-5"
+  ],
+  "gen-gf-bruno-ace-gf-rokkitt": [
+   "sentence-length-25"
+  ],
+  "gen-gf-bruno-ace-gf-yuji-boku": [
+   "phrase:the page a"
+  ],
+  "gen-gf-bruno-ace-nunito-sans": [
+   "phrase:a longer passage"
+  ],
+  "gen-gf-bruno-ace-sc-fs-paquito": [
+   "words-41",
+   "sentence-length-25"
+  ],
+  "gen-gf-bruno-ace-sc-gf-aleo": [
+   "words-45",
+   "sentence-length-28"
+  ],
+  "gen-gf-bruno-ace-sc-gf-arvo": [
+   "phrase:the page a",
+   "phrase:gives the page"
+  ],
+  "gen-gf-bruno-ace-sc-gf-habibi": [
+   "words-45",
+   "sentence-length-28"
+  ],
+  "gen-gf-bruno-ace-sc-gf-laila": [
+   "words-41",
+   "sentence-length-26"
+  ],
+  "gen-gf-bruno-ace-sc-gf-new-tegomin": [
+   "words-41"
+  ],
+  "gen-gf-bruno-ace-sc-gf-rokkitt": [
+   "words-42",
+   "sentence-length-30"
+  ],
+  "gen-gf-bruno-ace-sc-gf-yuji-boku": [
+   "sentence-length-7"
+  ],
+  "gen-gf-cherry-swash-gf-biz-udmincho": [
+   "sentence-length-26"
+  ],
+  "gen-gf-cherry-swash-gf-cutive": [
+   "sentence-length-30"
+  ],
+  "gen-gf-cherry-swash-gf-david-libre": [
+   "phrase:the page a",
+   "phrase:gives the page"
+  ],
+  "gen-gf-cherry-swash-gf-enriqueta": [
+   "sentence-length-5"
+  ],
+  "gen-gf-cherry-swash-gf-gowun-batang": [
+   "sentence-length-6"
+  ],
+  "gen-gf-cherry-swash-gf-habibi": [
+   "sentence-length-25"
+  ],
+  "gen-gf-cherry-swash-gf-montaga": [
+   "sentence-length-5"
+  ],
+  "gen-gf-comic-relief-gf-biz-udmincho": [
+   "missing-heading-name",
+   "sentence-length-4"
+  ],
+  "gen-gf-comic-relief-gf-habibi": [
+   "words-41"
+  ],
+  "gen-gf-comic-relief-gf-labrada": [
+   "sentence-length-7"
+  ],
+  "gen-gf-comic-relief-gf-laila": [
+   "words-25"
+  ],
+  "gen-gf-comic-relief-gf-new-tegomin": [
+   "missing-heading-name"
+  ],
+  "gen-gf-comic-relief-gf-rhodium-libre": [
+   "sentence-length-25"
+  ],
+  "gen-gf-gabarito-dm-sans": [
+   "words-23"
+  ],
+  "gen-gf-gabarito-gf-almendra-sc": [
+   "missing-heading-name"
+  ],
+  "gen-gf-gabarito-gf-biorhyme": [
+   "words-42",
+   "phrase:a longer passage"
+  ],
+  "gen-gf-gabarito-gf-biorhyme-expanded": [
+   "sentence-length-4"
+  ],
+  "gen-gf-gabarito-gf-copse": [
+   "words-45",
+   "sentence-length-27"
+  ],
+  "gen-gf-gabarito-gf-gentium-plus": [
+   "phrase:shines"
+  ],
+  "gen-gf-gabarito-gf-habibi": [
+   "sentence-length-25"
+  ],
+  "gen-gf-gabarito-nunito-sans": [
+   "sentence-length-7"
+  ],
+  "gen-gf-goldman-gf-almendra": [
+   "words-25"
+  ],
+  "gen-gf-grandstander-fs-rowan": [
+   "sentence-length-26"
+  ],
+  "gen-gf-grandstander-gf-port-lligat-slab": [
+   "sentence-length-7"
+  ],
+  "gen-gf-gugi-fs-rowan": [
+   "sentence-length-26"
+  ],
+  "gen-gf-happy-monkey-author": [
+   "words-42"
+  ],
+  "gen-gf-happy-monkey-gf-almendra-sc": [
+   "phrase:a longer passage"
+  ],
+  "gen-gf-happy-monkey-gf-antic-slab": [
+   "missing-body-name",
+   "words-25",
+   "sentence-length-5"
+  ],
+  "gen-gf-happy-monkey-gf-arvo": [
+   "phrase:a longer passage"
+  ],
+  "gen-gf-happy-monkey-gf-biorhyme-expanded": [
+   "sentence-length-3"
+  ],
+  "gen-gf-happy-monkey-gf-biz-udmincho": [
+   "sentence-length-27"
+  ],
+  "gen-gf-happy-monkey-gf-kay-pho-du": [
+   "sentence-length-5"
+  ],
+  "gen-gf-happy-monkey-gf-rhodium-libre": [
+   "sentence-length-5"
+  ],
+  "gen-gf-happy-monkey-gf-rokkitt": [
+   "sentence-length-6"
+  ],
+  "gen-gf-happy-monkey-gf-solway": [
+   "phrase:a longer passage"
+  ],
+  "gen-gf-happy-monkey-gf-yuji-boku": [
+   "words-43",
+   "sentence-length-26"
+  ],
+  "gen-gf-happy-monkey-nunito-sans": [
+   "sentence-length-7"
+  ],
+  "gen-gf-love-ya-like-a-sister-gf-bree-serif": [
+   "phrase:a longer passage"
+  ],
+  "gen-gf-love-ya-like-a-sister-gf-quando": [
+   "words-44",
+   "sentence-length-25"
+  ],
+  "gen-gf-metamorphous-fs-rowan": [
+   "words-45",
+   "sentence-length-27"
+  ],
+  "gen-gf-metamorphous-gf-bree-serif": [
+   "sentence-length-5"
+  ],
+  "gen-gf-metamorphous-gf-quando": [
+   "words-43",
+   "sentence-length-26"
+  ],
+  "gen-gf-oldenburg-fs-rowan": [
+   "words-41"
+  ],
+  "gen-gf-oxanium-fs-rowan": [
+   "sentence-length-7"
+  ],
+  "gen-gf-oxanium-gf-bree-serif": [
+   "phrase:the page a",
+   "phrase:gives the page"
+  ],
+  "gen-gf-paprika-gf-port-lligat-slab": [
+   "missing-heading-name",
+   "words-23",
+   "sentence-length-6"
+  ],
+  "gen-gf-phudu-fs-paquito": [
+   "sentence-length-7"
+  ],
+  "gen-gf-phudu-gf-almendra-sc": [
+   "words-24",
+   "sentences-1"
+  ],
+  "gen-gf-phudu-gf-antic-slab": [
+   "sentence-length-7"
+  ],
+  "gen-gf-phudu-gf-belgrano": [
+   "sentence-length-25"
+  ],
+  "gen-gf-phudu-gf-gentium-plus": [
+   "sentence-length-25"
+  ],
+  "gen-gf-phudu-gf-podkova": [
+   "missing-heading-name",
+   "words-23"
+  ],
+  "gen-gf-phudu-gf-rokkitt": [
+   "words-25"
+  ],
+  "gen-gf-phudu-gf-solway": [
+   "sentence-length-7"
+  ],
+  "gen-gf-pixelify-sans-gf-biorhyme": [
+   "sentence-length-6"
+  ],
+  "gen-gf-pixelify-sans-gf-fenix": [
+   "sentence-length-25"
+  ],
+  "gen-gf-pixelify-sans-gf-gowun-batang": [
+   "words-42"
+  ],
+  "gen-gf-pixelify-sans-gf-habibi": [
+   "sentence-length-5"
+  ],
+  "gen-gf-pixelify-sans-gf-kay-pho-du": [
+   "sentence-length-7"
+  ]
+ }
+}

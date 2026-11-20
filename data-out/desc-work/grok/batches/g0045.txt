@@ -1,0 +1,149 @@
+[gen-gf-noto-serif-lao-general-sans]
+Heading: Noto Serif Lao (serif). Feel: classic, traditional. Build: bowls that swell only slightly where they are widest; capitals that sit only slightly taller than the lowercase
+Body: General Sans (sans-serif). Feel: clean, professional. Build: a steady pen pressure from first letter to last; an x-height that fills the line; a smooth, unobstructed path around each bend
+Difference between them: a serif heading with a sans-serif body; heading has thick strokes that lead the eye without dominating it vs body a stroke width like drawn with a ballpoint pen
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: then sits under that, sits under that heading
+
+[gen-gf-noto-serif-lao-switzer]
+Heading: Noto Serif Lao (serif). Feel: classic, traditional. Build: bowls that swell only slightly where they are widest; capitals that sit only slightly taller than the lowercase
+Body: Switzer (sans-serif). Feel: Swiss, approachable. Build: c tips that never creep toward touching; tubular, wire-like letterforms; a tall waist line
+Difference between them: heading has lightly modulated strokes with no harsh thin spots vs body curves as heavy as stems, like cord; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-gf-noto-serif-makasar-archivo]
+Heading: Noto Serif Makasar (serif). Feel: literary, classic. Build: lowercase letters swollen like rope coiled tight; rounded letters that thicken slightly at their sides
+Body: Archivo (sans-serif). Feel: editorial, approachable. Build: curves that open outward instead of curling in; a commanding x-height
+Difference between them: a serif heading with a sans-serif body; heading has stems just a touch thicker than the connecting strokes vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: is the punch of
+
+[gen-gf-noto-serif-makasar-fs-epilogue]
+Heading: Noto Serif Makasar (serif). Feel: literary, classic. Build: lowercase letters swollen like rope coiled tight; rounded letters that thicken slightly at their sides
+Body: Epilogue (sans-serif). Feel: approachable, contemporary. Build: curvy letters that feel unclamped; a tall-bodied lowercase with stubby ascender tips; a wire-like monoline skeleton
+Difference between them: a serif heading with a sans-serif body; heading has a calm variation in weight from stem to serif vs body straight-edged, constant strokes
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: is the punch of
+
+[gen-gf-noto-serif-malayalam-manrope]
+Heading: Noto Serif Malayalam (serif). Feel: authoritative, dignified. Build: lowercase that rivals the capitals; gentle swelling on curves
+Body: Manrope (sans-serif). Feel: approachable, clean. Build: a bright open gap at every curved letter's mouth; a minimal cap-to-lowercase step; a pen line that holds one width throughout
+Difference between them: a serif heading with a sans-serif body; heading has modest thick-thin contrast vs body flat, unmodulated stroke weight
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: is the punch of
+
+[gen-gf-noto-serif-malayalam-work-sans]
+Heading: Noto Serif Malayalam (serif). Feel: authoritative, dignified. Build: lowercase that rivals the capitals; gentle swelling on curves
+Body: Work Sans (sans-serif). Feel: contemporary, modern. Build: c tips that never creep toward touching; joins as thick as strokes; a mean line set high
+Difference between them: a serif heading with a sans-serif body; heading has a modest weight shift within each stroke vs body stems and arches of identical thickness
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with how the body font reads. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: then carries a column
+
+[gen-gf-noto-serif-np-hmong-archivo]
+Heading: Noto Serif NP Hmong (serif). Feel: literary, editorial. Build: bowls that thin gracefully but not sharply; lowercase built tall
+Body: Archivo (sans-serif). Feel: editorial, approachable. Build: curves that open outward instead of curling in; a commanding x-height
+Difference between them: a serif heading with a sans-serif body; heading has a faint thick-thin rhythm like crayon on rough paper vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the body font's name. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: is the punch of
+
+[gen-gf-noto-serif-np-hmong-fs-fira-sans]
+Heading: Noto Serif NP Hmong (serif). Feel: literary, editorial. Build: bowls that thin gracefully but not sharply; lowercase built tall
+Body: Fira Sans (sans-serif). Feel: professional, clean. Build: s curves that open wide at both ends; zero thick and thin contrast; a larger-than-usual x-height
+Difference between them: heading has a light touch of stroke modulation vs body crossbars fat as the stems they connect; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of, then carries a column
+
+[gen-gf-noto-serif-np-hmong-fs-supreme]
+Heading: Noto Serif NP Hmong (serif). Feel: literary, editorial. Build: bowls that thin gracefully but not sharply; lowercase built tall
+Body: Supreme (sans-serif). Feel: crisp, neutral. Build: a thick, heavy-looking strip of text through the middle; a sense of letters held open, not curled shut
+Difference between them: a serif heading with a sans-serif body; heading has a restrained swell in curved strokes vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of, is the punch of
+
+[gen-gf-noto-serif-np-hmong-manrope]
+Heading: Noto Serif NP Hmong (serif). Feel: literary, editorial. Build: bowls that thin gracefully but not sharply; lowercase built tall
+Body: Manrope (sans-serif). Feel: approachable, clean. Build: a bright open gap at every curved letter's mouth; a minimal cap-to-lowercase step; a pen line that holds one width throughout
+Difference between them: heading has stroke widths that shift just enough to be noticed vs body flat, single-weight linework; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: then carries a column
+
+[gen-gf-noto-serif-old-uyghur-archivo]
+Heading: Noto Serif Old Uyghur (serif). Feel: literary, authoritative. Build: a deep middle band between baseline and mean line; mild thick and thin variation
+Body: Archivo (sans-serif). Feel: editorial, approachable. Build: curves that open outward instead of curling in; a commanding x-height
+Difference between them: heading has a middle-of-the-road stroke contrast vs body low; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: then sits under that, sits under that heading
+
+[gen-gf-noto-serif-old-uyghur-fs-epilogue]
+Heading: Noto Serif Old Uyghur (serif). Feel: literary, authoritative. Build: a deep middle band between baseline and mean line; mild thick and thin variation
+Body: Epilogue (sans-serif). Feel: approachable, contemporary. Build: curvy letters that feel unclamped; a tall-bodied lowercase with stubby ascender tips; a wire-like monoline skeleton
+Difference between them: heading has in-between stroke contrast vs body every stroke cut to one width; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: Only if it fits: say where the heading font earns its keep (big and short) and leave the body font's size unmentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: its keep big and, earns its keep big and, earns its keep big, its keep big and short, keep big and short
+
+[gen-gf-noto-serif-old-uyghur-fs-public-sans]
+Heading: Noto Serif Old Uyghur (serif). Feel: literary, authoritative. Build: a deep middle band between baseline and mean line; mild thick and thin variation
+Body: Public Sans (sans-serif). Feel: professional, trustworthy. Build: a hefty lowercase body; broad open counters on c and s
+Difference between them: heading has stencil-cut letters with mildly varied bar widths vs body low; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: Only if it fits: give a sizing hint, worded as a plain suggestion that does not start with 'Set', 'Run' or 'Keep'.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of, can sit a little smaller, can sit a little, sit a little smaller, sit a little smaller under, a little smaller under
+
+[gen-gf-noto-serif-old-uyghur-general-sans]
+Heading: Noto Serif Old Uyghur (serif). Feel: literary, authoritative. Build: a deep middle band between baseline and mean line; mild thick and thin variation
+Body: General Sans (sans-serif). Feel: clean, professional. Build: a steady pen pressure from first letter to last; an x-height that fills the line; a smooth, unobstructed path around each bend
+Difference between them: a serif heading with a sans-serif body; heading has a smooth, modest weight gradient vs body strokes like thin plastic tubing bent in a loop
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: then sits under that, sits under that heading
+
+[gen-gf-noto-serif-old-uyghur-switzer]
+Heading: Noto Serif Old Uyghur (serif). Feel: literary, authoritative. Build: a deep middle band between baseline and mean line; mild thick and thin variation
+Body: Switzer (sans-serif). Feel: Swiss, approachable. Build: c tips that never creep toward touching; tubular, wire-like letterforms; a tall waist line
+Difference between them: a serif heading with a sans-serif body; heading has arches that thin slightly where they leave the stem vs body curves that never thin out at the turns
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with how the body font reads. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: sits under that heading

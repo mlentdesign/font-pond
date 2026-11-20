@@ -1,0 +1,16 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 997,
+ "first_pass_fail_pct": 26.5,
+ "after_repair_1_fail_pct": 2.2,
+ "after_repair_2_fail_pct": 0.1,
+ "set_offender_pct_before": 33.4,
+ "set_offender_pct_after": 24.5,
+ "final_item_fail_pct": 0.1,
+ "failing": {
+  "gen-gf-snowburst-one-satoshi": [
+   "sentence-length-7"
+  ]
+ }
+}

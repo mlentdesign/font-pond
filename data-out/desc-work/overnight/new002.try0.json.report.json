@@ -1,0 +1,97 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 996,
+ "first_pass_fail_pct": 27.5,
+ "after_repair_1_fail_pct": 2.7,
+ "after_repair_2_fail_pct": 2.7,
+ "set_offender_pct_before": 28.0,
+ "set_offender_pct_after": 28.0,
+ "final_item_fail_pct": 2.7,
+ "failing": {
+  "gen-dafont-joystix-gf-julius-sans-one": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-neon-gf-lexend-giga": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-neon-gf-lexend-tera": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-nordic-gf-montserrat-alternates": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-nulshock-gf-montserrat-alternates": [
+   "sentence-length-26"
+  ],
+  "gen-gf-over-the-rainbow-fs-supreme": [
+   "phrase:plain sans body"
+  ],
+  "gen-gf-the-girl-next-door-fs-asap": [
+   "missing-heading-name"
+  ],
+  "gen-gf-sniglet-fs-gambetta": [
+   "sentence-length-25"
+  ],
+  "gen-gf-sniglet-lora": [
+   "sentence-length-25"
+  ],
+  "gen-luckiest-guy-fs-bespoke-slab": [
+   "sentence-length-27"
+  ],
+  "gen-megrim-fs-quicksand": [
+   "words-42",
+   "phrase:the page a"
+  ],
+  "gen-almendra-display-gf-biryani": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-plus-jakarta-sans": [
+   "sentence-length-5"
+  ],
+  "gen-fs-oswald-gf-rokkitt": [
+   "words-25"
+  ],
+  "gen-archivo-black-gf-halant": [
+   "words-18",
+   "sentence-length-4"
+  ],
+  "gen-fs-red-hat-display-gf-montserrat-alternates": [
+   "sentence-length-3"
+  ],
+  "gen-almendra-display-gf-noto-sans": [
+   "sentence-length-7"
+  ],
+  "gen-audiowide-gf-karla": [
+   "sentence-length-6"
+  ],
+  "gen-almendra-display-gf-noto-sans-kaithi": [
+   "sentence-length-25"
+  ],
+  "gen-special-elite-gf-fauna-one": [
+   "sentence-length-25"
+  ],
+  "gen-almendra-display-gf-noto-sans-meetei-mayek": [
+   "missing-body-name",
+   "sentence-length-7"
+  ],
+  "gen-audiowide-gf-noto-sans-old-north-arabian": [
+   "sentence-length-7"
+  ],
+  "gen-almendra-display-gf-noto-sans-oriya": [
+   "sentence-length-7"
+  ],
+  "gen-almendra-display-gf-noto-sans-tai-viet": [
+   "sentence-length-7"
+  ],
+  "gen-cabinet-grotesk-gf-stint-ultra-expanded": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-azonix-gf-glegoo": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-early-gameboy-gf-fauna-one": [
+   "sentence-length-7"
+  ]
+ }
+}

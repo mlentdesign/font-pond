@@ -1,0 +1,19 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 998,
+ "first_pass_fail_pct": 29.2,
+ "after_repair_1_fail_pct": 1.6,
+ "after_repair_2_fail_pct": 0.4,
+ "set_offender_pct_before": 36.2,
+ "set_offender_pct_after": 9.3,
+ "final_item_fail_pct": 0.2,
+ "failing": {
+  "gen-dafont-disorder-gf-noto-sans-warang-citi": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-disorder-gf-sarpanch": [
+   "sentence-length-6"
+  ]
+ }
+}

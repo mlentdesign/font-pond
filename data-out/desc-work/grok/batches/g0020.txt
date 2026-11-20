@@ -1,0 +1,149 @@
+[gen-fs-red-hat-display-gf-anek-bangla]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Anek Bangla (sans-serif). Feel: contemporary, approachable. Build: wide s curves, barely curled in; a short stretch from midline to ascender
+Difference between them: a display heading with a sans-serif body; heading has a drawn-with-a-ruler-and-compass feel to the line vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: Only if it fits: give a sizing hint, worded as a plain suggestion that does not start with 'Set', 'Run' or 'Keep'.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller, sit a little smaller under, a little smaller under
+
+[gen-fs-red-hat-display-gf-anek-latin]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Anek Latin (sans-serif). Feel: neutral, professional. Build: tall lowercase letters that nearly reach the capitals; a sense of letters held open, not curled shut
+Difference between them: moderate vs high lowercase height; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the body font's name. Second sentence: Only if it fits: say where the heading font earns its keep (big and short) and leave the body font's size unmentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: its keep big and, earns its keep big and, earns its keep big, its keep big and short, keep big and short, reads as a sans
+
+[gen-fs-red-hat-display-gf-anek-telugu]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Anek Telugu (sans-serif). Feel: clean, approachable. Build: a reading rhythm dominated by wide, tall bowls; rounds that stay unsealed like an unlatched hook
+Difference between them: a display heading with a sans-serif body; moderate vs high lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-fs-red-hat-display-gf-anuphan]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Anuphan (sans-serif). Feel: neutral, clean. Build: big round lowercase bowls; open curves with clear gaps
+Difference between them: a display heading with a sans-serif body; moderate vs high lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-fs-red-hat-display-gf-arimo]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Arimo (sans-serif). Feel: neutral, professional. Build: a tall mean line; spacious terminal gaps in rounded glyphs
+Difference between them: heading has a lack of stress in every curve vs body low; moderate vs high lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-fs-red-hat-display-gf-atkinson-hyperlegible-mono]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Atkinson Hyperlegible Mono (sans-serif). Feel: approachable, neutral. Build: ascenders and capitals that feel clipped beside the lowercase; spacing like stencil bridges stretched far open; open counters that breathe into the white space
+Difference between them: a display heading with a sans-serif body; moderate vs high lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with how the body font reads. Second sentence: Only if it fits: say where the heading font earns its keep (big and short) and leave the body font's size unmentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: its keep big and, earns its keep big and, earns its keep big, its keep big and short, keep big and short, reads as a sans
+
+[gen-fs-red-hat-display-gf-atkinson-hyperlegible-next]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Atkinson Hyperlegible Next (sans-serif). Feel: contemporary, approachable. Build: lowercase eyes as big as washers on a line; rounds that stay unsealed like an unlatched hook
+Difference between them: a display heading with a sans-serif body; moderate vs high lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the heading font's name. Second sentence: Only if it fits: say where the heading font earns its keep (big and short) and leave the body font's size unmentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: its keep big and, earns its keep big and, earns its keep big, its keep big and short, keep big and short
+
+[gen-fs-red-hat-display-gf-cossette-texte]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Cossette Texte (sans-serif). Feel: clean, neutral. Build: a wide-eyed look to each lowercase e; n arches as thick as the stems beside them; a prominent x-height
+Difference between them: moderate vs high lowercase height; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-fs-red-hat-display-gf-fresca]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Fresca (sans-serif). Feel: modern, clean. Build: no calligraphic thinning; apertures that keep counters connected to outside space; short ascenders above big bowls
+Difference between them: a display heading with a sans-serif body; moderate vs high lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-fs-red-hat-display-gf-gidole]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Gidole (sans-serif). Feel: neutral, clean. Build: terminals that stay apart like open scissor blades; a drawn-in-neon-tube consistency in every stroke; a high-set midline
+Difference between them: a display heading with a sans-serif body; moderate vs high lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the heading font's name. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller
+
+[gen-fs-red-hat-display-gf-golos-text]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Golos Text (sans-serif). Feel: contemporary, approachable. Build: an x-height that fills the line; letters built from one width of stroke; a widely parted s
+Difference between them: moderate vs high lowercase height; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the heading font's name. Second sentence: Skip any sizing advice; spend the sentence on how the two feel next to each other.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-fs-red-hat-display-gf-hind-madurai]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Hind Madurai (sans-serif). Feel: neutral, approachable. Build: s curves that open wide at both ends; lowercase forms that fill the line like capitals; stroke ends that look cut from the same ribbon
+Difference between them: a display heading with a sans-serif body; moderate vs high lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of, can sit a little smaller, can sit a little, sit a little smaller
+
+[gen-fs-red-hat-display-gf-kufam]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Kufam (sans-serif). Feel: contemporary, clean. Build: a single track width like a neon sign tube; generously open curves in e; bodies that dominate the line while ascenders hardly show
+Difference between them: a display heading with a sans-serif body; moderate vs high lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the heading font's name. Second sentence: Only if it fits: give a sizing hint, worded as a plain suggestion that does not start with 'Set', 'Run' or 'Keep'.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of, can sit a little smaller, can sit a little, sit a little smaller
+
+[gen-fs-red-hat-display-gf-lexend]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Lexend (sans-serif). Feel: approachable, neutral. Build: lowercase with outsized proportions; open jaws on every curved stroke; thickness that stays put around curves
+Difference between them: moderate vs high lowercase height; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-fs-red-hat-display-gf-michroma]
+Heading: Red Hat Display (display). Feel: contemporary, bold. Build: a constant-width line, like a marker; visible daylight inside every curve
+Body: Michroma (sans-serif). Feel: contemporary, professional. Build: each letter given a wide berth on both sides; curves that leave daylight like a rope's open bight; a tall-bodied lowercase with stubby ascender tips
+Difference between them: heading has a t with crossbar and stem of matching weight vs body low; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of

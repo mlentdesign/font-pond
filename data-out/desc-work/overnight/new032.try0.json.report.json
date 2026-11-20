@@ -1,0 +1,46 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 987,
+ "first_pass_fail_pct": 26.6,
+ "after_repair_1_fail_pct": 2.8,
+ "after_repair_2_fail_pct": 1.1,
+ "set_offender_pct_before": 34.4,
+ "set_offender_pct_after": 6.7,
+ "final_item_fail_pct": 1.1,
+ "failing": {
+  "gen-tourney-gf-alumni-sans-pinstripe": [
+   "sentence-length-4"
+  ],
+  "gen-vast-shadow-gf-noto-sans-bamum": [
+   "sentence-length-4"
+  ],
+  "gen-vast-shadow-gf-noto-sans-ethiopic": [
+   "sentence-length-5"
+  ],
+  "gen-vast-shadow-gf-noto-sans-gothic": [
+   "sentence-length-7"
+  ],
+  "gen-vast-shadow-gf-noto-sans-tai-tham": [
+   "sentence-length-4"
+  ],
+  "gen-zen-dots-gf-bpmf-huninn": [
+   "sentence-length-6"
+  ],
+  "gen-zen-dots-gf-bpmf-zihi-kai-std": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-capture-smallz-gf-marcellus-sc": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-early-gameboy-gf-faustina": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-galaxy-gf-ovo": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-neuropol-gf-bhutuka-expanded-one": [
+   "phrase:the page a"
+  ]
+ }
+}

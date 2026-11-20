@@ -1,0 +1,35 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 998,
+ "first_pass_fail_pct": 26.9,
+ "after_repair_1_fail_pct": 5.1,
+ "after_repair_2_fail_pct": 1.3,
+ "set_offender_pct_before": 29.4,
+ "set_offender_pct_after": 5.7,
+ "final_item_fail_pct": 0.7,
+ "failing": {
+  "gen-fs-pramukh-rounded-gf-major-mono-display": [
+   "words-41",
+   "sentence-length-27"
+  ],
+  "gen-fs-red-hat-display-gf-marcellus-sc": [
+   "words-44"
+  ],
+  "gen-fs-red-hat-display-gf-scope-one": [
+   "phrase:the page a"
+  ],
+  "gen-fs-red-hat-display-gf-slabo-13px": [
+   "sentence-length-5"
+  ],
+  "gen-gf-balsamiq-sans-gf-ibm-plex-sans-thai-looped": [
+   "sentence-length-7"
+  ],
+  "gen-gf-balsamiq-sans-gf-noto-sans-canadian-aboriginal": [
+   "sentence-length-7"
+  ],
+  "gen-gf-bellota-text-gf-istok-web": [
+   "sentence-length-5"
+  ]
+ }
+}

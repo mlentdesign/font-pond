@@ -1,0 +1,28 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 998,
+ "first_pass_fail_pct": 32.8,
+ "after_repair_1_fail_pct": 2.7,
+ "after_repair_2_fail_pct": 0.8,
+ "set_offender_pct_before": 21.3,
+ "set_offender_pct_after": 5.4,
+ "final_item_fail_pct": 0.5,
+ "failing": {
+  "gen-gf-happy-monkey-gf-sawarabi-gothic": [
+   "sentence-length-7"
+  ],
+  "gen-gf-love-ya-like-a-sister-gf-voces": [
+   "sentence-length-7"
+  ],
+  "gen-gf-offside-gf-cal-sans": [
+   "missing-heading-name"
+  ],
+  "gen-gf-pixelify-sans-zilla-slab": [
+   "sentence-length-5"
+  ],
+  "gen-gf-shantell-sans-gf-encode-sans-semi-condensed": [
+   "sentence-length-5"
+  ]
+ }
+}

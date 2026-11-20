@@ -1,0 +1,24 @@
+{
+ "model": "sonnet",
+ "asked": 5,
+ "first_pass_returned": 5,
+ "first_pass_fail_pct": 100.0,
+ "after_repair_1_fail_pct": 80.0,
+ "after_repair_2_fail_pct": 80.0,
+ "set_offender_pct_before": 0.0,
+ "final_item_fail_pct": 80.0,
+ "failing": {
+  "gen-dafont-origami-gf-noto-sans-lisu": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-origami-gf-saira": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-origami-gf-sarpanch": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-origami-gf-sulphur-point": [
+   "sentence-length-6"
+  ]
+ }
+}

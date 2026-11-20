@@ -1,0 +1,22 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 996,
+ "first_pass_fail_pct": 28.9,
+ "after_repair_1_fail_pct": 3.9,
+ "after_repair_2_fail_pct": 0.3,
+ "set_offender_pct_before": 30.8,
+ "set_offender_pct_after": 30.8,
+ "final_item_fail_pct": 0.3,
+ "failing": {
+  "gen-gf-pixelify-sans-fs-amulya": [
+   "sentence-length-5"
+  ],
+  "gen-gf-sniglet-fs-synonym": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-capture-smallz-gf-lexend-exa": [
+   "sentences-3"
+  ]
+ }
+}

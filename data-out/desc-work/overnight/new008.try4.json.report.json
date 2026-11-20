@@ -1,0 +1,22 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 998,
+ "first_pass_fail_pct": 33.9,
+ "after_repair_1_fail_pct": 3.8,
+ "after_repair_2_fail_pct": 0.5,
+ "set_offender_pct_before": 37.3,
+ "set_offender_pct_after": 8.8,
+ "final_item_fail_pct": 0.3,
+ "failing": {
+  "gen-megrim-gf-noto-sans-warang-citi": [
+   "sentence-length-6"
+  ],
+  "gen-mystery-quest-gf-aldrich": [
+   "sentence-length-5"
+  ],
+  "gen-nixie-one-gf-orbit": [
+   "sentence-length-6"
+  ]
+ }
+}

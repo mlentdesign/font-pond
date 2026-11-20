@@ -1,0 +1,726 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 998,
+ "first_pass_fail_pct": 31.3,
+ "after_repair_1_fail_pct": 22.3,
+ "after_repair_2_fail_pct": 22.3,
+ "set_offender_pct_before": 21.2,
+ "set_offender_pct_after": 21.2,
+ "final_item_fail_pct": 22.3,
+ "failing": {
+  "curated-gf-licorice-gf-sorts-mill-goudy": [
+   "sentence-length-26"
+  ],
+  "curated-gf-micro-5-charted-gf-noto-serif-georgian": [
+   "words-42"
+  ],
+  "curated-gf-micro-5-gf-kadwa": [
+   "sentence-length-4"
+  ],
+  "curated-gf-miltonian-gf-artifika": [
+   "sentence-length-4"
+  ],
+  "curated-gf-over-the-rainbow-gf-armata": [
+   "missing-heading-name"
+  ],
+  "curated-gf-playwrite-au-vic-gf-playfair": [
+   "sentence-length-7"
+  ],
+  "curated-gf-playwrite-co-gf-noto-sans-limbu": [
+   "sentence-length-7"
+  ],
+  "curated-gf-playwrite-de-va-guides-gf-playfair": [
+   "sentence-length-7"
+  ],
+  "curated-gf-playwrite-it-moderna-guides-gf-sanchez": [
+   "sentence-length-5"
+  ],
+  "curated-gf-reggae-one-gf-goudy-bookletter-1911": [
+   "sentence-length-7"
+  ],
+  "curated-gf-sirivennela-gf-major-mono-display": [
+   "words-42"
+  ],
+  "curated-gf-sixtyfour-fs-erode": [
+   "sentence-length-5"
+  ],
+  "curated-gf-sixtyfour-gf-aref-ruqaa": [
+   "sentence-length-7"
+  ],
+  "curated-gf-smokum-gf-ledger": [
+   "sentence-length-6"
+  ],
+  "curated-gf-snowburst-one-rubik": [
+   "person:brand"
+  ],
+  "curated-gf-sofadi-one-gf-syncopate": [
+   "sentence-length-26"
+  ],
+  "curated-gf-sofia-sans-extra-condensed-fs-karma": [
+   "sentence-length-6"
+  ],
+  "curated-gf-spirax-gf-alegreya-sc": [
+   "sentence-length-28"
+  ],
+  "curated-gf-square-peg-fs-recia": [
+   "person:brand"
+  ],
+  "curated-gf-srisakdi-gf-belgrano": [
+   "sentence-length-4"
+  ],
+  "curated-gf-stalemate-gf-electrolize": [
+   "sentence-length-5"
+  ],
+  "curated-gf-stalinist-one-gf-noto-serif-balinese": [
+   "phrase:a longer passage"
+  ],
+  "curated-gf-stalinist-one-gf-noto-serif-ottoman-siyaq": [
+   "phrase:perhaps"
+  ],
+  "curated-gf-style-script-gf-mina": [
+   "person:brand"
+  ],
+  "curated-gf-tangerine-gf-red-hat-mono": [
+   "words-42",
+   "sentence-length-32",
+   "phrase:a longer passage"
+  ],
+  "curated-gf-tiro-bangla-gf-noto-sans-vai": [
+   "phrase:the page a"
+  ],
+  "curated-gf-trade-winds-gf-biz-udpmincho": [
+   "sentence-length-7"
+  ],
+  "curated-gf-train-one-gf-lilex": [
+   "phrase:a longer passage"
+  ],
+  "curated-gf-triodion-gf-oxygen": [
+   "phrase:a longer passage",
+   "person:brand"
+  ],
+  "curated-gf-trochut-gf-chiron-hei-hk": [
+   "person:brand"
+  ],
+  "curated-gf-tulpen-one-gf-antic": [
+   "sentence-length-25"
+  ],
+  "curated-gf-viaoda-libre-gf-iosevka-charon": [
+   "words-41",
+   "sentence-length-25"
+  ],
+  "curated-gf-vibes-gf-cossette-texte": [
+   "missing-heading-name",
+   "sentence-length-4"
+  ],
+  "curated-gf-vibes-gf-fauna-one": [
+   "phrase:perhaps"
+  ],
+  "curated-gf-vujahday-script-gf-mingzat": [
+   "missing-heading-name",
+   "sentence-length-7"
+  ],
+  "curated-gf-waiting-for-the-sunrise-fs-bespoke-slab": [
+   "phrase:a longer passage"
+  ],
+  "curated-gf-water-brush-fs-chillax": [
+   "sentence-length-25"
+  ],
+  "curated-gf-whisper-gf-biz-udgothic": [
+   "sentence-length-25"
+  ],
+  "curated-gf-yeon-sung-gf-biz-udgothic": [
+   "person:brand"
+  ],
+  "curated-gf-yuji-hentaigana-akari-gf-abhaya-libre": [
+   "sentence-length-7"
+  ],
+  "curated-gf-zeyada-gf-yuji-boku": [
+   "words-25"
+  ],
+  "curated-gf-zhi-mang-xing-gf-m-plus-1-code": [
+   "sentence-length-5"
+  ],
+  "curated-jetbrains-mono-gf-anek-kannada": [
+   "sentence-length-7"
+  ],
+  "curated-jetbrains-mono-gf-mada": [
+   "missing-heading-name",
+   "sentence-length-25"
+  ],
+  "curated-jetbrains-mono-gf-mozilla-headline": [
+   "words-44"
+  ],
+  "curated-jetbrains-mono-gf-nobile": [
+   "missing-heading-name",
+   "words-45",
+   "sentence-length-35"
+  ],
+  "curated-jetbrains-mono-gf-noto-sans-arabic": [
+   "sentence-length-26"
+  ],
+  "curated-jetbrains-mono-gf-noto-sans-kannada": [
+   "sentence-length-6"
+  ],
+  "curated-jetbrains-mono-gf-noto-sans-myanmar": [
+   "person:writer"
+  ],
+  "curated-jetbrains-mono-gf-pragati-narrow": [
+   "sentence-length-7"
+  ],
+  "curated-jetbrains-mono-gf-radio-canada-big": [
+   "person:writer"
+  ],
+  "curated-jetbrains-mono-gf-savate": [
+   "words-25"
+  ],
+  "curated-kaushan-script-gf-ruda": [
+   "sentence-length-26"
+  ],
+  "curated-playfair-display-gf-science-gothic": [
+   "person:brand"
+  ],
+  "curated-rye-gf-noto-nastaliq-urdu": [
+   "phrase:swell and taper"
+  ],
+  "curated-sacramento-gf-faculty-glyphic": [
+   "sentence-length-25",
+   "phrase:perhaps"
+  ],
+  "curated-shadows-into-light-gf-fragment-mono": [
+   "missing-heading-name",
+   "sentence-length-27"
+  ],
+  "curated-space-mono-fs-literata": [
+   "sentence-length-26"
+  ],
+  "curated-space-mono-gf-afacad": [
+   "sentence-length-6"
+  ],
+  "curated-space-mono-gf-alan-sans": [
+   "phrase:perhaps"
+  ],
+  "curated-space-mono-gf-encode-sans-condensed": [
+   "words-42",
+   "phrase:a longer passage"
+  ],
+  "curated-space-mono-gf-federo": [
+   "sentence-length-29"
+  ],
+  "curated-space-mono-gf-marvel": [
+   "words-45",
+   "sentence-length-27"
+  ],
+  "curated-space-mono-gf-noto-sans-cypro-minoan": [
+   "phrase:a longer passage"
+  ],
+  "curated-space-mono-gf-noto-sans-manichaean": [
+   "sentence-length-26",
+   "phrase:a longer passage"
+  ],
+  "curated-space-mono-gf-ojuju": [
+   "sentence-length-25"
+  ],
+  "curated-special-elite-gf-candal": [
+   "sentence-length-25"
+  ],
+  "curated-special-elite-gf-gurajada": [
+   "words-42"
+  ],
+  "curated-special-elite-gf-noto-serif-gujarati": [
+   "sentence-length-6"
+  ],
+  "curated-titan-one-gf-heebo": [
+   "sentence-length-6"
+  ],
+  "curated-tourney-gf-graduate": [
+   "phrase:perhaps"
+  ],
+  "curated-vast-shadow-gf-noto-serif-malayalam": [
+   "words-42"
+  ],
+  "curated-yellowtail-gf-dotgothic16": [
+   "missing-heading-name",
+   "sentence-length-5"
+  ],
+  "curated-yuji-mai-fs-neco": [
+   "sentence-length-26"
+  ],
+  "gen-amatic-sc-instrument-sans": [
+   "missing-heading-name"
+  ],
+  "gen-anton-fs-erode": [
+   "words-44",
+   "sentence-length-31"
+  ],
+  "gen-bricolage-grotesque-fs-karma": [
+   "words-20"
+  ],
+  "gen-butcherman-fs-public-sans": [
+   "sentence-length-7"
+  ],
+  "gen-cabinet-grotesk-fs-bespoke-sans": [
+   "missing-heading-name"
+  ],
+  "gen-cinzel-decorative-sora": [
+   "sentence-length-6"
+  ],
+  "gen-clash-display-gf-bhutuka-expanded-one": [
+   "sentence-length-7"
+  ],
+  "gen-comfortaa-archivo": [
+   "phrase:a longer passage"
+  ],
+  "gen-comfortaa-gf-didact-gothic": [
+   "sentence-length-6"
+  ],
+  "gen-comfortaa-source-serif-4": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-aaargh-fs-karma": [
+   "missing-heading-name",
+   "sentence-length-7"
+  ],
+  "gen-dafont-aaargh-gf-kiwi-maru": [
+   "missing-heading-name"
+  ],
+  "gen-dafont-aaargh-plus-jakarta-sans": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-aaargh-switzer": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-amadeus-fs-nunito": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-amadeus-fs-pilcrow-rounded": [
+   "words-43"
+  ],
+  "gen-dafont-amadeus-gf-graduate": [
+   "sentence-length-28"
+  ],
+  "gen-dafont-amadeus-merriweather": [
+   "sentence-length-27"
+  ],
+  "gen-dafont-arkhip-archivo": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-arkhip-author": [
+   "missing-heading-name"
+  ],
+  "gen-dafont-arkhip-source-serif-4": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-arkhip-work-sans": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-azonix-fs-familjen-grotesk": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-azonix-fs-hind": [
+   "words-44",
+   "sentence-length-32"
+  ],
+  "gen-dafont-azonix-fs-hoover": [
+   "sentence-length-4"
+  ],
+  "gen-dafont-azonix-fs-rowan": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-azonix-gf-headland-one": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-azonix-outfit": [
+   "sentence-length-26"
+  ],
+  "gen-dafont-blockletter-gf-domine": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-brusher-fs-rowan": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-bushcraft-fs-familjen-grotesk": [
+   "missing-heading-name",
+   "sentence-length-25"
+  ],
+  "gen-dafont-bushcraft-fs-karma": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-bushcraft-poppins": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-capture-it-fs-ranade": [
+   "missing-heading-name",
+   "sentence-length-27"
+  ],
+  "gen-dafont-capture-it-work-sans": [
+   "sentence-length-3"
+  ],
+  "gen-dafont-capture-smallz-fs-synonym": [
+   "missing-heading-name",
+   "sentence-length-6"
+  ],
+  "gen-dafont-capture-smallz-gf-lisu-bosa": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-cheri-fs-be-vietnam-pro": [
+   "phrase:a longer passage",
+   "class-word:sans-serif"
+  ],
+  "gen-dafont-cheri-fs-fira-sans": [
+   "sentence-length-7",
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-chinese-rocks-fs-karma": [
+   "sentence-length-26"
+  ],
+  "gen-dafont-college-fs-hind": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-college-fs-paquito": [
+   "sentence-length-27",
+   "phrase:classic serif body"
+  ],
+  "gen-dafont-college-fs-pilcrow-rounded": [
+   "words-43",
+   "sentence-length-34",
+   "phrase:plain sans body"
+  ],
+  "gen-dafont-college-fs-rowan": [
+   "sentence-length-27"
+  ],
+  "gen-dafont-college-gf-cascadia-code": [
+   "sentence-length-27"
+  ],
+  "gen-dafont-commodore-64-fs-rowan": [
+   "sentence-length-26"
+  ],
+  "gen-dafont-dogica-instrument-sans": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-early-gameboy-instrument-sans": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-early-gameboy-space-grotesk": [
+   "words-41",
+   "sentence-length-26"
+  ],
+  "gen-dafont-edo-sz-fs-alpino": [
+   "sentence-length-4"
+  ],
+  "gen-dafont-edo-sz-fs-fira-sans": [
+   "sentence-length-4"
+  ],
+  "gen-dafont-edo-sz-sora": [
+   "sentence-length-29"
+  ],
+  "gen-dafont-eight-bit-dragon-fs-ranade": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-eight-bit-dragon-gf-armata": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-eight-bit-dragon-gf-atkinson-hyperlegible-next": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-eight-bit-dragon-gf-savate": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-eight-bit-dragon-work-sans": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-electroharmonix-fs-be-vietnam-pro": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-electroharmonix-fs-bespoke-sans": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-electroharmonix-fs-pilcrow-rounded": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-electroharmonix-gf-abeezee": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-electroharmonix-gf-almendra": [
+   "sentence-length-4"
+  ],
+  "gen-dafont-electroharmonix-gf-cascadia-code": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-electroharmonix-gf-roboto": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-electroharmonix-instrument-sans": [
+   "missing-heading-name",
+   "sentence-length-6"
+  ],
+  "gen-dafont-eraser-fs-hoover": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-espresso-dolce-fs-spline-sans": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-ethnocentric-fs-karma": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-ethnocentric-fs-roundo": [
+   "missing-heading-name"
+  ],
+  "gen-dafont-fenwick-fs-ranade": [
+   "sentence-length-28"
+  ],
+  "gen-dafont-fenwick-montserrat": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-fenwick-switzer": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-gobold-fs-alpino": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-gobold-merriweather": [
+   "sentence-length-29"
+  ],
+  "gen-dafont-guttural-fs-asap": [
+   "words-20",
+   "sentence-length-4"
+  ],
+  "gen-dafont-guttural-fs-epilogue": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-hammerhead-author": [
+   "sentence-length-29"
+  ],
+  "gen-dafont-helsinki-fs-bespoke-slab": [
+   "sentence-length-6",
+   "phrase:the page a",
+   "phrase:gives the page"
+  ],
+  "gen-dafont-hero-fs-trench-slab": [
+   "sentence-length-26"
+  ],
+  "gen-dafont-horizon-archivo": [
+   "missing-heading-name",
+   "sentence-length-25"
+  ],
+  "gen-dafont-impact-label-fs-gambetta": [
+   "words-41"
+  ],
+  "gen-dafont-impact-label-fs-hind": [
+   "sentence-length-27"
+  ],
+  "gen-dafont-impact-label-fs-roundo": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-impact-label-gf-open-sans": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-impact-label-roboto-slab": [
+   "missing-heading-name",
+   "sentence-length-6"
+  ],
+  "gen-dafont-impact-label-work-sans": [
+   "missing-heading-name"
+  ],
+  "gen-dafont-jelly-crazies-fs-rowan": [
+   "sentence-length-27"
+  ],
+  "gen-dafont-jelly-crazies-gf-noto-sans-old-persian": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-joystix-fs-amulya": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-joystix-fs-be-vietnam-pro": [
+   "sentence-length-26"
+  ],
+  "gen-dafont-joystix-fs-familjen-grotesk": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-joystix-fs-nunito": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-junegull-fs-erode": [
+   "words-41",
+   "phrase:in its strokes"
+  ],
+  "gen-dafont-junegull-fs-hoover": [
+   "words-42",
+   "sentence-length-27"
+  ],
+  "gen-dafont-junegull-fs-pilcrow-rounded": [
+   "sentence-length-4"
+  ],
+  "gen-dafont-junegull-fs-rowan": [
+   "sentence-length-27"
+  ],
+  "gen-dafont-junegull-fs-technor": [
+   "sentence-length-27"
+  ],
+  "gen-dafont-komika-axis-fs-be-vietnam-pro": [
+   "sentence-length-7",
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-lemon-milk-gf-graduate": [
+   "sentence-length-6",
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-maxwell-fs-erode": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-maxwell-fs-karma": [
+   "words-23"
+  ],
+  "gen-dafont-minecraftia-gf-noto-serif-grantha": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-molot-fs-ranade": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-neon-fs-asap": [
+   "sentence-length-26"
+  ],
+  "gen-dafont-neon-fs-be-vietnam-pro": [
+   "phrase:a clean sans"
+  ],
+  "gen-dafont-neon-fs-erode": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-neon-fs-fira-sans": [
+   "phrase:shines"
+  ],
+  "gen-dafont-neon-fs-merriweather-sans": [
+   "missing-heading-name"
+  ],
+  "gen-dafont-neon-montserrat": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-neuropolitical-fs-be-vietnam-pro": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-neuropolitical-work-sans": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-nulshock-fs-hoover": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-origami-space-grotesk": [
+   "missing-body-name"
+  ],
+  "gen-dafont-ostrich-sans-fs-karma": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-outrun-future-fs-ranade": [
+   "words-25",
+   "sentence-length-4"
+  ],
+  "gen-dafont-outrun-future-gf-savate": [
+   "phrase:the page a",
+   "phrase:gives the page"
+  ],
+  "gen-dafont-outrun-future-outfit": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-outrun-future-work-sans": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-over-there-author": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-ozone-gf-domine": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-pixel-operator-satoshi": [
+   "words-21",
+   "sentence-length-7"
+  ],
+  "gen-dafont-plakkaat-fs-bespoke-sans": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-plakkaat-fs-erode": [
+   "words-41",
+   "sentence-length-30"
+  ],
+  "gen-dafont-plakkaat-gf-domine": [
+   "phrase:the page a",
+   "phrase:gives the page"
+  ],
+  "gen-dafont-plakkaat-gf-noto-sans-lisu": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-plakkaat-gf-stack-sans-headline": [
+   "words-23",
+   "sentence-length-4"
+  ],
+  "gen-dafont-plakkaat-manrope": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-plakkaat-space-grotesk": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-prime-fs-asap": [
+   "sentence-length-29"
+  ],
+  "gen-dafont-prime-fs-fira-sans": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-quantum-fs-ranade": [
+   "sentence-length-26"
+  ],
+  "gen-dafont-quantum-fs-rowan": [
+   "words-43",
+   "sentence-length-25"
+  ],
+  "gen-dafont-quantum-outfit": [
+   "sentence-length-28"
+  ],
+  "gen-dafont-quark-fs-epilogue": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-radikal-fs-trench-slab": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-redux-outfit": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-redux-roboto-slab": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-redux-satoshi": [
+   "sentence-length-26"
+  ],
+  "gen-dafont-rounded-elegance-fs-alpino": [
+   "words-24",
+   "sentence-length-7"
+  ],
+  "gen-dafont-rounded-elegance-fs-hind": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-rounded-elegance-fs-public-sans": [
+   "sentence-length-4"
+  ],
+  "gen-dafont-sansumi-fs-fira-sans": [
+   "sentence-length-4"
+  ],
+  "gen-dafont-sansumi-fs-hind": [
+   "words-42",
+   "sentence-length-25"
+  ],
+  "gen-dafont-sewer-sys-work-sans": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-sf-wonder-comic-fs-asap": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-sf-wonder-comic-poppins": [
+   "words-45",
+   "sentence-length-32"
+  ],
+  "gen-dafont-sophia-fs-pilcrow-rounded": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-sophia-instrument-sans": [
+   "sentence-length-4"
+  ]
+ }
+}

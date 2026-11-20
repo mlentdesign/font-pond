@@ -1,0 +1,21 @@
+{
+ "model": "sonnet",
+ "asked": 4,
+ "first_pass_returned": 4,
+ "first_pass_fail_pct": 50.0,
+ "after_repair_1_fail_pct": 50.0,
+ "after_repair_2_fail_pct": 50.0,
+ "set_offender_pct_before": 50.0,
+ "set_offender_pct_after": 50.0,
+ "final_item_fail_pct": 50.0,
+ "failing": {
+  "gen-dafont-bushcraft-gf-noto-sans-thai": [
+   "words-43",
+   "sentence-length-29"
+  ],
+  "gen-dafont-bushcraft-gf-noto-sans-vithkuqi": [
+   "words-41",
+   "sentence-length-27"
+  ]
+ }
+}

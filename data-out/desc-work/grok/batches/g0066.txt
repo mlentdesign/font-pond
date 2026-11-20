@@ -1,0 +1,149 @@
+[gen-dafont-alien-encounters-gf-noto-sans-elbasan]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans Elbasan (sans-serif). Feel: contemporary, neutral. Build: large lowercase forms with tight ascender clearance; open terminals that never pinch shut
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with how the body font reads. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a sans serif, a sans serif of, reads as a sans
+
+[gen-dafont-alien-encounters-gf-noto-sans-elymaic]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans Elymaic (sans-serif). Feel: clean, modern. Build: open apertures throughout; ascenders that barely clear the x-height
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: Only if it fits: say where the heading font earns its keep (big and short) and leave the body font's size unmentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: its keep big and, earns its keep big and, earns its keep big, its keep big and short, keep big and short, a sans serif of
+
+[gen-dafont-alien-encounters-gf-noto-sans-ethiopic]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans Ethiopic (sans-serif). Feel: modern, professional. Build: c terminals that hang far from the bowl; a tall, sturdy lowercase
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-dafont-alien-encounters-gf-noto-sans-georgian]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans Georgian (sans-serif). Feel: modern, clean. Build: open aperture curves throughout the alphabet; short ascender stems on tall lowercase bodies
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the body font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of, as a plain sans, reads as a plain sans, reads as a plain, tall
+
+[gen-dafont-alien-encounters-gf-noto-sans-glagolitic]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans Glagolitic (sans-serif). Feel: neutral, approachable. Build: open round letters that read clearly at small sizes; lowercase letters with a tall, sturdy body
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-dafont-alien-encounters-gf-noto-sans-gothic]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans Gothic (sans-serif). Feel: modern, professional. Build: lowercase counters as big as drilled glass beads; round forms that read like open parentheses
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the body font's name. Second sentence: Only if it fits: give a sizing hint, worded as a plain suggestion that does not start with 'Set', 'Run' or 'Keep'.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller, sit a little smaller under, a little smaller under, reads as a sans
+
+[gen-dafont-alien-encounters-gf-noto-sans-grantha]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans Grantha (sans-serif). Feel: professional, neutral. Build: tall little letters like pen-nib bowls pressed flat; a read that never snags on a closed-up bowl
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-dafont-alien-encounters-gf-noto-sans-gujarati]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans Gujarati (sans-serif). Feel: clean, modern. Build: curved strokes that end before they turn inward; large open counters in tall a, e and s
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-dafont-alien-encounters-gf-noto-sans-gunjala-gondi]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans Gunjala Gondi (sans-serif). Feel: contemporary, modern. Build: lowercase strokes as tall as a thick crayon mark; terminals cut back to leave a big gap
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-dafont-alien-encounters-gf-noto-sans-gurmukhi]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans Gurmukhi (sans-serif). Feel: clean, professional. Build: terminals that point outward like a pair of tongs; ascenders that barely clear the x-height
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller
+
+[gen-dafont-alien-encounters-gf-noto-sans-hanunoo]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans Hanunoo (sans-serif). Feel: neutral, contemporary. Build: lowercase filling most of the height; easy-to-read open terminals
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with how the body font reads. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of, as a plain sans, reads as a plain sans, reads as a plain
+
+[gen-dafont-alien-encounters-gf-noto-sans-hebrew]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans Hebrew (sans-serif). Feel: professional, modern. Build: a dominant midsection that swallows the line's height; wide gaps between curve ends and stems
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the heading font's name. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-dafont-alien-encounters-gf-noto-sans-hk]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans HK (sans-serif). Feel: clean, professional. Build: large lowercase forms with tight ascender clearance; brush ends lifted away before the curve closes
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-dafont-alien-encounters-gf-noto-sans-inscriptional-parthian]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans Inscriptional Parthian (sans-serif). Feel: clean, neutral. Build: big open eyes on every e and a; a deep middle band between baseline and mean line
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: reads as a sans
+
+[gen-dafont-alien-encounters-gf-noto-sans-jp]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Noto Sans JP (sans-serif). Feel: professional, modern. Build: a very tall x-height; curves that sweep open rather than curl closed
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall

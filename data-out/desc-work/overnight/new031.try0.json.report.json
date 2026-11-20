@@ -1,0 +1,16 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 987,
+ "first_pass_fail_pct": 28.3,
+ "after_repair_1_fail_pct": 3.2,
+ "after_repair_2_fail_pct": 0.3,
+ "set_offender_pct_before": 25.2,
+ "set_offender_pct_after": 5.5,
+ "final_item_fail_pct": 0.1,
+ "failing": {
+  "gen-silkscreen-gf-zcool-xiaowei": [
+   "words-43"
+  ]
+ }
+}

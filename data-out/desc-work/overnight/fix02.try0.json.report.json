@@ -1,0 +1,37 @@
+{
+ "model": "sonnet",
+ "asked": 771,
+ "first_pass_returned": 761,
+ "first_pass_fail_pct": 30.9,
+ "after_repair_1_fail_pct": 4.8,
+ "after_repair_2_fail_pct": 1.0,
+ "set_offender_pct_before": 22.4,
+ "set_offender_pct_after": 14.8,
+ "final_item_fail_pct": 1.0,
+ "failing": {
+  "gen-fs-red-hat-display-fs-familjen-grotesk": [
+   "sentence-length-7"
+  ],
+  "gen-gf-nova-mono-work-sans": [
+   "sentence-length-25"
+  ],
+  "gen-gf-offside-fs-fira-sans": [
+   "sentence-length-6"
+  ],
+  "gen-gf-tilt-neon-gf-noto-sans-thaana": [
+   "sentence-length-7"
+  ],
+  "gen-nixie-one-gf-actor": [
+   "sentence-length-6"
+  ],
+  "gen-syne-fs-erode": [
+   "sentence-length-7"
+  ],
+  "gen-zodiak-fs-bespoke-sans": [
+   "sentence-length-25"
+  ],
+  "gen-zodiak-fs-familjen-grotesk": [
+   "phrase:heavy and hairline"
+  ]
+ }
+}

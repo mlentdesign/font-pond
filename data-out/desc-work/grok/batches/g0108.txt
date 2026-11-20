@@ -1,0 +1,19 @@
+[gen-gf-nanum-gothic-coding-fs-epilogue]
+Heading: Nanum Gothic Coding (handwritten). Feel: graceful, relaxed. Build: wide-mouthed c, e, and s forms; casual pen-and-paper letters; letterforms bent from one length of tubing
+Body: Epilogue (sans-serif). Feel: approachable, contemporary. Build: curvy letters that feel unclamped; a tall-bodied lowercase with stubby ascender tips; a wire-like monoline skeleton
+Difference between them: moderate vs high lowercase height; a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-nanum-gothic-coding-fs-erode]
+Heading: Nanum Gothic Coding (handwritten). Feel: graceful, relaxed. Build: wide-mouthed c, e, and s forms; casual pen-and-paper letters; letterforms bent from one length of tubing
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: a handwritten heading with a serif body; moderate vs high lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a tall middle band, tall

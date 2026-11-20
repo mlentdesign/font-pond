@@ -1,0 +1,279 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 250,
+ "first_pass_fail_pct": 83.4,
+ "after_repair_1_fail_pct": 83.4,
+ "after_repair_2_fail_pct": 83.4,
+ "set_offender_pct_before": 56.0,
+ "set_offender_pct_after": 56.0,
+ "final_item_fail_pct": 83.4,
+ "failing": {
+  "gen-gf-noto-serif-georgian-montserrat": [
+   "sentence-length-4"
+  ],
+  "gen-gf-noto-serif-grantha-fs-supreme": [
+   "sentence-length-25"
+  ],
+  "gen-gf-noto-serif-grantha-manrope": [
+   "words-42"
+  ],
+  "gen-gf-noto-serif-grantha-satoshi": [
+   "sentence-length-26"
+  ],
+  "gen-gf-noto-serif-grantha-work-sans": [
+   "words-45"
+  ],
+  "gen-gf-noto-serif-gujarati-archivo": [
+   "sentence-length-7"
+  ],
+  "gen-gf-noto-serif-gujarati-manrope": [
+   "sentence-length-7"
+  ],
+  "gen-gf-noto-serif-gujarati-montserrat": [
+   "sentence-length-6"
+  ],
+  "gen-gf-noto-serif-gujarati-satoshi": [
+   "sentence-length-25"
+  ],
+  "gen-gf-noto-serif-gurmukhi-general-sans": [
+   "sentence-length-6"
+  ],
+  "gen-gf-noto-serif-gurmukhi-montserrat": [
+   "words-43",
+   "sentence-length-7"
+  ],
+  "gen-gf-noto-serif-gurmukhi-satoshi": [
+   "words-41",
+   "sentence-length-26"
+  ],
+  "gen-gf-noto-serif-hebrew-fs-fira-sans": [
+   "words-42"
+  ],
+  "gen-gf-noto-serif-hebrew-general-sans": [
+   "sentence-length-26"
+  ],
+  "gen-gf-noto-serif-hebrew-manrope": [
+   "words-42"
+  ],
+  "gen-gf-noto-serif-hebrew-switzer": [
+   "words-43"
+  ],
+  "gen-gf-noto-serif-hentaigana-manrope": [
+   "sentence-length-27"
+  ],
+  "gen-gf-noto-serif-hentaigana-satoshi": [
+   "words-41"
+  ],
+  "gen-gf-noto-serif-kannada-fs-epilogue": [
+   "sentence-length-5"
+  ],
+  "gen-gf-noto-serif-kannada-fs-fira-sans": [
+   "sentence-length-25"
+  ],
+  "gen-gf-noto-serif-kannada-fs-public-sans": [
+   "sentence-length-5"
+  ],
+  "gen-gf-noto-serif-kannada-switzer": [
+   "sentence-length-4"
+  ],
+  "gen-gf-noto-serif-kannada-work-sans": [
+   "sentence-length-7"
+  ],
+  "gen-gf-noto-serif-khmer-archivo": [
+   "words-24",
+   "sentence-length-7"
+  ],
+  "gen-gf-noto-serif-khmer-manrope": [
+   "sentence-length-3"
+  ],
+  "gen-gf-noto-serif-khmer-montserrat": [
+   "sentence-length-5"
+  ],
+  "gen-gf-noto-serif-khojki-fs-asap": [
+   "sentence-length-7"
+  ],
+  "gen-gf-noto-serif-khojki-fs-fira-sans": [
+   "sentence-length-25"
+  ],
+  "gen-gf-noto-serif-khojki-fs-public-sans": [
+   "words-43"
+  ],
+  "gen-gf-noto-serif-khojki-fs-supreme": [
+   "words-41"
+  ],
+  "gen-gf-noto-serif-khojki-general-sans": [
+   "words-43",
+   "sentence-length-27"
+  ],
+  "gen-gf-noto-serif-khojki-manrope": [
+   "words-49",
+   "sentence-length-26"
+  ],
+  "gen-gf-noto-serif-khojki-montserrat": [
+   "sentence-length-4"
+  ],
+  "gen-gf-noto-serif-khojki-satoshi": [
+   "sentence-length-6"
+  ],
+  "gen-gf-noto-serif-khojki-switzer": [
+   "sentence-length-31"
+  ],
+  "gen-gf-noto-serif-khojki-work-sans": [
+   "words-45",
+   "sentence-length-5"
+  ],
+  "gen-gf-noto-serif-lao-fs-asap": [
+   "sentences-3"
+  ],
+  "gen-gf-noto-serif-lao-fs-fira-sans": [
+   "sentence-length-25"
+  ],
+  "gen-gf-noto-serif-lao-fs-public-sans": [
+   "sentence-length-6"
+  ],
+  "gen-gf-noto-serif-lao-fs-supreme": [
+   "sentence-length-25"
+  ],
+  "gen-gf-noto-serif-lao-general-sans": [
+   "sentences-3"
+  ],
+  "gen-gf-noto-serif-lao-switzer": [
+   "sentence-length-7"
+  ],
+  "gen-gf-noto-serif-makasar-archivo": [
+   "class-word:sans-serif"
+  ],
+  "gen-gf-noto-serif-makasar-fs-epilogue": [
+   "sentence-length-7"
+  ],
+  "gen-gf-noto-serif-makasar-switzer": [
+   "sentence-length-6"
+  ],
+  "gen-gf-noto-serif-malayalam-fs-epilogue": [
+   "words-41"
+  ],
+  "gen-gf-noto-serif-malayalam-manrope": [
+   "words-44"
+  ],
+  "gen-gf-noto-serif-malayalam-montserrat": [
+   "words-46",
+   "sentence-length-29"
+  ],
+  "gen-gf-noto-serif-malayalam-switzer": [
+   "words-44"
+  ],
+  "gen-gf-noto-serif-malayalam-work-sans": [
+   "words-48",
+   "sentence-length-25"
+  ],
+  "gen-gf-noto-serif-np-hmong-archivo": [
+   "words-43"
+  ],
+  "gen-gf-noto-serif-np-hmong-fs-epilogue": [
+   "words-41"
+  ],
+  "gen-gf-noto-serif-np-hmong-fs-fira-sans": [
+   "words-44"
+  ],
+  "gen-gf-noto-serif-np-hmong-fs-supreme": [
+   "missing-heading-name"
+  ],
+  "gen-gf-noto-serif-np-hmong-manrope": [
+   "sentence-length-7"
+  ],
+  "gen-gf-noto-serif-old-uyghur-archivo": [
+   "missing-heading-name",
+   "words-25",
+   "sentence-length-6"
+  ],
+  "gen-gf-noto-serif-old-uyghur-fs-epilogue": [
+   "sentence-length-7"
+  ],
+  "gen-gf-noto-serif-old-uyghur-fs-public-sans": [
+   "words-42",
+   "sentence-length-27"
+  ],
+  "gen-gf-noto-serif-old-uyghur-general-sans": [
+   "sentence-length-6"
+  ],
+  "gen-gf-noto-serif-old-uyghur-switzer": [
+   "phrase:the page a"
+  ],
+  "gen-gf-noto-serif-old-uyghur-work-sans": [
+   "sentence-length-5"
+  ],
+  "gen-gf-noto-serif-oriya-general-sans": [
+   "sentence-length-5",
+   "phrase:shines"
+  ],
+  "gen-gf-noto-serif-oriya-satoshi": [
+   "missing-heading-name"
+  ],
+  "gen-gf-noto-serif-oriya-switzer": [
+   "phrase:a longer passage"
+  ],
+  "gen-gf-noto-serif-ottoman-siyaq-archivo": [
+   "sentence-length-6"
+  ],
+  "gen-gf-noto-serif-ottoman-siyaq-fs-fira-sans": [
+   "sentence-length-6"
+  ],
+  "gen-gf-noto-serif-sinhala-archivo": [
+   "phrase:in its strokes"
+  ],
+  "gen-gf-noto-serif-telugu-archivo": [
+   "words-41"
+  ],
+  "gen-gf-noto-serif-telugu-fs-fira-sans": [
+   "words-46",
+   "sentence-length-32"
+  ],
+  "gen-gf-noto-serif-thai-montserrat": [
+   "sentence-length-7"
+  ],
+  "gen-gf-noto-serif-thai-satoshi": [
+   "words-42"
+  ],
+  "gen-gf-noto-serif-thai-switzer": [
+   "sentence-length-26"
+  ],
+  "gen-gf-noto-serif-thai-work-sans": [
+   "phrase:the page a"
+  ],
+  "gen-gf-noto-serif-tibetan-archivo": [
+   "sentence-length-6"
+  ],
+  "gen-gf-noto-serif-tibetan-fs-epilogue": [
+   "sentence-length-25"
+  ],
+  "gen-gf-noto-serif-tibetan-fs-supreme": [
+   "words-25"
+  ],
+  "gen-gf-noto-serif-tibetan-manrope": [
+   "words-25",
+   "sentence-length-6"
+  ],
+  "gen-gf-noto-serif-todhri-fs-fira-sans": [
+   "sentence-length-6"
+  ],
+  "gen-gf-noto-serif-todhri-montserrat": [
+   "sentence-length-25"
+  ],
+  "gen-gf-noto-serif-todhri-satoshi": [
+   "sentence-length-7"
+  ],
+  "gen-gf-noto-serif-toto-fs-asap": [
+   "sentence-length-25"
+  ],
+  "gen-gf-noto-serif-toto-fs-epilogue": [
+   "sentence-length-25"
+  ],
+  "gen-gf-noto-serif-toto-manrope": [
+   "sentence-length-5"
+  ],
+  "gen-gf-noto-serif-toto-switzer": [
+   "sentence-length-7"
+  ]
+ }
+}

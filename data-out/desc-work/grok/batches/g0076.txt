@@ -1,0 +1,149 @@
+[gen-flavors-gf-noto-serif-bengali]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Noto Serif Bengali (serif). Feel: editorial, refined. Build: slightly thinner hairlines; a thick band of letters with trimmed-looking ascenders
+Difference between them: heading has contrast-free strokes from stem to terminal vs body a mild, approachable stroke contrast; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif with
+
+[gen-flavors-gf-noto-serif-devanagari]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Noto Serif Devanagari (serif). Feel: classic, literary. Build: slightly thinner curves at the tops of rounded letters; short ascenders and a big lowercase body
+Difference between them: heading has a texture of plain, unshaded lines vs body a modest gap in weight between stems and hairlines; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with how the body font reads. Second sentence: Skip any sizing advice; spend the sentence on how the two feel next to each other.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif with, as a classic serif
+
+[gen-flavors-gf-noto-serif-dogra]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Noto Serif Dogra (serif). Feel: bookish, classic. Build: capitals that sit only slightly taller than the lowercase; a faint thick-thin rhythm like crayon on rough paper
+Difference between them: a display heading with a serif body; heading has no thick-thin shift between downstrokes and the connecting curves vs body a quiet contrast between strokes
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with
+
+[gen-flavors-gf-noto-serif-georgian]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Noto Serif Georgian (serif). Feel: literary, authoritative. Build: lowercase letters swollen like rope coiled tight; a subdued contrast across the alphabet
+Difference between them: heading has curves that never thin out at the turns vs body subtle but visible stroke modulation; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with how the body font reads. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif of
+
+[gen-flavors-gf-noto-serif-gujarati]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Noto Serif Gujarati (serif). Feel: authoritative, bookish. Build: terminals and joins that ease only slightly in weight; oversized e and a counters
+Difference between them: a display heading with a serif body; heading has letter parts that carry the same visual mass vs body a friendly, mild contrast in the stroke
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the body font's name. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with
+
+[gen-flavors-gf-noto-serif-hebrew]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Noto Serif Hebrew (serif). Feel: authoritative, classic. Build: lowercase letters with a tall, sturdy body; subtle thick and thin modulation
+Difference between them: heading has a sense of one constant pen width throughout vs body stroke widths that shift just enough to be noticed; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with
+
+[gen-flavors-gf-noto-serif-khmer]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Noto Serif Khmer (serif). Feel: classic, authoritative. Build: tall lowercase with very little gap to the capitals; modest hairline thinning at the curves
+Difference between them: a display heading with a serif body; heading has round letters with walls as heavy as straight ones vs body the mild thick-thin variation of a letterpress slug
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with how the body font reads. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a classic serif, tall
+
+[gen-flavors-gf-noto-serif-lao]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Noto Serif Lao (serif). Feel: bookish, authoritative. Build: a big lowercase height compared with the capitals; bowls with gentle weight shifts
+Difference between them: heading has rounded-wire stroke quality vs body curves a little heavier than joins; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with how the body font reads. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with
+
+[gen-flavors-gf-noto-serif-makasar]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Noto Serif Makasar (serif). Feel: editorial, dignified. Build: a soft step from heavy to light strokes; x-height towering like a stubby carpenter's pencil stroke
+Difference between them: heading has an unmodulated line across every glyph vs body mild contrast, never stark; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with how the body font reads. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with
+
+[gen-flavors-gf-noto-serif-ottoman-siyaq]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Noto Serif Ottoman Siyaq (serif). Feel: dignified, classic. Build: bowls that swell only slightly where they are widest; a sizable lowercase body
+Difference between them: a display heading with a serif body; heading has a sensation of tracing a single thick thread vs body a restrained thick-thin rhythm
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with
+
+[gen-flavors-gf-noto-serif-sinhala]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Noto Serif Sinhala (serif). Feel: refined, bookish. Build: a tall band of letters with short stalks above; stroke weights that differ just enough to feel alive
+Difference between them: a display heading with a serif body; heading has plain constant-width lines vs body a slight tightening of the stroke at curve tops
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with how the body font reads. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: then sits as a, tall
+
+[gen-flavors-gf-noto-serif-telugu]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Noto Serif Telugu (serif). Feel: traditional, refined. Build: a gentle thick to thin shift; tall lowercase letters that nearly reach the capitals
+Difference between them: a display heading with a serif body; heading has horizontals as thick as verticals vs body medium-low stress between stem and hairline
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with
+
+[gen-flavors-gf-noto-serif-todhri]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Noto Serif Todhri (serif). Feel: classic, traditional. Build: curves whose thinnest points still carry real weight; a sizable x-height for screen reading
+Difference between them: a display heading with a serif body; heading has stroke edges that run parallel through every curve vs body a comfortable thick and thin variation for reading
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the body font's name. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a classic serif
+
+[gen-flavors-gf-noto-serif-vithkuqi]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Noto Serif Vithkuqi (serif). Feel: editorial, classic. Build: stems a touch heavier than the crossbars; big round lowercase bowls
+Difference between them: a display heading with a serif body; heading has curves that match the stems exactly vs body modest hairline thinning at the curves
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif of
+
+[gen-flavors-gf-odor-mean-chey]
+Heading: Flavors (display). Feel: whimsical, commanding. Build: diagonals that carry the same heft as stems; x-height towering like a stubby carpenter's pencil stroke
+Body: Odor Mean Chey (serif). Feel: dignified, editorial. Build: a, e, and s with squeezed mouths; tall rounded lowercase forms
+Difference between them: heading has letters that look bent from a single wire vs body low; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: Skip any sizing advice; spend the sentence on how the two feel next to each other.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif of, tall

@@ -1,0 +1,67 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 986,
+ "first_pass_fail_pct": 35.0,
+ "after_repair_1_fail_pct": 5.2,
+ "after_repair_2_fail_pct": 1.7,
+ "set_offender_pct_before": 25.3,
+ "set_offender_pct_after": 9.6,
+ "final_item_fail_pct": 1.7,
+ "failing": {
+  "gen-gf-shantell-sans-gf-noto-sans-inscriptional-pahlavi": [
+   "sentence-length-6"
+  ],
+  "gen-gf-shantell-sans-gf-sarala": [
+   "sentence-length-7"
+  ],
+  "gen-gf-shantell-sans-gf-wix-madefor-text": [
+   "sentence-length-7"
+  ],
+  "gen-gf-shantell-sans-gf-zcool-xiaowei": [
+   "sentence-length-7"
+  ],
+  "gen-gf-sniglet-fs-alpino": [
+   "sentence-length-6"
+  ],
+  "gen-gf-snowburst-one-gf-mukta-malar": [
+   "sentence-length-7"
+  ],
+  "gen-gf-snowburst-one-gf-yantramanav": [
+   "missing-heading-name"
+  ],
+  "gen-gf-snowburst-one-outfit": [
+   "words-24",
+   "sentence-length-5"
+  ],
+  "gen-gf-tilt-neon-gf-noto-sans-display": [
+   "missing-heading-name"
+  ],
+  "gen-gf-tilt-neon-gf-viga": [
+   "words-25"
+  ],
+  "gen-gf-turret-road-gf-bpmf-huninn": [
+   "missing-heading-name",
+   "sentence-length-6"
+  ],
+  "gen-gf-turret-road-gf-hanken-grotesk": [
+   "missing-heading-name",
+   "sentence-length-5"
+  ],
+  "gen-gf-turret-road-gf-noto-sans-cypriot": [
+   "sentence-length-7"
+  ],
+  "gen-gf-turret-road-gf-tomorrow": [
+   "sentence-length-5"
+  ],
+  "gen-gf-underdog-gf-noto-sans-inscriptional-pahlavi": [
+   "sentence-length-7"
+  ],
+  "gen-gf-unica-one-gf-cal-sans": [
+   "sentence-length-7"
+  ],
+  "gen-gf-sniglet-gf-wix-madefor-text": [
+   "sentence-length-7"
+  ]
+ }
+}

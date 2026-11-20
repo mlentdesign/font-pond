@@ -1,0 +1,47 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 999,
+ "first_pass_fail_pct": 34.4,
+ "after_repair_1_fail_pct": 6.7,
+ "after_repair_2_fail_pct": 1.5,
+ "set_offender_pct_before": 35.0,
+ "set_offender_pct_after": 13.9,
+ "final_item_fail_pct": 1.1,
+ "failing": {
+  "gen-dafont-redux-gf-noto-sans-syriac": [
+   "sentence-length-27"
+  ],
+  "gen-dafont-redux-gf-savate": [
+   "sentence-length-7",
+   "phrase:plain sans body"
+  ],
+  "gen-dafont-starborn-gf-noto-sans-hanunoo": [
+   "sentence-length-3"
+  ],
+  "gen-dafont-starborn-gf-noto-sans-lao-looped": [
+   "sentence-length-4"
+  ],
+  "gen-dafont-starborn-gf-noto-sans-sinhala": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-starborn-gf-noto-sans-tamil-supplement": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-stencilia-gf-pt-sans-caption": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-stentiga-gf-noto-sans-phagspa": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-stentiga-gf-noto-sans-samaritan": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-stentiga-gf-noto-sans-siddham": [
+   "sentence-length-3"
+  ],
+  "gen-dafont-visitor-gf-noto-sans-gurmukhi": [
+   "sentence-length-4"
+  ]
+ }
+}

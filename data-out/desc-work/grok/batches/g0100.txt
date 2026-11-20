@@ -1,0 +1,149 @@
+[gen-gf-grandstander-gf-noto-serif-ethiopic]
+Heading: Grandstander (display). Feel: bold, expressive. Build: plain constant-width lines; a sense of letters held open, not curled shut; short ascenders, tall x-height
+Body: Noto Serif Ethiopic (serif). Feel: bookish, classic. Build: words that read as solid blocks rather than skylines; modest stroke modulation
+Difference between them: a display heading with a serif body; heading has straight-edged, constant strokes vs body gentle stroke weight variation
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif of
+
+[gen-gf-grandstander-gf-noto-serif-georgian]
+Heading: Grandstander (display). Feel: bold, expressive. Build: plain constant-width lines; a sense of letters held open, not curled shut; short ascenders, tall x-height
+Body: Noto Serif Georgian (serif). Feel: literary, authoritative. Build: lowercase letters swollen like rope coiled tight; a subdued contrast across the alphabet
+Difference between them: heading has a tube-like stroke resembling neon glass vs body heavier verticals like a gently tilted nib leaves; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif of
+
+[gen-gf-grandstander-gf-noto-serif-gurmukhi]
+Heading: Grandstander (display). Feel: bold, expressive. Build: plain constant-width lines; a sense of letters held open, not curled shut; short ascenders, tall x-height
+Body: Noto Serif Gurmukhi (serif). Feel: editorial, literary. Build: a generous x-height; a gradual weight change instead of an abrupt snap
+Difference between them: a display heading with a serif body; heading has a monoline construction vs body a subtle pen-like modulation in the bowls
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif of
+
+[gen-gf-grandstander-gf-noto-serif-khmer]
+Heading: Grandstander (display). Feel: bold, expressive. Build: plain constant-width lines; a sense of letters held open, not curled shut; short ascenders, tall x-height
+Body: Noto Serif Khmer (serif). Feel: classic, authoritative. Build: tall lowercase with very little gap to the capitals; modest hairline thinning at the curves
+Difference between them: a display heading with a serif body; heading has thickness that stays put around curves vs body a restrained thick-thin rhythm
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-grandstander-gf-noto-serif-makasar]
+Heading: Grandstander (display). Feel: bold, expressive. Build: plain constant-width lines; a sense of letters held open, not curled shut; short ascenders, tall x-height
+Body: Noto Serif Makasar (serif). Feel: editorial, dignified. Build: a soft step from heavy to light strokes; x-height towering like a stubby carpenter's pencil stroke
+Difference between them: a display heading with a serif body; heading has diagonals as thick as horizontals vs body a tempered thick-thin variation that never reaches razor-fine hairlines
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller
+
+[gen-gf-gugi-gf-noto-serif-dogra]
+Heading: Gugi (display). Feel: distinctive, bold. Build: tall lowercase letters that nearly reach the capitals; terminals cut open so the counters flow outward; curves that match the stems exactly
+Body: Noto Serif Dogra (serif). Feel: bookish, classic. Build: capitals that sit only slightly taller than the lowercase; a faint thick-thin rhythm like crayon on rough paper
+Difference between them: heading has a constant-width line, like a marker vs body curves that thicken gently at the shoulders; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-gugi-gf-noto-serif-ethiopic]
+Heading: Gugi (display). Feel: distinctive, bold. Build: tall lowercase letters that nearly reach the capitals; terminals cut open so the counters flow outward; curves that match the stems exactly
+Body: Noto Serif Ethiopic (serif). Feel: bookish, classic. Build: words that read as solid blocks rather than skylines; modest stroke modulation
+Difference between them: a display heading with a serif body; heading has no pressure swell where a curve turns the corner vs body thin strokes of respectable weight
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-gugi-gf-noto-serif-telugu]
+Heading: Gugi (display). Feel: distinctive, bold. Build: tall lowercase letters that nearly reach the capitals; terminals cut open so the counters flow outward; curves that match the stems exactly
+Body: Noto Serif Telugu (serif). Feel: traditional, refined. Build: a gentle thick to thin shift; tall lowercase letters that nearly reach the capitals
+Difference between them: a display heading with a serif body; heading has a flat, stencil-cut feel from strokes of single weight vs body contrast that stays moderate
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the body font's name. Second sentence: Skip any sizing advice; spend the sentence on how the two feel next to each other.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-hachi-maru-pop-fs-epilogue]
+Heading: Hachi Maru Pop (handwritten). Feel: relaxed, inviting. Build: stretched-out letter spacing; a hand-drawn feel; an e whose eye opens clearly to the right
+Body: Epilogue (sans-serif). Feel: approachable, contemporary. Build: curvy letters that feel unclamped; a tall-bodied lowercase with stubby ascender tips; a wire-like monoline skeleton
+Difference between them: a handwritten heading with a sans-serif body; moderate vs high lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-halant-gf-cascadia-code]
+Heading: Halant (serif). Feel: refined, literary. Build: stems just a touch thicker than the connecting strokes; spacious gaps at curve terminals; small letters that stand almost as tall as capitals
+Body: Cascadia Code (sans-serif). Feel: modern, neutral. Build: distance between neighbors that is hard to ignore; a wire-like monoline skeleton; a smooth, unobstructed path around each bend
+Difference between them: heading has middle-ground stroke contrast vs body a lack of stress in every curve; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with how the body font reads. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-gf-halant-gf-lexend-giga]
+Heading: Halant (serif). Feel: refined, literary. Build: stems just a touch thicker than the connecting strokes; spacious gaps at curve terminals; small letters that stand almost as tall as capitals
+Body: Lexend Giga (sans-serif). Feel: modern, professional. Build: flat, single-weight linework; generous tracking that opens each word; ascenders barely clearing the x-height
+Difference between them: heading has medium-low contrast between stroke parts vs body a single stroke width running through the whole alphabet; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the heading font's name. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of, tall
+
+[gen-gf-halant-gf-lexend-mega]
+Heading: Halant (serif). Feel: refined, literary. Build: stems just a touch thicker than the connecting strokes; spacious gaps at curve terminals; small letters that stand almost as tall as capitals
+Body: Lexend Mega (sans-serif). Feel: approachable, modern. Build: a drawn-with-one-nib look; a body height that nearly matches the capitals; a visible gap between the ends of every c
+Difference between them: heading has arches that thin slightly where they leave the stem vs body a single-weight outline feel; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the heading font's name. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-gf-halant-gf-lexend-zetta]
+Heading: Halant (serif). Feel: refined, literary. Build: stems just a touch thicker than the connecting strokes; spacious gaps at curve terminals; small letters that stand almost as tall as capitals
+Body: Lexend Zetta (sans-serif). Feel: approachable, contemporary. Build: strokes like cut ribbon of constant width; tall-bodied small letters; widely tracked type
+Difference between them: a serif heading with a sans-serif body; heading has a soft cadence of fuller stems and slimmer links vs body strokes like fine rope laid in letter shapes
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-gf-happy-monkey-gf-alegreya]
+Heading: Happy Monkey (display). Feel: bold, distinctive. Build: a ruler-straight line weight; wide gaps in the e
+Body: Alegreya (serif). Feel: literary, bookish. Build: the tempered contrast of a lightly flexed spring wire; wide apertures that resist filling in
+Difference between them: a display heading with a serif body; heading has every stroke ending at the same measured thickness vs body a reading rhythm with soft accents of heavier strokes
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif of
+
+[gen-gf-happy-monkey-gf-alyamama]
+Heading: Happy Monkey (display). Feel: bold, distinctive. Build: a ruler-straight line weight; wide gaps in the e
+Body: Alyamama (serif). Feel: traditional, refined. Build: curve endings kept well apart; a soft thick-thin difference
+Difference between them: heading has no thick and thin parts in any letter vs body a modest gap in weight between stems and hairlines; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the heading font's name. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif of

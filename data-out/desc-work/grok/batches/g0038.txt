@@ -1,0 +1,149 @@
+[gen-gf-noto-sans-old-sogdian-fs-karma]
+Heading: Noto Sans Old Sogdian (sans-serif). Feel: professional, clean. Build: a compact skyline where capitals blend into lowercase; curves traced with a broad nib and left unfinished
+Body: Karma (serif). Feel: trustworthy, classic. Build: terminals that finish well clear of the stem; very little gap between x-height and cap height; a calm modulation that never snags the eye
+Difference between them: heading has low vs body weight that shifts like stretched rubber cord, only slightly; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: then carries a column
+
+[gen-gf-noto-sans-oriya-fs-karma]
+Heading: Noto Sans Oriya (sans-serif). Feel: neutral, approachable. Build: a c-shape opened wide like a horseshoe; stubby ascenders and descenders next to a big x-height
+Body: Karma (serif). Feel: trustworthy, classic. Build: terminals that finish well clear of the stem; very little gap between x-height and cap height; a calm modulation that never snags the eye
+Difference between them: heading has low vs body a gentle thick to thin shift; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the body font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: then sits as a
+
+[gen-gf-noto-sans-pahawh-hmong-fs-erode]
+Heading: Noto Sans Pahawh Hmong (sans-serif). Feel: neutral, clean. Build: tall bodies in every lowercase letter; shapes that never clog at low resolution
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: a sans-serif heading with a serif body; heading has low vs body modest stress in the curves
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with how the body font reads. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a tall middle band
+
+[gen-gf-noto-sans-pahawh-hmong-fs-karma]
+Heading: Noto Sans Pahawh Hmong (sans-serif). Feel: neutral, clean. Build: tall bodies in every lowercase letter; shapes that never clog at low resolution
+Body: Karma (serif). Feel: trustworthy, classic. Build: terminals that finish well clear of the stem; very little gap between x-height and cap height; a calm modulation that never snags the eye
+Difference between them: a sans-serif heading with a serif body; heading has low vs body a comfortable level of stroke contrast
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller, sit a little smaller under, a little smaller under
+
+[gen-gf-noto-sans-phagspa-fs-erode]
+Heading: Noto Sans PhagsPa (sans-serif). Feel: neutral, professional. Build: lowercase counters as big as drilled glass beads; a light, unpinched feel in round letters
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: heading has low vs body a line that feels steady yet faintly modulated; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with how the body font reads. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif with, a tall middle band
+
+[gen-gf-noto-sans-samaritan-fs-erode]
+Heading: Noto Sans Samaritan (sans-serif). Feel: clean, contemporary. Build: a tall mean line; curved letters with wide, unclosed mouths
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: heading has low vs body a moderate contrast that reads easily; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with how the body font reads. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with, a tall middle band
+
+[gen-gf-noto-sans-sharada-fs-erode]
+Heading: Noto Sans Sharada (sans-serif). Feel: contemporary, modern. Build: a high mean line across every word; open terminals that never pinch shut
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: heading has low vs body modest weight change in round letters; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a tall middle band
+
+[gen-gf-noto-sans-sharada-fs-karma]
+Heading: Noto Sans Sharada (sans-serif). Feel: contemporary, modern. Build: a high mean line across every word; open terminals that never pinch shut
+Body: Karma (serif). Feel: trustworthy, classic. Build: terminals that finish well clear of the stem; very little gap between x-height and cap height; a calm modulation that never snags the eye
+Difference between them: heading has low vs body a lightly shaded texture running through each word; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with how the body font reads. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif with, then carries a column
+
+[gen-gf-noto-sans-sinhala-fs-erode]
+Heading: Noto Sans Sinhala (sans-serif). Feel: contemporary, clean. Build: a tall waist line; spacious gaps at curve terminals
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: heading has low vs body soft contrast in every curve; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the body font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with, a tall middle band
+
+[gen-gf-noto-sans-sundanese-fs-erode]
+Heading: Noto Sans Sundanese (sans-serif). Feel: contemporary, clean. Build: a c-shape opened wide like a horseshoe; lowercase strokes as tall as a thick crayon mark
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: a sans-serif heading with a serif body; heading has low vs body thin strokes about half the weight of thick ones
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with how the body font reads. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a tall middle band, can sit a little smaller, can sit a little, sit a little smaller, sit a little smaller under, a little smaller under
+
+[gen-gf-noto-sans-sunuwar-fs-erode]
+Heading: Noto Sans Sunuwar (sans-serif). Feel: neutral, professional. Build: lowercase that looks oversized beside its own capitals; the sense of every bowl being left open
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: heading has low vs body a subtle weight change like etched lines in glass; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with, a tall middle band
+
+[gen-gf-noto-sans-sunuwar-fs-karma]
+Heading: Noto Sans Sunuwar (sans-serif). Feel: neutral, professional. Build: lowercase that looks oversized beside its own capitals; the sense of every bowl being left open
+Body: Karma (serif). Feel: trustworthy, classic. Build: terminals that finish well clear of the stem; very little gap between x-height and cap height; a calm modulation that never snags the eye
+Difference between them: a sans-serif heading with a serif body; heading has low vs body lightly modulated strokes with no harsh thin spots
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: then carries a column
+
+[gen-gf-noto-sans-tagalog-fs-karma]
+Heading: Noto Sans Tagalog (sans-serif). Feel: modern, neutral. Build: open-faced curves on every rounded letter; a pronounced, high x-height
+Body: Karma (serif). Feel: trustworthy, classic. Build: terminals that finish well clear of the stem; very little gap between x-height and cap height; a calm modulation that never snags the eye
+Difference between them: a sans-serif heading with a serif body; heading has low vs body subtle thick and thin modulation
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: then sits as a
+
+[gen-gf-noto-sans-tagbanwa-fs-erode]
+Heading: Noto Sans Tagbanwa (sans-serif). Feel: approachable, contemporary. Build: rounded letters left open; chalk-board lowercase that crowds up toward the capital line
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: a sans-serif heading with a serif body; heading has low vs body rounded letters that thicken slightly at their sides
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a tall middle band
+
+[gen-gf-noto-sans-tai-le-fs-erode]
+Heading: Noto Sans Tai Le (sans-serif). Feel: clean, professional. Build: big open eyes on every e and a; lowercase bodies taking up most of the letter height
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: a sans-serif heading with a serif body; heading has low vs body thin strokes only slightly lighter than the thick ones
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with how the body font reads. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a tall middle band

@@ -1,0 +1,24 @@
+{
+ "model": "sonnet",
+ "asked": 6,
+ "first_pass_returned": 6,
+ "first_pass_fail_pct": 100.0,
+ "after_repair_1_fail_pct": 83.3,
+ "after_repair_2_fail_pct": 66.7,
+ "set_offender_pct_before": 0.0,
+ "final_item_fail_pct": 66.7,
+ "failing": {
+  "curated-dafont-pixel-operator-work-sans": [
+   "sentence-length-7"
+  ],
+  "curated-gf-edu-vic-wa-nt-hand-pre-gf-tsukimi-rounded": [
+   "sentence-length-7"
+  ],
+  "curated-gf-jersey-10-charted-gf-noto-nastaliq-urdu": [
+   "sentence-length-7"
+  ],
+  "curated-gf-kapakana-gf-spectral-sc": [
+   "sentence-length-7"
+  ]
+ }
+}

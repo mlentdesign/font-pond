@@ -1,0 +1,149 @@
+[gen-gf-medievalsharp-gf-graduate]
+Heading: MedievalSharp (display). Feel: bold, commanding. Build: a tall body with short stems above and below; wide-mouthed letters that stay crisp when shrunk
+Body: Graduate (serif). Feel: dignified, bookish. Build: a generous amount of white between letters; minimal difference between capital height and lowercase height; no contrast between stems and joins
+Difference between them: a display heading with a serif body; heading has low vs body horizontals that are not thinner than verticals
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-medievalsharp-gf-kadwa]
+Heading: MedievalSharp (display). Feel: bold, commanding. Build: a tall body with short stems above and below; wide-mouthed letters that stay crisp when shrunk
+Body: Kadwa (serif). Feel: classic, editorial. Build: open-ended curves throughout; a larger-than-usual x-height
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little, a text serif of
+
+[gen-gf-medievalsharp-gf-noticia-text]
+Heading: MedievalSharp (display). Feel: bold, commanding. Build: a tall body with short stems above and below; wide-mouthed letters that stay crisp when shrunk
+Body: Noticia Text (serif). Feel: literary, dignified. Build: a big visible entrance into each curved letter; lowercase bodies taking up most of the letter height
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif of
+
+[gen-gf-medievalsharp-gf-suwannaphum]
+Heading: MedievalSharp (display). Feel: bold, commanding. Build: a tall body with short stems above and below; wide-mouthed letters that stay crisp when shrunk
+Body: Suwannaphum (serif). Feel: dignified, editorial. Build: a c as open as a bent paperclip; x-height reaching high like a squared-off woodblock letter
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-metamorphous-gf-cambo]
+Heading: Metamorphous (display). Feel: commanding, distinctive. Build: large sidebearings all around; a high-set midline; a soft difference between fat and slim strokes
+Body: Cambo (serif). Feel: refined, bookish. Build: a short step from lowercase top to capital top; a modest thick and thin rhythm across each word
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif of
+
+[gen-gf-metamorphous-gf-fanwood-text]
+Heading: Metamorphous (display). Feel: commanding, distinctive. Build: large sidebearings all around; a high-set midline; a soft difference between fat and slim strokes
+Body: Fanwood Text (serif). Feel: literary, bookish. Build: a large-eyed lowercase; gentle swelling on curves; tiny gaps that vanish at a quick glance
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the heading font's name. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: is the punch of
+
+[gen-gf-metamorphous-gf-holtwood-one-sc]
+Heading: Metamorphous (display). Feel: commanding, distinctive. Build: large sidebearings all around; a high-set midline; a soft difference between fat and slim strokes
+Body: Holtwood One SC (serif). Feel: authoritative, literary. Build: a wide-tracked look across the whole line; curves that close up with just a sliver left; a towering lowercase body
+Difference between them: a display heading with a serif body; heading has a moderate thick-thin ratio vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the heading font's name. Second sentence: Skip any sizing advice; spend the sentence on how the two feel next to each other.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif of
+
+[gen-gf-metamorphous-gf-noto-nastaliq-urdu]
+Heading: Metamorphous (display). Feel: commanding, distinctive. Build: large sidebearings all around; a high-set midline; a soft difference between fat and slim strokes
+Body: Noto Nastaliq Urdu (serif). Feel: editorial, dignified. Build: tight vertical rhythm with little ascender sticking up; a mild stress in the o and e
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little, a classic serif of
+
+[gen-gf-metamorphous-gf-noto-serif-ahom]
+Heading: Metamorphous (display). Feel: commanding, distinctive. Build: large sidebearings all around; a high-set midline; a soft difference between fat and slim strokes
+Body: Noto Serif Ahom (serif). Feel: traditional, dignified. Build: joins that taper modestly without vanishing; a lofty, tall lowercase body
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with how the body font reads. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-metamorphous-gf-noto-serif-bengali]
+Heading: Metamorphous (display). Feel: commanding, distinctive. Build: large sidebearings all around; a high-set midline; a soft difference between fat and slim strokes
+Body: Noto Serif Bengali (serif). Feel: editorial, refined. Build: slightly thinner hairlines; a thick band of letters with trimmed-looking ascenders
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif of
+
+[gen-gf-metamorphous-gf-noto-serif-dives-akuru]
+Heading: Metamorphous (display). Feel: commanding, distinctive. Build: large sidebearings all around; a high-set midline; a soft difference between fat and slim strokes
+Body: Noto Serif Dives Akuru (serif). Feel: classic, refined. Build: short-looking capitals among tall small letters; soft contrast in every curve
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif of, tall
+
+[gen-gf-metamorphous-gf-noto-serif-dogra]
+Heading: Metamorphous (display). Feel: commanding, distinctive. Build: large sidebearings all around; a high-set midline; a soft difference between fat and slim strokes
+Body: Noto Serif Dogra (serif). Feel: bookish, classic. Build: capitals that sit only slightly taller than the lowercase; a faint thick-thin rhythm like crayon on rough paper
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif of
+
+[gen-gf-metamorphous-gf-noto-serif-georgian]
+Heading: Metamorphous (display). Feel: commanding, distinctive. Build: large sidebearings all around; a high-set midline; a soft difference between fat and slim strokes
+Body: Noto Serif Georgian (serif). Feel: literary, authoritative. Build: lowercase letters swollen like rope coiled tight; a subdued contrast across the alphabet
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the body font's name. Second sentence: Only if it fits: say where the heading font earns its keep (big and short) and leave the body font's size unmentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: its keep big and, earns its keep big and, earns its keep big, its keep big and short, keep big and short
+
+[gen-gf-metamorphous-gf-noto-serif-gujarati]
+Heading: Metamorphous (display). Feel: commanding, distinctive. Build: large sidebearings all around; a high-set midline; a soft difference between fat and slim strokes
+Body: Noto Serif Gujarati (serif). Feel: authoritative, bookish. Build: terminals and joins that ease only slightly in weight; oversized e and a counters
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with how the body font reads. Second sentence: Only if it fits: say where the heading font earns its keep (big and short) and leave the body font's size unmentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: its keep big and, earns its keep big and, earns its keep big, its keep big and short, keep big and short
+
+[gen-gf-metamorphous-gf-noto-serif-hebrew]
+Heading: Metamorphous (display). Feel: commanding, distinctive. Build: large sidebearings all around; a high-set midline; a soft difference between fat and slim strokes
+Body: Noto Serif Hebrew (serif). Feel: authoritative, classic. Build: lowercase letters with a tall, sturdy body; subtle thick and thin modulation
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the body font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a classic serif, a classic serif of, tall

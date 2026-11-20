@@ -1,0 +1,413 @@
+00:08 START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+00:10 START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+00:38 fix00 pass 0: kept 994 of 1000, 6 left
+00:39 fix00 pass 1: kept 996 of 1000, 4 left
+00:39 [70365] START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+00:39 fix00 pass 0: kept 994 of 1000, 6 left
+00:39 fix00 pass 1: kept 996 of 1000, 4 left
+00:39 [70376] START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+00:39 [70385] START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+00:39 [70394] START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+00:39 fix00 pass 2: kept 998 of 1000, 2 left
+00:40 [71586] START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+00:40 [71598] START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+00:40 fix00 pass 3: kept 998 of 1000, 2 left
+00:40 fix00 pass 4: kept 998 of 1000, 2 left
+00:40 fix00 pass 5: kept 998 of 1000, 2 left
+00:40 SLICE fix00 done: 998 of 1000 kept, 2 unresolved
+00:41 COLLECTED: 1271 fixes, 638 new
+00:41 COLLECTED: 1271 fixes, 659 new
+00:51 COLLECTED: 2401 fixes, 3521 new
+00:54 new002 pass 0: kept 973 of 1000, 27 left
+00:54 new001 pass 0: kept 997 of 1000, 3 left
+00:54 new002 pass 1: kept 973 of 1000, 27 left
+00:54 new001 pass 1: kept 997 of 1000, 3 left
+00:54 new000 pass 0: kept 999 of 1000, 1 left
+00:54 new000 pass 1: kept 999 of 1000, 1 left
+00:54 fix02 pass 0: kept 763 of 771, 8 left
+00:54 fix02 pass 1: kept 763 of 771, 8 left
+00:55 new003 pass 0: kept 947 of 1000, 53 left
+00:55 new003 pass 1: kept 947 of 1000, 53 left
+00:55 fix01 pass 0: kept 777 of 1000, 223 left
+00:55 fix01 pass 1: kept 777 of 1000, 223 left
+01:02 COLLECTED: 2538 fixes, 3916 new
+01:09 new002 pass 2: kept 973 of 1000, 27 left
+01:09 new001 pass 2: kept 997 of 1000, 3 left
+01:09 new000 pass 2: kept 999 of 1000, 1 left
+01:09 fix02 pass 2: kept 763 of 771, 8 left
+01:10 new003 pass 2: kept 947 of 1000, 53 left
+01:11 fix01 pass 2: kept 777 of 1000, 223 left
+01:12 COLLECTED: 2538 fixes, 3916 new
+01:22 COLLECTED: 2538 fixes, 3916 new
+01:24 new002 pass 3: kept 973 of 1000, 27 left
+01:24 new001 pass 3: kept 997 of 1000, 3 left
+01:24 new000 pass 3: kept 999 of 1000, 1 left
+01:24 fix02 pass 3: kept 763 of 771, 8 left
+01:25 new003 pass 3: kept 947 of 1000, 53 left
+01:26 fix01 pass 3: kept 777 of 1000, 223 left
+01:32 COLLECTED: 2538 fixes, 3916 new
+01:39 new002 pass 4: kept 973 of 1000, 27 left
+01:39 new001 pass 4: kept 997 of 1000, 3 left
+01:39 new000 pass 4: kept 999 of 1000, 1 left
+01:40 fix02 pass 4: kept 763 of 771, 8 left
+01:40 new003 pass 4: kept 947 of 1000, 53 left
+01:42 COLLECTED: 2538 fixes, 3916 new
+01:42 fix01 pass 4: kept 777 of 1000, 223 left
+01:52 COLLECTED: 2538 fixes, 3916 new
+01:54 new002 pass 5: kept 973 of 1000, 27 left
+01:54 new001 pass 5: kept 997 of 1000, 3 left
+01:55 new000 pass 5: kept 999 of 1000, 1 left
+01:55 fix02 pass 5: kept 763 of 771, 8 left
+01:55 new003 pass 5: kept 947 of 1000, 53 left
+01:58 fix01 pass 5: kept 777 of 1000, 223 left
+02:02 COLLECTED: 2538 fixes, 3916 new
+02:09 SLICE new002 done: 973 of 1000 kept, 27 unresolved
+02:09 SLICE new001 done: 997 of 1000 kept, 3 unresolved
+02:10 SLICE new000 done: 999 of 1000 kept, 1 unresolved
+02:10 SLICE fix02 done: 763 of 771 kept, 8 unresolved
+02:10 SLICE new003 done: 947 of 1000 kept, 53 unresolved
+02:12 new004 pass 0: kept 0 of 1000, 1000 left
+02:12 new005 pass 0: kept 0 of 1000, 1000 left
+02:12 COLLECTED: 2538 fixes, 3916 new
+02:12 new006 pass 0: kept 0 of 1000, 1000 left
+02:12 new007 pass 0: kept 0 of 1000, 1000 left
+02:13 SLICE fix01 done: 777 of 1000 kept, 223 unresolved
+02:13 new008 pass 0: kept 0 of 1000, 1000 left
+02:15 new009 pass 0: kept 0 of 1000, 1000 left
+02:22 COLLECTED: 2538 fixes, 3916 new
+02:29 new004 pass 1: kept 0 of 1000, 1000 left
+02:29 new005 pass 1: kept 0 of 1000, 1000 left
+02:29 new006 pass 1: kept 0 of 1000, 1000 left
+02:29 new007 pass 1: kept 0 of 1000, 1000 left
+02:30 new008 pass 1: kept 0 of 1000, 1000 left
+02:32 new009 pass 1: kept 0 of 1000, 1000 left
+02:32 COLLECTED: 2538 fixes, 3916 new
+02:42 COLLECTED: 2538 fixes, 3916 new
+02:47 new004 pass 2: kept 0 of 1000, 1000 left
+02:47 new005 pass 2: kept 0 of 1000, 1000 left
+02:47 new006 pass 2: kept 0 of 1000, 1000 left
+02:47 new007 pass 2: kept 0 of 1000, 1000 left
+02:48 new008 pass 2: kept 0 of 1000, 1000 left
+02:49 new009 pass 2: kept 0 of 1000, 1000 left
+02:52 COLLECTED: 2538 fixes, 3916 new
+03:02 COLLECTED: 2538 fixes, 3916 new
+03:04 new004 pass 3: kept 0 of 1000, 1000 left
+03:04 new005 pass 3: kept 0 of 1000, 1000 left
+03:05 new006 pass 3: kept 0 of 1000, 1000 left
+03:05 new007 pass 3: kept 0 of 1000, 1000 left
+03:05 new008 pass 3: kept 0 of 1000, 1000 left
+03:06 new009 pass 3: kept 0 of 1000, 1000 left
+03:12 COLLECTED: 2538 fixes, 3916 new
+03:22 COLLECTED: 2538 fixes, 5217 new
+03:33 COLLECTED: 2538 fixes, 9064 new
+03:40 new006 pass 4: kept 994 of 1000, 6 left
+03:41 new009 pass 4: kept 992 of 1000, 8 left
+03:41 new004 pass 4: kept 991 of 1000, 9 left
+03:41 new006 pass 5: kept 996 of 1000, 4 left
+03:41 SLICE new006 done: 996 of 1000 kept, 4 unresolved
+03:41 new007 pass 4: kept 997 of 1000, 3 left
+03:42 new009 pass 5: kept 999 of 1000, 1 left
+03:42 SLICE new009 done: 999 of 1000 kept, 1 unresolved
+03:42 new008 pass 4: kept 997 of 1000, 3 left
+03:42 new005 pass 4: kept 982 of 1000, 18 left
+03:42 new007 pass 5: kept 1000 of 1000, 0 left
+03:42 SLICE new007 done: 1000 of 1000 kept, 0 unresolved
+03:42 new004 pass 5: kept 1000 of 1000, 0 left
+03:42 SLICE new004 done: 1000 of 1000 kept, 0 unresolved
+03:42 new008 pass 5: kept 998 of 1000, 2 left
+03:42 SLICE new008 done: 998 of 1000 kept, 2 unresolved
+03:43 COLLECTED: 2538 fixes, 10253 new
+03:44 new005 pass 5: kept 995 of 1000, 5 left
+03:44 SLICE new005 done: 995 of 1000 kept, 5 unresolved
+03:47 new010 pass 0: kept 420 of 1000, 580 left
+03:47 new012 pass 0: kept 317 of 1000, 683 left
+03:47 new014 pass 0: kept 230 of 1000, 770 left
+03:47 new013 pass 0: kept 343 of 1000, 657 left
+03:47 new011 pass 0: kept 329 of 1000, 671 left
+03:48 new015 pass 0: kept 166 of 1000, 834 left
+03:49 new010 pass 1: kept 420 of 1000, 580 left
+03:49 new012 pass 1: kept 317 of 1000, 683 left
+03:49 new013 pass 1: kept 343 of 1000, 657 left
+03:50 new011 pass 1: kept 329 of 1000, 671 left
+03:50 new014 pass 1: kept 230 of 1000, 770 left
+03:50 new015 pass 1: kept 166 of 1000, 834 left
+03:53 COLLECTED: 2538 fixes, 11709 new
+04:03 COLLECTED: 2538 fixes, 11709 new
+04:06 new010 pass 2: kept 420 of 1000, 580 left
+04:06 new012 pass 2: kept 317 of 1000, 683 left
+04:06 new013 pass 2: kept 343 of 1000, 657 left
+04:06 new011 pass 2: kept 329 of 1000, 671 left
+04:07 new014 pass 2: kept 230 of 1000, 770 left
+04:07 new015 pass 2: kept 166 of 1000, 834 left
+04:13 COLLECTED: 2538 fixes, 11709 new
+04:22 new010 pass 3: kept 420 of 1000, 580 left
+04:23 new013 pass 3: kept 343 of 1000, 657 left
+04:23 new012 pass 3: kept 317 of 1000, 683 left
+04:23 new011 pass 3: kept 329 of 1000, 671 left
+04:23 COLLECTED: 2538 fixes, 11709 new
+04:23 new014 pass 3: kept 230 of 1000, 770 left
+04:24 new015 pass 3: kept 166 of 1000, 834 left
+04:33 COLLECTED: 2538 fixes, 11709 new
+04:38 new010 pass 4: kept 420 of 1000, 580 left
+04:39 new013 pass 4: kept 343 of 1000, 657 left
+04:39 new012 pass 4: kept 317 of 1000, 683 left
+04:40 new011 pass 4: kept 329 of 1000, 671 left
+04:40 new014 pass 4: kept 230 of 1000, 770 left
+04:41 new015 pass 4: kept 166 of 1000, 834 left
+04:43 COLLECTED: 2538 fixes, 11709 new
+04:53 COLLECTED: 2538 fixes, 11709 new
+04:54 new010 pass 5: kept 420 of 1000, 580 left
+04:56 new013 pass 5: kept 343 of 1000, 657 left
+04:56 new012 pass 5: kept 317 of 1000, 683 left
+04:56 new011 pass 5: kept 329 of 1000, 671 left
+04:57 new014 pass 5: kept 230 of 1000, 770 left
+04:57 new015 pass 5: kept 166 of 1000, 834 left
+05:03 COLLECTED: 2538 fixes, 11709 new
+05:09 SLICE new010 done: 420 of 1000 kept, 580 unresolved
+05:11 SLICE new013 done: 343 of 1000 kept, 657 unresolved
+05:11 SLICE new012 done: 317 of 1000 kept, 683 unresolved
+05:11 SLICE new011 done: 329 of 1000 kept, 671 unresolved
+05:11 new016 pass 0: kept 0 of 1000, 1000 left
+05:12 SLICE new014 done: 230 of 1000 kept, 770 unresolved
+05:12 SLICE new015 done: 166 of 1000 kept, 834 unresolved
+05:13 new017 pass 0: kept 0 of 1000, 1000 left
+05:13 new018 pass 0: kept 0 of 1000, 1000 left
+05:13 new019 pass 0: kept 0 of 1000, 1000 left
+05:13 COLLECTED: 2538 fixes, 11709 new
+05:14 new020 pass 0: kept 0 of 1000, 1000 left
+05:15 new021 pass 0: kept 0 of 1000, 1000 left
+05:23 COLLECTED: 2538 fixes, 11709 new
+05:28 new016 pass 1: kept 0 of 1000, 1000 left
+05:30 new017 pass 1: kept 0 of 1000, 1000 left
+05:30 new018 pass 1: kept 0 of 1000, 1000 left
+05:31 new019 pass 1: kept 0 of 1000, 1000 left
+05:31 new020 pass 1: kept 0 of 1000, 1000 left
+05:32 new021 pass 1: kept 0 of 1000, 1000 left
+05:34 COLLECTED: 2538 fixes, 11709 new
+05:44 COLLECTED: 2538 fixes, 11709 new
+05:45 new016 pass 2: kept 0 of 1000, 1000 left
+05:47 new017 pass 2: kept 0 of 1000, 1000 left
+05:48 new018 pass 2: kept 0 of 1000, 1000 left
+05:48 new019 pass 2: kept 0 of 1000, 1000 left
+05:49 new020 pass 2: kept 0 of 1000, 1000 left
+05:49 new021 pass 2: kept 0 of 1000, 1000 left
+05:54 COLLECTED: 2538 fixes, 11709 new
+06:02 new016 pass 3: kept 0 of 1000, 1000 left
+06:04 COLLECTED: 2538 fixes, 11709 new
+06:05 new017 pass 3: kept 0 of 1000, 1000 left
+06:05 new018 pass 3: kept 0 of 1000, 1000 left
+06:05 new019 pass 3: kept 0 of 1000, 1000 left
+06:06 new020 pass 3: kept 0 of 1000, 1000 left
+06:06 new021 pass 3: kept 0 of 1000, 1000 left
+06:14 COLLECTED: 2538 fixes, 11709 new
+06:20 new016 pass 4: kept 0 of 1000, 1000 left
+06:22 new017 pass 4: kept 0 of 1000, 1000 left
+06:22 new018 pass 4: kept 0 of 1000, 1000 left
+06:22 new019 pass 4: kept 0 of 1000, 1000 left
+06:23 new020 pass 4: kept 0 of 1000, 1000 left
+06:24 new021 pass 4: kept 0 of 1000, 1000 left
+06:24 COLLECTED: 2538 fixes, 11709 new
+06:34 COLLECTED: 2538 fixes, 11709 new
+06:37 new016 pass 5: kept 0 of 1000, 1000 left
+08:43 COLLECTED: 2538 fixes, 12414 new
+08:44 COLLECTED: 2538 fixes, 12664 new
+22:52 RESUMED by hand after conflict-marker repair
+22:52 SUPERVISOR: restarted a worker (1 so far), 19 of 42 slices done
+22:52 SUPERVISOR: restarted a worker (2 so far), 19 of 42 slices done
+22:52 COLLECTED: 2538 fixes, 12723 new
+22:52 [59259] START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+22:52 SUPERVISOR: restarted a worker (3 so far), 19 of 42 slices done
+22:52 [59368] START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+22:52 SUPERVISOR: restarted a worker (4 so far), 19 of 42 slices done
+22:52 [59454] START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+22:52 SUPERVISOR: restarted a worker (5 so far), 19 of 42 slices done
+22:52 [59766] START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+22:52 SUPERVISOR: restarted a worker (6 so far), 19 of 42 slices done
+22:53 [60160] START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+22:53 [60272] START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+23:02 COLLECTED: 2538 fixes, 16556 new
+23:10 USAGE LIMIT hit: all workers paused until 23:22
+23:10 new020 pass 0: kept 998 of 1000, 2 left
+23:13 COLLECTED: 2538 fixes, 17685 new
+23:22 new020 pass 1: kept 1000 of 1000, 0 left
+23:22 SLICE new020 done: 1000 of 1000 kept, 0 unresolved
+23:22 new021 pass 0: kept 990 of 1000, 10 left
+23:23 COLLECTED: 2538 fixes, 17758 new
+23:24 new021 pass 1: kept 1000 of 1000, 0 left
+23:24 SLICE new021 done: 1000 of 1000 kept, 0 unresolved
+23:24 new019 pass 0: kept 1000 of 1000, 0 left
+23:24 SLICE new019 done: 1000 of 1000 kept, 0 unresolved
+23:25 new018 pass 0: kept 997 of 1000, 3 left
+23:25 new018 pass 1: kept 999 of 1000, 1 left
+23:25 new018 pass 2: kept 1000 of 1000, 0 left
+23:25 SLICE new018 done: 1000 of 1000 kept, 0 unresolved
+23:26 new016 pass 0: kept 996 of 1000, 4 left
+23:26 new017 pass 0: kept 998 of 1000, 2 left
+23:27 new016 pass 1: kept 998 of 1000, 2 left
+23:27 new017 pass 1: kept 1000 of 1000, 0 left
+23:27 SLICE new017 done: 1000 of 1000 kept, 0 unresolved
+23:27 new016 pass 2: kept 1000 of 1000, 0 left
+23:27 SLICE new016 done: 1000 of 1000 kept, 0 unresolved
+23:33 COLLECTED: 2538 fixes, 21506 new
+23:42 new022 pass 0: kept 995 of 1000, 5 left
+23:42 new023 pass 0: kept 989 of 1000, 11 left
+23:43 new023 pass 1: kept 1000 of 1000, 0 left
+23:43 SLICE new023 done: 1000 of 1000 kept, 0 unresolved
+23:43 new022 pass 1: kept 996 of 1000, 4 left
+23:43 COLLECTED: 2538 fixes, 23709 new
+23:43 new022 pass 2: kept 999 of 1000, 1 left
+23:44 new022 pass 3: kept 999 of 1000, 1 left
+23:44 new022 pass 4: kept 999 of 1000, 1 left
+23:44 new022 pass 5: kept 999 of 1000, 1 left
+23:44 SLICE new022 done: 999 of 1000 kept, 1 unresolved
+23:46 new025 pass 0: kept 992 of 1000, 8 left
+23:46 new027 pass 0: kept 993 of 1000, 7 left
+23:46 new025 pass 1: kept 997 of 1000, 3 left
+23:47 new025 pass 2: kept 998 of 1000, 2 left
+23:47 new027 pass 1: kept 1000 of 1000, 0 left
+23:47 SLICE new027 done: 1000 of 1000 kept, 0 unresolved
+23:47 new026 pass 0: kept 998 of 1000, 2 left
+23:47 new025 pass 3: kept 999 of 1000, 1 left
+23:47 new026 pass 1: kept 1000 of 1000, 0 left
+23:47 SLICE new026 done: 1000 of 1000 kept, 0 unresolved
+23:47 new025 pass 4: kept 999 of 1000, 1 left
+23:47 new025 pass 5: kept 999 of 1000, 1 left
+23:47 SLICE new025 done: 999 of 1000 kept, 1 unresolved
+23:48 new024 pass 0: kept 992 of 1000, 8 left
+23:48 USAGE LIMIT hit: all workers paused until 04:22
+23:48 USAGE LIMIT hit: all workers paused until 04:22
+23:48 USAGE LIMIT hit: all workers paused until 04:22
+23:48 USAGE LIMIT hit: all workers paused until 04:22
+23:53 COLLECTED: 2538 fixes, 25193 new
+00:03 COLLECTED: 2538 fixes, 25193 new
+00:13 COLLECTED: 2538 fixes, 25193 new
+00:23 COLLECTED: 2538 fixes, 25193 new
+00:34 COLLECTED: 2538 fixes, 25193 new
+00:44 COLLECTED: 2538 fixes, 25193 new
+00:54 COLLECTED: 2538 fixes, 25193 new
+01:04 COLLECTED: 2538 fixes, 25193 new
+01:14 COLLECTED: 2538 fixes, 25193 new
+01:24 COLLECTED: 2538 fixes, 25193 new
+01:34 COLLECTED: 2538 fixes, 25193 new
+01:44 COLLECTED: 2538 fixes, 25193 new
+01:55 COLLECTED: 2538 fixes, 25193 new
+02:05 COLLECTED: 2538 fixes, 25193 new
+02:15 COLLECTED: 2538 fixes, 25193 new
+02:25 COLLECTED: 2538 fixes, 25193 new
+02:35 COLLECTED: 2538 fixes, 25193 new
+02:45 COLLECTED: 2538 fixes, 25193 new
+02:55 COLLECTED: 2538 fixes, 25193 new
+03:05 COLLECTED: 2538 fixes, 25193 new
+03:15 COLLECTED: 2538 fixes, 25193 new
+03:26 COLLECTED: 2538 fixes, 25193 new
+03:36 COLLECTED: 2538 fixes, 25193 new
+03:46 COLLECTED: 2538 fixes, 25193 new
+03:56 COLLECTED: 2538 fixes, 25193 new
+04:06 COLLECTED: 2538 fixes, 25193 new
+04:16 COLLECTED: 2538 fixes, 25193 new
+04:22 new024 pass 1: kept 999 of 1000, 1 left
+04:23 new024 pass 2: kept 1000 of 1000, 0 left
+04:23 SLICE new024 done: 1000 of 1000 kept, 0 unresolved
+04:26 COLLECTED: 2538 fixes, 27224 new
+04:34 new029 pass 0: kept 995 of 1000, 5 left
+04:34 new029 pass 1: kept 1000 of 1000, 0 left
+04:34 SLICE new029 done: 1000 of 1000 kept, 0 unresolved
+04:35 new028 pass 0: kept 987 of 1000, 13 left
+04:36 new028 pass 1: kept 997 of 1000, 3 left
+04:36 new028 pass 2: kept 1000 of 1000, 0 left
+04:36 SLICE new028 done: 1000 of 1000 kept, 0 unresolved
+04:36 COLLECTED: 2538 fixes, 29803 new
+04:37 new030 pass 0: kept 983 of 1000, 17 left
+04:39 new030 pass 1: kept 998 of 1000, 2 left
+04:39 new030 pass 2: kept 998 of 1000, 2 left
+04:39 new030 pass 3: kept 998 of 1000, 2 left
+04:39 new030 pass 4: kept 998 of 1000, 2 left
+04:39 new030 pass 5: kept 998 of 1000, 2 left
+04:39 SLICE new030 done: 998 of 1000 kept, 2 unresolved
+04:40 new031 pass 0: kept 999 of 1000, 1 left
+04:40 new031 pass 1: kept 1000 of 1000, 0 left
+04:40 SLICE new031 done: 1000 of 1000 kept, 0 unresolved
+04:42 new032 pass 0: kept 989 of 1000, 11 left
+04:43 new033 pass 0: kept 996 of 1000, 4 left
+04:44 new033 pass 1: kept 998 of 1000, 2 left
+04:44 new032 pass 1: kept 999 of 1000, 1 left
+04:44 new033 pass 2: kept 1000 of 1000, 0 left
+04:44 SLICE new033 done: 1000 of 1000 kept, 0 unresolved
+04:44 new032 pass 2: kept 1000 of 1000, 0 left
+04:44 SLICE new032 done: 1000 of 1000 kept, 0 unresolved
+04:44 ALL DONE
+04:47 COLLECTED: 2538 fixes, 32715 new
+04:48 USAGE LIMIT hit: all workers paused until 09:22
+04:48 USAGE LIMIT hit: all workers paused until 09:22
+04:48 USAGE LIMIT hit: all workers paused until 09:22
+04:57 COLLECTED: 2538 fixes, 33111 new
+05:07 COLLECTED: 2538 fixes, 33111 new
+05:17 COLLECTED: 2538 fixes, 33111 new
+05:27 COLLECTED: 2538 fixes, 33111 new
+05:37 COLLECTED: 2538 fixes, 33111 new
+05:47 COLLECTED: 2538 fixes, 33111 new
+05:58 COLLECTED: 2538 fixes, 33111 new
+06:08 COLLECTED: 2538 fixes, 33111 new
+06:18 COLLECTED: 2538 fixes, 33111 new
+06:28 COLLECTED: 2538 fixes, 33111 new
+07:29 COLLECTED: 2538 fixes, 33111 new
+09:41 requeued fix01 and new010-015 (cut short by the usage limit)
+09:41 PAUSED by Meddy until 22:00 tonight
+09:44 SUPERVISOR: restarted a worker (7 so far), 30 of 42 slices done
+09:44 [42123] START: 2771 live pairs to fix, 38454 new pairs, 42 slices
+09:45 COLLECTED: 2538 fixes, 33120 new
+09:45 COLLECTED: 2538 fixes, 33120 new
+09:45 SUPERVISOR: started a worker (1 so far), 0 of 9999 slices done
+09:45 SUPERVISOR: started a worker (2 so far), 0 of 9999 slices done
+09:45 [43794] START: 2771 live pairs to fix, 38454 new pairs, 166 slices
+09:45 SLICE fs000 done: 0 of 0 kept, 0 unresolved
+09:45 SLICE fs001 done: 0 of 0 kept, 0 unresolved
+09:45 SLICE fs002 done: 0 of 0 kept, 0 unresolved
+09:45 fs003 pass 0: kept 0 of 2, 2 left
+09:45 fs003 pass 1: kept 0 of 2, 2 left
+09:45 fs003 pass 2: kept 0 of 2, 2 left
+09:45 fs003 pass 3: kept 0 of 2, 2 left
+09:45 fs003 pass 4: kept 0 of 2, 2 left
+09:45 fs003 pass 5: kept 0 of 2, 2 left
+09:45 SLICE fs003 done: 0 of 2 kept, 2 unresolved
+09:45 SUPERVISOR: started a worker (3 so far), 0 of 9999 slices done
+09:45 [43817] START: 2771 live pairs to fix, 38454 new pairs, 166 slices
+09:45 [44023] START: 2771 live pairs to fix, 38454 new pairs, 166 slices
+09:55 COLLECTED: 2538 fixes, 33120 new
+10:05 COLLECTED: 2538 fixes, 33120 new
+10:15 COLLECTED: 2538 fixes, 33120 new
+10:25 COLLECTED: 2538 fixes, 33120 new
+10:36 COLLECTED: 2538 fixes, 33120 new
+10:46 COLLECTED: 2538 fixes, 33120 new
+10:56 COLLECTED: 2538 fixes, 33120 new
+11:06 COLLECTED: 2538 fixes, 33120 new
+11:16 COLLECTED: 2538 fixes, 33120 new
+11:26 COLLECTED: 2538 fixes, 33120 new
+11:36 COLLECTED: 2538 fixes, 33120 new
+11:47 COLLECTED: 2538 fixes, 33120 new
+11:57 COLLECTED: 2538 fixes, 33120 new
+12:10 COLLECTED: 2538 fixes, 33120 new
+12:21 COLLECTED: 2538 fixes, 33120 new
+12:31 COLLECTED: 2538 fixes, 33120 new
+12:41 COLLECTED: 2538 fixes, 33120 new
+12:51 COLLECTED: 2538 fixes, 33120 new
+13:01 COLLECTED: 2538 fixes, 33120 new
+13:11 COLLECTED: 2538 fixes, 33120 new
+13:22 COLLECTED: 2538 fixes, 33120 new
+13:32 COLLECTED: 2538 fixes, 33120 new
+13:42 COLLECTED: 2538 fixes, 33120 new
+13:52 COLLECTED: 2538 fixes, 33120 new
+14:02 COLLECTED: 2538 fixes, 33120 new
+14:13 COLLECTED: 2538 fixes, 33120 new
+14:23 COLLECTED: 2538 fixes, 33120 new
+14:33 COLLECTED: 2538 fixes, 33120 new
+14:43 COLLECTED: 2538 fixes, 33120 new
+14:48 Sonnet workers STOPPED by Meddy; restart only when she says (nohup caffeinate -i ./supervise2.sh from scripts/descriptions)
+14:54 COLLECTED: 2538 fixes, 33120 new
+15:04 COLLECTED: 2538 fixes, 33120 new
+15:14 COLLECTED: 2538 fixes, 33120 new
+15:24 COLLECTED: 2538 fixes, 33120 new
+15:34 COLLECTED: 2538 fixes, 33120 new
+15:44 COLLECTED: 2538 fixes, 33120 new
+15:55 COLLECTED: 2538 fixes, 33120 new
+16:05 COLLECTED: 2538 fixes, 33120 new

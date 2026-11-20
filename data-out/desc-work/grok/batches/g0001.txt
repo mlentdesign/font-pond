@@ -1,0 +1,150 @@
+[gen-fs-bevellier-gf-faustina]
+Heading: Bevellier (display). Feel: sophisticated, graceful. Build: a flat, stencil-cut feel from strokes of single weight; very close sidebearings on every glyph; a high, wide-looking lowercase with squat ascenders
+Body: Faustina (serif). Feel: classic, authoritative. Build: bowls that thin gracefully but not sharply; an open-jawed c like a pair of pliers; capitals that sit only slightly taller than the lowercase
+Difference between them: heading has a lack of stress in every curve vs body stems only a shade heavier than their connecting arms; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run
+
+[gen-fs-bevellier-gf-pridi]
+Heading: Bevellier (display). Feel: sophisticated, graceful. Build: a flat, stencil-cut feel from strokes of single weight; very close sidebearings on every glyph; a high, wide-looking lowercase with squat ascenders
+Body: Pridi (serif). Feel: classic, refined. Build: generous space between curve ends and the stem; small letters standing proud and almost capital-sized
+Difference between them: heading has letters that read like outlines drawn in one width vs body low; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with how the body font reads. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run
+
+[gen-fs-bevellier-gf-scope-one]
+Heading: Bevellier (display). Feel: sophisticated, graceful. Build: a flat, stencil-cut feel from strokes of single weight; very close sidebearings on every glyph; a high, wide-looking lowercase with squat ascenders
+Body: Scope One (serif). Feel: traditional, refined. Build: counters that spill out into the surrounding space; stubby ascenders and descenders next to a big x-height
+Difference between them: a display heading with a serif body; heading has a pipe-cleaner look to the strokes vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: Skip any sizing advice; spend the sentence on how a longer stretch of the body reads.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run
+
+[gen-fs-bonny-gf-lexend-giga]
+Heading: Bonny (serif). Feel: literary, refined. Build: a mid-range gap between the boldest and faintest strokes; letter curves that look like they are gaping; tight-set lines of text
+Body: Lexend Giga (sans-serif). Feel: modern, professional. Build: flat, single-weight linework; generous tracking that opens each word; ascenders barely clearing the x-height
+Difference between them: moderate vs high lowercase height; heading has thins that never turn spindly vs body tails and terminals as thick as the main stems
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run
+
+[gen-fs-bonny-gf-lexend-mega]
+Heading: Bonny (serif). Feel: literary, refined. Build: a mid-range gap between the boldest and faintest strokes; letter curves that look like they are gaping; tight-set lines of text
+Body: Lexend Mega (sans-serif). Feel: approachable, modern. Build: a drawn-with-one-nib look; a body height that nearly matches the capitals; a visible gap between the ends of every c
+Difference between them: heading has the slight heft change of a stone-carved inscription vs body a monoweight skeleton; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with how the body font reads. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run
+
+[gen-fs-bonny-gf-lexend-tera]
+Heading: Bonny (serif). Feel: literary, refined. Build: a mid-range gap between the boldest and faintest strokes; letter curves that look like they are gaping; tight-set lines of text
+Body: Lexend Tera (sans-serif). Feel: contemporary, clean. Build: a single-weight line like a plotter pen draws; open-faced curves on every rounded letter; letters standing as far apart as stepping stones
+Difference between them: moderate vs high lowercase height; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with how the body font reads. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run
+
+[gen-fs-erode-gf-julius-sans-one]
+Heading: Erode (serif). Feel: crisp, graceful. Build: apertures that stay open at tiny sizes; horizontals that are lighter but never threadlike; a prominent x-height
+Body: Julius Sans One (sans-serif). Feel: clean, approachable. Build: minimal difference between capital height and lowercase height; big stretches of blank space between letters; an open-ended look on every curved letter
+Difference between them: heading has slightly thinner hairlines vs body bowls and stems drawn at the same weight; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run
+
+[gen-fs-erode-gf-lexend-tera]
+Heading: Erode (serif). Feel: crisp, graceful. Build: apertures that stay open at tiny sizes; horizontals that are lighter but never threadlike; a prominent x-height
+Body: Lexend Tera (sans-serif). Feel: contemporary, clean. Build: a single-weight line like a plotter pen draws; open-faced curves on every rounded letter; letters standing as far apart as stepping stones
+Difference between them: a serif heading with a sans-serif body; heading has gently modulated strokes with no sharp hairlines vs body a sensation of tracing a single thick thread
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with how the body font reads. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run
+
+[gen-irish-grover-gf-sintony]
+Heading: Irish Grover (display). Feel: fun, organic. Build: tall lowercase that makes words look sturdy and large; a, c, e, and s with open throats; softly varied stroke thickness
+Body: Sintony (sans-serif). Feel: clean, contemporary. Build: a chunky, tall midzone; a smooth read with no clogged curves
+Difference between them: a display heading with a sans-serif body; heading has a light touch of stroke modulation vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run
+
+[gen-fs-expose-gf-glegoo]
+Heading: Expose (display). Feel: striking, refined. Build: minimal gap between x-height and caps; a compressed cadence with very little pause
+Body: Glegoo (serif). Feel: refined, editorial. Build: big counters in a tall lowercase; curved letters with wide, unclosed mouths
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run
+
+[gen-fs-expose-gf-piazzolla]
+Heading: Expose (display). Feel: striking, refined. Build: minimal gap between x-height and caps; a compressed cadence with very little pause
+Body: Piazzolla (serif). Feel: refined, authoritative. Build: lowercase nearly matching the capitals; a lowercase e opened like a pried clasp
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run
+
+[gen-fs-expose-gf-scope-one]
+Heading: Expose (display). Feel: striking, refined. Build: minimal gap between x-height and caps; a compressed cadence with very little pause
+Body: Scope One (serif). Feel: traditional, refined. Build: counters that spill out into the surrounding space; stubby ascenders and descenders next to a big x-height
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run
+
+[gen-fs-gambarino-gf-lexend-zetta]
+Heading: Gambarino (serif). Feel: authoritative, dramatic. Build: heavy ink-flooded stems with hairline whiskers
+Body: Lexend Zetta (sans-serif). Feel: approachable, contemporary. Build: strokes like cut ribbon of constant width; tall-bodied small letters; widely tracked type
+Difference between them: a serif heading with a sans-serif body; moderate vs high lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run
+
+[gen-fs-kalam-archivo]
+Heading: Kalam (handwritten). Feel: inviting, cozy. Build: lines of text that look tightly bundled; a hand-drawn feel
+Body: Archivo (sans-serif). Feel: editorial, approachable. Build: curves that open outward instead of curling in; a commanding x-height
+Difference between them: a handwritten heading with a sans-serif body; moderate vs high lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run
+
+[gen-fs-kalam-clash-grotesk]
+Heading: Kalam (handwritten). Feel: inviting, cozy. Build: lines of text that look tightly bundled; a hand-drawn feel
+Body: Clash Grotesk (sans-serif). Feel: clean, approachable. Build: no thick-and-thin modulation at all
+Difference between them: a handwritten heading with a sans-serif body; heading has low vs body a wire-bent look across the whole word
+Reading note: comfortable in small doses
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: carries a longer run

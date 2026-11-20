@@ -1,0 +1,337 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 327,
+ "first_pass_fail_pct": 77.0,
+ "after_repair_1_fail_pct": 77.0,
+ "after_repair_2_fail_pct": 77.0,
+ "set_offender_pct_before": 43.4,
+ "set_offender_pct_after": 43.4,
+ "final_item_fail_pct": 77.0,
+ "failing": {
+  "gen-fs-segment-fs-merriweather-sans": [
+   "words-46",
+   "sentence-length-34"
+  ],
+  "gen-fs-segment-fs-nunito": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-segment-fs-ranade": [
+   "words-44",
+   "sentence-length-29"
+  ],
+  "gen-fs-segment-manrope": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-segment-work-sans": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-sharpie-plus-jakarta-sans": [
+   "words-41"
+  ],
+  "gen-fs-stardom-fs-nunito": [
+   "sentence-length-25"
+  ],
+  "gen-fs-stardom-fs-public-sans": [
+   "missing-heading-name",
+   "sentence-length-6",
+   "phrase:a longer passage"
+  ],
+  "gen-fs-stardom-fs-supreme": [
+   "words-41",
+   "sentence-length-26"
+  ],
+  "gen-fs-stardom-montserrat": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-striper-fs-plein": [
+   "sentence-length-25",
+   "phrase:a longer passage"
+  ],
+  "gen-fs-striper-plus-jakarta-sans": [
+   "missing-heading-name",
+   "sentence-length-5"
+  ],
+  "gen-fs-striper-space-grotesk": [
+   "missing-heading-name",
+   "sentence-length-5"
+  ],
+  "gen-fs-tanker-archivo": [
+   "words-44",
+   "sentence-length-26",
+   "phrase:a longer passage"
+  ],
+  "gen-fs-tanker-fs-asap": [
+   "words-41"
+  ],
+  "gen-fs-tanker-fs-fira-sans": [
+   "words-45",
+   "sentence-length-26"
+  ],
+  "gen-fs-tanker-fs-hind": [
+   "sentence-length-6"
+  ],
+  "gen-fs-tanker-manrope": [
+   "missing-heading-name",
+   "sentence-length-7",
+   "phrase:a longer passage"
+  ],
+  "gen-fs-teko-bitter": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-zina-fs-plein": [
+   "words-43",
+   "phrase:a clean sans"
+  ],
+  "gen-fs-zina-outfit": [
+   "sentence-length-4"
+  ],
+  "gen-fs-zina-space-grotesk": [
+   "sentence-length-25"
+  ],
+  "gen-gf-abeezee-fs-erode": [
+   "sentence-length-26"
+  ],
+  "gen-gf-abyssinica-sil-fs-epilogue": [
+   "words-25",
+   "sentence-length-7"
+  ],
+  "gen-gf-abyssinica-sil-fs-fira-sans": [
+   "words-41"
+  ],
+  "gen-gf-abyssinica-sil-fs-public-sans": [
+   "sentence-length-6"
+  ],
+  "gen-gf-abyssinica-sil-montserrat": [
+   "sentence-length-26"
+  ],
+  "gen-gf-abyssinica-sil-switzer": [
+   "words-42"
+  ],
+  "gen-gf-aldrich-fs-erode": [
+   "words-47",
+   "sentence-length-27"
+  ],
+  "gen-gf-alumni-sans-pinstripe-fs-erode": [
+   "missing-heading-name",
+   "sentence-length-25"
+  ],
+  "gen-gf-amiko-fs-erode": [
+   "phrase:in its strokes"
+  ],
+  "gen-gf-anaheim-fs-karma": [
+   "phrase:the page a",
+   "phrase:gives the page"
+  ],
+  "gen-gf-anek-malayalam-fs-erode": [
+   "sentence-length-26"
+  ],
+  "gen-gf-anek-malayalam-fs-karma": [
+   "words-42",
+   "sentence-length-32"
+  ],
+  "gen-gf-anek-odia-fs-erode": [
+   "words-41",
+   "sentence-length-30"
+  ],
+  "gen-gf-anek-odia-fs-karma": [
+   "words-43"
+  ],
+  "gen-gf-anek-tamil-fs-karma": [
+   "missing-heading-name"
+  ],
+  "gen-gf-anek-telugu-fs-karma": [
+   "sentence-length-29"
+  ],
+  "gen-gf-anton-sc-fs-karma": [
+   "sentence-length-27"
+  ],
+  "gen-gf-antonio-fs-erode": [
+   "phrase:a longer passage"
+  ],
+  "gen-gf-anuphan-fs-erode": [
+   "sentence-length-25"
+  ],
+  "gen-gf-anuphan-fs-karma": [
+   "words-42"
+  ],
+  "gen-gf-arbutus-manrope": [
+   "sentence-length-7"
+  ],
+  "gen-gf-arimo-fs-karma": [
+   "words-22",
+   "sentence-length-4"
+  ],
+  "gen-gf-armata-fs-erode": [
+   "missing-heading-name",
+   "sentence-length-5"
+  ],
+  "gen-gf-arsenal-fs-erode": [
+   "sentence-length-27"
+  ],
+  "gen-gf-arsenal-sc-fs-erode": [
+   "sentence-length-4"
+  ],
+  "gen-gf-asimovian-fs-erode": [
+   "words-41",
+   "phrase:a longer passage"
+  ],
+  "gen-gf-asimovian-fs-karma": [
+   "words-41"
+  ],
+  "gen-gf-athiti-fs-karma": [
+   "words-42"
+  ],
+  "gen-gf-atkinson-hyperlegible-mono-fs-erode": [
+   "words-43"
+  ],
+  "gen-gf-atkinson-hyperlegible-mono-fs-karma": [
+   "missing-heading-name"
+  ],
+  "gen-gf-atkinson-hyperlegible-next-fs-karma": [
+   "missing-heading-name"
+  ],
+  "gen-gf-balsamiq-sans-instrument-sans": [
+   "sentence-length-5"
+  ],
+  "gen-gf-bellota-instrument-sans": [
+   "sentence-length-7"
+  ],
+  "gen-gf-bellota-rubik": [
+   "words-42"
+  ],
+  "gen-gf-bellota-text-mulish": [
+   "sentence-length-26"
+  ],
+  "gen-gf-biryani-fs-karma": [
+   "words-23",
+   "sentence-length-6"
+  ],
+  "gen-gf-black-han-sans-fs-erode": [
+   "sentence-length-4"
+  ],
+  "gen-gf-bree-serif-fs-be-vietnam-pro": [
+   "sentence-length-6"
+  ],
+  "gen-gf-bree-serif-fs-merriweather-sans": [
+   "sentence-length-25",
+   "person:studio"
+  ],
+  "gen-gf-bruno-ace-bitter": [
+   "sentence-length-25"
+  ],
+  "gen-gf-bruno-ace-roboto-slab": [
+   "words-43"
+  ],
+  "gen-gf-bruno-ace-rubik": [
+   "sentence-length-27"
+  ],
+  "gen-gf-cal-sans-fs-karma": [
+   "words-41"
+  ],
+  "gen-gf-cambo-fs-supreme": [
+   "phrase:a longer passage"
+  ],
+  "gen-gf-cascadia-code-fs-karma": [
+   "words-44",
+   "sentence-length-34"
+  ],
+  "gen-gf-cascadia-mono-fs-erode": [
+   "phrase:the page a",
+   "phrase:gives the page"
+  ],
+  "gen-gf-cascadia-mono-fs-karma": [
+   "sentence-length-5"
+  ],
+  "gen-gf-cherry-swash-rubik": [
+   "words-41"
+  ],
+  "gen-gf-chivo-fs-karma": [
+   "words-44"
+  ],
+  "gen-gf-chivo-mono-fs-merriweather-sans": [
+   "sentence-length-5"
+  ],
+  "gen-gf-chivo-mono-fs-supreme": [
+   "sentence-length-7"
+  ],
+  "gen-gf-chivo-mono-satoshi": [
+   "sentence-length-6"
+  ],
+  "gen-gf-chocolate-classical-sans-fs-erode": [
+   "missing-heading-name",
+   "sentence-length-25"
+  ],
+  "gen-gf-chocolate-classical-sans-fs-karma": [
+   "sentence-length-5"
+  ],
+  "gen-gf-comic-relief-bitter": [
+   "sentence-length-6"
+  ],
+  "gen-gf-comme-fs-karma": [
+   "sentence-length-25"
+  ],
+  "gen-gf-domine-fs-epilogue": [
+   "words-24",
+   "sentence-length-6"
+  ],
+  "gen-gf-domine-fs-fira-sans": [
+   "sentence-length-29"
+  ],
+  "gen-gf-domine-fs-supreme": [
+   "words-44",
+   "sentence-length-25"
+  ],
+  "gen-gf-domine-manrope": [
+   "sentence-length-6"
+  ],
+  "gen-gf-domine-montserrat": [
+   "phrase:plain sans body"
+  ],
+  "gen-gf-epunda-sans-fs-erode": [
+   "words-43"
+  ],
+  "gen-gf-epunda-sans-fs-karma": [
+   "sentence-length-26"
+  ],
+  "gen-gf-epunda-slab-fs-be-vietnam-pro": [
+   "sentence-length-7"
+  ],
+  "gen-gf-fanwood-text-fs-epilogue": [
+   "phrase:a longer passage"
+  ],
+  "gen-gf-fanwood-text-fs-public-sans": [
+   "sentence-length-4"
+  ],
+  "gen-gf-fanwood-text-manrope": [
+   "sentence-length-27"
+  ],
+  "gen-gf-fanwood-text-switzer": [
+   "sentence-length-7"
+  ],
+  "gen-gf-faustina-switzer": [
+   "sentence-length-7"
+  ],
+  "gen-gf-fira-mono-fs-merriweather-sans": [
+   "missing-heading-name",
+   "sentence-length-6"
+  ],
+  "gen-gf-fira-mono-fs-supreme": [
+   "sentence-length-7"
+  ],
+  "gen-gf-fjalla-one-fs-karma": [
+   "sentence-length-5"
+  ],
+  "gen-gf-francois-one-fs-erode": [
+   "missing-heading-name",
+   "sentence-length-28"
+  ],
+  "gen-gf-fresca-fs-karma": [
+   "words-23",
+   "sentence-length-4"
+  ],
+  "gen-gf-gabarito-inter": [
+   "sentence-length-5"
+  ]
+ }
+}

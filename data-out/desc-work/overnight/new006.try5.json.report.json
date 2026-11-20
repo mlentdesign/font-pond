@@ -1,0 +1,25 @@
+{
+ "model": "sonnet",
+ "asked": 6,
+ "first_pass_returned": 6,
+ "first_pass_fail_pct": 83.3,
+ "after_repair_1_fail_pct": 66.7,
+ "after_repair_2_fail_pct": 66.7,
+ "set_offender_pct_before": 16.7,
+ "set_offender_pct_after": 16.7,
+ "final_item_fail_pct": 66.7,
+ "failing": {
+  "gen-gf-paprika-gf-carrois-gothic": [
+   "sentence-length-6"
+  ],
+  "gen-gf-paprika-gf-noto-sans-kannada": [
+   "sentence-length-5"
+  ],
+  "gen-gf-revalia-gf-funnel-sans": [
+   "sentence-length-7"
+  ],
+  "gen-gf-revalia-gf-noto-sans-kaithi": [
+   "sentence-length-7"
+  ]
+ }
+}

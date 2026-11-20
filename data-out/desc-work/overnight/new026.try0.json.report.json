@@ -1,0 +1,19 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 998,
+ "first_pass_fail_pct": 27.3,
+ "after_repair_1_fail_pct": 2.4,
+ "after_repair_2_fail_pct": 0.4,
+ "set_offender_pct_before": 28.4,
+ "set_offender_pct_after": 8.3,
+ "final_item_fail_pct": 0.2,
+ "failing": {
+  "gen-flavors-gf-krona-one": [
+   "sentence-length-5"
+  ],
+  "gen-fs-new-title-gf-inika": [
+   "sentence-length-5"
+  ]
+ }
+}

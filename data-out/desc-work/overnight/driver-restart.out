@@ -1,0 +1,120 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 999,
+ "first_pass_fail_pct": 30.5,
+ "after_repair_1_fail_pct": 5.8,
+ "after_repair_2_fail_pct": 0.4,
+ "set_offender_pct_before": 31.7,
+ "set_offender_pct_after": 9.9,
+ "final_item_fail_pct": 0.3
+}
+{
+ "model": "sonnet",
+ "asked": 3,
+ "first_pass_returned": 3,
+ "first_pass_fail_pct": 100.0,
+ "after_repair_1_fail_pct": 33.3,
+ "after_repair_2_fail_pct": 33.3,
+ "set_offender_pct_before": 0.0,
+ "final_item_fail_pct": 33.3
+}
+{
+ "model": "sonnet",
+ "asked": 1,
+ "first_pass_returned": 1,
+ "first_pass_fail_pct": 0.0,
+ "set_offender_pct_before": 0.0,
+ "final_item_fail_pct": 0.0
+}
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 997,
+ "first_pass_fail_pct": 33.1,
+ "after_repair_1_fail_pct": 3.9,
+ "after_repair_2_fail_pct": 0.8,
+ "set_offender_pct_before": 19.1,
+ "set_offender_pct_after": 4.6,
+ "final_item_fail_pct": 0.8
+}
+{
+ "model": "sonnet",
+ "asked": 8,
+ "first_pass_returned": 8,
+ "first_pass_fail_pct": 62.5,
+ "after_repair_1_fail_pct": 62.5,
+ "after_repair_2_fail_pct": 37.5,
+ "set_offender_pct_before": 0.0,
+ "final_item_fail_pct": 37.5
+}
+{
+ "model": "sonnet",
+ "asked": 3,
+ "first_pass_returned": 3,
+ "first_pass_fail_pct": 66.7,
+ "after_repair_1_fail_pct": 66.7,
+ "after_repair_2_fail_pct": 66.7,
+ "set_offender_pct_before": 0.0,
+ "final_item_fail_pct": 66.7
+}
+{
+ "model": "sonnet",
+ "asked": 2,
+ "first_pass_returned": 2,
+ "first_pass_fail_pct": 100.0,
+ "after_repair_1_fail_pct": 50.0,
+ "after_repair_2_fail_pct": 50.0,
+ "set_offender_pct_before": 0.0,
+ "final_item_fail_pct": 50.0
+}
+{
+ "model": "sonnet",
+ "asked": 1,
+ "first_pass_returned": 1,
+ "first_pass_fail_pct": 100.0,
+ "after_repair_1_fail_pct": 100.0,
+ "after_repair_2_fail_pct": 100.0,
+ "set_offender_pct_before": 0.0,
+ "final_item_fail_pct": 100.0
+}
+{
+ "model": "sonnet",
+ "asked": 1,
+ "first_pass_returned": 1,
+ "first_pass_fail_pct": 100.0,
+ "after_repair_1_fail_pct": 100.0,
+ "after_repair_2_fail_pct": 100.0,
+ "set_offender_pct_before": 0.0,
+ "final_item_fail_pct": 100.0
+}
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 987,
+ "first_pass_fail_pct": 26.6,
+ "after_repair_1_fail_pct": 2.8,
+ "after_repair_2_fail_pct": 1.1,
+ "set_offender_pct_before": 34.4,
+ "set_offender_pct_after": 6.7,
+ "final_item_fail_pct": 1.1
+}
+{
+ "model": "sonnet",
+ "asked": 11,
+ "first_pass_returned": 11,
+ "first_pass_fail_pct": 81.8,
+ "after_repair_1_fail_pct": 81.8,
+ "after_repair_2_fail_pct": 9.1,
+ "set_offender_pct_before": 18.2,
+ "set_offender_pct_after": 9.1,
+ "final_item_fail_pct": 9.1
+}
+{
+ "model": "sonnet",
+ "asked": 1,
+ "first_pass_returned": 1,
+ "first_pass_fail_pct": 0.0,
+ "set_offender_pct_before": 0.0,
+ "final_item_fail_pct": 0.0
+}

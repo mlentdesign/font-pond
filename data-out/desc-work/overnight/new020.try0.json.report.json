@@ -1,0 +1,19 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 1000,
+ "first_pass_fail_pct": 30.6,
+ "after_repair_1_fail_pct": 2.8,
+ "after_repair_2_fail_pct": 0.4,
+ "set_offender_pct_before": 28.1,
+ "set_offender_pct_after": 8.3,
+ "final_item_fail_pct": 0.2,
+ "failing": {
+  "gen-dafont-jelly-crazies-gf-anek-telugu": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-junegull-gf-noto-sans-georgian": [
+   "sentence-length-6"
+  ]
+ }
+}

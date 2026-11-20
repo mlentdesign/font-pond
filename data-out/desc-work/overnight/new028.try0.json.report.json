@@ -1,0 +1,52 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 985,
+ "first_pass_fail_pct": 31.5,
+ "after_repair_1_fail_pct": 4.1,
+ "after_repair_2_fail_pct": 1.4,
+ "set_offender_pct_before": 32.7,
+ "set_offender_pct_after": 11.5,
+ "final_item_fail_pct": 1.3,
+ "failing": {
+  "gen-gf-bruno-ace-gf-zen-kaku-gothic-new": [
+   "sentence-length-7"
+  ],
+  "gen-gf-bruno-ace-sc-gf-didact-gothic": [
+   "sentence-length-7"
+  ],
+  "gen-gf-bruno-ace-sc-gf-finlandica": [
+   "sentence-length-7"
+  ],
+  "gen-gf-bruno-ace-sc-gf-kantumruy-pro": [
+   "sentence-length-5"
+  ],
+  "gen-gf-bruno-ace-sc-gf-koho": [
+   "sentence-length-25"
+  ],
+  "gen-gf-bruno-ace-sc-gf-m-plus-rounded-1c": [
+   "sentence-length-7"
+  ],
+  "gen-gf-bruno-ace-sc-gf-noto-sans-cypriot": [
+   "sentence-length-7"
+  ],
+  "gen-gf-bruno-ace-sc-gf-tuffy": [
+   "sentence-length-7"
+  ],
+  "gen-gf-cherry-swash-clash-grotesk": [
+   "missing-heading-name"
+  ],
+  "gen-gf-cherry-swash-gf-bai-jamjuree": [
+   "sentence-length-7"
+  ],
+  "gen-gf-cherry-swash-gf-national-park": [
+   "sentence-length-5"
+  ],
+  "gen-gf-cherry-swash-gf-tenor-sans": [
+   "sentence-length-5"
+  ],
+  "gen-gf-happy-monkey-gf-albert-sans": [
+   "sentence-length-6"
+  ]
+ }
+}

@@ -1,0 +1,149 @@
+[gen-gf-autour-one-gf-noto-serif-todhri]
+Heading: Autour One (display). Feel: expressive, bold. Build: a clear channel leading into each round letter; no hairline-to-stem shift; a minimal cap-to-lowercase step
+Body: Noto Serif Todhri (serif). Feel: classic, traditional. Build: curves whose thinnest points still carry real weight; a sizable x-height for screen reading
+Difference between them: a display heading with a serif body; heading has a monoline skeleton vs body a restful line with modest swings in stroke weight
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the heading font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: then sits as a
+
+[gen-gf-autour-one-gf-noto-serif-vithkuqi]
+Heading: Autour One (display). Feel: expressive, bold. Build: a clear channel leading into each round letter; no hairline-to-stem shift; a minimal cap-to-lowercase step
+Body: Noto Serif Vithkuqi (serif). Feel: editorial, classic. Build: stems a touch heavier than the crossbars; big round lowercase bowls
+Difference between them: a display heading with a serif body; heading has plain constant-width lines vs body a faint nib-pressure variation across each round letter
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif of
+
+[gen-gf-autour-one-gf-odor-mean-chey]
+Heading: Autour One (display). Feel: expressive, bold. Build: a clear channel leading into each round letter; no hairline-to-stem shift; a minimal cap-to-lowercase step
+Body: Odor Mean Chey (serif). Feel: dignified, editorial. Build: a, e, and s with squeezed mouths; tall rounded lowercase forms
+Difference between them: heading has a gentle monotone of line thickness vs body low; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the body font's name. Second sentence: Only if it fits: frame the sizing hint as what happens if the heading is made small, or the body large.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-autour-one-gf-pt-serif-caption]
+Heading: Autour One (display). Feel: expressive, bold. Build: a clear channel leading into each round letter; no hairline-to-stem shift; a minimal cap-to-lowercase step
+Body: PT Serif Caption (serif). Feel: literary, editorial. Build: slightly thinner connections where curves meet stems; a clearly tall x-height you notice at a glance
+Difference between them: heading has a bent-paperclip look with no swelling vs body tame contrast, never razor thin; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-autour-one-gf-suez-one]
+Heading: Autour One (display). Feel: expressive, bold. Build: a clear channel leading into each round letter; no hairline-to-stem shift; a minimal cap-to-lowercase step
+Body: Suez One (serif). Feel: bookish, refined. Build: big open-looking e and a with tall bowls; a thin channel into each counter
+Difference between them: a display heading with a serif body; heading has no modulation in the stroke vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-autour-one-merriweather]
+Heading: Autour One (display). Feel: expressive, bold. Build: a clear channel leading into each round letter; no hairline-to-stem shift; a minimal cap-to-lowercase step
+Body: Merriweather (serif). Feel: cozy, refined. Build: a middle band so tall the line looks stocky; a soft thick-thin difference
+Difference between them: heading has a bent paperclip look with no thick thin shifts vs body a middle ground between monoline and sharply contrasted strokes; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: Skip any sizing advice; spend the sentence on how a longer stretch of the body reads.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif with
+
+[gen-gf-baloo-2-gf-glegoo]
+Heading: Baloo 2 (display). Feel: expressive, distinctive. Build: open counters that breathe into the white space; bowls that fill the line
+Body: Glegoo (serif). Feel: refined, editorial. Build: big counters in a tall lowercase; curved letters with wide, unclosed mouths
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with how the body font reads. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-baloo-bhai-2-gf-suwannaphum]
+Heading: Baloo Bhai 2 (display). Feel: bold, commanding. Build: wide-mouthed rounds in the lowercase; rounded letters that stretch high toward the top line
+Body: Suwannaphum (serif). Feel: dignified, editorial. Build: a c as open as a bent paperclip; x-height reaching high like a squared-off woodblock letter
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif of
+
+[gen-gf-baloo-bhaijaan-2-gf-fauna-one]
+Heading: Baloo Bhaijaan 2 (display). Feel: distinctive, commanding. Build: a tall central band of text; open aperture curves throughout the alphabet
+Body: Fauna One (serif). Feel: literary, dignified. Build: a tall middle band with shallow ascenders and descenders; a generous entry into the e's eye
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the body font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a tall middle band, tall
+
+[gen-gf-baloo-bhaijaan-2-gf-glegoo]
+Heading: Baloo Bhaijaan 2 (display). Feel: distinctive, commanding. Build: a tall central band of text; open aperture curves throughout the alphabet
+Body: Glegoo (serif). Feel: refined, editorial. Build: big counters in a tall lowercase; curved letters with wide, unclosed mouths
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the body font's name. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-baloo-bhaijaan-2-gf-graduate]
+Heading: Baloo Bhaijaan 2 (display). Feel: distinctive, commanding. Build: a tall central band of text; open aperture curves throughout the alphabet
+Body: Graduate (serif). Feel: dignified, bookish. Build: a generous amount of white between letters; minimal difference between capital height and lowercase height; no contrast between stems and joins
+Difference between them: heading has low vs body a drawn-in-neon-tube consistency in every stroke; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-baloo-bhaijaan-2-gf-kadwa]
+Heading: Baloo Bhaijaan 2 (display). Feel: distinctive, commanding. Build: a tall central band of text; open aperture curves throughout the alphabet
+Body: Kadwa (serif). Feel: classic, editorial. Build: open-ended curves throughout; a larger-than-usual x-height
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the body font's name. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-baloo-bhaijaan-2-gf-piazzolla]
+Heading: Baloo Bhaijaan 2 (display). Feel: distinctive, commanding. Build: a tall central band of text; open aperture curves throughout the alphabet
+Body: Piazzolla (serif). Feel: refined, authoritative. Build: lowercase nearly matching the capitals; a lowercase e opened like a pried clasp
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: Only if it fits: say where the heading font earns its keep (big and short) and leave the body font's size unmentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: its keep big and, earns its keep big and, earns its keep big, its keep big and short, keep big and short, a classic serif of, tall
+
+[gen-gf-baloo-bhaijaan-2-gf-scope-one]
+Heading: Baloo Bhaijaan 2 (display). Feel: distinctive, commanding. Build: a tall central band of text; open aperture curves throughout the alphabet
+Body: Scope One (serif). Feel: traditional, refined. Build: counters that spill out into the surrounding space; stubby ascenders and descenders next to a big x-height
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: Skip any sizing advice; spend the sentence on how the two feel next to each other.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-baloo-bhaijaan-2-gf-slabo-13px]
+Heading: Baloo Bhaijaan 2 (display). Feel: distinctive, commanding. Build: a tall central band of text; open aperture curves throughout the alphabet
+Body: Slabo 13px (serif). Feel: bookish, dignified. Build: large open counters in tall a, e and s; clear openings in rounded letters
+Difference between them: a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall

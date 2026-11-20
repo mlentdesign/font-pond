@@ -1,0 +1,28 @@
+{
+ "model": "sonnet",
+ "asked": 18,
+ "first_pass_returned": 18,
+ "first_pass_fail_pct": 77.8,
+ "after_repair_1_fail_pct": 44.4,
+ "after_repair_2_fail_pct": 38.9,
+ "set_offender_pct_before": 61.1,
+ "set_offender_pct_after": 33.3,
+ "final_item_fail_pct": 27.8,
+ "failing": {
+  "gen-gf-gugi-gf-miriam-libre": [
+   "sentence-length-5"
+  ],
+  "gen-gf-gugi-gf-mochiy-pop-p-one": [
+   "sentence-length-5"
+  ],
+  "gen-gf-love-ya-like-a-sister-gf-noto-sans-mono": [
+   "sentence-length-7"
+  ],
+  "gen-gf-love-ya-like-a-sister-gf-noto-sans-old-italic": [
+   "sentence-length-6"
+  ],
+  "gen-gf-love-ya-like-a-sister-gf-noto-sans-tai-viet": [
+   "sentence-length-7"
+  ]
+ }
+}

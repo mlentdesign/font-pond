@@ -1,0 +1,149 @@
+[gen-gf-fuzzy-bubbles-gf-noto-sans-mayan-numerals]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans Mayan Numerals (sans-serif). Feel: professional, contemporary. Build: tall-bodied small letters; a visibly gaping c at any size
+Difference between them: a handwritten heading with a sans-serif body; heading has a wire-bent look across the whole word vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-fuzzy-bubbles-gf-noto-sans-multani]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans Multani (sans-serif). Feel: modern, neutral. Build: an e with a wide gap at its terminal; a lofty x-height
+Difference between them: a handwritten heading with a sans-serif body; heading has a drawn-with-a-technical-pen steadiness vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: as a sans serif, a sans serif of
+
+[gen-gf-fuzzy-bubbles-gf-noto-sans-myanmar]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans Myanmar (sans-serif). Feel: professional, clean. Build: a thick, heavy-looking strip of text through the middle; a c with a broad, welcoming opening
+Difference between them: a handwritten heading with a sans-serif body; heading has a constant stroke from top to baseline vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the body font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-gf-fuzzy-bubbles-gf-noto-sans-newa]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans Newa (sans-serif). Feel: modern, professional. Build: a clearly open mouth on the lowercase e; tall lowercase counters and bowls
+Difference between them: a handwritten heading with a sans-serif body; heading has a rope-thin outline with no thick or thin parts vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-fuzzy-bubbles-gf-noto-sans-ol-chiki]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans Ol Chiki (sans-serif). Feel: clean, contemporary. Build: tails of curves held well back from the body; words that read as solid blocks rather than skylines
+Difference between them: heading has a wire-bent sign look with constant thickness vs body low; a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: Skip any sizing advice; spend the sentence on how the two feel next to each other.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a sans serif, a sans serif of
+
+[gen-gf-fuzzy-bubbles-gf-noto-sans-old-hungarian]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans Old Hungarian (sans-serif). Feel: approachable, contemporary. Build: large open counters in tall a, e and s; apertures that stay open at tiny sizes
+Difference between them: heading has the single-width trail of a rolling-ball pen vs body low; a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: as a plain sans, tall
+
+[gen-gf-fuzzy-bubbles-gf-noto-sans-old-sogdian]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans Old Sogdian (sans-serif). Feel: clean, approachable. Build: a tall x-height that nearly reaches cap height; wide-mouthed letters that stay crisp when shrunk
+Difference between them: heading has vertical and horizontal strokes of identical weight vs body low; a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with how the body font reads. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of, as a plain sans, reads as a plain sans, reads as a plain
+
+[gen-gf-fuzzy-bubbles-gf-noto-sans-old-turkic]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans Old Turkic (sans-serif). Feel: approachable, clean. Build: open-mouthed curves that stay clear; chunky, tall lowercase letters
+Difference between them: a handwritten heading with a sans-serif body; heading has no thick-and-thin contrast to slow the eye vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-fuzzy-bubbles-gf-noto-sans-osage]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans Osage (sans-serif). Feel: approachable, professional. Build: lowercase bowls that fill the line like inflated shapes; sweeping curves that never close up
+Difference between them: a handwritten heading with a sans-serif body; heading has round letters drawn like bent wire vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller, tall
+
+[gen-gf-fuzzy-bubbles-gf-noto-sans-pau-cin-hau]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans Pau Cin Hau (sans-serif). Feel: clean, modern. Build: open-ended curves with room to breathe; a short step from lowercase top to capital top
+Difference between them: a handwritten heading with a sans-serif body; heading has joins as thick as strokes vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with how the body font reads. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: reads as a sans
+
+[gen-gf-fuzzy-bubbles-gf-noto-sans-sc]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans SC (sans-serif). Feel: neutral, modern. Build: chalk curves that stop well before closing; ascenders that barely clear the x-height
+Difference between them: a handwritten heading with a sans-serif body; heading has strokes like thread stitched along a path vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of, tall
+
+[gen-gf-fuzzy-bubbles-gf-noto-sans-syriac]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans Syriac (sans-serif). Feel: approachable, modern. Build: tall lowercase bowls like blown glass bulbs; s shapes with wide, easy turns
+Difference between them: a handwritten heading with a sans-serif body; heading has a unit-width stroke throughout vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller, tall
+
+[gen-gf-fuzzy-bubbles-gf-noto-sans-syriac-eastern]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans Syriac Eastern (sans-serif). Feel: approachable, contemporary. Build: tall lowercase against small caps; curve endings that never get near each other
+Difference between them: heading has monoline from stem to serif vs body low; a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: Only if it fits: frame the sizing hint as what happens if the heading is made small, or the body large.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-fuzzy-bubbles-gf-noto-sans-syriac-western]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans Syriac Western (sans-serif). Feel: modern, clean. Build: terminals held far from the stroke body; small letters thick with height like bundled cable
+Difference between them: heading has lines that hold their thickness vs body low; a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of, tall
+
+[gen-gf-fuzzy-bubbles-gf-noto-sans-tangsa]
+Heading: Fuzzy Bubbles (handwritten). Feel: relaxed, personal. Build: rounded letters that stay open and inviting; the steady line of a technical drafting pen; small letters almost as tall as the capitals
+Body: Noto Sans Tangsa (sans-serif). Feel: neutral, approachable. Build: a wide, inviting opening on round letters; short ascender stems on tall lowercase bodies
+Difference between them: a handwritten heading with a sans-serif body; heading has strokes that look traced with a marker vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall

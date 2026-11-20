@@ -1,0 +1,19 @@
+{
+ "model": "sonnet",
+ "asked": 17,
+ "first_pass_returned": 17,
+ "first_pass_fail_pct": 41.2,
+ "after_repair_1_fail_pct": 17.6,
+ "after_repair_2_fail_pct": 11.8,
+ "set_offender_pct_before": 17.6,
+ "set_offender_pct_after": 5.9,
+ "final_item_fail_pct": 11.8,
+ "failing": {
+  "gen-gf-shantell-sans-gf-zcool-xiaowei": [
+   "sentence-length-7"
+  ],
+  "gen-gf-underdog-gf-noto-sans-inscriptional-pahlavi": [
+   "sentence-length-6"
+  ]
+ }
+}

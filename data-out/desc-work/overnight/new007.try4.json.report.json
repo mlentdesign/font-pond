@@ -1,0 +1,22 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 987,
+ "first_pass_fail_pct": 34.8,
+ "after_repair_1_fail_pct": 4.4,
+ "after_repair_2_fail_pct": 0.7,
+ "set_offender_pct_before": 30.0,
+ "set_offender_pct_after": 6.1,
+ "final_item_fail_pct": 0.3,
+ "failing": {
+  "gen-gf-unica-one-gf-hind-siliguri": [
+   "sentence-length-7"
+  ],
+  "gen-gf-warnes-gf-noto-sans-imperial-aramaic": [
+   "sentence-length-4"
+  ],
+  "gen-gf-warnes-gf-noto-sans-khojki": [
+   "words-41"
+  ]
+ }
+}

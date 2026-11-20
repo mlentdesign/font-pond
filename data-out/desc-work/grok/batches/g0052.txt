@@ -1,0 +1,149 @@
+[gen-gf-roboto-mono-manrope]
+Heading: Roboto Mono (monospace). Feel: technical, structured. Build: a texture where the middle zone dominates the line; fixed-width code-style letters; wide mouths on round forms
+Body: Manrope (sans-serif). Feel: approachable, clean. Build: a bright open gap at every curved letter's mouth; a minimal cap-to-lowercase step; a pen line that holds one width throughout
+Difference between them: heading has low vs body stroke edges that run parallel through every curve; a monospace heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-gf-roboto-mono-satoshi]
+Heading: Roboto Mono (monospace). Feel: technical, structured. Build: a texture where the middle zone dominates the line; fixed-width code-style letters; wide mouths on round forms
+Body: Satoshi (sans-serif). Feel: approachable, neutral. Build: a soaring x-height; a wide-open e that never looks squeezed shut; every stroke cut to one width
+Difference between them: heading has low vs body no stress axis tilting the round letters; a monospace heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-gf-rozha-one-fs-asap]
+Heading: Rozha One (serif). Feel: refined, classic. Build: little height difference between cases; fat round bowls with hairline joins to the stem
+Body: Asap (sans-serif). Feel: readable, professional. Build: c forms that read as open arcs; a body height that nearly matches the capitals
+Difference between them: heading has hairline entry strokes leading into fat black stems vs body low; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-gf-rozha-one-fs-be-vietnam-pro]
+Heading: Rozha One (serif). Feel: refined, classic. Build: little height difference between cases; fat round bowls with hairline joins to the stem
+Body: Be Vietnam Pro (sans-serif). Feel: neutral, clean. Build: curve endings that never get near each other; strokes like a bent steel rod; a mean line set high
+Difference between them: heading has a heavy-light stroke split vs body strokes pulled like solder through a nozzle; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-gf-rozha-one-fs-fira-sans]
+Heading: Rozha One (serif). Feel: refined, classic. Build: little height difference between cases; fat round bowls with hairline joins to the stem
+Body: Fira Sans (sans-serif). Feel: professional, clean. Build: s curves that open wide at both ends; zero thick and thin contrast; a larger-than-usual x-height
+Difference between them: heading has thin crossbars on thick stems vs body a lowercase a with no thin hairline strokes; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the body font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-gf-rozha-one-fs-merriweather-sans]
+Heading: Rozha One (serif). Feel: refined, classic. Build: little height difference between cases; fat round bowls with hairline joins to the stem
+Body: Merriweather Sans (sans-serif). Feel: neutral, clean. Build: tall lowercase that makes words look sturdy and large; an e whose eye opens clearly to the right
+Difference between them: heading has strokes that thicken boldly and thin sharply vs body low; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the body font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-gf-rozha-one-manrope]
+Heading: Rozha One (serif). Feel: refined, classic. Build: little height difference between cases; fat round bowls with hairline joins to the stem
+Body: Manrope (sans-serif). Feel: approachable, clean. Build: a bright open gap at every curved letter's mouth; a minimal cap-to-lowercase step; a pen line that holds one width throughout
+Difference between them: a serif heading with a sans-serif body; heading has high-voltage stroke contrast vs body strokes that resemble a bent paperclip
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with how the body font reads. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-gf-rozha-one-montserrat]
+Heading: Rozha One (serif). Feel: refined, classic. Build: little height difference between cases; fat round bowls with hairline joins to the stem
+Body: Montserrat (sans-serif). Feel: geometric, approachable. Build: lots of white space leading into each curve; oversized e and a counters; a line that glides under the eye like wire
+Difference between them: a serif heading with a sans-serif body; heading has extreme modulation from stout stems to slender hairlines vs body no tapering like a quill's pressure would make
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: Only if it fits: frame the sizing hint as what happens if the heading is made small, or the body large.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif of
+
+[gen-gf-rubik-mono-one-fs-erode]
+Heading: Rubik Mono One (sans-serif). Feel: approachable, neutral. Build: a big-bodied lowercase with compact capitals beside it; spacing like rungs on a rope ladder; tight mouths like a pursed seam of leather
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: closed heading letters vs open body letters; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the body font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a tall middle band
+
+[gen-gf-ruda-fs-erode]
+Heading: Ruda (sans-serif). Feel: neutral, clean. Build: no contrast between stems and joins; tall little letters like pen-nib bowls pressed flat; curves that finish well before they close
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: heading has no thick-thin shift, like a steel cable outline vs body moderate stroke contrast; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a tall middle band
+
+[gen-gf-ruda-fs-karma]
+Heading: Ruda (sans-serif). Feel: neutral, clean. Build: no contrast between stems and joins; tall little letters like pen-nib bowls pressed flat; curves that finish well before they close
+Body: Karma (serif). Feel: trustworthy, classic. Build: terminals that finish well clear of the stem; very little gap between x-height and cap height; a calm modulation that never snags the eye
+Difference between them: heading has letters that look bent from a single wire vs body medium-low stress between stem and hairline; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: Skip any sizing advice; spend the sentence on how the two feel next to each other.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif of
+
+[gen-gf-russo-one-fs-erode]
+Heading: Russo One (sans-serif). Feel: modern, contemporary. Build: e counters closed like a stamped metal eyelet; big-bodied lowercase letters
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: closed heading letters vs open body letters; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif of
+
+[gen-gf-saira-fs-erode]
+Heading: Saira (sans-serif). Feel: neutral, clean. Build: terminals held far from the stroke body; a high, wide-looking lowercase with squat ascenders
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: a sans-serif heading with a serif body; heading has low vs body a small but steady difference in stroke thickness
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the body font's name. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a tall middle band
+
+[gen-gf-saira-condensed-fs-erode]
+Heading: Saira Condensed (sans-serif). Feel: neutral, clean. Build: a marker-drawn plainness in every character; tall-bodied small letters; characters jammed close
+Body: Erode (serif). Feel: editorial, dignified. Build: a tall middle band with shallow ascenders and descenders; a broad aperture on the g and a; a gentle ebb and flow of stroke weight
+Difference between them: a sans-serif heading with a serif body; heading has no thick-thin modulation vs body thick strokes that lead the eye without dominating it
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the body font's name. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a tall middle band, a classic serif of
+
+[gen-gf-saira-extra-condensed-fs-literata]
+Heading: Saira Extra Condensed (sans-serif). Feel: modern, contemporary. Build: letters pulled in near each other; stroke thickness without variation; a stretched x-height
+Body: Literata (serif). Feel: sophisticated, bookish. Build: sturdy thin lines paired with slightly heavier thick ones; curved letters with wide, unclosed mouths
+Difference between them: heading has a single stroke width running through the whole alphabet vs body softly varied stroke thickness; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with how the body font reads. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif of

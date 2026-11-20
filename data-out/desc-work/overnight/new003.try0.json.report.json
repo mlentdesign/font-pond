@@ -1,0 +1,178 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 996,
+ "first_pass_fail_pct": 28.7,
+ "after_repair_1_fail_pct": 5.3,
+ "after_repair_2_fail_pct": 5.3,
+ "set_offender_pct_before": 35.7,
+ "set_offender_pct_after": 35.7,
+ "final_item_fail_pct": 5.3,
+ "failing": {
+  "gen-dafont-early-gameboy-mulish": [
+   "missing-heading-name",
+   "sentence-length-5"
+  ],
+  "gen-dafont-early-gameboy-roboto-slab": [
+   "missing-heading-name",
+   "sentence-length-6"
+  ],
+  "gen-dafont-eight-bit-dragon-gf-kadwa": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-franchise-gf-marcellus-sc": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-good-times-fs-epilogue": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-good-times-satoshi": [
+   "sentence-length-28"
+  ],
+  "gen-dafont-groovy-gf-noticia-text": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-groovy-gf-pridi": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-jelly-crazies-inter": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-joystix-gf-fauna-one": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-nasalization-gf-pridi": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-nasalization-gf-slabo-13px": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-neon-gf-noticia-text": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-redux-gf-piazzolla": [
+   "sentence-length-26"
+  ],
+  "gen-dafont-true-north-fs-supreme": [
+   "sentence-length-3"
+  ],
+  "gen-dafont-true-north-satoshi": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-true-north-switzer": [
+   "words-25",
+   "sentence-length-7"
+  ],
+  "gen-dafont-true-north-work-sans": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-visitor-gf-glegoo": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-visitor-gf-scope-one": [
+   "sentence-length-4"
+  ],
+  "gen-eater-gf-anek-gujarati": [
+   "sentences-1"
+  ],
+  "gen-eater-gf-anek-telugu": [
+   "sentence-length-7"
+  ],
+  "gen-eater-gf-atkinson-hyperlegible-next": [
+   "sentence-length-27"
+  ],
+  "gen-eater-gf-noto-sans-buhid": [
+   "sentence-length-7"
+  ],
+  "gen-eater-gf-noto-sans-hebrew": [
+   "sentence-length-6"
+  ],
+  "gen-audiowide-gf-noto-sans-thai-looped": [
+   "sentence-length-6"
+  ],
+  "gen-audiowide-gf-noto-sans-wancho": [
+   "words-24",
+   "sentence-length-7"
+  ],
+  "gen-eater-gf-noto-sans-mono": [
+   "sentence-length-6"
+  ],
+  "gen-audiowide-gf-onest": [
+   "words-24",
+   "sentence-length-7"
+  ],
+  "gen-eater-gf-noto-sans-nushu": [
+   "sentence-length-6"
+  ],
+  "gen-audiowide-gf-roboto": [
+   "phrase:the page a"
+  ],
+  "gen-almendra-display-gf-saira": [
+   "sentence-length-5"
+  ],
+  "gen-audiowide-gf-ruda": [
+   "words-23"
+  ],
+  "gen-flavors-gf-geist": [
+   "sentence-length-25"
+  ],
+  "gen-flavors-gf-noto-sans-osmanya": [
+   "sentence-length-7"
+  ],
+  "gen-eater-gf-sofia-sans-semi-condensed": [
+   "words-46",
+   "sentence-length-33",
+   "phrase:a longer passage"
+  ],
+  "gen-fs-azeret-mono-manrope": [
+   "sentence-length-7"
+  ],
+  "gen-fs-bespoke-slab-fs-asap": [
+   "sentence-length-26"
+  ],
+  "gen-fs-chubbo-gf-slabo-13px": [
+   "sentence-length-6"
+  ],
+  "gen-audiowide-gf-noto-sans-nabataean": [
+   "sentence-length-7"
+  ],
+  "gen-fs-excon-gf-suwannaphum": [
+   "sentence-length-25"
+  ],
+  "gen-fs-hoover-general-sans": [
+   "sentence-length-28"
+  ],
+  "gen-fs-hoover-manrope": [
+   "words-42",
+   "sentence-length-31"
+  ],
+  "gen-fs-hoover-switzer": [
+   "missing-heading-name"
+  ],
+  "gen-fs-kalam-fs-plein": [
+   "sentence-length-28"
+  ],
+  "gen-fs-oswald-gf-kadwa": [
+   "sentence-length-27"
+  ],
+  "gen-fs-oswald-gf-noticia-text": [
+   "sentence-length-3"
+  ],
+  "gen-fs-oswald-gf-scope-one": [
+   "words-43",
+   "sentences-3"
+  ],
+  "gen-fs-oswald-gf-slabo-13px": [
+   "sentence-length-25"
+  ],
+  "gen-fs-oswald-mulish": [
+   "sentence-length-27"
+  ],
+  "gen-fs-paquito-fs-supreme": [
+   "sentence-length-28"
+  ],
+  "gen-dafont-hammerhead-fs-bespoke-sans": [
+   "person:reader"
+  ]
+ }
+}

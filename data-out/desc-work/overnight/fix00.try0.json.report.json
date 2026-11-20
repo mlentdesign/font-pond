@@ -1,0 +1,31 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 993,
+ "first_pass_fail_pct": 34.7,
+ "after_repair_1_fail_pct": 4.2,
+ "after_repair_2_fail_pct": 0.8,
+ "set_offender_pct_before": 14.9,
+ "set_offender_pct_after": 5.8,
+ "final_item_fail_pct": 0.6,
+ "failing": {
+  "curated-boska-gf-red-hat-text": [
+   "sentence-length-7"
+  ],
+  "curated-dafont-pixel-operator-work-sans": [
+   "sentence-length-7"
+  ],
+  "curated-gf-allura-gf-della-respira": [
+   "person:brand"
+  ],
+  "curated-gf-edu-vic-wa-nt-hand-pre-gf-tsukimi-rounded": [
+   "sentence-length-6"
+  ],
+  "curated-gf-jersey-10-charted-gf-noto-nastaliq-urdu": [
+   "sentence-length-7"
+  ],
+  "curated-gf-kapakana-gf-spectral-sc": [
+   "sentence-length-25"
+  ]
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "model": "sonnet",
+ "asked": 8,
+ "first_pass_returned": 8,
+ "first_pass_fail_pct": 75.0,
+ "after_repair_1_fail_pct": 75.0,
+ "after_repair_2_fail_pct": 12.5,
+ "set_offender_pct_before": 37.5,
+ "set_offender_pct_after": 37.5,
+ "final_item_fail_pct": 12.5,
+ "failing": {
+  "gen-dafont-woodgod-gf-noto-sans-khudawadi": [
+   "sentence-length-7"
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 999,
+ "first_pass_fail_pct": 35.2,
+ "after_repair_1_fail_pct": 3.4,
+ "after_repair_2_fail_pct": 0.6,
+ "set_offender_pct_before": 42.4,
+ "set_offender_pct_after": 16.8,
+ "final_item_fail_pct": 0.6,
+ "failing": {
+  "gen-gf-oxanium-gf-noto-sans-elbasan": [
+   "sentence-length-7"
+  ],
+  "gen-gf-paprika-gf-carrois-gothic": [
+   "sentence-length-7"
+  ],
+  "gen-gf-paprika-gf-noto-sans-kannada": [
+   "sentence-length-6"
+  ],
+  "gen-gf-revalia-gf-funnel-sans": [
+   "missing-heading-name"
+  ],
+  "gen-gf-revalia-gf-noto-sans-bengali": [
+   "sentence-length-7"
+  ],
+  "gen-gf-revalia-gf-noto-sans-kaithi": [
+   "sentence-length-6"
+  ]
+ }
+}

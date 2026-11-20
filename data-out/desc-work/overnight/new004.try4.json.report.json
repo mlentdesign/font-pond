@@ -1,0 +1,41 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 400,
+ "first_pass_fail_pct": 73.1,
+ "after_repair_1_fail_pct": 15.2,
+ "after_repair_2_fail_pct": 0.9,
+ "set_offender_pct_before": 24.7,
+ "set_offender_pct_after": 6.0,
+ "final_item_fail_pct": 0.9,
+ "failing": {
+  "gen-gf-goldman-gf-noto-sans-meroitic": [
+   "sentence-length-26"
+  ],
+  "gen-gf-goldman-gf-noto-sans-multani": [
+   "sentence-length-26"
+  ],
+  "gen-gf-goldman-gf-noto-sans-syriac-western": [
+   "sentence-length-5"
+  ],
+  "gen-gf-goldman-gf-noto-sans-tai-tham": [
+   "sentence-length-7"
+  ],
+  "gen-gf-goldman-gf-noto-sans-tc": [
+   "words-24",
+   "sentences-1"
+  ],
+  "gen-gf-grandstander-gf-kedebideri": [
+   "sentence-length-7"
+  ],
+  "gen-gf-grandstander-gf-matangi": [
+   "sentence-length-6"
+  ],
+  "gen-gf-grandstander-gf-mozilla-headline": [
+   "sentence-length-7"
+  ],
+  "gen-fs-pramukh-rounded-gf-piazzolla": [
+   "sentence-length-7"
+  ]
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 996,
+ "first_pass_fail_pct": 31.9,
+ "after_repair_1_fail_pct": 4.2,
+ "after_repair_2_fail_pct": 0.9,
+ "set_offender_pct_before": 33.2,
+ "set_offender_pct_after": 5.3,
+ "final_item_fail_pct": 0.8,
+ "failing": {
+  "gen-dafont-woodgod-gf-noto-sans-imperial-aramaic": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-woodgod-gf-noto-sans-kharoshthi": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-woodgod-gf-noto-sans-khudawadi": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-woodgod-gf-noto-sans-old-italic": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-woodgod-gf-noto-sans-syloti-nagri": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-woodgod-gf-numans": [
+   "sentence-length-7"
+  ],
+  "gen-gf-iansui-outfit": [
+   "sentence-length-25"
+  ],
+  "gen-gf-mali-fs-recia": [
+   "sentence-length-6"
+  ]
+ }
+}

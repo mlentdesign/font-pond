@@ -1,0 +1,16 @@
+{
+ "model": "sonnet",
+ "asked": 11,
+ "first_pass_returned": 11,
+ "first_pass_fail_pct": 81.8,
+ "after_repair_1_fail_pct": 81.8,
+ "after_repair_2_fail_pct": 9.1,
+ "set_offender_pct_before": 18.2,
+ "set_offender_pct_after": 9.1,
+ "final_item_fail_pct": 9.1,
+ "failing": {
+  "gen-dafont-galaxy-gf-ovo": [
+   "sentence-length-25"
+  ]
+ }
+}

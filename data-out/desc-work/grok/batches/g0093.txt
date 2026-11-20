@@ -1,0 +1,149 @@
+[gen-gf-delius-unicase-gf-noto-sans-tirhuta]
+Heading: Delius Unicase (handwritten). Feel: relaxed, inviting. Build: no tapering where strokes meet or end; a pronounced x-height; spacing like rungs on a rope ladder
+Body: Noto Sans Tirhuta (sans-serif). Feel: contemporary, clean. Build: terminals cut back to leave a big gap; a dominant x-height
+Difference between them: heading has a plain stripe of constant ink vs body low; a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the body font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of, as a plain sans, reads as a plain sans, reads as a plain
+
+[gen-gf-delius-unicase-gf-noto-sans-ugaritic]
+Heading: Delius Unicase (handwritten). Feel: relaxed, inviting. Build: no tapering where strokes meet or end; a pronounced x-height; spacing like rungs on a rope ladder
+Body: Noto Sans Ugaritic (sans-serif). Feel: approachable, clean. Build: very little gap between x-height and cap height; open letter mouths like a chalk arc left unjoined
+Difference between them: a handwritten heading with a sans-serif body; heading has no stress axis tilting the round letters vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-delius-unicase-gf-noto-sans-wancho]
+Heading: Delius Unicase (handwritten). Feel: relaxed, inviting. Build: no tapering where strokes meet or end; a pronounced x-height; spacing like rungs on a rope ladder
+Body: Noto Sans Wancho (sans-serif). Feel: clean, contemporary. Build: a hulking lowercase like thick chalk pressed hard; an e with a wide gap at its terminal
+Difference between them: a handwritten heading with a sans-serif body; heading has crossbars as thick as stems vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-gf-delius-unicase-gf-oxygen]
+Heading: Delius Unicase (handwritten). Feel: relaxed, inviting. Build: no tapering where strokes meet or end; a pronounced x-height; spacing like rungs on a rope ladder
+Body: Oxygen (sans-serif). Feel: contemporary, clean. Build: curves that never close back on themselves; lowercase nearly matching the capitals
+Difference between them: a handwritten heading with a sans-serif body; heading has a stroke like toothpaste squeezed in one steady line vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-gf-delius-unicase-gf-puritan]
+Heading: Delius Unicase (handwritten). Feel: relaxed, inviting. Build: no tapering where strokes meet or end; a pronounced x-height; spacing like rungs on a rope ladder
+Body: Puritan (sans-serif). Feel: clean, approachable. Build: rounded forms that stay clearly open to the side; oversized e and a counters
+Difference between them: a handwritten heading with a sans-serif body; heading has a lowercase a with no thin hairline strokes vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with how the body font reads. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of, as a plain sans, reads as a plain sans, reads as a plain
+
+[gen-gf-delius-unicase-gf-questrial]
+Heading: Delius Unicase (handwritten). Feel: relaxed, inviting. Build: no tapering where strokes meet or end; a pronounced x-height; spacing like rungs on a rope ladder
+Body: Questrial (sans-serif). Feel: professional, modern. Build: open c, e, and s shapes; a flat, stencil-cut feel from strokes of single weight; a tall band of letters with short stalks above
+Difference between them: a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of, tall
+
+[gen-gf-delius-unicase-gf-readex-pro]
+Heading: Delius Unicase (handwritten). Feel: relaxed, inviting. Build: no tapering where strokes meet or end; a pronounced x-height; spacing like rungs on a rope ladder
+Body: Readex Pro (sans-serif). Feel: professional, neutral. Build: broad gaps at the terminals; tiny gap between lowercase and caps; a calm, unvarying weight from word to word
+Difference between them: a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-gf-delius-unicase-gf-roboto]
+Heading: Delius Unicase (handwritten). Feel: relaxed, inviting. Build: no tapering where strokes meet or end; a pronounced x-height; spacing like rungs on a rope ladder
+Body: Roboto (sans-serif). Feel: clean, contemporary. Build: generous mouths on the round letters; a low contrast between capital height and body height
+Difference between them: a handwritten heading with a sans-serif body; heading has no hairlines to squint at in small sizes vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: Only if it fits: frame the sizing hint as what happens if the heading is made small, or the body large.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little
+
+[gen-gf-delius-unicase-gf-ruda]
+Heading: Delius Unicase (handwritten). Feel: relaxed, inviting. Build: no tapering where strokes meet or end; a pronounced x-height; spacing like rungs on a rope ladder
+Body: Ruda (sans-serif). Feel: approachable, clean. Build: a sizable x-height for screen reading; a wire-like monoline skeleton; wide-mouthed rounds in the lowercase
+Difference between them: a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with how the body font reads. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of, as a plain sans, reads as a plain sans, reads as a plain
+
+[gen-gf-delius-unicase-gf-sono]
+Heading: Delius Unicase (handwritten). Feel: relaxed, inviting. Build: no tapering where strokes meet or end; a pronounced x-height; spacing like rungs on a rope ladder
+Body: Sono (sans-serif). Feel: professional, approachable. Build: tall lowercase relative to capitals; wide default spacing between letters; each lowercase a with its mouth left ajar
+Difference between them: a handwritten heading with a sans-serif body; heading has strokes like fine rope laid in letter shapes vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-delius-unicase-gf-stack-sans-headline]
+Heading: Delius Unicase (handwritten). Feel: relaxed, inviting. Build: no tapering where strokes meet or end; a pronounced x-height; spacing like rungs on a rope ladder
+Body: Stack Sans Headline (sans-serif). Feel: professional, approachable. Build: wide gaps that keep tiny sizes crisp; a deep middle band between baseline and mean line; a monoline skeleton
+Difference between them: a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of, as a plain sans, reads as a plain sans, reads as a plain
+
+[gen-gf-delius-unicase-gf-stack-sans-text]
+Heading: Delius Unicase (handwritten). Feel: relaxed, inviting. Build: no tapering where strokes meet or end; a pronounced x-height; spacing like rungs on a rope ladder
+Body: Stack Sans Text (sans-serif). Feel: modern, neutral. Build: a marker-like constant line; curve endings kept well apart; big-bodied lowercase letters
+Difference between them: a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-gf-delius-unicase-gf-vend-sans]
+Heading: Delius Unicase (handwritten). Feel: relaxed, inviting. Build: no tapering where strokes meet or end; a pronounced x-height; spacing like rungs on a rope ladder
+Body: Vend Sans (sans-serif). Feel: neutral, contemporary. Build: a ruler-drawn, constant-width line; curves with wide, unclosed terminals; an x-height that fills the line
+Difference between them: a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-gf-domine-gf-lexend-mega]
+Heading: Domine (serif). Feel: literary, authoritative. Build: tall lowercase bowls like blown glass bulbs; curves that thicken gently at the shoulders; open c, e, and s shapes
+Body: Lexend Mega (sans-serif). Feel: approachable, modern. Build: a drawn-with-one-nib look; a body height that nearly matches the capitals; a visible gap between the ends of every c
+Difference between them: heading has a reading pace smoothed by mild thick-thin differences vs body stems and curves cut from one gauge of tubing; a serif heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of, tall
+
+[gen-gf-domine-gf-montserrat-alternates]
+Heading: Domine (serif). Feel: literary, authoritative. Build: tall lowercase bowls like blown glass bulbs; curves that thicken gently at the shoulders; open c, e, and s shapes
+Body: Montserrat Alternates (sans-serif). Feel: contemporary, professional. Build: a c as open as a bent paperclip; round letters whose rims match the stems; chalk-board lowercase that crowds up toward the capital line
+Difference between them: a serif heading with a sans-serif body; heading has a faint nib-pressure variation across each round letter vs body zero modulation in the line
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of

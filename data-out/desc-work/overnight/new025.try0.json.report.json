@@ -1,0 +1,37 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 997,
+ "first_pass_fail_pct": 33.1,
+ "after_repair_1_fail_pct": 3.9,
+ "after_repair_2_fail_pct": 0.8,
+ "set_offender_pct_before": 19.1,
+ "set_offender_pct_after": 4.6,
+ "final_item_fail_pct": 0.8,
+ "failing": {
+  "gen-comfortaa-gf-ibm-plex-sans-thai-looped": [
+   "sentence-length-6"
+  ],
+  "gen-comfortaa-gf-noto-sans-shavian": [
+   "sentence-length-7"
+  ],
+  "gen-comfortaa-gf-sarala": [
+   "sentence-length-7"
+  ],
+  "gen-comfortaa-gf-stick": [
+   "sentence-length-4"
+  ],
+  "gen-comfortaa-gf-zen-kaku-gothic-antique": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-aaargh-gf-taviraj": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-aaargh-gf-uchen": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-arkhip-gf-cutive": [
+   "sentence-length-6"
+  ]
+ }
+}

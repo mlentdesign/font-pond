@@ -1,0 +1,149 @@
+[gen-gf-coming-soon-gf-abeezee]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: ABeeZee (sans-serif). Feel: approachable, neutral. Build: terminals that finish well clear of the stem; a thickness like neon glass tubing; a mean line set high
+Difference between them: a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a high mean line
+
+[gen-gf-coming-soon-gf-alexandria]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Alexandria (sans-serif). Feel: clean, professional. Build: wide open c terminals; a tall body with short stems above and below
+Difference between them: a handwritten heading with a sans-serif body; heading has no thick-and-thin modulation at all vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the heading font's name. Second sentence: Only if it fits: say where the heading font earns its keep (big and short) and leave the body font's size unmentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: its keep big and, earns its keep big and, earns its keep big, its keep big and short, keep big and short
+
+[gen-gf-coming-soon-gf-anek-latin]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Anek Latin (sans-serif). Feel: neutral, professional. Build: tall lowercase letters that nearly reach the capitals; a sense of letters held open, not curled shut
+Difference between them: heading has no swelling mid-curve vs body low; a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-gf-coming-soon-gf-arimo]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Arimo (sans-serif). Feel: neutral, professional. Build: a tall mean line; spacious terminal gaps in rounded glyphs
+Difference between them: a handwritten heading with a sans-serif body; heading has a pipe-cleaner look to the strokes vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the heading font's name. Second sentence: Skip any sizing advice; spend the sentence on how the two feel next to each other.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a plain sans, then sits as a, tall
+
+[gen-gf-coming-soon-gf-athiti]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Athiti (sans-serif). Feel: contemporary, approachable. Build: a gap you can see through in each s; a mean line set high; sign-shop vinyl cut to a single line width
+Difference between them: a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the body font's name. Second sentence: Only if it fits: say where the heading font earns its keep (big and short) and leave the body font's size unmentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: its keep big and, earns its keep big and, earns its keep big, its keep big and short, keep big and short, a high mean line
+
+[gen-gf-coming-soon-gf-atkinson-hyperlegible-mono]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Atkinson Hyperlegible Mono (sans-serif). Feel: approachable, neutral. Build: ascenders and capitals that feel clipped beside the lowercase; spacing like stencil bridges stretched far open; open counters that breathe into the white space
+Difference between them: heading has a wire-like line quality vs body low; a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with how the body font reads. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a sans serif, reads as a sans
+
+[gen-gf-coming-soon-gf-biryani]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Biryani (sans-serif). Feel: approachable, clean. Build: a clear, large eye on every e; no thick-and-thin modulation at all; an unclogged feel in every small counter
+Difference between them: a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a plain sans, then carries a longer
+
+[gen-gf-coming-soon-gf-blinker]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Blinker (sans-serif). Feel: approachable, clean. Build: lines that hold their thickness; easily readable open apertures; lowercase filling most of the height
+Difference between them: a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the heading font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: then sits as a
+
+[gen-gf-coming-soon-gf-chivo]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Chivo (sans-serif). Feel: professional, approachable. Build: lowercase packed up toward the caps; visible daylight through every curved opening
+Difference between them: heading has a tube-like stroke resembling neon glass vs body low; a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a plain sans, then carries a longer, reads as a plain sans, reads as a plain
+
+[gen-gf-coming-soon-gf-chocolate-classical-sans]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Chocolate Classical Sans (sans-serif). Feel: modern, professional. Build: a sizable lowercase body; a broad-nibbed pen stroke that never curls shut
+Difference between them: heading has letters drawn with a single constant line width vs body low; a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the body font's name. Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: as a plain sans, reads as a plain sans, reads as a plain
+
+[gen-gf-coming-soon-gf-comme]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Comme (sans-serif). Feel: modern, contemporary. Build: a smooth read with no clogged curves; lowercase bodies taking up most of the letter height
+Difference between them: a handwritten heading with a sans-serif body; heading has letters outlined with one steady thickness vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-gf-coming-soon-gf-epunda-slab]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Epunda Slab (serif). Feel: classic, dignified. Build: a visibly gaping c at any size; tall rounded lowercase forms
+Difference between them: a handwritten heading with a serif body; heading has strokes drawn with one fixed nib vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: is the punch of, tall
+
+[gen-gf-coming-soon-gf-fauna-one]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Fauna One (serif). Feel: literary, dignified. Build: a tall middle band with shallow ascenders and descenders; a generous entry into the e's eye
+Difference between them: a handwritten heading with a serif body; heading has every stroke cut to one width vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a classic serif, a tall middle band, then carries a longer, tall
+
+[gen-gf-coming-soon-gf-geist]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Geist (sans-serif). Feel: professional, clean. Build: a quiet, level beat with no accents of weight; an opening as wide as a sprung paper clip; words that read as solid blocks rather than skylines
+Difference between them: a handwritten heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: then carries a longer
+
+[gen-gf-coming-soon-gf-graduate]
+Heading: Coming Soon (handwritten). Feel: casual, personal. Build: casual pen-and-paper letters; a ring of an o with a constant wall; lowercase rising close to capitals
+Body: Graduate (serif). Feel: dignified, bookish. Build: a generous amount of white between letters; minimal difference between capital height and lowercase height; no contrast between stems and joins
+Difference between them: a handwritten heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: Skip any sizing advice; spend the sentence on how the two feel next to each other.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif of

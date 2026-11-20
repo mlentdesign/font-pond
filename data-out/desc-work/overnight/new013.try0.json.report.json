@@ -1,0 +1,406 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 465,
+ "first_pass_fail_pct": 65.7,
+ "after_repair_1_fail_pct": 65.7,
+ "after_repair_2_fail_pct": 65.7,
+ "set_offender_pct_before": 33.1,
+ "set_offender_pct_after": 33.1,
+ "final_item_fail_pct": 65.7,
+ "failing": {
+  "gen-modak-manrope": [
+   "sentence-length-3"
+  ],
+  "gen-nixie-one-gf-julius-sans-one": [
+   "sentence-length-7"
+  ],
+  "gen-nixie-one-gf-lexend-tera": [
+   "missing-heading-name"
+  ],
+  "gen-nosifer-archivo": [
+   "words-25",
+   "sentence-length-7",
+   "phrase:a longer passage"
+  ],
+  "gen-nosifer-fs-be-vietnam-pro": [
+   "words-43",
+   "sentence-length-32"
+  ],
+  "gen-nosifer-fs-fira-sans": [
+   "phrase:a longer passage"
+  ],
+  "gen-nosifer-fs-merriweather-sans": [
+   "sentence-length-25"
+  ],
+  "gen-nosifer-fs-supreme": [
+   "sentence-length-7"
+  ],
+  "gen-nosifer-general-sans": [
+   "sentence-length-5"
+  ],
+  "gen-nosifer-satoshi": [
+   "sentence-length-26"
+  ],
+  "gen-orbitron-gf-julius-sans-one": [
+   "sentence-length-5"
+  ],
+  "gen-orbitron-gf-lexend-exa": [
+   "sentence-length-4"
+  ],
+  "gen-orbitron-gf-lexend-giga": [
+   "sentence-length-7"
+  ],
+  "gen-orbitron-gf-lexend-peta": [
+   "sentence-length-26",
+   "phrase:the page a"
+  ],
+  "gen-orbitron-gf-montserrat-alternates": [
+   "sentence-length-6"
+  ],
+  "gen-outfit-fs-literata": [
+   "phrase:the page a"
+  ],
+  "gen-pirata-one-archivo": [
+   "phrase:a longer passage"
+  ],
+  "gen-pirata-one-fs-asap": [
+   "sentence-length-29"
+  ],
+  "gen-pirata-one-fs-epilogue": [
+   "sentence-length-26",
+   "phrase:a longer passage"
+  ],
+  "gen-rammetto-one-fs-epilogue": [
+   "sentence-length-7"
+  ],
+  "gen-righteous-noto-serif": [
+   "sentence-length-28"
+  ],
+  "gen-shadows-into-light-inter": [
+   "sentence-length-4"
+  ],
+  "gen-shadows-into-light-poppins": [
+   "missing-heading-name",
+   "sentence-length-7"
+  ],
+  "gen-silkscreen-gf-cascadia-mono": [
+   "sentence-length-5"
+  ],
+  "gen-silkscreen-gf-lexend-giga": [
+   "missing-heading-name",
+   "sentence-length-6"
+  ],
+  "gen-silkscreen-gf-lexend-peta": [
+   "sentence-length-3"
+  ],
+  "gen-silkscreen-gf-lexend-tera": [
+   "words-25",
+   "sentence-length-4"
+  ],
+  "gen-special-elite-noto-serif": [
+   "missing-heading-name",
+   "sentence-length-6"
+  ],
+  "gen-titan-one-archivo": [
+   "sentence-length-4"
+  ],
+  "gen-titan-one-fs-supreme": [
+   "sentence-length-7"
+  ],
+  "gen-titan-one-general-sans": [
+   "sentence-length-6"
+  ],
+  "gen-titan-one-work-sans": [
+   "sentence-length-5"
+  ],
+  "gen-unifrakturmaguntia-archivo": [
+   "phrase:the page a"
+  ],
+  "gen-unifrakturmaguntia-fs-be-vietnam-pro": [
+   "phrase:a clean sans"
+  ],
+  "gen-unifrakturmaguntia-fs-epilogue": [
+   "words-24",
+   "sentence-length-5"
+  ],
+  "gen-unifrakturmaguntia-fs-supreme": [
+   "sentence-length-25"
+  ],
+  "gen-unifrakturmaguntia-general-sans": [
+   "missing-heading-name",
+   "sentence-length-7"
+  ],
+  "gen-unifrakturmaguntia-satoshi": [
+   "sentence-length-7"
+  ],
+  "gen-unifrakturmaguntia-work-sans": [
+   "words-42",
+   "sentence-length-30"
+  ],
+  "gen-zen-dots-gf-lexend-exa": [
+   "sentence-length-6"
+  ],
+  "gen-zen-dots-gf-lexend-peta": [
+   "sentence-length-7"
+  ],
+  "gen-boska-bitter": [
+   "words-43",
+   "sentence-length-25"
+  ],
+  "gen-gf-unica-one-gf-sarpanch": [
+   "words-41"
+  ],
+  "gen-megrim-gf-sono": [
+   "sentence-length-25"
+  ],
+  "gen-bricolage-grotesque-fs-literata": [
+   "missing-heading-name",
+   "words-22",
+   "sentence-length-4"
+  ],
+  "gen-bricolage-grotesque-fs-trench-slab": [
+   "words-23",
+   "sentence-length-5"
+  ],
+  "gen-bricolage-grotesque-gf-noto-serif-hentaigana": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-adam-fs-recia": [
+   "words-44"
+  ],
+  "gen-dafont-alte-haas-grotesk-fs-erode": [
+   "words-42",
+   "phrase:in its strokes"
+  ],
+  "gen-dafont-arkhip-poppins": [
+   "words-43"
+  ],
+  "gen-dafont-aurulent-sans-fs-erode": [
+   "missing-heading-name",
+   "sentence-length-25"
+  ],
+  "gen-dafont-biko-fs-neco": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-capture-it-fs-bespoke-serif": [
+   "words-44",
+   "sentence-length-25"
+  ],
+  "gen-dafont-commodore-64-archivo": [
+   "words-41"
+  ],
+  "gen-dafont-commodore-64-fs-chillax": [
+   "words-42",
+   "sentence-length-25"
+  ],
+  "gen-dafont-franchise-fs-bespoke-serif": [
+   "sentence-length-27"
+  ],
+  "gen-dafont-franchise-fs-sentient": [
+   "sentence-length-28"
+  ],
+  "gen-dafont-helsinki-fs-supreme": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-helsinki-montserrat": [
+   "sentence-length-3"
+  ],
+  "gen-dafont-helsinki-work-sans": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-hero-fs-bespoke-slab": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-hero-work-sans": [
+   "sentence-length-4"
+  ],
+  "gen-dafont-hiruko-fs-merriweather-sans": [
+   "words-42"
+  ],
+  "gen-dafont-hiruko-fs-recia": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-klill-fs-bespoke-slab": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-klill-fs-trench-slab": [
+   "words-22",
+   "sentence-length-3"
+  ],
+  "gen-dafont-klill-manrope": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-klill-satoshi": [
+   "sentence-length-4"
+  ],
+  "gen-dafont-klill-work-sans": [
+   "words-42"
+  ],
+  "gen-dafont-lemon-milk-fs-bespoke-serif": [
+   "missing-heading-name"
+  ],
+  "gen-dafont-lemon-milk-poppins": [
+   "sentence-length-5"
+  ],
+  "gen-dafont-minecraftia-fs-sentient": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-neogrey-fs-bespoke-sans": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-neogrey-lora": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-prime-manrope": [
+   "words-42"
+  ],
+  "gen-dafont-quark-fs-trench-slab": [
+   "sentence-length-25"
+  ],
+  "gen-dafont-radikal-manrope": [
+   "phrase:plain sans body"
+  ],
+  "gen-dafont-radikal-work-sans": [
+   "words-42"
+  ],
+  "gen-dafont-reckoner-lora": [
+   "sentence-length-28"
+  ],
+  "gen-dafont-rounded-elegance-satoshi": [
+   "phrase:a longer passage"
+  ],
+  "gen-dafont-stilu-manrope": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-vcr-osd-mono-fs-paquito": [
+   "sentence-length-4"
+  ],
+  "gen-dafont-verve-work-sans": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-zag-fs-supreme": [
+   "words-42"
+  ],
+  "gen-dafont-zag-manrope": [
+   "words-42",
+   "sentence-length-27"
+  ],
+  "gen-dafont-znikomit-fs-gambetta": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-znikomit-fs-merriweather-sans": [
+   "words-42",
+   "sentence-length-30"
+  ],
+  "gen-dm-serif-display-general-sans": [
+   "sentence-length-7"
+  ],
+  "gen-dm-serif-display-manrope": [
+   "sentence-length-7"
+  ],
+  "gen-dm-serif-text-fs-asap": [
+   "words-42"
+  ],
+  "gen-dm-serif-text-fs-chillax": [
+   "words-42",
+   "sentence-length-29"
+  ],
+  "gen-dm-serif-text-fs-merriweather-sans": [
+   "words-25"
+  ],
+  "gen-dm-serif-text-fs-plein": [
+   "sentence-length-29"
+  ],
+  "gen-dm-serif-text-fs-spline-sans": [
+   "words-43"
+  ],
+  "gen-dm-serif-text-outfit": [
+   "sentence-length-5"
+  ],
+  "gen-dm-serif-text-switzer": [
+   "sentence-length-5"
+  ],
+  "gen-dm-serif-text-work-sans": [
+   "words-42",
+   "phrase:the page a"
+  ],
+  "gen-fraunces-fs-amulya": [
+   "words-44"
+  ],
+  "gen-fraunces-fs-epilogue": [
+   "sentence-length-25"
+  ],
+  "gen-fraunces-fs-plein": [
+   "words-41"
+  ],
+  "gen-fraunces-fs-supreme": [
+   "sentence-length-26"
+  ],
+  "gen-fraunces-gf-science-gothic": [
+   "sentence-length-25"
+  ],
+  "gen-fs-bespoke-slab-poppins": [
+   "sentence-length-6"
+  ],
+  "gen-fs-bonny-dm-sans": [
+   "sentence-length-4"
+  ],
+  "gen-fs-bonny-nunito-sans": [
+   "words-25",
+   "sentence-length-3"
+  ],
+  "gen-irish-grover-gf-sulphur-point": [
+   "words-42"
+  ],
+  "gen-mystery-quest-gf-stack-sans-headline": [
+   "sentence-length-25"
+  ],
+  "gen-gf-unica-one-gf-sen": [
+   "words-42"
+  ],
+  "gen-eater-fs-technor": [
+   "words-24",
+   "sentence-length-6"
+  ],
+  "gen-gf-gugi-fs-technor": [
+   "sentences-4"
+  ],
+  "gen-fs-red-hat-display-gf-ysabeau-infant": [
+   "sentence-length-7"
+  ],
+  "gen-gf-wallpoet-gf-yaldevi": [
+   "phrase:a clean sans"
+  ],
+  "gen-gf-warnes-gf-ubuntu-sans": [
+   "sentence-length-4"
+  ],
+  "gen-fs-chubbo-gf-alegreya-sans-sc": [
+   "phrase:a longer passage"
+  ],
+  "gen-tourney-fs-technor": [
+   "sentence-length-7"
+  ],
+  "gen-megrim-gf-sofia-sans-semi-condensed": [
+   "sentence-length-7"
+  ],
+  "gen-fs-oswald-gf-snippet": [
+   "sentence-length-7"
+  ],
+  "gen-almendra-display-work-sans": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-zcool-xiaowei": [
+   "phrase:a clean sans"
+  ],
+  "gen-fs-chubbo-gf-assistant": [
+   "words-23"
+  ],
+  "gen-fs-oswald-gf-tajawal": [
+   "sentence-length-5"
+  ],
+  "gen-fs-oswald-gf-trispace": [
+   "sentence-length-7"
+  ]
+ }
+}

@@ -1,0 +1,150 @@
+[gen-dafont-neon-noto-serif]
+Heading: Neon (display). Feel: glowing, vibrant. Build: uninterrupted line width on every letter; tall lowercase forms like stamped metal type; open spacing between all glyph pairs
+Body: Noto Serif (serif). Feel: universal, literary. Build: a subtle thick and thin cadence across the page; a prominent x-height
+Difference between them: heading has the steady line of a technical drafting pen vs body bowls with gentle weight shifts; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-dafont-neuropolitical-lora]
+Heading: Neuropolitical (display). Feel: geometric, contemporary. Build: words that look pulled apart letter by letter; big open counters in every small letter; neon-tube letters glowing with one steady line thickness
+Body: Lora (serif). Feel: literary, bookish. Build: modest hairline thinning at the curves; a c with a broad, welcoming opening
+Difference between them: a display heading with a serif body; heading has wirelike strokes of one thickness vs body hairlines that are present but not razor thin
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller, sit a little smaller under, a little smaller under
+
+[gen-dafont-origami-lora]
+Heading: Origami (display). Feel: unique, contemporary. Build: a sign-painter's single-stroke brush look at constant width; a lowercase mass like poured lead type
+Body: Lora (serif). Feel: literary, bookish. Build: modest hairline thinning at the curves; a c with a broad, welcoming opening
+Difference between them: a display heading with a serif body; high vs moderate lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the body font's name. Second sentence: Only if it fits: give a sizing hint, worded as a plain suggestion that does not start with 'Set', 'Run' or 'Keep'.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller, sit a little smaller under, a little smaller under
+
+[gen-dafont-outrun-future-fs-gambetta]
+Heading: Outrun Future (display). Feel: authoritative, synthwave. Build: letters that keep a wide distance; a constant-width outline you can follow with a finger; a large x-height with short ascenders
+Body: Gambetta (serif). Feel: bookish, graceful. Build: wide channels leading into each counter; stroke weight that shifts noticeably but never dramatically
+Difference between them: a display heading with a serif body; high vs moderate lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with, then sits under that
+
+[gen-dafont-pixel-operator-fs-technor]
+Heading: Pixel Operator (monospace). Feel: digital, retro. Build: fixed-width code-style letters; terminals that never close in; words that read as solid blocks rather than skylines
+Body: Technor (sans-serif). Feel: cool, geometric. Build: neon-tube letters glowing with one steady line thickness; little height difference between cases; a wide channel into every bowl
+Difference between them: heading has low vs body no pressure-swelling like a brush lettering stroke; a monospace heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-dafont-plakkaat-lora]
+Heading: Plakkaat (display). Feel: bold, heavy. Build: lines like a bent straw in letter form; a low contrast between capital height and body height; terminals that sweep around to nearly touch the stem
+Body: Lora (serif). Feel: literary, bookish. Build: modest hairline thinning at the curves; a c with a broad, welcoming opening
+Difference between them: high vs moderate lowercase height; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller, sit a little smaller under, a little smaller under
+
+[gen-dafont-quantum-lora]
+Heading: Quantum (display). Feel: tech, clean. Build: loose letterfit with lots of breathing space; mouths that stay open on c, e, and a; compressed ascender length
+Body: Lora (serif). Feel: literary, bookish. Build: modest hairline thinning at the curves; a c with a broad, welcoming opening
+Difference between them: high vs moderate lowercase height; a display heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: then sits under that
+
+[gen-dafont-reckoner-fs-sentient]
+Heading: Reckoner (sans-serif). Feel: clean, modern. Build: a sensation of tracing a single thick thread; spacing as compressed as a clamped vise
+Body: Sentient (serif). Feel: sophisticated, contemporary. Build: a pinched, closed-in aperture style; crossbars a touch thinner than stems
+Difference between them: heading has a quiet, level beat with no accents of weight vs body arches that thin slightly where they leave the stem; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the body font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with
+
+[gen-dafont-riesling-fs-sentient]
+Heading: Riesling (display). Feel: vintage, nostalgic. Build: heavy stems paired with delicate hairline serifs; counters that stay connected to the outside; tightly knit lettering
+Body: Sentient (serif). Feel: sophisticated, contemporary. Build: a pinched, closed-in aperture style; crossbars a touch thinner than stems
+Difference between them: a display heading with a serif body; heading has dense black stems and hairline thin details vs body weight that shifts like stretched rubber cord, only slightly
+Reading note: better for brief copy
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif with
+
+[gen-dafont-sf-wonder-comic-fs-gambetta]
+Heading: SF Wonder Comic (display). Feel: striking, classic. Build: words that look dense and tall in the middle; bowls that are left unfinished on one side; stems only a shade heavier than their connecting arms
+Body: Gambetta (serif). Feel: bookish, graceful. Build: wide channels leading into each counter; stroke weight that shifts noticeably but never dramatically
+Difference between them: a display heading with a serif body; high vs moderate lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with, tall
+
+[gen-dafont-sophia-bitter]
+Heading: Sophia (script). Feel: understated, modern. Build: flowing pen-written letters; curves that hold their mouths open; a tall body with short stems above and below
+Body: Bitter (slab-serif). Feel: dependable, grounded. Build: a very large lowercase eye; a gap you can see through in each s
+Difference between them: a script heading with a slab-serif body; heading has crossbars matching the stems in thickness vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'slab-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-dafont-sophia-roboto-slab]
+Heading: Sophia (script). Feel: understated, modern. Build: flowing pen-written letters; curves that hold their mouths open; a tall body with short stems above and below
+Body: Roboto Slab (slab-serif). Feel: precise, structured. Build: a texture where the middle zone dominates the line; a, c, e, and s with open throats
+Difference between them: heading has curves with the same heft as a rope's body vs body low; a script heading with a slab-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'slab-serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-dafont-true-north-lora]
+Heading: True North (display). Feel: contemporary, bold. Build: a middle band so tall the line looks stocky; curves that refuse to close
+Body: Lora (serif). Feel: literary, bookish. Build: modest hairline thinning at the curves; a c with a broad, welcoming opening
+Difference between them: a display heading with a serif body; heading has low vs body hairline-free thin strokes beside moderately weighty stems
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with the heading font's name. Second sentence: Only if it fits: give a sizing hint, worded as a plain suggestion that does not start with 'Set', 'Run' or 'Keep'.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with
+
+[gen-dafont-visitor-lora]
+Heading: Visitor (display). Feel: nostalgic, digital. Build: gaping mouths on the e; short ascenders above big bowls; strokes pulled like solder through a nozzle
+Body: Lora (serif). Feel: literary, bookish. Build: modest hairline thinning at the curves; a c with a broad, welcoming opening
+Difference between them: a display heading with a serif body; heading has no thick and thin parts in any letter vs body a soft modulation like hand-drawn ink lines
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'classic serif' if you name its class at all.
+Open with the body font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a classic serif with, as a classic serif
+
+[gen-dafont-walkway-fs-bespoke-serif]
+Heading: Walkway (sans-serif). Feel: airy, clean. Build: a c shaped like a broad open hook; a compact string of letters with no slack
+Body: Bespoke Serif (serif). Feel: authoritative, dignified. Build: thin strokes about half the weight of thick ones
+Difference between them: heading has low vs body a faint nib-pressure variation across each round letter; a sans-serif heading with a serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'text serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a text serif with

@@ -1,0 +1,25 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 999,
+ "first_pass_fail_pct": 33.0,
+ "after_repair_1_fail_pct": 3.3,
+ "after_repair_2_fail_pct": 0.4,
+ "set_offender_pct_before": 36.2,
+ "set_offender_pct_after": 9.4,
+ "final_item_fail_pct": 0.4,
+ "failing": {
+  "gen-dafont-blockletter-gf-noto-sans-gothic": [
+   "sentence-length-7"
+  ],
+  "gen-dafont-bloody-gf-noto-sans-gujarati": [
+   "sentence-length-6"
+  ],
+  "gen-dafont-bushcraft-gf-noto-sans-thai": [
+   "sentence-length-26"
+  ],
+  "gen-dafont-bushcraft-gf-noto-sans-vithkuqi": [
+   "sentence-length-6"
+  ]
+ }
+}

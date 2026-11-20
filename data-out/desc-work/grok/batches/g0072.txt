@@ -1,0 +1,149 @@
+[gen-dafont-azonix-gf-amiko]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Amiko (sans-serif). Feel: modern, neutral. Build: lowercase strokes as tall as a thick crayon mark; terminals that point outward like a pair of tongs
+Difference between them: heading has strokes as thick as a drawn wire throughout vs body low; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-dafont-azonix-gf-anek-bangla]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Anek Bangla (sans-serif). Feel: contemporary, approachable. Build: wide s curves, barely curled in; a short stretch from midline to ascender
+Difference between them: heading has no calligraphic swelling anywhere along the letter outlines vs body low; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: Only if it fits: give a sizing hint, worded as a plain suggestion that does not start with 'Set', 'Run' or 'Keep'.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller
+
+[gen-dafont-azonix-gf-anek-devanagari]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Anek Devanagari (sans-serif). Feel: modern, neutral. Build: distinctly open letter mouths; tall middle zone of letters
+Difference between them: heading has constant-width arms and legs vs body low; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-dafont-azonix-gf-anek-kannada]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Anek Kannada (sans-serif). Feel: contemporary, modern. Build: x-height reaching high like a squared-off woodblock letter; terminals stopping far from the stem
+Difference between them: heading has a drawn-with-one-tip simplicity in each glyph vs body low; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: Only if it fits: say where the heading font earns its keep (big and short) and leave the body font's size unmentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: its keep big and, its keep big and short, keep big and short
+
+[gen-dafont-azonix-gf-anek-latin]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Anek Latin (sans-serif). Feel: neutral, professional. Build: tall lowercase letters that nearly reach the capitals; a sense of letters held open, not curled shut
+Difference between them: a display heading with a sans-serif body; heading has flat, unmodulated stroke weight vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with how the body font reads. Second sentence: Skip any sizing advice; spend the sentence on how a longer stretch of the body reads.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: as a sans serif, reads as a sans, tall
+
+[gen-dafont-azonix-gf-anek-odia]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Anek Odia (sans-serif). Feel: clean, contemporary. Build: rounds that stay unsealed like an unlatched hook; capitals only slightly above lowercase
+Difference between them: heading has a line width that never swells or tapers vs body low; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller, sit a little smaller under, a little smaller under
+
+[gen-dafont-azonix-gf-anek-telugu]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Anek Telugu (sans-serif). Feel: clean, approachable. Build: a reading rhythm dominated by wide, tall bowls; rounds that stay unsealed like an unlatched hook
+Difference between them: a display heading with a sans-serif body; heading has strokes like a bent steel rod vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of, tall
+
+[gen-dafont-azonix-gf-anuphan]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Anuphan (sans-serif). Feel: neutral, clean. Build: big round lowercase bowls; open curves with clear gaps
+Difference between them: a display heading with a sans-serif body; heading has a plain stripe of constant ink vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: what the heading font does best versus what the body font does best, without naming any person or use.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-dafont-azonix-gf-arimo]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Arimo (sans-serif). Feel: neutral, professional. Build: a tall mean line; spacious terminal gaps in rounded glyphs
+Difference between them: heading has strokes like twine pressed into a flat surface vs body low; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-dafont-azonix-gf-athiti]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Athiti (sans-serif). Feel: contemporary, approachable. Build: a gap you can see through in each s; a mean line set high; sign-shop vinyl cut to a single line width
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-dafont-azonix-gf-duru-sans]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Duru Sans (sans-serif). Feel: modern, clean. Build: wide openings on small letters; bodies that dominate the line while ascenders hardly show
+Difference between them: heading has neon-tube letters glowing with one steady line thickness vs body low; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the heading font's name. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of, can sit a little smaller, can sit a little, sit a little smaller, sit a little smaller under, a little smaller under
+
+[gen-dafont-azonix-gf-gafata]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Gafata (sans-serif). Feel: contemporary, professional. Build: a tall band of letters with short stalks above; a wide-eyed look to each lowercase e
+Difference between them: heading has a gentle monotone of line thickness vs body low; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: then sits under that, sits under that heading
+
+[gen-dafont-azonix-gf-gidole]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Gidole (sans-serif). Feel: neutral, clean. Build: terminals that stay apart like open scissor blades; a drawn-in-neon-tube consistency in every stroke; a high-set midline
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the body font's name. Second sentence: Only if it fits: say where the heading font earns its keep (big and short) and leave the body font's size unmentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: its keep big and, its keep big and short, keep big and short
+
+[gen-dafont-azonix-gf-golos-text]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Golos Text (sans-serif). Feel: contemporary, approachable. Build: an x-height that fills the line; letters built from one width of stroke; a widely parted s
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-dafont-azonix-gf-heebo]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Heebo (sans-serif). Feel: neutral, professional. Build: a tall central band of text; curves that stop short instead of closing in
+Difference between them: heading has horizontals as thick as verticals vs body low; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: tall

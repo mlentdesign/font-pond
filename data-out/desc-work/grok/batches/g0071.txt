@@ -1,0 +1,149 @@
+[gen-dafont-alien-encounters-gf-ruda]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Ruda (sans-serif). Feel: approachable, clean. Build: a sizable x-height for screen reading; a wire-like monoline skeleton; wide-mouthed rounds in the lowercase
+Difference between them: heading has low vs body rounds and stems in one weight; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: Only if it fits: give a sizing hint, worded as a plain suggestion that does not start with 'Set', 'Run' or 'Keep'.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller
+
+[gen-dafont-alien-encounters-gf-sen]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Sen (sans-serif). Feel: modern, contemporary. Build: lowercase built tall; a line of constant weight tracing each letter; curved strokes that end before they turn inward
+Difference between them: heading has low vs body a drawn-with-a-technical-pen steadiness; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-dafont-alien-encounters-gf-sofia-sans]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Sofia Sans (sans-serif). Feel: modern, professional. Build: no thick-and-thin modulation at all; rounded letters with a clearly open side; lowercase glyphs standing tall like cut acrylic stencil pieces
+Difference between them: heading has low vs body a stroke contrast of essentially zero; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with how the body font reads. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-dafont-alien-encounters-gf-sono]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Sono (sans-serif). Feel: professional, approachable. Build: tall lowercase relative to capitals; wide default spacing between letters; each lowercase a with its mouth left ajar
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: tall
+
+[gen-dafont-alien-encounters-gf-stack-sans-headline]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Stack Sans Headline (sans-serif). Feel: professional, approachable. Build: wide gaps that keep tiny sizes crisp; a deep middle band between baseline and mean line; a monoline skeleton
+Difference between them: a display heading with a sans-serif body; heading has low vs body the same line width in the curves and straights
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-dafont-alien-encounters-gf-stack-sans-notch]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Stack Sans Notch (sans-serif). Feel: clean, neutral. Build: open curves you can see right into; horizontals and verticals of identical thickness, like rod stock; a big-bodied feel in every lowercase word
+Difference between them: a display heading with a sans-serif body; heading has low vs body every stroke cut to one width
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-dafont-alien-encounters-gf-stack-sans-text]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Stack Sans Text (sans-serif). Feel: modern, neutral. Build: a marker-like constant line; curve endings kept well apart; big-bodied lowercase letters
+Difference between them: heading has low vs body stems and curves cut from one gauge of tubing; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with how the body font reads. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller, sit a little smaller under, a little smaller under
+
+[gen-dafont-alien-encounters-gf-ubuntu-sans]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Ubuntu Sans (sans-serif). Feel: modern, contemporary. Build: lowercase eyes as big as washers on a line; tubular strokes like bent copper pipe; pen-lifted curves that leave the loop unfinished
+Difference between them: heading has low vs body diagonals as heavy as the verticals; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the heading font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-dafont-alien-encounters-gf-yaldevi]
+Heading: Alien Encounters (display). Feel: otherworldly, technological. Build: big, open gaps between letter pairs; a pronounced, high x-height
+Body: Yaldevi (sans-serif). Feel: neutral, clean. Build: an e whose eye opens clearly to the right; lowercase with outsized proportions
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with how the body font reads. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: as a sans serif, reads as a sans
+
+[gen-dafont-arkhip-gf-orbit]
+Heading: Arkhip (display). Feel: modern, geometric. Build: letters floating well apart; a c as open as a bent paperclip; no thick-and-thin modulation at all
+Body: Orbit (sans-serif). Feel: professional, neutral. Build: curves that stop short instead of closing in; each character floating apart from the rest; a rope-like consistency in every stem, bowl, and tail
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-dafont-arkhip-gf-science-gothic]
+Heading: Arkhip (display). Feel: modern, geometric. Build: letters floating well apart; a c as open as a bent paperclip; no thick-and-thin modulation at all
+Body: Science Gothic (sans-serif). Feel: approachable, professional. Build: stroke ends set far apart; the sensation of reading one letter at a time; no thick and thin parts in any letter
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the body font's name. Second sentence: Only if it fits: give a sizing hint, worded as a plain suggestion that does not start with 'Set', 'Run' or 'Keep'.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller, sit a little smaller under, a little smaller under
+
+[gen-dafont-arkhip-gf-syncopate]
+Heading: Arkhip (display). Feel: modern, geometric. Build: letters floating well apart; a c as open as a bent paperclip; no thick-and-thin modulation at all
+Body: Syncopate (sans-serif). Feel: professional, neutral. Build: open c, e, and s shapes; a drawn-with-a-technical-pen steadiness; spacing like rungs on a rope ladder
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the heading font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: then sits as a
+
+[gen-dafont-azonix-gf-abeezee]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: ABeeZee (sans-serif). Feel: approachable, neutral. Build: terminals that finish well clear of the stem; a thickness like neon glass tubing; a mean line set high
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the heading font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: then sits as a
+
+[gen-dafont-azonix-gf-aldrich]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Aldrich (sans-serif). Feel: professional, modern. Build: x-height close to the cap height; round letters that look cupped, not clenched; a sensation of tracing a single thick thread
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the body font's name. Second sentence: Only if it fits: give a sizing hint, worded as a plain suggestion that does not start with 'Set', 'Run' or 'Keep'.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: can sit a little smaller, can sit a little, sit a little smaller, sit a little smaller under, a little smaller under
+
+[gen-dafont-azonix-gf-alexandria]
+Heading: Azonix (display). Feel: authoritative, commanding. Build: capitals only slightly above lowercase; words that need a moment to knit back together; wide-mouthed letters that stay crisp when shrunk
+Body: Alexandria (sans-serif). Feel: clean, professional. Build: wide open c terminals; a tall body with short stems above and below
+Difference between them: heading has letters that look bent from a single wire vs body low; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with how the body font reads. Second sentence: Only if it fits: give a sizing hint, worded as a plain suggestion that does not start with 'Set', 'Run' or 'Keep'.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: as a sans serif, can sit a little smaller, can sit a little, sit a little smaller, sit a little smaller under, a little smaller under, reads as a sans, tall

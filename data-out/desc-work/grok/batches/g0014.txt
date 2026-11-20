@@ -1,0 +1,149 @@
+[gen-fs-oswald-gf-ysabeau]
+Heading: Oswald (display). Feel: confident, strong. Build: tightly knit rows of text
+Body: Ysabeau (sans-serif). Feel: professional, approachable. Build: sweeping curves that never close up
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-fs-excon-gf-lexend-tera]
+Heading: Excon (sans-serif). Feel: efficient, approachable. Build: letters crowded like chalk marks on a full slate; easy-to-read open terminals; a towering lowercase body
+Body: Lexend Tera (sans-serif). Feel: contemporary, clean. Build: a single-weight line like a plotter pen draws; open-faced curves on every rounded letter; letters standing as far apart as stepping stones
+Difference between them: the two share a similar build
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the body font's name. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-fs-chubbo-gf-noto-sans-gurmukhi]
+Heading: Chubbo (display). Feel: casual, inviting. Build: a smooth, unobstructed path around each bend; letters drawn as if with a marker tip
+Body: Noto Sans Gurmukhi (sans-serif). Feel: clean, professional. Build: terminals that point outward like a pair of tongs; ascenders that barely clear the x-height
+Difference between them: heading has thin-free, thick-free strokes vs body low; moderate vs high lowercase height
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-fs-oswald-gf-ysabeau-office]
+Heading: Oswald (display). Feel: confident, strong. Build: tightly knit rows of text
+Body: Ysabeau Office (sans-serif). Feel: contemporary, modern. Build: an open-ended look on every curved letter
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a mood word (one of the traits). Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-fs-chubbo-gf-noto-sans-hanunoo]
+Heading: Chubbo (display). Feel: casual, inviting. Build: a smooth, unobstructed path around each bend; letters drawn as if with a marker tip
+Body: Noto Sans Hanunoo (sans-serif). Feel: neutral, contemporary. Build: lowercase filling most of the height; easy-to-read open terminals
+Difference between them: heading has pencil-like lines that never thicken or thin vs body low; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with how the body font reads. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence one longer (16-22 words), sentence two short (under 14 words).
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of, can sit a little smaller, can sit a little, sit a little smaller
+
+[gen-fs-oswald-gf-zalando-sans]
+Heading: Oswald (display). Feel: confident, strong. Build: tightly knit rows of text
+Body: Zalando Sans (sans-serif). Feel: neutral, approachable. Build: an open-ended look on every curved letter
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: Only if it fits: say where the heading font earns its keep (big and short) and leave the body font's size unmentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: its keep big and, earns its keep big and, earns its keep big, its keep big and short, keep big and short
+
+[gen-fs-oswald-gf-zalando-sans-semiexpanded]
+Heading: Oswald (display). Feel: confident, strong. Build: tightly knit rows of text
+Body: Zalando Sans SemiExpanded (sans-serif). Feel: modern, professional. Build: open-mouthed curves on c, e, and s
+Difference between them: a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-fs-chubbo-gf-noto-sans-hk]
+Heading: Chubbo (display). Feel: casual, inviting. Build: a smooth, unobstructed path around each bend; letters drawn as if with a marker tip
+Body: Noto Sans HK (sans-serif). Feel: clean, professional. Build: large lowercase forms with tight ascender clearance; brush ends lifted away before the curve closes
+Difference between them: heading has cut-out strokes like a fixed-width router bit vs body low; a display heading with a sans-serif body
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-fs-oswald-gf-zen-kaku-gothic-antique]
+Heading: Oswald (display). Feel: confident, strong. Build: tightly knit rows of text
+Body: Zen Kaku Gothic Antique (sans-serif). Feel: modern, clean. Build: a t with crossbar and stem of matching weight; a smooth, unobstructed path around each bend
+Difference between them: a display heading with a sans-serif body; heading has low vs body curves that stay as thick as a drawn thread
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'plain sans' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence two begins with the body font's name.
+FIX THIS ONE: rewrite it without these overused wording choices: a plain sans of
+
+[gen-fs-excon-gf-lexend-zetta]
+Heading: Excon (sans-serif). Feel: efficient, approachable. Build: letters crowded like chalk marks on a full slate; easy-to-read open terminals; a towering lowercase body
+Body: Lexend Zetta (sans-serif). Feel: approachable, contemporary. Build: strokes like cut ribbon of constant width; tall-bodied small letters; widely tracked type
+Difference between them: the two share a similar build
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: Only if it fits: say what to do with the body font's size, and not the heading's.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of, can sit a little smaller, can sit a little, sit a little smaller
+
+[gen-fs-chubbo-gf-anek-devanagari]
+Heading: Chubbo (display). Feel: casual, inviting. Build: a smooth, unobstructed path around each bend; letters drawn as if with a marker tip
+Body: Anek Devanagari (sans-serif). Feel: modern, neutral. Build: distinctly open letter mouths; tall middle zone of letters
+Difference between them: a display heading with a sans-serif body; heading has a smooth tube-like look to each line vs body low
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with how the body font reads. Second sentence: Only if it fits: frame the sizing hint as what happens if the heading is made small, or the body large.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of, reads as a sans
+
+[gen-fs-oswald-gf-zen-maru-gothic]
+Heading: Oswald (display). Feel: confident, strong. Build: tightly knit rows of text
+Body: Zen Maru Gothic (sans-serif). Feel: professional, contemporary. Build: a read that never snags on a closed-up bowl; reading that feels like following a single thread
+Difference between them: a display heading with a sans-serif body; heading has low vs body hairlines that never appear
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the body font's name. Second sentence: name the pair's strongest single quality, with no project or use named unless the mention line says so.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: reads as a sans
+
+[gen-fs-excon-gf-montserrat-alternates]
+Heading: Excon (sans-serif). Feel: efficient, approachable. Build: letters crowded like chalk marks on a full slate; easy-to-read open terminals; a towering lowercase body
+Body: Montserrat Alternates (sans-serif). Feel: contemporary, professional. Build: a c as open as a bent paperclip; round letters whose rims match the stems; chalk-board lowercase that crowds up toward the capital line
+Difference between them: the two share a similar build
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with the single most distinctive trait of the heading font. Second sentence: the reading feel, how a longer passage would go.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of
+
+[gen-fs-oswald-gf-ojuju]
+Heading: Oswald (display). Feel: confident, strong. Build: tightly knit rows of text
+Body: Ojuju (sans-serif). Feel: approachable, contemporary. Build: the tempered contrast of a lightly flexed spring wire; wide s curves, barely curled in
+Difference between them: a display heading with a sans-serif body; heading has low vs body a soft difference between fat and slim strokes
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans' if you name its class at all.
+Open with the body font's name. Second sentence: how the two work together on the page, no project mentioned.
+Rhythm: Sentence one short (under 14 words), sentence two longer.
+FIX THIS ONE: rewrite it without these overused wording choices: reads as a sans
+
+[gen-fs-excon-gf-cascadia-mono]
+Heading: Excon (sans-serif). Feel: efficient, approachable. Build: letters crowded like chalk marks on a full slate; easy-to-read open terminals; a towering lowercase body
+Body: Cascadia Mono (sans-serif). Feel: modern, professional. Build: curves as thick as the straight stems; a compact skyline where capitals blend into lowercase; letters standing like pins in a wide board
+Difference between them: the two share a similar build
+Mention of a kind of work: none. Name no project or use.
+Call the body type 'sans-serif' if you name its class at all.
+Open with a short punchy phrase about the look, then continue. Second sentence: Only if it fits: give a sizing hint, worded as a plain suggestion that does not start with 'Set', 'Run' or 'Keep'.
+Rhythm: Both sentences medium length; sentence two starts with a conjunction or a name.
+FIX THIS ONE: rewrite it without these overused wording choices: a sans serif of

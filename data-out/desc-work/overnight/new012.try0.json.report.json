@@ -1,0 +1,438 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 449,
+ "first_pass_fail_pct": 68.3,
+ "after_repair_1_fail_pct": 68.3,
+ "after_repair_2_fail_pct": 68.3,
+ "set_offender_pct_before": 36.7,
+ "set_offender_pct_after": 36.7,
+ "final_item_fail_pct": 68.3,
+ "failing": {
+  "gen-fs-new-title-gf-noto-serif-thai": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-new-title-gf-noto-serif-todhri": [
+   "words-45"
+  ],
+  "gen-fs-new-title-gf-noto-serif-toto": [
+   "sentence-length-26",
+   "phrase:a longer passage"
+  ],
+  "gen-fs-oswald-gf-alegreya": [
+   "sentence-length-27"
+  ],
+  "gen-fs-oswald-gf-alegreya-sc": [
+   "sentence-length-27",
+   "phrase:classic serif body"
+  ],
+  "gen-fs-oswald-gf-aref-ruqaa-ink": [
+   "words-42",
+   "sentence-length-31"
+  ],
+  "gen-fs-oswald-gf-average": [
+   "sentence-length-28"
+  ],
+  "gen-fs-oswald-gf-besley": [
+   "words-47",
+   "sentence-length-31"
+  ],
+  "gen-fs-oswald-gf-bona-nova-sc": [
+   "sentence-length-7"
+  ],
+  "gen-fs-oswald-gf-cactus-classical-serif": [
+   "missing-heading-name"
+  ],
+  "gen-fs-oswald-gf-chiron-sung-hk": [
+   "sentence-length-7"
+  ],
+  "gen-fs-oswald-gf-gfs-didot": [
+   "sentence-length-6"
+  ],
+  "gen-fs-oswald-gf-im-fell-english-sc": [
+   "missing-body-name",
+   "sentence-length-7"
+  ],
+  "gen-fs-oswald-gf-joan": [
+   "words-25"
+  ],
+  "gen-fs-oswald-gf-junge": [
+   "sentence-length-3"
+  ],
+  "gen-fs-oswald-gf-libre-caslon-text": [
+   "missing-heading-name",
+   "sentence-length-5"
+  ],
+  "gen-fs-oswald-gf-maitree": [
+   "sentence-length-25"
+  ],
+  "gen-fs-oswald-gf-noto-serif-kr": [
+   "sentence-length-25",
+   "phrase:a longer passage"
+  ],
+  "gen-fs-oswald-gf-noto-serif-sc": [
+   "words-42",
+   "sentence-length-27"
+  ],
+  "gen-fs-oswald-gf-noto-serif-tc": [
+   "words-41"
+  ],
+  "gen-fs-oswald-gf-sahitya": [
+   "sentence-length-7"
+  ],
+  "gen-fs-oswald-gf-sawarabi-mincho": [
+   "sentence-length-29"
+  ],
+  "gen-fs-oswald-gf-sedan": [
+   "sentence-length-27",
+   "phrase:the page a",
+   "phrase:gives the page"
+  ],
+  "gen-fs-oswald-gf-sedan-sc": [
+   "sentence-length-25"
+  ],
+  "gen-fs-oswald-gf-tai-heritage-pro": [
+   "sentence-length-26"
+  ],
+  "gen-fs-oswald-gf-trykker": [
+   "sentence-length-6"
+  ],
+  "gen-fs-oswald-gf-vollkorn-sc": [
+   "sentence-length-5"
+  ],
+  "gen-fs-panchang-gf-bhutuka-expanded-one": [
+   "sentence-length-7"
+  ],
+  "gen-fs-paquito-gf-lexend-giga": [
+   "sentence-length-6"
+  ],
+  "gen-fs-paquito-gf-lexend-mega": [
+   "sentence-length-4"
+  ],
+  "gen-fs-paquito-gf-lexend-peta": [
+   "sentence-length-7"
+  ],
+  "gen-fs-plein-fs-literata": [
+   "sentence-length-28"
+  ],
+  "gen-fs-pramukh-rounded-gf-cascadia-mono": [
+   "words-42"
+  ],
+  "gen-fs-pramukh-rounded-gf-lexend-exa": [
+   "words-44"
+  ],
+  "gen-fs-pramukh-rounded-gf-lexend-mega": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-pramukh-rounded-gf-lexend-tera": [
+   "sentence-length-6"
+  ],
+  "gen-fs-pramukh-rounded-gf-lexend-zetta": [
+   "sentence-length-26"
+  ],
+  "gen-fs-quilon-fs-erode": [
+   "words-41"
+  ],
+  "gen-fs-quilon-gf-domine": [
+   "words-42"
+  ],
+  "gen-fs-quilon-gf-epunda-slab": [
+   "words-42",
+   "phrase:the page a"
+  ],
+  "gen-fs-quilon-gf-esteban": [
+   "words-47",
+   "sentence-length-25"
+  ],
+  "gen-fs-quilon-gf-fauna-one": [
+   "words-41"
+  ],
+  "gen-fs-quilon-gf-glegoo": [
+   "words-43"
+  ],
+  "gen-fs-quilon-gf-headland-one": [
+   "words-45"
+  ],
+  "gen-fs-quilon-gf-noto-serif-hentaigana": [
+   "words-23",
+   "sentence-length-5"
+  ],
+  "gen-fs-quilon-gf-suwannaphum": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-rajdhani-fs-sentient": [
+   "words-41"
+  ],
+  "gen-fs-red-hat-display-crimson-pro": [
+   "words-42"
+  ],
+  "gen-fs-red-hat-display-gf-aleo": [
+   "sentence-length-25"
+  ],
+  "gen-fs-red-hat-display-gf-alike-angular": [
+   "sentence-length-3"
+  ],
+  "gen-fs-red-hat-display-gf-almendra-sc": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-biorhyme-expanded": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-biz-udpmincho": [
+   "sentence-length-6",
+   "phrase:in its strokes"
+  ],
+  "gen-fs-red-hat-display-gf-caudex": [
+   "words-41",
+   "sentence-length-25"
+  ],
+  "gen-fs-red-hat-display-gf-chiron-sung-hk": [
+   "phrase:classic serif body"
+  ],
+  "gen-fs-red-hat-display-gf-cinzel": [
+   "words-42"
+  ],
+  "gen-fs-red-hat-display-gf-david-libre": [
+   "sentence-length-5"
+  ],
+  "gen-fs-red-hat-display-gf-diphylleia": [
+   "sentence-length-25"
+  ],
+  "gen-fs-red-hat-display-gf-fjord-one": [
+   "words-41"
+  ],
+  "gen-fs-red-hat-display-gf-gfs-didot": [
+   "missing-heading-name"
+  ],
+  "gen-fs-red-hat-display-gf-gowun-batang": [
+   "words-42"
+  ],
+  "gen-fs-red-hat-display-gf-inika": [
+   "missing-heading-name"
+  ],
+  "gen-fs-red-hat-display-gf-labrada": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-maitree": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-red-hat-display-gf-marcellus": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-red-hat-display-gf-montaga": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-red-hat-display-gf-noto-serif-hk": [
+   "words-42"
+  ],
+  "gen-fs-red-hat-display-gf-noto-serif-kr": [
+   "words-48"
+  ],
+  "gen-fs-red-hat-display-gf-noto-serif-tc": [
+   "sentence-length-6"
+  ],
+  "gen-fs-red-hat-display-gf-petrona": [
+   "sentence-length-26"
+  ],
+  "gen-fs-red-hat-display-gf-sahitya": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-sanchez": [
+   "sentence-length-26"
+  ],
+  "gen-fs-red-hat-display-gf-sedan": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-red-hat-display-gf-shippori-mincho": [
+   "phrase:a longer passage"
+  ],
+  "gen-fs-red-hat-display-gf-solway": [
+   "sentence-length-7"
+  ],
+  "gen-fs-red-hat-display-gf-trykker": [
+   "sentence-length-7"
+  ],
+  "gen-fs-styro-gf-scope-one": [
+   "words-41",
+   "sentence-length-26"
+  ],
+  "gen-gf-grandstander-gf-pt-sans-caption": [
+   "words-41"
+  ],
+  "gen-fs-trench-slab-gf-lexend-mega": [
+   "sentence-length-5"
+  ],
+  "gen-fs-trench-slab-gf-lexend-peta": [
+   "sentence-length-7"
+  ],
+  "gen-fs-zina-gf-hepta-slab": [
+   "words-42"
+  ],
+  "gen-fs-zina-gf-padyakke-expanded-one": [
+   "sentence-length-29"
+  ],
+  "gen-fs-zina-gf-stint-ultra-expanded": [
+   "sentence-length-6"
+  ],
+  "gen-gf-aboreto-satoshi": [
+   "missing-heading-name",
+   "words-25",
+   "sentence-length-5"
+  ],
+  "gen-gf-anybody-archivo": [
+   "sentence-length-4"
+  ],
+  "gen-gf-anybody-fs-merriweather-sans": [
+   "sentence-length-3"
+  ],
+  "gen-gf-anybody-fs-public-sans": [
+   "sentence-length-5"
+  ],
+  "gen-gf-anybody-fs-ranade": [
+   "sentence-length-3"
+  ],
+  "gen-gf-anybody-general-sans": [
+   "sentence-length-7"
+  ],
+  "gen-gf-anybody-montserrat": [
+   "sentence-length-6"
+  ],
+  "gen-gf-autour-one-noto-serif": [
+   "sentence-length-27"
+  ],
+  "gen-gf-baloo-2-fs-fira-sans": [
+   "sentence-length-6"
+  ],
+  "gen-gf-baloo-2-general-sans": [
+   "sentence-length-5"
+  ],
+  "gen-gf-baloo-bhai-2-fs-asap": [
+   "sentence-length-27"
+  ],
+  "gen-gf-baloo-bhai-2-fs-epilogue": [
+   "sentence-length-25"
+  ],
+  "gen-gf-baloo-bhai-2-fs-merriweather-sans": [
+   "sentence-length-7"
+  ],
+  "gen-gf-baloo-bhai-2-fs-public-sans": [
+   "sentence-length-7"
+  ],
+  "gen-gf-baloo-bhai-2-work-sans": [
+   "words-42"
+  ],
+  "gen-gf-baloo-bhaijaan-2-general-sans": [
+   "sentence-length-27"
+  ],
+  "gen-gf-baloo-chettan-2-fs-public-sans": [
+   "sentence-length-5",
+   "phrase:plain sans body"
+  ],
+  "gen-gf-baloo-chettan-2-general-sans": [
+   "phrase:a longer passage"
+  ],
+  "gen-gf-baloo-chettan-2-manrope": [
+   "words-41"
+  ],
+  "gen-gf-baloo-chettan-2-montserrat": [
+   "words-41"
+  ],
+  "gen-gf-baloo-chettan-2-satoshi": [
+   "words-45",
+   "sentence-length-26",
+   "phrase:a longer passage"
+  ],
+  "gen-gf-baloo-chettan-2-work-sans": [
+   "missing-heading-name",
+   "sentence-length-7"
+  ],
+  "gen-gf-baloo-da-2-fs-be-vietnam-pro": [
+   "words-42",
+   "phrase:a clean sans"
+  ],
+  "gen-gf-baloo-da-2-fs-epilogue": [
+   "missing-heading-name"
+  ],
+  "gen-gf-baloo-da-2-fs-fira-sans": [
+   "missing-heading-name",
+   "sentence-length-7"
+  ],
+  "gen-gf-baloo-paaji-2-general-sans": [
+   "sentence-length-6"
+  ],
+  "gen-gf-baloo-paaji-2-manrope": [
+   "sentence-length-6"
+  ],
+  "gen-gf-baloo-paaji-2-montserrat": [
+   "sentence-length-25"
+  ],
+  "gen-gf-baloo-paaji-2-satoshi": [
+   "sentence-length-4"
+  ],
+  "gen-gf-baloo-paaji-2-switzer": [
+   "words-41"
+  ],
+  "gen-gf-baloo-paaji-2-work-sans": [
+   "sentence-length-6"
+  ],
+  "gen-gf-baloo-tamma-2-fs-epilogue": [
+   "phrase:the page a"
+  ],
+  "gen-gf-baloo-tamma-2-fs-ranade": [
+   "sentence-length-25"
+  ],
+  "gen-gf-baloo-tamma-2-manrope": [
+   "words-25",
+   "sentence-length-5"
+  ],
+  "gen-gf-baloo-tammudu-2-fs-be-vietnam-pro": [
+   "sentence-length-7"
+  ],
+  "gen-gf-baloo-tammudu-2-fs-ranade": [
+   "missing-heading-name",
+   "sentence-length-6"
+  ],
+  "gen-gf-baloo-thambi-2-fs-epilogue": [
+   "sentence-length-26"
+  ],
+  "gen-gf-baloo-thambi-2-general-sans": [
+   "sentence-length-6"
+  ],
+  "gen-gf-baloo-thambi-2-manrope": [
+   "missing-heading-name"
+  ],
+  "gen-gf-baloo-thambi-2-satoshi": [
+   "words-41"
+  ],
+  "gen-gf-balsamiq-sans-gf-lexend-peta": [
+   "sentence-length-26"
+  ],
+  "gen-gf-balsamiq-sans-gf-lexend-tera": [
+   "sentence-length-26"
+  ],
+  "gen-gf-battambang-fs-fira-sans": [
+   "words-44"
+  ],
+  "gen-gf-battambang-fs-merriweather-sans": [
+   "words-43",
+   "sentence-length-29"
+  ],
+  "gen-gf-battambang-fs-supreme": [
+   "sentence-length-29"
+  ],
+  "gen-gf-battambang-general-sans": [
+   "missing-heading-name",
+   "sentence-length-26"
+  ],
+  "gen-gf-battambang-manrope": [
+   "words-43"
+  ],
+  "gen-gf-battambang-montserrat": [
+   "sentence-length-25"
+  ],
+  "gen-gf-battambang-switzer": [
+   "words-43",
+   "sentence-length-30"
+  ]
+ }
+}

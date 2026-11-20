@@ -1,0 +1,25 @@
+{
+ "model": "sonnet",
+ "asked": 1000,
+ "first_pass_returned": 988,
+ "first_pass_fail_pct": 35.3,
+ "after_repair_1_fail_pct": 2.1,
+ "after_repair_2_fail_pct": 0.5,
+ "set_offender_pct_before": 28.8,
+ "set_offender_pct_after": 5.7,
+ "final_item_fail_pct": 0.4,
+ "failing": {
+  "gen-fs-bevellier-gf-anek-kannada": [
+   "sentence-length-7"
+  ],
+  "gen-fs-bevellier-gf-noto-sans-vai": [
+   "sentence-length-7"
+  ],
+  "gen-fs-bevellier-gf-radio-canada": [
+   "sentence-length-6"
+  ],
+  "gen-fs-expose-gf-noto-sans-old-italic": [
+   "sentence-length-7"
+  ]
+ }
+}
