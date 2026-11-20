@@ -19,6 +19,7 @@ import { ChipGroup } from "@/components/ChipGroup";
 import { PairPreviewGrid } from "@/components/PairPreviewGrid";
 import { SampleTextInputs } from "@/components/SampleTextInputs";
 import { LabelWithTooltip } from "@/components/InfoTooltip";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 function FontSection({
   font,
@@ -434,7 +435,10 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
 
         {/* Pair name heading */}
         <div style={{ marginBottom: "24px" }}>
-          <h1 className="text-3xl font-semibold text-neutral-900 mb-1">{headerFont.name} + {bodyFont.name}</h1>
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px" }}>
+            <h1 className="text-3xl font-semibold text-neutral-900 mb-1" style={{ flex: 1, minWidth: 0 }}>{headerFont.name} + {bodyFont.name}</h1>
+            <FavoriteButton slug={pair.slug} />
+          </div>
           <p className="text-sm text-neutral-400">{formatClassification(headerFont.classification)} + {formatClassification(bodyFont.classification)}</p>
         </div>
 

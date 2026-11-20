@@ -196,27 +196,50 @@ export function PairCard({ pair, isExploring = false, animationDelay = 0 }: { pa
 }
 
 const MAX_ROWS = 2;
+const CHIP_GAP = 8;
 const CHIP_STYLE = { fontSize: "14px", padding: "4px 12px", lineHeight: "20px" } as const;
+const CHIP_ROW_HEIGHT = 4 + 20 + 4; // padding + line-height
+const CHIP_AREA_HEIGHT = MAX_ROWS * CHIP_ROW_HEIGHT + (MAX_ROWS - 1) * CHIP_GAP;
 
-// Up to two rows of the font's most distinctive chips; whatever doesn't fit collapses into "+N more"
-// (the card itself opens the pair page, where the full comparison lives). Fitting is measured in the DOM,
-// so it follows the card's width and late font loads without any extra renders.
+// Two rows of the font's most distinctive chips on every card width (mobile included).
+// Whatever still doesn't fit after filling those rows collapses into "+N more".
+// Fitting uses the chip box positions inside this container, so a position:relative
+// ancestor cannot make hidden chips look like an extra row.
 function ChipRows({ font, peers }: { font: Font; peers: Font[] }) {
   const { chips, total } = useMemo(() => distinctiveTags(font, peers), [font, peers]);
   const ref = useRef<HTMLDivElement>(null);
-  const key = `${font.id}:${peers.length}`;
+  const key = `${font.id}:${peers.length}:${chips.join("|")}`;
   useLayoutEffect(() => {
     const el = ref.current; if (!el) return;
     const fit = () => {
       const kids = Array.from(el.children) as HTMLElement[];
+      if (kids.length === 0) return;
       const more = kids[kids.length - 1], tags = kids.slice(0, -1);
-      tags.forEach((k) => (k.style.display = ""));
+      tags.forEach((k) => { k.style.display = ""; });
       more.style.display = "";
       let shown = tags.length;
-      const rows = () => new Set([...tags.slice(0, shown), more].map((k) => k.offsetTop)).size;
-      const label = () => { const n = total - shown; more.textContent = shown === 0 ? `See all ${n} tags` : `+${n} more`; more.style.display = n > 0 ? "" : "none"; };
+      const rowCount = () => {
+        const origin = el.getBoundingClientRect().top;
+        const tops = new Set<number>();
+        for (const k of tags) {
+          if (k.style.display === "none") continue;
+          tops.add(Math.round(k.getBoundingClientRect().top - origin));
+        }
+        if (more.style.display !== "none") {
+          tops.add(Math.round(more.getBoundingClientRect().top - origin));
+        }
+        return tops.size;
+      };
+      const label = () => {
+        const n = total - shown;
+        more.textContent = shown === 0 ? `See all ${n} tags` : `+${n} more`;
+        more.style.display = n > 0 ? "" : "none";
+      };
       label();
-      while (shown > 0 && rows() > MAX_ROWS) { tags[--shown].style.display = "none"; label(); }
+      while (shown > 0 && rowCount() > MAX_ROWS) {
+        tags[--shown].style.display = "none";
+        label();
+      }
     };
     fit();
     let w = el.clientWidth;
@@ -226,7 +249,7 @@ function ChipRows({ font, peers }: { font: Font; peers: Font[] }) {
     return () => ro.disconnect();
   }, [key, total]);
   return (
-    <div ref={ref} className="flex flex-wrap" style={{ gap: "8px" }}>
+    <div ref={ref} className="flex flex-wrap" style={{ gap: `${CHIP_GAP}px`, minHeight: `${CHIP_AREA_HEIGHT}px` }}>
       {chips.map((tag) => (
         <span key={tag} className="text-neutral-500 bg-neutral-50 rounded-md border border-neutral-100" style={CHIP_STYLE}>
           {chipCase(tag)}

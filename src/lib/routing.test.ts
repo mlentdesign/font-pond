@@ -109,4 +109,24 @@ describe("not-found.tsx route detection", () => {
     expect(stripBase("/font").match(PATTERNS.font)).toBeNull();
     expect(stripBase("/").match(PATTERNS.font)).toBeNull();
   });
+  it("detects the favorites listing", () => {
+    expect(stripBase("/favorites")).toBe("/favorites");
+    expect(stripBase("/favorites/")).toBe("/favorites");
+  });
+});
+
+describe("favorites page is a real static route", () => {
+  it("src/app/favorites/page.tsx exists", () => {
+    const src = readFileSync(resolve(ROOT, "favorites/page.tsx"), "utf8");
+    expect(src).toContain("Font Pond · Favorites");
+  });
+});
+
+describe("theme defaults to dark unless the person picked light", () => {
+  it("blocking script treats anything but light as dark", () => {
+    const src = readFileSync(resolve(ROOT, "layout.tsx"), "utf8");
+    expect(src).toContain('t!=="light"');
+    expect(src).toContain('data-theme="dark"');
+    expect(src).not.toContain("prefers-color-scheme:dark");
+  });
 });

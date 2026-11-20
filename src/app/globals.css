@@ -246,12 +246,12 @@ h1, h2, h3, h4, h5, h6, p, span, a, div {
   background: transparent;
   color: var(--text-ransom);
 }
-[data-theme="light"] .toggle-sun,
-:root:not([data-theme]) .toggle-sun {
+[data-theme="light"] .toggle-sun {
   background: var(--toggle-active);
   color: var(--toggle-active-text);
 }
-[data-theme="dark"] .toggle-moon {
+[data-theme="dark"] .toggle-moon,
+:root:not([data-theme="light"]) .toggle-moon {
   background: var(--toggle-active);
   color: var(--toggle-active-text);
 }
@@ -1529,4 +1529,65 @@ th:nth-child(4), td:nth-child(4) {
 @media (prefers-reduced-motion: reduce) {
   .history-menu-in, .history-menu-out { animation-duration: 0.01s; }
   .history-clock, .history-chip-btn { transition-duration: 0.01s; }
+}
+
+/* Pair-page favorite heart — outline until saved, then fill with a short spark burst */
+.favorite-heart {
+  position: relative;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text-heading);
+}
+.favorite-heart.is-saved {
+  color: #e36b6b;
+}
+[data-theme="dark"] .favorite-heart.is-saved {
+  color: #ff8a80;
+}
+.favorite-heart .heart-icon {
+  display: block;
+}
+.favorite-spark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  opacity: 0;
+  pointer-events: none;
+  background: currentColor;
+  clip-path: polygon(50% 0, 65% 35%, 100% 50%, 65% 65%, 50% 100%, 35% 65%, 0 50%, 35% 35%);
+}
+.favorite-heart.is-bursting .heart-icon {
+  animation: heart-pop 420ms ease-out;
+}
+.favorite-heart.is-bursting .favorite-spark {
+  animation: heart-spark 560ms ease-out forwards;
+}
+@keyframes heart-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.28); }
+  70% { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+@keyframes heart-spark {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.3) rotate(0deg); }
+  30% { opacity: 1; transform: translate(var(--sx), var(--sy)) scale(1) rotate(20deg); }
+  100% { opacity: 0; transform: translate(calc(var(--sx) * 1.4), calc(var(--sy) * 1.4)) scale(0.2) rotate(40deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .favorite-heart.is-bursting .heart-icon,
+  .favorite-heart.is-bursting .favorite-spark {
+    animation: none;
+  }
 }

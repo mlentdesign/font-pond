@@ -5,9 +5,10 @@ import PairDetailClient from "./pair/PairDetailClient";
 import FontDetailClient from "./font/FontDetailClient";
 import DesignerDetailClient from "./designer/DesignerDetailClient";
 import YearDetailClient from "./year/YearDetailClient";
+import FavoritesClient from "./favorites/FavoritesClient";
 
 export default function NotFound() {
-  const [route, setRoute] = useState<{ type: "pair" | "font" | "designer" | "year" | "redirect"; slug: string } | null>(null);
+  const [route, setRoute] = useState<{ type: "pair" | "font" | "designer" | "year" | "favorites" | "redirect"; slug: string } | null>(null);
 
   useEffect(() => {
     const path = window.location.pathname.replace(/\/$/, "");
@@ -20,6 +21,7 @@ export default function NotFound() {
     else if (fontMatch) setRoute({ type: "font", slug: fontMatch[1] });
     else if (designerMatch) setRoute({ type: "designer", slug: designerMatch[1] });
     else if (yearMatch) setRoute({ type: "year", slug: yearMatch[1] });
+    else if (path === "/favorites") setRoute({ type: "favorites", slug: "" });
     else if (path !== "/404") {
       window.location.replace("/404");
     }
@@ -29,6 +31,7 @@ export default function NotFound() {
   if (route?.type === "font") return <Suspense><FontDetailClient slugOverride={route.slug} /></Suspense>;
   if (route?.type === "designer") return <Suspense><DesignerDetailClient slugOverride={route.slug} /></Suspense>;
   if (route?.type === "year") return <Suspense><YearDetailClient slugOverride={route.slug} /></Suspense>;
+  if (route?.type === "favorites") return <Suspense><FavoritesClient /></Suspense>;
 
   return null;
 }

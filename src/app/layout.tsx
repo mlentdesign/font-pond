@@ -40,12 +40,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+    <html lang="en" className="h-full antialiased" data-theme="dark" suppressHydrationWarning>
       <head>
         {/* Theme-color for Chrome pull-to-refresh — script updates dynamically */}
+        <meta name="theme-color" content="#0d3b3f" />
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#c8e6e3" />
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d3b3f" />
-        <meta name="color-scheme" content="light dark" />
+        <meta name="color-scheme" content="dark light" />
         {/* Allow search indexing but block AI training and scraping */}
         <meta name="robots" content="index, follow, noai, noimageai" />
         <meta name="tdm-reservation" content="1" />
@@ -54,7 +55,7 @@ export default function RootLayout({
         {/* Theme script — sets data-theme from localStorage before first paint */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme:dark)").matches);var h=document.documentElement;h.setAttribute("data-theme",d?"dark":"light");h.style.colorScheme=d?"dark":"light";h.style.background=d?"#0d3b3f":"#c8e6e3";h.style.color=d?"#dcdcdc":"#444444";var m=document.querySelector('meta[name=theme-color][media*=light]');if(m)m.content=d?"#0d3b3f":"#c8e6e3"}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem("theme");var d=t!=="light";var h=document.documentElement;h.setAttribute("data-theme",d?"dark":"light");h.style.colorScheme=d?"dark":"light";h.style.background=d?"#0d3b3f":"#c8e6e3";h.style.color=d?"#dcdcdc":"#444444";var m=document.querySelector('meta[name=theme-color]:not([media])');if(m)m.content=d?"#0d3b3f":"#c8e6e3"}catch(e){}})()`,
           }}
         />
         {/* Figma's page-capture helper is for local design work only, so it never ships to the live site */}

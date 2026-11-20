@@ -67,8 +67,10 @@ function peerCounts(peers: Font[] | undefined): Map<string, number> | null {
   return m;
 }
 
-/** Distinctive tags for one font, best first. `peers` = the other fonts in the same role among current results. */
-export function distinctiveTags(font: Font, peers?: Font[], max = 12): { chips: string[]; total: number } {
+/** Distinctive tags for one font, best first. `peers` = the other fonts in the same role among current results.
+ *  `max` is how many chips to hand the layout; tiles then clamp to two rows, so this
+ *  needs to be high enough to fill a wide single-column card. */
+export function distinctiveTags(font: Font, peers?: Font[], max = 40): { chips: string[]; total: number } {
   const { byTag, total } = index();
   const unique = labelsOf(font);
   const pc = peerCounts(peers);
@@ -103,6 +105,10 @@ export function distinctiveTags(font: Font, peers?: Font[], max = 12): { chips: 
       if (!rare.some((p) => jaccard(p.set, c.set) > 0.85)) rare.push(c);
     }
   }
-  const out = rare;
-  return { chips: out.map((p) => p.t), total: unique.length };
+  // Rare tags first, then the rest of the ranked list so two-row tiles can fill the width
+  // instead of stopping after two or three chips and showing "+N more" on an empty row.
+  const seen = new Set(rare.map((p) => p.t));
+  const rest = scored.filter((c) => !seen.has(c.t));
+  const out = [...rare, ...rest].slice(0, max);
+  return { chips: out.map((p) => p.t), total: scored.length };
 }
