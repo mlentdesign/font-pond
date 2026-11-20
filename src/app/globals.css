@@ -47,6 +47,7 @@
   --add-image-hover-color: #2a7a72;
 
   --generate-bg: #f0bb7a;
+  --heart-edge: #fff8ee;
   --generate-bg-hover: #f5cfa0;
   --generate-bg-disabled: #e0c4a0;
   --generate-text: #2a1a05;
@@ -110,6 +111,7 @@
     --add-image-hover-color: #ffffff;
 
     --generate-bg: #a06828;
+    --heart-edge: #f3e6d2;
     --generate-bg-hover: #b87830;
     --generate-bg-disabled: #7a5530;
     --generate-text: #ffffff;
@@ -175,6 +177,7 @@
   --add-image-hover-color: #ffffff;
 
   --generate-bg: #a06828;
+  --heart-edge: #f3e6d2;
   --generate-bg-hover: #b87830;
   --generate-bg-disabled: #7a5530;
   --generate-text: #ffffff;
@@ -1554,10 +1557,13 @@ th:nth-child(4), td:nth-child(4) {
   display: block;
   overflow: visible;
 }
+.favorite-heart.is-saved .heart-outline {
+  stroke: var(--heart-edge);
+}
 .favorite-heart.is-saved:not(.is-draining) .heart-icon {
   filter:
-    drop-shadow(0 0 2px var(--generate-bg))
-    drop-shadow(0 0 6px var(--generate-bg));
+    drop-shadow(0 0 3px var(--generate-bg))
+    drop-shadow(0 0 10px var(--generate-bg));
 }
 .heart-float {
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);

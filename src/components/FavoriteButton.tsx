@@ -12,7 +12,7 @@ const SPARKS = [
 ];
 
 const HEART_PATH =
-  "M10 8.35C11.35 5.15 12.55 3.05 14.2 3.05C16.4 3.05 17.6 5.1 17.6 7.45C17.6 12.7 10 17.55 10 17.55C10 17.55 2.4 12.7 2.4 7.45C2.4 5.1 3.6 3.05 5.8 3.05C7.45 3.05 8.65 5.15 10 8.35Z";
+  "M10 5.85C10.25 4.75 11.35 4.1 12.6 4.1C14.6 4.1 16.25 5.65 16.25 7.75C16.25 11.75 10 16.25 10 16.25C10 16.25 3.75 11.75 3.75 7.75C3.75 5.65 5.4 4.1 7.4 4.1C8.65 4.1 9.75 4.75 10 5.85Z";
 
 const DRAIN_MS = 680;
 
@@ -72,6 +72,7 @@ export function FavoriteButton({
           fill="currentColor"
         />
         <path
+          className="heart-outline"
           d={HEART_PATH}
           fill="none"
           stroke="currentColor"
