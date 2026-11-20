@@ -4,6 +4,8 @@ import type { ScoredPair } from "@/data/types";
 
 export const FAVORITES_KEY = "font-pond-favorites";
 export const FAVORITES_EVENT = "font-pond-favorites-changed";
+export const CONTRIBUTOR_KEY = "font-pond-contributor-id";
+const FAVORITE_API = "https://fontpond.melware.art/api/favorite";
 
 function emit(slugs: string[]) {
   if (typeof window === "undefined") return;
@@ -37,6 +39,46 @@ export function toggleFavorite(slug: string): boolean {
   } catch {}
   emit(next);
   return !saved;
+}
+
+export function contributorId(): string {
+  if (typeof window === "undefined") return "";
+  try {
+    const existing = localStorage.getItem(CONTRIBUTOR_KEY);
+    if (existing) return existing;
+    const created = crypto.randomUUID();
+    localStorage.setItem(CONTRIBUTOR_KEY, created);
+    return created;
+  } catch {
+    return "";
+  }
+}
+
+/** Fire-and-forget heart/unheart for the private counts sheet. Local save already happened. */
+export function reportFavoriteChange(opts: {
+  slug: string;
+  action: "heart" | "unheart";
+  header?: string;
+  body?: string;
+}): void {
+  if (typeof window === "undefined" || !opts.slug) return;
+  const contributor = contributorId();
+  if (!contributor) return;
+  const payload = JSON.stringify({
+    slug: opts.slug,
+    action: opts.action,
+    contributor,
+    header: opts.header ?? "",
+    body: opts.body ?? "",
+  });
+  try {
+    void fetch(FAVORITE_API, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: payload,
+      keepalive: true,
+    });
+  } catch {}
 }
 
 export function subscribeFavorites(cb: () => void): () => void {

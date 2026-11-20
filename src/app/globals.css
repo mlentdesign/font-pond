@@ -1552,6 +1552,33 @@ th:nth-child(4), td:nth-child(4) {
 }
 .favorite-heart .heart-icon {
   display: block;
+  overflow: visible;
+}
+.favorite-heart.is-saved:not(.is-draining) .heart-icon {
+  filter:
+    drop-shadow(0 0 2px var(--generate-bg))
+    drop-shadow(0 0 6px var(--generate-bg));
+}
+.heart-float {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.heart-float.is-stuck {
+  transform: scale(1.12);
+}
+.heart-fill {
+  opacity: 0;
+}
+.favorite-heart.is-saved .heart-fill {
+  opacity: 1;
+}
+.favorite-heart.is-draining .heart-fill {
+  opacity: 1;
+  animation: heart-drain 680ms cubic-bezier(0.45, 0, 0.2, 1) forwards;
+}
+@keyframes heart-drain {
+  0% { clip-path: inset(0% 0 0 0); }
+  18% { clip-path: inset(10% 0 0 0); }
+  100% { clip-path: inset(100% 0 0 0); }
 }
 .favorite-spark {
   position: absolute;
@@ -1584,7 +1611,10 @@ th:nth-child(4), td:nth-child(4) {
 }
 @media (prefers-reduced-motion: reduce) {
   .favorite-heart.is-bursting .heart-icon,
-  .favorite-heart.is-bursting .favorite-spark {
+  .favorite-heart.is-bursting .favorite-spark,
+  .favorite-heart.is-draining .heart-fill {
     animation: none;
   }
+  .favorite-heart.is-draining .heart-fill { opacity: 0; }
+  .heart-float { transition-duration: 0.01s; }
 }

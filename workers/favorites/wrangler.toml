@@ -1,0 +1,10 @@
+name = "fontpond-favorites"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+compatibility_flags = ["nodejs_compat"]
+account_id = "1cfe7bc2921b218a18ec429e24f204e2"
+workers_dev = false
+
+routes = [
+  { pattern = "fontpond.melware.art/api/favorite*", zone_name = "melware.art" }
+]

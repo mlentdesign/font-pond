@@ -203,6 +203,35 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
   const headerFont = pair ? fontsById.get(pair.headerFontId) : undefined;
   const bodyFont = pair ? fontsById.get(pair.bodyFontId) : undefined;
 
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const barSlotRef = useRef<HTMLDivElement>(null);
+  const [stuckTop, setStuckTop] = useState(0);
+  const [stuck, setStuck] = useState(false);
+  const stuckTopRef = useRef(0);
+  stuckTopRef.current = stuckTop;
+  useEffect(() => {
+    const measure = () => {
+      const slot = barSlotRef.current;
+      const bar = slot?.closest(".breadcrumb-sticky") as HTMLElement | null;
+      if (!slot || !bar) return;
+      setStuckTop(parseFloat(getComputedStyle(bar).top) + (slot.getBoundingClientRect().top - bar.getBoundingClientRect().top) - 4);
+    };
+    const onScroll = () => {
+      const w = wrapRef.current;
+      if (w) setStuck(w.getBoundingClientRect().top <= stuckTopRef.current + 0.5);
+    };
+    measure();
+    onScroll();
+    const t = setTimeout(() => { measure(); onScroll(); }, 300);
+    window.addEventListener("resize", measure);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("resize", measure);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [pair?.slug]);
+
   // Per-page tab title (matches the static head written by scripts/prerender-seo-pages.mjs).
   // Title only — does not touch the slug or URL-cleaning logic.
   useEffect(() => {
@@ -431,13 +460,25 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
       <DetailPageHeader />
 
       <main id="main-content" className="flex-1 mx-auto w-full content-padding results-top-padding results-bottom-padding" style={{ paddingTop: "80px", paddingBottom: "80px", maxWidth: "1280px" }}>
-        <Breadcrumb crumbs={[{ label: `${headerFont.name} + ${bodyFont.name}` }]} sticky />
+        <Breadcrumb
+          crumbs={[{ label: `${headerFont.name} + ${bodyFont.name}` }]}
+          sticky
+          stickyAction={
+            <div ref={barSlotRef} aria-hidden="true" style={{ visibility: "hidden", width: 32, height: 32 }} />
+          }
+        />
+
+        <div ref={wrapRef} style={{ position: "sticky", top: stuckTop, height: 0, zIndex: 30, pointerEvents: "none", overflow: "visible" }}>
+          <div style={{ position: "absolute", right: 0, top: 4, pointerEvents: "auto" }}>
+            <FavoriteButton slug={pair.slug} header={headerFont.name} body={bodyFont.name} stuck={stuck} />
+          </div>
+        </div>
 
         {/* Pair name heading */}
         <div style={{ marginBottom: "24px" }}>
           <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px" }}>
             <h1 className="text-3xl font-semibold text-neutral-900 mb-1" style={{ flex: 1, minWidth: 0 }}>{headerFont.name} + {bodyFont.name}</h1>
-            <FavoriteButton slug={pair.slug} />
+            <div aria-hidden="true" style={{ visibility: "hidden", width: 32, height: 32, flexShrink: 0 }} />
           </div>
           <p className="text-sm text-neutral-400">{formatClassification(headerFont.classification)} + {formatClassification(bodyFont.classification)}</p>
         </div>
