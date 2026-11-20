@@ -47,7 +47,6 @@
   --add-image-hover-color: #2a7a72;
 
   --generate-bg: #f0bb7a;
-  --heart-edge: #fff8ee;
   --generate-bg-hover: #f5cfa0;
   --generate-bg-disabled: #e0c4a0;
   --generate-text: #2a1a05;
@@ -111,7 +110,6 @@
     --add-image-hover-color: #ffffff;
 
     --generate-bg: #a06828;
-    --heart-edge: #f3e6d2;
     --generate-bg-hover: #b87830;
     --generate-bg-disabled: #7a5530;
     --generate-text: #ffffff;
@@ -177,7 +175,6 @@
   --add-image-hover-color: #ffffff;
 
   --generate-bg: #a06828;
-  --heart-edge: #f3e6d2;
   --generate-bg-hover: #b87830;
   --generate-bg-disabled: #7a5530;
   --generate-text: #ffffff;
@@ -1558,7 +1555,7 @@ th:nth-child(4), td:nth-child(4) {
   overflow: visible;
 }
 .favorite-heart.is-saved .heart-outline {
-  stroke: var(--heart-edge);
+  stroke: var(--text-ransom);
 }
 .favorite-heart.is-saved:not(.is-draining) .heart-icon {
   filter:
