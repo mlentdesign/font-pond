@@ -775,6 +775,7 @@ body.animations-paused #water-bg * {
   padding-top: 0 !important;
   padding-bottom: 24px !important;
   box-shadow: 0 -40px 0 40px var(--bg);
+  clip-path: inset(-80px -80px 0 -80px);
 }
 @media (min-width: 768px) {
   .breadcrumb-sticky {
@@ -784,6 +785,7 @@ body.animations-paused #water-bg * {
     padding-right: 48px !important;
     padding-bottom: 24px !important;
     box-shadow: 0 -56px 0 56px var(--bg);
+    clip-path: inset(-112px -112px 0 -112px);
   }
 }
 @media (min-width: 1024px) {
@@ -794,7 +796,20 @@ body.animations-paused #water-bg * {
     padding-right: 96px !important;
     padding-bottom: 24px !important;
     box-shadow: 0 -80px 0 80px var(--bg);
+    clip-path: inset(-160px -160px 0 -160px);
   }
+}
+
+/* Pair-page type scale: keep display glyphs from wrapping into a solid bar on resize */
+.suggested-scale {
+  overflow: hidden;
+}
+.suggested-scale .scale-line {
+  white-space: nowrap;
+  overflow: hidden;
+  word-break: normal;
+  overflow-wrap: normal;
+  max-width: 100%;
 }
 
 /* Pair card enter animation */

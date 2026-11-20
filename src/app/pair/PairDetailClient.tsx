@@ -504,7 +504,7 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
           </div>
 
           {/* Scale suggestion */}
-          <div className="mt-6 pt-6 border-t border-neutral-100" style={{ marginLeft: "-24px", marginRight: "-24px", paddingLeft: "24px", paddingRight: "24px" }}>
+          <div className="suggested-scale mt-6 pt-6 border-t border-neutral-100" style={{ marginLeft: "-24px", marginRight: "-24px", paddingLeft: "24px", paddingRight: "24px" }}>
             <p className="uppercase tracking-wider text-neutral-400 mb-3" style={{ fontSize: "12px" }}>
               SUGGESTED SCALE
             </p>
@@ -515,11 +515,11 @@ export default function PairDetailPage({ slugOverride }: { slugOverride?: string
               const N = (text: string) => <span style={{ fontFamily: fb }}>{text}</span>;
               return (
                 <div className="space-y-2">
-                  <p style={{ fontFamily: headerFamily, fontWeight: 700, fontSize: "36px" }} className="text-neutral-800">H{hFb ? <>{N("1")} {N("— 36")} </> : "1 — 36 "}px Bold</p>
-                  <p style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "24px" }} className="text-neutral-800">H{hFb ? <>{N("2")} {N("— 24")} </> : "2 — 24 "}px Semibold</p>
-                  <p style={{ fontFamily: headerFamily, fontWeight: 500, fontSize: "18px" }} className="text-neutral-700">H{hFb ? <>{N("3")} {N("— 18")} </> : "3 — 18 "}px Medium</p>
-                  <p style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "16px" }} className="text-neutral-600">Body {bFb ? <>{N("— 16")} </> : "— 16 "}px Regular</p>
-                  <p style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "14px" }} className="text-neutral-500">Small {bFb ? <>{N("— 14")} </> : "— 14 "}px Regular</p>
+                  <p className="scale-line text-neutral-800" style={{ fontFamily: headerFamily, fontWeight: 700, fontSize: "36px" }}>H{hFb ? N("1") : "1"}{N(" — 36")} px Bold</p>
+                  <p className="scale-line text-neutral-800" style={{ fontFamily: headerFamily, fontWeight: 600, fontSize: "24px" }}>H{hFb ? N("2") : "2"}{N(" — 24")} px Semibold</p>
+                  <p className="scale-line text-neutral-700" style={{ fontFamily: headerFamily, fontWeight: 500, fontSize: "18px" }}>H{hFb ? N("3") : "3"}{N(" — 18")} px Medium</p>
+                  <p className="scale-line text-neutral-600" style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "16px" }}>Body{N(" — 16")} px Regular</p>
+                  <p className="scale-line text-neutral-500" style={{ fontFamily: bodyFamily, fontWeight: 400, fontSize: "14px" }}>Small{N(" — 14")} px Regular</p>
                 </div>
               );
             })()}
