@@ -1545,7 +1545,7 @@ th:nth-child(4), td:nth-child(4) {
   border: none;
   background: none;
   cursor: pointer;
-  color: var(--text-ransom);
+  color: var(--text-heading);
 }
 .favorite-heart.is-saved {
   color: var(--generate-bg);
@@ -1554,10 +1554,10 @@ th:nth-child(4), td:nth-child(4) {
   display: block;
   overflow: visible;
 }
-.favorite-heart.is-saved .heart-outline {
-  stroke: var(--text-ransom);
+.favorite-heart .heart-outline {
+  stroke: var(--text-heading);
 }
-.favorite-heart.is-saved:not(.is-draining) .heart-icon {
+.favorite-heart.is-saved:not(.is-draining) .heart-fill {
   filter:
     drop-shadow(0 0 3px var(--generate-bg))
     drop-shadow(0 0 10px var(--generate-bg));
