@@ -63,6 +63,8 @@ export default function RootLayout({
           <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
         )}
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        {/* Android home-screen install needs a manifest with PNG icons, or Chrome draws a letter tile */}
+        <link rel="manifest" href="/manifest.webmanifest" />
         <link rel="stylesheet" href="/fonts/fonts.css" />
         {/* Google Analytics, through BakedGood: a choice only where the law requires one (Europe) */}
         <script src="/bakedgood.js" />
