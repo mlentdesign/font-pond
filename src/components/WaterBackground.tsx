@@ -60,7 +60,9 @@ export function WaterBackground() {
               // Fade strength near edges
               const edgeDist = Math.min(px, py, width - 1 - px, height - 1 - py);
               const edgeFade = Math.min(1, edgeDist / EDGE_MARGIN);
-              buf1[py * width + px] += strength * (1 - dist / radius) * edgeFade;
+              // Cosine falloff: eases to zero at the rim, so no visible edge where the splash ends
+              const falloff = 0.5 * (1 + Math.cos(Math.PI * (dist / radius)));
+              buf1[py * width + px] += strength * falloff * edgeFade;
             }
           }
         }
@@ -304,9 +306,9 @@ export function WaterBackground() {
             data[pi]     = Math.min(255, Math.floor(baseR + enhance * 0.3));
             data[pi + 1] = Math.min(255, Math.floor(baseG + enhance * 0.8));
             data[pi + 2] = Math.min(255, Math.floor(baseB + enhance * 0.7));
-            data[pi + 3] = absI > 0.006 || enhance > 0.1
-              ? Math.min(255, Math.floor((baseA + enhance * 15) * edgeAlpha))
-              : 0;
+            // Fade alpha in smoothly with ripple energy instead of switching on at a threshold
+            const fade = Math.min(1, (absI + enhance * 0.05) / 0.04);
+            data[pi + 3] = Math.min(255, Math.floor((baseA + enhance * 15) * edgeAlpha * fade * fade * (3 - 2 * fade)));
           } else {
             // Base: lighter teal from wave height (dominant)
             const baseR = 20 + intensity * 8;
@@ -320,9 +322,8 @@ export function WaterBackground() {
             data[pi]     = Math.min(255, Math.floor(baseR + enhance * 0.2));
             data[pi + 1] = Math.min(255, Math.floor(baseG + enhance * 0.5));
             data[pi + 2] = Math.min(255, Math.floor(baseB + enhance * 0.4));
-            data[pi + 3] = absI > 0.006 || enhance > 0.1
-              ? Math.min(255, Math.floor((baseA + enhance * 8) * edgeAlpha))
-              : 0;
+            const fade = Math.min(1, (absI + enhance * 0.05) / 0.04);
+            data[pi + 3] = Math.min(255, Math.floor((baseA + enhance * 8) * edgeAlpha * fade * fade * (3 - 2 * fade)));
           }
         }
       }
